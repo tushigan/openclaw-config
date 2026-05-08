@@ -1,0 +1,57 @@
+# 大文件/不需要版本控制的目录
+workspace/images/
+workspace/outputs/
+workspace/brand-poster-projects/
+workspace/feishu-deliver/
+workspace-design/
+workspace-video/
+workspace-ppt/
+workspace-research/
+workspace-strategy/
+workspace-meeting/
+workspace-copywriter/
+
+media/
+logs/
+browser/
+extensions/
+venv-psd/
+skills-store*/
+openclaw-web/
+memos-local/
+credentials/
+
+# 不跟踪敏感文件
+.env
+*.secrets.json
+
+# 不跟踪运行时数据
+flows/
+identity/
+feishu/
+subagents/
+agents/*/sessions/
+
+# skills 中的大文件和缓存
+skills/**/output/
+skills/**/__pycache__/
+skills/**/*.mp4
+skills/**/*.pyc
+skills/tvc-director
+
+# 备份和临时文件
+*.bak
+*.bak-*
+*.backup*
+*.broken
+*.clobbered*
+*.truncated*
+.gpt_image_failover_state.json
+update-check.json
+update-check.json.*.tmp
+viewer-auth.json
+.mcp.json
+
+# 系统文件
+.DS_Store
+.claude/

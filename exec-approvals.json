@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "socket": {
+    "path": "/Users/a123/.openclaw/exec-approvals.sock",
+    "token": "UhyvVfLF11UAvd5gGFe5JQJJBNk-HJ8z"
+  },
+  "defaults": {},
+  "agents": {
+    "main": {
+      "allowlist": [
+        {
+          "id": "main-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本（生图、数据处理等）",
+          "lastUsedAt": 1778206497935,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt \"Design a premium 3D brand mascot for Danfu waffle, using the attached reference image only for style direction and material feeling. Keep the warm golden-baked, polished, high-quality stylized 3D character style, but redesign the character with a much clearer structural silhouette based on the Chinese character 丹. The 丹-shape innovation must be obvious in the full body outline and body architecture, not just implied. The character should still read as a waffle expert mascot: integrate waffle grid structure into the body, include a small signature butter symbol, and keep subtle baking identity. Strong international enterprise mascot tone, clean, iconic, charming, refined. Simplify the decorative elements significantly: fewer accessories, fewer costume details, cleaner surfaces, less clutter, stronger form language. Avoid generic chef cartoon styling, avoid unrelated props, avoid over-decorated costume, avoid losing the 丹 silhouette. Full character, clean studio background, concept design presentation, highly brandable and memorable.\" --ref-style /Users/a123/.openclaw/media/inbound/8c62d47b-a52b-4b64-bbbc-8718be8a7427.jpg -s 1536x1536 -o /Users/a123/.openclaw/workspace/images/danfu_waffle_ip_v2.png",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "main-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 命令",
+          "lastUsedAt": 1778150889920,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/run.sh",
+          "lastResolvedPath": "/bin/bash"
+        },
+        {
+          "id": "main-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "main-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件（工作区之间）",
+          "lastUsedAt": 1778150171006,
+          "lastUsedCommand": "cp '/Users/a123/.openclaw/media/inbound/55d3ef46-f355-4850-9f84-b7b0c4c2caa3.jpg' '/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/images/product.jpg' && cp '/Users/a123/.openclaw/media/inbound/d3bca8de-9ebd-4715-bc6d-bc620619873a.jpg' '/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/images/style_ref_1.jpg'",
+          "lastResolvedPath": "/bin/cp"
+        },
+        {
+          "id": "main-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录",
+          "lastUsedAt": 1778150082396,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/images && cp /Users/a123/.openclaw/workspace/skills/brand-poster-distiller/site/assets/skeletons/POSTER-DISTILL-P-004.png /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/images/skeleton.png && cp /Users/a123/.openclaw/workspace/skills/brand-poster-distiller/cards/POSTER-DISTILL-P-004.json /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/distill_card.json",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "main-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录",
+          "lastUsedAt": 1778150643318,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts /Users/a123/.openclaw/skills/gpt-image2-gen/scripts",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "main-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容",
+          "lastUsedAt": 1777484627139,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace/outputs/local-edit/boxes3.txt",
+          "lastResolvedPath": "/bin/cat"
+        },
+        {
+          "id": "main-cd",
+          "pattern": "/usr/bin/cd",
+          "description": "允许切换目录",
+          "lastUsedAt": 1777803549169,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/outputs && cd /Users/a123/.openclaw/workspace && zip -j outputs/test_poster_min_flow.zip images/test_poster_stage1.png images/test_poster_stage2.png images/test_poster_stage3.png outputs/test_poster_stage1_prompt.txt outputs/test_poster_stage2_prompt.txt outputs/test_poster_stage3_prompt.txt",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "418ae40d-e9ed-448a-841e-72157f460c2c",
+          "pattern": "=command:b7bb5887148a1b9e",
+          "source": "allow-always",
+          "lastUsedAt": 1777613892138
+        },
+        {
+          "id": "4920a62c-e91f-4ac0-a186-adc35eb6c40c",
+          "pattern": "=command:1723e1ef88cf9f40",
+          "source": "allow-always",
+          "lastUsedAt": 1777613930141
+        },
+        {
+          "id": "cdbfd055-830c-42c2-b08e-7a93653a775f",
+          "pattern": "/opt/homebrew/bin/lark-cli",
+          "source": "allow-always",
+          "lastUsedAt": 1777866717155,
+          "lastUsedCommand": "lark-cli wiki spaces list --params '{\"page_size\":3}'",
+          "lastResolvedPath": "/opt/homebrew/bin/lark-cli"
+        },
+        {
+          "id": "114e5830-400d-4d70-8c60-6c0c0d159a75",
+          "pattern": "/usr/bin/printf",
+          "source": "allow-always",
+          "lastUsedAt": 1777887109289,
+          "lastUsedCommand": "printf 'ROOT\\n'; ls -la /Users/a123/.openclaw/workspace/skills; printf '\\nSCRIPTS\\n'; ls -la /Users/a123/.openclaw/workspace/skills/scripts; printf '\\nCARDS\\n'; ls -la /Users/a123/.openclaw/workspace/skills/cards | tail -20",
+          "lastResolvedPath": "/usr/bin/printf"
+        }
+      ]
+    },
+    "design": {
+      "allowlist": [
+        {
+          "id": "design-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本进行生图",
+          "lastUsedAt": 1778138171448,
+          "lastUsedCommand": "python3 ~/.openclaw/skills/gpt-image2-gen/scripts/generate.py --prompt \"A hyper-realistic CGI commercial product shot of an orange mille crepe cake slice (Zhishi brand Orange Mille Crepe), positioned centrally in a premium studio environment. The cake slice features distinct visible honeycomb-like layered structure with warm orange cream filling between delicate crepe layers, topped with fresh orange segments and a small mint leaf accent. Surrounding the central product is a sophisticated holographic data visualization ring in cool blue accent light, displaying elegant sales figures and charts. Floating around the product are premium data elements: large golden numbers showing '1,000,000+' sales, elegant star rating icons (5 gold stars), review count badges showing '100,000+' reviews, and a prominent 'TOP 1' ranking badge in premium gold and ivory white. The data visualization maintains an academic, authoritative news broadcast aesthetic rather than cheap livestream style - more like a premium annual report or luxury brand milestone announcement. The background features a sophisticated warm studio setting with soft ivory white and warm orange color scheme, accented with quality gold elements. Subtle paper texture and book-like elements reference the academic monograph aesthetic. The lighting is soft yet precise studio lighting with gentle shadows and subtle environmental reflections. The overall mood conveys authority, premium quality, and academic credibility - like a luxury brand's annual milestone report or a high-end financial news feature. Cinema 4D / Octane render quality, photorealistic CGI commercial style, 9:16 vertical composition, sharp focus on product with elegant depth of field on background elements, high-end commercial photography aesthetic, premium brand campaign quality, 8K render quality with crisp details on both product texture and data visualization elements.\" -s 1024x1536 -o /Users/a123/.openclaw/workspace/images/zhishi_storyboard_batchC_shot07.png",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "design-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本",
+          "lastUsedAt": 1778144288308,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-002/run.sh",
+          "lastResolvedPath": "/bin/bash"
+        },
+        {
+          "id": "design-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "design-cd",
+          "pattern": "/usr/bin/cd",
+          "description": "允许切换目录",
+          "lastUsedAt": 1778138018500,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design && python3 shot07_generator.py",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "design-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件",
+          "lastUsedAt": 1778040579288,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/xiaobai_duanwu_poster_v1.png /Users/a123/.openclaw/workspace/images/xiaobai_duanwu_poster_v1.png && ls -lh /Users/a123/.openclaw/workspace/images/xiaobai_duanwu_poster_v1.png",
+          "lastResolvedPath": "/bin/cp"
+        },
+        {
+          "id": "design-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录",
+          "lastUsedAt": 1778138018498,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images /Users/a123/.openclaw/workspace/outputs",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "design-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录",
+          "lastUsedAt": 1778138632666,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/images/zhishi_storyboard_batchC_shot08.png && file /Users/a123/.openclaw/workspace/images/zhishi_storyboard_batchC_shot08.png",
+          "lastResolvedPath": "/bin/ls"
+        }
+      ]
+    }
+  }
+}

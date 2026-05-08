@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "e489dfcf-dc9f-4481-b96c-58ab5b3928f4",
+      "name": "Memory Dreaming Promotion",
+      "description": "[managed-by=memory-core.short-term-promotion] Promote weighted short-term recalls into MEMORY.md (limit=10, minScore=0.800, minRecallCount=3, minUniqueQueries=3, recencyHalfLifeDays=14, maxAgeDays=30).",
+      "enabled": true,
+      "createdAtMs": 1775702460323,
+      "updatedAtMs": 1778180400021,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 3 * * *"
+      },
+      "sessionTarget": "main",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "__openclaw_memory_core_short_term_promotion_dream__"
+      },
+      "state": {
+        "nextRunAtMs": 1778266800000,
+        "lastRunAtMs": 1778180400011,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 10,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "616f4650-758f-411d-bfb3-d363fb62347f",
+      "name": "AI圈24h晨报-涂是淦",
+      "enabled": true,
+      "createdAtMs": 1776558409823,
+      "updatedAtMs": 1778194923715,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 7 * * *",
+        "tz": "Asia/Shanghai",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "你是涂是淦的 AI 业务晨报助手。请生成一份【近24小时 AI 圈新闻简报】并直接输出给用户。要求：1) 必须先用 memory_search 回忆用户近期推进的重点，再结合其长期业务背景；2) 必须用 tavily_search 检索近24小时 AI 新闻，优先关注：AI agent、模型能力、设计/生图/视频、品牌与营销、快消/零售、知识工作自动化；3) 只保留与用户业务或近期推进事项有关联的内容，宁缺毋滥；4) 输出结构：先给 3-6 条最值得看的新闻，每条包含【标题】【发生了什么】【为什么和你有关】；5) 最后补一个【今天值得留意的动作】小节，给 1-3 条可执行建议；6) 如果过去24小时没有足够高相关内容，就明确说“高相关不多”，然后给少量值得知道的行业级动态；7) 全文简洁、中文、像同事发晨报，不要官话，不要堆砌链接，但每条新闻后附 1 个来源域名。"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "feishu",
+        "to": "user:ou_88079e6b06ce40e6851c96928fe1a03b"
+      },
+      "state": {
+        "nextRunAtMs": 1778281200000,
+        "lastRunAtMs": 1778194800010,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 123705,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0
+      }
+    }
+  ]
+}
