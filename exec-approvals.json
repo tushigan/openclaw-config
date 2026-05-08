@@ -155,6 +155,85 @@
           "lastResolvedPath": "/bin/ls"
         }
       ]
+    },
+    "main-shared": {
+      "allowlist": [
+        { "id": "shared-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
+        { "id": "shared-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
+        { "id": "shared-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
+        { "id": "shared-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
+        { "id": "shared-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
+        { "id": "shared-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
+        { "id": "shared-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" },
+        { "id": "shared-printf", "pattern": "/usr/bin/printf", "description": "允许格式化输出" },
+        { "id": "shared-lark-cli", "pattern": "/opt/homebrew/bin/lark-cli", "description": "允许执行飞书 CLI" }
+      ]
+    },
+    "strategy-shared": {
+      "allowlist": [
+        { "id": "shared-strategy-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
+        { "id": "shared-strategy-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
+        { "id": "shared-strategy-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
+        { "id": "shared-strategy-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
+        { "id": "shared-strategy-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
+        { "id": "shared-strategy-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
+        { "id": "shared-strategy-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" },
+        { "id": "shared-strategy-lark-cli", "pattern": "/opt/homebrew/bin/lark-cli", "description": "允许执行飞书 CLI" }
+      ]
+    },
+    "design-shared": {
+      "allowlist": [
+        { "id": "shared-design-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本（生图）" },
+        { "id": "shared-design-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
+        { "id": "shared-design-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
+        { "id": "shared-design-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
+        { "id": "shared-design-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
+        { "id": "shared-design-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
+        { "id": "shared-design-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" }
+      ]
+    },
+    "video-shared": {
+      "allowlist": [
+        { "id": "shared-video-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
+        { "id": "shared-video-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
+        { "id": "shared-video-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
+        { "id": "shared-video-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
+        { "id": "shared-video-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
+        { "id": "shared-video-ls", "pattern": "/bin/ls", "description": "允许列出目录" }
+      ]
+    },
+    "research-shared": {
+      "allowlist": [
+        { "id": "shared-research-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
+        { "id": "shared-research-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
+        { "id": "shared-research-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
+        { "id": "shared-research-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
+        { "id": "shared-research-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
+        { "id": "shared-research-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
+        { "id": "shared-research-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" }
+      ]
+    },
+    "copywriter-shared": {
+      "allowlist": [
+        { "id": "shared-copywriter-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
+        { "id": "shared-copywriter-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
+        { "id": "shared-copywriter-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
+        { "id": "shared-copywriter-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
+        { "id": "shared-copywriter-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
+        { "id": "shared-copywriter-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
+        { "id": "shared-copywriter-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" }
+      ]
+    },
+    "meeting-analyst-shared": {
+      "allowlist": [
+        { "id": "shared-meeting-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
+        { "id": "shared-meeting-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
+        { "id": "shared-meeting-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
+        { "id": "shared-meeting-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
+        { "id": "shared-meeting-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
+        { "id": "shared-meeting-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
+        { "id": "shared-meeting-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" }
+      ]
     }
   }
 }
