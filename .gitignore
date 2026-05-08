@@ -3,13 +3,45 @@ workspace/images/
 workspace/outputs/
 workspace/brand-poster-projects/
 workspace/feishu-deliver/
-workspace-design/
-workspace-video/
+
+# 子 workspace：只跟踪 AGENTS.md 和人格文件
+workspace-design/*
+!workspace-design/AGENTS.md
+!workspace-design/SOUL.md
+!workspace-design/IDENTITY.md
+!workspace-design/USER.md
+
+workspace-video/*
+!workspace-video/AGENTS.md
+!workspace-video/SOUL.md
+!workspace-video/IDENTITY.md
+!workspace-video/USER.md
+
+workspace-research/*
+!workspace-research/AGENTS.md
+!workspace-research/SOUL.md
+!workspace-research/IDENTITY.md
+!workspace-research/USER.md
+
+workspace-strategy/*
+!workspace-strategy/AGENTS.md
+!workspace-strategy/SOUL.md
+!workspace-strategy/IDENTITY.md
+!workspace-strategy/USER.md
+
+workspace-meeting/*
+!workspace-meeting/AGENTS.md
+!workspace-meeting/SOUL.md
+!workspace-meeting/IDENTITY.md
+!workspace-meeting/USER.md
+
+workspace-copywriter/*
+!workspace-copywriter/AGENTS.md
+!workspace-copywriter/SOUL.md
+!workspace-copywriter/IDENTITY.md
+!workspace-copywriter/USER.md
+
 workspace-ppt/
-workspace-research/
-workspace-strategy/
-workspace-meeting/
-workspace-copywriter/
 
 media/
 logs/
@@ -19,7 +51,10 @@ venv-psd/
 skills-store*/
 openclaw-web/
 memos-local/
-credentials/
+
+# credentials：只跟踪 admin 用户列表（不跟踪密钥）
+credentials/*
+!credentials/feishu-admin-users.json
 
 # 不跟踪敏感文件
 .env
