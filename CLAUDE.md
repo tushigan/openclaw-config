@@ -1,0 +1,199 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Repository Overview
+
+This is the **OpenClaw user configuration directory** (`~/.openclaw`), not source code. OpenClaw is a multi-channel AI gateway/agent framework with multi-agent collaboration capabilities. The actual OpenClaw package is installed via npm at `/opt/homebrew/lib/node_modules/openclaw`.
+
+Key configuration file: [openclaw.json](openclaw.json) contains models, channels, agents, plugins, and all runtime settings.
+
+## Common Commands
+
+### OpenClaw CLI (gateway management)
+```bash
+openclaw gateway --port 18789 --verbose   # Run gateway
+openclaw daemon                            # Manage daemon service
+openclaw doctor                            # Health check
+openclaw config get/set                    # Read/write config
+openclaw logs                              # View logs
+openclaw sessions                          # View session history
+```
+
+### Subagent spawning (multi-agent collaboration)
+```bash
+# Spawn expert agents for tasks
+openclaw subagents spawn strategy "制定产品战略" --timeout 1800
+openclaw subagents spawn research "市场调研任务" --timeout 1800
+openclaw subagents spawn design "生成产品效果图" --timeout 600
+```
+
+**Timeout guidelines:**
+- Simple tasks: 60 seconds
+- Normal tasks: 10 minutes (600s)
+- Deep research: 30 minutes (1800s)
+- **Never set timeout to 0** (infinite)
+
+## Agent Architecture
+
+| Agent | Role | Workspace | Primary Model |
+|-------|------|-----------|---------------|
+| `main` | Coordinator, task orchestration, user delivery | `workspace/` | GPT-5.4 (fallback: Kimi K2.6) |
+| `strategy` | Product strategy, positioning, narrative | `workspace-strategy/` | GPT-5.5 |
+| `research` | Market research, competitor analysis | `workspace-research/` | Kimi K2.5 |
+| `design` | Visual/image generation, product renders | `workspace-design/` | Kimi K2.5 |
+| `video` | HTML PPT, video, motion graphics | `workspace-video/` | Kimi K2.5 |
+| `meeting-analyst` | Meeting minutes analysis, evidence extraction | `workspace-meeting/` | Kimi K2.5 |
+| `copywriter` | Copywriting, content creation | `workspace-copywriter/` | Claude Opus 4.6 |
+
+Each agent also has a `*-shared` variant (e.g. `main-shared`, `strategy-shared`) for multi-user access with 虾权 isolation. Shared variants use the same model and workspace as their base agent. `workspace-ppt` is a symlink to `workspace-video`.
+
+### Workflow Rules
+
+Each workspace has an `AGENTS.md` defining execution rules. Key rules from [workspace/AGENTS.md](workspace/AGENTS.md):
+
+1. **Check skills first**: Before any task, scan `available_skills` and read matching `SKILL.md`
+2. **Runtime facts must be verified**: Never claim completion without evidence (file paths, return values)
+3. **Memory doesn't override current state**: If memory conflicts with actual environment, trust the environment
+4. **Main orchestrates by default**: `main` handles understanding, routing, progress tracking, unified delivery
+5. **Expert domains require handoff**: Research, strategy, design, video, meeting, copywriting tasks → spawn corresponding expert
+6. **Output organization**: `images/` for images, `outputs/` for other files (Markdown/JSON/CSV)
+
+**Meeting-analyst specific**:
+- Evidence grading: A (clear decision), B (strong tendency), C (candidate/discussed), D (insufficient)
+- Must provide source quotations for key conclusions
+- Outputs structured analysis to `outputs/meeting_analysis_*.md`
+
+**Copywriter specific**:
+- Collaboration chain: `strategy → copywriter → design`
+- Outputs to `outputs/copy_YYYYMMDD_主题.md`
+- Provides 2-3 version options with rationale
+
+### Session startup sequence
+1. Read `SOUL.md` (personality/temperament)
+2. Read `USER.md` (user profile)
+3. Read `memory/YYYY-MM-DD.md` (today + yesterday) — daily notes are in each workspace's `memory/` dir
+4. In main session, also read `MEMORY.md` (long-term memory)
+5. Long-term memory is also stored as SQLite in root `memory/` dir (e.g. `memory/main.sqlite`)
+
+## File Structure
+
+```
+~/.openclaw/
+├── openclaw.json         # Main config (models, channels, agents, plugins, skills, cron)
+├── .env                  # Environment variables (API keys: BANANA, KLING, DIFY, MEMOS)
+├── exec-approvals.json   # Per-agent command execution allowlists
+├── .mcp.json             # MCP server config (Apifox)
+│
+├── agents/               # Agent runtime dirs (models.json, auth-profiles.json, sessions/)
+├── workspace*/           # Per-agent workspaces (AGENTS.md, SOUL.md, IDENTITY.md, etc.)
+├── workspace-ppt         # Symlink → workspace-video
+│
+├── memory/               # Agent memory SQLite DBs (main.sqlite, design.sqlite, etc.)
+├── skills/               # Local skills (brand-poster-creator, klingai, tvc-director, etc.)
+├── skills-store*/        # Inactive/archived skill templates
+├── subagents/            # Subagent run registry (runs.json)
+├── credentials/          # Feishu/Lark secrets, admin users
+├── logs/                 # Gateway logs (gateway.log, gateway.err.log)
+├── feishu/               # Feishu channel data
+├── identity/             # Device authentication
+├── cron/                 # Scheduled tasks (jobs.json, runs/)
+├── flows/                # Flow registry (SQLite)
+├── tasks/                # Task run history (SQLite)
+├── extensions/           # OpenClaw plugins (memos-local, openclaw-lark)
+└── scripts/              # Utility scripts (cleanup-ghost-group-sessions.sh)
+```
+
+### Git tracking strategy
+
+Only personality/rule files are tracked in git for sub-workspaces (per `.gitignore`):
+- `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md` — tracked
+- Everything else in workspace*/ — ignored (images, outputs, scripts, memory)
+- Root `memory/` SQLite DBs, `logs/`, `flows/`, `.env`, credentials — ignored
+
+## Model Providers
+
+Configured in `openclaw.json` under `models.providers`:
+- `zhichuang`: Claude Opus 4.6 (reasoning, via Anthropic Messages API)
+- `huoshan`: Kimi K2.6 (reasoning), Kimi K2.5, GLM-5.1 (via Volces/火山引擎)
+- `newapi_channel_conn`: GPT-5.4, GPT-5.5 (reasoning, via Aixor OpenAI-compatible API)
+
+## Key Conventions
+
+### File paths
+- **Always use absolute paths**: `/Users/a123/.openclaw/workspace/...`
+- **Never use `~/` or relative paths** in subagent tasks
+
+### Feishu image delivery
+When sending images to user via Feishu:
+1. Copy image to `/Users/a123/.openclaw/workspace/feishu-deliver/`
+2. Use `feishu-send-image` tool to send
+3. Never just return local path as "delivery"
+
+### Subagent spawn format
+```json
+{
+  "runtime": "subagent",
+  "agentId": "strategy",
+  "task": "Task description",
+  "mode": "run",
+  "timeoutSeconds": 1200,
+  "runTimeoutSeconds": 1200,
+  "lightContext": true
+}
+```
+
+**Rules:**
+- `runtime="subagent"`: Never pass `streamTo`
+- `runtime="acp"`: Can pass `streamTo`, never pass `lightContext`
+- `lightContext` only valid for `runtime="subagent"`
+
+## Workspace Personality Files
+
+Each workspace has:
+- `IDENTITY.md`: Who I am, role, domain focus
+- `SOUL.md`: Personality, temperament, values
+- `USER.md`: User profile, preferences
+- `AGENTS.md`: Execution rules, routing, delivery (highest priority)
+- `TOOLS.md`: Environment-specific notes (devices, SSH aliases, etc.)
+- `MEMORY.md`: Long-term memory (only loaded in main session)
+- `DREAMS.md`: Goals, aspirations, future plans
+- `HEARTBEAT.md`: Background check rules (email, calendar, notifications)
+
+When files conflict, **AGENTS.md takes precedence**.
+
+## Security
+
+- Command execution requires approval per `exec-approvals.json` (per-agent allowlists with path patterns)
+- Credentials stored encrypted in `credentials/`
+- External actions (email, posting) require user confirmation
+- Use `trash` instead of `rm` for destructive operations
+- `.env` contains API keys (BANANA, KLING, DIFY, MEMOS) — never commit or expose
+
+## MCP Servers
+
+Configured in `.mcp.json`:
+- `apifox`: Apifox OpenAPI spec reader (site-id 5484736), used for API spec reference
+
+## Scheduled Tasks (Cron Jobs)
+
+Jobs are defined in `cron/jobs.json`. Examples:
+- **Memory Dreaming Promotion**: Promotes weighted short-term recalls into MEMORY.md (runs daily at 3am)
+- **AI圈24h晨报**: Generates 24h AI industry news briefing and delivers to Feishu user (runs daily at 7am)
+
+Job properties:
+- `schedule.kind`: "cron" with `expr` (cron expression) and optional `tz` timezone
+- `sessionTarget`: "main" or "isolated"
+- `delivery.mode`: "announce" with channel and target
+- `payload`: Agent turn message or system event
+
+## Skills
+
+Local skills in `skills/` directory:
+- `brand-poster-creator`: Brand poster design workflow
+- `klingai`: Kling AI video/image generation
+- `tvc-director`: TVC commercial direction
+- `wechat-article-reader`: WeChat article reading
+- `xiangqingye-desigen`: Product detail page design
+
+Each skill has a `SKILL.md` defining the workflow. AGENTS.md rule 0.1 mandates checking skills before any task.

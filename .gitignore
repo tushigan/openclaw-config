@@ -1,8 +1,7 @@
-# 大文件/不需要版本控制的目录
-workspace/images/
-workspace/outputs/
-workspace/brand-poster-projects/
-workspace/feishu-deliver/
+# 主 workspace：独立 git 仓库，由自身管理
+# 人格文件（AGENTS.md, IDENTITY.md, SOUL.md, USER.md 等）已在其自己的 git 中跟踪
+# 部署时需要单独处理此目录
+workspace/
 
 # 子 workspace：只跟踪 AGENTS.md 和人格文件
 workspace-design/*
@@ -51,6 +50,12 @@ venv-psd/
 skills-store*/
 openclaw-web/
 memos-local/
+delivery-queue/
+canvas/
+completions/
+devices/
+qqbot/
+test/
 
 # credentials：只跟踪 admin 用户列表（不跟踪密钥）
 credentials/*
@@ -60,12 +65,27 @@ credentials/*
 .env
 *.secrets.json
 
+# Agent 敏感配置（改用脱敏模板）
+agents/*/agent/models.json
+agents/*/agent/auth-profiles.json
+# 允许跟踪脱敏模板
+!agents/*/agent/models.json.template
+!agents/*/agent/auth-profiles.json.template
+
 # 不跟踪运行时数据
 flows/
 identity/
 feishu/
-subagents/
 agents/*/sessions/
+memory/*.sqlite
+tasks/
+
+# 跟踪 subagents 注册表
+# subagents/ 保留忽略（runs.json 可重新生成）
+subagents/
+
+# 跟踪 cron 运行记录目录结构但忽略运行数据
+cron/runs/
 
 # skills 中的大文件和缓存
 skills/**/output/
@@ -85,8 +105,9 @@ skills/tvc-director
 update-check.json
 update-check.json.*.tmp
 viewer-auth.json
-.mcp.json
+openclaw.json.bak.*
 
 # 系统文件
 .DS_Store
 .claude/
+.vscode/

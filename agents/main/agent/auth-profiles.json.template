@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "profiles": {
+    "qwen-portal:qwen-cli": {
+      "type": "oauth",
+      "provider": "qwen-portal",
+      "access": "{{OAUTH_ACCESS}}",
+      "refresh": "{{OAUTH_REFRESH}}",
+      "expires": "{{OAUTH_EXPIRES}}"
+    }
+  }
+}
