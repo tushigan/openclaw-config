@@ -111,6 +111,78 @@ Only personality/rule files are tracked in git for sub-workspaces (per `.gitigno
 - Everything else in workspace*/ — ignored (images, outputs, scripts, memory)
 - Root `memory/` SQLite DBs, `logs/`, `flows/`, `.env`, credentials — ignored
 
+## Git Version Management
+
+### Remote Repository
+
+GitHub remote: https://github.com/tushigan/openclaw-config.git
+
+### Saving Convention
+
+**IMPORTANT**: When user says "保存 git 版本" or "保存配置" or "保存到 GitHub", execute the following:
+
+```bash
+cd ~/.openclaw
+git add -A
+git commit -m "更新配置: ..."  # describe what changed
+git push
+```
+
+This saves to BOTH local git AND GitHub.
+
+### What Gets Saved
+
+**Saved** (version controlled):
+- ✅ Configuration files: `openclaw.json`, `.gitignore`, `exec-approvals.json`, `cron/jobs.json`
+- ✅ Agent templates: `agents/*/agent/*.json.template` (redacted, no API keys)
+- ✅ MCP config: `.mcp.json`
+- ✅ Workspace personality: `workspace*/{AGENTS.md,IDENTITY.md,SOUL.md,USER.md}`
+- ✅ Deployment scripts: `scripts/deploy-openclaw.sh`, `scripts/setup-sensitive.sh`
+- ✅ Skills documentation: `skills/*/*.md`
+
+**NOT saved** (excluded by .gitignore):
+- ❌ Sensitive data: API keys, OAuth tokens, `credentials/` (except admin-users.json)
+- ❌ Runtime data: `memory/*.sqlite`, `logs/`, `flows/`, `tasks/`, `feishu/`
+- ❌ Generated files: `workspace/images/`, `workspace/outputs/`, `workspace/videos/`
+- ❌ Agent sessions: `agents/*/sessions/`
+- ❌ Main workspace: `workspace/` (has its own separate git repo)
+
+### Redacted Templates
+
+Sensitive configuration files use **redacted templates**:
+- `openclaw.json.template` — uses placeholders like `{{API_KEY_provider}}`, `{{APP_SECRET}}`
+- `agents/*/agent/models.json.template` — API keys replaced with `{{API_KEY_xxx}}`
+- `agents/*/agent/auth-profiles.json.template` — OAuth tokens replaced with `{{OAUTH_ACCESS}}`, `{{OAUTH_REFRESH}}`
+
+Templates allow sharing config structure without exposing secrets.
+
+### Deployment to New Machine
+
+Use the deployment script:
+```bash
+~/.openclaw/scripts/deploy-openclaw.sh https://github.com/tushigan/openclaw-config.git /target/dir
+```
+
+Or manually:
+```bash
+git clone https://github.com/tushigan/openclaw-config.git ~/.openclaw
+cd ~/.openclaw
+./scripts/setup-sensitive.sh  # restore from templates, then fill in API keys
+```
+
+### Commit Frequency
+
+Save to git after:
+- Changing agent configuration (models, tools, permissions)
+- Updating workspace personality files
+- Modifying skills or workflow rules
+- Updating deployment scripts
+
+Don't need to save after:
+- Daily conversation changes (use memory for that)
+- Generated output files
+- Runtime data
+
 ## Model Providers
 
 Configured in `openclaw.json` under `models.providers`:
