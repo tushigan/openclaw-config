@@ -99,6 +99,36 @@ def load_json(path):
         return json.load(f)
 
 
+def normalize_ref_path(raw_path, base_dir):
+    if not raw_path:
+        return ""
+    path = Path(raw_path)
+    if path.is_absolute():
+        return str(path)
+    return str((base_dir / path).resolve())
+
+
+def normalize_refs(refs, project_dir):
+    normalized = {}
+    for key, value in refs.items():
+        if isinstance(value, list):
+            items = []
+            for item in value:
+                item_copy = dict(item)
+                if item_copy.get("路径"):
+                    item_copy["路径"] = normalize_ref_path(item_copy["路径"], project_dir)
+                items.append(item_copy)
+            normalized[key] = items
+        elif isinstance(value, dict):
+            item_copy = dict(value)
+            if item_copy.get("路径"):
+                item_copy["路径"] = normalize_ref_path(item_copy["路径"], project_dir)
+            normalized[key] = item_copy
+        else:
+            normalized[key] = value
+    return normalized
+
+
 def resolve_skeleton_reference(distill, distill_path):
     if not distill:
         return ""
@@ -730,6 +760,7 @@ def main():
     style_profile = load_json(args.style_profile) if args.style_profile else None
 
     refs = {}
+    project_dir = Path(args.output).resolve().parent
     if args.refs and os.path.exists(args.refs):
         with open(args.refs, "r", encoding="utf-8") as f:
             refs = json.load(f)
@@ -763,6 +794,8 @@ def main():
         skeleton_path = resolve_skeleton_reference(distill, args.distill)
         if skeleton_path:
             refs["版式骨架图"] = {"路径": skeleton_path, "角色说明": "版式骨架图"}
+
+    refs = normalize_refs(refs, project_dir)
 
     prompt, image_paths, ref_roles = assemble_prompt(brief, distill, copywriting, refs, style_profile=style_profile)
 

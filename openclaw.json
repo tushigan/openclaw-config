@@ -78,8 +78,7 @@
             "name": " glm-5.1",
             "reasoning": false,
             "input": [
-              "text",
-              "image"
+              "text"
             ],
             "cost": {
               "input": 0,
@@ -228,7 +227,8 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "ppt-workflow",
+            "gpt-image2-gen",
+            "nanobanana-ppt",
             "brand-poster-workflow",
             "network_memory_detail",
             "network_skill_pull",
@@ -252,7 +252,6 @@
             "tavily_search",
             "tts",
             "write",
-            "PPT",
             "deep-research"
           ]
         }
@@ -473,7 +472,7 @@
             "network_team_info",
             "nodes",
             "packaging-design",
-            "PPT",
+            "nanobanana-ppt",
             "pdf-smart-tool-cn",
             "product-dev-phase",
             "read",
@@ -771,7 +770,7 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "ppt-workflow",
+            "nanobanana-ppt",
             "brand-poster-workflow",
             "read",
             "sessions_history",
@@ -788,7 +787,6 @@
             "tavily_search",
             "tts",
             "write",
-            "PPT",
             "deep-research"
           ],
           "exec": {
@@ -1042,7 +1040,7 @@
             "multi_search_engine",
             "transition-video",
             "packaging-design",
-            "PPT",
+            "nanobanana-ppt",
             "pdf-smart-tool-cn",
             "product-dev-phase",
             "read",
@@ -1327,7 +1325,7 @@
       "multi_search",
       "multi_search_engine",
       "outline-architect",
-      "ppt-workflow",
+      "nanobanana-ppt",
       "packaging-design",
       "pdf-smart-tool-cn",
       "research-analyst",
@@ -1397,7 +1395,10 @@
       "match": {
         "channel": "feishu",
         "accountId": "main",
-        "peer": { "kind": "direct", "id": "ou_88079e6b06ce40e6851c96928fe1a03b" }
+        "peer": {
+          "kind": "direct",
+          "id": "ou_88079e6b06ce40e6851c96928fe1a03b"
+        }
       }
     },
     {
@@ -1405,7 +1406,10 @@
       "match": {
         "channel": "feishu",
         "accountId": "default",
-        "peer": { "kind": "direct", "id": "ou_88079e6b06ce40e6851c96928fe1a03b" }
+        "peer": {
+          "kind": "direct",
+          "id": "ou_88079e6b06ce40e6851c96928fe1a03b"
+        }
       }
     },
     {
@@ -1427,7 +1431,10 @@
       "match": {
         "channel": "feishu",
         "accountId": "strategy",
-        "peer": { "kind": "direct", "id": "ou_88079e6b06ce40e6851c96928fe1a03b" }
+        "peer": {
+          "kind": "direct",
+          "id": "ou_442533093a478558484ef6461b4d4a56"
+        }
       }
     },
     {
@@ -1442,7 +1449,10 @@
       "match": {
         "channel": "feishu",
         "accountId": "research",
-        "peer": { "kind": "direct", "id": "ou_88079e6b06ce40e6851c96928fe1a03b" }
+        "peer": {
+          "kind": "direct",
+          "id": "ou_3669c86e1e9957992630dd1fc0b85577"
+        }
       }
     },
     {
@@ -1457,7 +1467,10 @@
       "match": {
         "channel": "feishu",
         "accountId": "meeting-analyst",
-        "peer": { "kind": "direct", "id": "ou_88079e6b06ce40e6851c96928fe1a03b" }
+        "peer": {
+          "kind": "direct",
+          "id": "ou_1e2494605d60685078e1532cedbb5c4f"
+        }
       }
     },
     {
@@ -1472,7 +1485,10 @@
       "match": {
         "channel": "feishu",
         "accountId": "copywriter",
-        "peer": { "kind": "direct", "id": "ou_88079e6b06ce40e6851c96928fe1a03b" }
+        "peer": {
+          "kind": "direct",
+          "id": "ou_db8d075ed93bb69cb58b3f809c9a2272"
+        }
       }
     },
     {
@@ -1760,13 +1776,13 @@
         "enabled": false
       },
       "nanobanana-ppt": {
-        "enabled": false
+        "enabled": true
       },
       "memos-memory-guide": {
         "enabled": false
       },
       "PPT": {
-        "enabled": true
+        "enabled": false
       },
       "layered-psd-gen": {
         "enabled": true

@@ -12,16 +12,16 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1778206497935,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt \"Design a premium 3D brand mascot for Danfu waffle, using the attached reference image only for style direction and material feeling. Keep the warm golden-baked, polished, high-quality stylized 3D character style, but redesign the character with a much clearer structural silhouette based on the Chinese character 丹. The 丹-shape innovation must be obvious in the full body outline and body architecture, not just implied. The character should still read as a waffle expert mascot: integrate waffle grid structure into the body, include a small signature butter symbol, and keep subtle baking identity. Strong international enterprise mascot tone, clean, iconic, charming, refined. Simplify the decorative elements significantly: fewer accessories, fewer costume details, cleaner surfaces, less clutter, stronger form language. Avoid generic chef cartoon styling, avoid unrelated props, avoid over-decorated costume, avoid losing the 丹 silhouette. Full character, clean studio background, concept design presentation, highly brandable and memorable.\" --ref-style /Users/a123/.openclaw/media/inbound/8c62d47b-a52b-4b64-bbbc-8718be8a7427.jpg -s 1536x1536 -o /Users/a123/.openclaw/workspace/images/danfu_waffle_ip_v2.png",
+          "lastUsedAt": 1778337109479,
+          "lastUsedCommand": "python3 -c \"from PIL import Image; img=Image.open('/Users/a123/.openclaw/media/inbound/ef7e02df-a452-4f48-be19-0ac200f6306f.jpg'); print(img.size)\"",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "main-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 命令",
-          "lastUsedAt": 1778150889920,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/run.sh",
+          "lastUsedAt": 1778337145101,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/_temp_popo_packshot.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -33,41 +33,41 @@
           "id": "main-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件（工作区之间）",
-          "lastUsedAt": 1778150171006,
-          "lastUsedCommand": "cp '/Users/a123/.openclaw/media/inbound/55d3ef46-f355-4850-9f84-b7b0c4c2caa3.jpg' '/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/images/product.jpg' && cp '/Users/a123/.openclaw/media/inbound/d3bca8de-9ebd-4715-bc6d-bc620619873a.jpg' '/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/images/style_ref_1.jpg'",
-          "lastResolvedPath": "/bin/cp"
+          "lastUsedAt": 1778322612204,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260509-002/images/final_poster.png /Users/a123/.openclaw/workspace/feishu-deliver/BP-20260509-002-final_poster-v2.png",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "main-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1778150082396,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/images && cp /Users/a123/.openclaw/workspace/skills/brand-poster-distiller/site/assets/skeletons/POSTER-DISTILL-P-004.png /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/images/skeleton.png && cp /Users/a123/.openclaw/workspace/skills/brand-poster-distiller/cards/POSTER-DISTILL-P-004.json /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-003/distill_card.json",
+          "lastUsedAt": 1778325317840,
+          "lastUsedCommand": "mkdir -p outputs/browser-use-deploy && /opt/homebrew/bin/python3.11 -m venv outputs/browser-use-deploy/venv && source outputs/browser-use-deploy/venv/bin/activate && python --version && pip install --upgrade pip setuptools wheel && pip install browser-use",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778150643318,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts /Users/a123/.openclaw/skills/gpt-image2-gen/scripts",
+          "lastUsedAt": 1778337099497,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts",
           "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "main-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1777484627139,
-          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace/outputs/local-edit/boxes3.txt",
-          "lastResolvedPath": "/bin/cat"
+          "lastUsedAt": 1778223473705,
+          "lastUsedCommand": "python3 ~/.openclaw/workspace-design/skills/mask-edit-localized/scripts/detect_colored_annotations_and_make_mask.py --image /Users/a123/.openclaw/media/inbound/7e4e5940-ccc7-4c51-b65b-664b1344f101.jpg --output-mask outputs/mask_edit_sable_20260508/detected_mask.png --output-boxes outputs/mask_edit_sable_20260508/detected_boxes.json --output-spec outputs/mask_edit_sable_20260508/mask_spec.json --colors red,blue --pad 16 && cat outputs/mask_edit_sable_20260508/detected_boxes.json && echo '---SPEC---' && cat outputs/mask_edit_sable_20260508/mask_spec.json",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "main-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1777803549169,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/outputs && cd /Users/a123/.openclaw/workspace && zip -j outputs/test_poster_min_flow.zip images/test_poster_stage1.png images/test_poster_stage2.png images/test_poster_stage3.png outputs/test_poster_stage1_prompt.txt outputs/test_poster_stage2_prompt.txt outputs/test_poster_stage3_prompt.txt",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1778308787521,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace/outputs/ppt-projects/20260509_120500_openclaw_poster_training/images && ls -1 | sort",
+          "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "418ae40d-e9ed-448a-841e-72157f460c2c",
@@ -93,9 +93,9 @@
           "id": "114e5830-400d-4d70-8c60-6c0c0d159a75",
           "pattern": "/usr/bin/printf",
           "source": "allow-always",
-          "lastUsedAt": 1777887109289,
-          "lastUsedCommand": "printf 'ROOT\\n'; ls -la /Users/a123/.openclaw/workspace/skills; printf '\\nSCRIPTS\\n'; ls -la /Users/a123/.openclaw/workspace/skills/scripts; printf '\\nCARDS\\n'; ls -la /Users/a123/.openclaw/workspace/skills/cards | tail -20",
-          "lastResolvedPath": "/usr/bin/printf"
+          "lastUsedAt": 1778288354901,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/.agents/skills/lark-slides/scripts/template_tool.py summarize --template marketing--marketing_strategy --label 封面 && printf '\\n---\\n' && python3 /Users/a123/.openclaw/workspace/.agents/skills/lark-slides/scripts/template_tool.py summarize --template marketing--marketing_strategy --label 内容 && printf '\\n---\\n' && python3 /Users/a123/.openclaw/workspace/.agents/skills/lark-slides/scripts/template_tool.py summarize --template marketing--marketing_strategy --label 结尾",
+          "lastResolvedPath": "/usr/bin/python3"
         }
       ]
     },
@@ -105,16 +105,16 @@
           "id": "design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本进行生图",
-          "lastUsedAt": 1778138171448,
-          "lastUsedCommand": "python3 ~/.openclaw/skills/gpt-image2-gen/scripts/generate.py --prompt \"A hyper-realistic CGI commercial product shot of an orange mille crepe cake slice (Zhishi brand Orange Mille Crepe), positioned centrally in a premium studio environment. The cake slice features distinct visible honeycomb-like layered structure with warm orange cream filling between delicate crepe layers, topped with fresh orange segments and a small mint leaf accent. Surrounding the central product is a sophisticated holographic data visualization ring in cool blue accent light, displaying elegant sales figures and charts. Floating around the product are premium data elements: large golden numbers showing '1,000,000+' sales, elegant star rating icons (5 gold stars), review count badges showing '100,000+' reviews, and a prominent 'TOP 1' ranking badge in premium gold and ivory white. The data visualization maintains an academic, authoritative news broadcast aesthetic rather than cheap livestream style - more like a premium annual report or luxury brand milestone announcement. The background features a sophisticated warm studio setting with soft ivory white and warm orange color scheme, accented with quality gold elements. Subtle paper texture and book-like elements reference the academic monograph aesthetic. The lighting is soft yet precise studio lighting with gentle shadows and subtle environmental reflections. The overall mood conveys authority, premium quality, and academic credibility - like a luxury brand's annual milestone report or a high-end financial news feature. Cinema 4D / Octane render quality, photorealistic CGI commercial style, 9:16 vertical composition, sharp focus on product with elegant depth of field on background elements, high-end commercial photography aesthetic, premium brand campaign quality, 8K render quality with crisp details on both product texture and data visualization elements.\" -s 1024x1536 -o /Users/a123/.openclaw/workspace/images/zhishi_storyboard_batchC_shot07.png",
+          "lastUsedAt": 1778295916470,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace/outputs/20260509-103031/prompt_redo_cover.txt --ref-style /Users/a123/.openclaw/media/inbound/26ee5459-9288-4a5d-9a03-0142b0281d58.png -s 2560x1440 -o /Users/a123/.openclaw/workspace/images/ppt_keyslide_01_cover_v3.png",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "design-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1778144288308,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260507-002/run.sh",
+          "lastUsedAt": 1778322204883,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260509-002/run.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -126,8 +126,8 @@
           "id": "design-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1778138018500,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design && python3 shot07_generator.py",
+          "lastUsedAt": 1778298872354,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && bash /Users/a123/.openclaw/workspace/outputs/ppt-projects/20260509_110900_openclaw_poster_ppt/scripts/regenerate_all_zh.sh",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -142,97 +142,322 @@
           "id": "design-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1778138018498,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images /Users/a123/.openclaw/workspace/outputs",
+          "lastUsedAt": 1778295898154,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778138632666,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/images/zhishi_storyboard_batchC_shot08.png && file /Users/a123/.openclaw/workspace/images/zhishi_storyboard_batchC_shot08.png",
+          "lastUsedAt": 1778312807820,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260509-001/",
           "lastResolvedPath": "/bin/ls"
         }
       ]
     },
     "main-shared": {
       "allowlist": [
-        { "id": "shared-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
-        { "id": "shared-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
-        { "id": "shared-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
-        { "id": "shared-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
-        { "id": "shared-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
-        { "id": "shared-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
-        { "id": "shared-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" },
-        { "id": "shared-printf", "pattern": "/usr/bin/printf", "description": "允许格式化输出" },
-        { "id": "shared-lark-cli", "pattern": "/opt/homebrew/bin/lark-cli", "description": "允许执行飞书 CLI" }
+        {
+          "id": "shared-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本",
+          "lastUsedAt": 1778313372372,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/mask-edit-localized/scripts/mask_edit_openai_compat.py --image /Users/a123/.openclaw/media/inbound/05a1411c-8baf-49a5-94ab-4d1e989c38dc.png --mask /Users/a123/.openclaw/workspace/outputs/logo_mask.png --prompt \"Replace only the masked logo area with a clean company logo that reads 'WE BURN 未本'. Use bold black uppercase sans-serif letters for 'WE BURN', followed by the Chinese text '未本' in bold black. Add a small horizontal orange-red rectangular accent integrated beneath the middle of the English word, matching a modern brand mark style. Keep the logo compact, horizontally aligned, and placed in the same position as the original logo. Preserve the light background and every other part of the poster unchanged.\" --size 2752x1536 --output /Users/a123/.openclaw/workspace/images/logo_replaced_wburn.png",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "shared-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本"
+        },
+        {
+          "id": "shared-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件",
+          "lastUsedAt": 1778311082955,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/media/inbound/c7e1da22-db3f-4d79-9892-73858d6efc59.jpg /Users/a123/.openclaw/workspace/skills/brand-poster-distiller/data/source-images/POSTER-DISTILL-P-005.jpg && python3 /Users/a123/.openclaw/workspace/skills/brand-poster-distiller/scripts/layout_analyzer.py POSTER-DISTILL-P-005",
+          "lastResolvedPath": "/bin/cp"
+        },
+        {
+          "id": "shared-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录",
+          "lastUsedAt": 1778312047825,
+          "lastUsedCommand": "mkdir -p outputs/mask_logo_swap",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录",
+          "lastUsedAt": 1778248816285,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_make_xlsx.py && ls -lh /Users/a123/.openclaw/workspace/outputs/图片转Excel_20260508.xlsx",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "shared-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容"
+        },
+        {
+          "id": "shared-printf",
+          "pattern": "/usr/bin/printf",
+          "description": "允许格式化输出"
+        },
+        {
+          "id": "shared-lark-cli",
+          "pattern": "/opt/homebrew/bin/lark-cli",
+          "description": "允许执行飞书 CLI"
+        }
       ]
     },
     "strategy-shared": {
       "allowlist": [
-        { "id": "shared-strategy-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
-        { "id": "shared-strategy-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
-        { "id": "shared-strategy-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
-        { "id": "shared-strategy-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
-        { "id": "shared-strategy-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
-        { "id": "shared-strategy-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
-        { "id": "shared-strategy-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" },
-        { "id": "shared-strategy-lark-cli", "pattern": "/opt/homebrew/bin/lark-cli", "description": "允许执行飞书 CLI" }
+        {
+          "id": "shared-strategy-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本"
+        },
+        {
+          "id": "shared-strategy-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本"
+        },
+        {
+          "id": "shared-strategy-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-strategy-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件"
+        },
+        {
+          "id": "shared-strategy-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录"
+        },
+        {
+          "id": "shared-strategy-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录"
+        },
+        {
+          "id": "shared-strategy-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容"
+        },
+        {
+          "id": "shared-strategy-lark-cli",
+          "pattern": "/opt/homebrew/bin/lark-cli",
+          "description": "允许执行飞书 CLI"
+        }
       ]
     },
     "design-shared": {
       "allowlist": [
-        { "id": "shared-design-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本（生图）" },
-        { "id": "shared-design-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
-        { "id": "shared-design-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
-        { "id": "shared-design-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
-        { "id": "shared-design-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
-        { "id": "shared-design-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
-        { "id": "shared-design-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" }
+        {
+          "id": "shared-design-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本（生图）"
+        },
+        {
+          "id": "shared-design-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本"
+        },
+        {
+          "id": "shared-design-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-design-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件"
+        },
+        {
+          "id": "shared-design-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录"
+        },
+        {
+          "id": "shared-design-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录"
+        },
+        {
+          "id": "shared-design-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容"
+        }
       ]
     },
     "video-shared": {
       "allowlist": [
-        { "id": "shared-video-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
-        { "id": "shared-video-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
-        { "id": "shared-video-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
-        { "id": "shared-video-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
-        { "id": "shared-video-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
-        { "id": "shared-video-ls", "pattern": "/bin/ls", "description": "允许列出目录" }
+        {
+          "id": "shared-video-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本"
+        },
+        {
+          "id": "shared-video-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本"
+        },
+        {
+          "id": "shared-video-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-video-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件"
+        },
+        {
+          "id": "shared-video-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录"
+        },
+        {
+          "id": "shared-video-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录"
+        }
       ]
     },
     "research-shared": {
       "allowlist": [
-        { "id": "shared-research-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
-        { "id": "shared-research-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
-        { "id": "shared-research-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
-        { "id": "shared-research-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
-        { "id": "shared-research-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
-        { "id": "shared-research-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
-        { "id": "shared-research-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" }
+        {
+          "id": "shared-research-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本"
+        },
+        {
+          "id": "shared-research-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本"
+        },
+        {
+          "id": "shared-research-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-research-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件"
+        },
+        {
+          "id": "shared-research-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录"
+        },
+        {
+          "id": "shared-research-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录"
+        },
+        {
+          "id": "shared-research-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容"
+        }
       ]
     },
     "copywriter-shared": {
       "allowlist": [
-        { "id": "shared-copywriter-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
-        { "id": "shared-copywriter-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
-        { "id": "shared-copywriter-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
-        { "id": "shared-copywriter-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
-        { "id": "shared-copywriter-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
-        { "id": "shared-copywriter-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
-        { "id": "shared-copywriter-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" }
+        {
+          "id": "shared-copywriter-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本"
+        },
+        {
+          "id": "shared-copywriter-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本"
+        },
+        {
+          "id": "shared-copywriter-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-copywriter-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件"
+        },
+        {
+          "id": "shared-copywriter-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录"
+        },
+        {
+          "id": "shared-copywriter-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录"
+        },
+        {
+          "id": "shared-copywriter-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容"
+        }
       ]
     },
     "meeting-analyst-shared": {
       "allowlist": [
-        { "id": "shared-meeting-python", "pattern": "/usr/bin/python3", "description": "允许执行 Python 脚本" },
-        { "id": "shared-meeting-bash", "pattern": "/bin/bash", "description": "允许执行 bash 脚本" },
-        { "id": "shared-meeting-sh", "pattern": "/bin/sh", "description": "允许执行 sh 命令" },
-        { "id": "shared-meeting-cp", "pattern": "/bin/cp", "description": "允许复制文件" },
-        { "id": "shared-meeting-mkdir", "pattern": "/bin/mkdir", "description": "允许创建目录" },
-        { "id": "shared-meeting-ls", "pattern": "/bin/ls", "description": "允许列出目录" },
-        { "id": "shared-meeting-cat", "pattern": "/bin/cat", "description": "允许读取文件内容" }
+        {
+          "id": "shared-meeting-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本"
+        },
+        {
+          "id": "shared-meeting-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本"
+        },
+        {
+          "id": "shared-meeting-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-meeting-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件",
+          "lastUsedAt": 1778251052553,
+          "lastUsedCommand": "mkdir -p outputs/raw && cp \"/Users/a123/.openclaw/media/inbound/é_è_ä¼_è---2f08c556-96c9-47f8-a507-218612ba737e.pdf\" outputs/raw/未本咨询_会议纪要_20260508.pdf && ls -la outputs/raw/",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-meeting-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录",
+          "lastUsedAt": 1778251052552,
+          "lastUsedCommand": "mkdir -p outputs/raw && cp \"/Users/a123/.openclaw/media/inbound/é_è_ä¼_è---2f08c556-96c9-47f8-a507-218612ba737e.pdf\" outputs/raw/未本咨询_会议纪要_20260508.pdf && ls -la outputs/raw/",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-meeting-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录",
+          "lastUsedAt": 1778251052554,
+          "lastUsedCommand": "mkdir -p outputs/raw && cp \"/Users/a123/.openclaw/media/inbound/é_è_ä¼_è---2f08c556-96c9-47f8-a507-218612ba737e.pdf\" outputs/raw/未本咨询_会议纪要_20260508.pdf && ls -la outputs/raw/",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-meeting-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容"
+        }
       ]
     }
   }

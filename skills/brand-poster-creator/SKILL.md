@@ -485,10 +485,11 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/assemble_promp
 
 **进入 Step 7 前必须满足以下条件**：
 - `prompt_draft.md` 已生成
-- `ref_order.json` 已生成
+- `ref_order.json` 已生成，且其中所有 `path` 都必须是**绝对路径**
 - 若 `hero_priority.hero_1` 明确为“产品”，则 `brief.json.assets.product` 必须存在且不可为空
 - 若同时存在 `assets.product` 与 `assets.ip`，两者路径不得相同
 - 若脚本报告参考图角色冲突，必须先回到素材确认/修正，不得继续生图
+- `ref_order.json` 中每个参考图路径对应的文件都必须真实存在，缺任意一个都不得进入生图
 
 **禁止规则**：
 - 脚本输出即为最终 prompt，main agent **不得手动追加、修改、拼接任何内容**到 prompt_draft.md
@@ -510,83 +511,12 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/assemble_promp
 
 ```bash
 #!/bin/bash
-# 项目目录下：/Users/a123/.openclaw/workspace/brand-poster-projects/[任务ID]/run.sh
 set -euo pipefail
 
 PROJECT_DIR="/Users/a123/.openclaw/workspace/brand-poster-projects/[任务ID]"
-GEN_SCRIPT="/Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py"
-LOG_DIR="${PROJECT_DIR}/logs"
-RESULT_JSON="${PROJECT_DIR}/generation_result.json"
-OUTPUT_FILE="${PROJECT_DIR}/images/final_poster.png"
-mkdir -p "${LOG_DIR}"
+EXEC_SCRIPT="/Users/a123/.openclaw/skills/brand-poster-creator/scripts/execute_generation.py"
 
-# 从 ref_order.json 读取参考图顺序（与 prompt 中的编号严格对应）
-REFS=$(PROJECT_DIR="${PROJECT_DIR}" python3 - <<'PY'
-import json, os, shlex
-from pathlib import Path
-
-project_dir = Path(os.environ['PROJECT_DIR'])
-order = json.loads((project_dir / 'ref_order.json').read_text(encoding='utf-8'))['ref_order']
-args = []
-for r in order:
-    role = r['role']
-    path = shlex.quote(r['path'])
-    if role == 'style_ref':
-        args.append(f'--ref-style {path}')
-    elif role == 'skeleton':
-        args.append(f'--reference {path}')
-    elif role == 'product':
-        args.append(f'--ref-product {path}')
-    elif role == 'ip':
-        args.append(f'--ref-ip {path}')
-    elif role == 'logo':
-        args.append(f'--ref-logo {path}')
-    else:
-        raise SystemExit(f'未知参考图角色: {role}')
-print(' '.join(args))
-PY
-)
-
-set +e
-# shellcheck disable=SC2086
-python3 "${GEN_SCRIPT}" \
-  --prompt-file "${PROJECT_DIR}/prompt_draft.md" \
-  ${REFS} \
-  --output "${OUTPUT_FILE}" \
-  --size [像素尺寸] \
-  --aspect [比例] \
-  --model gpt-image-2-pro \
-  >"${LOG_DIR}/generate.stdout.log" 2>"${LOG_DIR}/generate.stderr.log"
-status=$?
-set -e
-
-PROJECT_DIR="${PROJECT_DIR}" RESULT_JSON="${RESULT_JSON}" OUTPUT_FILE="${OUTPUT_FILE}" STATUS="${status}" python3 - <<'PY'
-import json, os
-from pathlib import Path
-
-project_dir = Path(os.environ['PROJECT_DIR'])
-result_path = Path(os.environ['RESULT_JSON'])
-output_path = Path(os.environ['OUTPUT_FILE'])
-stderr_path = project_dir / 'logs' / 'generate.stderr.log'
-stdout_path = project_dir / 'logs' / 'generate.stdout.log'
-status = int(os.environ['STATUS'])
-exists = output_path.exists()
-size = output_path.stat().st_size if exists else 0
-error = stderr_path.read_text(encoding='utf-8', errors='ignore')[-4000:] if stderr_path.exists() else ''
-result = {
-    'ok': status == 0 and exists and size > 0,
-    'exit_code': status,
-    'output': str(output_path),
-    'exists': exists,
-    'size': size,
-    'stdout_log': str(stdout_path),
-    'stderr_log': str(stderr_path),
-    'error': error,
-}
-result_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
-if not result['ok']:
-    raise SystemExit(status or 1)
-PY
+python3 "${EXEC_SCRIPT}" --project-dir "${PROJECT_DIR}" --size 2160x3840 --aspect 9:16 --model gpt-image-2-pro
 ```
 
 **注意**：
@@ -651,12 +581,37 @@ PY
 
 ## Step 8：发送成品图 → 用户确认
 
-仅当 `generation_result.json.ok=true` 且成品文件真实存在后，才将成品图发送给用户确认：
+仅当 `generation_result.json.ok=true` 且成品文件真实存在后，才将成品图发送给用户确认。
+
+在发送前，main 必须先执行：
+
+```bash
+python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/prepare_feishu_delivery.py \
+  --project-dir /Users/a123/.openclaw/workspace/brand-poster-projects/[任务ID]
+```
+
+该脚本会产出：
+- `/Users/a123/.openclaw/workspace/brand-poster-projects/[任务ID]/delivery_manifest.json`
+- 交付目录中的预览图 / 原图副本 / 原图 zip（按大小条件分流）
+
+发送规则：
+1. 先读取 `delivery_manifest.json`
+2. 若 `delivery_mode=direct_image`：
+   - 直接发送 `deliverables.original_copy.path`
+3. 若 `delivery_mode=preview_and_zip`：
+   - 只发送 `deliverables.preview_image.path` 供飞书预览
+   - 明确告诉用户：当前发送的是压缩预览图，原始高清图已保留，后续修改将继续使用原图，不会基于预览图反复压缩
+   - 用户确认定稿后，再发送 `deliverables.original_zip.path` 作为原图交付包
+4. 任何“局部修改”“继续调整”“重新生成”都必须继续引用 `edit_source_image` 指向的原图，不得把 preview 图当作修改输入
+
+给用户的话术：
 
 ```markdown
 🎉 **海报已生成**
 
-[发送成品图片]
+- 若当前收到的是原图：可直接按原清晰度确认
+- 若当前收到的是预览图：这是为适配飞书大小限制自动生成的压缩预览，原始高清图已保留；若你确认定稿，我再把原图 zip 包发给你
+- 后续如需局部修改，我会继续基于原图处理，不会使用压缩预览图反复修改
 
 请确认：
 - 文案位置是否正确
@@ -664,7 +619,7 @@ PY
 - 整体视觉效果是否满意
 
 请选择：
-- 「确认定稿」→ 完成
+- 「确认定稿」→ 完成；若当前为预览图，再补发原图 zip
 - 「局部修改 [具体描述]」→ 调整后重新生图
 ```
 
@@ -692,16 +647,18 @@ PY
 
 用户选择「是，清理」时：
 
-1. 将 `images/final_poster.png` 复制到用户的交付目录（如 `/Users/a123/.openclaw/workspace/feishu-deliver/`）
-2. 删除项目目录下除 `final_poster.png` 外的所有文件：
+1. 若存在 `delivery_manifest.json`，优先以其中记录的交付物为准
+2. 将 `images/final_poster.png` 或 `delivery_manifest.json.deliverables.original_copy.path` 对应文件保留到交付目录
+3. 若用户已确认定稿且当前任务走过大图预览链路，可保留 `deliverables.original_zip.path` 作为最终原图交付包
+4. 删除项目目录下除 `final_poster.png` 外的所有文件：
    - `images/skeleton.png`
    - `images/style_ref_*.png`
    - `images/product.png`
    - `images/logo.png`
    - `prompt_draft.md`
    - `distill_card.json`（仅删除本地副本，不删除蒸馏卡原始文件）
-3. 保留 `brief.json` 和 `copywriting.json`（用于日后追溯）
-4. 在 `cleanup_manifest.json` 中记录已清理的文件清单
+5. 保留 `brief.json`、`copywriting.json`、`generation_result.json`、`delivery_manifest.json`（用于追溯）
+6. 在 `cleanup_manifest.json` 中记录已清理的文件清单
 
 **使用 `trash` 命令进行删除，不使用 `rm`。**
 

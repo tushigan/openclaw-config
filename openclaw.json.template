@@ -227,6 +227,7 @@
             "message",
             "multi_search",
             "multi_search_engine",
+            "gpt-image2-gen",
             "ppt-workflow",
             "brand-poster-workflow",
             "network_memory_detail",
