@@ -78,6 +78,8 @@ identity/
 feishu/
 agents/*/sessions/
 memory/*.sqlite
+memory/*.sqlite-shm
+memory/*.sqlite-wal
 tasks/
 
 # 跟踪 subagents 注册表
