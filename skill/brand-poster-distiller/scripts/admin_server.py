@@ -506,6 +506,22 @@ class Handler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         body = safe_read_body(self)
 
+        if path.startswith('/api/admin/users/'):
+            admin, _ = require_user(self, roles={'admin'})
+            if not admin:
+                return
+            username = unquote(path.split('/api/admin/users/', 1)[1])
+            role = (body.get('role') or '').strip()
+            if role not in {'admin', 'editor', 'viewer', 'pending'}:
+                return json_response(self, 400, {'ok': False, 'error': 'INVALID_ROLE'})
+            users_data = load_users()
+            for user in users_data.get('users', []):
+                if user.get('username') == username:
+                    user['role'] = role
+                    save_users(users_data)
+                    return json_response(self, 200, {'ok': True})
+            return json_response(self, 404, {'ok': False, 'error': 'USER_NOT_FOUND'})
+
         if path.startswith('/api/card/') and '/layout' in path:
             user, _ = require_user(self, roles={'admin', 'editor'})
             if not user:

@@ -1,10 +1,10 @@
 ---
 name: brand-poster-distiller
-version: 3.2
+version: 3.5
 description: 用于把参考海报蒸馏为可复用的版式结构（骨架图+坐标表），并配套本地蒸馏库网页进行查看、搜索、筛选、编辑与按 ID 调用。
 ---
 
-# 品牌海报版式蒸馏专家（v3.2）
+# 品牌海报版式蒸馏专家（v3.5）
 
 ## 何时使用
 当用户要你做这些事时使用：
@@ -17,7 +17,7 @@ description: 用于把参考海报蒸馏为可复用的版式结构（骨架图+
 
 ## 版式蒸馏工作流
 1. 用户提供参考海报图片
-2. 创建新的蒸馏卡（v3.2 精简格式），包含 id / title / source_images
+2. 创建新的蒸馏卡（v3.5 精简格式），包含 id / title / source_images
 3. 运行 `layout_analyzer.py` 对海报进行 AI 版式分析，生成骨架图和元素坐标表
 4. 用户可在网页端通过通过拖拽画布或编辑表格微调坐标
 5. 保存后本地卡片即为最终版式锁定数据
@@ -49,11 +49,11 @@ description: 用于把参考海报蒸馏为可复用的版式结构（骨架图+
 - ❌ "小白心里软端午海报"（带入品牌名，版式不应绑定具体品牌）
 
 ## 新蒸馏卡创建步骤
-1. 生成卡片 JSON（v3.2 精简格式），保存到 `cards/` 目录：
+1. 生成卡片 JSON（v3.5 精简格式），保存到 `cards/` 目录：
    - `id`：格式 `POSTER-DISTILL-P-XXX`
    - `title`：中文标题，描述版式类型（如"红底年节装饰型产品海报"）
    - `status`：初始为 `"pending_analysis"`
-   - `distill_version`：`"v3.2"`
+   - `distill_version`：`"v3.5"`
    - `source_images`：海报图片相对路径数组，**必须存放在 `data/source-images/` 目录下**，格式如 `data/source-images/POSTER-DISTILL-P-XXX.png`。禁止使用其他目录
    - `layout_analysis`：初始化为 pending 状态（空 elements/copy_planning_guide/negative_constraints）
 2. 更新 `library-index.json`，将新卡片加入 cards 数组
@@ -79,9 +79,9 @@ lsof -ti:8766 | xargs kill
 - 本地：http://127.0.0.1:8766/site/index.html
 - 远程（通过 frp）：http://39.108.54.123:20000/site/index.html
 
-## 版式卡片数据格式（v3.2）
+## 版式卡片数据格式（v3.5）
 每张卡片包含以下字段，**不生成 slug/subtitle/thumb/tags/summary 等冗余字段**：
-- 基础信息：id, title, status, distill_version("v3.2")
+- 基础信息：id, title, status, distill_version("v3.5")
 - 图片来源：source_images（数组，相对路径，**统一存放在 `data/source-images/` 目录下**）
 - 版式分析结果：layout_analysis（骨架图路径 + 元素坐标表 + 文案策划指南 + 负面约束）
 
