@@ -763,6 +763,11 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/assemble_promp
 
 生图任务由 main 在主会话完成全部策划和脚本编写，子 agent 只负责执行脚本并等待结果。**不要把 prompt、参考图信息、蒸馏卡数据等塞进子 agent 任务描述。**
 
+**强制约束**：
+- main 先把生图所需决策全部固化到 `prompt_draft.md`、`ref_order.json`、`run.sh`、`generation_result.json` 约定结构中
+- design subagent 视为**执行器**，不是策划者；不得自行补全需求、重写 prompt、调整参考图顺序、改动模型参数或解释项目背景
+- 如执行中发现缺文件、参数冲突、输出异常，子 agent 只返回失败事实与结果文件路径，由 main 回到上一阶段修复后再重派，不得让子 agent 临场自行决策
+
 ### 7.1 main 先写好生图脚本
 
 在派发子 agent 之前，main 必须先写好 `run.sh` 到项目目录：
