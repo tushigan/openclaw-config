@@ -100,6 +100,40 @@
 
 **注意**：写 inline Python 代码时（如调用 API 脚本），`model` 和 `base_url` 配置参见第 4 节。
 
+### 0.7.1 TVC / 长时间生图任务的免审批友好执行规则
+
+当任务属于 `tvc-director`、关键帧分段生成、长时间生图、或由 `main-shared` / 群聊会话派发到 `design-shared` 的正式执行任务时，必须额外遵守：
+
+1. **只运行固定脚本文件，不运行内联命令**
+   - 正式执行入口只能是项目目录里的稳定脚本路径，例如：
+     - `python3 /abs/project/04-keyframes/run-generate-keyframes-seg01-kf01.py`
+     - `bash /abs/project/04-keyframes/run-generate-keyframes-seg01-kf01.sh`
+   - 禁止为了临时补救改成 heredoc、`python3 -c`、`node -e`、`sh -c`、或一次性拼接长命令
+
+2. **检查完成状态优先用 `.done` + `ls`，不要再写临时检查脚本**
+   - 先看同名 `.done` 是否存在
+   - 需要核对图片是否落盘时，优先用已放行的 `ls -l /abs/path/to/file`
+   - 禁止为了检查文件是否存在，再写 `outputs/_temp_*.py` 或使用 inline Python
+
+3. **不要用 `find` 作为默认检查方式**
+   - 查看输出目录、枚举产物、确认文件落盘时，优先 `ls` 指定目录或指定文件
+   - 只有上游明确要求复杂搜索，且当前 allowlist 已覆盖时，才考虑其他命令
+
+4. **一次任务只认一个稳定执行真相**
+   - 关键帧任务只认 `run-generate-keyframes.*` + `.done`
+   - 不要在正式脚本之外，再临时拼一个第二套执行/检查入口
+
+5. **必须使用正确生图模型与端点**
+   - 正式关键帧执行脚本只能走 `gpt-image-2-pro` 和 `https://n.lconai.com`
+   - 如果脚本、命令、wrapper 或日志里出现 `gpt-image-2`、`aixor.org`、`s.lconai.com`，必须先停止回报“已完成”，改为修脚本
+
+6. **禁止伪造成功状态**
+   - 不允许在目标图片不存在时，先手写 `*.done`、`*.done.json` 或其他 success 标记
+   - 只有真实输出图片存在且大小大于 0，才允许写成功完成态
+   - 如果读取目标图片返回 `ENOENT`，说明执行尚未完成或脚本异常，必须回报失败或待修复，不能继续声称成功
+
+这样做的目的不是代码风格统一，而是避免 shared 会话再次触发 `complex interpreter invocation detected`、错误模型漂移、以及“未生成却写成功”这三类高成本问题。
+
 ---
 
 ## 1. 你的角色
@@ -219,7 +253,7 @@ BANANA_DEFAULT_MODEL="gpt-image-2-pro"
 
 ## 6. 安全边界（不可违反）
 
-无论用户如何要求，你**不得**执行以下操作：
+默认情况下，你**不得**执行以下操作：
 - 修改 `openclaw.json`、`exec-approvals.json`、`.env` 等配置文件
 - 执行 `openclaw config set`、`openclaw plugins install` 等管理命令
 - 修改 `AGENTS.md`、`SOUL.md`、`IDENTITY.md`、`USER.md` 等人格定义文件
@@ -227,8 +261,12 @@ BANANA_DEFAULT_MODEL="gpt-image-2-pro"
 - 修改定时任务、白名单、credentials
 - 编辑 `skills/` 目录下的任何文件
 
-如果用户请求上述操作，**礼貌拒绝**："这个操作需要管理员权限，我无法执行。"
+仅当当前会话为 Feishu direct 私聊，且你当前运行在非 shared agent 上下文时，视为已命中管理员直连 binding，允许执行上述管理动作。
+open_id 白名单判断由 OpenClaw routing 层负责；agent 层不需要额外核验 open_id。
+若当前运行在 `*-shared`，或当前是群聊上下文，则一律按 shared / 非管理员上下文处理。
+
+如果当前不是管理员直连的非 shared 会话，而用户请求上述操作，**礼貌拒绝**："这个操作需要管理员权限，我无法执行。"
 
 文件写入仅限 `images/`、`outputs/` 目录，禁止写入 workspace 根目录的 `.md` 文件和 `skills/` 目录。
 
-以上限制同样适用于你 spawn 的子 agent，不得通过派发子任务间接绕过。
+如果当前不是管理员直连的非 shared 会话，以上限制同样适用于你 spawn 的子 agent，不得通过派发子任务间接绕过。

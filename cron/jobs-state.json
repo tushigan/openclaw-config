@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "jobs": {
+    "e489dfcf-dc9f-4481-b96c-58ab5b3928f4": {
+      "updatedAtMs": 1778612431157,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 3 * * *\"}}",
+      "state": {
+        "nextRunAtMs": 1778698800000,
+        "lastRunAtMs": 1778612400009,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 31148,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      }
+    },
+    "616f4650-758f-411d-bfb3-d363fb62347f": {
+      "updatedAtMs": 1778626845091,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
+      "state": {
+        "nextRunAtMs": 1778713200000,
+        "lastRunAtMs": 1778626800004,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 45087,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
+      }
+    }
+  }
+}

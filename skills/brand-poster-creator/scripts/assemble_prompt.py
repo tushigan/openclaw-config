@@ -18,6 +18,12 @@ import os
 import sys
 from pathlib import Path
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from project_manager import ProjectManager
+
 DISTILLER_ROOT = Path('/Users/a123/.openclaw/workspace/skills/brand-poster-distiller')
 DISTILLER_SCRIPTS_DIR = DISTILLER_ROOT / 'scripts'
 if str(DISTILLER_SCRIPTS_DIR) not in sys.path:
@@ -446,24 +452,44 @@ def validate_ref_roles(brief, refs, ref_roles):
     return issues
 
 
-def assemble_hero_priority(brief):
-    """组装视觉权力结构 — 只保留纯视觉指令，无工作流术语。"""
-    hero = brief.get("hero_priority", {})
-    if not hero:
+def build_creative_direction_block(creative_direction):
+    if not creative_direction:
         return ""
-    lines = []
-    hero1 = hero.get("hero_1", "")
-    hero2 = hero.get("hero_2", "")
-    forbidden = hero.get("forbidden_hero", "")
-    if hero1:
-        lines.append(f"- 画面绝对主角：{hero1}，占据画面主导地位")
-    if hero2:
-        lines.append(f"- 陪衬元素：{hero2}，不喧宾夺主，不占主位")
-    if forbidden:
-        lines.append(f"- 禁止作为主视觉：{forbidden}，不得在画面中作为突出元素出现")
-    if not lines:
+
+    lines = ["== 画面创意表达锚点 =="]
+
+    summary = str(creative_direction.get("summary", "") or "").strip()
+    scene_concept = str(creative_direction.get("scene_concept", "") or "").strip()
+    hero_focus = str(creative_direction.get("hero_focus", "") or "").strip()
+    supporting_elements = creative_direction.get("supporting_elements", []) or []
+    composition_plan = str(creative_direction.get("composition_plan", "") or "").strip()
+    text_visual_relationship = str(creative_direction.get("text_visual_relationship", "") or "").strip()
+    style_translation = str(creative_direction.get("style_translation", "") or "").strip()
+    must_hit = creative_direction.get("must_hit", []) or []
+    must_avoid = creative_direction.get("must_avoid", []) or []
+
+    if summary:
+        lines.append(f"核心表达：{summary}")
+    if scene_concept:
+        lines.append(f"场景概念：{scene_concept}")
+    if hero_focus:
+        lines.append(f"主视觉焦点：{hero_focus}")
+    if supporting_elements:
+        lines.append("氛围陪衬：" + "；".join(str(item).strip() for item in supporting_elements if str(item).strip()))
+    if composition_plan:
+        lines.append(f"构图关系：{composition_plan}")
+    if text_visual_relationship:
+        lines.append(f"文案与画面关系：{text_visual_relationship}")
+    if style_translation:
+        lines.append(f"风格转译：{style_translation}")
+    if must_hit:
+        lines.append("必须打中的表达要点：" + "；".join(str(item).strip() for item in must_hit if str(item).strip()))
+    if must_avoid:
+        lines.append("必须避免的表达偏差：" + "；".join(str(item).strip() for item in must_avoid if str(item).strip()))
+
+    if len(lines) == 1:
         return ""
-    return "== 视觉权力结构 ==\n" + "\n".join(lines)
+    return "\n".join(lines)
 
 
 def describe_element(el, copywriting, refs, image_paths, brief=None, style_profile=None):
@@ -584,7 +610,7 @@ def describe_element(el, copywriting, refs, image_paths, brief=None, style_profi
         return f"{header}\n{el_name}元素，按主题风格自然放置。"
 
 
-def validate_prompt(prompt, distill, copywriting):
+def validate_prompt(prompt, distill, copywriting, creative_direction=None):
     """校验 assembled prompt 质量。"""
     issues = []
 
@@ -607,6 +633,17 @@ def validate_prompt(prompt, distill, copywriting):
             if text and text not in prompt:
                 issues.append(f"元素 {el_id} 的文案「{text}」未在 prompt 中出现")
 
+    if creative_direction:
+        summary = str(creative_direction.get("summary", "") or "").strip()
+        hero_focus = str(creative_direction.get("hero_focus", "") or "").strip()
+        composition_plan = str(creative_direction.get("composition_plan", "") or "").strip()
+        if not summary:
+            issues.append("creative_direction 缺少 summary，无法锚定整张图的核心表达")
+        if not hero_focus:
+            issues.append("creative_direction 缺少 hero_focus，无法锚定主视觉焦点")
+        if not composition_plan:
+            issues.append("creative_direction 缺少 composition_plan，无法锚定构图关系")
+
     if len(prompt) < 200:
         issues.append(f"prompt 过短（{len(prompt)} 字符），可能缺失关键信息")
     if len(prompt) > 7000:
@@ -615,13 +652,17 @@ def validate_prompt(prompt, distill, copywriting):
     return issues
 
 
-def assemble_prompt(brief, distill, copywriting, refs, style_profile=None):
+def assemble_prompt(brief, distill, copywriting, refs, style_profile=None, creative_direction=None):
     """主组装逻辑。"""
     blocks = []
     style_profile = sanitize_style_profile(style_profile, brief)
 
     ratio = brief.get("ratio", "2:3")
     blocks.append(f"这是一张{get_ratio_label(ratio)}的满版品牌海报。画面采用 100% 宽高画布。")
+
+    creative_block = build_creative_direction_block(creative_direction)
+    if creative_block:
+        blocks.append(creative_block)
 
     if style_profile:
         style_lines = ["== 画面风格调性 =="]
@@ -747,20 +788,51 @@ def main():
     parser.add_argument("--copywriting", default="", help="copywriting.json 路径（可选）")
     parser.add_argument("--refs", default="", help="references.json 路径（可选，如不提供则从 brief.json 的 assets 字段读取）")
     parser.add_argument("--style-profile", default="", help="style_profile.json 路径（可选，参考图风格提炼结果）")
+    parser.add_argument("--creative-direction", default="", help="creative_direction.json 路径（可选，画面创意表达方案）")
     parser.add_argument("--output", required=True, help="输出 prompt_draft.md 路径")
     args = parser.parse_args()
 
+    output_path = Path(args.output).resolve()
+    project_dir = output_path.parent
+    manager = ProjectManager(project_dir)
+    attempt = manager.start_stage('prompt', reason='组装生图 prompt', actor='assemble_prompt.py')
+
     brief = load_json(args.brief)
     if not brief:
-        print(f"ERROR: 无法读取 brief.json: {args.brief}")
+        error = f"无法读取 brief.json: {args.brief}"
+        manager.fail_stage(
+            'prompt',
+            error=error,
+            actor='assemble_prompt.py',
+            manifest_payload={
+                'status': 'failed',
+                'attempt': attempt,
+                'error_summary': error,
+                'brief_path': str(Path(args.brief).resolve()),
+                'distill_path': str(Path(args.distill).resolve()) if args.distill else '',
+                'copywriting_path': str(Path(args.copywriting).resolve()) if args.copywriting else '',
+                'style_profile_path': str(Path(args.style_profile).resolve()) if args.style_profile else '',
+                'creative_direction_path': str(Path(args.creative_direction).resolve()) if args.creative_direction else '',
+                'output_path': str(output_path),
+                'ref_order_path': str(project_dir / 'ref_order.json'),
+                'user_confirmed': False,
+                'history': [{
+                    'ts': manager.state['updated_at'],
+                    'event': 'prompt_assembly_failed',
+                    'reason': error,
+                }],
+            },
+            files=['prompt_manifest.json'],
+        )
+        print(f"ERROR: {error}")
         sys.exit(1)
 
     distill = load_json(args.distill) if args.distill else None
     copywriting = load_json(args.copywriting) if args.copywriting else None
     style_profile = load_json(args.style_profile) if args.style_profile else None
+    creative_direction = load_json(args.creative_direction) if args.creative_direction else None
 
     refs = {}
-    project_dir = Path(args.output).resolve().parent
     if args.refs and os.path.exists(args.refs):
         with open(args.refs, "r", encoding="utf-8") as f:
             refs = json.load(f)
@@ -797,22 +869,81 @@ def main():
 
     refs = normalize_refs(refs, project_dir)
 
-    prompt, image_paths, ref_roles = assemble_prompt(brief, distill, copywriting, refs, style_profile=style_profile)
+    prompt, image_paths, ref_roles = assemble_prompt(
+        brief,
+        distill,
+        copywriting,
+        refs,
+        style_profile=style_profile,
+        creative_direction=creative_direction,
+    )
 
     role_issues = validate_ref_roles(brief, refs, ref_roles)
     if role_issues:
+        error = '；'.join(role_issues)
+        manager.fail_stage(
+            'prompt',
+            error=error,
+            actor='assemble_prompt.py',
+            manifest_payload={
+                'status': 'failed',
+                'attempt': attempt,
+                'error_summary': error,
+                'brief_path': str(Path(args.brief).resolve()),
+                'distill_path': str(Path(args.distill).resolve()) if args.distill else '',
+                'copywriting_path': str(Path(args.copywriting).resolve()) if args.copywriting else '',
+                'style_profile_path': str(Path(args.style_profile).resolve()) if args.style_profile else '',
+                'creative_direction_path': str(Path(args.creative_direction).resolve()) if args.creative_direction else '',
+                'output_path': str(output_path),
+                'ref_order_path': str(project_dir / 'ref_order.json'),
+                'user_confirmed': False,
+                'history': [{
+                    'ts': manager.state['updated_at'],
+                    'event': 'prompt_assembly_failed',
+                    'reason': error,
+                }],
+            },
+            files=['prompt_manifest.json'],
+            extra={'role_issues': role_issues},
+        )
         print("ERROR: 参考图角色校验失败:")
         for issue in role_issues:
             print(f"  - {issue}")
         sys.exit(1)
 
-    issues = validate_prompt(prompt, distill, copywriting)
+    issues = validate_prompt(prompt, distill, copywriting, creative_direction=creative_direction)
     if issues:
+        error = '；'.join(issues)
+        manager.fail_stage(
+            'prompt',
+            error=error,
+            actor='assemble_prompt.py',
+            manifest_payload={
+                'status': 'failed',
+                'attempt': attempt,
+                'error_summary': error,
+                'brief_path': str(Path(args.brief).resolve()),
+                'distill_path': str(Path(args.distill).resolve()) if args.distill else '',
+                'copywriting_path': str(Path(args.copywriting).resolve()) if args.copywriting else '',
+                'style_profile_path': str(Path(args.style_profile).resolve()) if args.style_profile else '',
+                'creative_direction_path': str(Path(args.creative_direction).resolve()) if args.creative_direction else '',
+                'output_path': str(output_path),
+                'ref_order_path': str(project_dir / 'ref_order.json'),
+                'user_confirmed': False,
+                'history': [{
+                    'ts': manager.state['updated_at'],
+                    'event': 'prompt_assembly_failed',
+                    'reason': error,
+                }],
+            },
+            files=['prompt_manifest.json'],
+            extra={'validation_issues': issues},
+        )
         print("WARNING: 校验发现问题:")
         for issue in issues:
             print(f"  - {issue}")
+        sys.exit(1)
 
-    output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(prompt, encoding="utf-8")
     print(f"OK: prompt 已写入 {output_path}")
@@ -826,8 +957,39 @@ def main():
     ref_order_path.write_text(json.dumps(ref_order_data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"  ref_order.json 已写入 {ref_order_path}")
 
-    if issues:
-        sys.exit(1)
+    manager.complete_stage(
+        'prompt',
+        reason='Prompt 与参考图顺序已生成，等待用户确认生图。',
+        actor='assemble_prompt.py',
+        manifest_payload={
+            'status': 'generated',
+            'attempt': attempt,
+            'brief_path': str(Path(args.brief).resolve()),
+            'distill_path': str(Path(args.distill).resolve()) if args.distill else '',
+            'copywriting_path': str(Path(args.copywriting).resolve()) if args.copywriting else '',
+            'style_profile_path': str(Path(args.style_profile).resolve()) if args.style_profile else '',
+            'creative_direction_path': str(Path(args.creative_direction).resolve()) if args.creative_direction else '',
+            'output_path': str(output_path),
+            'ref_order_path': str(ref_order_path),
+            'reference_count': len(image_paths),
+            'reference_roles': ref_roles,
+            'validation_issues': [],
+            'user_confirmed': False,
+            'history': [{
+                'ts': manager.state['updated_at'],
+                'event': 'prompt_assembled',
+                'reference_count': len(image_paths),
+            }],
+        },
+        flags={'prompt_ready': True},
+        artifacts={
+            'prompt': str(output_path),
+            'ref_order': str(ref_order_path),
+        },
+        files=[manager._relative(output_path), manager._relative(ref_order_path)],
+        extra={'reference_count': len(image_paths)},
+    )
+
     sys.exit(0)
 
 

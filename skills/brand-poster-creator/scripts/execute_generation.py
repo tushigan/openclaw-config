@@ -10,6 +10,12 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from project_manager import ProjectManager
+
 TARGET_SCRIPT = Path('/Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py')
 ROLE_TO_FLAG = {
     'style_ref': '--ref-style',
@@ -173,6 +179,7 @@ def main() -> int:
     project_dir = Path(args.project_dir).resolve()
     log_dir = project_dir / 'logs'
     log_dir.mkdir(parents=True, exist_ok=True)
+    manager = ProjectManager(project_dir)
 
     result_path = project_dir / 'generation_result.json'
     prompt_path = project_dir / 'prompt_draft.md'
@@ -181,6 +188,7 @@ def main() -> int:
     ref_order_path = project_dir / 'ref_order.json'
 
     attempt = next_attempt(log_dir)
+    manager.start_stage('generation', reason='执行海报生图脚本', actor='execute_generation.py', attempt=attempt)
     stdout_log = log_dir / f'generate.attempt-{attempt:02d}.stdout.log'
     stderr_log = log_dir / f'generate.attempt-{attempt:02d}.stderr.log'
     started_at = utc_now()
@@ -200,6 +208,13 @@ def main() -> int:
             'error': f'generator not found: {TARGET_SCRIPT}',
         })
         write_json(result_path, base)
+        manager.fail_stage(
+            'generation',
+            error=base['error'],
+            actor='execute_generation.py',
+            manifest_payload=base,
+            files=[manager._relative(result_path)],
+        )
         print(base['error'], file=sys.stderr)
         return 1
 
@@ -239,6 +254,14 @@ def main() -> int:
             'error': '\n'.join(errors),
         })
         write_json(result_path, payload)
+        manager.fail_stage(
+            'generation',
+            error=payload['error'],
+            actor='execute_generation.py',
+            manifest_payload=payload,
+            files=[manager._relative(result_path)],
+            extra={'required_files': required_files},
+        )
         print(payload['error'], file=sys.stderr)
         return 1
 
@@ -267,6 +290,14 @@ def main() -> int:
             'ok': False,
         })
         write_json(result_path, payload)
+        manager.fail_stage(
+            'generation',
+            error=stderr_tail or f'生图命令执行失败，退出码 {proc.returncode}',
+            actor='execute_generation.py',
+            manifest_payload=payload,
+            files=[manager._relative(result_path), manager._relative(stdout_log), manager._relative(stderr_log)],
+            extra={'exit_code': proc.returncode},
+        )
         return proc.returncode or 1
 
     if not exists or size <= 0:
@@ -277,14 +308,33 @@ def main() -> int:
             'error': stderr_tail or f'输出文件缺失或为空: {output_path}',
         })
         write_json(result_path, payload)
+        manager.fail_stage(
+            'generation',
+            error=payload['error'],
+            actor='execute_generation.py',
+            manifest_payload=payload,
+            files=[manager._relative(result_path), manager._relative(stdout_log), manager._relative(stderr_log)],
+        )
         return 1
 
     payload.update({
         'status': 'succeeded',
-        'phase': 'success',
+        'phase': 'generated',
+        'generation_status': 'generated',
+        'delivery_status': 'not_attempted',
         'ok': True,
     })
     write_json(result_path, payload)
+    manager.complete_stage(
+        'generation',
+        reason='海报已生成成功，下一步可进入交付准备。',
+        actor='execute_generation.py',
+        manifest_payload=payload,
+        flags={'generation_ready': True},
+        artifacts={'generation': str(result_path)},
+        files=[manager._relative(result_path), manager._relative(stdout_log), manager._relative(stderr_log), manager._relative(output_path)],
+        extra={'output_size': size, 'exit_code': proc.returncode},
+    )
     return 0
 
 

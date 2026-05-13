@@ -7,33 +7,27 @@
       "description": "[managed-by=memory-core.short-term-promotion] Promote weighted short-term recalls into MEMORY.md (limit=10, minScore=0.800, minRecallCount=3, minUniqueQueries=3, recencyHalfLifeDays=14, maxAgeDays=30).",
       "enabled": true,
       "createdAtMs": 1775702460323,
-      "updatedAtMs": 1778353200017,
       "schedule": {
         "kind": "cron",
         "expr": "0 3 * * *"
       },
-      "sessionTarget": "main",
-      "wakeMode": "next-heartbeat",
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
       "payload": {
-        "kind": "systemEvent",
-        "text": "__openclaw_memory_core_short_term_promotion_dream__"
+        "kind": "agentTurn",
+        "message": "__openclaw_memory_core_short_term_promotion_dream__",
+        "lightContext": true
       },
-      "state": {
-        "nextRunAtMs": 1778439600000,
-        "lastRunAtMs": 1778353200007,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 10,
-        "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 0
-      }
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
     },
     {
       "id": "616f4650-758f-411d-bfb3-d363fb62347f",
       "name": "AI圈24h晨报-涂是淦",
       "enabled": true,
       "createdAtMs": 1776558409823,
-      "updatedAtMs": 1778367687010,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * *",
@@ -51,16 +45,7 @@
         "channel": "feishu",
         "to": "user:ou_88079e6b06ce40e6851c96928fe1a03b"
       },
-      "state": {
-        "nextRunAtMs": 1778454000000,
-        "lastRunAtMs": 1778367600009,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 87001,
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
-      }
+      "state": {}
     }
   ]
 }

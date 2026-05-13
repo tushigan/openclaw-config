@@ -27,6 +27,12 @@ import subprocess
 from pathlib import Path
 from difflib import SequenceMatcher
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from project_manager import ProjectManager
+
 
 FEISHU_BASE = "https://open.feishu.cn/open-apis"
 
@@ -191,6 +197,9 @@ def fetch_brand_assets(brand_name: str, folder_token: str, project_dir: str, tok
             "message": "描述信息"
         }
     """
+    project_path = Path(project_dir).resolve()
+    manager = ProjectManager(project_path)
+    attempt = manager.start_stage('assets', reason=f'检索品牌素材：{brand_name}', actor='fetch_brand_assets.py')
     images_dir = os.path.join(project_dir, "images")
     os.makedirs(images_dir, exist_ok=True)
 
@@ -202,24 +211,66 @@ def fetch_brand_assets(brand_name: str, folder_token: str, project_dir: str, tok
         brand_folder = match_brand_folder(items, brand_name)
 
         if not brand_folder:
-            return {
+            result = {
                 "status": "not_found",
                 "brand_folder": None,
                 "assets": [],
                 "message": f"在云盘中未找到品牌「{brand_name}」的文件夹"
             }
+            manifest = {
+                "status": "not_found",
+                "attempt": attempt,
+                "brand_name": brand_name,
+                "folder_token": folder_token,
+                "brand_folder": None,
+                "assets": [],
+                "message": result["message"],
+                "user_confirmed": False,
+                "history": [{"ts": manager.state["updated_at"], "event": "brand_assets_not_found", "brand_name": brand_name}],
+            }
+            manager.skip_stage(
+                'assets',
+                reason=result["message"],
+                actor='fetch_brand_assets.py',
+                manifest_payload=manifest,
+                flags={"assets_retrieved": False},
+                files=['assets_manifest.json'],
+                extra={'brand_name': brand_name},
+            )
+            return result
 
         # 3. 列出品牌文件夹内的图片
         brand_items = list_folder_items(brand_folder["token"], token)
         image_files = [item for item in brand_items if is_image_file(item.get("name", ""))]
 
         if not image_files:
-            return {
+            result = {
                 "status": "not_found",
                 "brand_folder": brand_folder["name"],
                 "assets": [],
                 "message": f"品牌「{brand_name}」的文件夹中没有图片文件"
             }
+            manifest = {
+                "status": "not_found",
+                "attempt": attempt,
+                "brand_name": brand_name,
+                "folder_token": folder_token,
+                "brand_folder": brand_folder["name"],
+                "assets": [],
+                "message": result["message"],
+                "user_confirmed": False,
+                "history": [{"ts": manager.state["updated_at"], "event": "brand_assets_empty", "brand_name": brand_name}],
+            }
+            manager.skip_stage(
+                'assets',
+                reason=result["message"],
+                actor='fetch_brand_assets.py',
+                manifest_payload=manifest,
+                flags={"assets_retrieved": False},
+                files=['assets_manifest.json'],
+                extra={'brand_name': brand_name},
+            )
+            return result
 
         # 4. 下载并分类
         assets = []
@@ -260,6 +311,7 @@ def fetch_brand_assets(brand_name: str, folder_token: str, project_dir: str, tok
 
         # 5. 更新 brief.json 的 assets 字段
         brief_path = os.path.join(project_dir, "brief.json")
+        brief = {}
         if os.path.exists(brief_path):
             with open(brief_path, "r", encoding="utf-8") as f:
                 brief = json.load(f)
@@ -281,19 +333,62 @@ def fetch_brand_assets(brand_name: str, folder_token: str, project_dir: str, tok
                 json.dump(brief, f, ensure_ascii=False, indent=2)
 
         downloaded_count = sum(1 for a in assets if a["downloaded"])
-        return {
+        result = {
             "status": "success",
             "brand_folder": brand_folder["name"],
             "assets": assets,
             "message": f"从品牌「{brand_name}」文件夹中获取了 {downloaded_count}/{len(assets)} 个素材"
         }
+        manifest = {
+            "status": "success",
+            "attempt": attempt,
+            "brand_name": brand_name,
+            "folder_token": folder_token,
+            "brand_folder": brand_folder["name"],
+            "assets": assets,
+            "downloaded_count": downloaded_count,
+            "message": result["message"],
+            "brief_path": brief_path,
+            "user_confirmed": False,
+            "history": [{"ts": manager.state["updated_at"], "event": "brand_assets_retrieved", "downloaded_count": downloaded_count}],
+        }
+        manager.complete_stage(
+            'assets',
+            reason=result["message"],
+            actor='fetch_brand_assets.py',
+            manifest_payload=manifest,
+            flags={"assets_retrieved": True},
+            artifacts={"brief": brief_path},
+            files=['assets_manifest.json', manager._relative(brief_path)],
+            extra={'downloaded_count': downloaded_count},
+        )
+        return result
 
     except Exception as e:
+        error = f"检索品牌素材时出错: {str(e)}"
+        manifest = {
+            "status": "error",
+            "attempt": attempt,
+            "brand_name": brand_name,
+            "folder_token": folder_token,
+            "brand_folder": None,
+            "assets": [],
+            "message": error,
+            "user_confirmed": False,
+            "history": [{"ts": manager.state["updated_at"], "event": "brand_assets_failed", "error": error}],
+        }
+        manager.fail_stage(
+            'assets',
+            error=error,
+            actor='fetch_brand_assets.py',
+            manifest_payload=manifest,
+            files=['assets_manifest.json'],
+        )
         return {
             "status": "error",
             "brand_folder": None,
             "assets": [],
-            "message": f"检索品牌素材时出错: {str(e)}"
+            "message": error,
         }
 
 

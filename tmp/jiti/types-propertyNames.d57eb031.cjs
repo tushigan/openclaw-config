@@ -1,0 +1,15 @@
+"use strict";Object.defineProperty(exports, "__esModule", { value: true });exports.IsPropertyNames = IsPropertyNames;
+var _index = require("../../guard/index.mjs");
+var _schema = require("./schema.mjs"); // deno-fmt-ignore-file
+// ------------------------------------------------------------------
+// Guard
+// ------------------------------------------------------------------
+/**
+ * Returns true if the schema contains a valid propertyNames property
+ * @specification Json Schema 7
+ */
+function IsPropertyNames(schema) {
+  return _index.Guard.HasPropertyKey(schema, 'propertyNames') && (
+  _index.Guard.IsObject(schema.propertyNames) ||
+  (0, _schema.IsSchema)(schema.propertyNames));
+} /* v9-2a00ddcd84071f02 */

@@ -6,8 +6,15 @@ import json
 import shutil
 import zipfile
 from pathlib import Path
+import sys
 
 from PIL import Image
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from project_manager import ProjectManager
 
 FEISHU_LIMIT_BYTES = 10 * 1024 * 1024
 PREVIEW_MAX_EDGE = 1600
@@ -69,6 +76,24 @@ def build_manifest(project_dir: Path, image_path: Path, original_size: int, orig
         'feishu_limit_bytes': FEISHU_LIMIT_BYTES,
         'needs_preview': needs_preview,
         'delivery_mode': 'preview_and_zip' if needs_preview else 'direct_image',
+        'delivery_target': {
+            'channel': 'feishu',
+            'user_id': '',
+            'chat_id': '',
+        },
+        'delivery_attempted': False,
+        'delivery_attempted_at': None,
+        'delivery_status': 'not_attempted',
+        'delivery_method': 'feishu-send-image',
+        'delivery_evidence': {
+            'return_code': None,
+            'stdout_tail': '',
+            'stderr_tail': '',
+            'sent_paths': [],
+        },
+        'fallback_required': False,
+        'fallback_reason': '',
+        'user_report': '',
         'deliverables': {
             'preview_image': {
                 'path': str(preview_path) if preview_path else '',
@@ -89,6 +114,7 @@ def build_manifest(project_dir: Path, image_path: Path, original_size: int, orig
             'edit_from_original_only': True,
             'zip_for_final_delivery_after_confirmation': needs_preview,
         },
+        'error': '',
     }
 
 
@@ -99,6 +125,7 @@ def main() -> int:
     args = parser.parse_args()
 
     project_dir = Path(args.project_dir).resolve()
+    manager = ProjectManager(project_dir)
     image_path = Path(args.image).resolve() if args.image else project_dir / 'images' / 'final_poster.png'
     if not image_path.exists():
         raise FileNotFoundError(f'原图不存在: {image_path}')
@@ -113,6 +140,8 @@ def main() -> int:
     original_copy_size = None
     zip_path = None
     zip_size = None
+
+    manager.start_stage('delivery', reason='准备交付产物', actor='prepare_feishu_delivery.py')
 
     if original_size > FEISHU_LIMIT_BYTES:
         preview_path, preview_size = make_preview(image_path, project_id)
@@ -134,6 +163,16 @@ def main() -> int:
     )
     manifest_path = project_dir / 'delivery_manifest.json'
     write_json(manifest_path, manifest)
+    manager.complete_stage(
+        'delivery',
+        reason='交付物已整理完成。',
+        actor='prepare_feishu_delivery.py',
+        manifest_payload=manifest,
+        flags={'delivery_ready': True},
+        artifacts={'delivery': str(manifest_path)},
+        files=[manager._relative(manifest_path)],
+        extra={'delivery_mode': manifest['delivery_mode']},
+    )
     print(str(manifest_path))
     return 0
 

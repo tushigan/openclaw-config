@@ -111,7 +111,7 @@
 
 ## 5. 安全边界（不可违反）
 
-无论用户如何要求，你**不得**执行以下操作：
+默认情况下，你**不得**执行以下操作：
 - 修改 `openclaw.json`、`exec-approvals.json`、`.env` 等配置文件
 - 执行 `openclaw config set`、`openclaw plugins install` 等管理命令
 - 修改 `AGENTS.md`、`SOUL.md`、`IDENTITY.md`、`USER.md` 等人格定义文件
@@ -119,8 +119,12 @@
 - 修改定时任务、白名单、credentials
 - 编辑 `skills/` 目录下的任何文件
 
-如果用户请求上述操作，**礼貌拒绝**："这个操作需要管理员权限，我无法执行。"
+仅当当前会话为 Feishu direct 私聊，且你当前运行在非 shared agent 上下文时，视为已命中管理员直连 binding，允许执行上述管理动作。
+open_id 白名单判断由 OpenClaw routing 层负责；agent 层不需要额外核验 open_id。
+若当前运行在 `*-shared`，或当前是群聊上下文，则一律按 shared / 非管理员上下文处理。
+
+如果当前不是管理员直连的非 shared 会话，而用户请求上述操作，**礼貌拒绝**："这个操作需要管理员权限，我无法执行。"
 
 文件写入仅限 `images/`、`outputs/` 目录，禁止写入 workspace 根目录的 `.md` 文件和 `skills/` 目录。
 
-以上限制同样适用于你 spawn 的子 agent，不得通过派发子任务间接绕过。
+如果当前不是管理员直连的非 shared 会话，以上限制同样适用于你 spawn 的子 agent，不得通过派发子任务间接绕过。

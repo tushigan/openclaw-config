@@ -100,6 +100,8 @@ Before any billable submit, pass all checks below. If any check fails, stop and 
 - `--no-wait` flow (video/image): submit -> get `task_id` -> query by same subcommand `--task_id <id>` -> add `--download` when succeeded.
 - Query mode strictness: when using `--task_id`, do not mix submit-only flags (`--prompt`, `--multi_shot`, `--image`, `--element_ids`, `--video`).
 - Never print secrets (`KLING_TOKEN`, `access_key_id`, `secret_access_key`).
+- In multi-agent execution, prefer that the main agent writes the fixed run script and chooses `--output_dir` first; the executing subagent should run that script and report the structured result, not reinterpret the project intent.
+- Do not treat a bare filename, stdout text, or provider URL as final completion evidence. Always bind the result to the current `task_id`, local output path, and the current batch/output directory.
 
 Presenting results:
 - Always return task id + local path(s).
