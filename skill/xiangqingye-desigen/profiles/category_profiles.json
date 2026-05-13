@@ -1,0 +1,72 @@
+{
+  "version": "1.0",
+  "profiles": {
+    "food_bakery": {
+      "name": "食品/烘焙/零食",
+      "detail_page_logic": [
+        "先建立食欲和商品识别",
+        "再证明原料、工艺、口味和口感",
+        "最后完成规格、包装、保质期和购买确认"
+      ],
+      "proof_points": ["原料", "工艺", "口味", "口感", "独立包装", "规格"],
+      "visual_rules": ["食欲感优先", "产品结构必须真实", "不要把风味联想写成已证实功效"],
+      "head_image_roles": ["main", "sellpoint", "scene", "detail", "spec"]
+    },
+    "beauty_skincare": {
+      "name": "美妆/护肤",
+      "detail_page_logic": [
+        "先明确适用人群和核心功效",
+        "再讲成分、机理、肤感和使用场景",
+        "最后给出使用方法、规格和信任证明"
+      ],
+      "proof_points": ["成分", "功效", "肤感", "适用肤质", "检测/认证", "使用方法"],
+      "visual_rules": ["避免医疗化夸大", "前后对比必须谨慎", "质感和洁净感优先"],
+      "head_image_roles": ["main", "benefit", "ingredient", "scene", "spec"]
+    },
+    "apparel": {
+      "name": "服饰/鞋包",
+      "detail_page_logic": [
+        "先展示上身/使用效果",
+        "再讲版型、材质、细节和场景搭配",
+        "最后完成尺码、颜色、洗护和购买确认"
+      ],
+      "proof_points": ["版型", "材质", "细节", "尺码", "颜色", "搭配场景"],
+      "visual_rules": ["真实比例优先", "尺码信息必须清楚", "不要过度修饰导致商品失真"],
+      "head_image_roles": ["main", "fit", "material", "scene", "spec"]
+    },
+    "electronics_appliance": {
+      "name": "数码/小家电",
+      "detail_page_logic": [
+        "先讲清核心功能和使用收益",
+        "再把参数转成用户利益",
+        "接着证明细节、场景、配件和售后",
+        "最后完成规格和购买信心收口"
+      ],
+      "proof_points": ["功能", "参数", "场景", "细节", "配件", "售后"],
+      "visual_rules": ["参数必须转利益", "结构图要清晰", "高客单价要增加尺寸/售后图"],
+      "head_image_roles": ["main", "sellpoint", "scene", "detail", "spec", "dimension", "warranty"]
+    },
+    "home_furniture": {
+      "name": "家具/家居",
+      "detail_page_logic": [
+        "先展示空间效果和风格适配",
+        "再讲尺寸、材质、结构和承重/功能",
+        "最后讲安装、配送、售后和规格"
+      ],
+      "proof_points": ["空间适配", "尺寸", "材质", "结构", "安装", "售后"],
+      "visual_rules": ["空间比例必须可信", "尺寸疑虑要前置解决", "材质细节要可感知"],
+      "head_image_roles": ["main", "scene", "dimension", "material", "spec", "warranty"]
+    },
+    "mother_baby": {
+      "name": "母婴",
+      "detail_page_logic": [
+        "先建立安全感和适龄识别",
+        "再证明材质、安全标准、使用场景和舒适度",
+        "最后完成规格、使用方法和信任背书"
+      ],
+      "proof_points": ["安全", "材质", "适龄", "场景", "检测", "规格"],
+      "visual_rules": ["安全表达优先", "避免未经证实的医疗/发育承诺", "画面要温和可信"],
+      "head_image_roles": ["main", "safety", "scene", "detail", "spec"]
+    }
+  }
+}

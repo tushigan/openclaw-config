@@ -1,0 +1,174 @@
+{
+  "id": "POSTER-DISTILL-P-004",
+  "title": "高留白中部大字草坡场景竖版海报",
+  "status": "pending_analysis",
+  "distill_version": "v3",
+  "source_images": [
+    "data/source-images/POSTER-DISTILL-P-004-ref-01.jpg"
+  ],
+  "layout_analysis": {
+    "status": "ready",
+    "analyzed_at": "2026-05-07T18:27:02+08:00",
+    "analyzer_model": "gpt-5.4",
+    "skeleton_image": "site/assets/posters/poster-skeleton-004.svg",
+    "skeleton_png": "site/assets/skeletons/POSTER-DISTILL-P-004.png",
+    "elements": [
+      {
+        "id": "el-1",
+        "type": "background",
+        "name_zh": "背景色块",
+        "x": 0,
+        "y": 0,
+        "width": 100,
+        "height": 100,
+        "z_index": 1,
+        "confidence": 0.99,
+        "notes": ""
+      },
+      {
+        "id": "el-2",
+        "type": "image",
+        "name_zh": "场景主图区",
+        "x": 0,
+        "y": 58,
+        "width": 100,
+        "height": 42,
+        "z_index": 2,
+        "confidence": 0.97,
+        "notes": ""
+      },
+      {
+        "id": "el-3",
+        "type": "title",
+        "name_zh": "主标题区",
+        "x": 13.130346232179226,
+        "y": 25.052134059008885,
+        "width": 72.72097759674135,
+        "height": 19.87510741907763,
+        "z_index": 3,
+        "confidence": 0.98,
+        "notes": ""
+      },
+      {
+        "id": "el-4",
+        "type": "subtitle",
+        "name_zh": "副标题区",
+        "x": 13.389002036659878,
+        "y": 45.21884846748783,
+        "width": 72,
+        "height": 4.218848467487824,
+        "z_index": 4,
+        "confidence": 0.94,
+        "notes": ""
+      },
+      {
+        "id": "el-5",
+        "type": "image",
+        "name_zh": "主体物件图区",
+        "x": 33.77800407331976,
+        "y": 50.47923231165855,
+        "width": 34,
+        "height": 18.822973360068747,
+        "z_index": 5,
+        "confidence": 0.94,
+        "notes": ""
+      },
+      {
+        "id": "el-6",
+        "type": "body_text",
+        "name_zh": "左上角说明文字区",
+        "x": 4.1853360488798375,
+        "y": 6.166714408478946,
+        "width": 17,
+        "height": 6,
+        "z_index": 6,
+        "confidence": 0.92,
+        "notes": ""
+      },
+      {
+        "id": "el-7",
+        "type": "body_text",
+        "name_zh": "右上角说明文字区",
+        "x": 80.38900203665987,
+        "y": 6.395875107419077,
+        "width": 17,
+        "height": 6,
+        "z_index": 6,
+        "confidence": 0.92,
+        "notes": ""
+      },
+      {
+        "id": "el-8",
+        "type": "button",
+        "name_zh": "顶部标签按钮区",
+        "x": 43.99999999999999,
+        "y": 6.427098252649671,
+        "width": 13.203665987780042,
+        "height": 3.4270982526496705,
+        "z_index": 6,
+        "confidence": 0.89,
+        "notes": ""
+      },
+      {
+        "id": "el-9",
+        "type": "body_text",
+        "name_zh": "底部中央信息文字区",
+        "x": 38.18533604887983,
+        "y": 83.98968776854768,
+        "width": 23,
+        "height": 4,
+        "z_index": 6,
+        "confidence": 0.86,
+        "notes": ""
+      },
+      {
+        "id": "el-10",
+        "type": "logo",
+        "name_zh": "左下角品牌字标",
+        "x": 5,
+        "y": 89.51045545688915,
+        "width": 15,
+        "height": 5,
+        "z_index": 7,
+        "confidence": 0.88,
+        "notes": ""
+      },
+      {
+        "id": "el-11",
+        "type": "logo",
+        "name_zh": "右下角品牌字标",
+        "x": 79.85132382892057,
+        "y": 89.05213405900888,
+        "width": 15,
+        "height": 5,
+        "z_index": 7,
+        "confidence": 0.88,
+        "notes": ""
+      },
+      {
+        "id": "el-12",
+        "type": "decorative",
+        "name_zh": "底部中心装饰元素",
+        "x": 47,
+        "y": 92,
+        "width": 6,
+        "height": 5,
+        "z_index": 7,
+        "confidence": 0.91,
+        "notes": ""
+      }
+    ],
+    "copy_planning_guide": "## 第一阶段：文案策划（先完成以下编号，再进入第二阶段生图）\n\n1. 【主标题区】横排 66%×24%（大） — 根据主题策划主标题（建议8-15字中文，或2-3行英文）\n2. 【副标题区】横排 72%×8%（中） — 1行副标题（中文5-12字，或英文3-6个单词）\n3. 【左上角说明文字区】横排 17%×6% — 横排中文文案（建议20-50字）\n4. 【右上角说明文字区】横排 17%×6% — 横排中文文案（建议20-50字）\n5. 【顶部标签按钮区】横排 13%×4% — 1-3个中文字\n6. 【底部中央信息文字区】横排 23%×4% — 横排中文文案（建议20-50字）\n\n## 第二阶段：生图 prompt 组装\n将第一阶段策划好的文案填入对应区域，然后按以下结构组装最终 prompt 交给生图模型：\n- 画面主角：放置在产品主图区（90%×60% 中心区域），根据用户主题自动生成或放置产品图\n- 标题文案：放置在主标题区，使用策划好的文案，确保文字有实际含义，不要生成伪文字或乱码\n- 装饰文字：放置在对应装饰区域，使用策划好的文案\n- 参考图：骨架图只约束构图，风格参考图只约束气质，不互相照抄\n- 标题文字必须有实际含义，不要生成伪文字、乱码或无意义的装饰性字符",
+    "negative_constraints": [
+      "不要破坏画面构图的比例关系",
+      "标题文字必须有实际含义，不要生成伪文字、乱码或无意义的装饰性字符",
+      "不要在留白区域添加构图之外的额外元素",
+      "产品主图区必须占画面主导地位，不能被其他元素抢镜",
+      "顶部标题区必须强，不能被削弱或缩小",
+      "不要在背景区域添加额外元素"
+    ],
+    "notes": "",
+    "updated_at": "2026-05-07T21:21:35+08:00",
+    "_title": "高留白中部大字草坡场景竖版海报"
+  }
+}

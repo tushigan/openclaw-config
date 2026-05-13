@@ -1,0 +1,160 @@
+{
+  "id": "POSTER-DISTILL-P-003",
+  "title": "全幅场景顶部标题底部转化条产品海报",
+  "status": "pending_analysis",
+  "distill_version": "v3",
+  "source_images": [
+    "data/source-images/POSTER-DISTILL-P-003.png"
+  ],
+  "layout_analysis": {
+    "status": "ready",
+    "analyzed_at": "2026-05-07T15:09:47+08:00",
+    "analyzer_model": "gpt-5.4",
+    "skeleton_image": "site/assets/posters/poster-skeleton-003.svg",
+    "skeleton_png": "site/assets/skeletons/POSTER-DISTILL-P-003.png",
+    "elements": [
+      {
+        "id": "el-1",
+        "type": "background",
+        "name_zh": "风景背景图",
+        "x": 0,
+        "y": 0,
+        "width": 100,
+        "height": 100,
+        "z_index": 1,
+        "confidence": 0.99,
+        "notes": ""
+      },
+      {
+        "id": "el-2",
+        "type": "info_strip",
+        "name_zh": "底部信息条",
+        "x": 0,
+        "y": 89,
+        "width": 100,
+        "height": 11,
+        "z_index": 2,
+        "confidence": 0.98,
+        "notes": ""
+      },
+      {
+        "id": "el-6",
+        "type": "product_photo",
+        "name_zh": "产品主图区",
+        "x": 19.861660079051383,
+        "y": 44.440825190010855,
+        "width": 64.69565217391305,
+        "height": 28.552660152008684,
+        "z_index": 6,
+        "confidence": 0.99,
+        "notes": ""
+      },
+      {
+        "id": "el-7",
+        "type": "title",
+        "name_zh": "顶部主标题",
+        "x": 19,
+        "y": 16.6671009771987,
+        "width": 62,
+        "height": 3.665798045602603,
+        "z_index": 7,
+        "confidence": 0.98,
+        "notes": ""
+      },
+      {
+        "id": "el-8",
+        "type": "subtitle",
+        "name_zh": "顶部英文副标题",
+        "x": 31.802371541501977,
+        "y": 20.88816503800217,
+        "width": 38,
+        "height": 2,
+        "z_index": 8,
+        "confidence": 0.96,
+        "notes": ""
+      },
+      {
+        "id": "el-9",
+        "type": "title",
+        "name_zh": "中部竖排标题区",
+        "x": 46.790513833992094,
+        "y": 27.7756786102063,
+        "width": 8,
+        "height": 10,
+        "z_index": 9,
+        "confidence": 0.93,
+        "notes": ""
+      },
+      {
+        "id": "el-11",
+        "type": "subtitle",
+        "name_zh": "中部手写副标题",
+        "x": 42.98814229249012,
+        "y": 36.32964169381108,
+        "width": 16,
+        "height": 4,
+        "z_index": 11,
+        "confidence": 0.88,
+        "notes": ""
+      },
+      {
+        "id": "el-12",
+        "type": "decorative",
+        "name_zh": "底部麦穗图案装饰",
+        "x": 6,
+        "y": 88,
+        "width": 16,
+        "height": 3,
+        "z_index": 12,
+        "confidence": 0.87,
+        "notes": ""
+      },
+      {
+        "id": "el-13",
+        "type": "body_text",
+        "name_zh": "底部主文案区",
+        "x": 8,
+        "y": 91,
+        "width": 60,
+        "height": 5,
+        "z_index": 13,
+        "confidence": 0.97,
+        "notes": ""
+      },
+      {
+        "id": "el-14",
+        "type": "subtitle",
+        "name_zh": "底部英文说明区",
+        "x": 9,
+        "y": 96,
+        "width": 52,
+        "height": 2,
+        "z_index": 14,
+        "confidence": 0.95,
+        "notes": ""
+      },
+      {
+        "id": "el-15",
+        "type": "product_photo",
+        "name_zh": "产品包装展示区",
+        "x": 63.59288537549407,
+        "y": 80.55331161780673,
+        "width": 28.557312252964426,
+        "height": 16.668403908794787,
+        "z_index": 15,
+        "confidence": 0.97,
+        "notes": ""
+      }
+    ],
+    "copy_planning_guide": "## 第一阶段：文案策划（先完成以下编号，再进入第二阶段生图）\n\n1. 【底部信息条】横排 100%×11%（大） — 简短信息（建议10-20字）\n2. 【顶部主标题】横排 62%×5% — 根据主题策划主标题（建议8-15字中文，或2-3行英文）\n3. 【顶部英文副标题】横排 38%×3% — 1行副标题（中文5-12字，或英文3-6个单词）\n4. 【中部竖排标题区】横排 8%×10% — 根据主题策划主标题（建议8-15字中文，或2-3行英文）\n5. 【中部日期文字区】横排 7%×4%（极窄） — 横排中文文案（建议20-50字）\n6. 【中部手写副标题】横排 16%×4% — 1行副标题（中文5-12字，或英文3-6个单词）\n7. 【底部主文案区】横排 60%×5% — 横排中文文案（建议20-50字）\n8. 【底部英文说明区】横排 52%×2% — 1行副标题（中文5-12字，或英文3-6个单词）\n\n## 第二阶段：生图 prompt 组装\n将第一阶段策划好的文案填入对应区域，然后按以下结构组装最终 prompt 交给生图模型：\n- 画面主角：放置在产品主图区（90%×60% 中心区域），根据用户主题自动生成或放置产品图\n- 标题文案：放置在主标题区，使用策划好的文案，确保文字有实际含义，不要生成伪文字或乱码\n- 装饰文字：放置在对应装饰区域，使用策划好的文案\n- 参考图：骨架图只约束构图，风格参考图只约束气质，不互相照抄\n- 标题文字必须有实际含义，不要生成伪文字、乱码或无意义的装饰性字符",
+    "negative_constraints": [
+      "不要破坏画面构图的比例关系",
+      "标题文字必须有实际含义，不要生成伪文字、乱码或无意义的装饰性字符",
+      "不要在留白区域添加构图之外的额外元素",
+      "产品主图区必须占画面主导地位，不能被其他元素抢镜",
+      "不要在背景区域添加额外元素"
+    ],
+    "notes": "",
+    "updated_at": "2026-05-07T15:53:43+08:00"
+  }
+}

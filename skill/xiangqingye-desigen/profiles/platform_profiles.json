@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "profiles": {
+    "tmall_mobile": {
+      "name": "淘宝/天猫/京东移动端",
+      "carrier": "mobile",
+      "content_density": "medium_high",
+      "detail_page_rules": [
+        "首屏必须快速完成商品识别和核心利益传达",
+        "中段用卖点证明、细节证明、场景证明递进说服",
+        "尾段必须完成规格、包装、购买确认和信任收口"
+      ],
+      "wireframe_rules": [
+        "移动端纵向阅读优先",
+        "一屏只承担一个主要说服任务",
+        "屏与屏之间自然过渡，不画手机外框、不加屏数标注"
+      ],
+      "head_image": {
+        "default_count": 5,
+        "min_count": 5,
+        "max_count": 7,
+        "size": "800x800",
+        "roles": ["main", "sellpoint", "scene", "detail", "spec"],
+        "rules": [
+          "第一张必须清晰识别商品",
+          "卖点图要把参数转成用户利益",
+          "规格图要减少下单前疑虑"
+        ]
+      }
+    },
+    "pdd_mobile": {
+      "name": "拼多多移动端",
+      "carrier": "mobile",
+      "content_density": "high_direct",
+      "detail_page_rules": [
+        "首屏利益点更直白，降低理解成本",
+        "减少抽象品牌叙事，优先讲清价格感、规格和核心卖点",
+        "信息表达要短句、明确、强对比"
+      ],
+      "wireframe_rules": [
+        "模块层级清楚，标题直给",
+        "避免过度留白导致信息不足"
+      ],
+      "head_image": {
+        "default_count": 3,
+        "min_count": 3,
+        "max_count": 5,
+        "size": "750x750",
+        "roles": ["main", "sellpoint", "spec"],
+        "rules": ["一张图只讲一个核心利益", "少用抽象氛围，多用明确卖点"]
+      }
+    },
+    "social_commerce": {
+      "name": "抖音/小红书内容电商",
+      "carrier": "mobile",
+      "content_density": "medium_visual",
+      "detail_page_rules": [
+        "更强调场景、结果感和即时吸引",
+        "文案短，视觉冲击强，减少长段说明",
+        "适合用生活方式和使用前后感受建立购买动机"
+      ],
+      "wireframe_rules": ["场景和人物/使用状态优先", "每屏标题要短而有记忆点"],
+      "head_image": {
+        "default_count": 4,
+        "min_count": 3,
+        "max_count": 5,
+        "size": "800x800",
+        "roles": ["main", "scene", "sellpoint", "detail"],
+        "rules": ["场景图权重高于规格图", "短文案、强画面、结果导向"]
+      }
+    },
+    "independent_site": {
+      "name": "品牌独立站",
+      "carrier": "responsive",
+      "content_density": "medium_brand",
+      "detail_page_rules": [
+        "品牌叙事和产品价值并重",
+        "视觉留白可以更高，但每段必须承担明确转化任务",
+        "适合 hero + gallery + proof + spec 的结构"
+      ],
+      "wireframe_rules": ["模块化强，PC 与移动端需要分别考虑", "品牌视觉一致性优先"],
+      "head_image": {
+        "default_count": 6,
+        "min_count": 5,
+        "max_count": 8,
+        "size": "1000x1000",
+        "roles": ["main", "scene", "sellpoint", "detail", "spec", "brand"],
+        "rules": ["第一张可作为 hero/KV", "gallery 要兼顾品牌调性和购买信息"]
+      }
+    }
+  }
+}

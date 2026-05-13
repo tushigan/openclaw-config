@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Login Test</title></head>
+<body>
+<h1>Login Test</h1>
+<div>
+<input id="u" placeholder="用户名" value="涂是淦"/><br/>
+<input id="p" type="password" placeholder="密码" value="1989714tsg"/><br/>
+<button onclick="testLogin()">点击登录</button>
+</div>
+<p id="status">等待点击...</p>
+<script>
+function testLogin() {
+  document.getElementById('status').textContent = '正在登录...';
+  fetch('/api/auth/login', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      username: document.getElementById('u').value,
+      password: document.getElementById('p').value
+    })
+  }).then(function(res) {
+    return res.json().then(function(data) {
+      if (res.ok) {
+        document.getElementById('status').textContent = '登录成功！角色: ' + data.role;
+      } else {
+        document.getElementById('status').textContent = '登录失败: ' + JSON.stringify(data);
+      }
+    });
+  }).catch(function(e) {
+    document.getElementById('status').textContent = '出错: ' + e.message;
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200">
+<rect width="800" height="1200" fill="white"/>
+<text x="10" y="24" font-size="14" font-family="sans-serif" font-weight="bold" fill="#111">高留白中部大字草坡场景竖版海报</text>
+<rect x="0.0" y="0.0" width="800.0" height="1200.0" fill="#f2f3f4" stroke="#aab7b8" stroke-width="1" rx="2"/>
+<rect x="0.0" y="696.0" width="800.0" height="504.0" fill="#d4e6f1" stroke="#1a5276" stroke-width="1.5" rx="2"/>
+<rect x="105.0" y="300.6" width="581.8" height="238.5" fill="#f0f0f0" stroke="#111111" stroke-width="2" rx="2"/>
+<rect x="107.1" y="542.6" width="576.0" height="50.6" fill="#e8e8e8" stroke="#333333" stroke-width="1.5" rx="2"/>
+<rect x="270.2" y="605.8" width="272.0" height="225.9" fill="#d4e6f1" stroke="#1a5276" stroke-width="1.5" rx="2"/>
+<rect x="33.5" y="74.0" width="136.0" height="72.0" fill="#e0e0e0" stroke="#555555" stroke-width="1" rx="2"/>
+<rect x="643.1" y="76.8" width="136.0" height="72.0" fill="#e0e0e0" stroke="#555555" stroke-width="1" rx="2"/>
+<rect x="352.0" y="77.1" width="105.6" height="41.1" fill="#fadbd8" stroke="#b03a2e" stroke-width="2" rx="2"/>
+<rect x="305.5" y="1007.9" width="184.0" height="48.0" fill="#e0e0e0" stroke="#555555" stroke-width="1" rx="2"/>
+<rect x="40.0" y="1074.1" width="120.0" height="60.0" fill="#e8daef" stroke="#7d3c98" stroke-width="2" rx="2"/>
+<rect x="638.8" y="1068.6" width="120.0" height="60.0" fill="#e8daef" stroke="#7d3c98" stroke-width="2" rx="2"/>
+<rect x="376.0" y="1104.0" width="48.0" height="60.0" fill="#fef9e7" stroke="#d4ac0d" stroke-width="1" rx="2"/>
+<text x="4.0" y="16.0" font-size="11" font-family="sans-serif" fill="#aab7b8">背景色块</text>
+<text x="4.0" y="712.0" font-size="11" font-family="sans-serif" fill="#1a5276">场景主图区</text>
+<text x="109.0" y="316.6" font-size="11" font-family="sans-serif" fill="#111111">主标题区</text>
+<text x="111.1" y="558.6" font-size="11" font-family="sans-serif" fill="#333333">副标题区</text>
+<text x="274.2" y="621.8" font-size="11" font-family="sans-serif" fill="#1a5276">主体物件图区</text>
+<text x="37.5" y="90.0" font-size="11" font-family="sans-serif" fill="#555555">左上角说明文字区</text>
+<text x="647.1" y="92.8" font-size="11" font-family="sans-serif" fill="#555555">右上角说明文字区</text>
+<text x="356.0" y="93.1" font-size="11" font-family="sans-serif" fill="#b03a2e">顶部标签按钮区</text>
+<text x="309.5" y="1023.9" font-size="11" font-family="sans-serif" fill="#555555">底部中央信息文字区</text>
+<text x="44.0" y="1090.1" font-size="11" font-family="sans-serif" fill="#7d3c98">左下角品牌字标</text>
+<text x="642.8" y="1084.6" font-size="11" font-family="sans-serif" fill="#7d3c98">右下角品牌字标</text>
+<text x="380.0" y="1120.0" font-size="11" font-family="sans-serif" fill="#d4ac0d">底部中心装饰元素</text>
+</svg>

@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>品牌海报蒸馏库 v3</title>
+<script>
+function doLogin() {
+  var u = document.getElementById('loginUsername').value.trim();
+  var p = document.getElementById('loginPassword').value;
+  if (!u || !p) { alert('请输入用户名和密码'); return; }
+  var btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  btn.textContent = '登录中...';
+
+  fetch('/api/auth/login', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({username: u, password: p})
+  }).then(function(res) {
+    return res.json();
+  }).then(function(data) {
+    if (data.ok === true) {
+      sessionStorage.setItem('distill_auth', JSON.stringify({username: u, role: data.role}));
+      alert('登录成功！角色: ' + data.role);
+      location.reload();
+    } else {
+      alert('登录失败: ' + JSON.stringify(data));
+      btn.disabled = false;
+      btn.textContent = '登录';
+    }
+  }).catch(function(e) {
+    alert('登录出错: ' + e.message);
+    btn.disabled = false;
+    btn.textContent = '登录';
+  });
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f5f5f0;--card:#fff;--soft:#d9d9d3;--accent:#1a1a1a;--accent2:#2d5f2d;--muted:#666;--danger:#c0392b;--radius:8px;--shadow:0 1px 3px rgba(0,0,0,.08)}
+body{font-family:-apple-system,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--accent);line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:16px}
+.masthead{background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.masthead h1{font-size:20px;font-weight:700;margin:4px 0}
+.masthead .sub{font-size:13px;color:var(--muted)}
+.meta{font-size:11px;color:var(--accent2);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:8px}
+.userbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.role{font-size:12px;font-weight:600;padding:2px 8px;border-radius:4px;background:#e8e8e3}
+.btn{font-size:12px;padding:6px 12px;border:1px solid var(--soft);border-radius:4px;background:#fff;cursor:pointer;font-weight:500;white-space:nowrap;min-height:32px;display:inline-flex;align-items:center;justify-content:center}
+.btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.secondary{background:var(--bg)}
+.btn.secondary:hover{background:#e8e8e3;border-color:var(--soft);color:var(--accent)}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.danger:hover{background:var(--danger);color:#fff}
+.btn.add-el{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.btn.add-el:hover{background:#1e4a1e}
+.btn.copied{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.hidden{display:none!important}
+.auth-wrap,.admin-wrap{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.admin-box{max-width:600px}
+.user-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.user-table th,.user-table td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--soft)}
+.user-table th{font-weight:600;font-size:12px;color:var(--muted)}
+.toolbar{background:var(--card);border-radius:var(--radius);padding:12px 16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.toolbar-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.input,.select{font-size:13px;padding:6px 10px;border:1px solid var(--soft);border-radius:4px;background:#fff;min-height:32px}
+.input:focus,.select:focus{outline:none;border-color:var(--accent)}
+#searchInput{flex:1;min-width:160px}
+.section-head{font-size:13px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.lib-grid{display:grid;gap:12px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;align-items:stretch}
+.card-head{display:grid;grid-template-columns:140px 1fr;gap:0;flex:1;min-width:0}
+.card.is-selected{outline:3px solid var(--accent);outline-offset:-1px}
+.thumb{position:relative;overflow:hidden;cursor:pointer;display:block;border:none;padding:0}
+.thumb img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4;display:block}
+.thumb-tip{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;border-radius:3px;opacity:0;transition:opacity .2s;pointer-events:none}
+.thumb:hover .thumb-tip{opacity:1}
+.head-meta{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.topline{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.id-box{font-size:12px;display:flex;gap:4px;align-items:center;background:var(--bg);padding:2px 8px;border-radius:3px}
+.id-value{font-weight:700;font-family:monospace}
+.title{font-size:15px;font-weight:600}.title .subtitle{font-weight:400;color:var(--muted);font-size:13px;margin-left:6px}
+.summary{font-size:13px;color:var(--muted)}
+.tags{display:flex;gap:4px;flex-wrap:wrap}.tags span{font-size:11px;background:#e8e8e3;padding:1px 6px;border-radius:3px}
+.layout-preview{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+.layout-preview img{height:48px;border-radius:4px;cursor:pointer;border:1px solid var(--soft)}
+.layout-badge{font-size:12px;padding:4px 10px;border-radius:4px;border:none;cursor:pointer;font-weight:500}
+.layout-badge.ready{background:#d5f5e3;color:#196f3d}
+.layout-badge.pending{background:#f0f0f0;color:var(--muted)}
+.layout-badge.analyzing{background:#fef9e7;color:#997a00}
+.card-main{padding:12px 16px;border-top:1px solid var(--soft);font-size:13px}
+.batch-bar{background:var(--accent);color:#fff;border-radius:var(--radius);padding:8px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.batch-bar.hidden{display:none}
+.batch-bar .count{font-size:13px;font-weight:600}
+.batch-bar .progress{font-size:12px;opacity:.8}
+.batch-bar .btn{background:#fff;color:var(--accent);border:none;font-size:12px;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:500;min-height:32px}
+.batch-bar .btn:hover:not(:disabled){background:#e8e8e3}
+.batch-bar .btn:disabled{opacity:.5;cursor:not-allowed}
+.batch-bar .btn.danger{background:var(--danger);color:#fff}
+.batch-bar .btn.danger:hover:not(:disabled){background:#a93226}
+.card-select{width:18px;height:18px;cursor:pointer;margin:12px 8px;align-self:flex-start;flex-shrink:0}
+.tag-filters{display:flex;gap:4px;flex-wrap:wrap}
+.chip{font-size:11px;padding:2px 8px;border:1px solid var(--soft);border-radius:12px;background:#fff;cursor:pointer;white-space:nowrap}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;display:flex;align-items:center;justify-content:center}
+.lightbox:not(.show){display:none}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:8px}
+.lightbox-close{position:absolute;top:16px;right:16px;font-size:20px;color:#fff;background:none;border:none;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:998;display:flex;align-items:center;justify-content:center}
+.modal:not(.show){display:none}
+.modal-panel{background:var(--card);border-radius:var(--radius);max-width:1100px;width:95%;max-height:90vh;overflow:auto;padding:20px;position:relative}
+.modal-close{position:absolute;top:12px;right:16px;font-size:18px;background:none;border:none;cursor:pointer}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-section{padding:12px;background:var(--bg);border-radius:4px}
+.form-section.full{grid-column:1/-1}
+.form-section h3{font-size:13px;margin-bottom:8px}
+.field{display:flex;flex-direction:column;gap:2px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:600;color:var(--muted)}
+.textarea{font-size:13px;padding:6px 10px;border:1px solid var(--soft);border-radius:4px;background:#fff;min-height:60px;resize:vertical;font-family:inherit}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.layout-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.canvas-container{background:var(--bg);border-radius:4px;padding:8px;overflow:auto;max-height:70vh}
+#svgContainer{text-align:center}
+#svgContainer svg{cursor:default}
+#svgContainer svg .svg-el{cursor:move;transition:stroke .15s,stroke-width .15s}
+#svgContainer svg .svg-el:hover{stroke:#000!important;stroke-width:2!important}
+.layout-table{overflow:auto;max-height:70vh}
+.layout-table table{width:100%;border-collapse:collapse;font-size:12px}
+.layout-table th{position:sticky;top:0;background:var(--bg);padding:4px 6px;text-align:left;font-size:11px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--soft)}
+.layout-table td{padding:3px 4px;border-bottom:1px solid var(--soft);vertical-align:middle}
+.layout-table tr.selected{background:#e8e8e3}
+.layout-table input{width:100%;min-width:36px;border:1px solid var(--soft);border-radius:3px;padding:2px 4px;font-size:12px;text-align:center}
+.layout-table select{min-width:80px;border:1px solid var(--soft);border-radius:3px;padding:2px 4px;font-size:12px}
+.type-dot{display:inline-block;width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+.del-btn{background:none;border:none;color:var(--danger);cursor:pointer;font-size:16px;font-weight:700;padding:0 4px}
+.empty{text-align:center;padding:40px;color:var(--muted);font-size:14px}
+@media(max-width:768px){
+  .card-head{grid-template-columns:100px 1fr}
+  .modal-grid,.layout-editor-grid,.auth-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="masthead">
+    <div class="meta"><span>品牌海报蒸馏库 v3</span><span>版式锁定 · 骨架图 + 坐标表</span></div>
+    <h1>版式蒸馏库 v3.2</h1>
+    <div class="sub">提取海报版式结构（骨架图+元素坐标），供生图工具按 ID 调用锁定布局。</div>
+    <div class="topbar">
+      <div class="userbar">
+        <span id="authStatus" class="role">未登录</span>
+        <span id="roleBadge" class="role hidden"></span>
+      </div>
+      <div class="actions">
+        <button id="showAuthBtn" class="btn secondary" type="button">登录 / 注册</button>
+        <button id="showAdminBtn" class="btn secondary hidden" type="button">用户权限</button>
+        <button id="logoutBtn" class="btn secondary hidden" type="button">退出登录</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="authWrap" class="auth-wrap hidden">
+    <div id="jsOK" style="display:none;background:#ffe;padding:4px;margin-bottom:8px;border-radius:4px;font-size:12px;text-align:center">JS 已加载 OK — 点击"登录 / 注册"展开表单</div>
+    <div class="auth-grid">
+      <div class="auth-box"><strong>注册</strong>
+        <div class="field"><label>用户名</label><input id="registerUsername" class="input"/></div>
+        <div class="field"><label>密码（至少 6 位）</label><input id="registerPassword" type="password" class="input"/></div>
+        <div class="form-actions"><button id="registerBtn" class="btn" type="button">注册</button></div>
+      </div>
+      <div class="auth-box"><strong>登录</strong>
+        <div class="field"><label>用户名</label><input id="loginUsername" class="input"/></div>
+        <div class="field"><label>密码</label><input id="loginPassword" type="password" class="input"/></div>
+        <div class="form-actions"><button id="loginBtn" class="btn" type="button" onclick="doLogin()">登录</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="adminWrap" class="admin-wrap hidden">
+    <div class="admin-box"><strong>用户权限管理</strong>
+      <table class="user-table"><thead><tr><th>用户名</th><th>角色</th><th>操作</th></tr></thead><tbody id="userTableBody"></tbody></table>
+    </div>
+  </div>
+
+  <section class="toolbar hidden" id="mainToolbar">
+    <div class="toolbar-top">
+      <div class="search"><input id="searchInput" class="input" type="search" placeholder="搜索：ID / 标题 / 标签"/></div>
+      <select id="sortSelect" class="select"><option value="recent">按最近新增</option><option value="id">按 ID</option><option value="tag">按标签</option></select>
+      <div class="view-controls">
+        <button id="selectAllBtn" class="btn secondary" type="button">全选</button>
+        <button id="deselectAllBtn" class="btn secondary" type="button">取消全选</button>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">按标签筛选（可多选）</div>
+      <div id="tagFilters" class="tag-filters"></div>
+    </div>
+  </section>
+
+  <div id="batchBar" class="batch-bar hidden">
+    <span class="count" id="batchCount">已选择 0 个项目</span>
+    <span class="progress" id="batchProgress"></span>
+    <button id="batchReanalyze" class="btn" type="button">批量重新蒸馏</button>
+    <button id="batchRegenerateSkeleton" class="btn" type="button">批量提取骨架</button>
+    <button id="batchDelete" class="btn danger" type="button">批量删除</button>
+  </div>
+
+  <div class="section-head hidden" id="listHead"><strong>蒸馏项目列表</strong><span id="count">正在加载...</span></div>
+  <div id="library" class="lib-grid"></div>
+  <div id="empty" class="empty hidden">当前还没有可展示的蒸馏项目。</div>
+</div>
+
+<div id="lightbox" class="lightbox"><div class="lightbox-inner"><button id="lightboxClose" class="lightbox-close" type="button">关闭</button><img id="lightboxImg" alt="放大原图"/></div></div>
+<div id="editorModal" class="modal"><div class="modal-panel"><button id="editorClose" class="modal-close" type="button">关闭</button><h2 id="editorTitle">编辑蒸馏卡</h2>
+  <form id="editorForm"><div class="modal-grid">
+    <section class="form-section full"><h3>基础信息</h3>
+      <div class="modal-grid">
+        <div class="field"><label>标题</label><input name="title" class="input"/></div>
+        <div class="field"><label>副标题</label><input name="subtitle" class="input"/></div>
+        <div class="field full"><label>摘要</label><textarea name="summary" class="textarea"></textarea></div>
+        <div class="field full"><label>标签（每行一个）</label><textarea name="tags" class="textarea"></textarea></div>
+      </div>
+    </section>
+  </div>
+  <div class="form-actions"><button type="button" id="editorCancel" class="btn secondary">取消</button><button type="submit" class="btn">保存修改</button></div>
+  </form>
+</div></div>
+
+<div id="layoutModal" class="modal"><div class="modal-panel"><button id="layoutClose" class="modal-close" type="button">关闭</button><h2 id="layoutTitle">版式编辑器</h2>
+  <div class="form-actions" style="margin-bottom:14px">
+    <button id="layoutReanalyze" class="btn secondary" type="button">重新分析</button>
+    <button id="layoutAddEl" class="btn add-el" type="button">+ 添加元素</button>
+    <button id="layoutTogglePoster" class="btn secondary" type="button">隐藏底图</button>
+    <button id="layoutSave" class="btn" type="button">保存版式</button>
+  </div>
+  <div class="layout-editor-grid">
+    <div class="canvas-container" id="canvasContainer">
+      <div id="svgContainer"></div>
+    </div>
+    <div class="layout-table" id="layoutTableWrap">
+      <table>
+        <thead><tr><th></th><th>元素</th><th>名称</th><th>x%</th><th>y%</th><th>w%</th><th>h%</th><th>z</th><th></th></tr></thead>
+        <tbody id="layoutTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div></div>
+
+<template id="card-template"><article class="card"><input type="checkbox" class="card-select"/><div class="card-head"><button class="thumb" type="button"><img/><span class="thumb-tip">点击放大</span></button><div class="head-meta"><div class="topline"><div class="id-box"><span class="id-label">蒸馏 ID</span><span class="id-value"></span></div><div class="actions"><button class="btn copy-btn" type="button">复制 ID</button><button class="btn secondary reanalyze-btn" type="button">重新蒸馏</button><button class="btn secondary edit-btn" type="button">编辑卡片</button><button class="btn secondary layout-btn" type="button">版式编辑器</button><button class="btn danger delete-btn" type="button">删除项目</button></div></div><div class="title"><strong></strong><span class="subtitle"></span></div><div class="summary"></div><div class="tags"></div><div class="layout-preview"></div></div></div></article></template>
+
+<script>
+// Test: is JS running?
+document.addEventListener('DOMContentLoaded', function() {
+  var d = document.getElementById('jsOK');
+  if (d) d.style.display = 'block';
+});
+</script>
+<script>
+(function(){
+"use strict";
+
+/* ===== State ===== */
+var state = {
+  cards: [],
+  activeTags: {},
+  query: '',
+  sortBy: 'recent',
+  editingId: null,
+  me: null,
+  users: [],
+  layoutCard: null,
+  layoutPosterImage: null,
+  showPosterImage: true,
+  selectedIds: {}  // { id: true } for quick lookup
+};
+
+var TYPE_COLORS = {
+  'title':'#111','subtitle':'#333','body_text':'#555','image':'#1a5276',
+  'product_photo':'#196f3d','logo':'#7d3c98','button':'#b03a2e','divider':'#2c3e50',
+  'background':'#aab7b8','decorative':'#d4ac0d','qr_code':'#1a1a1a','price_tag':'#c0392b',
+  'cta_area':'#b03a2e','info_strip':'#2c3e50','watermark':'#95a5a6'
+};
+
+var TYPE_OPTIONS = [
+  'title','subtitle','body_text','image','product_photo','logo','button',
+  'divider','background','decorative','qr_code','price_tag','cta_area','info_strip','watermark'
+];
+
+var TYPE_LABELS = {
+  'title': '标题', 'subtitle': '副标题', 'body_text': '正文', 'image': '图片',
+  'product_photo': '产品图', 'logo': 'Logo', 'button': '按钮', 'divider': '分割线',
+  'background': '背景', 'decorative': '装饰', 'qr_code': '二维码', 'price_tag': '价格标签',
+  'cta_area': '行动号召', 'info_strip': '信息条', 'watermark': '水印'
+};
+
+// 骨架图颜色 (fill, stroke, stroke-width) - 与服务器端一致
+var SKELETON_COLORS = {
+  'title': {fill:'#f0f0f0', stroke:'#111', sw:2}, 'subtitle': {fill:'#e8e8e8', stroke:'#333', sw:1.5},
+  'body_text': {fill:'#e0e0e0', stroke:'#555', sw:1}, 'image': {fill:'#d4e6f1', stroke:'#1a5276', sw:1.5},
+  'product_photo': {fill:'#d5f5e3', stroke:'#196f3d', sw:1.5}, 'logo': {fill:'#e8daef', stroke:'#7d3c98', sw:2},
+  'button': {fill:'#fadbd8', stroke:'#b03a2e', sw:2}, 'divider': {fill:'#d5d8dc', stroke:'#2c3e50', sw:1},
+  'background': {fill:'#f2f3f4', stroke:'#aab7b8', sw:1}, 'decorative': {fill:'#fef9e7', stroke:'#d4ac0d', sw:1},
+  'qr_code': {fill:'#e8e8e8', stroke:'#1a1a1a', sw:1.5}, 'price_tag': {fill:'#fadbd8', stroke:'#c0392b', sw:2},
+  'cta_area': {fill:'#fadbd8', stroke:'#b03a2e', sw:2}, 'info_strip': {fill:'#d5d8dc', stroke:'#2c3e50', sw:1.5},
+  'watermark': {fill:'#f2f3f4', stroke:'#95a5a6', sw:1}
+};
+
+/* ===== Helpers ===== */
+function $(id) { return document.getElementById(id); }
+
+function show(el) {
+  if (typeof el === 'string') el = $(el);
+  if (!el) return;
+  el.classList.remove('hidden');
+  if (el.classList.contains('modal')) el.classList.add('show');
+}
+
+function hide(el) {
+  if (typeof el === 'string') el = $(el);
+  if (!el) return;
+  el.classList.add('hidden');
+  if (el.classList.contains('modal')) el.classList.remove('show');
+}
+
+function canEdit() { return state.me && ['admin','editor'].indexOf(state.me.role) >= 0; }
+function isAdmin() { return state.me && state.me.role === 'admin'; }
+
+function copyText(text, button) {
+  try { navigator.clipboard.writeText(text); } catch(e) {}
+  var old = button.textContent;
+  button.textContent = '已复制';
+  button.classList.add('copied');
+  setTimeout(function() { button.textContent = old; button.classList.remove('copied'); }, 1200);
+}
+
+function openLightbox(src, alt) {
+  $('lightboxImg').src = src;
+  $('lightboxImg').alt = alt || '';
+  $('lightbox').classList.add('show');
+}
+function closeLightbox() { $('lightbox').classList.remove('show'); }
+
+function updateBatchBar() {
+  var count = Object.keys(state.selectedIds).length;
+  if (count > 0) {
+    show('batchBar');
+    $('batchCount').textContent = '已选择 ' + count + ' 个项目';
+  } else {
+    hide('batchBar');
+  }
+  // 更新卡片高亮
+  document.querySelectorAll('#library .card').forEach(function(card) {
+    var id = card.getAttribute('data-card-id');
+    if (state.selectedIds[id]) card.classList.add('is-selected');
+    else card.classList.remove('is-selected');
+    var cb = card.querySelector('.card-select');
+    if (cb) cb.checked = !!state.selectedIds[id];
+  });
+}
+
+function toggleSelect(id) {
+  if (state.selectedIds[id]) delete state.selectedIds[id];
+  else state.selectedIds[id] = true;
+  updateBatchBar();
+}
+
+function selectAll() {
+  var visible = sortCards(state.cards.filter(matchCard));
+  for (var i = 0; i < visible.length; i++) {
+    state.selectedIds[visible[i].id] = true;
+  }
+  updateBatchBar();
+}
+
+function deselectAll() {
+  state.selectedIds = {};
+  updateBatchBar();
+}
+
+function setBatchButtonsDisabled(disabled) {
+  var btns = document.querySelectorAll('#batchBar .btn');
+  for (var i = 0; i < btns.length; i++) btns[i].disabled = disabled;
+}
+
+function runBatchSequentially(ids, action, label) {
+  var total = ids.length;
+  var done = 0;
+  setBatchButtonsDisabled(true);
+  $('batchProgress').textContent = '0/' + total + ' 处理中...';
+  function next() {
+    if (done >= total) {
+      $('batchProgress').textContent = total + '/' + total + ' 完成';
+      setBatchButtonsDisabled(false);
+      loadLibrary();
+      return;
+    }
+    action(ids[done], done, total).then(function() {
+      done++;
+      $('batchProgress').textContent = done + '/' + total + ' 处理中...';
+      next();
+    }).catch(function(e) {
+      done++;
+      $('batchProgress').textContent = done + '/' + total + ' (1 error)';
+      next();
+    });
+  }
+  next();
+}
+
+function reanalyzeCard(id, article) {
+  if (!canEdit()) { alert('没有编辑权限'); return; }
+  var btn = article ? article.querySelector('.reanalyze-btn') : null;
+  if (btn) { btn.disabled = true; btn.textContent = '分析中...'; }
+  return api('/api/card/' + encodeURIComponent(id) + '/analyze', { method: 'POST' }).then(function(res) {
+    if (res.ok) {
+      if (btn) { btn.textContent = '已更新'; setTimeout(function() { btn.textContent = '重新蒸馏'; }, 1500); }
+      loadLibrary();
+    } else {
+      alert('蒸馏失败: ' + (res.data.error || ''));
+      if (btn) { btn.disabled = false; btn.textContent = '重新蒸馏'; }
+    }
+  }).catch(function(e) {
+    alert('蒸馏出错: ' + e.message);
+    if (btn) { btn.disabled = false; btn.textContent = '重新蒸馏'; }
+  });
+}
+
+function getSortableTag(card) {
+  var tags = (card.tags || []).slice().sort(function(a, b) { return a.localeCompare(b, 'zh-CN'); });
+  return tags[0] || '';
+}
+
+function sortCards(cards) {
+  var sorted = cards.slice();
+  if (state.sortBy === 'id')
+    sorted.sort(function(a, b) { return a.id.localeCompare(b.id, 'zh-CN'); });
+  else if (state.sortBy === 'tag')
+    sorted.sort(function(a, b) {
+      return getSortableTag(a).localeCompare(getSortableTag(b), 'zh-CN') || a.id.localeCompare(b.id, 'zh-CN');
+    });
+  else
+    sorted.sort(function(a, b) { return b.id.localeCompare(a.id, 'zh-CN'); });
+  return sorted;
+}
+
+function renderTagFilters(cards) {
+  var wrap = $('tagFilters');
+  var tagSet = {};
+  cards.forEach(function(c) { (c.tags || []).forEach(function(t) { tagSet[t] = true; }); });
+  wrap.innerHTML = '';
+  var tags = Object.keys(tagSet).sort(function(a, b) { return a.localeCompare(b, 'zh-CN'); });
+  tags.forEach(function(tag) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip' + (state.activeTags[tag] ? ' active' : '');
+    btn.textContent = tag;
+    btn.onclick = function() {
+      if (state.activeTags[tag]) delete state.activeTags[tag];
+      else state.activeTags[tag] = true;
+      renderTagFilters(state.cards);
+      renderCards();
+    };
+    wrap.appendChild(btn);
+  });
+}
+
+function matchCard(card) {
+  var q = state.query.trim().toLowerCase();
+  var tagKeys = Object.keys(state.activeTags);
+  var tagMatch = tagKeys.length === 0 || (card.tags || []).some(function(t) { return state.activeTags[t]; });
+  if (!tagMatch) return false;
+  if (!q) return true;
+  var hay = [card.id, card.title, card.subtitle, card.summary].concat(card.tags || []).join(' ').toLowerCase();
+  return hay.indexOf(q) >= 0;
+}
+
+/* ===== API ===== */
+function api(url, opts) {
+  opts = opts || {};
+  var h = opts.headers || {};
+  h['Content-Type'] = 'application/json';
+  opts.headers = h;
+  opts.credentials = 'include';
+  return fetch(url, opts).then(function(res) {
+    return res.json().then(function(data) {
+      if (!res.ok && !data.error) data.error = 'REQUEST_FAILED';
+      return { ok: res.ok, data: data };
+    }).catch(function(e) {
+      return { ok: res.ok, data: { error: 'JSON_PARSE: ' + e.message } };
+    });
+  }).catch(function(e) {
+    return { ok: false, data: { error: e.message } };
+  });
+}
+
+/* ===== Auth UI ===== */
+function updateAuthUI() {
+  if (!state.me) {
+    $('authStatus').textContent = '未登录';
+    hide('roleBadge'); hide('logoutBtn'); hide('showAdminBtn');
+    hide('mainToolbar'); hide('listHead');
+    show('empty');
+    $('empty').textContent = '请先登录以访问蒸馏库。';
+    return;
+  }
+  $('authStatus').textContent = '当前用户：' + state.me.username;
+  $('roleBadge').textContent = '角色：' + state.me.role;
+  show('roleBadge'); show('logoutBtn');
+  if (isAdmin()) show('showAdminBtn'); else hide('showAdminBtn');
+  if (state.me.role === 'pending') {
+    hide('mainToolbar'); hide('listHead');
+    show('empty');
+    $('empty').textContent = '你的账号已注册，正在等待管理员分配权限。';
+  } else {
+    show('mainToolbar'); show('listHead'); hide('empty');
+  }
+}
+
+function refreshMe() {
+  // 先用 sessionStorage 恢复状态（避免刷新后闪退）
+  var cached = sessionStorage.getItem('distill_auth');
+  if (cached) {
+    try { state.me = JSON.parse(cached); } catch(e) { state.me = null; }
+  }
+  updateAuthUI();
+  // 后台验证 cookie 是否有效
+  return api('/api/auth/me').then(function(res) {
+    if (res.data && res.data.authenticated) {
+      // cookie 有效，更新状态
+      state.me = res.data.user;
+      sessionStorage.setItem('distill_auth', JSON.stringify(state.me));
+      updateAuthUI();
+    }
+    // cookie 无效但 sessionStorage 有效时，保持显示（不覆盖 state.me）
+  });
+}
+
+function loadUsers() {
+  if (!isAdmin()) return Promise.resolve();
+  return api('/api/admin/users').then(function(res) {
+    if (!res.ok) return;
+    state.users = res.data.users || [];
+    var body = $('userTableBody');
+    body.innerHTML = '';
+    state.users.forEach(function(u) {
+      var tr = document.createElement('tr');
+      var opts = ['pending','viewer','editor','admin'].map(function(r) {
+        return '<option value="' + r + '"' + (u.role === r ? ' selected' : '') + '>' + r + '</option>';
+      }).join('');
+      tr.innerHTML = '<td>' + u.username + '</td><td>' + u.role + '</td><td><select data-user="' + u.username + '" class="select" style="min-height:32px;height:32px;padding:0 8px">' + opts + '</select></td>';
+      body.appendChild(tr);
+    });
+    body.querySelectorAll('select[data-user]').forEach(function(sel) {
+      sel.onchange = function() {
+        api('/api/admin/users/' + encodeURIComponent(sel.getAttribute('data-user')), {
+          method: 'PATCH', body: JSON.stringify({ role: sel.value })
+        }).then(function(r) { if (!r.ok) alert('权限更新失败'); else loadUsers(); });
+      };
+    });
+  });
+}
+
+/* ===== Card Editor ===== */
+function openEditor(card) {
+  if (!canEdit()) { alert('没有编辑权限'); return; }
+  try {
+    state.editingId = card.id;
+    $('editorTitle').textContent = '编辑蒸馏卡 · ' + card.id;
+    var form = $('editorForm');
+    for (var i = 0; i < form.elements.length; i++) {
+      var el = form.elements[i];
+      if (!el.name) continue;
+      var v = card[el.name];
+      el.value = Array.isArray(v) ? v.join('\n') : (v || '');
+    }
+    show('editorModal');
+  } catch(e) {
+    alert('打开编辑器出错: ' + e.message);
+  }
+}
+function closeEditor() { hide('editorModal'); state.editingId = null; }
+
+/* ===== Layout Editor ===== */
+var selectedElIdx = -1;
+
+function openLayoutEditor(card) {
+  try {
+    if (!card) { alert('没有卡片数据'); return; }
+    state.layoutCard = card;
+    state.layoutPosterImage = null;
+    state.posterAspect = { w: 800, h: 1200 }; // 默认 3:4
+    state.showPosterImage = true;
+    if (card.source_images && card.source_images.length > 0) {
+      state.layoutPosterImage = '/' + card.source_images[0];
+      // 异步加载图片获取真实比例
+      (function(imgSrc) {
+        var img = new Image();
+        img.onload = function() {
+          var ratio = img.width / img.height;
+          // 保持宽度 800 不变，根据实际比例调整高度
+          state.posterAspect = { w: 800, h: Math.round(800 / ratio) };
+          if (state.layoutCard && state.layoutCard.id === card.id) {
+            renderLayoutEditor();
+          }
+        };
+        img.onerror = function() { /* 加载失败则保持默认比例 */ };
+        img.src = imgSrc;
+      })(state.layoutPosterImage);
+    }
+    $('layoutTitle').textContent = '版式编辑器 · ' + card.id;
+    selectedElIdx = -1;
+    show('layoutModal');
+    requestAnimationFrame(function() {
+      renderLayoutEditor();
+    });
+  } catch(e) {
+    alert('打开版式编辑器出错: ' + e.message);
+  }
+}
+function closeLayoutEditor() { hide('layoutModal'); state.layoutCard = null; state.layoutPosterImage = null; state.showPosterImage = true; selectedElIdx = -1; }
+
+function renderLayoutEditor() {
+  var card = state.layoutCard;
+  if (!card) return;
+  var la = card.layout_analysis || {};
+  var elements = la.elements || [];
+
+  // 确保选中的索引有效
+  if (selectedElIdx < 0 || selectedElIdx >= elements.length) {
+    selectedElIdx = elements.length > 0 ? 0 : -1;
+  }
+
+  renderInteractiveSVG(elements);
+  renderLayoutTable(elements);
+}
+
+function renderInteractiveSVG(elements) {
+  var card = state.layoutCard;
+  if (!card) return;
+  var aspect = state.posterAspect || { w: 800, h: 1200 };
+  var W = aspect.w, H = aspect.h;
+  var svg = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block;user-select:none">'];
+  svg.push('<rect width="' + W + '" height="' + H + '" fill="#fff"/>');
+  // 底图（仅编辑器使用，不影响骨架输出）
+  if (state.showPosterImage && state.layoutPosterImage) {
+    svg.push('<image href="' + state.layoutPosterImage + '" x="0" y="0" width="' + W + '" height="' + H + '" preserveAspectRatio="none" style="pointer-events:none"/>');
+  }
+  svg.push('<text x="10" y="20" font-size="12" fill="#999">' + (card.title || '版式骨架') + '</text>');
+
+  // 排序时保留原始索引，避免 indexOf 的不稳定性
+  var sorted = [];
+  for (var i = 0; i < elements.length; i++) {
+    sorted.push({ idx: i, el: elements[i] });
+  }
+  sorted.sort(function(a, b) {
+    return (a.el.z_index || 1) - (b.el.z_index || 1);
+  });
+
+  for (var i = 0; i < sorted.length; i++) {
+    var item = sorted[i];
+    var idx = item.idx;
+    var el = item.el;
+    var x = el.x / 100 * W;
+    var y = el.y / 100 * H;
+    var w = el.width / 100 * W;
+    var h = el.height / 100 * H;
+    var sc = SKELETON_COLORS[el.type] || {fill:'#eee', stroke:'#888', sw:1};
+    var sel = (idx === selectedElIdx);
+    var strokeColor = sel ? '#000' : sc.stroke;
+    var strokeWidth = sel ? 3 : sc.sw;
+    var fillOpacity = sel ? '0.6' : '0.45';
+
+    svg.push('<rect class="svg-el" data-idx="' + idx + '" ' +
+      'x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" ' +
+      'width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" ' +
+      'fill="' + sc.fill + '" fill-opacity="' + fillOpacity + '" stroke="' + strokeColor + '" stroke-width="' + strokeWidth + '" rx="2"/>');
+
+    var label = el.name_zh || el.type || '';
+    if (w > 30 && h > 20) {
+      svg.push('<text class="svg-label" data-idx="' + idx + '" pointer-events="none" ' +
+        'x="' + (x + w / 2) + '" y="' + (y + h / 2 + 4) + '" text-anchor="middle" font-size="11" fill="' + sc.stroke + '" font-weight="600">' + label + '</text>');
+    }
+
+    if (sel) {
+      var hs = 8;
+      var pts = [
+        {cx: x, cy: y}, {cx: x + w/2, cy: y}, {cx: x + w, cy: y},
+        {cx: x + w, cy: y + h/2}, {cx: x + w, cy: y + h}, {cx: x + w/2, cy: y + h},
+        {cx: x, cy: y + h}, {cx: x, cy: y + h/2}
+      ];
+      var dirs = ['nw','n','ne','e','se','s','sw','w'];
+      var cursors = ['nw-resize','n-resize','ne-resize','e-resize','se-resize','s-resize','sw-resize','w-resize'];
+      for (var j = 0; j < 8; j++) {
+        svg.push('<circle class="svg-handle" data-idx="' + idx + '" data-dir="' + dirs[j] + '" ' +
+          'cx="' + pts[j].cx.toFixed(1) + '" cy="' + pts[j].cy.toFixed(1) + '" ' +
+          'r="' + hs + '" fill="#fff" stroke="#000" stroke-width="2" ' +
+          'style="cursor:' + cursors[j] + ';pointer-events:all"/>');
+      }
+    }
+  }
+  svg.push('</svg>');
+  $('svgContainer').innerHTML = svg.join('');
+  attachSVGInteraction(elements);
+}
+
+function attachSVGInteraction(elements) {
+  var svg = document.querySelector('#svgContainer svg');
+  if (!svg) return;
+
+  svg.onmousedown = function(e) {
+    var card = state.layoutCard;
+    if (!card) return;
+    var els = card.layout_analysis.elements || [];
+
+    var handle = e.target.closest('.svg-handle');
+    if (handle) {
+      var idx = parseInt(handle.getAttribute('data-idx'));
+      var dir = handle.getAttribute('data-dir');
+      var el = els[idx];
+      if (!el) return;
+      selectedElIdx = idx;
+      renderLayoutTable(els);
+      var svgRect = svg.getBoundingClientRect();
+      svgInteractionState = {
+        mode: 'resize', idx: idx, dir: dir, svgRect: svgRect,
+        origX: el.x, origY: el.y, origW: el.width, origH: el.height,
+        startX: e.clientX, startY: e.clientY
+      };
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+
+    var svgEl = e.target.closest('.svg-el');
+    if (svgEl) {
+      var idx = parseInt(svgEl.getAttribute('data-idx'));
+      var el = els[idx];
+      if (!el) return;
+      selectedElIdx = idx;
+      renderLayoutTable(els);
+      // 不重建 SVG，只更新交互状态
+      var svgRect = svg.getBoundingClientRect();
+      svgInteractionState = {
+        mode: 'drag', idx: idx, svgRect: svgRect,
+        origX: el.x, origY: el.y, startX: e.clientX, startY: e.clientY
+      };
+      e.preventDefault();
+      return;
+    }
+
+    selectedElIdx = -1;
+    renderLayoutTable(elements);
+    renderInteractiveSVG(elements);
+  };
+}
+
+var svgInteractionState = null;
+
+// 增量更新 SVG 元素位置（不重建 DOM）
+function updateSVGRect(idx, el) {
+  var aspect = state.posterAspect || { w: 800, h: 1200 };
+  var W = aspect.w, H = aspect.h;
+  var rect = document.querySelector('#svgContainer svg .svg-el[data-idx="' + idx + '"]');
+  if (!rect) return;
+  rect.setAttribute('x', (el.x / 100 * W).toFixed(1));
+  rect.setAttribute('y', (el.y / 100 * H).toFixed(1));
+  rect.setAttribute('width', (el.width / 100 * W).toFixed(1));
+  rect.setAttribute('height', (el.height / 100 * H).toFixed(1));
+  // 同步更新标签文字位置
+  var label = document.querySelector('#svgContainer svg .svg-label[data-idx="' + idx + '"]');
+  if (label) {
+    var w = el.width / 100 * W;
+    var h = el.height / 100 * H;
+    label.setAttribute('x', (el.x / 100 * W + w / 2).toFixed(1));
+    label.setAttribute('y', (el.y / 100 * H + h / 2 + 4).toFixed(1));
+  }
+}
+
+document.addEventListener('mousemove', function(e) {
+  if (!svgInteractionState) return;
+  var s = svgInteractionState;
+  var card = state.layoutCard;
+  if (!card) return;
+  var els = card.layout_analysis.elements || [];
+  var el = els[s.idx];
+  if (!el) return;
+
+  var dx = e.clientX - s.startX;
+  var dy = e.clientY - s.startY;
+  var pctX = dx / s.svgRect.width * 100;
+  var pctY = dy / s.svgRect.height * 100;
+
+  if (s.mode === 'drag') {
+    el.x = Math.max(0, Math.min(100 - el.width, s.origX + pctX));
+    el.y = Math.max(0, Math.min(100 - el.height, s.origY + pctY));
+    updateSVGRect(s.idx, el);
+    updateTableValues(s.idx, el);
+  } else if (s.mode === 'resize') {
+    var dir = s.dir;
+    var minW = 3, minH = 3;
+    var newX = s.origX, newY = s.origY;
+    var newW = s.origW, newH = s.origH;
+    if (dir.indexOf('w') >= 0) { newX = Math.min(s.origX + pctX, s.origX + s.origW - minW); newW = s.origX + s.origW - newX; }
+    if (dir.indexOf('e') >= 0) { newW = s.origW + pctX; }
+    if (dir.indexOf('n') >= 0) { newY = Math.min(s.origY + pctY, s.origY + s.origH - minH); newH = s.origY + s.origH - newY; }
+    if (dir.indexOf('s') >= 0) { newH = s.origH + pctY; }
+    el.x = Math.max(0, newX);
+    el.y = Math.max(0, newY);
+    el.width = Math.max(minW, newW);
+    el.height = Math.max(minH, newH);
+    updateSVGRect(s.idx, el);
+    updateTableValues(s.idx, el);
+  }
+});
+
+document.addEventListener('mouseup', function() {
+  if (svgInteractionState) {
+    var card = state.layoutCard;
+    if (card) renderInteractiveSVG(card.layout_analysis.elements || []);
+  }
+  svgInteractionState = null;
+});
+
+function formatCoord(value) {
+  return Math.round(value * 100) / 100;
+}
+
+function updateTableValues(idx, el) {
+  var tr = document.querySelectorAll('#layoutTableBody tr')[idx];
+  if (!tr) return;
+  var xf = tr.querySelector('[data-field="x"]');
+  var yf = tr.querySelector('[data-field="y"]');
+  var wf = tr.querySelector('[data-field="width"]');
+  var hf = tr.querySelector('[data-field="height"]');
+  if (xf) xf.value = formatCoord(el.x);
+  if (yf) yf.value = formatCoord(el.y);
+  if (wf) wf.value = formatCoord(el.width);
+  if (hf) hf.value = formatCoord(el.height);
+}
+
+function renderLayoutTable(elements) {
+  var body = $('layoutTableBody');
+  body.innerHTML = '';
+  for (var i = 0; i < elements.length; i++) {
+    var el = elements[i];
+    var tr = document.createElement('tr');
+    if (i === selectedElIdx) tr.classList.add('selected');
+    var c = TYPE_COLORS[el.type] || '#888';
+    var opts = TYPE_OPTIONS.map(function(t) {
+      return '<option' + (t === el.type ? ' selected' : '') + ' value="' + t + '">' + (TYPE_LABELS[t] || t) + '</option>';
+    }).join('');
+    tr.innerHTML =
+      '<td><span class="type-dot" style="background:' + c + '"></span></td>' +
+      '<td><select data-field="type" data-idx="' + i + '" style="min-height:28px;border:1px solid #d9d9d3;font-size:12px">' + opts + '</select></td>' +
+      '<td><input data-field="name_zh" data-idx="' + i + '" value="' + (el.name_zh || '') + '" placeholder="名称"/></td>' +
+      '<td><input data-field="x" data-idx="' + i + '" type="number" step="0.01" value="' + formatCoord(el.x) + '" style="width:48px"/></td>' +
+      '<td><input data-field="y" data-idx="' + i + '" type="number" step="0.01" value="' + formatCoord(el.y) + '" style="width:48px"/></td>' +
+      '<td><input data-field="width" data-idx="' + i + '" type="number" step="0.01" value="' + formatCoord(el.width) + '" style="width:48px"/></td>' +
+      '<td><input data-field="height" data-idx="' + i + '" type="number" step="0.01" value="' + formatCoord(el.height) + '" style="width:48px"/></td>' +
+      '<td><input data-field="z_index" data-idx="' + i + '" type="number" value="' + (el.z_index || 1) + '" style="width:40px"/></td>' +
+      '<td><button class="del-btn" data-del-idx="' + i + '" type="button">&times;</button></td>';
+    body.appendChild(tr);
+  }
+  body.querySelectorAll('input,select').forEach(function(inp) {
+    inp.oninput = function() {
+      var idx = parseInt(inp.dataset.idx);
+      var f = inp.dataset.field;
+      var elem = elements[idx];
+      var v = inp.value;
+      if (['x','y','width','height','z_index','confidence'].indexOf(f) >= 0) v = parseFloat(v) || 0;
+      elem[f] = v;
+      var card = state.layoutCard;
+      if (card) renderInteractiveSVG(card.layout_analysis.elements || []);
+    };
+  });
+  body.querySelectorAll('.del-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      var idx = parseInt(btn.dataset.delIdx);
+      elements.splice(idx, 1);
+      selectedElIdx = -1;
+      var card = state.layoutCard;
+      if (card) {
+        renderLayoutTable(card.layout_analysis.elements || []);
+        renderInteractiveSVG(card.layout_analysis.elements || []);
+      }
+    };
+  });
+}
+
+
+/* ===== Render Cards ===== */
+function renderCards() {
+  var library = $('library'), emptyEl = $('empty'), countEl = $('count'), template = $('card-template');
+  library.innerHTML = '';
+  if (!state.me || state.me.role === 'pending') return;
+  var visible = sortCards(state.cards.filter(matchCard));
+  var tagCount = Object.keys(state.activeTags).length;
+  var tagLabel = tagCount > 0 ? ' · 已选标签 ' + tagCount + ' 个' : '';
+  countEl.textContent = '当前收录 ' + state.cards.length + ' 个项目 · 当前显示 ' + visible.length + ' 个' + tagLabel;
+  if (!visible.length) { show('empty'); emptyEl.textContent = '当前没有匹配的蒸馏卡。'; return; }
+  hide('empty');
+  for (var vi = 0; vi < visible.length; vi++) {
+    var card = visible[vi];
+    var node = template.content.cloneNode(true);
+    var article = node.querySelector('article');
+    article.setAttribute('data-card-id', card.id);
+    var img = node.querySelector('img');
+    img.src = '/' + (card.thumb || (card.source_images && card.source_images[0]) || '');
+    img.alt = card.title;
+    (function(imgEl) {
+      node.querySelector('.thumb').onclick = function() { openLightbox(imgEl.src, imgEl.alt); };
+    })(img);
+    node.querySelector('.id-value').textContent = card.id;
+    (function(cid) {
+      var cb = node.querySelector('.copy-btn');
+      cb.onclick = function() { copyText(cid, cb); };
+    })(card.id);
+    // checkbox
+    (function(cid) {
+      var sel = node.querySelector('.card-select');
+      sel.checked = !!state.selectedIds[cid];
+      sel.onchange = function() { toggleSelect(cid); };
+    })(card.id);
+    // 重新蒸馏按钮
+    (function(cid) {
+      var rb = node.querySelector('.reanalyze-btn');
+      if (canEdit()) {
+        rb.onclick = function() { reanalyzeCard(cid, rb.closest('article')); };
+      } else {
+        rb.classList.add('hidden');
+      }
+    })(card.id);
+    if (canEdit()) {
+      (function(c) {
+        node.querySelector('.edit-btn').onclick = function() { openEditor(c); };
+      })(card);
+    } else {
+      node.querySelector('.edit-btn').classList.add('hidden');
+    }
+    (function(c) {
+      node.querySelector('.layout-btn').onclick = function() { openLayoutEditor(c); };
+    })(card);
+    if (isAdmin()) {
+      (function(cid) {
+        node.querySelector('.delete-btn').onclick = function() {
+          if (!confirm('确认删除蒸馏项目 ' + cid + ' 吗？')) return;
+          api('/api/card/' + encodeURIComponent(cid), { method: 'DELETE' }).then(function(r) {
+            if (r.ok) loadLibrary(); else alert('删除失败');
+          });
+        };
+      })(card.id);
+    } else {
+      node.querySelector('.delete-btn').classList.add('hidden');
+    }
+    node.querySelector('.title strong').textContent = card.title;
+    node.querySelector('.subtitle').textContent = card.subtitle || card.summary || '';
+    node.querySelector('.summary').textContent = card.summary || '';
+    var tagsEl = node.querySelector('.tags');
+    (card.tags || []).forEach(function(tag) {
+      var s = document.createElement('span');
+      s.textContent = tag;
+      tagsEl.appendChild(s);
+    });
+    var la = card.layout_analysis || {};
+    var previewEl = node.querySelector('.layout-preview');
+    var badge = document.createElement('button');
+    badge.type = 'button';
+    if (la.status === 'ready') {
+      badge.className = 'layout-badge ready';
+      badge.textContent = '版式已分析 · ' + (la.elements || []).length + ' 个元素';
+      if (la.skeleton_image) {
+        var skImg = document.createElement('img');
+        skImg.src = '/' + la.skeleton_image;
+        skImg.alt = 'skeleton';
+        skImg.style.height = '48px';
+        skImg.style.borderRadius = '4px';
+        skImg.style.cursor = 'pointer';
+        skImg.style.border = '1px solid #d9d9d3';
+        (function(c) { skImg.onclick = function() { openLayoutEditor(c); }; })(card);
+        previewEl.appendChild(skImg);
+      }
+    } else if (la.status === 'analyzing') {
+      badge.className = 'layout-badge analyzing';
+      badge.textContent = '分析中...';
+    } else {
+      badge.className = 'layout-badge pending';
+      badge.textContent = '待分析';
+    }
+    (function(c) { badge.onclick = function() { openLayoutEditor(c); }; })(card);
+    previewEl.appendChild(badge);
+    library.appendChild(node);
+  }
+}
+
+function loadLibrary() {
+  if (!state.me || state.me.role === 'pending') return Promise.resolve();
+  return api('/api/library').then(function(res) {
+    if (!res.ok) {
+      $('count').textContent = '加载失败';
+      show('empty');
+      $('empty').textContent = '蒸馏库加载失败';
+      return;
+    }
+    var items = res.data.cards || [];
+    var loaded = [];
+    var promises = items.map(function(item) {
+      return api('/api/card/' + encodeURIComponent(item.id)).then(function(cardRes) {
+        if (cardRes.ok) loaded.push(cardRes.data.card);
+      });
+    });
+    return Promise.all(promises).then(function() {
+      state.cards = loaded;
+      renderTagFilters(state.cards);
+      renderCards();
+    });
+  });
+}
+
+/* ===== Init: expose global functions first, then bind events ===== */
+
+// Register
+$('registerBtn').onclick = function() {
+  var u = $('registerUsername').value.trim();
+  var p = $('registerPassword').value;
+  if (!u || !p) { alert('请输入用户名和密码'); return; }
+  api('/api/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({ username: u, password: p })
+  }).then(function(res) {
+    if (!res.ok) { alert('注册失败：' + (res.data.error || '')); return; }
+    return refreshMe().then(function() {
+      if (isAdmin()) return loadUsers();
+    }).then(function() {
+      return loadLibrary();
+    }).then(function() {
+      alert(res.data.role === 'admin' ? '注册成功，你已成为管理员' : '注册成功，等待管理员审核权限');
+    });
+  });
+};
+
+// Logout
+$('logoutBtn').onclick = function() {
+  sessionStorage.removeItem('distill_auth');
+  api('/api/auth/logout', { method: 'POST' }).then(function() {
+    state.cards = [];
+    state.me = null;
+    $('library').innerHTML = '';
+    updateAuthUI();
+  });
+};
+
+// Show/hide auth
+$('showAuthBtn').onclick = function() { $('authWrap').classList.toggle('hidden'); };
+$('showAdminBtn').onclick = function() {
+  $('adminWrap').classList.toggle('hidden');
+  if (!$('adminWrap').classList.contains('hidden')) loadUsers();
+};
+
+// Editor
+$('editorForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var form = e.currentTarget;
+  var payload = {};
+  for (var i = 0; i < form.elements.length; i++) {
+    var el = form.elements[i];
+    if (!el.name) continue;
+    payload[el.name] = el.name === 'tags'
+      ? (el.value || '').split('\n').map(function(v) { return v.trim(); }).filter(Boolean)
+      : (el.value || '');
+  }
+  api('/api/card/' + encodeURIComponent(state.editingId), {
+    method: 'PATCH', body: JSON.stringify(payload)
+  }).then(function(res) {
+    if (res.ok) { closeEditor(); loadLibrary(); }
+    else alert('保存失败：' + (res.data.error || ''));
+  });
+});
+$('editorCancel').onclick = closeEditor;
+$('editorClose').onclick = closeEditor;
+$('editorModal').onclick = function(e) { if (e.target.id === 'editorModal') closeEditor(); };
+
+// Search & sort
+$('searchInput').addEventListener('input', function(e) { state.query = e.target.value || ''; renderCards(); });
+$('sortSelect').addEventListener('change', function(e) { state.sortBy = e.target.value; renderCards(); });
+// Select & batch
+$('selectAllBtn').onclick = selectAll;
+$('deselectAllBtn').onclick = deselectAll;
+
+$('batchReanalyze').onclick = function() {
+  var ids = Object.keys(state.selectedIds);
+  if (ids.length === 0) return;
+  if (!confirm('确认对 ' + ids.length + ' 个项目重新蒸馏？这将调用 AI 分析每张海报。')) return;
+  runBatchSequentially(ids, function(id) {
+    return api('/api/card/' + encodeURIComponent(id) + '/analyze', { method: 'POST' });
+  }, '重新蒸馏');
+};
+
+$('batchRegenerateSkeleton').onclick = function() {
+  var ids = Object.keys(state.selectedIds);
+  if (ids.length === 0) return;
+  if (!confirm('确认对 ' + ids.length + ' 个项目重新提取骨架？')) return;
+  runBatchSequentially(ids, function(id) {
+    return api('/api/card/' + encodeURIComponent(id) + '/regenerate-skeleton', { method: 'POST' });
+  }, '提取骨架');
+};
+
+$('batchDelete').onclick = function() {
+  var ids = Object.keys(state.selectedIds);
+  if (ids.length === 0) return;
+  if (!confirm('确认删除 ' + ids.length + ' 个项目？此操作不可撤销。')) return;
+  runBatchSequentially(ids, function(id) {
+    return api('/api/card/' + encodeURIComponent(id), { method: 'DELETE' }).then(function(r) {
+      if (r.ok) delete state.selectedIds[id];
+    });
+  }, '删除');
+};
+
+// Lightbox
+$('lightboxClose').onclick = closeLightbox;
+$('lightbox').onclick = function(e) { if (e.target.id === 'lightbox') closeLightbox(); };
+
+// Layout modal
+$('layoutClose').onclick = closeLayoutEditor;
+$('layoutModal').onclick = function(e) { if (e.target.id === 'layoutModal') closeLayoutEditor(); };
+$('layoutSave').onclick = function() {
+  var card = state.layoutCard;
+  if (!card) { alert('没有正在编辑的卡片'); return; }
+  var la = card.layout_analysis || {};
+  la.elements = la.elements || [];
+  la.status = 'ready';
+  api('/api/card/' + encodeURIComponent(card.id) + '/layout', {
+    method: 'PATCH', body: JSON.stringify({ layout_analysis: la })
+  }).then(function(res) {
+    if (res.ok) {
+      if (res.data.skeleton_png_ok) alert('版式已保存，骨架图 PNG 已同步更新');
+      else alert('版式已保存，但骨架图 PNG 同步失败，请查看服务端日志');
+      // 重新加载整个卡片数据（包含新生成的骨架图）
+      api('/api/card/' + encodeURIComponent(card.id)).then(function(cardRes) {
+        if (cardRes.ok) {
+          // 更新 state.layoutCard 以便画布刷新
+          state.layoutCard = cardRes.data.card;
+          renderLayoutEditor();
+        }
+        loadLibrary();
+      });
+    } else {
+      alert('保存失败：' + (res.data.error || ''));
+    }
+  });
+};
+$('layoutReanalyze').onclick = function() {
+  var card = state.layoutCard;
+  if (!card) { alert('没有正在编辑的卡片'); return; }
+  api('/api/card/' + encodeURIComponent(card.id) + '/analyze', { method: 'POST' }).then(function(res) {
+    if (res.ok) { alert('分析完成'); loadLibrary(); closeLayoutEditor(); }
+    else alert('分析失败：' + (res.data.error || ''));
+  });
+};
+$('layoutAddEl').onclick = function() {
+  var card = state.layoutCard;
+  if (!card) return;
+  var la = card.layout_analysis || {};
+  la.elements = la.elements || [];
+  la.elements.push({
+    id: 'el-' + (la.elements.length + 1), type: 'title', name_zh: '新元素',
+    x: 10, y: 10, width: 30, height: 20, z_index: 1, confidence: 1, notes: ''
+  });
+  selectedElIdx = la.elements.length - 1;
+  renderLayoutEditor();
+};
+$('layoutTogglePoster').onclick = function() {
+  state.showPosterImage = !state.showPosterImage;
+  $('layoutTogglePoster').textContent = state.showPosterImage ? '隐藏底图' : '显示底图';
+  renderLayoutEditor();
+};
+
+// Escape key
+window.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeLightbox(); closeEditor(); closeLayoutEditor(); }
+});
+
+/* ===== Show JS OK indicator & Init ===== */
+var jsOk = $('jsOK');
+if (jsOk) jsOk.style.display = 'block';
+
+refreshMe().then(function() {
+  if (isAdmin()) return loadUsers();
+}).then(function() {
+  return loadLibrary();
+}).catch(function(e) {
+  console.error('[v3] init error:', e);
+});
+
+})();
+</script>
+</body>
+</html>

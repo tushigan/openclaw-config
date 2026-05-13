@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Minimal Login Test</title></head>
+<body>
+<h2>极简登录测试 v3.2</h2>
+<div>
+<input id="u" placeholder="用户名" value="涂是淦"/><br/><br/>
+<input id="p" type="password" placeholder="密码" value="1989714tsg"/><br/><br/>
+<button id="btn" onclick="doLogin()">点击登录</button>
+</div>
+<p id="status">等待点击</p>
+
+<script>
+function doLogin() {
+  document.getElementById('status').textContent = '正在发送请求...';
+  var u = document.getElementById('u').value.trim();
+  var p = document.getElementById('p').value;
+
+  fetch('/api/auth/login', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({username: u, password: p})
+  }).then(function(res) {
+    document.getElementById('status').textContent = '收到响应: ' + res.status;
+    return res.json();
+  }).then(function(data) {
+    if (data.ok) {
+      document.getElementById('status').textContent = '登录成功！角色: ' + data.role;
+    } else {
+      document.getElementById('status').textContent = '登录失败: ' + JSON.stringify(data);
+    }
+  }).catch(function(e) {
+    document.getElementById('status').textContent = '出错: ' + e.message;
+  });
+}
+</script>
+</body>
+</html>
