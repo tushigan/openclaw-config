@@ -167,6 +167,9 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manage
 | **禁忌** | 不要的颜色/风格/元素 | 不要低幼卡通感 |
 | **是否有蒸馏卡 ID** | 是 → 填写 ID，否 → 留空 | POSTER-DISTILL-P-012 |
 | **风格参考** | 上传参考图 或 文字描述 | 暖红色调春节氛围 |
+| **设计负责人飞书 ID** | 飞书群协作项目建议填写；非群项目可留空 | ou_xxx |
+| **策划负责人飞书 ID** | 飞书群协作项目建议填写；非群项目可留空 | ou_xxx |
+| **项目经理飞书 ID** | 飞书群协作项目建议填写；非群项目可留空 | ou_xxx |
 
 **如果是产品推广类海报**，还需额外提供：
 - 产品名称
@@ -195,6 +198,11 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manage
   "taboos": "用户禁忌",
   "distill_card_id": "蒸馏卡ID 或空",
   "style_note": "风格参考描述",
+  "contacts": {
+    "design_lead": {"feishu_user_id": "ou_xxx"},
+    "planning_lead": {"feishu_user_id": "ou_xxx"},
+    "project_manager": {"feishu_user_id": "ou_xxx"}
+  },
   "assets": {
     "style_refs": ["images/style_ref_1.jpg"],
     "logo": "images/logo.jpg",
@@ -203,6 +211,8 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manage
   }
 }
 ```
+
+`contacts` 仅用于流程推进与确认责任人定位，不参与文案策划 prompt、生图 prompt、蒸馏卡解析或模型参数组装。
 
 ### 项目目录结构
 
@@ -308,7 +318,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/fetch_brand_as
 [发送素材预览图]
 
 请确认：
-- 「确认素材」→ 素材齐全，进入下一步
+- 「确认素材」→ 素材齐全，进入下一步（默认由项目经理确认）
 - 「补充图片」→ 请上传额外的参考图/素材
 - 「替换 [类型]」→ 请上传替换该类型的素材
 ```
@@ -520,7 +530,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/process_copywr
 - [ ] Logo（已上传）
 
 请确认：
-- 回复「确认文案」→ 进入生图阶段
+- 回复「确认文案」→ 进入生图阶段（默认由策划负责人确认）
 - 回复「修改 [区域] → [新文案]」→ 调整对应区域
 ```
 
@@ -682,7 +692,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/generate_creat
 - [must_avoid 2]
 
 请确认：
-- 回复「确认创意」→ 进入 prompt 组装
+- 回复「确认创意」→ 进入 prompt 组装（默认由设计负责人确认）
 - 回复「修改创意：[具体要求]」→ 先调整创意表达方案
 ```
 
@@ -882,7 +892,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/prepare_feishu
 - 整体视觉效果是否满意
 
 请选择：
-- 「确认定稿」→ 完成；若当前为预览图，再补发原图 zip
+- 「确认定稿」→ 完成；若当前为预览图，再补发原图 zip（默认由项目经理确认）
 - 「局部修改 [具体描述]」→ 调整后重新生图
 ```
 

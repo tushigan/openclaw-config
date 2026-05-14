@@ -9,6 +9,13 @@ from pathlib import Path
 from typing import Any
 
 PROJECTS_ROOT = Path('/Users/a123/.openclaw/workspace/brand-poster-projects')
+ROLE_KEYS = ['design_lead', 'planning_lead', 'project_manager']
+STAGE_CONFIRMATION_MAP = {
+    'assets': 'project_manager',
+    'copywriting': 'planning_lead',
+    'creative_direction': 'design_lead',
+    'delivery': 'project_manager',
+}
 STAGE_ORDER = [
     'intake',
     'distill',
@@ -109,6 +116,12 @@ class ProjectManager:
             'cleanup_ready': False,
         }
 
+    def _default_role_contacts(self) -> dict[str, dict[str, str]]:
+        return {key: {'feishu_user_id': '', 'name': ''} for key in ROLE_KEYS}
+
+    def _default_stage_confirmation_map(self) -> dict[str, str]:
+        return dict(STAGE_CONFIRMATION_MAP)
+
     def _default_resume(self) -> dict[str, Any]:
         return {
             'auto_resume_stage': 'intake',
@@ -131,6 +144,8 @@ class ProjectManager:
             'workflow_flags': self._default_workflow_flags(),
             'attempts': self._default_attempts(),
             'resume': self._default_resume(),
+            'role_contacts': self._default_role_contacts(),
+            'stage_confirmation_map': self._default_stage_confirmation_map(),
             'last_error_stage': '',
             'last_error': '',
             'artifacts': {},
@@ -159,6 +174,17 @@ class ProjectManager:
         resume = state.setdefault('resume', {})
         for key, value in self._default_resume().items():
             resume.setdefault(key, value)
+        role_contacts = state.setdefault('role_contacts', {})
+        for key, value in self._default_role_contacts().items():
+            role_contacts.setdefault(key, value)
+            if not isinstance(role_contacts[key], dict):
+                role_contacts[key] = value.copy()
+            else:
+                role_contacts[key].setdefault('feishu_user_id', '')
+                role_contacts[key].setdefault('name', '')
+        stage_confirmation_map = state.setdefault('stage_confirmation_map', {})
+        for stage, role in self._default_stage_confirmation_map().items():
+            stage_confirmation_map.setdefault(stage, role)
         state.setdefault('last_error_stage', '')
         state.setdefault('last_error', '')
         state.setdefault('artifacts', {})
@@ -190,12 +216,37 @@ class ProjectManager:
         except Exception:
             return str(p)
 
+    def _normalize_role_contacts(self, contacts: dict[str, Any] | None) -> dict[str, dict[str, str]]:
+        normalized = self._default_role_contacts()
+        if not isinstance(contacts, dict):
+            return normalized
+        for key in ROLE_KEYS:
+            raw = contacts.get(key)
+            if isinstance(raw, dict):
+                normalized[key]['feishu_user_id'] = str(raw.get('feishu_user_id', '') or '').strip()
+                normalized[key]['name'] = str(raw.get('name', '') or '').strip()
+            elif raw is not None:
+                normalized[key]['feishu_user_id'] = str(raw).strip()
+        return normalized
+
+    def _confirmation_target_for_stage(self, stage: str) -> dict[str, str]:
+        role = str(self.state.get('stage_confirmation_map', {}).get(stage, '') or '').strip()
+        contact = self.state.get('role_contacts', {}).get(role, {}) if role else {}
+        return {
+            'role': role,
+            'feishu_user_id': str((contact or {}).get('feishu_user_id', '') or '').strip(),
+            'name': str((contact or {}).get('name', '') or '').strip(),
+        }
+
     def init_project(self, brief_payload: dict[str, Any] | None = None, reason: str = '自动立项') -> dict[str, Any]:
         (self.project_dir / 'images').mkdir(parents=True, exist_ok=True)
         (self.project_dir / 'logs').mkdir(parents=True, exist_ok=True)
         brief_path = self.project_dir / 'brief.json'
         if brief_payload is not None or not brief_path.exists():
             write_json(brief_path, brief_payload or {})
+        brief_data = (brief_payload or load_json(brief_path, {}) or {})
+        role_contacts = self._normalize_role_contacts(brief_data.get('contacts'))
+        self.state['role_contacts'] = role_contacts
         intake_manifest = {
             'project_id': self.project_id,
             'status': 'initialized',
@@ -203,7 +254,8 @@ class ProjectManager:
             'updated_at': now_iso(),
             'user_confirmed': False,
             'brief_path': str(brief_path),
-            'fields_present': sorted((brief_payload or load_json(brief_path, {}) or {}).keys()),
+            'fields_present': sorted(brief_data.keys()),
+            'contacts_snapshot': role_contacts,
             'history': [
                 {
                     'ts': now_iso(),
@@ -260,6 +312,10 @@ class ProjectManager:
         current.update(payload)
         current.setdefault('project_id', self.project_id)
         current.setdefault('stage', stage)
+        target = self._confirmation_target_for_stage(stage)
+        if target['role']:
+            current['confirmation_target'] = target
+        current.setdefault('confirmed_by', {})
         current['updated_at'] = now_iso()
         write_json(manifest_path, current)
         return manifest_path
@@ -342,16 +398,28 @@ class ProjectManager:
             event_files.append(self._relative(manifest_path))
         self.audit('stage_failed', stage=stage, status='failed', actor=actor, reason=error, files=event_files, attempt=self.state['attempts'].get(stage), extra=extra)
 
-    def record_user_confirmation(self, stage: str, confirmed: bool, note: str = '', actor: str = 'user') -> None:
+    def record_user_confirmation(self, stage: str, confirmed: bool, note: str = '', actor: str = 'user', confirmed_by_role: str = '', confirmed_by_id: str = '') -> None:
         manifest_name = MANIFEST_BY_STAGE.get(stage)
         manifest_path = self.project_dir / manifest_name if manifest_name else None
         manifest = load_json(manifest_path, {}) if manifest_path and manifest_path.exists() else {}
+        target = self._confirmation_target_for_stage(stage)
+        confirmed_by = {
+            'role': confirmed_by_role.strip(),
+            'feishu_user_id': confirmed_by_id.strip(),
+        }
         manifest['user_confirmed'] = bool(confirmed)
+        if target['role']:
+            manifest['confirmation_target'] = target
+        manifest['confirmed_by'] = confirmed_by if confirmed else {}
         history = manifest.setdefault('history', [])
         history.append({
             'ts': now_iso(),
             'event': 'user_confirmed' if confirmed else 'user_rejected',
             'note': note,
+            'confirmed_by_role': confirmed_by['role'],
+            'confirmed_by_id': confirmed_by['feishu_user_id'],
+            'target_role': target['role'],
+            'target_feishu_user_id': target['feishu_user_id'],
         })
         if manifest_path:
             write_json(manifest_path, manifest)
@@ -365,7 +433,20 @@ class ProjectManager:
         self.state['resume']['resume_reason'] = note or ('用户已确认阶段结果。' if confirmed else '用户要求继续修改该阶段结果。')
         self.state['resume']['updated_at'] = now_iso()
         self.save()
-        self.audit('user_confirmed' if confirmed else 'user_requested_retry', stage=stage, status='done' if confirmed else 'running', actor=actor, reason=note, files=[manifest_name] if manifest_name else [])
+        self.audit(
+            'user_confirmed' if confirmed else 'user_requested_retry',
+            stage=stage,
+            status='done' if confirmed else 'running',
+            actor=actor,
+            reason=note,
+            files=[manifest_name] if manifest_name else [],
+            extra={
+                'target_role': target['role'],
+                'target_feishu_user_id': target['feishu_user_id'],
+                'confirmed_by_role': confirmed_by['role'],
+                'confirmed_by_id': confirmed_by['feishu_user_id'],
+            },
+        )
 
     def force_resume(self, stage: str, note: str = '', actor: str = 'user') -> dict[str, Any]:
         if stage not in STAGE_ORDER:
@@ -537,6 +618,8 @@ def main() -> int:
     confirm_parser.add_argument('--confirmed', required=True, choices=['true', 'false'])
     confirm_parser.add_argument('--note', default='')
     confirm_parser.add_argument('--actor', default='user')
+    confirm_parser.add_argument('--confirmed-by-role', default='')
+    confirm_parser.add_argument('--confirmed-by-id', default='')
 
     force_parser = subparsers.add_parser('force-resume', help='人工指定阶段强制续跑')
     force_parser.add_argument('--project-dir', required=True)
@@ -591,6 +674,8 @@ def main() -> int:
             confirmed=args.confirmed == 'true',
             note=args.note,
             actor=args.actor,
+            confirmed_by_role=args.confirmed_by_role,
+            confirmed_by_id=args.confirmed_by_id,
         )
         print(json.dumps(manager.state, ensure_ascii=False, indent=2))
         return 0
