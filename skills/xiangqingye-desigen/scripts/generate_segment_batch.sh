@@ -56,6 +56,8 @@ PLATFORM_PROFILE="$PROJECT_DIR/platform_profile.json"
 CATEGORY_PROFILE="$PROJECT_DIR/category_profile.json"
 DESIGN_PROMPT_BASE="$PROMPT_PACKAGE_DIR/design_segment_base.txt"
 WIREFRAME_PROMPT_BASE="$PROMPT_PACKAGE_DIR/wireframe_base.txt"
+DATA_LOOKUP_SCRIPT="/Users/a123/.openclaw/skills/xiangqingye-desigen/scripts/project_data_lookup.py"
+IMAGE_PROBE_SCRIPT="/Users/a123/.openclaw/skills/xiangqingye-desigen/scripts/probe_image_size.py"
 REGISTRY="$PROJECT_DIR/asset_registry.json"
 KNOWLEDGE_CONFIRMED="$PROJECT_DIR/策划/brand_knowledge_confirmed.json"
 CUT_PREVIEW_DIR="$PROJECT_DIR/手稿/$VERSION/cut_preview"
@@ -87,9 +89,9 @@ if [[ ! -f "$KNOWLEDGE_CONFIRMED" ]]; then
     echo "未找到已确认的品牌知识摘要，将继续仅使用基础 prompt package" >&2
 fi
 
-REF_LOGO=$(python3 -c "import json,sys; r=json.load(open(sys.argv[1], encoding='utf-8')); print(next((a.get('absolute_path') or a.get('path') or '' for a in r.get('assets', []) if a.get('role') == 'brand_logo'), ''))" "$REGISTRY")
-REF_PRODUCT=$(python3 -c "import json,sys; r=json.load(open(sys.argv[1], encoding='utf-8')); print(next((a.get('absolute_path') or a.get('path') or '' for a in r.get('assets', []) if a.get('role') == 'product_main'), ''))" "$REGISTRY")
-REF_PACKAGING=$(python3 -c "import json,sys; r=json.load(open(sys.argv[1], encoding='utf-8')); print(next((a.get('absolute_path') or a.get('path') or '' for a in r.get('assets', []) if a.get('role') == 'packaging'), ''))" "$REGISTRY")
+REF_LOGO=$(python3 "$DATA_LOOKUP_SCRIPT" asset --registry "$REGISTRY" --role brand_logo)
+REF_PRODUCT=$(python3 "$DATA_LOOKUP_SCRIPT" asset --registry "$REGISTRY" --role product_main)
+REF_PACKAGING=$(python3 "$DATA_LOOKUP_SCRIPT" asset --registry "$REGISTRY" --role packaging)
 
 if [[ -z "$REF_PRODUCT" ]]; then
     echo "素材注册表中缺少 product_main，成稿阶段不能继续" >&2
@@ -112,7 +114,7 @@ if [[ ! -f "$CUT_MANIFEST" ]]; then
     exit 1
 fi
 
-CUT_STATUS=$(python3 -c "import json,sys; data=json.load(open(sys.argv[1], encoding='utf-8')); print(data.get('status',''))" "$CUT_MANIFEST")
+CUT_STATUS=$(python3 "$DATA_LOOKUP_SCRIPT" manifest-status --manifest "$CUT_MANIFEST")
 if [[ "$CUT_STATUS" != "confirmed" ]]; then
     echo "切段清单未确认，不能进入成稿阶段: $CUT_MANIFEST" >&2
     exit 1
@@ -142,11 +144,7 @@ echo ""
 
 resolve_confirmed_segment_file() {
     local SEGMENT_KEY="$1"
-    python3 -c "import json,sys; data=json.load(open(sys.argv[1], encoding='utf-8')); key=sys.argv[2];
-for item in data.get('segments', []):
-    if str(item.get('key', '')).strip() == key:
-        print(item.get('confirmed_file', '').strip())
-        break" "$CUT_MANIFEST" "$SEGMENT_KEY"
+    python3 "$DATA_LOOKUP_SCRIPT" segment-file --manifest "$CUT_MANIFEST" --segment-key "$SEGMENT_KEY"
 }
 
 generate_segment() {
@@ -201,7 +199,7 @@ generate_segment() {
 
     if [[ -f "$OUTPUT_FILE" ]]; then
         local SIZE_ACTUAL
-        SIZE_ACTUAL=$(python3 -c "from PIL import Image; print(Image.open('$OUTPUT_FILE').size)")
+        SIZE_ACTUAL=$(python3 "$IMAGE_PROBE_SCRIPT" "$OUTPUT_FILE")
         echo "完成: $OUTPUT_FILE ($SIZE_ACTUAL)"
     else
         echo "失败: $OUTPUT_FILE 未生成" >&2

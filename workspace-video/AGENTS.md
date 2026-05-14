@@ -26,7 +26,7 @@
 
 ### 0.6 禁止内联脚本，必须先写脚本文件再执行
 
-**根因**：使用 `python3 - <<'PY' ... PY`、`python3 -c "..."`、`node -e "..."` 等内联代码格式执行时，exec preflight 会直接拒绝（`complex interpreter invocation detected`），触发审批弹窗阻塞流程。
+**根因**：使用 heredoc 内联代码、解释器 `-c`、或运行时 `-e` 直接塞代码时，exec preflight 会直接拒绝（`complex interpreter invocation detected`），触发审批弹窗阻塞流程。
 
 **规则**：
 - **禁止**使用 heredoc（`<<`）或 `-c` / `-e` 参数直接传代码给解释器
@@ -35,7 +35,7 @@
 
 **正确做法**：先 `write` 到文件，再 `exec` 执行脚本文件。
 
-**错误做法**：`exec` 直接执行 `python3 - <<'PY'`、`python3 -c`、`node -e` 等内联代码。
+**错误做法**：`exec` 直接执行 heredoc、解释器 `-c`、运行时 `-e` 这类内联代码。
 
 ### 0.6.1 视频正式执行必须走固定脚本入口
 
@@ -59,7 +59,7 @@
 
 **规则**：
 - 一旦出现 `allowlist miss`、`complex interpreter invocation detected`、或等价审批阻塞，先向上游/主 agent 明确回报当前卡点。
-- 后续只能退回到已经放行的固定脚本入口，不要临时改写成新的 heredoc、`python -c`、`node -e` 或自由命令继续碰运气。
+- 后续只能退回到已经放行的固定脚本入口，不要临时改写成新的 heredoc、解释器 `-c`、运行时 `-e` 或自由命令继续碰运气。
 - 不要因为看到旧视频文件存在，就拿它充当“至少先交一个结果”的替代品。
 
 ---

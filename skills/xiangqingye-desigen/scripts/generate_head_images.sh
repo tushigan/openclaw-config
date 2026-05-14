@@ -44,6 +44,8 @@ PLATFORM_PROFILE="$PROJECT_DIR/platform_profile.json"
 CATEGORY_PROFILE="$PROJECT_DIR/category_profile.json"
 WIREFRAME_PROMPT_BASE="$PROMPT_PACKAGE_DIR/wireframe_base.txt"
 HEAD_PROMPT_BASE="$PROMPT_PACKAGE_DIR/head_image_base.txt"
+DATA_LOOKUP_SCRIPT="/Users/a123/.openclaw/skills/xiangqingye-desigen/scripts/project_data_lookup.py"
+IMAGE_PROBE_SCRIPT="/Users/a123/.openclaw/skills/xiangqingye-desigen/scripts/probe_image_size.py"
 
 # 参考图（优先读取 asset_registry.json，缺失时按文件名兜底）
 REGISTRY="$PROJECT_DIR/asset_registry.json"
@@ -79,33 +81,9 @@ if [[ ! -f "$KNOWLEDGE_CONFIRMED" ]]; then
 fi
 
 if [[ -f "$REGISTRY" ]]; then
-    REF_LOGO=$(python3 - "$REGISTRY" <<'PY'
-import json, sys
-r=json.load(open(sys.argv[1], encoding='utf-8'))
-for a in r.get('assets', []):
-    if a.get('role') == 'brand_logo':
-        print(a.get('absolute_path') or a.get('path'))
-        break
-PY
-)
-    REF_PRODUCT=$(python3 - "$REGISTRY" <<'PY'
-import json, sys
-r=json.load(open(sys.argv[1], encoding='utf-8'))
-for a in r.get('assets', []):
-    if a.get('role') == 'product_main':
-        print(a.get('absolute_path') or a.get('path'))
-        break
-PY
-)
-    REF_PACKAGING=$(python3 - "$REGISTRY" <<'PY'
-import json, sys
-r=json.load(open(sys.argv[1], encoding='utf-8'))
-for a in r.get('assets', []):
-    if a.get('role') == 'packaging':
-        print(a.get('absolute_path') or a.get('path'))
-        break
-PY
-)
+    REF_LOGO=$(python3 "$DATA_LOOKUP_SCRIPT" asset --registry "$REGISTRY" --role brand_logo)
+    REF_PRODUCT=$(python3 "$DATA_LOOKUP_SCRIPT" asset --registry "$REGISTRY" --role product_main)
+    REF_PACKAGING=$(python3 "$DATA_LOOKUP_SCRIPT" asset --registry "$REGISTRY" --role packaging)
 fi
 
 if [[ -z "$REF_PRODUCT" ]]; then
@@ -173,7 +151,7 @@ generate_head_image() {
     $CMD
 
     if [[ -f "$OUTPUT_FILE" ]]; then
-        local SIZE_ACTUAL=$(python3 -c "from PIL import Image; print(Image.open('$OUTPUT_FILE').size)")
+        local SIZE_ACTUAL=$(python3 "$IMAGE_PROBE_SCRIPT" "$OUTPUT_FILE")
         echo "完成: $OUTPUT_FILE ($SIZE_ACTUAL)"
     else
         echo "失败: $OUTPUT_FILE 未生成" >&2

@@ -6,6 +6,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **OpenClaw user configuration directory** (`~/.openclaw`), not source code. OpenClaw is a multi-channel AI gateway/agent framework with multi-agent collaboration capabilities. The actual OpenClaw package is installed via npm at `/opt/homebrew/lib/node_modules/openclaw`.
 
+### Collaboration Role
+
+In this repository, Claude's default role is to act as the user's **programming assistant and engineering expert for maintaining OpenClaw**, not to optimize Claude Code for its own sake.
+
+Default task framing should be anchored to OpenClaw maintenance and improvement, including but not limited to:
+- OpenClaw architecture optimization
+- skill development, debugging, and refinement
+- agent workflow and routing improvements
+- configuration cleanup and maintainability upgrades
+- stability, observability, and delivery-chain reliability
+
+Unless the user explicitly asks about Claude Code itself, treat Claude Code as a tool used to help maintain OpenClaw, not as the primary subject of work.
+
 Key configuration file: [openclaw.json](openclaw.json) contains models, channels, agents, plugins, and all runtime settings.
 
 ## Common Commands

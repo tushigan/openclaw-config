@@ -87,7 +87,7 @@
 
 ### 0.7 禁止内联脚本，必须先写脚本文件再执行
 
-**根因**：使用 `python3 - <<'PY' ... PY`、`python3 -c “...”`、`node -e “...”` 等内联代码格式执行时，exec preflight 会直接拒绝（`complex interpreter invocation detected`），触发审批弹窗阻塞流程。
+**根因**：使用 heredoc 内联代码、解释器 `-c`、或运行时 `-e` 直接塞代码时，exec preflight 会直接拒绝（`complex interpreter invocation detected`），触发审批弹窗阻塞流程。
 
 **规则**：
 - **禁止**使用 heredoc（`<<`）或 `-c` / `-e` 参数直接传代码给解释器
@@ -96,7 +96,7 @@
 
 **正确做法**：先 `write` 到文件，再 `exec` 执行脚本文件。
 
-**错误做法**：`exec` 直接执行 `python3 - <<'PY'`、`python3 -c`、`node -e` 等内联代码。
+**错误做法**：`exec` 直接执行 heredoc、解释器 `-c`、运行时 `-e` 这类内联代码。
 
 **注意**：写 inline Python 代码时（如调用 API 脚本），`model` 和 `base_url` 配置参见第 4 节。
 
@@ -108,7 +108,7 @@
    - 正式执行入口只能是项目目录里的稳定脚本路径，例如：
      - `python3 /abs/project/04-keyframes/run-generate-keyframes-seg01-kf01.py`
      - `bash /abs/project/04-keyframes/run-generate-keyframes-seg01-kf01.sh`
-   - 禁止为了临时补救改成 heredoc、`python3 -c`、`node -e`、`sh -c`、或一次性拼接长命令
+   - 禁止为了临时补救改成 heredoc、解释器 `-c`、运行时 `-e`、`sh -c`、或一次性拼接长命令
 
 2. **检查完成状态优先用 `.done` + `ls`，不要再写临时检查脚本**
    - 先看同名 `.done` 是否存在
