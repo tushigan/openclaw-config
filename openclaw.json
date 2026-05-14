@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.5.7",
-    "lastTouchedAt": "2026-05-12T07:13:21.191Z"
+    "lastTouchedAt": "2026-05-14T03:50:21.894Z"
   },
   "wizard": {
     "lastRunAt": "2026-05-11T03:19:25.535Z",
@@ -191,6 +191,14 @@
   },
   "agents": {
     "defaults": {
+      "memorySearch": {
+        "provider": "siliconflow",
+        "model": "BAAI/bge-m3",
+        "remote": {
+          "baseUrl": "https://api.siliconflow.cn/v1",
+          "apiKey": "${SILICONFLOW_API_KEY}"
+        }
+      },
       "model": {
         "primary": "newapi_channel_conn/gpt-5.5"
       },
@@ -799,7 +807,10 @@
             "memory_write_public",
             "network_skill_pull",
             "network_memory_detail",
-            "network_team_info"
+            "network_team_info",
+            "process",
+            "edit",
+            "apply_patch"
           ],
           "alsoAllow": [
             "agents_list",
@@ -850,6 +861,9 @@
           "exec": {
             "security": "full",
             "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
           }
         }
       },
@@ -883,7 +897,10 @@
             "memory_write_public",
             "network_skill_pull",
             "network_memory_detail",
-            "network_team_info"
+            "network_team_info",
+            "process",
+            "edit",
+            "apply_patch"
           ],
           "alsoAllow": [
             "agents_list",
@@ -942,6 +959,9 @@
           "exec": {
             "security": "full",
             "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
           }
         }
       },
@@ -974,7 +994,10 @@
             "memory_write_public",
             "network_skill_pull",
             "network_memory_detail",
-            "network_team_info"
+            "network_team_info",
+            "process",
+            "edit",
+            "apply_patch"
           ],
           "alsoAllow": [
             "agents_list",
@@ -1032,6 +1055,9 @@
           "exec": {
             "security": "full",
             "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
           }
         }
       },
@@ -1063,7 +1089,10 @@
             "memory_write_public",
             "network_skill_pull",
             "network_memory_detail",
-            "network_team_info"
+            "network_team_info",
+            "process",
+            "edit",
+            "apply_patch"
           ],
           "alsoAllow": [
             "agents_list",
@@ -1122,6 +1151,9 @@
           "exec": {
             "security": "full",
             "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
           }
         }
       },
@@ -1154,7 +1186,10 @@
             "memory_write_public",
             "network_skill_pull",
             "network_memory_detail",
-            "network_team_info"
+            "network_team_info",
+            "process",
+            "edit",
+            "apply_patch"
           ],
           "alsoAllow": [
             "agents_list",
@@ -1214,6 +1249,9 @@
           "exec": {
             "security": "full",
             "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
           }
         }
       },
@@ -1246,7 +1284,10 @@
             "memory_write_public",
             "network_skill_pull",
             "network_memory_detail",
-            "network_team_info"
+            "network_team_info",
+            "process",
+            "edit",
+            "apply_patch"
           ],
           "alsoAllow": [
             "agents_list",
@@ -1302,6 +1343,9 @@
           "exec": {
             "security": "full",
             "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
           }
         }
       },
@@ -1334,7 +1378,10 @@
             "memory_write_public",
             "network_skill_pull",
             "network_memory_detail",
-            "network_team_info"
+            "network_team_info",
+            "process",
+            "edit",
+            "apply_patch"
           ],
           "alsoAllow": [
             "exec",
@@ -1352,6 +1399,9 @@
           "exec": {
             "security": "full",
             "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
           }
         }
       }
@@ -1437,8 +1487,18 @@
   "commands": {
     "native": "auto",
     "nativeSkills": "auto",
-    "restart": true,
-    "ownerDisplay": "raw"
+    "restart": false,
+    "ownerDisplay": "raw",
+    "text": true,
+    "bash": false,
+    "config": false,
+    "mcp": false,
+    "plugins": false,
+    "debug": false,
+    "ownerAllowFrom": [
+      "feishu:ou_88079e6b06ce40e6851c96928fe1a03b"
+    ],
+    "useAccessGroups": true
   },
   "session": {
     "dmScope": "per-channel-peer",
@@ -1650,7 +1710,8 @@
           "groupPolicy": "allowlist",
           "groupAllowFrom": [
             "*"
-          ]
+          ],
+          "configWrites": false
         },
         "strategy": {
           "enabled": true,
@@ -1665,7 +1726,8 @@
           "groupPolicy": "allowlist",
           "groupAllowFrom": [
             "*"
-          ]
+          ],
+          "configWrites": false
         },
         "research": {
           "enabled": true,
@@ -1680,7 +1742,8 @@
           "groupPolicy": "allowlist",
           "groupAllowFrom": [
             "*"
-          ]
+          ],
+          "configWrites": false
         },
         "meeting-analyst": {
           "enabled": true,
@@ -1695,7 +1758,8 @@
           "groupPolicy": "allowlist",
           "groupAllowFrom": [
             "*"
-          ]
+          ],
+          "configWrites": false
         },
         "copywriter": {
           "enabled": true,
@@ -1710,7 +1774,8 @@
           "groupPolicy": "allowlist",
           "groupAllowFrom": [
             "*"
-          ]
+          ],
+          "configWrites": false
         },
         "default": {
           "dmPolicy": "open",
@@ -1720,7 +1785,8 @@
           "groupPolicy": "allowlist",
           "groupAllowFrom": [
             "*"
-          ]
+          ],
+          "configWrites": false
         }
       },
       "groups": {
@@ -1747,7 +1813,11 @@
       },
       "allowFrom": [
         "*"
-      ]
+      ],
+      "configWrites": false,
+      "commands": {
+        "enforceOwnerForCommands": true
+      }
     }
   },
   "gateway": {
@@ -1959,8 +2029,8 @@
     "enabled": true,
     "allow": [
       "browser",
+      "feishu",
       "memory-core",
-      "memos-local-openclaw-plugin",
       "openclaw-lark",
       "tavily"
     ],
@@ -1984,33 +2054,6 @@
           }
         }
       },
-      "memos-local-openclaw-plugin": {
-        "enabled": false,
-        "config": {
-          "embedding": {
-            "provider": "siliconflow",
-            "model": "BAAI/bge-m3",
-            "endpoint": "https://api.siliconflow.cn/v1",
-            "apiKey": "sk-zvblrfaqzsyhfkmkidldxoasptohnoguxkgainhclgkgjeyq"
-          },
-          "summarizer": {
-            "provider": "openai",
-            "model": "DeepSeek-V3.2",
-            "endpoint": "https://ark.cn-beijing.volces.com/api/coding/v3",
-            "apiKey": "f18ed387-3274-462c-81e2-d93c4057f754"
-          },
-          "skillEvolution": {
-            "enabled": true,
-            "autoInstall": false,
-            "summarizer": {
-              "provider": "openai",
-              "model": "Doubao-Seed-2.0-pro",
-              "endpoint": "https://ark.cn-beijing.volces.com/api/coding/v3",
-              "apiKey": "f18ed387-3274-462c-81e2-d93c4057f754"
-            }
-          }
-        }
-      },
       "browser": {
         "enabled": true
       },
@@ -2018,7 +2061,7 @@
         "enabled": true
       }
     },
-    "bundledDiscovery": "compat"
+    "bundledDiscovery": "allowlist"
   },
   "messages": {
     "groupChat": {

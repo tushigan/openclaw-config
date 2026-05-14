@@ -4,13 +4,13 @@
   "hostContractVersion": "2026.5.7",
   "compatRegistryVersion": "f495518e4bb408b5b516ec1add5c2c1850580753e490d00c996d690c24523e34",
   "migrationVersion": 1,
-  "policyHash": "fbdce8498ae4b062a7fe4f37a3a13de5648180730a03b252466cfe0414eca6b7",
-  "generatedAtMs": 1778552419577,
-  "refreshReason": "source-changed",
+  "policyHash": "72841990d2b032e521a266d8f13e2ed4cf175c2f08f638777bf0a750beb01747",
+  "generatedAtMs": 1778728652237,
+  "refreshReason": "manual",
   "installRecords": {
     "feishu": {
       "source": "npm",
-      "spec": "@openclaw/feishu",
+      "spec": "@openclaw/feishu@2026.5.7",
       "installPath": "/Users/a123/.openclaw/npm/node_modules/@openclaw/feishu",
       "version": "2026.5.7",
       "resolvedName": "@openclaw/feishu",
@@ -18,21 +18,8 @@
       "resolvedSpec": "@openclaw/feishu@2026.5.7",
       "integrity": "sha512-l2t1JRO4OW/4kTdpfK2xwFdnDbmAoufaTVivQsRt/EyKe7L7l5g7MYja8Tqgjj3W9GtjYe6AUnabHQrLZ7TLjQ==",
       "shasum": "4db1e1edf24dae9cb77033f38f768b863f56374f",
-      "resolvedAt": "2026-05-12T02:09:46.527Z",
-      "installedAt": "2026-05-12T02:09:52.008Z"
-    },
-    "memos-local-openclaw-plugin": {
-      "source": "npm",
-      "spec": "@memtensor/memos-local-openclaw-plugin@latest",
-      "installPath": "/Users/a123/.openclaw/extensions/memos-local-openclaw-plugin",
-      "version": "1.0.7",
-      "resolvedName": "@memtensor/memos-local-openclaw-plugin",
-      "resolvedVersion": "1.0.7",
-      "resolvedSpec": "@memtensor/memos-local-openclaw-plugin@1.0.7",
-      "integrity": "sha512-igICjcmQ8h0ogaL3SYArnebV8MMtXlHMJEucU0lrBiVJ6udjD1Ky/oHhw5LUItOQFh9VhbYmLJQUSeB6sU+7bg==",
-      "shasum": "b0278b8bc03c67745055ffeb71b01a6230df30e2",
-      "resolvedAt": "2026-03-27T05:08:24.302Z",
-      "installedAt": "2026-03-27T05:08:53.047Z"
+      "resolvedAt": "2026-05-14T03:16:11.066Z",
+      "installedAt": "2026-05-14T03:16:11.563Z"
     },
     "openclaw-lark": {
       "source": "archive",
@@ -3341,7 +3328,7 @@
       "source": "/Users/a123/.openclaw/npm/node_modules/@openclaw/feishu/dist/index.js",
       "rootDir": "/Users/a123/.openclaw/npm/node_modules/@openclaw/feishu",
       "origin": "global",
-      "enabled": true,
+      "enabled": false,
       "startup": {
         "sidecar": false,
         "memory": false,
@@ -3354,7 +3341,7 @@
       "setupSource": "/Users/a123/.openclaw/npm/node_modules/@openclaw/feishu/dist/setup-entry.js",
       "packageName": "@openclaw/feishu",
       "packageVersion": "2026.5.7",
-      "installRecordHash": "1b9725243b51549e3a6ef52359ecdbbc2268b789f2dbea496f109ac8d4b44880",
+      "installRecordHash": "899b69a22d2a672dc1cb011750887e9927dc10084be8b382fad3853994664669",
       "packageInstall": {
         "defaultChoice": "npm",
         "npm": {
@@ -3456,12 +3443,5 @@
       }
     }
   ],
-  "diagnostics": [
-    {
-      "level": "warn",
-      "pluginId": "memos-local-openclaw-plugin",
-      "message": "installed plugin package requires compiled runtime output for TypeScript entry index.ts: expected ./dist/index.js, ./dist/index.mjs, ./dist/index.cjs, index.js, index.mjs, index.cjs",
-      "source": "/Users/a123/.openclaw/extensions/memos-local-openclaw-plugin"
-    }
-  ]
+  "diagnostics": []
 }

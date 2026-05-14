@@ -168,16 +168,16 @@
           "id": "shared-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1778672197404,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v4/_temp_hash_gate.py",
+          "lastUsedAt": 1778730414343,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_compress_v12.py && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/final_poster_v12_compressed.jpg",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1778688788080,
-          "lastUsedCommand": "bash brand-poster-projects/BP-20260513-xiaobai-festival-001/generation/run_D1_v10_dynamic_ghost_ip.sh",
+          "lastUsedAt": 1778730445011,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-xiaobai-festival-001/generation/run_20260514_interact_61_less_sky.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -189,8 +189,8 @@
           "id": "shared-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1778719821228,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images/final_poster_v9.png /Users/a123/.openclaw/workspace/feishu-deliver/wokenday_milkwhite_toast_v9_final.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/wokenday_milkwhite_toast_v9_final.png",
+          "lastUsedAt": 1778730111282,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/media/inbound/de89495c-1fd9-4048-b305-e7cfbd7303de.jpg /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets/ref_v12_locked_style.jpg && ls -lh /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets/ref_v12_locked_style.jpg",
           "lastResolvedPath": "/bin/cp"
         },
         {
@@ -205,9 +205,9 @@
           "id": "shared-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778721105862,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/outputs/wokenday_refs/",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1778730414343,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_compress_v12.py && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/final_poster_v12_compressed.jpg",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-cat",
@@ -223,9 +223,9 @@
           "id": "shared-lark-cli",
           "pattern": "/opt/homebrew/bin/lark-cli",
           "description": "允许执行飞书 CLI",
-          "lastUsedAt": 1778658766124,
-          "lastUsedCommand": "mkdir -p brand-poster-projects/BP-20260513-HXG-CHILDRENSDAY-001/assets && lark-cli drive +download --as user --file-token V88fbfWxDod5vZxHKrxcxKv4nD1 --output brand-poster-projects/BP-20260513-HXG-CHILDRENSDAY-001/assets/logo.jpg --overwrite && lark-cli drive +download --as user --file-token KMo6bJ6WVoTZsTxVVQocrdiBnxg --output brand-poster-projects/BP-20260513-HXG-CHILDRENSDAY-001/assets/ip.jpeg --overwrite && ls -la brand-poster-projects/BP-20260513-HXG-CHILDRENSDAY-001/assets",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1778729405467,
+          "lastUsedCommand": "lark-cli sheets +info --spreadsheet-token SyZjsui46hygSeti1atcs105n6g --as user",
+          "lastResolvedPath": "/opt/homebrew/bin/lark-cli"
         },
         {
           "id": "shared-stat",
@@ -240,7 +240,10 @@
         {
           "id": "shared-head",
           "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）"
+          "description": "允许读取前几行内容（shared 只读检索）",
+          "lastUsedAt": 1778727614668,
+          "lastUsedCommand": "ls -lth /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images/ | head -10",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-sed",
@@ -314,9 +317,10 @@
           "id": "shared-strategy-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1778660159550,
-          "lastUsedCommand": "python3 outputs/_temp_verify_good_gu.py",
-          "lastResolvedPath": "/usr/bin/python3"
+          "lastUsedAt": 1778729769433,
+          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\nfiles=[\n'/Users/a123/.openclaw/workspace/outputs/chundong_project_brief_for_strategy.md',\n'/Users/a123/.openclaw/workspace/outputs/chundong_deep_research/research_brief.md',\n'/Users/a123/.openclaw/workspace/outputs/chundong_deep_research/strategy_playbook.md',\n'/Users/a123/.openclaw/workspace/outputs/chundong_ppt_20pages_content.md',\n]\nfor f in files:\n print('\\n===== '+f+' =====')\n txt=Path(f).read_text(errors='ignore')\n print('\\n'.join(txt.splitlines()[:220]))\nPY",
+          "lastResolvedPath": "/usr/bin/python3",
+          "source": "allow-always"
         },
         {
           "id": "shared-strategy-bash",
@@ -349,7 +353,10 @@
         {
           "id": "shared-strategy-cat",
           "pattern": "/bin/cat",
-          "description": "允许读取文件内容"
+          "description": "允许读取文件内容",
+          "lastUsedAt": 1778729814913,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/plugin-skills/browser-automation/SKILL.md",
+          "lastResolvedPath": "/bin/cat"
         },
         {
           "id": "shared-strategy-lark-cli",
@@ -375,12 +382,18 @@
         {
           "id": "strategy-head",
           "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）"
+          "description": "允许读取前几行内容（shared 只读检索）",
+          "lastUsedAt": 1778729980261,
+          "lastUsedCommand": "find outputs -maxdepth 2 -type f -mmin -30 | sed 's#^#/#' | head -50",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "strategy-sed",
           "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）"
+          "description": "允许做只读文本筛选（shared 常见输出裁剪）",
+          "lastUsedAt": 1778730398185,
+          "lastUsedCommand": "sed -n '1,2p' /Users/a123/.openclaw/workspace/outputs/chundong_ppt_20pages_content.md",
+          "lastResolvedPath": "/usr/bin/sed"
         },
         {
           "id": "strategy-curl",
@@ -415,7 +428,10 @@
         {
           "id": "strategy-find",
           "pattern": "/usr/bin/find",
-          "description": "允许查找文件（shared 只读检索）"
+          "description": "允许查找文件（shared 只读检索）",
+          "lastUsedAt": 1778730002878,
+          "lastUsedCommand": "find . -type f -mmin -120",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "strategy-rg",
@@ -435,8 +451,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图）",
-          "lastUsedAt": 1778689405129,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/run_v9_local.py",
+          "lastUsedAt": 1778727551031,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/prepare_feishu_delivery.py --project-dir /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -472,8 +488,8 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778689343613,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images",
+          "lastUsedAt": 1778727562737,
+          "lastUsedCommand": "ls -l /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,20p'; printf '\\n'; ls -l /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images/final_poster_v9.png",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -533,16 +549,16 @@
           "id": "f1d1e290-b323-4362-ae60-173e4d9134f0",
           "pattern": "/usr/bin/head",
           "source": "allow-always",
-          "lastUsedAt": 1778669501755,
-          "lastUsedCommand": "grep -R \"send_image_message\\|receive_id_type=open_id\\|image_key\" -n /Users/a123/.openclaw/workspace-design | head -50",
-          "lastResolvedPath": "/usr/bin/grep"
+          "lastUsedAt": 1778727528168,
+          "lastUsedCommand": "rg -n \"def .*send_feishu|feishu-send-image|send_feishu_message\\.py|lark-cli|message tool\" /Users/a123/.openclaw -S | head -120",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
           "id": "34352226-bed6-4857-b096-abe0169a1f0d",
           "pattern": "/opt/homebrew/bin/rg",
           "source": "allow-always",
-          "lastUsedAt": 1778671864716,
-          "lastUsedCommand": "rg -n \"send image\" /Users/a123/.openclaw/skills/brand-poster-creator/scripts /Users/a123/.openclaw/workspace-design -g '!**/node_modules/**'",
+          "lastUsedAt": 1778727528168,
+          "lastUsedCommand": "rg -n \"def .*send_feishu|feishu-send-image|send_feishu_message\\.py|lark-cli|message tool\" /Users/a123/.openclaw -S | head -120",
           "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
@@ -560,12 +576,18 @@
         {
           "id": "design-head",
           "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）"
+          "description": "允许读取前几行内容（shared 只读检索）",
+          "lastUsedAt": 1778727528168,
+          "lastUsedCommand": "rg -n \"def .*send_feishu|feishu-send-image|send_feishu_message\\.py|lark-cli|message tool\" /Users/a123/.openclaw -S | head -120",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）"
+          "description": "允许做只读文本筛选（shared 常见输出裁剪）",
+          "lastUsedAt": 1778727562737,
+          "lastUsedCommand": "ls -l /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,20p'; printf '\\n'; ls -l /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images/final_poster_v9.png",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "design-curl",
@@ -749,8 +771,8 @@
           "id": "shared-research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1778720440504,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/outputs/_temp_wokenday_refs.py",
+          "lastUsedAt": 1778726453292,
+          "lastUsedCommand": "python3 outputs/_temp_search_rou_200.py",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
