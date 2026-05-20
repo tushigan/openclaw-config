@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shlex
 import subprocess
 import sys
@@ -19,11 +20,37 @@ from project_manager import ProjectManager
 TARGET_SCRIPT = Path('/Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py')
 ROLE_TO_FLAG = {
     'style_ref': '--ref-style',
-    'skeleton': '--reference',
+    'skeleton': '--ref-layout',
     'product': '--ref-product',
     'ip': '--ref-ip',
     'logo': '--ref-logo',
 }
+
+
+def looks_like_generated_style_ref(path: str, project_dir: Path | None = None) -> bool:
+    raw = str(path or '').strip()
+    if not raw:
+        return False
+    ref_path = Path(raw)
+    stem = ref_path.stem.lower()
+    name = ref_path.name.lower()
+
+    if stem == 'current_base_ref':
+        return True
+    if stem.startswith('final_poster') or name.startswith('final_poster'):
+        return True
+    if stem.startswith('generated_') or stem.endswith('_generated') or '-generated' in stem:
+        return True
+
+    if project_dir is not None:
+        try:
+            resolved = ref_path.resolve()
+            images_dir = (project_dir / 'images').resolve()
+            if resolved.parent == images_dir and stem.startswith('final_'):
+                return True
+        except Exception:
+            return False
+    return False
 
 
 def utc_now() -> str:
@@ -55,6 +82,31 @@ def tail_text(path: Path, limit: int = 4000) -> str:
     if not path.exists():
         return ''
     return path.read_text(encoding='utf-8', errors='ignore')[-limit:]
+
+
+def classify_generation_error(error_text: str) -> str:
+    text = (error_text or '').lower()
+    if not text:
+        return 'unknown'
+    if 'quota' in text or 'pre-consumed quota failed' in text or 'insufficient_quota' in text:
+        return 'quota_insufficient'
+    if 'permission' in text or 'forbidden' in text or 'access denied' in text:
+        return 'permission_denied'
+    if '401' in text or '403' in text or '429' in text or '/v1/images/' in text:
+        return 'provider_error'
+    return 'command_failed'
+
+
+def recommended_action_for_error(category: str) -> str:
+    if category == 'quota_insufficient':
+        return '补充生图额度或切换到可用 provider 后重试正式生图。'
+    if category == 'permission_denied':
+        return '修复脚本路径或执行权限后，重新运行正式生图。'
+    if category == 'provider_error':
+        return '检查上游生图接口状态、鉴权和 provider 配置后重试。'
+    if category == 'command_failed':
+        return '查看 stdout/stderr 日志，修复命令或输入后重试正式生图。'
+    return '查看日志并修复正式生图链路后重试。'
 
 
 def validate_preflight(project_dir: Path, brief: dict, ref_order_data: dict) -> tuple[list[str], list[dict], list[str], list[str]]:
@@ -122,6 +174,18 @@ def validate_preflight(project_dir: Path, brief: dict, ref_order_data: dict) -> 
     if product_ref and ip_ref and product_ref['path'] == ip_ref['path']:
         errors.append('ref_order.json 中的 product 与 ip 指向同一路径。')
 
+    workflow_options = brief.get('workflow_options', {}) or {}
+    allow_generated_style_refs = bool(brief.get('allow_generated_style_refs')) or bool(workflow_options.get('allow_generated_style_refs'))
+    if not allow_generated_style_refs:
+        for item in resolved_refs:
+            if item['role'] != 'style_ref':
+                continue
+            if looks_like_generated_style_ref(item['path'], project_dir):
+                errors.append(
+                    '正式生图禁止把上一版 AI 成图或项目输出图继续作为 style_ref：'
+                    f"{item['path']}。请改用真实风格参考图，或只保留骨架图/产品图/Logo。"
+                )
+
     return errors, resolved_refs, missing_refs, [str(p) for p in required_files]
 
 
@@ -147,6 +211,18 @@ def build_command(prompt_path: Path, output_path: Path, refs: list[dict], size: 
     return cmd
 
 
+def build_generation_env(brief: dict) -> dict:
+    env = dict(os.environ)
+    workflow_options = brief.get('workflow_options', {}) or {}
+    provider_mode = str(
+        workflow_options.get('image_provider_mode')
+        or brief.get('image_provider_mode')
+        or 'auto'
+    ).strip().lower() or 'auto'
+    env['BANANA_PROVIDER_MODE'] = provider_mode
+    return env
+
+
 def summarize_command(cmd: list[str]) -> str:
     return ' '.join(shlex.quote(part) for part in cmd)
 
@@ -165,6 +241,9 @@ def make_base_result(project_dir: Path, attempt: int, prompt_path: Path, output_
         'resolved_references': refs,
         'missing_references': missing_refs,
         'command_summary': command_summary,
+        'fallback_allowed': False,
+        'error_category': '',
+        'recommended_action': '',
     }
 
 
@@ -206,6 +285,8 @@ def main() -> int:
             'finished_at': utc_now(),
             'duration_seconds': 0,
             'error': f'generator not found: {TARGET_SCRIPT}',
+            'error_category': 'generator_missing',
+            'recommended_action': '修复正式生图脚本路径后重试，不要改走本地拼图。',
         })
         write_json(result_path, base)
         manager.fail_stage(
@@ -223,6 +304,7 @@ def main() -> int:
     errors, resolved_refs, missing_refs, required_files = validate_preflight(project_dir, brief, ref_order_data)
     cmd = build_command(prompt_path, output_path, resolved_refs, args.size, args.aspect, args.model) if not errors else []
     command_summary = summarize_command(cmd) if cmd else ''
+    generation_env = build_generation_env(brief)
 
     started_payload = make_base_result(project_dir, attempt, prompt_path, output_path, stdout_log, stderr_log, resolved_refs, missing_refs, command_summary)
     started_payload.update({
@@ -237,6 +319,7 @@ def main() -> int:
         'duration_seconds': None,
         'required_files': required_files,
         'error': '',
+        'provider_mode_requested': generation_env.get('BANANA_PROVIDER_MODE', ''),
     })
     write_json(result_path, started_payload)
 
@@ -252,6 +335,8 @@ def main() -> int:
             'exists': output_path.exists(),
             'size': output_path.stat().st_size if output_path.exists() else 0,
             'error': '\n'.join(errors),
+            'error_category': 'preflight_failed',
+            'recommended_action': '补齐缺失文件或修复参考图冲突后，重新运行正式生图。',
         })
         write_json(result_path, payload)
         manager.fail_stage(
@@ -267,7 +352,7 @@ def main() -> int:
 
     start_ts = time.time()
     with stdout_log.open('w', encoding='utf-8') as stdout_f, stderr_log.open('w', encoding='utf-8') as stderr_f:
-        proc = subprocess.run(cmd, cwd=str(project_dir), stdout=stdout_f, stderr=stderr_f)
+        proc = subprocess.run(cmd, cwd=str(project_dir), stdout=stdout_f, stderr=stderr_f, env=generation_env)
 
     exists = output_path.exists()
     size = output_path.stat().st_size if exists else 0
@@ -284,10 +369,13 @@ def main() -> int:
     })
 
     if proc.returncode != 0:
+        error_category = classify_generation_error(stderr_tail)
         payload.update({
             'status': 'failed',
             'phase': 'generate_failed',
             'ok': False,
+            'error_category': error_category,
+            'recommended_action': recommended_action_for_error(error_category),
         })
         write_json(result_path, payload)
         manager.fail_stage(
@@ -306,6 +394,8 @@ def main() -> int:
             'phase': 'postcheck_failed',
             'ok': False,
             'error': stderr_tail or f'输出文件缺失或为空: {output_path}',
+            'error_category': 'postcheck_failed',
+            'recommended_action': '确认正式生图输出文件已生成且非空后再继续交付，不要改走本地拼图。',
         })
         write_json(result_path, payload)
         manager.fail_stage(

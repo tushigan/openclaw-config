@@ -14,7 +14,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from project_manager import ProjectManager
+from project_manager import ProjectManager, now_iso
 
 FEISHU_LIMIT_BYTES = 10 * 1024 * 1024
 PREVIEW_MAX_EDGE = 1600
@@ -66,9 +66,68 @@ def make_zip(source_path: Path, project_id: str) -> tuple[Path, int]:
     return zip_path, zip_path.stat().st_size
 
 
+def media_mime_type(path: str) -> str:
+    suffix = Path(path).suffix.lower()
+    if suffix in {'.jpg', '.jpeg'}:
+        return 'image/jpeg'
+    if suffix == '.png':
+        return 'image/png'
+    if suffix == '.webp':
+        return 'image/webp'
+    return 'application/octet-stream'
+
+
+def select_send_path(manifest: dict) -> str:
+    deliverables = manifest.get('deliverables') or {}
+    if manifest.get('delivery_mode') == 'preview_and_zip':
+        return str(((deliverables.get('preview_image') or {}).get('path') or '')).strip()
+    return str(((deliverables.get('original_copy') or {}).get('path') or '')).strip()
+
+
+def build_agent_delivery_contract(manifest: dict) -> dict:
+    send_path = select_send_path(manifest)
+    is_preview = manifest.get('delivery_mode') == 'preview_and_zip'
+    caption = (
+        '压缩预览版，原始高清图已保留；后续修改继续基于原图。'
+        if is_preview else
+        '正式海报原图，请确认。'
+    )
+    project_dir = str(manifest.get('project_dir') or '').strip()
+    record_script = SCRIPT_DIR / 'record_feishu_delivery.py'
+    return {
+        'status': 'tool_call_required',
+        'completion_requires_tool_success': True,
+        'target_resolution': 'If delivery_target.chat_id/user_id is empty, use the current Feishu session binding; do not stop or ask for the target.',
+        'forbidden_text_delivery_prefixes': ['MEDIA:', '/Users/', 'file://'],
+        'forbidden_claims_before_tool_success': ['已发', '发群里了', '已发送', '交付完成'],
+        'send_plan': {
+            'tool': 'message',
+            'path': send_path,
+            'message_tool_arguments': {
+                'action': 'send',
+                'channel': 'feishu',
+                'accountId': 'main',
+                'media': send_path,
+                'mimeType': media_mime_type(send_path),
+                'message': caption,
+                'caption': caption,
+            },
+        },
+        'success_evidence_required': ['ok=true', 'messageId', 'chatId'],
+        'after_success_record_command': (
+            f'python3 {record_script} '
+            f'--project-dir {project_dir} '
+            f'--sent-path {send_path} '
+            '--message-id <messageId> '
+            '--chat-id <chatId> '
+            '--method message(media)'
+        ),
+    }
+
+
 def build_manifest(project_dir: Path, image_path: Path, original_size: int, original_copy_path: Path | None, original_copy_size: int | None, preview_path: Path | None, preview_size: int | None, zip_path: Path | None, zip_size: int | None) -> dict:
     needs_preview = original_size > FEISHU_LIMIT_BYTES
-    return {
+    manifest = {
         'project_dir': str(project_dir),
         'project_id': project_dir.name,
         'original_image': str(image_path),
@@ -93,7 +152,7 @@ def build_manifest(project_dir: Path, image_path: Path, original_size: int, orig
         },
         'fallback_required': False,
         'fallback_reason': '',
-        'user_report': '',
+        'user_report': 'IMAGE READY BUT NOT DELIVERED TO USER',
         'deliverables': {
             'preview_image': {
                 'path': str(preview_path) if preview_path else '',
@@ -116,6 +175,8 @@ def build_manifest(project_dir: Path, image_path: Path, original_size: int, orig
         },
         'error': '',
     }
+    manifest['agent_delivery_contract'] = build_agent_delivery_contract(manifest)
+    return manifest
 
 
 def main() -> int:
@@ -161,17 +222,24 @@ def main() -> int:
         zip_path=zip_path,
         zip_size=zip_size,
     )
-    manifest_path = project_dir / 'delivery_manifest.json'
-    write_json(manifest_path, manifest)
-    manager.complete_stage(
-        'delivery',
-        reason='交付物已整理完成。',
+    manifest_path = manager.write_stage_manifest('delivery', manifest)
+    manager.state['stage_status']['delivery'] = 'running'
+    manager.state['current_stage'] = 'delivery'
+    manager.state['workflow_flags']['delivery_ready'] = False
+    manager.state['artifacts']['delivery'] = str(manifest_path)
+    manager.state['resume']['auto_resume_stage'] = 'delivery'
+    manager.state['resume']['resume_reason'] = '交付物已整理完成，但尚未发送给用户。'
+    manager.state['resume']['updated_at'] = now_iso()
+    manager.save()
+    manager.audit(
+        'stage_needs_action',
+        stage='delivery',
+        status='running',
         actor='prepare_feishu_delivery.py',
-        manifest_payload=manifest,
-        flags={'delivery_ready': True},
-        artifacts={'delivery': str(manifest_path)},
+        reason='交付物已整理完成，等待飞书真实发送。',
         files=[manager._relative(manifest_path)],
-        extra={'delivery_mode': manifest['delivery_mode']},
+        attempt=manager.state['attempts'].get('delivery'),
+        extra={'delivery_mode': manifest['delivery_mode'], 'delivery_status': manifest['delivery_status']},
     )
     print(str(manifest_path))
     return 0

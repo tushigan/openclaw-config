@@ -1,6 +1,6 @@
 ---
 name: brand-poster-creator
-version: 2.2
+version: 2.3
 description: "品牌海报全流程生成技能。从需求收集、版式锁定、文案策划、生图到交付清理的全链路协调器。触发词：品牌海报、海报生成、做张海报、节日海报、产品海报、春节海报、营销海报"
 metadata:
   openclaw:
@@ -89,14 +89,14 @@ audit_log.jsonl             # append-only 审计日志
 
 1. **自动续跑**：
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manager.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/project_manager.py \
   reconcile \
   --project-dir "[项目目录]"
 ```
 
 2. **人工指定阶段强制续跑**：
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manager.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/project_manager.py \
   force-resume \
   --project-dir "[项目目录]" \
   --stage generation \
@@ -116,7 +116,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manage
 如果某一阶段暂时没有独立脚本，也必须通过统一入口写状态：
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manager.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/project_manager.py \
   stage \
   --project-dir "[项目目录]" \
   --stage copywriting \
@@ -167,17 +167,40 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manage
 | **禁忌** | 不要的颜色/风格/元素 | 不要低幼卡通感 |
 | **是否有蒸馏卡 ID** | 是 → 填写 ID，否 → 留空 | POSTER-DISTILL-P-012 |
 | **风格参考** | 上传参考图 或 文字描述 | 暖红色调春节氛围 |
-| **设计负责人飞书 ID** | 飞书群协作项目建议填写；非群项目可留空 | ou_xxx |
-| **策划负责人飞书 ID** | 飞书群协作项目建议填写；非群项目可留空 | ou_xxx |
-| **项目经理飞书 ID** | 飞书群协作项目建议填写；非群项目可留空 | ou_xxx |
+| **项目分工** | 群协作项目必须填写姓名、昵称或直接 @ 对应成员；非群项目可留空 | 设计：@张三；策划：李四；PM：王五 |
 
 **如果是产品推广类海报**，还需额外提供：
 - 产品名称
 - 产品卖点（文字描述）
-- 产品图片（上传）
+- 产品图片（上传；小尺寸产品图也可用，系统会自动启用产品保真与真实质感适配策略；如有高清图可补充，但不得把高清图作为继续生成的前置要求）
 
 请逐项回复，或一次性提供完整信息。
 ```
+
+### Step 1.1：项目分工识别与群成员 ID 解析
+
+当会话来自飞书群聊时，需求收集阶段必须主动询问项目分工，不能要求用户手填 `ou_xxx`：
+
+```markdown
+这次项目分工怎么安排？
+
+- 设计负责人：
+- 策划负责人：
+- 项目经理：
+
+可以直接写姓名/昵称，也可以 @ 对应的人。
+```
+
+收到分工后，必须从当前飞书群成员名单中解析对应人员 ID，并写入 `brief.json.contacts`。解析规则：
+
+- 群聊场景必须优先使用当前消息上下文中的 `chat_id` 调用 `feishu_chat_members` 获取成员列表，`member_id_type` 使用 `open_id`。
+- 若成员超过单页返回数量，必须按 `has_more/page_token` 继续分页，直到拿完或找到所有待匹配人员。
+- 优先使用用户消息中的 @ mention 绑定，mention 已带用户 ID 时直接使用。
+- 若用户只写姓名或昵称，使用当前群成员名单按展示名、群昵称、姓名进行匹配。
+- 若匹配到唯一成员，写入该成员的 `feishu_user_id`，`match_status="matched"`。
+- 若匹配不到，或同名/昵称匹配到多人，不能猜测；必须回问用户确认具体人员。
+- 非群聊或群成员名单不可用时，允许先写入姓名并标记 `match_status="unresolved"`，后续进入确认节点前必须补齐 ID。
+- `contacts` 只记录流程协作人员，不得进入文案策划 prompt、生图 prompt、蒸馏卡解析或模型参数组装。
 
 收到用户回复后，将所有信息写入项目目录的 `brief.json` 文件，格式如下：
 
@@ -199,9 +222,34 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manage
   "distill_card_id": "蒸馏卡ID 或空",
   "style_note": "风格参考描述",
   "contacts": {
-    "design_lead": {"feishu_user_id": "ou_xxx"},
-    "planning_lead": {"feishu_user_id": "ou_xxx"},
-    "project_manager": {"feishu_user_id": "ou_xxx"}
+    "initiator": {
+      "name": "发起人姓名",
+      "feishu_user_id": "ou_xxx",
+      "source": "message_sender",
+      "match_status": "matched",
+      "raw_input": ""
+    },
+    "design_lead": {
+      "name": "设计负责人姓名",
+      "feishu_user_id": "ou_xxx",
+      "source": "mention | group_member_match | manual_name",
+      "match_status": "matched | ambiguous | unresolved",
+      "raw_input": "@张三"
+    },
+    "planning_lead": {
+      "name": "策划负责人姓名",
+      "feishu_user_id": "ou_xxx",
+      "source": "mention | group_member_match | manual_name",
+      "match_status": "matched | ambiguous | unresolved",
+      "raw_input": "李四"
+    },
+    "project_manager": {
+      "name": "项目经理姓名",
+      "feishu_user_id": "ou_xxx",
+      "source": "mention | group_member_match | manual_name",
+      "match_status": "matched | ambiguous | unresolved",
+      "raw_input": "王五"
+    }
   },
   "assets": {
     "style_refs": ["images/style_ref_1.jpg"],
@@ -213,6 +261,12 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manage
 ```
 
 `contacts` 仅用于流程推进与确认责任人定位，不参与文案策划 prompt、生图 prompt、蒸馏卡解析或模型参数组装。
+
+默认确认责任人：
+- Step 2.5 素材确认：`project_manager`
+- Step 5 文案确认：`planning_lead`
+- Step 5.8 创意确认：`design_lead`
+- Step 8 定稿确认：`project_manager`
 
 ### 项目目录结构
 
@@ -253,7 +307,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/project_manage
 1. 运行脚本处理蒸馏卡：
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/process_distill_card.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/process_distill_card.py \
   --project-dir "[项目目录绝对路径]"
 ```
 
@@ -284,7 +338,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/process_distil
 1. 运行 `fetch_brand_assets.py` 脚本检索品牌素材：
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/fetch_brand_assets.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/fetch_brand_assets.py \
   --brand "[brief.json 中的 brand_name]" \
   --folder-token "HrvvfbL8clefhAdSLtUcb7G3nYg" \
   --project-dir "[项目目录绝对路径]" \
@@ -388,7 +442,7 @@ Step 2.5 完成后，`brief.json` 的 `assets` 字段会被脚本自动更新：
 在派发文案策划之前，先运行缺口检查脚本：
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/check_brief_gaps.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/check_brief_gaps.py \
   --project-dir "[项目目录绝对路径]"
 ```
 
@@ -396,6 +450,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/check_brief_ga
 - 检查 `brief.json` 的基础字段是否完整
 - 检查 `assets.logo`、`assets.product`、`assets.style_refs` 指向的文件是否真实存在
 - 对“产品推广/产品海报”类任务额外检查产品名称、产品卖点、产品图
+- 对小尺寸产品图输出 `quality_warnings`，但不把它当作信息缺口或阻塞条件
 - 输出缺口清单并写入 `gap_check_manifest.json`、`project_state.json`、`audit_log.jsonl`
 
 检查基准如下：
@@ -413,6 +468,12 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/check_brief_ga
 **Step 2.5 已获取的素材视为已填补**：如果 `brief.json` 的 `assets` 中已有 `logo`、`ip`、`product` 等字段且文件存在，则不再将对应项标记为缺口。仅当 Step 2.5 未找到素材、用户确认后仍缺少，或用户主动替换时，才在此步骤追问。
 
 **发现缺口时主动向用户索要**，不要自行脑补。
+
+**小尺寸产品图处理规则**：
+- 产品图存在但短边 < 900px 时，不得回退成“必须补高清图”。
+- `check_brief_gaps.py` 只记录质量提醒：该图用于锁定产品身份、轮廓、配色、基础材质，不把压缩像素当作微观纹理依据。
+- 后续 `assemble_prompt.py` 必须自动加入“小尺寸产品参考图适配策略”，让模型用真实产品摄影常识补全自然质感。
+- 只有产品图完全缺失，或产品身份无法判断时，才向用户索要补充素材。
 
 ---
 
@@ -490,7 +551,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/check_brief_ga
 strategy 子代理写完 `copywriting.json` 后，main 必须继续运行：
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/process_copywriting.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/process_copywriting.py \
   --project-dir "[项目目录绝对路径]"
 ```
 
@@ -553,7 +614,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/process_copywr
 3. 再运行统一落盘脚本：
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/process_style_profile.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/process_style_profile.py \
   --project-dir "[项目目录绝对路径]"
 ```
 
@@ -627,7 +688,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/process_style_
 必须先通过脚本生成创意表达草案，禁止 main 直接手写最终版：
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/generate_creative_direction.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/generate_creative_direction.py \
   --brief "[项目目录]/brief.json" \
   --copywriting "[项目目录]/copywriting.json" \
   --distill "[项目目录]/distill_card.json" \
@@ -717,7 +778,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/generate_creat
 **必须通过脚本生成 prompt，禁止手写。**
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/assemble_prompt.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/assemble_prompt.py \
   --brief "[项目目录]/brief.json" \
   --distill "[项目目录]/distill_card.json" \
   --copywriting "[项目目录]/copywriting.json" \
@@ -758,12 +819,18 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/assemble_promp
 - 若同时存在 `assets.product` 与 `assets.ip`，两者路径不得相同
 - 若脚本报告参考图角色冲突，必须先回到素材确认/修正，不得继续生图
 - `ref_order.json` 中每个参考图路径对应的文件都必须真实存在，缺任意一个都不得进入生图
+- `assets.style_refs` 只能放**真实风格参考图**；禁止把上一版 AI 成图、`current_base_ref.png`、`final_poster.png` 等项目输出图继续当 `style_ref`
 
 **禁止规则**：
 - 脚本输出即为最终 prompt，main agent **不得手动追加、修改、拼接任何内容**到 prompt_draft.md
 - 蒸馏卡的 `copy_planning_guide`、`notes`、`Distill ID` 等内部字段不得出现在 prompt 中
 - 如果 prompt 不完整，必须修复脚本后重新运行，不得手补
 - 脚本同时输出 `ref_order.json`，记录参考图传图顺序，run.sh 必须按此顺序传图
+- 如果项目是面包/吐司/烘焙类产品，prompt 中必须显式约束“切面组织真实、湿润回弹、低局部对比、孔隙大小/形状/分布不均、孔壁柔软、不要均匀蜂窝孔/干海绵/木屑感/网状雕刻/鳞片状/硬描边纹理”，避免把食品组织做成假锐化
+- 如果产品参考图分辨率低、角度不完整，或目标姿态与产品参考差异很大，必须在 prompt 中明确“小尺寸产品参考图只锁定身份、轮廓、配色与基础材质，不把压缩像素放大成微观纹理”，不能强行重塑成不存在的完美正面产品
+- 对面包/吐司等切面敏感产品，若产品图短边 < 900px，必须自动启用烘焙真实化策略：产品仍可作为主视觉，但切面细节应由真实商业烘焙摄影先验补全，保持含水量、柔软孔壁、非均匀孔隙、低局部对比；不得要求用户必须补高清图才继续
+- 如果 `hero_priority.hero_1` 指定产品为第一主角，但蒸馏卡没有产品主图区，脚本必须自动生成“产品主视觉区域”约束，明确产品放置坐标；不得让模型自行猜测产品位置
+- 如果二维码区域不需要二维码，prompt 必须写明“不要画二维码、边框、占位框、半透明矩形或按钮框”，防止模型生成空框
 
 ---
 
@@ -777,6 +844,8 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/assemble_promp
 - main 先把生图所需决策全部固化到 `prompt_draft.md`、`ref_order.json`、`run.sh`、`generation_result.json` 约定结构中
 - design subagent 视为**执行器**，不是策划者；不得自行补全需求、重写 prompt、调整参考图顺序、改动模型参数或解释项目背景
 - 如执行中发现缺文件、参数冲突、输出异常，子 agent 只返回失败事实与结果文件路径，由 main 回到上一阶段修复后再重派，不得让子 agent 临场自行决策
+- **绝对禁止** design subagent 在正式生图失败后自行改用 Python / PIL / Pillow / ImageMagick / 本地贴图 / 手工拼图生成“正式海报”
+- 若正式生图报配额、权限、模型接口错误，只能保留失败记录并回报 main；除非用户明确要“临时示意图/降级草图”，否则不得产出任何本地合成海报
 
 ### 7.1 main 先写好生图脚本
 
@@ -787,14 +856,15 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/assemble_promp
 set -euo pipefail
 
 PROJECT_DIR="/Users/a123/.openclaw/workspace/brand-poster-projects/[任务ID]"
-EXEC_SCRIPT="/Users/a123/.openclaw/skills/brand-poster-creator/scripts/execute_generation.py"
+EXEC_SCRIPT="/Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/execute_generation.py"
 
 python3 "${EXEC_SCRIPT}" --project-dir "${PROJECT_DIR}" --size 2160x3840 --aspect 9:16 --model gpt-image-2-pro
 ```
 
 **注意**：
 - **参考图顺序由 `assemble_prompt.py` 输出的 `ref_order.json` 决定**，不再手写。run.sh 从该文件动态读取，确保与 prompt 中的参考图编号严格对应
-- role 到参数的映射固定为：`style_ref → --ref-style`、`skeleton → --reference`、`product → --ref-product`、`ip → --ref-ip`、`logo → --ref-logo`
+- role 到参数的映射固定为：`style_ref → --ref-style`、`skeleton → --ref-layout`、`product → --ref-product`、`ip → --ref-ip`、`logo → --ref-logo`
+- 底层生图器必须保持 `ref_order.json` 的参考图顺序；prompt 中的参考图编号采用 1-based 编号，必须与底层 stdout 的 `Reference list` 和 `Reference images` 顺序一致
 - 所有路径使用绝对路径，不用相对路径
 - prompt 从 `prompt_draft.md` 读取，不内联
 - 脚本执行后必须产出 `generation_result.json` 与 stdout/stderr 日志，作为唯一验收依据
@@ -839,6 +909,7 @@ python3 "${EXEC_SCRIPT}" --project-dir "${PROJECT_DIR}" --size 2160x3840 --aspec
 4. 完成后只回传：`generation_result.json` 路径；若成功，再附上 `final_poster.png` 路径。
 
 不要修改脚本内容，不要改变参数，不要读取其他无关文件。
+不要自行编写任何 Python/PIL/Pillow/ImageMagick/HTML Canvas 拼图脚本，不要产出本地合成海报顶替正式生图结果。
 ```
 
 ### 7.3 回收结果
@@ -850,6 +921,26 @@ python3 "${EXEC_SCRIPT}" --project-dir "${PROJECT_DIR}" --size 2160x3840 --aspec
 4. 若任一条件不满足，视为执行失败，先查看 `stdout/stderr` 日志，不得向用户播报“已出图”
 5. 只有全部通过后，才按 Step 8 流程发送成品图给用户
 
+### 7.4 正式生图失败后的处理
+
+如果 `generation_result.json` 中出现以下任一信号：
+- `ok=false`
+- `fallback_allowed=false`
+- `error_category=quota_insufficient`
+- `error_category=permission_denied`
+- `error_category=provider_error`
+
+则必须执行以下规则：
+
+1. 停在 `generation failed`
+2. 回报失败事实、错误摘要、日志路径、建议动作
+3. 可以建议：
+   - 充值 / 恢复配额
+   - 切换可用 provider
+   - 修复权限或路径
+4. **不得**让 design subagent 自行改走本地拼图、本地贴图、PIL 合成、手工排字顶替正式结果
+5. 只有用户明确接受“临时示意图/降级草图”时，才允许走非正式链路，并且必须先说明这不是正式海报交付
+
 ---
 
 ## Step 8：发送成品图 → 用户确认
@@ -859,7 +950,7 @@ python3 "${EXEC_SCRIPT}" --project-dir "${PROJECT_DIR}" --size 2160x3840 --aspec
 在发送前，main 必须先执行：
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/prepare_feishu_delivery.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/prepare_feishu_delivery.py \
   --project-dir /Users/a123/.openclaw/workspace/brand-poster-projects/[任务ID]
 ```
 
@@ -869,13 +960,30 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/prepare_feishu
 
 发送规则：
 1. 先读取 `delivery_manifest.json`
-2. 若 `delivery_mode=direct_image`：
-   - 直接发送 `deliverables.original_copy.path`
-3. 若 `delivery_mode=preview_and_zip`：
-   - 只发送 `deliverables.preview_image.path` 供飞书预览
+2. 必须读取 `agent_delivery_contract`，并按其中的 `send_plan.message_tool_arguments` 调用真实飞书媒体发送工具：
+   - 首选 `message(action=send, channel=feishu, accountId=main, media=..., mimeType=...)`
+   - 若当前运行环境提供 `feishu-send-image` 等等效图片工具，也可以使用等效工具
+   - `delivery_target.chat_id/user_id` 为空时，必须使用当前飞书会话绑定继续发送；这不是停止理由
+3. 严禁把 `MEDIA:/absolute/path`、本地绝对路径、`file://...` 或目录说明作为回复文本冒充交付
+4. 工具返回 `ok=true` 且有 `messageId/chatId` 后，才允许说“已发送/已发群里/交付完成”
+5. 发送成功后必须运行：
+
+```bash
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/record_feishu_delivery.py \
+  --project-dir /Users/a123/.openclaw/workspace/brand-poster-projects/[任务ID] \
+  --sent-path [本次真实发送的图片路径] \
+  --message-id [飞书发送工具返回的 messageId] \
+  --chat-id [飞书发送工具返回的 chatId] \
+  --method "message(media)"
+```
+
+6. 若 `delivery_mode=direct_image`：
+   - 真实发送 `deliverables.original_copy.path`
+7. 若 `delivery_mode=preview_and_zip`：
+   - 只真实发送 `deliverables.preview_image.path` 供飞书预览
    - 明确告诉用户：当前发送的是压缩预览图，原始高清图已保留，后续修改将继续使用原图，不会基于预览图反复压缩
    - 用户确认定稿后，再发送 `deliverables.original_zip.path` 作为原图交付包
-4. 任何“局部修改”“继续调整”“重新生成”都必须继续引用 `edit_source_image` 指向的原图，不得把 preview 图当作修改输入
+8. 任何“局部修改”“继续调整”“重新生成”都必须继续引用 `edit_source_image` 指向的原图，不得把 preview 图当作修改输入
 
 给用户的话术：
 
@@ -905,7 +1013,7 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/prepare_feishu
 ### 执行方式
 
 ```bash
-python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/cleanup_project.py \
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/cleanup_project.py \
   --project-dir "[项目目录绝对路径]" \
   --confirmed
 ```

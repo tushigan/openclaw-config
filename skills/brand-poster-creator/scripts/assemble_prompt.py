@@ -135,6 +135,181 @@ def normalize_refs(refs, project_dir):
     return normalized
 
 
+def looks_like_generated_style_ref(path, project_dir=None):
+    raw = str(path or '').strip()
+    if not raw:
+        return False
+    ref_path = Path(raw)
+    stem = ref_path.stem.lower()
+    name = ref_path.name.lower()
+
+    if stem == 'current_base_ref':
+        return True
+    if stem.startswith('final_poster') or name.startswith('final_poster'):
+        return True
+    if stem.startswith('generated_') or stem.endswith('_generated') or '-generated' in stem:
+        return True
+
+    if project_dir is not None:
+        try:
+            resolved = ref_path.resolve()
+            images_dir = (project_dir / 'images').resolve()
+            if resolved.parent == images_dir and stem.startswith('final_'):
+                return True
+        except Exception:
+            return False
+    return False
+
+
+def validate_style_refs(brief, refs, project_dir):
+    workflow_options = brief.get('workflow_options', {}) or {}
+    if brief.get('allow_generated_style_refs') or workflow_options.get('allow_generated_style_refs'):
+        return []
+
+    issues = []
+    for item in refs.get("风格参考图", []) or []:
+        path = str((item or {}).get("路径", "") or "").strip()
+        if path and looks_like_generated_style_ref(path, project_dir):
+            issues.append(
+                f"风格参考图不能直接使用上一版 AI 成图或项目输出图：{path}。"
+                "请改用真实风格参考图；如果只是想延续构图或氛围，请保留骨架图并在创意表达中描述，不要继续把生成图当 style_ref。"
+            )
+    return issues
+
+
+def is_bakery_product(brief):
+    product = brief.get("product", {}) or {}
+    product_name = str(brief.get("product_name", "") or product.get("name", "") or "")
+    industry = str(brief.get("industry", "") or "")
+    festival = str(brief.get("festival", "") or "")
+    style_note = str(brief.get("style_note", "") or "")
+    haystack = " ".join([product_name, industry, festival, style_note]).lower()
+    tokens = [
+        "烘焙", "面包", "吐司", "可可吐司", "糕点", "蛋糕", "饼干", "可颂", "贝果",
+        "bread", "toast", "bakery", "pastry", "cake", "cookie", "croissant", "bagel",
+    ]
+    return any(token.lower() in haystack for token in tokens)
+
+
+def build_bakery_texture_guard(brief):
+    if not is_bakery_product(brief):
+        return ""
+    return "\n".join([
+        "== 烘焙产品质感约束 ==",
+        "面包/吐司切面必须呈现真实烘焙组织：孔隙大小、形状和分布都不规则，孔壁柔软、有轻微湿润回弹感，含水量充足，局部对比低，边缘是柔和过渡，不是一圈圈硬描边。",
+        "切面应像新鲜柔软的面包芯，不要像放久变干的木屑、干海绵、均匀蜂窝、网状雕刻、鳞片状或金属蚀刻纹理；不要每个孔洞都有强高光/强暗边；不要为了“高清晰”堆很重的微观纹理。",
+        "外皮应是自然烘烤形成的细微褶皱和轻微粗糙，带柔和油润感和自然明暗，不要塑料高光、干裂外壳或过度锐化。",
+        "如果缺少足够清晰的真实切面参考，应使用真实商业烘焙摄影的常识补全自然、低频、柔软的组织；宁可让切面细节稍软，也不要脑补出规则、干硬、超锐化的假切面。",
+        "如果产品参考图与目标主视觉姿态差异很大，优先保真产品身份、形体、颜色和真实组织感；不要为了做成完美正面立姿，重新捏造一块假的切面。"
+    ])
+
+
+def read_image_size(path):
+    raw = str(path or "").strip()
+    if not raw:
+        return None
+    try:
+        from PIL import Image
+        with Image.open(raw) as img:
+            return img.size
+    except Exception:
+        return None
+
+
+def product_reference_size(refs):
+    product = refs.get("产品图") or {}
+    return read_image_size(str(product.get("路径", "") or "").strip())
+
+
+def is_low_resolution_product_ref(refs, threshold=900):
+    size = product_reference_size(refs)
+    return bool(size and min(size) < threshold)
+
+
+def build_product_reference_guard(brief, refs):
+    product = refs.get("产品图") or {}
+    product_path = str(product.get("路径", "") or "").strip()
+    if not product_path:
+        return ""
+
+    lines = [
+        "== 产品保真与参考边界 ==",
+        "产品参考图是产品身份、真实材质、颜色和形体的最高优先级依据；风格参考和骨架图不得覆盖产品真实质感。",
+        "如果目标画面要求的姿态、角度、裁切或放大倍率在产品参考图中没有明确出现，不要重新发明产品微观结构；宁可保留参考图的真实角度、轻微不完美和自然质感。",
+        "产品被放大为主视觉时，不要把参考图的压缩像素或噪点脑补成规则纹理、硬边纹理或高锐度微距纹理；整体观感应先真实、自然、可食用，再考虑清晰度。",
+    ]
+
+    size = read_image_size(product_path)
+    if size:
+        width, height = size
+        if min(width, height) < 900:
+            lines.extend([
+                "",
+                "== 小尺寸产品参考图适配策略 ==",
+                f"产品参考图尺寸为 {width}x{height}，这不是阻塞条件；它只用于锁定产品身份、轮廓、配色、基础材质和包装/形体关系。",
+                "不要把小图像素直接放大、锐化或复制成产品表面细节；不要从压缩纹理里推断均匀孔洞、木屑感、鳞片感或硬描边。",
+                "需要把产品作为主视觉时，可以保持清晰的产品轮廓和可读外形，但微观组织必须用真实产品摄影常识补全：自然低频、软边、低局部对比、非均匀分布。",
+                "如果小图没有提供足够切面信息，切面细节应克制、柔和、可信，不做超微距肌理炫技；不要因为参考图小而生成干硬、塑料或过度锐化的假产品。",
+            ])
+
+    return "\n".join(lines)
+
+
+def product_hero_requested(brief):
+    hero = brief.get("hero_priority", {}) or {}
+    haystack = " ".join([
+        str(hero.get("hero_1", "") or ""),
+        str(brief.get("type", "") or ""),
+        str(brief.get("product_name", "") or ""),
+    ])
+    return "产品" in haystack or "商品" in haystack
+
+
+def distill_has_product_region(distill):
+    if not distill:
+        return False
+    elements = (distill.get("layout_analysis", {}) or {}).get("elements", []) or []
+    product_terms = ("product", "商品", "产品", "主视觉", "主体")
+    for el in elements:
+        raw_type = str(el.get("type", "") or "")
+        resolved_type = _TYPE_ALIAS.get(raw_type, raw_type)
+        name = str(el.get("name_zh", "") or el.get("id", "") or "")
+        area = float(el.get("width", 0) or 0) * float(el.get("height", 0) or 0)
+        label = f"{raw_type} {resolved_type} {name}".lower()
+        if resolved_type == "product_photo" and area >= 250:
+            return True
+        if area >= 250 and any(term.lower() in label for term in product_terms):
+            return True
+    return False
+
+
+def build_product_hero_layout_guard(brief, distill, refs, image_paths):
+    product = refs.get("产品图") or {}
+    product_path = str(product.get("路径", "") or "").strip()
+    if not product_path or not product_hero_requested(brief) or distill_has_product_region(distill):
+        return ""
+
+    ref_num = get_ref_image_number(image_paths, product_path)
+    img_ref = f"参考图[{ref_num}]" if ref_num >= 0 else "产品参考图"
+    product_name = product.get("产品名", brief.get("product_name", "产品"))
+    low_res = is_low_resolution_product_ref(refs)
+
+    if low_res:
+        region = "x:20% y:34% 宽:60% 高:38% z:3"
+        framing = "采用清晰的中近景产品肖像：产品仍是主视觉，但不要把切面做成超微距纹理展示；轮廓、色彩和整体质感清楚，微观组织保持柔和可信。"
+    else:
+        region = "x:14% y:31% 宽:72% 高:46% z:3"
+        framing = "产品可以作为大主视觉，但仍需避免切面微距化和过度锐化。"
+
+    return "\n".join([
+        "== 产品主视觉区域 ==",
+        "当前版式骨架没有单独标出产品主图区，因此必须显式建立产品主视觉锚点，不能让模型自行猜测产品位置。",
+        f"将{img_ref}（{product_name}）作为第一视觉产品，放在标题/副标题下方、底部信息区上方的中部区域：{region}。",
+        framing,
+        "产品可以与满版背景自然融合并有柔和落影，但不要压住顶部文字、不要侵入底部说明文字，不要生成额外透明框、占位框或二维码框。",
+    ])
+
+
 def resolve_skeleton_reference(distill, distill_path):
     if not distill:
         return ""
@@ -336,6 +511,23 @@ def sanitize_style_profile(style_profile, brief):
     return sanitized
 
 
+def assemble_hero_priority(brief):
+    hero = brief.get("hero_priority", {}) or {}
+    lines = []
+    hero_1 = hero.get("hero_1", "")
+    hero_2 = hero.get("hero_2", "")
+    forbidden = hero.get("forbidden_hero", "")
+    if hero_1 or hero_2 or forbidden:
+        lines.append("== 主视觉层级 ==")
+        if hero_1:
+            lines.append(f"第一视觉主角：{hero_1}。")
+        if hero_2:
+            lines.append(f"辅助陪衬元素：{hero_2}。")
+        if forbidden:
+            lines.append(f"禁止作为主视觉：{forbidden}。")
+    return "\n".join(lines)
+
+
 def assemble_ref_image_refs(refs, style_profile=None):
     """
     组装参考图说明区块。
@@ -351,62 +543,67 @@ def assemble_ref_image_refs(refs, style_profile=None):
     style_refs = refs.get("风格参考图", [])
     for i, sr in enumerate(style_refs):
         idx = len(image_paths)
+        display_idx = idx + 1
         path = sr.get("路径", "")
         image_paths.append(path)
         ref_roles.append({"index": idx, "role": "style_ref", "path": path})
         lines.append(
-            f"参考图[{idx}] 风格参考：只参考这张图的配色关系、材质质感、笔触语言与氛围表达，不继承其中具体季节、天气、场景、道具或叙事内容。"
+            f"参考图[{display_idx}] 风格参考：只参考这张图的配色关系、材质质感、笔触语言与氛围表达，不继承其中具体季节、天气、场景、道具或叙事内容。"
         )
 
     # 2. 骨架图（只约束构图结构）
     skeleton = refs.get("版式骨架图")
     if skeleton and skeleton.get("路径"):
         idx = len(image_paths)
+        display_idx = idx + 1
         path = skeleton["路径"]
         image_paths.append(path)
         ref_roles.append({"index": idx, "role": "skeleton", "path": path})
-        lines.append(f"参考图[{idx}] 骨架图：严格按此构图和各区域比例布局。")
+        lines.append(f"参考图[{display_idx}] 骨架图：严格按此构图和各区域比例布局。")
 
     # 3. 产品图
     product = refs.get("产品图")
     if product and product.get("路径"):
         idx = len(image_paths)
+        display_idx = idx + 1
         path = product["路径"]
         image_paths.append(path)
         ref_roles.append({"index": idx, "role": "product", "path": path})
         name = product.get("产品名", product.get("角色说明", "产品"))
-        lines.append(f"参考图[{idx}] 产品图：产品外观保真，形体、颜色、质感与包装关系以该参考为准。")
+        lines.append(f"参考图[{display_idx}] 产品图：产品外观保真，形体、颜色、质感与包装关系以该参考为准。")
 
     # 4. IP 图
     ip_ref = refs.get("IP")
     if ip_ref and ip_ref.get("路径"):
         idx = len(image_paths)
+        display_idx = idx + 1
         path = ip_ref["路径"]
         image_paths.append(path)
         ref_roles.append({"index": idx, "role": "ip", "path": path})
-        lines.append(f"参考图[{idx}] IP 角色：角色外观保真（配色、面部特征、身体比例），姿态可自由发挥。")
+        lines.append(f"参考图[{display_idx}] IP 角色：角色外观保真（配色、面部特征、身体比例），姿态可自由发挥。")
 
     # 5. Logo
     logo = refs.get("Logo")
     if logo and logo.get("路径"):
         idx = len(image_paths)
+        display_idx = idx + 1
         path = logo["路径"]
         image_paths.append(path)
         ref_roles.append({"index": idx, "role": "logo", "path": path})
-        lines.append(f"参考图[{idx}] 品牌 Logo：官方 Logo 文件，必须原样使用，不得自行绘制。")
+        lines.append(f"参考图[{display_idx}] 品牌 Logo：官方 Logo 文件，必须原样使用，不得自行绘制。")
 
     return lines, image_paths, ref_roles
 
 
 def get_ref_image_number(image_paths, image_path):
-    """根据图片路径在 image_paths 列表中的位置，返回参考图编号。"""
+    """根据图片路径在 image_paths 列表中的位置，返回 prompt 展示编号（1-based）。"""
     for i, p in enumerate(image_paths):
         if p == image_path:
-            return i
+            return i + 1
     target_stem = Path(image_path).stem
     for i, p in enumerate(image_paths):
         if Path(p).stem == target_stem:
-            return i
+            return i + 1
     return -1
 
 
@@ -537,10 +734,17 @@ def describe_element(el, copywriting, refs, image_paths, brief=None, style_profi
         else:
             img_ref = "参考图中的主体图"
 
+        low_res_note = ""
+        if product_path and is_low_resolution_product_ref(refs):
+            low_res_note = (
+                "该产品参考图只锁定身份、轮廓、颜色和基础材质，不把压缩像素当作微观纹理；"
+                "产品可以是主视觉，但切面和表面细节必须自然柔和、低局部对比、非均匀分布，不要木屑感、鳞片感或过度锐化。"
+            )
+
         return (
             f"{header}\n"
             f"将{img_ref}（{product_name}）作为画面第一视觉主体，"
-            f"放置在此区域中心。外观保真，不照抄参考图原始场景。{action_hint}"
+            f"放置在此区域中心。外观保真，不照抄参考图原始场景。{action_hint}{low_res_note}"
         )
 
     elif resolved_type == "title":
@@ -601,7 +805,7 @@ def describe_element(el, copywriting, refs, image_paths, brief=None, style_profi
         return f"{header}\n使用官方 Logo 文件，放置在此区域，不得自行生成。"
 
     elif resolved_type == "qr_code":
-        return f"{header}\n不需要生成二维码，此区域留白或放置轻量装饰。"
+        return f"{header}\n不需要生成二维码；此区域完全留白或只保留自然背景纹理。不要画二维码、边框、占位框、半透明矩形或按钮框。"
 
     else:
         if style_profile and style_profile.get("main_visual_style"):
@@ -681,10 +885,22 @@ def assemble_prompt(brief, distill, copywriting, refs, style_profile=None, creat
     if theme_anchor:
         blocks.append(theme_anchor)
 
+    bakery_guard = build_bakery_texture_guard(brief)
+    if bakery_guard:
+        blocks.append(bakery_guard)
+
+    product_guard = build_product_reference_guard(brief, refs)
+    if product_guard:
+        blocks.append(product_guard)
+
     ref_lines, image_paths, ref_roles = assemble_ref_image_refs(refs, style_profile=style_profile)
     if ref_lines:
         blocks.append("== 参考图说明 ==")
         blocks.extend(ref_lines)
+
+    product_layout_guard = build_product_hero_layout_guard(brief, distill, refs, image_paths)
+    if product_layout_guard:
+        blocks.append(product_layout_guard)
 
     hero_block = assemble_hero_priority(brief)
     if hero_block:
@@ -869,6 +1085,36 @@ def main():
 
     refs = normalize_refs(refs, project_dir)
 
+    style_ref_issues = validate_style_refs(brief, refs, project_dir)
+    if style_ref_issues:
+        error = '；'.join(style_ref_issues)
+        manager.fail_stage(
+            'prompt',
+            error=error,
+            actor='assemble_prompt.py',
+            manifest_payload={
+                'status': 'failed',
+                'attempt': attempt,
+                'error_summary': error,
+                'brief_path': str(Path(args.brief).resolve()),
+                'distill_path': str(Path(args.distill).resolve()) if args.distill else '',
+                'copywriting_path': str(Path(args.copywriting).resolve()) if args.copywriting else '',
+                'style_profile_path': str(Path(args.style_profile).resolve()) if args.style_profile else '',
+                'creative_direction_path': str(Path(args.creative_direction).resolve()) if args.creative_direction else '',
+                'output_path': str(output_path),
+                'ref_order_path': str(project_dir / 'ref_order.json'),
+                'user_confirmed': False,
+                'history': [{
+                    'ts': manager.state['updated_at'],
+                    'event': 'prompt_assembly_failed',
+                    'reason': error,
+                }],
+            },
+            files=['prompt_manifest.json'],
+        )
+        print(f"ERROR: {error}")
+        sys.exit(1)
+
     prompt, image_paths, ref_roles = assemble_prompt(
         brief,
         distill,
@@ -950,7 +1196,7 @@ def main():
     print(f"  字符数: {len(prompt)}")
     print(f"  参考图数量: {len(image_paths)}")
     for i, p in enumerate(image_paths):
-        print(f"  参考图[{i}]: {p}")
+        print(f"  参考图[{i + 1}]: {p}")
 
     ref_order_path = output_path.parent / "ref_order.json"
     ref_order_data = {"ref_order": ref_roles}

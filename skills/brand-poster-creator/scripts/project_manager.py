@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 PROJECTS_ROOT = Path('/Users/a123/.openclaw/workspace/brand-poster-projects')
-ROLE_KEYS = ['design_lead', 'planning_lead', 'project_manager']
+ROLE_KEYS = ['initiator', 'design_lead', 'planning_lead', 'project_manager']
 STAGE_CONFIRMATION_MAP = {
     'assets': 'project_manager',
     'copywriting': 'planning_lead',
@@ -54,6 +54,7 @@ ARTIFACT_FILES = {
     'delivery': 'delivery_manifest.json',
     'cleanup': 'cleanup_manifest.json',
 }
+DELIVERY_SUCCESS_STATUSES = {'sent', 'delivered', 'success'}
 
 
 def now_iso() -> str:
@@ -117,7 +118,16 @@ class ProjectManager:
         }
 
     def _default_role_contacts(self) -> dict[str, dict[str, str]]:
-        return {key: {'feishu_user_id': '', 'name': ''} for key in ROLE_KEYS}
+        return {
+            key: {
+                'feishu_user_id': '',
+                'name': '',
+                'source': '',
+                'match_status': '',
+                'raw_input': '',
+            }
+            for key in ROLE_KEYS
+        }
 
     def _default_stage_confirmation_map(self) -> dict[str, str]:
         return dict(STAGE_CONFIRMATION_MAP)
@@ -180,8 +190,8 @@ class ProjectManager:
             if not isinstance(role_contacts[key], dict):
                 role_contacts[key] = value.copy()
             else:
-                role_contacts[key].setdefault('feishu_user_id', '')
-                role_contacts[key].setdefault('name', '')
+                for field, default_value in value.items():
+                    role_contacts[key].setdefault(field, default_value)
         stage_confirmation_map = state.setdefault('stage_confirmation_map', {})
         for stage, role in self._default_stage_confirmation_map().items():
             stage_confirmation_map.setdefault(stage, role)
@@ -223,8 +233,8 @@ class ProjectManager:
         for key in ROLE_KEYS:
             raw = contacts.get(key)
             if isinstance(raw, dict):
-                normalized[key]['feishu_user_id'] = str(raw.get('feishu_user_id', '') or '').strip()
-                normalized[key]['name'] = str(raw.get('name', '') or '').strip()
+                for field in normalized[key]:
+                    normalized[key][field] = str(raw.get(field, '') or '').strip()
             elif raw is not None:
                 normalized[key]['feishu_user_id'] = str(raw).strip()
         return normalized
@@ -236,6 +246,8 @@ class ProjectManager:
             'role': role,
             'feishu_user_id': str((contact or {}).get('feishu_user_id', '') or '').strip(),
             'name': str((contact or {}).get('name', '') or '').strip(),
+            'source': str((contact or {}).get('source', '') or '').strip(),
+            'match_status': str((contact or {}).get('match_status', '') or '').strip(),
         }
 
     def init_project(self, brief_payload: dict[str, Any] | None = None, reason: str = '自动立项') -> dict[str, Any]:
@@ -469,6 +481,16 @@ class ProjectManager:
             return stage
         return STAGE_ORDER[idx + 1] if idx + 1 < len(STAGE_ORDER) else stage
 
+    def _delivery_manifest_payload(self) -> dict[str, Any]:
+        return load_json(self.project_dir / MANIFEST_BY_STAGE['delivery'], {}) or {}
+
+    def _delivery_is_complete(self) -> bool:
+        manifest = self._delivery_manifest_payload()
+        status = str(manifest.get('delivery_status', '') or '').strip().lower()
+        attempted = bool(manifest.get('delivery_attempted'))
+        fallback_required = bool(manifest.get('fallback_required'))
+        return attempted and not fallback_required and status in DELIVERY_SUCCESS_STATUSES
+
     def reconcile(self) -> dict[str, Any]:
         statuses = self.state['stage_status']
         flags = self.state['workflow_flags']
@@ -492,7 +514,14 @@ class ProjectManager:
         statuses['creative_direction'] = 'done' if exists('creative_direction') or manifest_exists('creative_direction') else statuses.get('creative_direction', 'pending')
         statuses['prompt'] = 'done' if (exists('prompt') and exists('ref_order')) or manifest_exists('prompt') or flags.get('prompt_ready') else statuses.get('prompt', 'pending')
         statuses['generation'] = 'done' if (exists('generation') and bool(load_json(self.project_dir / ARTIFACT_FILES['generation'], {}).get('ok'))) or manifest_exists('generation') and flags.get('generation_ready') else statuses.get('generation', 'pending')
-        statuses['delivery'] = 'done' if exists('delivery') or manifest_exists('delivery') or flags.get('delivery_ready') else statuses.get('delivery', 'pending')
+        delivery_manifest_present = exists('delivery') or manifest_exists('delivery')
+        delivery_complete = self._delivery_is_complete()
+        if delivery_complete:
+            statuses['delivery'] = 'done'
+        elif delivery_manifest_present or flags.get('delivery_ready'):
+            statuses['delivery'] = 'running'
+        else:
+            statuses['delivery'] = statuses.get('delivery', 'pending')
         statuses['cleanup'] = 'done' if exists('cleanup') or manifest_exists('cleanup') or flags.get('cleanup_ready') else statuses.get('cleanup', 'pending')
 
         flags['copywriting_ready'] = bool(flags.get('copywriting_ready')) or exists('copywriting') or manifest_exists('copywriting')
@@ -500,15 +529,15 @@ class ProjectManager:
         flags['creative_direction_ready'] = bool(flags.get('creative_direction_ready')) or exists('creative_direction') or manifest_exists('creative_direction')
         flags['prompt_ready'] = bool(flags.get('prompt_ready')) or (exists('prompt') and exists('ref_order')) or manifest_exists('prompt')
         flags['generation_ready'] = bool(flags.get('generation_ready')) or (bool(load_json(self.project_dir / ARTIFACT_FILES['generation'], {}).get('ok')) if exists('generation') else False)
-        flags['delivery_ready'] = bool(flags.get('delivery_ready')) or exists('delivery') or manifest_exists('delivery')
+        flags['delivery_ready'] = delivery_complete
         flags['cleanup_ready'] = bool(flags.get('cleanup_ready')) or exists('cleanup') or manifest_exists('cleanup')
 
         if flags['cleanup_ready']:
             stage = 'cleanup'
             reason = '已存在 cleanup_manifest.json。'
-        elif flags['delivery_ready'] and statuses.get('prompt') == 'done':
-            stage = 'delivery'
-            reason = '已存在 delivery_manifest.json，可继续处理交付确认。'
+        elif flags['delivery_ready'] and statuses.get('delivery') == 'done':
+            stage = 'cleanup'
+            reason = '交付已完成，可进入清理确认。'
         elif flags['generation_ready'] and statuses.get('prompt') == 'done':
             stage = 'delivery'
             reason = '生图成功，下一步应进入交付。'

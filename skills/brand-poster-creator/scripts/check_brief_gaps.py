@@ -30,6 +30,63 @@ def file_exists(project_dir: Path, relative_path: str) -> bool:
     return full.exists() and full.stat().st_size > 0
 
 
+def resolve_asset_path(project_dir: Path, relative_path: str) -> Path | None:
+    if not relative_path:
+        return None
+    path = Path(relative_path)
+    if path.is_absolute():
+        return path
+    return project_dir / path
+
+
+def image_size(path: Path | None) -> tuple[int, int] | None:
+    if not path or not path.exists() or path.stat().st_size <= 0:
+        return None
+    try:
+        from PIL import Image
+        with Image.open(path) as img:
+            return img.size
+    except Exception:
+        return None
+
+
+def is_bakery_product(brief: dict) -> bool:
+    product_name = str(brief.get('product_name', '') or '')
+    industry = str(brief.get('industry', '') or '')
+    style_note = str(brief.get('style_note', '') or '')
+    haystack = ' '.join([product_name, industry, style_note]).lower()
+    return any(token in haystack for token in [
+        '烘焙', '面包', '吐司', '可可吐司', '糕点', '蛋糕', '饼干', '可颂', '贝果',
+        'bread', 'toast', 'bakery', 'pastry', 'cake', 'cookie', 'croissant', 'bagel',
+    ])
+
+
+def collect_quality_warnings(brief: dict, project_dir: Path) -> list[str]:
+    warnings: list[str] = []
+    assets = brief.get('assets', {}) or {}
+    poster_type = str(brief.get('type', '') or '').strip()
+    is_product_promo = '产品' in poster_type or '推广' in poster_type
+    if not is_product_promo:
+        return warnings
+
+    product_asset = str(assets.get('product', '') or '')
+    if not file_exists(project_dir, product_asset):
+        return warnings
+
+    product_path = resolve_asset_path(project_dir, product_asset)
+    size = image_size(product_path)
+    if size and min(size) < 900:
+        if is_bakery_product(brief):
+            warnings.append(
+                f'产品图为小尺寸参考（{size[0]}x{size[1]}）：自动启用烘焙真实化策略，参考图只锁定产品身份/轮廓/颜色，不把像素细节当作切面纹理依据。'
+            )
+        else:
+            warnings.append(
+                f'产品图为小尺寸参考（{size[0]}x{size[1]}）：不阻塞流程，自动按身份/轮廓/颜色锁定处理，不把压缩像素当作产品微观纹理依据。'
+            )
+    return warnings
+
+
 def collect_gaps(brief: dict, project_dir: Path) -> list[str]:
     gaps: list[str] = []
     assets = brief.get('assets', {}) or {}
@@ -108,6 +165,7 @@ def main() -> int:
 
     brief = load_json(brief_path)
     gaps = collect_gaps(brief, project_dir)
+    quality_warnings = collect_quality_warnings(brief, project_dir)
 
     manifest = {
         'status': 'complete' if not gaps else 'gaps_found',
@@ -115,6 +173,8 @@ def main() -> int:
         'brief_path': str(brief_path),
         'gaps': gaps,
         'gap_count': len(gaps),
+        'quality_warnings': quality_warnings,
+        'quality_warning_count': len(quality_warnings),
         'poster_type': str(brief.get('type', '') or ''),
         'brand_name': str(brief.get('brand_name', '') or ''),
         'festival': str(brief.get('festival', '') or ''),
@@ -130,10 +190,15 @@ def main() -> int:
         flags={'gap_check_completed': True},
         artifacts={'brief': str(brief_path)},
         files=['gap_check_manifest.json'],
-        extra={'gaps': gaps},
+        extra={'gaps': gaps, 'quality_warnings': quality_warnings},
     )
 
-    print(json.dumps({'gap_count': len(gaps), 'gaps': gaps}, ensure_ascii=False, indent=2))
+    print(json.dumps({
+        'gap_count': len(gaps),
+        'gaps': gaps,
+        'quality_warning_count': len(quality_warnings),
+        'quality_warnings': quality_warnings,
+    }, ensure_ascii=False, indent=2))
     return 0
 
 
