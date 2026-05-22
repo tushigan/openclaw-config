@@ -12,7 +12,7 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1779412215890,
+          "lastUsedAt": 1779418822491,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -308,16 +308,16 @@
           "id": "shared-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1779361150777,
-          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/outputs/mask_edit_20260521_woken_product_fix/woken_product_fixed.png /Users/a123/.openclaw/workspace/feishu-deliver/woken_product_fixed_masked.png && python3 - <<'PY'\nfrom PIL import Image\np='/Users/a123/.openclaw/workspace/outputs/mask_edit_20260521_woken_product_fix/woken_product_fixed.png'\nim=Image.open(p)\nprint(im.size)\nPY",
+          "lastUsedAt": 1779418484021,
+          "lastUsedCommand": "ls /Users/a123/.openclaw/workspace-design/skills/mask-edit-localized/scripts && identify -format '%w %h' /Users/a123/.openclaw/workspace/.openclaw-inbound-media/09ad6e1c-9873-4392-935f-a31ebf0be081.jpg",
           "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1779373826161,
-          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/skills/runninghub/SKILL.md",
+          "lastUsedAt": 1779418471215,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/skills/mask-edit-localized/SKILL.md",
           "lastResolvedPath": "/bin/cat"
         },
         {

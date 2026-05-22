@@ -21,6 +21,10 @@ workspace-research/*
 !workspace-research/SOUL.md
 !workspace-research/IDENTITY.md
 !workspace-research/USER.md
+!workspace-research/skills/
+workspace-research/skills/*
+!workspace-research/skills/internal-interview-research/
+!workspace-research/skills/internal-interview-research/**
 
 workspace-strategy/*
 !workspace-strategy/AGENTS.md
