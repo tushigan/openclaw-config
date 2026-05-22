@@ -1,0 +1,73 @@
+{
+  "source_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/source-original.jpeg",
+  "layout_ref": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/layout_ref.png",
+  "canvas": {
+    "width": 944,
+    "height": 1680
+  },
+  "assets": {
+    "logo": {
+      "left": 24,
+      "top": 24,
+      "width": 248,
+      "height": 136,
+      "ref_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/logo_ref.png",
+      "raw_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/raw/logo.png",
+      "layer_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/layers/logo.png"
+    },
+    "title": {
+      "left": 48,
+      "top": 200,
+      "width": 832,
+      "height": 432,
+      "ref_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/title_ref.png",
+      "raw_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/raw/title.png",
+      "layer_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/layers/title.png"
+    },
+    "top_decor": {
+      "left": 248,
+      "top": 32,
+      "width": 688,
+      "height": 464,
+      "ref_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/top_decor_ref.png",
+      "raw_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/raw/top_decor.png",
+      "layer_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/layers/top_decor.png"
+    },
+    "plane": {
+      "left": 680,
+      "top": 624,
+      "width": 256,
+      "height": 272,
+      "ref_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/plane_ref.png",
+      "raw_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/raw/plane.png",
+      "layer_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/layers/plane.png"
+    },
+    "mascot": {
+      "left": 176,
+      "top": 704,
+      "width": 608,
+      "height": 608,
+      "ref_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/mascot_ref.png",
+      "raw_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/raw/mascot.png",
+      "layer_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/layers/mascot.png"
+    },
+    "left_scene": {
+      "left": 0,
+      "top": 520,
+      "width": 352,
+      "height": 1056,
+      "ref_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/left_scene_ref.png",
+      "raw_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/raw/left_scene.png",
+      "layer_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/layers/left_scene.png"
+    },
+    "right_scene": {
+      "left": 608,
+      "top": 920,
+      "width": 336,
+      "height": 608,
+      "ref_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/refs/right_scene_ref.png",
+      "raw_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/raw/right_scene.png",
+      "layer_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/children-day-reverse/layers/right_scene.png"
+    }
+  }
+}

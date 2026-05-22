@@ -314,7 +314,7 @@ def main():
 ## 执行命令
 
 ```bash
-bash scripts/generate_head_images.sh {project_dir} {args.version} 800x800
+bash scripts/generate_head_images.sh {project_dir} {args.version} 1440x1440
 ```
 
 ## 风格统一

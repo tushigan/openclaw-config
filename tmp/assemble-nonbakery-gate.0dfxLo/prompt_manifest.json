@@ -1,0 +1,24 @@
+{
+  "status": "failed",
+  "attempt": 1,
+  "error_summary": "发现工作流术语: 「版式锁定」",
+  "brief_path": "/Users/a123/.openclaw/tmp/assemble-nonbakery-gate.0dfxLo/brief.json",
+  "distill_path": "",
+  "copywriting_path": "",
+  "style_profile_path": "",
+  "creative_direction_path": "",
+  "output_path": "/Users/a123/.openclaw/tmp/assemble-nonbakery-gate.0dfxLo/prompt_draft.md",
+  "ref_order_path": "/Users/a123/.openclaw/tmp/assemble-nonbakery-gate.0dfxLo/ref_order.json",
+  "user_confirmed": false,
+  "history": [
+    {
+      "ts": "2026-05-20T09:03:16.868887Z",
+      "event": "prompt_assembly_failed",
+      "reason": "发现工作流术语: 「版式锁定」"
+    }
+  ],
+  "project_id": "assemble-nonbakery-gate.0dfxLo",
+  "stage": "prompt",
+  "confirmed_by": {},
+  "updated_at": "2026-05-20T09:03:16.895134Z"
+}

@@ -1,0 +1,48 @@
+{
+  "status": "generated",
+  "attempt": 5,
+  "error_summary": "发现工作流术语: 「蒸馏卡」；发现工作流术语: 「蒸馏」",
+  "brief_path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/brief.json",
+  "distill_path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/distill_card.json",
+  "copywriting_path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/copywriting.json",
+  "style_profile_path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/style_profile.json",
+  "creative_direction_path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/creative_direction.json",
+  "output_path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/prompt_draft.md",
+  "ref_order_path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/ref_order.json",
+  "user_confirmed": false,
+  "history": [
+    {
+      "ts": "2026-05-20T07:14:47.573278Z",
+      "event": "prompt_assembled",
+      "reference_count": 4
+    }
+  ],
+  "project_id": "BP-20260519-005",
+  "stage": "prompt",
+  "confirmed_by": {},
+  "updated_at": "2026-05-20T07:14:47.597479Z",
+  "reference_count": 4,
+  "reference_roles": [
+    {
+      "index": 0,
+      "role": "style_ref",
+      "path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/images/style_ref_1.jpg"
+    },
+    {
+      "index": 1,
+      "role": "skeleton",
+      "path": "/Users/a123/.openclaw/workspace/skills/brand-poster-distiller/site/assets/skeletons/POSTER-DISTILL-P-009.png"
+    },
+    {
+      "index": 2,
+      "role": "product",
+      "path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/images/product.jpg"
+    },
+    {
+      "index": 3,
+      "role": "logo",
+      "path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.YfdBPW/project/images/logo.png"
+    }
+  ],
+  "validation_issues": []
+}

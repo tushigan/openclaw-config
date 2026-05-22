@@ -1,0 +1,40 @@
+{
+  "task_id": "BP-20260519-005",
+  "type": "产品推广",
+  "brand_name": "wokenday 安心系列",
+  "industry": "烘焙食品 / 可可吐司",
+  "festival": "日常产品传播",
+  "ratio": "9:16",
+  "must_include": ["Logo", "产品", "主标题", "副标题"],
+  "hero_priority": {
+    "hero_1": "一片站立在画面中间的纯脂可可吐司产品，是绝对主角",
+    "hero_2": "满版细腻可可粉背景、柔和阴影、少量自然明暗层次作为风格陪衬",
+    "forbidden_hero": "不要白色窄光带；不要让装饰物、额外甜点、人物或餐具抢主视觉"
+  },
+  "taboos": "不要白色窄光带；不要低幼卡通感；不要电商促销感；不要复杂装饰；不要把产品组织做成网状雕刻、鳞片状、硬描边纹理；不要生成额外品牌名或错误文字；logo 只保留一次。",
+  "distill_card_id": "POSTER-DISTILL-P-009",
+  "style_note": "参考图只用于暖棕可可粉质感背景、极简高级、低装饰密度和甜点广告气质。不要继承白色窄光带。背景必须是整幅铺满的细腻可可粉；产品是一片可可吐司，站立在画面中间。",
+  "product_name": "纯脂可可吐司",
+  "product_selling_points": ["纯脂可可", "天然回甘", "好吃与干净兼得"],
+  "product_sell_points": ["纯脂可可", "天然回甘", "好吃与干净兼得"],
+  "primary_copy": "纯脂可可的天然回甘",
+  "secondary_copy": "好吃和干净，从来不是二选一",
+  "contacts": {
+    "initiator": {
+      "name": "涂是淦",
+      "feishu_user_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+      "source": "message_sender",
+      "match_status": "matched",
+      "raw_input": ""
+    },
+    "design_lead": {"name": "", "feishu_user_id": "", "source": "", "match_status": "unresolved", "raw_input": ""},
+    "planning_lead": {"name": "", "feishu_user_id": "", "source": "", "match_status": "unresolved", "raw_input": ""},
+    "project_manager": {"name": "涂是淦", "feishu_user_id": "ou_88079e6b06ce40e6851c96928fe1a03b", "source": "message_sender", "match_status": "matched", "raw_input": ""}
+  },
+  "assets": {
+    "style_refs": ["images/style_ref_1.jpg"],
+    "logo": "images/logo.png",
+    "product": "images/product.jpg",
+    "source": "user_upload"
+  }
+}

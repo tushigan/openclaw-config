@@ -49,7 +49,7 @@ fi
 DESIGN_DIR="$PROJECT_DIR/设计/$VERSION"
 PLANNING_DIR="$PROJECT_DIR/策划"
 PROMPT_PACKAGE_DIR="$PLANNING_DIR/prompt_package"
-GEN_SCRIPT="/Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py"
+GEN_SCRIPT="${DETAIL_PAGE_GEN_SCRIPT:-/Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py}"
 STYLE_GUIDE="$PROJECT_DIR/style_guide.png"
 FACTS_FILE="$PROJECT_DIR/facts.json"
 PLATFORM_PROFILE="$PROJECT_DIR/platform_profile.json"
@@ -173,18 +173,18 @@ generate_segment() {
 
     echo ">>> 生成分段: $OUTPUT_FILE"
 
-    local CMD="python3 $GEN_SCRIPT --prompt-file $PROMPT_FILE -r $WIREFRAME_FILE -s $SIZE -o $OUTPUT_FILE"
+    local -a CMD=("python3" "$GEN_SCRIPT" "--prompt-file" "$PROMPT_FILE" "-r" "$WIREFRAME_FILE" "-s" "$SIZE" "-o" "$OUTPUT_FILE")
 
     if [[ -f "$STYLE_GUIDE" ]]; then
-        CMD="$CMD --ref-style $STYLE_GUIDE"
+        CMD+=("--ref-style" "$STYLE_GUIDE")
     fi
 
     if [[ -n "$REF_PRODUCT" && -f "$REF_PRODUCT" ]]; then
-        CMD="$CMD --ref-product $REF_PRODUCT"
+        CMD+=("--ref-product" "$REF_PRODUCT")
     fi
 
     if [[ -n "$REF_LOGO" && -f "$REF_LOGO" ]]; then
-        CMD="$CMD --ref-logo $REF_LOGO"
+        CMD+=("--ref-logo" "$REF_LOGO")
     fi
 
     if [[ "$SEGMENT_KEY" == "D" && -n "$REF_PACKAGING" && -f "$REF_PACKAGING" ]]; then
@@ -192,10 +192,12 @@ generate_segment() {
     fi
 
     if [[ -n "$EXTRA_ARGS" ]]; then
-        CMD="$CMD $EXTRA_ARGS"
+        # shellcheck disable=SC2206
+        local EXTRA_PARTS=($EXTRA_ARGS)
+        CMD+=("${EXTRA_PARTS[@]}")
     fi
 
-    $CMD
+    "${CMD[@]}"
 
     if [[ -f "$OUTPUT_FILE" ]]; then
         local SIZE_ACTUAL

@@ -129,6 +129,14 @@ function buildStageProgressBar(current, total) {
 function resolveStageProgress(params) {
     const { hasToolUse = false, hasPartialText = false, hasReasoning = false, isComplete = false, isError = false, isAborted = false, } = params;
     const total = 4;
+    if (params.isWaitingForAsync) {
+        return {
+            current: 3,
+            total,
+            zh: '等待子 Agent 回传',
+            en: 'Waiting for sub-agent',
+        };
+    }
     if (isComplete) {
         return {
             current: 4,
@@ -251,7 +259,7 @@ function buildRuntimeIdentityLabel(metrics) {
     return parts.length > 0 ? parts.join(' | ') : undefined;
 }
 function formatFooterRuntimeSegments(params) {
-    const { footer, metrics, elapsedMs, isError, isAborted } = params;
+    const { footer, metrics, elapsedMs, isError, isAborted, isWaitingForAsync } = params;
     const primaryZh = [];
     const primaryEn = [];
     const detailZh = [];
@@ -265,6 +273,10 @@ function formatFooterRuntimeSegments(params) {
         else if (isAborted) {
             primaryZh.push('已停止');
             primaryEn.push('Stopped');
+        }
+        else if (isWaitingForAsync) {
+            primaryZh.push('等待中');
+            primaryEn.push('Waiting');
         }
         else {
             primaryZh.push('已完成');
@@ -345,6 +357,7 @@ function buildCardContent(state, data = {}) {
                 text: data.text ?? '',
                 elapsedMs: data.elapsedMs,
                 isError: data.isError,
+                isWaitingForAsync: data.isWaitingForAsync,
                 reasoningText: data.reasoningText,
                 reasoningElapsedMs: data.reasoningElapsedMs,
                 toolUseSteps: data.toolUseSteps,
@@ -419,12 +432,13 @@ function buildStreamingCard(partialText, params = {}) {
     };
 }
 function buildCompleteCard(params) {
-    const { text, elapsedMs, isError, reasoningText, reasoningElapsedMs, toolUseSteps, toolUseTitleSuffix, toolUseElapsedMs, showToolUse = true, isAborted, footer, footerMetrics, } = params;
+    const { text, elapsedMs, isError, isWaitingForAsync, reasoningText, reasoningElapsedMs, toolUseSteps, toolUseTitleSuffix, toolUseElapsedMs, showToolUse = true, isAborted, footer, footerMetrics, } = params;
     const elements = [];
     elements.push(buildStageProgressElement({
         isComplete: true,
         isError,
         isAborted,
+        isWaitingForAsync,
     }));
     if (showToolUse) {
         elements.push(buildToolUsePanel({
@@ -485,6 +499,7 @@ function buildCompleteCard(params) {
         elapsedMs,
         isError,
         isAborted,
+        isWaitingForAsync,
     });
     const footerZhLines = [];
     const footerEnLines = [];

@@ -1,0 +1,24 @@
+{
+  "status": "ready",
+  "attempt": 1,
+  "brief_path": "/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260519-005/brief.json",
+  "distill_card_id": "POSTER-DISTILL-P-009",
+  "card_path": "/Users/a123/.openclaw/workspace/skills/brand-poster-distiller/cards/POSTER-DISTILL-P-009.json",
+  "distill_output_path": "/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260519-005/distill_card.json",
+  "skeleton_path": "/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260519-005/images/skeleton.png",
+  "skeleton_source_field": "skeleton_png",
+  "element_count": 6,
+  "negative_constraints_count": 6,
+  "copy_planning_guide_present": true,
+  "user_confirmed": false,
+  "history": [
+    {
+      "event": "distill_ready",
+      "distill_card_id": "POSTER-DISTILL-P-009"
+    }
+  ],
+  "project_id": "BP-20260519-005",
+  "stage": "distill",
+  "confirmed_by": {},
+  "updated_at": "2026-05-19T15:28:48.413408Z"
+}

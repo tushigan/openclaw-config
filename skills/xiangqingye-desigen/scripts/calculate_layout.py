@@ -2,7 +2,7 @@
 """Calculate optimal canvas size and segment layout for detail page generation.
 
 Given the model hard limits (max 3840px long edge, max 3:1 aspect ratio,
-divisible by 16), this script determines how to fit N screens into the
+max 8,294,400 total pixels, divisible by 16), this script determines how to fit N screens into the
 fewest possible segments using a square or vertical canvas strategy.
 
 Usage:
@@ -18,6 +18,8 @@ import sys
 
 # Model hard limits
 MAX_LONG_EDGE = 3840
+MAX_PIXELS = 8_294_400
+MAX_SQUARE_EDGE = 2880
 MAX_RATIO = 3.0  # max(w/h, h/w) <= 3:1
 DIVISOR = 16
 
@@ -40,6 +42,8 @@ def can_fit_rect(width: int, height: int) -> tuple[bool, list[str]]:
         errors.append(f'Height {height} not divisible by {DIVISOR}')
     if max(width, height) > MAX_LONG_EDGE:
         errors.append(f'Long edge {max(width, height)} exceeds {MAX_LONG_EDGE}')
+    if width * height > MAX_PIXELS:
+        errors.append(f'Total pixels {width*height} exceed {MAX_PIXELS}')
     ratio = max(width, height) / min(width, height) if min(width, height) > 0 else float('inf')
     if ratio > MAX_RATIO:
         errors.append(f'Aspect ratio 1:{ratio:.1f} exceeds 3:1')
@@ -98,11 +102,11 @@ def calculate_vertical_canvas(total_height: int, preferred_width: int = 1152):
 def calculate_square_canvas(total_height: int, preferred_width: int = 1152):
     """Calculate using square canvas strategy.
 
-    Use 3840x3840 square, arrange content in vertical columns.
+    Use 2880x2880 square, arrange content in vertical columns.
     This maximizes content per image.
     """
-    square_size = round_up_16(MAX_LONG_EDGE)  # 3840
-    # Each column uses preferred_width, so columns = 3840 // preferred_width
+    square_size = round_up_16(MAX_SQUARE_EDGE)
+    # Each column uses preferred_width, so columns = square_size // preferred_width
     columns = max(1, square_size // preferred_width)
     # Height available per column
     col_height = square_size

@@ -5,6 +5,7 @@ import argparse
 import json
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 IMAGE_LIMIT = 10 * 1024 * 1024
 FILE_LIMIT = 30 * 1024 * 1024
@@ -37,7 +38,7 @@ def size_info(path: Path) -> dict:
     }
 
 
-def latest_version_dir(base: Path) -> Path | None:
+def latest_version_dir(base: Path) -> Optional[Path]:
     if not base.exists():
         return None
     versions = [p for p in base.iterdir() if p.is_dir() and p.name.startswith("v") and p.name[1:].isdigit()]

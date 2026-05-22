@@ -1,0 +1,12 @@
+{
+  "task_id": "beauty",
+  "type": "产品推广",
+  "brand_name": "美妆品牌",
+  "industry": "护肤美妆",
+  "festival": "日常",
+  "ratio": "9:16",
+  "product_name": "精华液",
+  "assets": {
+    "product": "images/product.jpg"
+  }
+}

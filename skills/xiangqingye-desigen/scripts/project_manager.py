@@ -41,6 +41,27 @@ STATUS_ICONS = {
     'rejected': '❌',
 }
 
+PHASE_CHOICES = [
+    'intake',
+    'facts_locked',
+    'asset_registry_ready',
+    'strategy_approved',
+    'planning',
+    'wireframe_generated',
+    'wireframe_qa_passed',
+    'wireframe_cut_approved',
+    'wireframe',
+    'design_segments_generated',
+    'concat_checked',
+    'head_images_generated',
+    'delivery_checked',
+    'delivery_packaged',
+    'design',
+    'delivered',
+    'done',
+    'archived',
+]
+
 # Category directory names
 CATEGORY_DIRS = {
     '策划': 'copywriting',
@@ -122,7 +143,9 @@ class ProjectManager:
         candidate_data = self._read_json_file(candidate_path)
         confirmed_data = self._read_json_file(confirmed_path)
         queries = candidate_data.get('queries', []) if candidate_path.exists() else []
-        confirmed_items = confirmed_data.get('confirmed_items', []) if confirmed_path.exists() else []
+        confirmed_items = []
+        if confirmed_path.exists():
+            confirmed_items = confirmed_data.get('confirmed_items') or confirmed_data.get('confirmed_knowledge') or []
         dataset_name = confirmed_data.get('matched_dataset_name') or candidate_data.get('matched_dataset_name') or '未匹配'
         flags['brand_knowledge_discovered'] = len(queries) > 0
         flags['brand_knowledge_confirmed'] = len(confirmed_items) > 0
@@ -213,6 +236,103 @@ class ProjectManager:
             return '待打包', notes
         return '未准备', notes
 
+    def _latest_version_dir(self, category: str) -> Path:
+        base = self.project_dir / category
+        if not base.exists():
+            return None
+        versions = [p for p in base.iterdir() if p.is_dir() and p.name.startswith('v') and p.name[1:].isdigit()]
+        if not versions:
+            return base
+        return sorted(versions, key=lambda p: int(p.name[1:]))[-1]
+
+    def _latest_wireframe_report_passed(self) -> bool:
+        latest = self._latest_version_dir('手稿')
+        if latest is None:
+            return False
+        report = latest / 'wireframe_qa_report.json'
+        return report.exists() and self._read_json_file(report).get('passed') is True
+
+    def _cut_manifest_confirmed(self) -> bool:
+        wireframe_dir = self.project_dir / '手稿'
+        if not wireframe_dir.exists():
+            return False
+        manifests = sorted(wireframe_dir.glob('v*/cut_preview/cut_manifest.json'))
+        if not manifests:
+            manifests = sorted(wireframe_dir.glob('cut_preview_*/cut_manifest.json'))
+        if not manifests:
+            return False
+        return self._read_json_file(manifests[-1]).get('status') == 'confirmed'
+
+    def _latest_design_has_segments(self) -> bool:
+        latest = self._latest_version_dir('设计')
+        return latest is not None and any(latest.glob('segment_*.png'))
+
+    def _latest_design_concat_ready(self) -> bool:
+        latest = self._latest_version_dir('设计')
+        if latest is None:
+            return False
+        return (latest / 'merged_final.png').exists() and (latest / 'boundary_check_report.json').exists()
+
+    def _head_images_ready(self) -> bool:
+        flags = self._workflow_flags()
+        if not flags.get('head_images_required', True):
+            return True
+        latest = self._latest_version_dir('头图')
+        return latest is not None and any(latest.glob('head_*.png'))
+
+    def _delivery_manifest_passed(self) -> bool:
+        manifest = self.project_dir / '交付' / 'deliver_manifest.json'
+        return manifest.exists() and self._read_json_file(manifest).get('passed') is True
+
+    def _delivery_package_exists(self) -> bool:
+        deliver_dir = self.project_dir / '交付'
+        if not deliver_dir.exists():
+            return False
+        return any(deliver_dir.glob('*.zip')) or any(deliver_dir.glob('*.z[0-9][0-9]'))
+
+    def _gate_failure_for_phase(self, phase: str) -> str:
+        planning_dir = self.project_dir / '策划'
+        facts = self.project_dir / 'facts.json'
+        registry = self.project_dir / 'asset_registry.json'
+        base_registry = self.project_dir / 'asset_registry_base.json'
+        style_guide = self.project_dir / 'style_guide.png'
+        strategy = planning_dir / 'strategy_v1.md'
+        copywriting = planning_dir / 'copywriting_v1.md'
+        flags = self._workflow_flags()
+
+        if phase == 'facts_locked' and not facts.exists():
+            return '门禁拦截: 缺少 facts.json，不能标记为 facts_locked'
+        if phase == 'asset_registry_ready' and not (registry.exists() or base_registry.exists()):
+            return '门禁拦截: 缺少 asset_registry.json 或 asset_registry_base.json，不能标记为 asset_registry_ready'
+        if phase in {'strategy_approved', 'planning'}:
+            if not strategy.exists():
+                return '门禁拦截: 缺少策划/strategy_v1.md，不能标记为 strategy_approved'
+            if not copywriting.exists():
+                return '门禁拦截: 缺少策划/copywriting_v1.md，不能标记为 strategy_approved'
+            if not flags.get('copywriting_confirmed', False):
+                return '门禁拦截: 逐屏文案尚未得到用户确认，不能标记为 strategy_approved'
+            if not style_guide.exists():
+                return '门禁拦截: 缺少 style_guide.png，不能标记为 strategy_approved'
+        if phase == 'wireframe_generated':
+            latest = self._latest_version_dir('手稿')
+            if latest is None or not (latest / 'wireframe_all.png').exists():
+                return '门禁拦截: 缺少正式手稿 wireframe_all.png，不能标记为 wireframe_generated'
+        if phase == 'wireframe_qa_passed' and not self._latest_wireframe_report_passed():
+            return '门禁拦截: 手稿 QA 报告不存在或未通过，不能标记为 wireframe_qa_passed'
+        if phase in {'wireframe_cut_approved', 'wireframe'} and not self._cut_manifest_confirmed():
+            return '门禁拦截: cut_manifest.json 不存在或未 confirmed，不能标记为 wireframe_cut_approved'
+        if phase == 'design_segments_generated' and not self._latest_design_has_segments():
+            return '门禁拦截: 缺少最终分段设计稿 segment_*.png，不能标记为 design_segments_generated'
+        if phase in {'concat_checked', 'design'} and not self._latest_design_concat_ready():
+            return '门禁拦截: 缺少 merged_final.png 或 boundary_check_report.json，不能标记为 concat_checked'
+        if phase == 'head_images_generated' and not self._head_images_ready():
+            return '门禁拦截: 当前项目仍缺头图，不能标记为 head_images_generated'
+        if phase == 'delivery_checked' and not self._delivery_manifest_passed():
+            return '门禁拦截: deliver_manifest.json 不存在或未通过，不能标记为 delivery_checked'
+        if phase in {'delivery_packaged', 'done'} and not self._delivery_package_exists():
+            return '门禁拦截: 交付包不存在，不能标记为 delivery_packaged'
+        return ''
+
     def init_project(self, name: str, segments: list[str], output_dir: Path = None):
         """Initialize project directory structure."""
         timestamp = datetime.now().strftime('%Y%m%d')
@@ -236,14 +356,16 @@ class ProjectManager:
         self.progress = {
             'project': name,
             'created': datetime.now().isoformat(),
-            'phase': 'planning',  # planning → wireframe → design → done
+            'phase': 'intake',
             'workflow_flags': {
                 'head_images_required': True,
+                'head_images_asked': False,
                 'head_images_generated': False,
                 'head_images_delivered': False,
                 'long_image_required': True,
                 'long_image_generated': False,
                 'long_image_delivered': False,
+                'copywriting_confirmed': False,
                 'delivery_mode': 'zip_file',
                 'delivery_ready': False,
                 'delivery_packaged': False,
@@ -503,25 +625,10 @@ class ProjectManager:
 
     def update_phase(self, phase: str):
         """Update project phase, with hard gate checks."""
-        if phase == 'wireframe':
-            planning_dir = self.project_dir / '策划'
-            cw_files = list(planning_dir.glob('copywriting_v*.md')) if planning_dir.exists() else []
-            if not cw_files:
-                print('门禁拦截: 缺少逐屏文案文件 (策划/copywriting_v*.md)，不能进入手稿阶段')
-                print('请先完成阶段 1.2 逐屏文案，再进入阶段 2 手稿')
-                return
-            flags = self._workflow_flags()
-            if not flags.get('copywriting_confirmed', False):
-                print('门禁拦截: 逐屏文案尚未得到用户确认，不能进入手稿阶段')
-                print('请先将逐屏文案全文发给用户确认，确认后再进入阶段 2 手稿')
-                return
-            head_dir = self.project_dir / '头图'
-            head_strategy = planning_dir / 'head_image_strategy_v1.md' if planning_dir.exists() else None
-            if flags.get('head_images_required', True):
-                head_asked = flags.get('head_images_asked', False)
-                if not head_asked:
-                    print('门禁提醒: 头图需求尚未确认，默认 head_images_required=true')
-                    print('请在手稿开始前明确是否需要配套头图')
+        gate_error = self._gate_failure_for_phase(phase)
+        if gate_error:
+            print(gate_error)
+            return
 
         self.progress['phase'] = phase
         self._save_progress()
@@ -597,7 +704,7 @@ def main():
     p_uphase = sub.add_parser('update-phase', help='Update project phase')
     p_uphase.add_argument('--project-dir', required=True, help='Project directory path')
     p_uphase.add_argument('phase',
-                          choices=['planning', 'wireframe', 'design', 'done'])
+                          choices=PHASE_CHOICES)
 
     # update-deliverable
     p_updel = sub.add_parser('update-deliverable', help='Update global deliverable')

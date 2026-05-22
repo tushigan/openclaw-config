@@ -31,6 +31,7 @@ Step 1：飞书对话卡片 → 用户填写需求
 Step 2：检查蒸馏卡 → 有则读取版式坐标 → 无则标记降级模式
 Step 2.5：飞书云盘品牌素材检索 → 搜索品牌文件夹 → 获取资产图 → 用户确认
 Step 3：信息缺口检查 → 主动追问用户
+Step 3.5：低清烘焙产品参考适配 → 原始产品图锁身份，可选质地参考锁组织；默认不生成中间 AI 产品图
 Step 4：派发 strategy subagent → 完成文案策划
 Step 5：回收文案 + 骨架图+坐标表 → 飞书对话卡片展示 → 用户确认/修改
 Step 5.5：参考图风格提炼 → 输出 style_profile.json（有参考图时执行）
@@ -255,7 +256,8 @@ python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/proj
     "style_refs": ["images/style_ref_1.jpg"],
     "logo": "images/logo.jpg",
     "ip": "images/ip.jpg",
-    "product": "images/product.jpg"
+    "product": "images/product.jpg",
+    "product_texture_refs": ["images/product_texture_ref_1.jpg"]
   }
 }
 ```
@@ -472,8 +474,58 @@ python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/chec
 **小尺寸产品图处理规则**：
 - 产品图存在但短边 < 900px 时，不得回退成“必须补高清图”。
 - `check_brief_gaps.py` 只记录质量提醒：该图用于锁定产品身份、轮廓、配色、基础材质，不把压缩像素当作微观纹理依据。
-- 后续 `assemble_prompt.py` 必须自动加入“小尺寸产品参考图适配策略”，让模型用真实产品摄影常识补全自然质感。
+- 后续 `assemble_prompt.py` 必须自动加入“小尺寸产品参考图适配策略”。若用户提供 `assets.product_texture_refs`，优先使用“原始产品图锁身份 + 质地参考锁组织”；没有质地参考且压缩纹理风险明显时，才使用低频软代理图降低噪点影响。
 - 只有产品图完全缺失，或产品身份无法判断时，才向用户索要补充素材。
+
+---
+
+## Step 3.5：低清烘焙产品参考适配
+
+只有同时满足以下条件时，才启用烘焙产品参考适配：
+- 海报类型是产品推广/产品海报，且 `brief.json.product_name` 存在
+- 产品属于面包/吐司/糕点/烘焙类
+- 产品图存在但短边 < 900px，或用户明确反馈切面有木屑感、鳞片感、干硬、过锐化、孔洞过均匀等问题
+
+默认策略改为“身份与质地分离”，不再生成中间 AI 产品 hero 参考：
+- `brief.json.assets.product` 保留用户原始产品图，用于锁定产品身份、圆顶轮廓、可可色相、整体比例和品牌/包装关系。
+- 如果用户提供真实质地/切面参考，写入 `brief.json.assets.product_texture_refs`，用于锁定面包组织的柔软度、湿润感、孔隙尺度、低局部对比和非均匀分布。
+- 有 `product_texture_refs` 时，跳过低频软代理，不运行任何“产品 hero 参考生成”；后续 prompt 直接把“原始产品图 + 质地参考图”作为两个不同角色传入。
+- 不得要求用户必须补高清产品图才能继续；小图是质量风险，不是流程阻塞。
+
+只有在没有可用质地参考、且低清产品图明显会把压缩噪点/暗斑误读成孔洞时，才运行低频软代理作为降级适配：
+
+```bash
+python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/normalize_product_reference.py \
+  --project-dir "[项目目录绝对路径]"
+```
+
+软代理脚本会自动：
+- 读取 `brief.json.assets.product`
+- 判断产品图尺寸与烘焙品类
+- 先保留产品身份、轮廓、配色与基础材质，再用确定性图像处理生成低频软代理图，避免把低清暗斑/压缩噪点直接放大成蜂窝、木屑或鳞片纹理
+- 将结果压缩为轻量 JPEG，写入 `images/product_realism_ref.jpg`
+- 保留原始产品图到 `brief.json.assets.product_original`
+- 将 `brief.json.assets.product` 更新为软代理图，供后续 prompt 与生图使用
+- 写入 `product_reference_manifest.json` 与 `audit_log.jsonl`
+
+**硬门禁**：
+- 低清烘焙产品不得由 agent 手写 `product_realize_prompt.txt`、临时生成 `product_realized.png` 后直接塞回 `brief.json.assets.product`
+- 若存在 `assets.product_texture_refs`，`assemble_prompt.py` 必须跳过低清门禁，并在 prompt 中写明“产品身份与质地参考分离”
+- 若没有 `assets.product_texture_refs` 且产品图低清，必须以 `normalize_product_reference.py` 为标准入口，生成 `product_reference_manifest.json` 与对应 `brief.json.assets.product_normalization` 记录
+- `assemble_prompt.py` 会检查该门禁；低清烘焙产品既没有质地参考、也没有标准软代理 manifest 时，会直接失败，要求先回到 Step 3.5
+- 默认不得调用生图 API 生成 `product_bakery_hero_ref.png`、`product_realized.png` 或其它中间 AI 产品图；除非用户明确要求做实验对比，否则该路线不进入正式工作流
+
+失败处理：
+- 如果已有真实质地参考，直接继续 prompt 组装。
+- 如果没有质地参考且软代理生成失败，不阻塞主流程，但必须记录质量风险；不得向用户声称烘焙质感问题已经被彻底解决。
+- 不得因此要求用户必须补高清产品图。
+
+跳过规则：
+- 非产品推广/产品海报场景：跳过。
+- 非烘焙/面包/吐司/糕点品类：跳过。
+- 产品图尺寸足够且用户未反馈组织质感问题：跳过。
+- 已提供 `assets.product_texture_refs`：跳过软代理与任何中间 AI 产品图。
+- 除非用户明确要求实验对比，不得为其它品类生成烘焙适配产品参考。
 
 ---
 
@@ -816,6 +868,7 @@ python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/asse
 - `ref_order.json` 已生成，且其中所有 `path` 都必须是**绝对路径**
 - 若已执行 Step 5.8，则 `creative_direction.json` 必须存在，且其中至少包含 `summary`、`hero_focus`、`composition_plan`
 - 若 `hero_priority.hero_1` 明确为“产品”，则 `brief.json.assets.product` 必须存在且不可为空
+- 若是低清烘焙产品，必须满足二选一：已有 `assets.product_texture_refs`，或已生成 `product_reference_manifest.json`；不得用手写/临时生成的 `product_realized.png` 绕过 Step 3.5
 - 若同时存在 `assets.product` 与 `assets.ip`，两者路径不得相同
 - 若脚本报告参考图角色冲突，必须先回到素材确认/修正，不得继续生图
 - `ref_order.json` 中每个参考图路径对应的文件都必须真实存在，缺任意一个都不得进入生图
@@ -826,9 +879,9 @@ python3 /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts/asse
 - 蒸馏卡的 `copy_planning_guide`、`notes`、`Distill ID` 等内部字段不得出现在 prompt 中
 - 如果 prompt 不完整，必须修复脚本后重新运行，不得手补
 - 脚本同时输出 `ref_order.json`，记录参考图传图顺序，run.sh 必须按此顺序传图
-- 如果项目是面包/吐司/烘焙类产品，prompt 中必须显式约束“切面组织真实、湿润回弹、低局部对比、孔隙大小/形状/分布不均、孔壁柔软、不要均匀蜂窝孔/干海绵/木屑感/网状雕刻/鳞片状/硬描边纹理”，避免把食品组织做成假锐化
+- 如果项目是面包/吐司/烘焙类产品，prompt 中必须显式约束“切面组织真实、湿润回弹、低局部对比、商业软吐司闭合细密组织、孔隙少量且柔和、不要酸面包/欧包/夏巴塔式大开孔、不要均匀蜂窝孔/干海绵/木屑感/网状雕刻/鳞片状/硬描边纹理”，避免把食品组织做成假锐化
 - 如果产品参考图分辨率低、角度不完整，或目标姿态与产品参考差异很大，必须在 prompt 中明确“小尺寸产品参考图只锁定身份、轮廓、配色与基础材质，不把压缩像素放大成微观纹理”，不能强行重塑成不存在的完美正面产品
-- 对面包/吐司等切面敏感产品，若产品图短边 < 900px，必须自动启用烘焙真实化策略：产品仍可作为主视觉，但切面细节应由真实商业烘焙摄影先验补全，保持含水量、柔软孔壁、非均匀孔隙、低局部对比；不得要求用户必须补高清图才继续
+- 对面包/吐司等切面敏感产品，若产品图短边 < 900px，必须自动启用烘焙参考适配：优先使用原始产品图锁身份 + `product_texture_refs` 锁真实组织；没有质地参考时才运行低频软代理。默认不得生成中间 AI 产品 hero 参考；不得要求用户必须补高清图才继续
 - 如果 `hero_priority.hero_1` 指定产品为第一主角，但蒸馏卡没有产品主图区，脚本必须自动生成“产品主视觉区域”约束，明确产品放置坐标；不得让模型自行猜测产品位置
 - 如果二维码区域不需要二维码，prompt 必须写明“不要画二维码、边框、占位框、半透明矩形或按钮框”，防止模型生成空框
 
@@ -946,6 +999,13 @@ python3 "${EXEC_SCRIPT}" --project-dir "${PROJECT_DIR}" --size 2160x3840 --aspec
 ## Step 8：发送成品图 → 用户确认
 
 仅当 `generation_result.json.ok=true` 且成品文件真实存在后，才将成品图发送给用户确认。
+
+**补偿入口（强制）**：
+用户追问“进度 / 好了没 / 图片呢 / 发图 / 没收到 / 继续”时，如果当前项目已经有 `generation_result.json.ok=true` 或 `delivery_manifest.json`，必须先恢复到 Step 8 检查交付状态。
+
+若 `delivery_manifest.json.delivery_status` 不是成功状态，或缺少 `delivery_evidence.message_id/chat_id`，说明还没有真实发送成功。此时禁止回复本地路径、`MEDIA:/...`、“图片已在目录里”或“交付副本已生成”；必须继续执行真实飞书发送。
+
+若子 agent 只返回了 `feishu-deliver` 路径，也只能视为“发送副本已准备”，不能视为“已发给用户”。
 
 在发送前，main 必须先执行：
 

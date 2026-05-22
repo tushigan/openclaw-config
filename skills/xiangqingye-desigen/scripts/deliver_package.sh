@@ -17,6 +17,7 @@ set -euo pipefail
 PROJECT_DIR=""
 OUTPUT_DIR=""
 PROJECT_NAME=""
+HEAD_IMAGES_REQUIRED="true"
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -51,6 +52,23 @@ PROJECT_NAME=$(basename "$PROJECT_DIR" | sed 's/_[0-9]*$//')
 # 默认输出目录为项目下的 交付/
 if [[ -z "$OUTPUT_DIR" ]]; then
     OUTPUT_DIR="$PROJECT_DIR/交付"
+fi
+
+PROGRESS_FILE="$PROJECT_DIR/progress.json"
+if [[ -f "$PROGRESS_FILE" ]]; then
+    HEAD_FLAG=$(python3 - "$PROGRESS_FILE" <<'PY'
+import json, sys
+from pathlib import Path
+path = Path(sys.argv[1])
+data = json.loads(path.read_text(encoding='utf-8'))
+flags = data.get('workflow_flags', {})
+value = flags.get('head_images_required', True)
+print('true' if value else 'false')
+PY
+)
+    if [[ "$HEAD_FLAG" == "false" ]]; then
+        HEAD_IMAGES_REQUIRED="false"
+    fi
 fi
 
 # ========== 交付前门禁检查 ==========
@@ -152,7 +170,7 @@ if [[ ! -f "$LATEST_VERSION/merged_final.png" ]]; then
     exit 1
 fi
 
-if [[ -z "$HEAD_VERSION" ]]; then
+if [[ "$HEAD_IMAGES_REQUIRED" == "true" && -z "$HEAD_VERSION" ]]; then
     echo "缺少头图目录，不能按整套详情页交付" >&2
     exit 1
 fi

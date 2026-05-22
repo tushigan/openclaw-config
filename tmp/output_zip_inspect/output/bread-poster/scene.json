@@ -1,0 +1,183 @@
+{
+  "width": 1536,
+  "height": 864,
+  "preview_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/poster-preview.png",
+  "fonts": {
+    "brand": {
+      "file": "/System/Library/Fonts/PingFang.ttc",
+      "index": 5,
+      "psd_name": "PingFangSC-Medium"
+    },
+    "title": {
+      "file": "/System/Library/Fonts/PingFang.ttc",
+      "index": 8,
+      "psd_name": "PingFangSC-Semibold"
+    },
+    "subtitle": {
+      "file": "/System/Library/Fonts/PingFang.ttc",
+      "index": 5,
+      "psd_name": "PingFangSC-Medium"
+    },
+    "subcopy": {
+      "file": "/System/Library/Fonts/PingFang.ttc",
+      "index": 5,
+      "psd_name": "PingFangSC-Medium"
+    },
+    "badge": {
+      "file": "/System/Library/Fonts/PingFang.ttc",
+      "index": 8,
+      "psd_name": "PingFangSC-Semibold"
+    }
+  },
+  "image_layers": [
+    {
+      "group": "01_BG",
+      "name": "Bakery Background",
+      "path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/raw/bg.png",
+      "crop_to_alpha": false,
+      "opacity": 255
+    },
+    {
+      "group": "01_BG",
+      "name": "Copy Panel",
+      "path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/copy_panel.png",
+      "crop_to_alpha": true,
+      "opacity": 255
+    },
+    {
+      "group": "02_BREAD_MAIN",
+      "name": "Bread Main",
+      "path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/bread_main.png",
+      "crop_to_alpha": true,
+      "opacity": 255
+    },
+    {
+      "group": "03_BREAD_DETAIL",
+      "name": "Bread Detail",
+      "path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/bread_detail.png",
+      "crop_to_alpha": true,
+      "opacity": 255
+    },
+    {
+      "group": "04_LIGHT_FX",
+      "name": "Warm Light FX",
+      "path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/light_fx_tinted.png",
+      "crop_to_alpha": true,
+      "opacity": 210
+    },
+    {
+      "group": "05_BADGE",
+      "name": "Badge Background",
+      "path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/badge_bg.png",
+      "crop_to_alpha": true,
+      "opacity": 255
+    }
+  ],
+  "text_layers": [
+    {
+      "group": "07_BRAND",
+      "name": "Brand",
+      "text": "鎏麦烘焙",
+      "font_key": "brand",
+      "font_size": 30,
+      "x": 120,
+      "y": 86,
+      "color": [
+        101,
+        61,
+        33
+      ],
+      "box": [
+        120,
+        93,
+        240,
+        122
+      ],
+      "bitmap_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/text_brand.png"
+    },
+    {
+      "group": "06_TEXT",
+      "name": "Title",
+      "text": "黄油新麦\n热香上新",
+      "font_key": "title",
+      "font_size": 92,
+      "x": 116,
+      "y": 154,
+      "color": [
+        88,
+        48,
+        20
+      ],
+      "box": [
+        116,
+        175,
+        484,
+        369
+      ],
+      "bitmap_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/text_title.png"
+    },
+    {
+      "group": "06_TEXT",
+      "name": "Subtitle",
+      "text": "一口咬开，奶香与麦香一起涌出来",
+      "font_key": "subtitle",
+      "font_size": 34,
+      "x": 122,
+      "y": 404,
+      "color": [
+        110,
+        67,
+        38
+      ],
+      "box": [
+        122,
+        412,
+        632,
+        448
+      ],
+      "bitmap_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/text_subtitle.png"
+    },
+    {
+      "group": "06_TEXT",
+      "name": "Subcopy",
+      "text": "现烤风味  香软爆满",
+      "font_key": "subcopy",
+      "font_size": 28,
+      "x": 124,
+      "y": 468,
+      "color": [
+        131,
+        83,
+        48
+      ],
+      "box": [
+        124,
+        474,
+        366,
+        502
+      ],
+      "bitmap_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/text_subcopy.png"
+    },
+    {
+      "group": "05_BADGE",
+      "name": "Badge Text",
+      "text": "新品上市",
+      "font_key": "badge",
+      "font_size": 34,
+      "x": 152,
+      "y": 628,
+      "color": [
+        255,
+        245,
+        229
+      ],
+      "box": [
+        152,
+        636,
+        288,
+        669
+      ],
+      "bitmap_path": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/layers/text_badge.png"
+    }
+  ]
+}

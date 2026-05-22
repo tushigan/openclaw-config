@@ -38,12 +38,73 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "你是涂是淦的 AI 业务晨报助手。请生成一份【近24小时 AI 圈新闻简报】并直接输出给用户。要求：1) 必须先用 memory_search 回忆用户近期推进的重点，再结合其长期业务背景；2) 必须用 tavily_search 检索近24小时 AI 新闻，优先关注：AI agent、模型能力、设计/生图/视频、品牌与营销、快消/零售、知识工作自动化；3) 只保留与用户业务或近期推进事项有关联的内容，宁缺毋滥；4) 输出结构：先给 3-6 条最值得看的新闻，每条包含【标题】【发生了什么】【为什么和你有关】；5) 最后补一个【今天值得留意的动作】小节，给 1-3 条可执行建议；6) 如果过去24小时没有足够高相关内容，就明确说“高相关不多”，然后给少量值得知道的行业级动态；7) 全文简洁、中文、像同事发晨报，不要官话，不要堆砌链接，但每条新闻后附 1 个来源域名。"
+        "message": "你是涂是淦的 AI 业务晨报助手。请生成一份【近24小时 AI 圈新闻简报】并直接输出给用户。要求：1) 必须先用 memory_search 回忆用户近期推进的重点，再结合其长期业务背景；2) 必须先扫描 available_skills，并优先使用 `multi-search-engine` skill 检索近24小时 AI 新闻；默认走免费搜索入口，不要先用 tavily_search；优先关注：AI agent、模型能力、设计/生图/视频、品牌与营销、快消/零售、知识工作自动化；3) 只保留与用户业务或近期推进事项有关联的内容，宁缺毋滥；4) 输出结构：先给 3-6 条最值得看的新闻，每条包含【标题】【发生了什么】【为什么和你有关】；5) 最后补一个【今天值得留意的动作】小节，给 1-3 条可执行建议；6) 如果过去24小时没有足够高相关内容，就明确说“高相关不多”，然后给少量值得知道的行业级动态；7) 全文简洁、中文、像同事发晨报，不要官话，不要堆砌链接，但每条新闻后附 1 个来源域名。"
       },
       "delivery": {
         "mode": "announce",
         "channel": "feishu",
         "to": "user:ou_88079e6b06ce40e6851c96928fe1a03b"
+      },
+      "state": {}
+    },
+    {
+      "id": "da698c09-e032-4186-a941-4a736674bab3",
+      "name": "未本日报-涂是淦",
+      "enabled": true,
+      "createdAtMs": 1778896918623,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 7 * * *",
+        "tz": "Asia/Shanghai",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "你是涂是淦的公司日报助手。\n\n第一步：执行 `python3 /Users/a123/.openclaw/workspace/scripts/fetch_yesterday_feishu.py`，等它跑完。\n\n第二步：用 read 工具读 `/Users/a123/.openclaw/workspace/ROLE.md`（涂是淦的职责说明）。\n\n第三步：用 read 工具读 `/Users/a123/.openclaw/workspace/outputs/feishu_daily/<YYYY-MM-DD>/dump.txt`（昨天的飞书消息汇总，YYYY-MM-DD 从第一步脚本输出里取）。文件可能 100KB+，必要时分段读。\n\n第四步：基于 ROLE.md 的\"必须报\"和\"不用报\"规则，输出一份 markdown 日报，结构：\n\n# YYYY-MM-DD 公司动态摘要\n\n## 一、昨日总览（3-5句）\n## 二、各项目推进（按消息量与重要度排，每个项目：进展 / 关键决策 / 卡点 / 你需要关注）\n## 三、单聊（P2P）\n## 四、内部职能（招聘/财务/行政/商务）\n## 五、需要你关注的事（🔴 今天必处理 / 🟡 1-2天内决定 / 🟢 可观察）\n## 六、值得注意的信号\n\n要求：\n- 短句、事实先行、不说\"在持续推进中\"\n- 客户名、金额、日期保留原文\n- ROLE.md 里\"不用报\"的细节（设计稿色彩、文件流转等）只在反映客户压力/内部矛盾/节奏崩盘时以信号形式提，不要逐条罗列\n- 同事之间的情绪和矛盾不带美化点出\n- 全文不超过 2500 字\n\n直接输出最终 markdown，不要解释过程。",
+        "thinking": "medium",
+        "timeoutSeconds": 600,
+        "toolsAllow": [
+          "exec",
+          "read",
+          "write"
+        ]
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "feishu",
+        "to": "user:ou_88079e6b06ce40e6851c96928fe1a03b"
+      },
+      "state": {}
+    },
+    {
+      "id": "b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d",
+      "name": "OpenClaw交付补偿巡检-涂是淦",
+      "enabled": true,
+      "createdAtMs": 1779331518143,
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/10 * * * *",
+        "tz": "Asia/Shanghai",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "你是 OpenClaw 交付补偿巡检。目标：发现最近任务完成但没有反馈、图片/视频已生成但没有真实发到飞书、或 agent 承诺执行但没有启动工具/需要用户催促才继续的问题，并主动补救。\n\n步骤：\n1. 先执行 `python3 /Users/a123/.openclaw/scripts/feishu-id-registry.py scan --since-days 14 --json`，刷新飞书群聊/私聊 ID registry。\n2. 再执行 `python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5`。\n3. 如果结果里 `stalled_commitments`、`background_execs`、`subagents` 和 `undelivered_manifests` 都为空，直接结束，不要向用户发送任何消息。\n4. 发送补偿消息/媒体时，优先使用 finding 里的 `chat_id` 作为 `target`、`account_id` 作为 `accountId`，把结果发回原群/原会话；如果 finding 没有 ID，先用 `python3 /Users/a123/.openclaw/scripts/feishu-id-registry.py resolve --session-file <session_file> --json` 查 registry。只有仍然没有可用 `chat_id/target` 时，才 fallback 到 `target=\"user:ou_88079e6b06ce40e6851c96928fe1a03b\"`、`accountId=\"main\"`。\n5. 如果存在 `stalled_commitments`，说明某个会话说了“我先生成/开始跑/下一步发图”等承诺，但超过 5 分钟没有主动启动工具，或 finding 里 `required_user_chase=true` 表示用户追问后才继续。先根据 `session_file` 和文本判断任务；若能从上下文恢复输入，就继续启动对应生成/发送流程；若不能恢复，给原会话发一条短说明：任务没有真正启动或没有主动交付，需要重新发起或补充输入。不要装作还在处理。\n6. 如果存在 `background_execs`，逐条查看 `command`：对 Dreamina/即梦任务，先执行 `dreamina list_task`，找到最近同 prompt/同任务类型的记录；若是 `querying`，继续 `dreamina query_result --submit_id=...`；若是 `success`，下载视频/图片到 `/Users/a123/.openclaw/workspace/feishu-deliver/` 后发送真实媒体；若是 `fail`，把 `fail_reason` 短告知用户。对 Kling/其它异步命令，也按命令里的 task id 或输出路径查询结果。不能只发 URL 或本地路径文本。\n7. 如果存在 `pending_final_delivery=true`、`subagent-error`、或 `undelivered_manifests`，先判断是否有可发送文件：优先使用每条 manifest 的 `send_path`，且必须确认 `send_path_exists=true`。注意：这里包括品牌海报 manifest，也包括普通生图工具的 `images/*.delivery.json` / `outputs/*.delivery.json`。\n8. 对 `send_path_exists=true` 的图片/预览图/视频，直接用 `message(action=send, channel=feishu, accountId=<account_id或main>, target=<chat_id或user>, media=send_path, mimeType=...)` 发送真实媒体，不要只发路径文本；群聊 target 必须是 `chat:oc_xxx`，私聊 target 必须是 `user:ou_xxx`。发送成功后，如能从工具返回拿到 `messageId/chatId`，执行 `record_feishu_delivery.py` 记录交付证据。\n9. 如果文件超过飞书图片限制或不能作为图片发送，先发送可用预览图；若只有 zip 或其它文件，再按文件媒体发送。发送失败时，用 `message` 给原会话发一条短说明：哪个项目、卡在哪、下一步需要什么。\n10. 如果只存在子任务回传失败，但没有可发送文件，给原会话发一条短说明，包含项目名/子任务名和错误摘要。\n11. 所有通知都要短。不要报告历史旧账，不要每次无事发生也发消息。",
+        "lightContext": true,
+        "thinking": "low",
+        "timeoutSeconds": 300,
+        "toolsAllow": [
+          "exec",
+          "read",
+          "message"
+        ]
+      },
+      "delivery": {
+        "mode": "none"
       },
       "state": {}
     }

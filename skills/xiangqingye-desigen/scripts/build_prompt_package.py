@@ -4,9 +4,10 @@
 import argparse
 import json
 from pathlib import Path
+from typing import Optional
 
 
-def read_json(path: Path, default: dict | None = None) -> dict:
+def read_json(path: Path, default: Optional[dict] = None) -> dict:
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
     return default or {}
@@ -93,7 +94,7 @@ This segment should look like a complete standalone module, ready for hard verti
 
 def knowledge_block(project_dir: Path) -> str:
     confirmed = read_json(project_dir / "策划" / "brand_knowledge_confirmed.json")
-    items = confirmed.get("confirmed_items", [])
+    items = confirmed.get("confirmed_items") or confirmed.get("confirmed_knowledge") or []
     if not items:
         return "【品牌知识摘要】\n- 未确认品牌知识；当前仅使用 facts、素材注册表和平台/品类规则。\n"
     lines = ["【品牌知识摘要】"]

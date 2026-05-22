@@ -8,7 +8,10 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path('/Users/a123/.openclaw')
-AUTO_DISCOVER = ROOT / 'skills-store' / 'dify-rag' / 'scripts' / 'auto_discover.py'
+AUTO_DISCOVER_CANDIDATES = [
+    ROOT / 'skills-store' / 'dify-rag' / 'scripts' / 'auto_discover.py',
+    ROOT / 'skills-store（暂时不用的）' / 'dify-rag' / 'scripts' / 'auto_discover.py',
+]
 
 DEFAULT_QUERIES = [
     '品牌视觉规范 主色调 视觉关键词',
@@ -18,10 +21,17 @@ DEFAULT_QUERIES = [
 
 
 def run_query(brand: str, query_suffix: str, top_k: int) -> dict:
+    auto_discover = next((path for path in AUTO_DISCOVER_CANDIDATES if path.exists()), None)
     query = f'{brand} {query_suffix}'
+    if auto_discover is None:
+        return {
+            'query': query,
+            'records': [],
+            'message': 'auto_discover.py 不存在，无法执行品牌知识自动检索',
+        }
     result = subprocess.run(
         [
-            'python3', str(AUTO_DISCOVER),
+            'python3', str(auto_discover),
             '--query', query,
             '--context-brand', brand,
             '--top-k', str(top_k),
@@ -67,6 +77,7 @@ def main():
         'project': project_dir.name,
         'brand': args.brand,
         'generated_at': datetime.now().isoformat(),
+        'auto_discover_path': str(next((path for path in AUTO_DISCOVER_CANDIDATES if path.exists()), AUTO_DISCOVER_CANDIDATES[0])),
         'matched_dataset_name': matched.get('name', '未匹配'),
         'matched_dataset_id': matched.get('id'),
         'match_score': matched.get('match_score'),

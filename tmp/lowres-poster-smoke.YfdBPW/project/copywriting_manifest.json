@@ -1,0 +1,26 @@
+{
+  "status": "ready",
+  "attempt": 1,
+  "source_path": "/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260519-005/copywriting.json",
+  "output_path": "/Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260519-005/copywriting.json",
+  "area_count": 4,
+  "text_count": 4,
+  "user_confirmed": false,
+  "history": [
+    {
+      "event": "copywriting_ready",
+      "area_count": 4
+    }
+  ],
+  "project_id": "BP-20260519-005",
+  "stage": "copywriting",
+  "confirmation_target": {
+    "role": "planning_lead",
+    "feishu_user_id": "",
+    "name": "",
+    "source": "",
+    "match_status": ""
+  },
+  "confirmed_by": {},
+  "updated_at": "2026-05-19T15:29:55.587808Z"
+}

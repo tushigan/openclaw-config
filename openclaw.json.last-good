@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.5.7",
-    "lastTouchedAt": "2026-05-14T03:50:21.894Z"
+    "lastTouchedAt": "2026-05-21T07:01:06.364Z"
   },
   "wizard": {
     "lastRunAt": "2026-05-11T03:19:25.535Z",
@@ -12,11 +12,26 @@
   "models": {
     "mode": "merge",
     "providers": {
-      "zhichuang": {
-        "baseUrl": "https://n.lconai.com",
-        "apiKey": "sk-0nh1gt4QMI0v6IbDdbPEiRapopqxB52gpwsnf2O9rxDyh7XP",
+      "aixor": {
+        "baseUrl": "https://aixor.org",
+        "apiKey": "sk-DrxncFmDyewhmXaxsArKtRTPX77H8QmwDLr7s13EHYl4hZtj",
         "api": "anthropic-messages",
         "models": [
+          {
+            "id": "claude-opus-4-7",
+            "name": "claude-opus-4-7",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 2.5,
+              "output": 12.5
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 20000
+          },
           {
             "id": "claude-opus-4-6",
             "name": "claude-opus-4-6",
@@ -34,85 +49,7 @@
           }
         ]
       },
-      "openai": {
-        "baseUrl": "https://n.lconai.com/v1",
-        "apiKey": "sk-VA2HpBftEpbZzNYoi2sQlAac6eJrPYqol9RVKBJda0bS22MW",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "gpt-4o-transcribe",
-            "name": "gpt-4o-transcribe",
-            "reasoning": false,
-            "input": [
-              "audio"
-            ],
-            "cost": {
-              "input": 2.5,
-              "output": 12.5
-            },
-            "contextWindow": 1000000,
-            "maxTokens": 20000
-          }
-        ]
-      },
-      "huoshan": {
-        "baseUrl": "https://ark.cn-beijing.volces.com/api/coding/v3",
-        "apiKey": "ark-33c94442-4274-4f56-b692-9961829000c7-7acbf",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "kimi-k2.6",
-            "name": "kimi-k2.6",
-            "reasoning": true,
-            "input": [
-              "text",
-              "image"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 2000000,
-            "maxTokens": 30000
-          },
-          {
-            "id": "kimi-k2.5",
-            "name": "kimi-k2.5",
-            "reasoning": false,
-            "input": [
-              "text",
-              "image"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 1000000,
-            "maxTokens": 20000
-          },
-          {
-            "id": " glm-5.1",
-            "name": " glm-5.1",
-            "reasoning": false,
-            "input": [
-              "text"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 1000000,
-            "maxTokens": 20000
-          }
-        ]
-      },
-      "newapi_channel_conn": {
+      "aixor-g": {
         "baseUrl": "https://aixor.org/v1",
         "apiKey": "sk-PbqL08MCu6JNe0AKVhn7wcPbXH1gl0KryGekyvkCu8KvxDN3",
         "api": "openai-completions",
@@ -200,23 +137,23 @@
         }
       },
       "model": {
-        "primary": "newapi_channel_conn/gpt-5.5"
+        "primary": "aixor-g/gpt-5.5"
       },
       "imageModel": {
-        "primary": "newapi_channel_conn/gpt-5.5",
+        "primary": "aixor-g/gpt-5.5",
         "fallbacks": [
-          "huoshan/kimi-k2.6"
+          "aixor-g/gpt-5.5"
         ]
       },
       "timeoutSeconds": 1800,
+      "verboseDefault": "on",
       "models": {
-        "huoshan/kimi-k2.5": {},
-        "huoshan/kimi-k2.6": {},
-        "newapi_channel_conn/gpt-5.4": {},
-        "newapi_channel_conn/gpt-5.5": {},
-        "newapi_channel_conn/gpt-5.4-mini": {},
-        "newapi_channel_conn/gpt-5.2": {},
-        "zhichuang/claude-opus-4-6": {}
+        "aixor-g/gpt-5.4": {},
+        "aixor-g/gpt-5.5": {},
+        "aixor-g/gpt-5.4-mini": {},
+        "aixor-g/gpt-5.2": {},
+        "aixor/claude-opus-4-7": {},
+        "aixor/claude-opus-4-6": {}
       },
       "workspace": "/Users/a123/.openclaw/workspace",
       "compaction": {
@@ -232,9 +169,11 @@
           "strategy",
           "design",
           "video",
-          "research"
+          "research",
+          "business"
         ]
-      }
+      },
+      "maxConcurrent": 32
     },
     "list": [
       {
@@ -243,23 +182,24 @@
         "name": "龙虾总指挥",
         "workspace": "/Users/a123/.openclaw/workspace",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.5",
+          "primary": "aixor/claude-opus-4-6",
           "fallbacks": [
-            "huoshan/kimi-k2.6"
+            "aixor-g/gpt-5.5"
           ]
         },
         "thinkingDefault": "adaptive",
         "reasoningDefault": "on",
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy",
             "design",
             "video",
             "research",
             "meeting-analyst",
-            "copywriter"
-          ]
+            "copywriter",
+            "business"
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
@@ -278,10 +218,21 @@
             "feishu_bitable_list_records",
             "feishu_bitable_update_record",
             "feishu-send-image",
+            "feishu_calendar_*",
             "feishu_chat",
+            "feishu_chat*",
+            "feishu_create_doc",
             "feishu_doc",
+            "feishu_doc*",
             "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
             "feishu_wiki",
+            "feishu_wiki*",
             "file-guardian",
             "gateway",
             "memory_share",
@@ -326,10 +277,12 @@
         "name": "战略专家",
         "workspace": "/Users/a123/.openclaw/workspace-strategy",
         "model": {
-          "primary": "zhichuang/claude-opus-4-6"
+          "primary": "aixor/claude-opus-4-6",
+          "fallbacks": [
+            "aixor/claude-opus-4-6"
+          ]
         },
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy",
             "design",
@@ -337,7 +290,8 @@
             "research",
             "meeting-analyst",
             "copywriter"
-          ]
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
@@ -362,9 +316,20 @@
             "feishu_bitable_list_records",
             "feishu_bitable_update_record",
             "feishu_chat",
+            "feishu_calendar_*",
+            "feishu_chat*",
+            "feishu_create_doc",
             "feishu_doc",
+            "feishu_doc*",
             "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
             "feishu_wiki",
+            "feishu_wiki*",
             "file-guardian",
             "gateway",
             "memory_share",
@@ -411,7 +376,17 @@
         "name": "生图高手",
         "workspace": "/Users/a123/.openclaw/workspace-design",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.4-mini"
+          "primary": "aixor-g/gpt-5.4"
+        },
+        "subagents": {
+          "allowAgents": [
+            "strategy",
+            "design",
+            "video",
+            "research",
+            "copywriter"
+          ],
+          "thinking": "off"
         },
         "tools": {
           "profile": "full",
@@ -477,16 +452,6 @@
             "web_fetch",
             "write"
           ]
-        },
-        "subagents": {
-          "thinking": "off",
-          "allowAgents": [
-            "strategy",
-            "design",
-            "video",
-            "research",
-            "copywriter"
-          ]
         }
       },
       {
@@ -494,7 +459,16 @@
         "name": "视频专家",
         "workspace": "/Users/a123/.openclaw/workspace-video",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.4-mini"
+          "primary": "aixor-g/gpt-5.4"
+        },
+        "subagents": {
+          "allowAgents": [
+            "strategy",
+            "design",
+            "video",
+            "research"
+          ],
+          "thinking": "off"
         },
         "tools": {
           "profile": "full",
@@ -561,15 +535,6 @@
             "web_fetch",
             "write"
           ]
-        },
-        "subagents": {
-          "thinking": "off",
-          "allowAgents": [
-            "strategy",
-            "design",
-            "video",
-            "research"
-          ]
         }
       },
       {
@@ -577,17 +542,17 @@
         "name": "调研专家",
         "workspace": "/Users/a123/.openclaw/workspace-research",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.4"
+          "primary": "aixor-g/gpt-5.4"
         },
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy",
             "design",
             "video",
             "research",
             "meeting-analyst"
-          ]
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
@@ -612,9 +577,19 @@
             "feishu_bitable_update_record",
             "feishu_chat",
             "feishu_create_doc",
+            "feishu_calendar_*",
+            "feishu_chat*",
             "feishu_doc",
+            "feishu_doc*",
             "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
             "feishu_wiki",
+            "feishu_wiki*",
             "file-guardian",
             "gateway",
             "memory_share",
@@ -662,17 +637,17 @@
         "name": "文案策划专家",
         "workspace": "/Users/a123/.openclaw/workspace-copywriter",
         "model": {
-          "primary": "zhichuang/claude-opus-4-6"
+          "primary": "aixor/claude-opus-4-6"
         },
         "thinkingDefault": "adaptive",
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy",
             "design",
             "video",
             "research"
-          ]
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
@@ -695,9 +670,20 @@
             "feishu_bitable_list_records",
             "feishu_bitable_update_record",
             "feishu_chat",
+            "feishu_calendar_*",
+            "feishu_chat*",
+            "feishu_create_doc",
             "feishu_doc",
+            "feishu_doc*",
             "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
             "feishu_wiki",
+            "feishu_wiki*",
             "file-guardian",
             "gateway",
             "memory_share",
@@ -743,22 +729,33 @@
         "name": "会议记录分析员",
         "workspace": "/Users/a123/.openclaw/workspace-meeting",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.2"
+          "primary": "aixor-g/gpt-5.2"
         },
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy",
             "design",
             "video",
             "research",
             "meeting-analyst"
-          ]
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
           "alsoAllow": [
             "exec",
+            "feishu_calendar_*",
+            "feishu_chat*",
+            "feishu_create_doc",
+            "feishu_doc*",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
+            "feishu_wiki*",
             "read",
             "write",
             "web_fetch",
@@ -773,50 +770,134 @@
         }
       },
       {
+        "id": "business",
+        "name": "业务专家",
+        "workspace": "/Users/a123/.openclaw/workspace-business",
+        "model": {
+          "primary": "aixor-g/gpt-5.4",
+          "fallbacks": [
+            "aixor/claude-opus-4-6"
+          ]
+        },
+        "thinkingDefault": "adaptive",
+        "subagents": {
+          "allowAgents": [
+            "strategy",
+            "design",
+            "video",
+            "research",
+            "meeting-analyst",
+            "copywriter"
+          ],
+          "thinking": "adaptive"
+        },
+        "tools": {
+          "profile": "full",
+          "alsoAllow": [
+            "agents_list",
+            "browser",
+            "canvas",
+            "creative-director",
+            "data-intelligence",
+            "dify-rag",
+            "exec",
+            "feishu-send-image",
+            "feishu_app_scopes",
+            "feishu_bitable_create_app",
+            "feishu_bitable_create_field",
+            "feishu_bitable_create_record",
+            "feishu_bitable_get_meta",
+            "feishu_bitable_get_record",
+            "feishu_bitable_list_fields",
+            "feishu_bitable_list_records",
+            "feishu_bitable_update_record",
+            "feishu_chat",
+            "feishu_calendar_*",
+            "feishu_chat*",
+            "feishu_create_doc",
+            "feishu_doc",
+            "feishu_doc*",
+            "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
+            "feishu_wiki",
+            "feishu_wiki*",
+            "file-guardian",
+            "gateway",
+            "memory_share",
+            "memory_timeline",
+            "memory_unshare",
+            "memory_viewer",
+            "memory_write_public",
+            "message",
+            "multi_search",
+            "multi_search_engine",
+            "outline-architect",
+            "network_memory_detail",
+            "network_skill_pull",
+            "network_team_info",
+            "nodes",
+            "pdf-smart-tool-cn",
+            "product-dev-phase",
+            "read",
+            "sessions_history",
+            "sessions_list",
+            "sessions_spawn",
+            "skill-vetter",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_install",
+            "skill_publish",
+            "skill_search",
+            "skill_unpublish",
+            "task_share",
+            "task_summary",
+            "task_unshare",
+            "tavily_extract",
+            "tavily_search",
+            "tts",
+            "web_fetch",
+            "write"
+          ]
+        }
+      },
+      {
         "id": "main-shared",
         "name": "龙虾总指挥（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.5",
+          "primary": "aixor-g/gpt-5.5",
           "fallbacks": [
-            "huoshan/kimi-k2.6"
+            "aixor-g/gpt-5.5"
           ]
         },
         "thinkingDefault": "adaptive",
         "reasoningDefault": "on",
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy-shared",
             "design-shared",
             "video-shared",
             "research-shared",
             "meeting-analyst-shared",
-            "copywriter-shared"
-          ]
+            "copywriter-shared",
+            "business-shared"
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
-          "deny": [
-            "gateway",
-            "cron",
-            "nodes",
-            "skill_install",
-            "skill_publish",
-            "skill_unpublish",
-            "memory_write_public",
-            "network_skill_pull",
-            "network_memory_detail",
-            "network_team_info",
-            "process",
-            "edit",
-            "apply_patch"
-          ],
           "alsoAllow": [
             "agents_list",
             "browser",
             "canvas",
             "exec",
+            "process",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -827,10 +908,21 @@
             "feishu_bitable_list_records",
             "feishu_bitable_update_record",
             "feishu-send-image",
+            "feishu_calendar_*",
             "feishu_chat",
+            "feishu_chat*",
+            "feishu_create_doc",
             "feishu_doc",
+            "feishu_doc*",
             "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
             "feishu_wiki",
+            "feishu_wiki*",
             "file-guardian",
             "memory_share",
             "memory_timeline",
@@ -858,6 +950,20 @@
             "write",
             "deep-research"
           ],
+          "deny": [
+            "gateway",
+            "cron",
+            "nodes",
+            "skill_install",
+            "skill_publish",
+            "skill_unpublish",
+            "memory_write_public",
+            "network_skill_pull",
+            "network_memory_detail",
+            "network_team_info",
+            "edit",
+            "apply_patch"
+          ],
           "exec": {
             "security": "full",
             "ask": "off"
@@ -872,10 +978,12 @@
         "name": "战略专家（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-strategy",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.5"
+          "primary": "aixor/claude-opus-4-6",
+          "fallbacks": [
+            "aixor/claude-opus-4-6"
+          ]
         },
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy-shared",
             "design-shared",
@@ -883,25 +991,11 @@
             "research-shared",
             "meeting-analyst-shared",
             "copywriter-shared"
-          ]
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
-          "deny": [
-            "gateway",
-            "cron",
-            "nodes",
-            "skill_install",
-            "skill_publish",
-            "skill_unpublish",
-            "memory_write_public",
-            "network_skill_pull",
-            "network_memory_detail",
-            "network_team_info",
-            "process",
-            "edit",
-            "apply_patch"
-          ],
           "alsoAllow": [
             "agents_list",
             "gpt-image2-gen",
@@ -912,6 +1006,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -923,9 +1018,20 @@
             "feishu_bitable_list_records",
             "feishu_bitable_update_record",
             "feishu_chat",
+            "feishu_calendar_*",
+            "feishu_chat*",
+            "feishu_create_doc",
             "feishu_doc",
+            "feishu_doc*",
             "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
             "feishu_wiki",
+            "feishu_wiki*",
             "file-guardian",
             "memory_share",
             "memory_timeline",
@@ -956,6 +1062,20 @@
             "web_fetch",
             "write"
           ],
+          "deny": [
+            "gateway",
+            "cron",
+            "nodes",
+            "skill_install",
+            "skill_publish",
+            "skill_unpublish",
+            "memory_write_public",
+            "network_skill_pull",
+            "network_memory_detail",
+            "network_team_info",
+            "edit",
+            "apply_patch"
+          ],
           "exec": {
             "security": "full",
             "ask": "off"
@@ -970,35 +1090,20 @@
         "name": "生图高手（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-design",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.4-mini"
+          "primary": "aixor-g/gpt-5.4"
         },
         "subagents": {
-          "thinking": "off",
           "allowAgents": [
             "strategy-shared",
             "design-shared",
             "video-shared",
             "research-shared",
             "copywriter-shared"
-          ]
+          ],
+          "thinking": "off"
         },
         "tools": {
           "profile": "full",
-          "deny": [
-            "gateway",
-            "cron",
-            "nodes",
-            "skill_install",
-            "skill_publish",
-            "skill_unpublish",
-            "memory_write_public",
-            "network_skill_pull",
-            "network_memory_detail",
-            "network_team_info",
-            "process",
-            "edit",
-            "apply_patch"
-          ],
           "alsoAllow": [
             "agents_list",
             "gpt-image2-gen",
@@ -1008,6 +1113,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -1052,6 +1158,20 @@
             "web_fetch",
             "write"
           ],
+          "deny": [
+            "gateway",
+            "cron",
+            "nodes",
+            "skill_install",
+            "skill_publish",
+            "skill_unpublish",
+            "memory_write_public",
+            "network_skill_pull",
+            "network_memory_detail",
+            "network_team_info",
+            "edit",
+            "apply_patch"
+          ],
           "exec": {
             "security": "full",
             "ask": "off"
@@ -1066,34 +1186,19 @@
         "name": "视频专家（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-video",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.4-mini"
+          "primary": "aixor-g/gpt-5.4"
         },
         "subagents": {
-          "thinking": "off",
           "allowAgents": [
             "strategy-shared",
             "design-shared",
             "video-shared",
             "research-shared"
-          ]
+          ],
+          "thinking": "off"
         },
         "tools": {
           "profile": "full",
-          "deny": [
-            "gateway",
-            "cron",
-            "nodes",
-            "skill_install",
-            "skill_publish",
-            "skill_unpublish",
-            "memory_write_public",
-            "network_skill_pull",
-            "network_memory_detail",
-            "network_team_info",
-            "process",
-            "edit",
-            "apply_patch"
-          ],
           "alsoAllow": [
             "agents_list",
             "gpt-image2-gen",
@@ -1103,6 +1208,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -1148,6 +1254,20 @@
             "web_fetch",
             "write"
           ],
+          "deny": [
+            "gateway",
+            "cron",
+            "nodes",
+            "skill_install",
+            "skill_publish",
+            "skill_unpublish",
+            "memory_write_public",
+            "network_skill_pull",
+            "network_memory_detail",
+            "network_team_info",
+            "edit",
+            "apply_patch"
+          ],
           "exec": {
             "security": "full",
             "ask": "off"
@@ -1162,35 +1282,20 @@
         "name": "调研专家（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-research",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.4"
+          "primary": "aixor-g/gpt-5.4"
         },
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy-shared",
             "design-shared",
             "video-shared",
             "research-shared",
             "meeting-analyst-shared"
-          ]
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
-          "deny": [
-            "gateway",
-            "cron",
-            "nodes",
-            "skill_install",
-            "skill_publish",
-            "skill_unpublish",
-            "memory_write_public",
-            "network_skill_pull",
-            "network_memory_detail",
-            "network_team_info",
-            "process",
-            "edit",
-            "apply_patch"
-          ],
           "alsoAllow": [
             "agents_list",
             "gpt-image2-gen",
@@ -1200,6 +1305,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -1212,9 +1318,19 @@
             "feishu_bitable_update_record",
             "feishu_chat",
             "feishu_create_doc",
+            "feishu_calendar_*",
+            "feishu_chat*",
             "feishu_doc",
+            "feishu_doc*",
             "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
             "feishu_wiki",
+            "feishu_wiki*",
             "file-guardian",
             "memory_share",
             "memory_timeline",
@@ -1246,6 +1362,20 @@
             "write",
             "deep-research"
           ],
+          "deny": [
+            "gateway",
+            "cron",
+            "nodes",
+            "skill_install",
+            "skill_publish",
+            "skill_unpublish",
+            "memory_write_public",
+            "network_skill_pull",
+            "network_memory_detail",
+            "network_team_info",
+            "edit",
+            "apply_patch"
+          ],
           "exec": {
             "security": "full",
             "ask": "off"
@@ -1260,35 +1390,20 @@
         "name": "文案策划专家（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-copywriter",
         "model": {
-          "primary": "zhichuang/claude-opus-4-6"
+          "primary": "aixor/claude-opus-4-6"
         },
         "thinkingDefault": "adaptive",
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy-shared",
             "design-shared",
             "video-shared",
             "research-shared"
-          ]
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
-          "deny": [
-            "gateway",
-            "cron",
-            "nodes",
-            "skill_install",
-            "skill_publish",
-            "skill_unpublish",
-            "memory_write_public",
-            "network_skill_pull",
-            "network_memory_detail",
-            "network_team_info",
-            "process",
-            "edit",
-            "apply_patch"
-          ],
           "alsoAllow": [
             "agents_list",
             "browser",
@@ -1297,6 +1412,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -1308,9 +1424,20 @@
             "feishu_bitable_list_records",
             "feishu_bitable_update_record",
             "feishu_chat",
+            "feishu_calendar_*",
+            "feishu_chat*",
+            "feishu_create_doc",
             "feishu_doc",
+            "feishu_doc*",
             "feishu_drive",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
             "feishu_wiki",
+            "feishu_wiki*",
             "file-guardian",
             "memory_share",
             "memory_timeline",
@@ -1340,6 +1467,20 @@
             "web_fetch",
             "write"
           ],
+          "deny": [
+            "gateway",
+            "cron",
+            "nodes",
+            "skill_install",
+            "skill_publish",
+            "skill_unpublish",
+            "memory_write_public",
+            "network_skill_pull",
+            "network_memory_detail",
+            "network_team_info",
+            "edit",
+            "apply_patch"
+          ],
           "exec": {
             "security": "full",
             "ask": "off"
@@ -1354,20 +1495,45 @@
         "name": "会议记录分析员（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-meeting",
         "model": {
-          "primary": "newapi_channel_conn/gpt-5.2"
+          "primary": "aixor-g/gpt-5.2"
         },
         "subagents": {
-          "thinking": "adaptive",
           "allowAgents": [
             "strategy-shared",
             "design-shared",
             "video-shared",
             "research-shared",
             "meeting-analyst-shared"
-          ]
+          ],
+          "thinking": "adaptive"
         },
         "tools": {
           "profile": "full",
+          "alsoAllow": [
+            "exec",
+            "process",
+            "feishu_calendar_*",
+            "feishu_chat*",
+            "feishu_create_doc",
+            "feishu_doc*",
+            "feishu_drive*",
+            "feishu_fetch_doc",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
+            "feishu_wiki*",
+            "read",
+            "write",
+            "web_fetch",
+            "feishu_fetch_doc",
+            "feishu_sheet",
+            "feishu_search_doc_wiki",
+            "sessions_history",
+            "sessions_list",
+            "sessions_spawn",
+            "message"
+          ],
           "deny": [
             "gateway",
             "cron",
@@ -1379,22 +1545,118 @@
             "network_skill_pull",
             "network_memory_detail",
             "network_team_info",
-            "process",
             "edit",
             "apply_patch"
           ],
+          "exec": {
+            "security": "full",
+            "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
+          }
+        }
+      },
+      {
+        "id": "business-shared",
+        "name": "业务专家（共享版）",
+        "workspace": "/Users/a123/.openclaw/workspace-business",
+        "model": {
+          "primary": "aixor-g/gpt-5.4",
+          "fallbacks": [
+            "aixor/claude-opus-4-6"
+          ]
+        },
+        "thinkingDefault": "adaptive",
+        "subagents": {
+          "allowAgents": [
+            "strategy-shared",
+            "design-shared",
+            "video-shared",
+            "research-shared",
+            "meeting-analyst-shared",
+            "copywriter-shared"
+          ],
+          "thinking": "adaptive"
+        },
+        "tools": {
+          "profile": "full",
           "alsoAllow": [
+            "agents_list",
+            "browser",
+            "canvas",
+            "creative-director",
+            "data-intelligence",
+            "dify-rag",
             "exec",
-            "read",
-            "write",
-            "web_fetch",
+            "process",
+            "feishu-send-image",
+            "feishu_app_scopes",
+            "feishu_bitable_create_app",
+            "feishu_bitable_create_field",
+            "feishu_bitable_create_record",
+            "feishu_bitable_get_meta",
+            "feishu_bitable_get_record",
+            "feishu_bitable_list_fields",
+            "feishu_bitable_list_records",
+            "feishu_bitable_update_record",
+            "feishu_chat",
+            "feishu_calendar_*",
+            "feishu_chat*",
+            "feishu_create_doc",
+            "feishu_doc",
+            "feishu_doc*",
+            "feishu_drive",
+            "feishu_drive*",
             "feishu_fetch_doc",
-            "feishu_sheet",
-            "feishu_search_doc_wiki",
+            "feishu_im_*",
+            "feishu_search_*",
+            "feishu_sheet*",
+            "feishu_task_*",
+            "feishu_wiki",
+            "feishu_wiki*",
+            "file-guardian",
+            "memory_share",
+            "memory_timeline",
+            "memory_unshare",
+            "memory_viewer",
+            "message",
+            "multi_search",
+            "multi_search_engine",
+            "outline-architect",
+            "pdf-smart-tool-cn",
+            "product-dev-phase",
+            "read",
             "sessions_history",
             "sessions_list",
             "sessions_spawn",
-            "message"
+            "skill-vetter",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_search",
+            "task_share",
+            "task_summary",
+            "task_unshare",
+            "tavily_extract",
+            "tavily_search",
+            "tts",
+            "web_fetch",
+            "write"
+          ],
+          "deny": [
+            "gateway",
+            "cron",
+            "nodes",
+            "skill_install",
+            "skill_publish",
+            "skill_unpublish",
+            "memory_write_public",
+            "network_skill_pull",
+            "network_memory_detail",
+            "network_team_info",
+            "edit",
+            "apply_patch"
           ],
           "exec": {
             "security": "full",
@@ -1419,11 +1681,23 @@
       "data-intelligence",
       "dify-rag",
       "exec",
+      "process",
       "feishu-send-image",
+      "feishu_calendar_*",
       "feishu_chat",
+      "feishu_chat*",
+      "feishu_create_doc",
       "feishu_doc",
+      "feishu_doc*",
       "feishu_drive",
+      "feishu_drive*",
+      "feishu_fetch_doc",
+      "feishu_im_*",
+      "feishu_search_*",
+      "feishu_sheet*",
+      "feishu_task_*",
       "feishu_wiki",
+      "feishu_wiki*",
       "file-guardian",
       "group:plugins",
       "group:runtime",
@@ -1459,18 +1733,27 @@
     ],
     "exec": {
       "security": "full",
-      "ask": "off"
+      "ask": "off",
+      "notifyOnExit": true,
+      "notifyOnExitEmptySuccess": true
     },
     "web": {
       "search": {
         "enabled": true,
-        "provider": "tavily"
+        "provider": "duckduckgo"
       }
     },
     "agentToAgent": {
       "enabled": true
     },
     "media": {
+      "image": {
+        "attachments": {
+          "mode": "all",
+          "maxAttachments": 8,
+          "prefer": "first"
+        }
+      },
       "audio": {
         "enabled": true,
         "maxBytes": 20971520,
@@ -1496,7 +1779,11 @@
     "plugins": false,
     "debug": false,
     "ownerAllowFrom": [
-      "feishu:ou_88079e6b06ce40e6851c96928fe1a03b"
+      "feishu:ou_88079e6b06ce40e6851c96928fe1a03b",
+      "feishu:ou_442533093a478558484ef6461b4d4a56",
+      "feishu:ou_3669c86e1e9957992630dd1fc0b85577",
+      "feishu:ou_1e2494605d60685078e1532cedbb5c4f",
+      "feishu:ou_db8d075ed93bb69cb58b3f809c9a2272"
     ],
     "useAccessGroups": true
   },
@@ -1652,6 +1939,24 @@
         "channel": "feishu",
         "accountId": "video"
       }
+    },
+    {
+      "agentId": "business",
+      "match": {
+        "channel": "feishu",
+        "accountId": "business",
+        "peer": {
+          "kind": "direct",
+          "id": "ou_5a2343ad4d38d496e66b20d2367e4191"
+        }
+      }
+    },
+    {
+      "agentId": "business-shared",
+      "match": {
+        "channel": "feishu",
+        "accountId": "business"
+      }
     }
   ],
   "hooks": {
@@ -1787,6 +2092,38 @@
             "*"
           ],
           "configWrites": false
+        },
+        "business": {
+          "enabled": true,
+          "appId": "cli_aa80596262fa9cd6",
+          "appSecret": "nTsZsxiui0d9AFR9UTfg4dKEvRPU24pV",
+          "name": "业务专家",
+          "domain": "feishu",
+          "dmPolicy": "open",
+          "allowFrom": [
+            "*"
+          ],
+          "groupPolicy": "allowlist",
+          "groupAllowFrom": [
+            "*"
+          ],
+          "configWrites": false
+        },
+        "design": {
+          "enabled": true,
+          "appId": "cli_aa8694531e789cd6",
+          "appSecret": "ET3ynmkDKXpOxg6ZFUIdDfnAt736vO8o",
+          "name": "生图高手",
+          "domain": "feishu",
+          "dmPolicy": "open",
+          "allowFrom": [
+            "*"
+          ],
+          "groupPolicy": "allowlist",
+          "groupAllowFrom": [
+            "*"
+          ],
+          "configWrites": false
         }
       },
       "groups": {
@@ -1795,9 +2132,15 @@
         }
       },
       "streaming": true,
+      "replyMode": {
+        "default": "streaming",
+        "direct": "streaming",
+        "group": "streaming"
+      },
       "footer": {
         "elapsed": true,
-        "status": true
+        "status": true,
+        "model": true
       },
       "mediaLocalRoots": [
         "/Users/a123/.openclaw/workspace",
@@ -1806,7 +2149,8 @@
         "/Users/a123/.openclaw/workspace-video",
         "/Users/a123/.openclaw/workspace-research",
         "/Users/a123/.openclaw/workspace-meeting",
-        "/Users/a123/.openclaw/workspace-copywriter"
+        "/Users/a123/.openclaw/workspace-copywriter",
+        "/Users/a123/.openclaw/workspace-business"
       ],
       "monitor": {
         "enabled": false
@@ -1965,6 +2309,10 @@
       "ordercli": {
         "enabled": false
       },
+      "runninghub": {
+        "enabled": true,
+        "apiKey": "442de49dcb5247a285b678a4c70e7499"
+      },
       "peekaboo": {
         "enabled": false
       },
@@ -2010,13 +2358,14 @@
     },
     "load": {
       "extraDirs": [
-        "/Users/a123/.openclaw/skills",
         "/Users/a123/.openclaw/workspace/skills",
+        "/Users/a123/.openclaw/skills",
         "/Users/a123/.openclaw/workspace-strategy/skills",
         "/Users/a123/.openclaw/workspace-design/skills",
         "/Users/a123/.openclaw/workspace-research/skills",
         "/Users/a123/.openclaw/workspace-video/skills",
-        "/Users/a123/.openclaw/workspace-copywriter/skills"
+        "/Users/a123/.openclaw/workspace-copywriter/skills",
+        "/Users/a123/.openclaw/workspace-business/skills"
       ],
       "watch": true,
       "watchDebounceMs": 250
@@ -2029,14 +2378,17 @@
     "enabled": true,
     "allow": [
       "browser",
+      "duckduckgo",
       "feishu",
       "memory-core",
-      "openclaw-lark",
-      "tavily"
+      "openclaw-lark"
     ],
     "entries": {
+      "duckduckgo": {
+        "enabled": true
+      },
       "tavily": {
-        "enabled": true,
+        "enabled": false,
         "config": {
           "webSearch": {
             "apiKey": "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"
@@ -2065,7 +2417,7 @@
   },
   "messages": {
     "groupChat": {
-      "visibleReplies": "message_tool"
+      "visibleReplies": "automatic"
     }
   }
 }

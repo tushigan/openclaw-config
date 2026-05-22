@@ -5,6 +5,7 @@ Ensures dimensions comply with endpoint requirements:
 - Both width and height must be divisible by 16
 - Longest edge must not exceed 3840
 - Aspect ratio must not exceed 3:1 (or 1:3 for vertical)
+- Total pixels must not exceed 8,294,400
 
 Usage:
   python validate_dimensions.py --ratio 1:3 --screens 2
@@ -15,18 +16,30 @@ Outputs valid pixel dimensions as `WxH` on stdout, or exits with error.
 """
 import argparse
 import sys
-from math import gcd
 
 
-# Endpoint hard limits (n.lconai.com + gpt-image-2-pro)
+# Endpoint hard limits (shared by current gpt-image-2 / gpt-image-2-pro routes)
 MAX_LONG_EDGE = 3840
+MAX_PIXELS = 8_294_400
 MIN_DIM = 256
 DIVISOR = 16
+PRESETS = {
+    "4k_1_1": (2880, 2880, "最大方形（手稿画板）"),
+    "4k_16_9": (3840, 2160, "最大横向"),
+    "4k_9_16": (2160, 3840, "最大纵向"),
+    "2k_1_1": (1440, 1440, "头图默认最小安全档"),
+    "1k_1_1": (720, 720, "理论预设，当前 endpoint 实测不可用"),
+}
 
 
 def round_up(v: int, to: int = DIVISOR) -> int:
     """Round up to the nearest multiple of `to`."""
     return ((v + to - 1) // to) * to
+
+
+def round_down(v: int, to: int = DIVISOR) -> int:
+    """Round down to the nearest multiple of `to`."""
+    return max(to, (v // to) * to)
 
 
 def parse_ratio(raw: str):
@@ -82,6 +95,13 @@ def compute_dimensions(ratio_w, ratio_h, screens=1, base_width=0):
         w = round_up(int(w * scale))
         h = round_up(int(h * scale))
 
+    # Also enforce pixel budget
+    pixels = w * h
+    if pixels > MAX_PIXELS:
+        scale = (MAX_PIXELS / pixels) ** 0.5
+        w = round_down(int(w * scale))
+        h = round_down(int(h * scale))
+
     # Final validation
     if w < MIN_DIM or h < MIN_DIM:
         raise ValueError(f'Dimensions too small after scaling: {w}x{h} (min {MIN_DIM})')
@@ -104,6 +124,8 @@ def validate_dimensions(w, h):
         errors.append(f'Height {h} not divisible by {DIVISOR}')
     if max(w, h) > MAX_LONG_EDGE:
         errors.append(f'Long edge {max(w, h)} exceeds limit {MAX_LONG_EDGE}')
+    if w * h > MAX_PIXELS:
+        errors.append(f'Total pixels {w*h} exceed limit {MAX_PIXELS}')
 
     ratio = max(w, h) / min(w, h) if min(w, h) > 0 else float('inf')
     if ratio > 3.0:
@@ -114,6 +136,8 @@ def validate_dimensions(w, h):
 
 def main():
     ap = argparse.ArgumentParser(description='Validate/compute detail page dimensions')
+    ap.add_argument('--preset', default='', help='Validate a named preset such as 4k_1_1')
+    ap.add_argument('--list-presets', action='store_true', help='List documented presets')
     ap.add_argument('--ratio', default='', help='Logical ratio like 1:3 or 5:15')
     ap.add_argument('--screens', type=int, default=1,
                     help='Number of screens in this segment (default 1)')
@@ -122,13 +146,33 @@ def main():
     ap.add_argument('--width', type=int, default=0, help='Validate existing width')
     ap.add_argument('--height', type=int, default=0, help='Validate existing height')
     ap.add_argument('--canvas', default='', choices=['square'],
-                    help='Canvas mode: square for 3840x3840 max square')
+                    help='Canvas mode: square for the highest valid square canvas')
 
     args = ap.parse_args()
 
+    if args.list_presets:
+        for name, (w, h, desc) in PRESETS.items():
+            print(f'{name}\t{w}x{h}\t{desc}')
+        return
+
+    if args.preset:
+        if args.preset not in PRESETS:
+            available = ', '.join(sorted(PRESETS))
+            ap.error(f'Unknown preset {args.preset}. Available: {available}')
+        w, h, desc = PRESETS[args.preset]
+        errors = validate_dimensions(w, h)
+        if errors:
+            for e in errors:
+                print(f'ERROR: {e}', file=sys.stderr)
+            sys.exit(1)
+        print(f'{w}x{h}')
+        print(f'preset: {args.preset} ({desc})')
+        print('VALID')
+        return
+
     # Mode 0: Square canvas
     if args.canvas == 'square':
-        size = MAX_LONG_EDGE  # 3840
+        size = round_down(int(MAX_PIXELS ** 0.5))
         w = round_up(size)
         h = round_up(size)
         errors = validate_dimensions(w, h)

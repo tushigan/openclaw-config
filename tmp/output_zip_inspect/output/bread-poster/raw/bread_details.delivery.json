@@ -1,0 +1,28 @@
+{
+  "project_dir": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/raw",
+  "project_id": "bread_details",
+  "original_image": "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/raw/bread_details.png",
+  "delivery_mode": "local_only",
+  "deliverables": {
+    "images": [
+      "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/raw/bread_details.png"
+    ]
+  },
+  "delivery_target": {
+    "user_id": "",
+    "chat_id": "",
+    "channel": "feishu"
+  },
+  "delivery_attempted": false,
+  "delivery_attempted_at": null,
+  "delivery_status": "not_requested",
+  "delivery_method": "none",
+  "delivery_evidence": {},
+  "fallback_required": false,
+  "fallback_reason": "",
+  "user_report": "IMAGE GENERATED AND SAVED LOCALLY",
+  "error": "",
+  "generated_paths": [
+    "/Users/sky/Documents/Codex/2026-05-15/api-key-url/output/bread-poster/raw/bread_details.png"
+  ]
+}

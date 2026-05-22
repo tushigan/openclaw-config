@@ -1,0 +1,24 @@
+{
+  "ref_order": [
+    {
+      "index": 0,
+      "role": "style_ref",
+      "path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.kjDWn3/project/images/style_ref_1.jpg"
+    },
+    {
+      "index": 1,
+      "role": "skeleton",
+      "path": "/Users/a123/.openclaw/workspace/skills/brand-poster-distiller/site/assets/skeletons/POSTER-DISTILL-P-009.png"
+    },
+    {
+      "index": 2,
+      "role": "product",
+      "path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.kjDWn3/project/images/product.jpg"
+    },
+    {
+      "index": 3,
+      "role": "logo",
+      "path": "/Users/a123/.openclaw/tmp/lowres-poster-smoke.kjDWn3/project/images/logo.png"
+    }
+  ]
+}

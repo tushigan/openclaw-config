@@ -1,0 +1,12 @@
+{
+  "task_id": "bakery-product",
+  "type": "产品推广",
+  "brand_name": "烘焙品牌",
+  "industry": "烘焙食品",
+  "festival": "日常",
+  "ratio": "9:16",
+  "product_name": "可可吐司",
+  "assets": {
+    "product": "images/product.jpg"
+  }
+}

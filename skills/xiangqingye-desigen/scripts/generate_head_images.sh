@@ -5,7 +5,7 @@
 #   bash scripts/generate_head_images.sh {项目目录} [版本号] [尺寸]
 #
 # 示例：
-#   bash scripts/generate_head_images.sh /path/to/project v1 800x800
+#   bash scripts/generate_head_images.sh /path/to/project v1 1440x1440
 #
 # 输出：
 #   {项目目录}/头图/v1/head_1_main.png
@@ -18,7 +18,7 @@ set -euo pipefail
 
 PROJECT_DIR="${1:-}"
 VERSION="${2:-v1}"
-SIZE="${3:-800x800}"
+SIZE="${3:-1440x1440}"
 
 if [[ -z "$PROJECT_DIR" ]]; then
     echo "必须指定项目目录" >&2
@@ -37,7 +37,7 @@ PLANNING_DIR="$PROJECT_DIR/策划"
 PROMPT_PACKAGE_DIR="$PLANNING_DIR/prompt_package"
 REF_DIR="$PROJECT_DIR/参考"
 
-GEN_SCRIPT="/Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py"
+GEN_SCRIPT="${DETAIL_PAGE_GEN_SCRIPT:-/Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py}"
 STYLE_GUIDE="$PROJECT_DIR/style_guide.png"
 FACTS_FILE="$PROJECT_DIR/facts.json"
 PLATFORM_PROFILE="$PROJECT_DIR/platform_profile.json"
@@ -130,25 +130,27 @@ generate_head_image() {
     echo ">>> 生成: $OUTPUT_FILE"
 
     # 构建命令（单行，避免复杂命令被网关拒绝）
-    local CMD="python3 $GEN_SCRIPT --prompt-file $PROMPT_FILE -s $SIZE -o $OUTPUT_FILE"
+    local -a CMD=("python3" "$GEN_SCRIPT" "--prompt-file" "$PROMPT_FILE" "-s" "$SIZE" "-o" "$OUTPUT_FILE")
 
     # 添加风格指南（必须）
     if [[ -f "$STYLE_GUIDE" ]]; then
-        CMD="$CMD --ref-style $STYLE_GUIDE"
+        CMD+=("--ref-style" "$STYLE_GUIDE")
     fi
 
     # 添加产品参考图
     if [[ -n "$REF_PRODUCT" && -f "$REF_PRODUCT" ]]; then
-        CMD="$CMD --ref-product $REF_PRODUCT"
+        CMD+=("--ref-product" "$REF_PRODUCT")
     fi
 
     # 添加额外参数
     if [[ -n "$EXTRA_ARGS" ]]; then
-        CMD="$CMD $EXTRA_ARGS"
+        # shellcheck disable=SC2206
+        local EXTRA_PARTS=($EXTRA_ARGS)
+        CMD+=("${EXTRA_PARTS[@]}")
     fi
 
     # 执行
-    $CMD
+    "${CMD[@]}"
 
     if [[ -f "$OUTPUT_FILE" ]]; then
         local SIZE_ACTUAL=$(python3 "$IMAGE_PROBE_SCRIPT" "$OUTPUT_FILE")
@@ -207,7 +209,7 @@ echo "========== 生成完成 ========== "
 echo "输出目录: $HEAD_DIR"
 echo ""
 echo "生成文件:"
-ls -la "$HEAD_DIR/*.png" 2>/dev/null || echo "无 PNG 文件"
+find "$HEAD_DIR" -maxdepth 1 -name 'head_*.png' -print | sort || echo "无 PNG 文件"
 
 # ========== 飞书交付指引 ==========
 

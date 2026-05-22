@@ -1,0 +1,7 @@
+[mcp_servers.apifox]
+args = [
+    "-y",
+    "apifox-mcp-server@latest",
+    "--site-id=5484736",
+]
+command = "npx"

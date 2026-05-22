@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$title</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 10mm;
+    }
+
+    :root {
+      --bg: #f5f1ea;
+      --paper: #fffdf9;
+      --ink: #221d19;
+      --sub: #6b6057;
+      --line: #ddd2c5;
+      --head: #f2e7da;
+      --accent: #7b4a2c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .hero,
+    .section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 10px 32px rgba(42, 28, 18, 0.05);
+    }
+
+    .hero {
+      padding: 32px 34px;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      padding: 26px 28px;
+      margin-top: 18px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 34px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 23px;
+    }
+
+    .subtitle,
+    .small {
+      color: var(--sub);
+    }
+
+    .subtitle {
+      font-size: 16px;
+      margin-bottom: 18px;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    ul {
+      margin: 12px 0 0;
+      padding-left: 22px;
+    }
+
+    li + li {
+      margin-top: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-top: 14px;
+      font-size: 13px;
+      page-break-inside: auto;
+    }
+
+    thead th {
+      background: var(--head);
+      color: #4b3a30;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      padding: 12px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    tbody td {
+      border: 1px solid var(--line);
+      padding: 10px 10px;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+
+    .note {
+      margin-top: 14px;
+      background: #fff8ef;
+      border-left: 4px solid #d59a62;
+      padding: 12px 14px;
+      color: #624e40;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .hero,
+    .section,
+    .note {
+      break-inside: avoid;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    tr {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    @media print {
+      html,
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      .hero,
+      .section {
+        border-radius: 0;
+        box-shadow: none;
+        margin-top: 0;
+        margin-bottom: 12px;
+        padding: 16px 18px;
+        background: #ffffff;
+      }
+
+      .hero {
+        margin-bottom: 12px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      .note {
+        background: #fff8ef;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <h1>$title</h1>
+      <div class="subtitle">$subtitle</div>
+      $overview_html
+      $pricing_summary_html
+    </section>
+    $stage_plan_html
+    $service_sections_html
+    $closing_notes_html
+  </div>
+</body>
+</html>

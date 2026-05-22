@@ -22,6 +22,7 @@ ROLE_TO_FLAG = {
     'style_ref': '--ref-style',
     'skeleton': '--ref-layout',
     'product': '--ref-product',
+    'product_texture': '--reference',
     'ip': '--ref-ip',
     'logo': '--ref-logo',
 }

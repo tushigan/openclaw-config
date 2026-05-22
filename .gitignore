@@ -40,6 +40,12 @@ workspace-copywriter/*
 !workspace-copywriter/IDENTITY.md
 !workspace-copywriter/USER.md
 
+workspace-business/*
+!workspace-business/AGENTS.md
+!workspace-business/SOUL.md
+!workspace-business/IDENTITY.md
+!workspace-business/USER.md
+
 workspace-ppt/
 
 media/

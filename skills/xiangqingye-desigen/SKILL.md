@@ -122,8 +122,7 @@ intake
 使用 `scripts/project_manager.py` 创建按项目/版本/类型分类的目录结构：
 
 ```bash
-python scripts/project_manager.py init "卡宾熊法式可丽饼" \
-  --segments A,B,C,D,E,F --output outputs/
+python scripts/project_manager.py init "卡宾熊法式可丽饼" --segments A,B,C,D,E,F --output outputs/
 ```
 
 产出目录结构：
@@ -154,11 +153,7 @@ outputs/卡宾熊法式可丽饼_20260429/
 背景信息确认后，立即运行产品事实锁定脚本：
 
 ```bash
-python scripts/lock_product_facts.py --output {项目目录}/facts.json \
-  --brand "品牌名" --product "产品名" --category "类目" \
-  --structure clamped --layers 3 \
-  --flavors "口味1,口味2,口味3" --main-flavor "主推口味" \
-  --emboss bear_face --packaging-required
+python scripts/lock_product_facts.py --output {项目目录}/facts.json --brand "品牌名" --product "产品名" --category "类目" --structure clamped --layers 3 --flavors "口味1,口味2,口味3" --main-flavor "主推口味" --emboss bear_face --packaging-required
 ```
 
 结构类型可选：`solid`（实心）/ `clamped`（夹心）/ `hollow`（空心）/ `coated`（涂层）/ `filled`（注心）/ `molten`（流心）
@@ -202,7 +197,7 @@ python scripts/lock_product_facts.py --output {项目目录}/facts.json \
 2. 格式为：
 ```json
 {
-  "confirmed_knowledge": [{"title": "知识标题", "summary": "一段话摘要"}],
+  "confirmed_items": [{"title": "知识标题", "summary": "一段话摘要"}],
   "confirmed_at": "ISO 8601 时间戳"
 }
 ```
@@ -323,9 +318,7 @@ python scripts/project_manager.py set-copywriting-flag --confirmed --project-dir
 
 #### 全局风格指南图（一次）
 ```bash
-python scripts/generate_style_guide.py --facts {项目目录}/facts.json \
-  --ref-style user_style.png \
-  --output {项目目录}/style_guide.png
+python scripts/generate_style_guide.py --facts {项目目录}/facts.json --ref-style user_style.png --output {项目目录}/style_guide.png
 ```
 
 这张图不是最终设计，而是一个"风格色卡"，包含页面背景处理方式、装饰元素风格、色彩体系。
@@ -666,13 +659,7 @@ This segment should look like a complete standalone card/module, ready for hard 
 
 #### 生成命令
 ```bash
-python {gpt-image2-gen}/scripts/generate.py \
-  --prompt-file {项目目录}/设计/v1/prompt_A.txt \
-  --ref-wireframe {项目目录}/手稿/v1/cut_preview/segment_A_confirmed.png \
-  --size 1152x3456 \
-  --ref-style {项目目录}/style_guide.png \
-  --ref-product {项目目录}/参考/product_main.jpg \
-  --output {项目目录}/设计/v1/segment_A.png
+python {gpt-image2-gen}/scripts/generate.py --prompt-file {项目目录}/设计/v1/prompt_A.txt --ref-wireframe {项目目录}/手稿/v1/cut_preview/segment_A_confirmed.png --size 1152x3456 --ref-style {项目目录}/style_guide.png --ref-product {项目目录}/参考/product_main.jpg --output {项目目录}/设计/v1/segment_A.png
 ```
 
 ### 3.2 拼接交付
@@ -1039,6 +1026,6 @@ gpt-image-2-pro 支持的官方分辨率（长边 ≤ 3840，宽高比 ≤ 3:1�
 - `720x720` 虽是理论预设，但当前 endpoint 实测返回错误，标注在此仅作警示。
 - 平台若要求 800x800，请先生成 1440x1440 高清图再缩放导出。
 
-完整预设表共 39 种，使用 `--list-presets` 查看。
+当前内置常用预设可通过 `--list-presets` 查看。
 
 生图超时（600s）时属瞬态网络抖动，可重试。复杂 prompt + 2 张参考图 + 高分辨率时超时概率更高，建议先无参考图验证布局。

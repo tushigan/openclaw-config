@@ -1,0 +1,12 @@
+{
+  "task_id": "drink",
+  "type": "产品推广",
+  "brand_name": "饮料品牌",
+  "industry": "饮料",
+  "festival": "日常",
+  "ratio": "9:16",
+  "product_name": "气泡水",
+  "assets": {
+    "product": "images/product.jpg"
+  }
+}
