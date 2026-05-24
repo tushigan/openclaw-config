@@ -17,6 +17,7 @@ AGENTS_DIR = ROOT / 'agents'
 PROJECTS_DIR = ROOT / 'workspace' / 'brand-poster-projects'
 DELIVER_DIR = ROOT / 'workspace' / 'feishu-deliver'
 FEISHU_ID_REGISTRY = ROOT / 'feishu' / 'conversation-ids.json'
+CRON_RUNS_DIR = ROOT / 'cron' / 'runs'
 GENERIC_DELIVERY_DIRS = [
     ROOT / 'workspace' / 'images',
     ROOT / 'workspace' / 'outputs',
@@ -38,6 +39,77 @@ def load_json(path: Path, default: Any) -> Any:
         return default
     except json.JSONDecodeError as exc:
         return {'_error': f'json_decode_error: {exc}'}
+
+
+def normalize_feishu_target(value: Any) -> str:
+    raw = str(value or '').strip()
+    if not raw:
+        return ''
+    if raw.startswith(('chat:', 'user:')):
+        return raw
+    if raw.startswith('oc_'):
+        return 'chat:' + raw
+    if raw.startswith('ou_'):
+        return 'user:' + raw
+    return raw
+
+
+def _extract_peer_from_session_key(session_key: str) -> dict[str, str]:
+    """Extract delivery target from sessionKey like agent:main-shared:feishu:direct:ou_xxx."""
+    m = re.match(r'agent:[^:]+:feishu:direct:(ou_[A-Za-z0-9_]+)', session_key)
+    if m:
+        open_id = m.group(1)
+        return {
+            'target': f'user:{open_id}',
+            'source_sender_open_id': open_id,
+        }
+    m = re.match(r'agent:[^:]+:feishu:group:(oc_[A-Za-z0-9_]+)', session_key)
+    if m:
+        chat_id = m.group(1)
+        return {'target': f'chat:{chat_id}'}
+    return {}
+
+
+def _cron_session_ids() -> set[str]:
+    session_ids: set[str] = set()
+    if not CRON_RUNS_DIR.exists():
+        return session_ids
+    for run_file in CRON_RUNS_DIR.glob('*.jsonl'):
+        try:
+            lines = run_file.read_text(encoding='utf-8').splitlines()
+        except (OSError, UnicodeDecodeError):
+            continue
+        for line in lines:
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            session_id = str(record.get('sessionId') or '').strip()
+            if session_id:
+                session_ids.add(session_id)
+            session_key = str(record.get('sessionKey') or '').strip()
+            match = re.search(r':run:([0-9a-f-]{36})$', session_key)
+            if match:
+                session_ids.add(match.group(1))
+    return session_ids
+
+
+def _is_cron_session_path(path: Path) -> bool:
+    """Detect cron job sessions to avoid false target attribution."""
+    name = path.stem.replace('.trajectory', '')
+    return name in _cron_session_ids()
+
+
+def iter_agent_session_files() -> list[Path]:
+    session_files = list(AGENTS_DIR.glob('*/sessions/*.jsonl'))
+    session_files.extend(AGENTS_DIR.glob('*/sessions/*.trajectory.jsonl'))
+    unique: dict[str, Path] = {}
+    for path in session_files:
+        # Skip cron run session files to avoid false target attribution
+        if _is_cron_session_path(path):
+            continue
+        unique[str(path)] = path
+    return sorted(unique.values(), key=lambda p: p.stat().st_mtime, reverse=True)
 
 
 def short(text: Any, limit: int = 180) -> str:
@@ -100,6 +172,19 @@ def has_tool_call(message: dict[str, Any]) -> bool:
     if not isinstance(content, list):
         return False
     return any(isinstance(item, dict) and item.get('type') == 'toolCall' for item in content)
+
+
+def iter_text_blobs(value: Any) -> list[str]:
+    blobs: list[str] = []
+    if isinstance(value, str):
+        blobs.append(value)
+    elif isinstance(value, dict):
+        for item in value.values():
+            blobs.extend(iter_text_blobs(item))
+    elif isinstance(value, list):
+        for item in value:
+            blobs.extend(iter_text_blobs(item))
+    return blobs
 
 
 def message_text(message: dict[str, Any]) -> str:
@@ -169,48 +254,75 @@ def iter_session_records(path: Path) -> list[dict[str, Any]]:
     return records
 
 
-def registry_session_context(session_path: Path) -> dict[str, str]:
+def registry_session_context(session_ref: Any) -> dict[str, str]:
     registry = load_json(FEISHU_ID_REGISTRY, {})
     sessions = registry.get('sessions') if isinstance(registry, dict) else {}
     if not isinstance(sessions, dict):
         return {}
-    item = sessions.get(str(session_path))
+    item = sessions.get(str(session_ref))
     if not isinstance(item, dict):
         return {}
-    chat_id = str(item.get('chatId') or '').strip()
-    target = str(item.get('target') or '').strip()
+    target = normalize_feishu_target(item.get('target') or item.get('chatId') or '')
     account_id = str(item.get('accountId') or '').strip()
-    if chat_id and not chat_id.startswith('chat:'):
-        chat_id = 'chat:' + chat_id
-    if not chat_id and target.startswith('chat:'):
-        chat_id = target
+    sender_open_id = str(item.get('senderOpenId') or '').strip()
+    sender_name = str(item.get('senderName') or item.get('name') or '').strip()
     return {
-        **({'chat_id': chat_id} if chat_id else {}),
+        **({'target': target} if target else {}),
+        **({'chat_id': target} if target else {}),
         **({'account_id': account_id} if account_id else {}),
-        'source': 'feishu_id_registry',
-    } if chat_id or account_id else {}
+        **({'source_sender_open_id': sender_open_id} if sender_open_id else {}),
+        **({'source_sender_name': sender_name} if sender_name else {}),
+        'target_source': 'feishu_id_registry',
+    } if target or account_id else {}
 
 
 def session_chat_context(records: list[dict[str, Any]], session_path: Path | None = None) -> dict[str, str]:
     candidate: dict[str, str] = {}
+    session_key_from_records = ''
+    peer_from_session_key: dict[str, str] = {}
     for record in records:
-        if record.get('customType') != 'openclaw.runtime-context':
-            continue
-        content = str(record.get('content') or '')
-        chat_match = re.search(r'"chat_id"\s*:\s*"(chat:[^"]+|oc_[^"]+)"', content)
-        account_match = re.search(r'Feishu\[([^\]]+)\]', content)
-        if chat_match:
-            chat_id = chat_match.group(1)
-            if chat_id.startswith('oc_'):
-                chat_id = 'chat:' + chat_id
-            candidate = {
-                'chat_id': chat_id,
-                'account_id': account_match.group(1) if account_match else '',
-            }
-            if candidate.get('account_id'):
-                return candidate
+        # Capture sessionKey from any record (works for both .jsonl and .trajectory.jsonl)
+        if not session_key_from_records:
+            session_key_from_records = str(record.get('sessionKey') or '').strip()
+            peer_from_session_key = _extract_peer_from_session_key(session_key_from_records)
+        contents = [str(record.get('content') or '')] if record.get('customType') == 'openclaw.runtime-context' else iter_text_blobs(record)
+        for content in contents:
+            chat_match = re.search(r'"chat_id"\s*:\s*"(chat:[^"]+|user:[^"]+|oc_[^"]+|ou_[^"]+)"', content)
+            account_match = re.search(r'Feishu\[([^\]]+)\]', content)
+            sender_open_match = re.search(r'"sender_id"\s*:\s*"([^"]+)"', content)
+            sender_name_match = re.search(r'"sender"\s*:\s*"([^"]+)"', content)
+            if chat_match:
+                target = normalize_feishu_target(chat_match.group(1))
+                candidate = {
+                    'target': target,
+                    'chat_id': target,
+                    'account_id': account_match.group(1) if account_match else '',
+                    'source_sender_open_id': sender_open_match.group(1) if sender_open_match else '',
+                    'source_sender_name': sender_name_match.group(1) if sender_name_match else '',
+                    'target_source': 'session_runtime_context',
+                    'session_peer_target': peer_from_session_key.get('target', ''),
+                }
+                if candidate.get('account_id'):
+                    return candidate
     if candidate:
         return candidate
+    # Fallback: extract peer from sessionKey (works even for trajectory files after session reset)
+    if session_key_from_records:
+        peer_info = _extract_peer_from_session_key(session_key_from_records)
+        if peer_info.get('target'):
+            account_id = ''
+            account_match = re.match(r'agent:([^:]+?)(?:-shared)?:', session_key_from_records)
+            if account_match:
+                account_id = account_match.group(1)
+            return {
+                'target': peer_info['target'],
+                'chat_id': peer_info['target'],
+                'account_id': account_id,
+                'source_sender_open_id': peer_info.get('source_sender_open_id', ''),
+                'source_sender_name': '',
+                'target_source': 'session_key_peer',
+                'session_peer_target': peer_info['target'],
+            }
     if session_path is not None:
         return registry_session_context(session_path)
     return {}
@@ -237,27 +349,170 @@ def extract_delivery_paths_from_command(command: str) -> list[str]:
     return extract_delivery_paths_from_text(command)
 
 
+def matched_record_target_context(record: dict[str, Any]) -> dict[str, str]:
+    serialized = json.dumps(record, ensure_ascii=False)
+    explicit_match = re.search(r'"target"\s*:\s*"(chat:[^"]+|user:[^"]+|oc_[^"]+|ou_[^"]+)"', serialized)
+    explicit_target = normalize_feishu_target(explicit_match.group(1) if explicit_match else '')
+    session_key = str(record.get('sessionKey') or '').strip()
+    session_key_context = registry_session_context(session_key) if session_key else {}
+    echo_markers = (
+        'audit-feedback-gaps.py',
+        'record_feishu_delivery.py',
+        'delivery_manifest',
+        'pending_target_resolution',
+        '这是别人的任务',
+        '补发',
+    )
+    target_source = 'matched_record_target_echo' if any(marker in serialized for marker in echo_markers) else 'matched_record_target'
+    context = {
+        **session_key_context,
+        **({'target': explicit_target, 'chat_id': explicit_target, 'target_source': target_source} if explicit_target else {}),
+    }
+    return context
+
+
+def _conflict_reason(context: dict[str, Any]) -> str:
+    reasons: list[str] = []
+    target = normalize_feishu_target(context.get('target') or '')
+    sender_open_id = str(context.get('source_sender_open_id') or '').strip()
+    session_peer_target = normalize_feishu_target(context.get('session_peer_target') or '')
+    target_source = str(context.get('target_source') or '').strip()
+
+    if target.startswith('user:') and sender_open_id and target.split(':', 1)[1] != sender_open_id:
+        reasons.append('conflict_target_vs_sender_open_id')
+    if target and session_peer_target and target != session_peer_target:
+        reasons.append('conflict_target_vs_session_peer')
+    if target_source == 'matched_record_target_echo':
+        reasons.append('secondary_delivery_echo')
+    return ';'.join(reasons)
+
+
+def score_inferred_context(record: dict[str, Any], context: dict[str, str], session_path: Path) -> int:
+    score = 0
+    serialized = json.dumps(record, ensure_ascii=False)
+    if context.get('target'):
+        score += 10
+    if context.get('source_sender_open_id'):
+        score += 10
+    if context.get('source_sender_name'):
+        score += 10
+    if context.get('target_source') == 'matched_record_target':
+        score += 40
+    if context.get('target_source') == 'matched_record_target_echo':
+        score -= 40
+    if context.get('target_source') == 'feishu_id_registry':
+        score += 35
+    if context.get('target_source') == 'session_key_peer':
+        score += 45  # High confidence: derived from sessionKey which encodes the peer
+    if session_path.name.endswith('.trajectory.jsonl'):
+        score += 20
+    if 'generate.py' in serialized:
+        score += 20
+    if any(marker in serialized for marker in ('"action":"send"', '"toolName":"message"', 'messages-send')):
+        score += 10
+    if 'audit-feedback-gaps.py' in serialized or '[cron:' in serialized:
+        score -= 30
+    if _conflict_reason(context):
+        score -= 100
+    return score
+
+
+def _target_confidence(context: dict[str, str]) -> str:
+    """Return confidence level for an inferred target."""
+    if context.get('target_conflict_reason'):
+        return 'low'
+    source = context.get('target_source', '')
+    if source in ('session_key_peer', 'matched_record_target', 'manifest_delivery_target', 'explicit_target', 'source_session_key', 'sibling_manifest'):
+        return 'high'
+    if source == 'feishu_id_registry':
+        return 'medium'
+    if source == 'session_runtime_context':
+        return 'medium'
+    # recent_session_scan or unknown = low confidence
+    return 'low'
+
+
+def finalize_target_context(context: dict[str, Any]) -> dict[str, Any]:
+    normalized = dict(context)
+    normalized['target'] = normalize_feishu_target(normalized.get('target') or '')
+    if normalized.get('target') and not normalized.get('chat_id'):
+        normalized['chat_id'] = normalized['target']
+    conflict_reason = _conflict_reason(normalized)
+    normalized['target_conflict_reason'] = conflict_reason
+    normalized['target_resolved'] = bool(normalized.get('target')) and not conflict_reason
+    normalized['target_confidence'] = _target_confidence(normalized)
+    return normalized
+
+
 def infer_chat_for_paths(paths: list[str], cutoff: int | None = None) -> dict[str, str]:
     needles = {path for path in paths if path}
     needles.update(Path(path).name for path in paths if path)
+    needles.update(
+        Path(path).parent.name
+        for path in paths
+        if path and Path(path).parent.name not in ('.', '/', 'images', 'outputs', 'workspace', 'feishu-deliver')
+    )
     needles = {needle for needle in needles if needle}
     if not needles or not AGENTS_DIR.exists():
         return {}
-    for session_path in sorted(AGENTS_DIR.glob('*/sessions/*.jsonl'), key=lambda p: p.stat().st_mtime, reverse=True):
+    best_context: dict[str, str] = {}
+    best_score = -10**9
+    for session_path in iter_agent_session_files():
         if cutoff is not None and not is_recent_path(session_path, cutoff):
             continue
         records = iter_session_records(session_path)
-        context = session_chat_context(records, session_path)
-        if not context:
-            continue
+        base_context = session_chat_context(records, session_path)
         for record in records:
             serialized = json.dumps(record, ensure_ascii=False)
             if any(needle in serialized for needle in needles):
-                return {
-                    **context,
+                record_context = matched_record_target_context(record)
+                context = {
+                    **base_context,
+                    **record_context,
                     'source_session_file': str(session_path),
                 }
-    return {}
+                context = finalize_target_context(context)
+                score = score_inferred_context(record, context, session_path)
+                if score > best_score:
+                    best_context = context
+                    best_score = score
+    return finalize_target_context(best_context) if best_context else {}
+
+
+def manifest_delivery_target_context(manifest: dict[str, Any]) -> dict[str, Any]:
+    delivery_target = manifest.get('delivery_target') or {}
+    target = normalize_feishu_target(
+        delivery_target.get('target')
+        or delivery_target.get('chat_id')
+        or delivery_target.get('user_id')
+    )
+    account_id = str(
+        delivery_target.get('account_id')
+        or manifest.get('account_id')
+        or ''
+    ).strip()
+    source_session_key = str(delivery_target.get('source_session_key') or '').strip()
+    if not target and not account_id and not source_session_key:
+        return {}
+    recorded_source = str(delivery_target.get('target_source') or '').strip() or 'manifest_delivery_target'
+    return {
+        **({'target': target} if target else {}),
+        **({'chat_id': target} if target else {}),
+        **({'account_id': account_id} if account_id else {}),
+        **({'source_session_key': source_session_key} if source_session_key else {}),
+        **({'source_sender_open_id': str(delivery_target.get('source_sender_open_id') or '').strip()} if delivery_target.get('source_sender_open_id') else {}),
+        **({'source_sender_name': str(delivery_target.get('source_sender_name') or '').strip()} if delivery_target.get('source_sender_name') else {}),
+        **({'target_conflict_reason': str(delivery_target.get('target_conflict_reason') or '').strip()} if delivery_target.get('target_conflict_reason') else {}),
+        'target_source': recorded_source,
+    }
+
+
+def fallback_owner_summary(source_sender_name: str, source_sender_open_id: str) -> str:
+    name = str(source_sender_name or '').strip()
+    open_id = str(source_sender_open_id or '').strip()
+    if name and open_id:
+        return f'{name} ({open_id})'
+    return name or open_id
 
 
 def audit_stalled_commitments(
@@ -584,7 +839,18 @@ def audit_delivery_manifests(limit: int, cutoff: int | None) -> list[dict[str, A
 
         send_path = next((path for path in send_paths if Path(path).exists()), send_paths[0] if send_paths else '')
         send_path_exists = bool(send_path and Path(send_path).exists())
-        chat_context = infer_chat_for_paths([str(manifest_path), *send_paths, str(manifest.get('original_image') or '')], cutoff)
+        chat_context = manifest_delivery_target_context(manifest)
+        if not chat_context.get('target'):
+            inferred_context = infer_chat_for_paths([str(manifest_path), *send_paths, str(manifest.get('original_image') or '')], cutoff)
+            chat_context = {
+                **chat_context,
+                **inferred_context,
+            }
+        chat_context = finalize_target_context(chat_context)
+        owner_summary = fallback_owner_summary(
+            chat_context.get('source_sender_name', ''),
+            chat_context.get('source_sender_open_id', ''),
+        )
         findings.append({
             'kind': 'delivery_manifest',
             'path': str(manifest_path),
@@ -599,6 +865,8 @@ def audit_delivery_manifests(limit: int, cutoff: int | None) -> list[dict[str, A
             'original_image': manifest.get('original_image') or '',
             'fallback_required': manifest.get('fallback_required') is True,
             'error': short(manifest.get('error') or manifest.get('fallback_reason')),
+            'fallback_owner_summary': owner_summary,
+            'fallback_blocked': not bool(owner_summary),
             **chat_context,
         })
         if limit > 0 and len(findings) >= limit:

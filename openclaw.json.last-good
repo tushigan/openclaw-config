@@ -351,7 +351,9 @@
             "read",
             "sessions_history",
             "sessions_list",
+            "sessions_send",
             "sessions_spawn",
+            "session_status",
             "skill-vetter",
             "skill_file_get",
             "skill_files",
@@ -434,7 +436,9 @@
             "read",
             "sessions_history",
             "sessions_list",
+            "sessions_send",
             "sessions_spawn",
+            "session_status",
             "skill-vetter",
             "skill_file_get",
             "skill_files",
@@ -550,6 +554,7 @@
             "design",
             "video",
             "research",
+            "research-shared",
             "meeting-analyst"
           ],
           "thinking": "adaptive"
@@ -577,6 +582,7 @@
             "feishu_bitable_update_record",
             "feishu_chat",
             "feishu_create_doc",
+            "feishu_conversation_binding",
             "feishu_calendar_*",
             "feishu_chat*",
             "feishu_doc",
@@ -629,7 +635,15 @@
             "web_fetch",
             "write",
             "deep-research"
-          ]
+          ],
+          "exec": {
+            "host": "gateway",
+            "security": "full",
+            "ask": "off"
+          },
+          "fs": {
+            "workspaceOnly": true
+          }
         }
       },
       {
@@ -704,7 +718,9 @@
             "read",
             "sessions_history",
             "sessions_list",
+            "sessions_send",
             "sessions_spawn",
+            "session_status",
             "skill-vetter",
             "skill_file_get",
             "skill_files",
@@ -965,6 +981,7 @@
             "apply_patch"
           ],
           "exec": {
+            "host": "gateway",
             "security": "full",
             "ask": "off"
           },
@@ -1077,6 +1094,7 @@
             "apply_patch"
           ],
           "exec": {
+            "host": "gateway",
             "security": "full",
             "ask": "off"
           },
@@ -1173,6 +1191,7 @@
             "apply_patch"
           ],
           "exec": {
+            "host": "gateway",
             "security": "full",
             "ask": "off"
           },
@@ -1318,6 +1337,8 @@
             "feishu_bitable_update_record",
             "feishu_chat",
             "feishu_create_doc",
+            "feishu_conversation_binding",
+            "feishu_ask_user_question",
             "feishu_calendar_*",
             "feishu_chat*",
             "feishu_doc",
@@ -1377,6 +1398,7 @@
             "apply_patch"
           ],
           "exec": {
+            "host": "gateway",
             "security": "full",
             "ask": "off"
           },
@@ -1743,8 +1765,17 @@
         "provider": "duckduckgo"
       }
     },
+    "sessions": {
+      "visibility": "all"
+    },
     "agentToAgent": {
-      "enabled": true
+      "enabled": true,
+      "allow": [
+        "main",
+        "main-shared",
+        "research",
+        "research-shared"
+      ]
     },
     "media": {
       "image": {
@@ -1783,7 +1814,9 @@
       "feishu:ou_442533093a478558484ef6461b4d4a56",
       "feishu:ou_3669c86e1e9957992630dd1fc0b85577",
       "feishu:ou_1e2494605d60685078e1532cedbb5c4f",
-      "feishu:ou_db8d075ed93bb69cb58b3f809c9a2272"
+      "feishu:ou_db8d075ed93bb69cb58b3f809c9a2272",
+      "feishu:ou_ade9d49cd1dff5315774a6cae2479938",
+      "feishu:ou_5a2343ad4d38d496e66b20d2367e4191"
     ],
     "useAccessGroups": true
   },
@@ -1792,7 +1825,7 @@
     "maintenance": {
       "mode": "enforce",
       "pruneAfter": "7d",
-      "maxEntries": 100
+      "maxEntries": 300
     }
   },
   "bindings": [
@@ -1911,7 +1944,7 @@
         "accountId": "design",
         "peer": {
           "kind": "direct",
-          "id": "ou_88079e6b06ce40e6851c96928fe1a03b"
+          "id": "ou_ade9d49cd1dff5315774a6cae2479938"
         }
       }
     },
