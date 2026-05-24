@@ -516,6 +516,11 @@ class InternalInterviewResearchTests(unittest.TestCase):
             self.assertTrue(plan["允许发送"])
             self.assertEqual(plan["首轮触达"]["工具"], "sessions_send")
             self.assertEqual(plan["首轮触达"]["工具参数"]["sessionKey"], "research-shared-peixun-openid_xiao")
+            self.assertNotIn("label", plan["首轮触达"]["工具参数"])
+            self.assertEqual(plan["首轮触达"]["唯一执行参数真值"], "首轮触达.工具参数")
+            self.assertIn("工具层参数冲突", plan["首轮触达"]["执行期失败口径"]["工具层参数冲突"])
+            self.assertIn("shared 会话不可达", plan["首轮触达"]["执行期失败口径"]["shared 会话不可达"])
+            self.assertIn("shared 协议不完整", plan["首轮触达"]["执行期失败口径"]["shared 协议不完整"])
             self.assertEqual(plan["首轮触达"]["共享会话消息工具"], "message")
             self.assertIn("messageId", plan["发送后核验"]["共享会话必须返回字段"])
 
@@ -600,6 +605,45 @@ class InternalInterviewResearchTests(unittest.TestCase):
 
         self.assertFalse(project_module._shared_protocol_message_is_complete(old_payload))
         self.assertEqual(project_module._extract_shared_protocol_payload(old_payload), {})
+
+    def test_strict_shared_send_tool_args_reject_label_residue_and_conflict(self):
+        valid_args = project_module._校验严格shared投递工具参数(
+            {
+                "sessionKey": "agent:research-shared:subagent:xiao",
+                "message": "payload",
+                "timeoutSeconds": 180,
+                "agentId": "research-shared",
+            }
+        )
+        self.assertEqual(
+            valid_args,
+            {
+                "sessionKey": "agent:research-shared:subagent:xiao",
+                "message": "payload",
+                "timeoutSeconds": 180,
+            },
+        )
+
+        with self.assertRaisesRegex(ValueError, "工具层参数冲突"):
+            project_module._校验严格shared投递工具参数(
+                {
+                    "sessionKey": "agent:research-shared:subagent:xiao",
+                    "label": "涂是淦",
+                    "message": "payload",
+                    "timeoutSeconds": 180,
+                }
+            )
+
+        for bad_label in ["", " ", "."]:
+            with self.assertRaisesRegex(ValueError, "非法 label 占位值"):
+                project_module._校验严格shared投递工具参数(
+                    {
+                        "sessionKey": "agent:research-shared:subagent:xiao",
+                        "label": bad_label,
+                        "message": "payload",
+                        "timeoutSeconds": 180,
+                    }
+                )
 
     def test_evaluate_project_actions_flags_incomplete_shared_protocol(self):
         with tempfile.TemporaryDirectory() as tmp:

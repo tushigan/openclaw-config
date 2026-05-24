@@ -12,7 +12,7 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1779586207568,
+          "lastUsedAt": 1779587409226,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -925,8 +925,8 @@
           "id": "shared-research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1779522226359,
-          "lastUsedCommand": "python3 '/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py' participant --project-dir '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研' --name '涂是淦' --status '已完成' --last-inbound-at '2026-05-23T15:43:16+08:00' --question-mode '选择题' --choice-question-count 3 --effective-question-count 3 --business-status '已确认培训期待=不知道哪些场景适合用' --link-status '已收到第三轮回复并达到收口条件' --count-as-effective-sample true --collected-signal '是否使用过' --collected-signal '主要使用场景或主要阻力' --collected-signal '培训期待或改进方向' --closure-reached true --closure-reason '三类优先信号已收集完成' --closure-method '致谢收口' --summary '已在使用；使用场景较杂，不好归类；最希望培训优先帮助识别哪些场景适合使用。'",
+          "lastUsedAt": 1779586995430,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py finalize-participant --project-dir '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启' --name '涂是淦'",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1075,8 +1075,8 @@
           "id": "research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（research 调研与验收）",
-          "lastUsedAt": 1779548942808,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py participant --project-dir '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启' --name '涂是淦' --status '待创建会话' --execution-agent 'research-shared' --execution-session-id '' --execution-session-key '' --conversation-binding-id '' --conversation-binding-status '已解绑' --binding-confirmed-at '' --binding-confirmation-evidence '' --binding-target-session-key '' --binding-check-result '已解绑' --last-message-id '' --last-chat-id '' --send-confirmation-status '' --send-confirmation-time '' --send-confirmation-evidence '' --last-outbound-at '' --question-mode '' --business-status '本轮新发消息已撤回，等待重新安排' --link-status '专属 shared 通道已解绑'",
+          "lastUsedAt": 1779587730422,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py dispatch-plan --project-dir '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启' --batch-size 10 --batch-interval-minutes 10 --requester-session-key 'agent:research:feishu:direct:ou_3669c86e1e9957992630dd1fc0b85577'",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1137,9 +1137,9 @@
           "id": "research-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（research 调研与验收）",
-          "lastUsedAt": 1779546533947,
-          "lastUsedCommand": "sed -n '3515,3578p' /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/internal_interview_research/project.py",
-          "lastResolvedPath": "/usr/bin/sed"
+          "lastUsedAt": 1779586552275,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-research/skills/internal-interview-research -maxdepth 2 -type f | sed 's#^#/##' | sed 's#^/##' | grep 'manage_internal_interview_project\\|shared\\|interview' | sort",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "research-curl",
@@ -1178,8 +1178,8 @@
           "id": "research-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件（research 调研与验收）",
-          "lastUsedAt": 1779540739690,
-          "lastUsedCommand": "find /Users/a123/.openclaw -path '*internal-interview-research*' -maxdepth 4 | sed -n '1,200p'",
+          "lastUsedAt": 1779586557136,
+          "lastUsedCommand": "find '/Users/a123/.openclaw/workspace-research/skills/internal-interview-research' -maxdepth 2 -type f | grep 'manage_internal_interview_project\\|shared\\|interview' | sort",
           "lastResolvedPath": "/usr/bin/find"
         },
         {

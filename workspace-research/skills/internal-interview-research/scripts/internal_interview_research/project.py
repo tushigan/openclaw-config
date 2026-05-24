@@ -47,6 +47,11 @@ import yaml
     "session_status": {"full", "messaging", "coding"},
     "sessions_spawn": {"full", "coding"},
 }
+严格shared投递允许参数 = {"sessionKey", "message", "timeoutSeconds"}
+严格shared投递参数冲突文案 = "工具层参数冲突：strict shared 投递请求同时携带 sessionKey 和 label，尚未真正投递。"
+严格shared投递占位label文案 = "执行参数未按计划落地：strict shared 投递请求仍残留非法 label 占位值，尚未真正投递。"
+严格shared会话不可达文案 = "shared 会话不可达：当前专属执行会话不存在、不可见或未就绪，尚未真正投递。"
+严格shared协议不完整文案 = "shared 协议不完整：当前 inter-session payload 缺少必需字段，禁止首发，也禁止接管后续访谈。"
 
 
 def _默认访谈执行设置() -> dict[str, Any]:
@@ -2577,6 +2582,39 @@ def _构建链路验收按钮题参数(
     }
 
 
+def _校验严格shared投递工具参数(tool_args: dict[str, Any]) -> dict[str, Any]:
+    session_key = str(tool_args.get("sessionKey", "")).strip()
+    if not session_key:
+        raise ValueError("strict shared 投递缺少 sessionKey，尚未真正投递。")
+    if "message" not in tool_args or not str(tool_args.get("message", "")).strip():
+        raise ValueError("strict shared 投递缺少 message，尚未真正投递。")
+
+    if "label" in tool_args:
+        raw_label = tool_args.get("label")
+        normalized_label = str(raw_label or "").strip()
+        if normalized_label in {"", "."}:
+            raise ValueError(严格shared投递占位label文案)
+        raise ValueError(严格shared投递参数冲突文案)
+
+    sanitized: dict[str, Any] = {
+        "sessionKey": session_key,
+        "message": tool_args["message"],
+    }
+    if "timeoutSeconds" in tool_args and tool_args.get("timeoutSeconds") is not None:
+        sanitized["timeoutSeconds"] = int(tool_args["timeoutSeconds"])
+    return sanitized
+
+
+def _构建严格shared投递工具参数(session_key: str, message: str, timeout_seconds: int = 180) -> dict[str, Any]:
+    return _校验严格shared投递工具参数(
+        {
+            "sessionKey": session_key,
+            "message": message,
+            "timeoutSeconds": timeout_seconds,
+        }
+    )
+
+
 def _链路验收会话提示词(project_dir: Path, project_payload: dict[str, Any], participant: dict[str, Any]) -> str:
     return (
         "你现在负责一次内部访谈链路验收，不做真实调研，只验证会话创建、飞书绑定、首轮消息发送、"
@@ -3083,6 +3121,11 @@ def build_participant_outreach_plan(
         question=first_touch_question,
     )
     strict_protocol_payload = _extract_shared_protocol_payload(shared_protocol_message)
+    strict_send_tool_args = _构建严格shared投递工具参数(
+        session_key=str(participant.get("执行会话Key", "")).strip(),
+        message=shared_protocol_message,
+        timeout_seconds=180,
+    )
 
     return {
         **base_plan,
@@ -3104,10 +3147,12 @@ def build_participant_outreach_plan(
             "工具": tool_name,
             "是否降级发送": False,
             "记录口径": "文本选择题",
-            "工具参数": {
-                "sessionKey": participant.get("执行会话Key", ""),
-                "message": shared_protocol_message,
-                "timeoutSeconds": 180,
+            "工具参数": strict_send_tool_args,
+            "唯一执行参数真值": "首轮触达.工具参数",
+            "执行期失败口径": {
+                "工具层参数冲突": 严格shared投递参数冲突文案,
+                "shared 会话不可达": 严格shared会话不可达文案,
+                "shared 协议不完整": 严格shared协议不完整文案,
             },
             "严格协议载荷": strict_protocol_payload,
             "禁止手写临时消息": True,

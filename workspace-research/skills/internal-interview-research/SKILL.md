@@ -351,6 +351,9 @@ python3 {baseDir}/scripts/manage_internal_interview_project.py acceptance-plan \
    如果静态配置已正确、但当前主会话 runtime 仍是旧值，才允许提示“重启 gateway 后再在当前主对话触发一次新 turn”。
    如果只是拿不到可靠的 `context.compiled.tools` 证据，就只能报“运行时工具检测异常”，不能再默认建议 `/new`、`/reset`、切新主会话或重复重启。
 11. 真正外发时，`research` 只能调用 `sessions_send(sessionKey=<执行会话Key>)` 把任务投递到专属 `research-shared` 会话；不允许 `research` 直接用 `message` 兜底外发，也不允许混传 `label`、`.`、空格或其他占位寻址参数。
+    - 当 `outreach-plan` 已给出 `首轮触达.工具参数` 后，执行阶段必须直接复用这组参数，不能再临场补 `label`、改 `sessionKey`、改 payload。
+    - 如果准备发工具前发现请求里仍存在 `label`，必须先中止，并明确报告：`执行参数未按计划落地，本次调用仍残留 label，尚未真正投递。`
+    - 只有 3 个允许键：`sessionKey / message / timeoutSeconds`。
 12. `sessions_send.message` 只能使用 `outreach-plan` 生成的严格协议 payload 原文，禁止 research 主会话手写 `现在执行首轮真实调研外发...` 这类自由文本。payload 必须带 `[internal-interview-shared-payload/v1]` 标记，并包含 `project_dir / project_type / participant_name / participant_open_id / execution_session_key / first_touch_message / ingest_reply_command / finalize_participant_command / unbind_rule`。
 13. 专属 `research-shared` 会话收到任务后，先校验 payload 是否完整；不完整时直接回复 `shared 协议不完整`，不得首发，不得接管后续访谈。完整时再调用 `message`，并显式传：
     - `channel=feishu`
