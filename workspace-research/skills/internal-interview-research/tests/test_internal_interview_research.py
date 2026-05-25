@@ -15,11 +15,13 @@ import internal_interview_research.project as project_module  # type: ignore
 from internal_interview_research.project import (  # type: ignore
     analyze_project,
     advance_project,
+    build_manual_continue_worker_contract,
     build_chain_acceptance_test_plan,
     build_dispatch_plan,
     build_parallel_chain_acceptance_test_plan,
     build_final_delivery_payload,
     build_participant_outreach_plan,
+    cleanup_prebuilt_shared_sessions,
     close_project,
     create_internal_interview_project,
     finalize_project_on_deadline,
@@ -30,6 +32,7 @@ from internal_interview_research.project import (  # type: ignore
     repair_project_participants,
     recover_project_replies,
     register_project_check_job,
+    run_project_batch_worker,
     stop_project_and_cleanup,
     update_participant,
     update_project_deadline,
@@ -256,7 +259,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 **_verified_binding_kwargs("ou_wuyi", "research-shared-xietong-wuyi"),
                 last_message_id="om_wuyi_1",
                 last_chat_id="oc_wuyi_1",
-                send_confirmation_status="已调用发送",
+                send_confirmation_status="已确认回执",
             )
             actions = evaluate_project_actions(project_dir=project_dir, now_at=_ts())
             self.assertEqual(actions["受访对象动作"][0]["建议动作"], "第一次跟进")
@@ -272,7 +275,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 **_verified_binding_kwargs("ou_wuyi", "research-shared-xietong-wuyi"),
                 last_message_id="om_wuyi_2",
                 last_chat_id="oc_wuyi_2",
-                send_confirmation_status="已调用发送",
+                send_confirmation_status="已确认回执",
             )
             actions = evaluate_project_actions(project_dir=project_dir, now_at=_ts())
             self.assertEqual(actions["受访对象动作"][0]["建议动作"], "第二次跟进")
@@ -311,6 +314,9 @@ class InternalInterviewResearchTests(unittest.TestCase):
             project_payload = yaml.safe_load((project_dir / "项目总表.yaml").read_text(encoding="utf-8"))
 
             self.assertEqual(plan["派发模式"], "一次性全发")
+            self.assertTrue(plan["禁止预建待命会话"])
+            self.assertTrue(plan["是否允许立即创建live shared"])
+            self.assertTrue(plan["是否允许立即首发"])
             self.assertEqual(plan["首轮发送人数"], 30)
             self.assertEqual(len(plan["首轮对象列表"]), 30)
             self.assertEqual(plan["批次数"], 0)
@@ -372,30 +378,37 @@ class InternalInterviewResearchTests(unittest.TestCase):
             blocked = build_participant_outreach_plan(project_dir=project_dir, participant_name="肖宁劼")
 
             self.assertFalse(blocked["允许发送"])
-            self.assertEqual(blocked["建议动作"], "先真实创建专属会话")
-            self.assertIn("sessions_spawn", blocked["阻止原因"])
+            self.assertEqual(blocked["建议动作"], "先创建并核验 fixed direct shared 绑定")
+            self.assertIn("direct shared", blocked["阻止原因"])
 
             update_participant(
                 project_dir=project_dir,
                 participant_name="肖宁劼",
                 execution_agent="research-shared",
                 execution_session_id="session-xiao",
-                execution_session_key="research-shared-peixun-openid_xiao",
-                **_verified_binding_kwargs("ou_xiao", "research-shared-peixun-openid_xiao"),
+                helper_execution_session_id="session-xiao",
+                helper_execution_session_key="research-shared-peixun-openid_xiao",
+                execution_session_key="agent:research-shared:feishu:direct:ou_xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:feishu:direct:ou_xiao"),
             )
             plan = build_participant_outreach_plan(project_dir=project_dir, participant_name="肖宁劼")
 
             self.assertTrue(plan["允许发送"])
+            self.assertTrue(plan["禁止预建待命会话"])
+            self.assertTrue(plan["是否允许立即创建live shared"])
+            self.assertTrue(plan["是否允许立即首发"])
             self.assertEqual(plan["发送账号标识"], "research")
             self.assertIn("feishu_im_user_message", plan["禁止工具"])
             self.assertEqual(plan["执行会话代理"], "research-shared")
-            self.assertEqual(plan["执行会话Key"], "research-shared-peixun-openid_xiao")
+            self.assertEqual(plan["执行会话Key"], "agent:research-shared:feishu:direct:ou_xiao")
+            self.assertEqual(plan["执行通道真值类型"], "direct-shared")
+            self.assertEqual(plan["辅助执行会话Key"], "research-shared-peixun-openid_xiao")
             self.assertEqual(plan["会话绑定状态"], "已绑定")
             self.assertEqual(plan["运行模式"], "真实调研")
             self.assertEqual(plan["首轮触达"]["提问方式"], "选择题")
             self.assertEqual(plan["首轮触达"]["交互形态"], "文本选项")
             self.assertEqual(plan["首轮触达"]["工具"], "sessions_send")
-            self.assertEqual(plan["首轮触达"]["工具参数"]["sessionKey"], "research-shared-peixun-openid_xiao")
+            self.assertEqual(plan["首轮触达"]["工具参数"]["sessionKey"], "agent:research-shared:feishu:direct:ou_xiao")
             self.assertEqual(plan["首轮触达"]["共享会话消息参数"]["accountId"], "research")
             self.assertEqual(plan["首轮触达"]["共享会话消息参数"]["target"], "user:ou_xiao")
             self.assertIn("请直接回复", plan["首轮触达"]["消息内容"])
@@ -423,8 +436,10 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 participant_name="肖宁劼",
                 execution_agent="research-shared",
                 execution_session_id="session-xiao",
-                execution_session_key="research-shared-peixun-openid_xiao",
-                **_verified_binding_kwargs("ou_xiao", "research-shared-peixun-openid_xiao"),
+                helper_execution_session_id="session-xiao",
+                helper_execution_session_key="research-shared-peixun-openid_xiao",
+                execution_session_key="agent:research-shared:feishu:direct:ou_xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:feishu:direct:ou_xiao"),
             )
             config_path = Path(tmp) / "openclaw.json"
             config_path.write_text(
@@ -477,8 +492,10 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 participant_name="肖宁劼",
                 execution_agent="research-shared",
                 execution_session_id="session-xiao",
-                execution_session_key="research-shared-peixun-openid_xiao",
-                **_verified_binding_kwargs("ou_xiao", "research-shared-peixun-openid_xiao"),
+                helper_execution_session_id="session-xiao",
+                helper_execution_session_key="research-shared-peixun-openid_xiao",
+                execution_session_key="agent:research-shared:feishu:direct:ou_xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:feishu:direct:ou_xiao"),
             )
             config_path = Path(tmp) / "openclaw.json"
             config_path.write_text(
@@ -514,8 +531,11 @@ class InternalInterviewResearchTests(unittest.TestCase):
             )
 
             self.assertTrue(plan["允许发送"])
+            self.assertTrue(plan["禁止预建待命会话"])
+            self.assertTrue(plan["是否允许立即创建live shared"])
+            self.assertTrue(plan["是否允许立即首发"])
             self.assertEqual(plan["首轮触达"]["工具"], "sessions_send")
-            self.assertEqual(plan["首轮触达"]["工具参数"]["sessionKey"], "research-shared-peixun-openid_xiao")
+            self.assertEqual(plan["首轮触达"]["工具参数"]["sessionKey"], "agent:research-shared:feishu:direct:ou_xiao")
             self.assertNotIn("label", plan["首轮触达"]["工具参数"])
             self.assertEqual(plan["首轮触达"]["唯一执行参数真值"], "首轮触达.工具参数")
             self.assertIn("工具层参数冲突", plan["首轮触达"]["执行期失败口径"]["工具层参数冲突"])
@@ -544,8 +564,10 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 participant_name="肖宁劼",
                 execution_agent="research-shared",
                 execution_session_id="session-xiao",
-                execution_session_key="research-shared-context-xiao",
-                **_verified_binding_kwargs("ou_xiao", "research-shared-context-xiao"),
+                helper_execution_session_id="session-xiao",
+                helper_execution_session_key="research-shared-context-xiao",
+                execution_session_key="agent:research-shared:feishu:direct:ou_xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:feishu:direct:ou_xiao"),
             )
             config_path = Path(tmp) / "openclaw.json"
             config_path.write_text(
@@ -578,19 +600,23 @@ class InternalInterviewResearchTests(unittest.TestCase):
             self.assertIn(f"项目目录：{project_dir}", shared_message)
             self.assertIn("项目类型：真实调研", shared_message)
             self.assertIn("受访对象open_id：ou_xiao", shared_message)
-            self.assertIn("执行会话Key：research-shared-context-xiao", shared_message)
+            self.assertIn("执行会话Key：agent:research-shared:feishu:direct:ou_xiao", shared_message)
+            self.assertIn("--helper-execution-session-key \"research-shared-context-xiao\"", shared_message)
             self.assertIn("项目上下文漂移", shared_message)
             self.assertIn("正式回写命令", shared_message)
             self.assertIn("manage_internal_interview_project.py ingest-reply", shared_message)
             self.assertIn("feishu_conversation_binding` 执行 `action=unbind", shared_message)
             self.assertIn("manage_internal_interview_project.py finalize-participant", shared_message)
+            self.assertIn("真实 `user` 文本是唯一正文真值", shared_message)
+            self.assertIn("reply_text_missing", shared_message)
+            self.assertIn("当前消息未附正文", shared_message)
             protocol_payload = plan["首轮触达"]["严格协议载荷"]
             self.assertEqual(protocol_payload["protocol_version"], "internal-interview-shared/v1")
             self.assertEqual(protocol_payload["project_dir"], str(project_dir))
             self.assertEqual(protocol_payload["project_type"], "真实调研")
             self.assertEqual(protocol_payload["participant_name"], "肖宁劼")
             self.assertEqual(protocol_payload["participant_open_id"], "ou_xiao")
-            self.assertEqual(protocol_payload["execution_session_key"], "research-shared-context-xiao")
+            self.assertEqual(protocol_payload["execution_session_key"], "agent:research-shared:feishu:direct:ou_xiao")
             self.assertIn("ingest-reply", protocol_payload["ingest_reply_command"])
             self.assertIn("finalize-participant", protocol_payload["finalize_participant_command"])
             self.assertTrue(protocol_payload["unbind_rule"]["required"])
@@ -702,6 +728,285 @@ class InternalInterviewResearchTests(unittest.TestCase):
             self.assertEqual(actions["受访对象动作"][0]["建议动作"], "停止复用并补协议")
             self.assertEqual(actions["受访对象动作"][0]["shared协议状态"], "协议不完整")
 
+    def test_shared_protocol_check_treats_spawn_only_session_as_pending_delivery(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            session_root = Path(tmp) / "shared-sessions"
+            session_root.mkdir(parents=True, exist_ok=True)
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="待命会话检查测试",
+                initiator_name="孙经理",
+                initiator_feishu_id="user:ou_sun",
+                research_goal="验证只 spawn 未投递时不报协议不完整",
+                research_scope="单人测试样本",
+                participant_source_mode="直接名单",
+                participant_scope_text="核心测试对象",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "肖宁劼", "飞书标识": "user:ou_xiao", "纳入原因": "测试对象"}],
+            )
+            participant = update_participant(
+                project_dir=project_dir,
+                participant_name="肖宁劼",
+                execution_agent="research-shared",
+                execution_session_id="session-xiao",
+                execution_session_key="agent:research-shared:subagent:xiao",
+            )
+            (session_root / "session-xiao.jsonl").write_text(
+                json.dumps(
+                    {
+                        "type": "message",
+                        "message": {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "[Sun 2026-05-24 09:56 GMT+8] [Subagent Context] You are running as a subagent (depth 1/5).\n\nBegin. Your assigned task is in the system prompt under **Your Role**; execute it to completion.",
+                                }
+                            ],
+                        },
+                    },
+                    ensure_ascii=False,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            with mock.patch.object(project_module, "默认shared会话目录", session_root):
+                protocol = project_module._检查shared协议状态(participant)
+
+            self.assertEqual(protocol["状态"], "未收到正式投递")
+            self.assertFalse(protocol["是否完整"])
+            self.assertFalse(protocol["是否已投递"])
+
+    def test_evaluate_project_actions_flags_illegal_prebuilt_shared_before_first_touch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            session_root = Path(tmp) / "shared-sessions"
+            session_root.mkdir(parents=True, exist_ok=True)
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="非法预建巡检测试",
+                initiator_name="孙经理",
+                initiator_feishu_id="user:ou_sun",
+                research_goal="验证预建 live shared 会被巡检拦截",
+                research_scope="单人测试样本",
+                participant_source_mode="直接名单",
+                participant_scope_text="核心测试对象",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "肖宁劼", "飞书标识": "user:ou_xiao", "纳入原因": "测试对象"}],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="肖宁劼",
+                status="待首发",
+                execution_agent="research-shared",
+                execution_session_id="session-xiao",
+                execution_session_key="agent:research-shared:subagent:xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:subagent:xiao"),
+            )
+            (session_root / "session-xiao.jsonl").write_text(
+                json.dumps(
+                    {
+                        "type": "message",
+                        "message": {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "[Sun 2026-05-24 09:56 GMT+8] [Subagent Context] You are running as a subagent (depth 1/5).\n\nBegin. Your assigned task is in the system prompt under **Your Role**; execute it to completion.",
+                                }
+                            ],
+                        },
+                    },
+                    ensure_ascii=False,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            with mock.patch.object(project_module, "默认shared会话目录", session_root):
+                actions = evaluate_project_actions(project_dir=project_dir, now_at=_ts())
+
+            self.assertEqual(actions["受访对象动作"][0]["建议动作"], "回退清理后再按正式批次重建")
+            self.assertEqual(actions["受访对象动作"][0]["shared协议状态"], "未收到正式投递")
+            self.assertIn("非法预建", actions["受访对象动作"][0]["原因"])
+
+    def test_dispatch_plan_blocks_illegal_prebuilt_shared_and_exposes_guard_fields(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            session_root = Path(tmp) / "shared-sessions"
+            session_root.mkdir(parents=True, exist_ok=True)
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="非法预建派发测试",
+                initiator_name="孙经理",
+                initiator_feishu_id="user:ou_sun",
+                research_goal="验证 dispatch-plan 不把预建 shared 当成可派发对象",
+                research_scope="单人测试样本",
+                participant_source_mode="直接名单",
+                participant_scope_text="核心测试对象",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "肖宁劼", "飞书标识": "user:ou_xiao", "纳入原因": "测试对象"}],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="肖宁劼",
+                status="待首发",
+                execution_agent="research-shared",
+                execution_session_id="session-xiao",
+                execution_session_key="agent:research-shared:subagent:xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:subagent:xiao"),
+            )
+            (session_root / "session-xiao.jsonl").write_text(
+                json.dumps(
+                    {
+                        "type": "message",
+                        "message": {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "[Sun 2026-05-24 09:56 GMT+8] [Subagent Context] You are running as a subagent (depth 1/5).\n\nBegin. Your assigned task is in the system prompt under **Your Role**; execute it to completion.",
+                                }
+                            ],
+                        },
+                    },
+                    ensure_ascii=False,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            config_path = Path(tmp) / "openclaw.json"
+            config_path.write_text(
+                json.dumps(
+                    {
+                        "tools": {
+                            "sessions": {"visibility": "all"},
+                            "agentToAgent": {"enabled": True, "allow": ["research", "research-shared"]},
+                        },
+                        "agents": {"list": [{"id": "research", "tools": {"profile": "full"}}, {"id": "research-shared", "tools": {"profile": "full"}}]},
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+
+            with mock.patch.object(project_module, "默认shared会话目录", session_root):
+                plan = build_dispatch_plan(project_dir=project_dir, config_path=config_path)
+
+            self.assertTrue(plan["禁止预建待命会话"])
+            self.assertFalse(plan["是否允许立即创建live shared"])
+            self.assertFalse(plan["是否允许立即首发"])
+            self.assertEqual(plan["首轮发送人数"], 0)
+            self.assertEqual(plan["阻塞人数"], 1)
+            self.assertIn("非法预建 shared", plan["阻塞对象"][0]["原因"])
+
+    def test_cleanup_prebuilt_shared_sessions_resets_invalid_live_session_state(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            session_root = Path(tmp) / "shared-sessions"
+            session_root.mkdir(parents=True, exist_ok=True)
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="预建清理测试",
+                initiator_name="孙经理",
+                initiator_feishu_id="user:ou_sun",
+                research_goal="验证半成品 live shared 会被回退清理",
+                research_scope="单人测试样本",
+                participant_source_mode="直接名单",
+                participant_scope_text="核心测试对象",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "肖宁劼", "飞书标识": "user:ou_xiao", "纳入原因": "测试对象"}],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="肖宁劼",
+                status="待首发",
+                execution_agent="research-shared",
+                execution_session_id="session-xiao",
+                execution_session_key="agent:research-shared:subagent:xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:subagent:xiao"),
+            )
+            (session_root / "session-xiao.jsonl").write_text(
+                json.dumps(
+                    {
+                        "type": "message",
+                        "message": {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "[Sun 2026-05-24 09:56 GMT+8] [Subagent Context] You are running as a subagent (depth 1/5).\n\nBegin. Your assigned task is in the system prompt under **Your Role**; execute it to completion.",
+                                }
+                            ],
+                        },
+                    },
+                    ensure_ascii=False,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            with mock.patch.object(project_module, "默认shared会话目录", session_root):
+                result = cleanup_prebuilt_shared_sessions(project_dir=project_dir, session_root=session_root)
+
+            participants_payload = yaml.safe_load((project_dir / "受访对象清单.yaml").read_text(encoding="utf-8"))
+            participant = participants_payload["受访对象列表"][0]
+
+            self.assertEqual(result["清理人数"], 1)
+            self.assertEqual(result["清理对象"], ["肖宁劼"])
+            self.assertEqual(participant["当前状态"], "待绑定")
+            self.assertEqual(participant["执行会话ID"], "")
+            self.assertEqual(participant["辅助执行会话ID"], "")
+            self.assertEqual(participant["辅助执行会话Key"], "")
+            self.assertEqual(participant["执行会话Key"], "agent:research-shared:feishu:direct:ou_xiao")
+            self.assertEqual(participant["会话绑定状态"], "未绑定")
+            self.assertIn("误触发待命 shared", participant["最近一次链路状态"])
+
+    def test_cleanup_prebuilt_shared_sessions_resets_frozen_batch_stale_session_reference(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            session_root = Path(tmp) / "shared-sessions"
+            session_root.mkdir(parents=True, exist_ok=True)
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="冻结批次清理测试",
+                initiator_name="孙经理",
+                initiator_feishu_id="user:ou_sun",
+                research_goal="验证冻结批次里的旧 shared 引用会被清理",
+                research_scope="单人测试样本",
+                participant_source_mode="直接名单",
+                participant_scope_text="核心测试对象",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "肖宁劼", "飞书标识": "user:ou_xiao", "纳入原因": "测试对象"}],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="肖宁劼",
+                status="本轮冻结待后续批次",
+                execution_agent="research-shared",
+                execution_session_id="agent:research-shared:subagent:xiao",
+                execution_session_key="agent:research-shared:subagent:xiao",
+                conversation_binding_status="已解绑",
+                binding_check_result="等待涂是淦闭环验证通过后再进入下一批",
+                link_status="等待涂是淦闭环验证通过后再进入下一批",
+            )
+
+            result = cleanup_prebuilt_shared_sessions(project_dir=project_dir, session_root=session_root)
+
+            participants_payload = yaml.safe_load((project_dir / "受访对象清单.yaml").read_text(encoding="utf-8"))
+            participant = participants_payload["受访对象列表"][0]
+
+            self.assertEqual(result["清理人数"], 1)
+            self.assertEqual(participant["当前状态"], "待绑定")
+            self.assertEqual(participant["执行会话ID"], "")
+            self.assertEqual(participant["辅助执行会话ID"], "")
+            self.assertEqual(participant["辅助执行会话Key"], "")
+            self.assertEqual(participant["执行会话Key"], "agent:research-shared:feishu:direct:ou_xiao")
+            self.assertEqual(participant["会话绑定状态"], "未绑定")
+
     def test_build_first_touch_plan_reports_expired_main_session_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:
             workspace_root = Path(tmp) / "workspace-research"
@@ -722,8 +1027,10 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 participant_name="肖宁劼",
                 execution_agent="research-shared",
                 execution_session_id="session-xiao",
-                execution_session_key="research-shared-peixun-openid_xiao",
-                **_verified_binding_kwargs("ou_xiao", "research-shared-peixun-openid_xiao"),
+                helper_execution_session_id="session-xiao",
+                helper_execution_session_key="research-shared-peixun-openid_xiao",
+                execution_session_key="agent:research-shared:feishu:direct:ou_xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:feishu:direct:ou_xiao"),
             )
             config_path = Path(tmp) / "openclaw.json"
             config_path.write_text(
@@ -829,8 +1136,10 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 participant_name="肖宁劼",
                 execution_agent="research-shared",
                 execution_session_id="session-xiao",
-                execution_session_key="research-shared-peixun-openid_xiao",
-                **_verified_binding_kwargs("ou_xiao", "research-shared-peixun-openid_xiao"),
+                helper_execution_session_id="session-xiao",
+                helper_execution_session_key="research-shared-peixun-openid_xiao",
+                execution_session_key="agent:research-shared:feishu:direct:ou_xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:feishu:direct:ou_xiao"),
             )
             config_path = Path(tmp) / "openclaw.json"
             config_path.write_text(
@@ -939,8 +1248,10 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 participant_name="肖宁劼",
                 execution_agent="research-shared",
                 execution_session_id="session-xiao",
-                execution_session_key="research-shared-peixun-openid_xiao",
-                **_verified_binding_kwargs("ou_xiao", "research-shared-peixun-openid_xiao"),
+                helper_execution_session_id="session-xiao",
+                helper_execution_session_key="research-shared-peixun-openid_xiao",
+                execution_session_key="agent:research-shared:feishu:direct:ou_xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:feishu:direct:ou_xiao"),
             )
             config_path = Path(tmp) / "openclaw.json"
             config_path.write_text(
@@ -1233,7 +1544,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
             self.assertEqual(plan["建议动作"], "暂停并通知发起人")
             self.assertIn("research 账号当前不可用", plan["阻止原因"])
 
-    def test_build_first_touch_plan_blocks_without_real_execution_session(self):
+    def test_build_first_touch_plan_allows_bound_direct_shared_without_helper_session(self):
         with tempfile.TemporaryDirectory() as tmp:
             workspace_root = Path(tmp) / "workspace-research"
             project_dir = create_internal_interview_project(
@@ -1252,14 +1563,14 @@ class InternalInterviewResearchTests(unittest.TestCase):
             update_participant(
                 project_dir=project_dir,
                 participant_name="肖宁劼",
-                execution_session_key="research-shared-peixun-openid_xiao",
-                **_verified_binding_kwargs("ou_xiao", "research-shared-peixun-openid_xiao"),
+                execution_session_key="agent:research-shared:feishu:direct:ou_xiao",
+                **_verified_binding_kwargs("ou_xiao", "agent:research-shared:feishu:direct:ou_xiao"),
             )
             plan = build_participant_outreach_plan(project_dir=project_dir, participant_name="肖宁劼")
 
-            self.assertFalse(plan["允许发送"])
-            self.assertEqual(plan["建议动作"], "先真实创建专属会话")
-            self.assertIn("sessions_spawn", plan["阻止原因"])
+            self.assertTrue(plan["允许发送"])
+            self.assertEqual(plan["执行会话Key"], "agent:research-shared:feishu:direct:ou_xiao")
+            self.assertEqual(plan["会话绑定状态"], "已绑定")
 
     def test_build_chain_acceptance_plan_blocks_when_required_tools_missing(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -1611,7 +1922,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 **_verified_binding_kwargs("ou_yi", "agent:research-shared:subagent:yi"),
                 last_message_id="om_yi_1",
                 last_chat_id="oc_yi_1",
-                send_confirmation_status="已调用发送",
+                send_confirmation_status="已确认回执",
                 last_card_id="card-yi",
             )
 
@@ -1701,7 +2012,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 **_verified_binding_kwargs("ou_yi", "research-shared-goutong-yi"),
                 last_message_id="om_yi_2",
                 last_chat_id="oc_yi_2",
-                send_confirmation_status="已调用发送",
+                send_confirmation_status="已确认回执",
             )
 
             result = finalize_project_on_deadline(project_dir=project_dir, now_at=_ts())
@@ -1875,14 +2186,16 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 project_dir=project_dir,
                 participant_name="甲",
                 execution_session_id="session-jia",
-                execution_session_key="agent:research-shared:subagent:jia",
+                helper_execution_session_id="session-jia",
+                helper_execution_session_key="agent:research-shared:subagent:jia",
+                execution_session_key="agent:research-shared:feishu:direct:ou_jia",
                 last_outbound_at=_ts(hours_offset=-1),
                 last_message_id="om_jia_1",
                 last_chat_id="oc_jia_1",
                 send_confirmation_status="已形成可回收 shared 会话",
                 effective_question_count=3,
                 collected_signals=["是否使用过", "主要使用场景或主要阻力"],
-                **_verified_binding_kwargs("ou_jia", "agent:research-shared:subagent:jia"),
+                **_verified_binding_kwargs("ou_jia", "agent:research-shared:feishu:direct:ou_jia"),
             )
 
             result = ingest_participant_reply(
@@ -1891,7 +2204,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 reply_text="我最希望先少报错、少失败",
                 reply_at=_ts(),
                 assistant_text="如果只优先改一件事，你最希望先改哪类问题？A. 响应更快 B. 少报错、少失败 C. 结果更稳定一致 D. 操作链路更顺 E. 其他",
-                execution_session_key="agent:research-shared:subagent:jia",
+                execution_session_key="agent:research-shared:feishu:direct:ou_jia",
                 participant_open_id="ou_jia",
                 project_type="真实调研",
             )
@@ -1940,12 +2253,14 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 project_dir=project_dir,
                 participant_name="甲",
                 execution_session_id="session-jia",
-                execution_session_key="agent:research-shared:subagent:jia",
+                helper_execution_session_id="session-jia",
+                helper_execution_session_key="agent:research-shared:subagent:jia",
+                execution_session_key="agent:research-shared:feishu:direct:ou_jia",
                 last_outbound_at=_ts(hours_offset=-1),
                 last_message_id="om_jia_1",
                 last_chat_id="oc_jia_1",
                 send_confirmation_status="已形成可回收 shared 会话",
-                **_verified_binding_kwargs("ou_jia", "agent:research-shared:subagent:jia"),
+                **_verified_binding_kwargs("ou_jia", "agent:research-shared:feishu:direct:ou_jia"),
             )
 
             result = ingest_participant_reply(
@@ -1954,7 +2269,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 reply_text="经常用",
                 reply_at=_ts(),
                 assistant_text="关于这次调研涉及的主题，你现在更接近哪种情况？请直接回复：经常用 / 用过几次 / 还没真正用 / 说不清",
-                execution_session_key="agent:research-shared:subagent:jia",
+                execution_session_key="agent:research-shared:feishu:direct:ou_jia",
                 participant_open_id="ou_jia",
                 project_type="真实调研",
             )
@@ -1964,6 +2279,57 @@ class InternalInterviewResearchTests(unittest.TestCase):
             self.assertEqual(result["nextSignal"], "主要使用场景或主要阻力")
             self.assertIn("主要更接近哪种情况", result["nextQuestion"])
             self.assertIn("稳定性 / 速度有时不理想", result["nextQuestion"])
+
+    def test_ingest_participant_reply_returns_reply_text_missing_when_reply_body_is_blank(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="空正文回收测试",
+                initiator_name="何经理",
+                initiator_feishu_id="user:ou_he",
+                research_goal="验证 shared 回复正文缺失时直接报结构化错误",
+                research_scope="单人样本",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+
+            update_participant(
+                project_dir=project_dir,
+                participant_name="甲",
+                execution_session_id="session-jia",
+                helper_execution_session_id="session-jia",
+                helper_execution_session_key="agent:research-shared:subagent:jia",
+                execution_session_key="agent:research-shared:feishu:direct:ou_jia",
+                last_outbound_at=_ts(hours_offset=-1),
+                last_message_id="om_jia_1",
+                last_chat_id="oc_jia_1",
+                send_confirmation_status="已形成可回收 shared 会话",
+                **_verified_binding_kwargs("ou_jia", "agent:research-shared:feishu:direct:ou_jia"),
+            )
+
+            result = ingest_participant_reply(
+                project_dir=project_dir,
+                participant_name="甲",
+                reply_text="   ",
+                reply_at=_ts(),
+                assistant_text="关于这次调研涉及的主题，你现在更接近哪种情况？请直接回复：经常用 / 用过几次 / 还没真正用 / 说不清",
+                execution_session_key="agent:research-shared:feishu:direct:ou_jia",
+                participant_open_id="ou_jia",
+                project_type="真实调研",
+            )
+
+            participants_payload = yaml.safe_load((project_dir / "受访对象清单.yaml").read_text(encoding="utf-8"))
+            participant = participants_payload["受访对象列表"][0]
+
+            self.assertFalse(result["ok"])
+            self.assertEqual(result["错误"], "reply_text_missing")
+            self.assertIn("当前消息未附正文", result["详情"])
+            self.assertEqual(participant["最近回复时间"], "")
+            self.assertEqual(participant["最近一次回收时间"], "")
+            self.assertFalse(participant["是否已回收至research"])
 
     def test_completed_participant_does_not_unbind_when_writeback_not_complete(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -2171,12 +2537,12 @@ class InternalInterviewResearchTests(unittest.TestCase):
 
             result = advance_project(project_dir=project_dir)
 
-            self.assertFalse(result["允许推进"])
-            self.assertEqual(result["执行状态"], "已阻止")
-            self.assertEqual(result["阻塞人数"], 1)
-            self.assertEqual(result["阻塞对象"][0]["姓名"], "乙")
+            self.assertTrue(result["允许推进"])
+            self.assertEqual(result["执行状态"], "待执行当前批次")
+            self.assertEqual(result["本轮阻塞对象"][0]["姓名"], "乙")
+            self.assertEqual(result["当前批次对象列表"], ["甲"])
 
-    def test_advance_blocks_when_binding_exists_but_real_session_missing(self):
+    def test_advance_keeps_moving_when_direct_shared_binding_exists_without_helper_session(self):
         with tempfile.TemporaryDirectory() as tmp:
             workspace_root = Path(tmp) / "workspace-research"
             project_dir = create_internal_interview_project(
@@ -2194,16 +2560,15 @@ class InternalInterviewResearchTests(unittest.TestCase):
             update_participant(
                 project_dir=project_dir,
                 participant_name="甲",
-                execution_session_key="research-shared-tuijin-jia",
-                **_verified_binding_kwargs("ou_jia", "research-shared-tuijin-jia"),
+                execution_session_key="agent:research-shared:feishu:direct:ou_jia",
+                **_verified_binding_kwargs("ou_jia", "agent:research-shared:feishu:direct:ou_jia"),
             )
 
             result = advance_project(project_dir=project_dir)
 
-            self.assertFalse(result["允许推进"])
-            self.assertEqual(result["执行状态"], "已阻止")
-            self.assertEqual(result["阻塞人数"], 1)
-            self.assertIn("未真实创建专属 shared 会话", result["阻塞对象"][0]["原因"])
+            self.assertTrue(result["允许推进"])
+            self.assertIn(result["执行状态"], {"待执行当前批次", "无待推进动作"})
+            self.assertEqual(result["本轮阻塞对象"], [])
 
     def test_register_cron_creates_advance_and_inspect_jobs(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -2227,11 +2592,681 @@ class InternalInterviewResearchTests(unittest.TestCase):
             project_payload = yaml.safe_load((project_dir / "项目总表.yaml").read_text(encoding="utf-8"))
 
             self.assertEqual(len(cron_payload["jobs"]), 2)
-            self.assertEqual(result["推进任务"]["cron表达式"], "*/10 * * * *")
+            self.assertEqual(result["推进任务"]["cron表达式"], "0 */3 * * *")
             self.assertEqual(result["汇报任务"]["cron表达式"], "0 */3 * * *")
+            self.assertEqual(cron_payload["jobs"][0]["agentId"], "research")
+            self.assertEqual(cron_payload["jobs"][1]["agentId"], "research")
+            self.assertIn("run-batch-worker", cron_payload["jobs"][0]["payload"]["message"])
+            self.assertIn("每次 exec 只允许一条命令", cron_payload["jobs"][0]["payload"]["message"])
+            self.assertIn("禁止使用 &&", cron_payload["jobs"][0]["payload"]["message"])
             self.assertTrue(project_payload["巡检设置"]["是否已注册"])
             self.assertTrue(project_payload["巡检设置"]["推进任务ID"])
             self.assertTrue(project_payload["巡检设置"]["汇报任务ID"])
+            self.assertTrue(project_payload["自动推进设置"]["是否自动注册"])
+            self.assertEqual(project_payload["自动推进设置"]["推进间隔分钟"], 180)
+            self.assertEqual(project_payload["自动推进设置"]["汇报模式"], "every-round")
+            self.assertEqual(project_payload["当前批次状态"], "待推进")
+            self.assertEqual(project_payload["上次推进结果摘要"]["执行状态"], "待推进")
+
+    def test_build_manual_continue_worker_contract_returns_worker_launch_contract(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="后台推进合同测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证手动继续推进改走后台 worker",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="甲",
+                status="待首发",
+                execution_session_id="session-jia",
+                execution_session_key="research-shared-jia",
+                **_verified_binding_kwargs("ou_jia", "research-shared-jia"),
+            )
+
+            with mock.patch.object(
+                project_module,
+                "_检查严格shared投递配置",
+                return_value={"是否通过": True, "阻止原因": []},
+            ):
+                result = build_manual_continue_worker_contract(
+                    project_dir=project_dir,
+                    trigger="manual",
+                    cron_jobs_path=cron_jobs_path,
+                )
+
+            self.assertTrue(result["是否启动后台worker"])
+            self.assertEqual(result["sessionTarget"], "isolated")
+            self.assertEqual(result["agentId"], "research")
+            self.assertTrue(str(result["workerRunId"]).strip())
+            self.assertIn("run-batch-worker", result["启动命令"])
+            self.assertIn("--status started", result["启动命令"])
+            self.assertIn(f"--worker-run-id '{result['workerRunId']}'", result["启动命令"])
+            self.assertIn(f"--worker-run-id '{result['workerRunId']}'", result["心跳命令"])
+            self.assertIn(f"--worker-run-id '{result['workerRunId']}'", result["完成命令"])
+            self.assertEqual(result["即时回复"], "已转后台执行，本轮结束或遇阻塞后汇报")
+
+    def test_run_project_batch_worker_prepare_dedupes_active_worker(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="后台去重测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证同项目单 active worker",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            project_path = project_dir / "项目总表.yaml"
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            project_payload["自动推进设置"]["后台执行中"] = True
+            project_payload["自动推进设置"]["后台执行worker类型"] = "manual-worker"
+            project_payload["自动推进设置"]["后台执行worker运行ID"] = "run-existing"
+            project_payload["自动推进设置"]["后台执行worker会话Key"] = "worker-existing"
+            project_payload["自动推进设置"]["后台执行开始时间"] = _ts()
+            project_payload["自动推进设置"]["后台执行最近心跳时间"] = _ts()
+            project_payload["自动推进设置"]["后台执行最近摘要"] = "上一轮还在执行"
+            project_path.write_text(yaml.safe_dump(project_payload, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+            result = run_project_batch_worker(project_dir=project_dir, trigger="manual", status="prepare")
+
+            self.assertFalse(result["是否启动后台worker"])
+            self.assertEqual(result["状态"], "后台仍在执行")
+            self.assertEqual(result["后台执行worker运行ID"], "run-existing")
+            self.assertEqual(result["后台执行worker会话Key"], "worker-existing")
+            self.assertEqual(result["后台执行最近摘要"], "上一轮还在执行")
+
+    def test_run_project_batch_worker_prepare_recovers_stale_worker_without_run_id(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="后台失活恢复测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证空 worker run id 的后台 worker 不会永久卡住",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="甲",
+                status="待首发",
+                execution_session_id="session-jia",
+                execution_session_key="research-shared-jia",
+                **_verified_binding_kwargs("ou_jia", "research-shared-jia"),
+            )
+            project_path = project_dir / "项目总表.yaml"
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            project_payload["自动推进设置"]["后台执行中"] = True
+            project_payload["自动推进设置"]["后台执行worker类型"] = "cron-worker"
+            project_payload["自动推进设置"]["后台执行worker运行ID"] = ""
+            project_payload["自动推进设置"]["后台执行worker会话Key"] = ""
+            project_payload["自动推进设置"]["后台执行开始时间"] = _ts(hours_offset=-2)
+            project_payload["自动推进设置"]["后台执行最近心跳时间"] = _ts(hours_offset=-2)
+            project_payload["自动推进设置"]["后台执行最近摘要"] = ""
+            project_path.write_text(yaml.safe_dump(project_payload, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+            with mock.patch.object(
+                project_module,
+                "_检查严格shared投递配置",
+                return_value={"是否通过": True, "阻止原因": []},
+            ):
+                result = run_project_batch_worker(
+                    project_dir=project_dir,
+                    trigger="cron",
+                    status="prepare",
+                    cron_jobs_path=cron_jobs_path,
+                )
+
+            self.assertTrue(result["是否启动后台worker"])
+            self.assertEqual(result["状态"], "待启动后台worker")
+            repaired_project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            self.assertFalse(repaired_project_payload["自动推进设置"]["后台执行中"])
+            self.assertEqual(repaired_project_payload["自动推进设置"]["后台执行worker运行ID"], "")
+            self.assertEqual(repaired_project_payload["自动推进设置"]["后台执行worker会话Key"], "")
+            self.assertEqual(
+                repaired_project_payload["自动推进设置"]["后台执行最近摘要"],
+                "上一轮后台推进状态丢失，已自动回收，等待重新启动",
+            )
+            self.assertEqual(
+                repaired_project_payload["自动推进设置"]["后台执行最近诊断"],
+                "worker_run_id_missing",
+            )
+
+    def test_run_project_batch_worker_started_requires_worker_run_id(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="后台启动缺少运行ID测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 worker 启动缺少 run id 时 fail-closed",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+
+            result = run_project_batch_worker(
+                project_dir=project_dir,
+                trigger="manual-worker",
+                status="started",
+                cron_jobs_path=cron_jobs_path,
+            )
+
+            project_payload = yaml.safe_load((project_dir / "项目总表.yaml").read_text(encoding="utf-8"))
+            self.assertEqual(result["状态"], "阻塞")
+            self.assertEqual(result["错误"], "worker_run_id_missing")
+            self.assertFalse(project_payload["自动推进设置"]["后台执行中"])
+            self.assertEqual(project_payload["自动推进设置"]["后台执行worker运行ID"], "")
+
+    def test_run_project_batch_worker_started_sets_worker_state(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="后台启动状态测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 worker 启动时写回运行态",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="甲",
+                status="待首发",
+                execution_session_id="session-jia",
+                execution_session_key="research-shared-jia",
+                **_verified_binding_kwargs("ou_jia", "research-shared-jia"),
+            )
+
+            with mock.patch.object(
+                project_module,
+                "_检查严格shared投递配置",
+                return_value={"是否通过": True, "阻止原因": []},
+            ):
+                result = run_project_batch_worker(
+                    project_dir=project_dir,
+                    trigger="manual-worker",
+                    status="started",
+                    worker_run_id="run-started",
+                    worker_session_key="worker-started",
+                    cron_jobs_path=cron_jobs_path,
+                )
+
+            project_payload = yaml.safe_load((project_dir / "项目总表.yaml").read_text(encoding="utf-8"))
+            self.assertEqual(result["状态"], "后台执行中")
+            self.assertTrue(project_payload["自动推进设置"]["后台执行中"])
+            self.assertEqual(project_payload["自动推进设置"]["后台执行worker类型"], "manual-worker")
+            self.assertEqual(project_payload["自动推进设置"]["后台执行worker运行ID"], "run-started")
+            self.assertEqual(project_payload["自动推进设置"]["后台执行worker会话Key"], "worker-started")
+            self.assertEqual(result["advance结果"]["当前批次对象列表"], ["甲"])
+
+    def test_run_project_batch_worker_heartbeat_rejects_mismatched_worker_run_id(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="后台心跳串线测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 heartbeat 只接受当前 active worker run id",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            project_path = project_dir / "项目总表.yaml"
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            project_payload["自动推进设置"]["后台执行中"] = True
+            project_payload["自动推进设置"]["后台执行worker类型"] = "manual-worker"
+            project_payload["自动推进设置"]["后台执行worker运行ID"] = "run-active"
+            project_payload["自动推进设置"]["后台执行worker会话Key"] = "worker-active"
+            project_payload["自动推进设置"]["后台执行开始时间"] = _ts(hours_offset=-1)
+            project_payload["自动推进设置"]["后台执行最近心跳时间"] = _ts(hours_offset=-1)
+            project_path.write_text(yaml.safe_dump(project_payload, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+            result = run_project_batch_worker(
+                project_dir=project_dir,
+                trigger="manual-worker",
+                status="heartbeat",
+                worker_run_id="run-other",
+                summary="错误心跳",
+            )
+
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            self.assertEqual(result["状态"], "阻塞")
+            self.assertEqual(result["错误"], "worker_run_id_mismatch")
+            self.assertEqual(project_payload["自动推进设置"]["后台执行worker运行ID"], "run-active")
+            self.assertNotEqual(project_payload["自动推进设置"]["后台执行最近摘要"], "错误心跳")
+
+    def test_run_project_batch_worker_finished_clears_worker_state(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="后台结束状态测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 worker 结束后清理运行态",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            project_path = project_dir / "项目总表.yaml"
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            project_payload["自动推进设置"]["后台执行中"] = True
+            project_payload["自动推进设置"]["后台执行worker类型"] = "manual-worker"
+            project_payload["自动推进设置"]["后台执行worker运行ID"] = "run-finish"
+            project_payload["自动推进设置"]["后台执行worker会话Key"] = "worker-finish"
+            project_payload["自动推进设置"]["后台执行开始时间"] = _ts(hours_offset=-1)
+            project_payload["自动推进设置"]["后台执行最近心跳时间"] = _ts(hours_offset=-1)
+            project_path.write_text(yaml.safe_dump(project_payload, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+            result = run_project_batch_worker(
+                project_dir=project_dir,
+                trigger="manual-worker",
+                status="finished",
+                worker_run_id="run-finish",
+                worker_session_key="worker-finish",
+                summary="本轮真实发出 1 人",
+            )
+
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            self.assertEqual(result["状态"], "后台执行已结束")
+            self.assertFalse(project_payload["自动推进设置"]["后台执行中"])
+            self.assertEqual(project_payload["自动推进设置"]["后台执行worker运行ID"], "")
+            self.assertEqual(project_payload["自动推进设置"]["后台执行worker会话Key"], "")
+            self.assertEqual(project_payload["自动推进设置"]["后台执行最近摘要"], "本轮真实发出 1 人")
+
+    def test_inspect_reports_worker_status_and_batch_consistency(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="巡检输出测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 inspect 输出 worker 状态和批次一致性",
+                research_scope="双人",
+                participant_source_mode="直接名单",
+                participant_scope_text="双人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[
+                    {"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"},
+                    {"姓名": "乙", "飞书标识": "user:ou_yi", "纳入原因": "成员"},
+                ],
+            )
+            project_path = project_dir / "项目总表.yaml"
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            project_payload["当前批次对象列表"] = ["乙"]
+            project_payload["自动推进设置"]["后台执行中"] = True
+            project_payload["自动推进设置"]["后台执行worker运行ID"] = "run-inspect"
+            project_payload["自动推进设置"]["后台执行worker会话Key"] = "worker-inspect"
+            project_payload["自动推进设置"]["后台执行开始时间"] = _ts(hours_offset=-1)
+            project_payload["自动推进设置"]["后台执行最近心跳时间"] = _ts()
+            project_payload["自动推进设置"]["后台执行最近摘要"] = "准备发第 2 批"
+            project_path.write_text(yaml.safe_dump(project_payload, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+            result = evaluate_project_actions(project_dir=project_dir)
+
+            self.assertTrue(result["后台执行中"])
+            self.assertEqual(result["后台执行worker运行ID"], "run-inspect")
+            self.assertEqual(result["后台执行worker会话Key"], "worker-inspect")
+            self.assertEqual(result["后台执行最近摘要"], "准备发第 2 批")
+            self.assertTrue(result["后台执行状态是否完整"])
+            self.assertFalse(result["当前批次是否与真实状态一致"])
+
+    def test_inspect_normalizes_legacy_worker_summary_wording(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="巡检旧摘要归一化测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 inspect 会把旧后台摘要改成友好口径",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            project_path = project_dir / "项目总表.yaml"
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            project_payload["自动推进设置"]["后台执行最近摘要"] = "后台 worker 缺少会话Key，视为失活。 | 后台 worker 缺少会话Key，视为失活。"
+            project_path.write_text(yaml.safe_dump(project_payload, allow_unicode=True, sort_keys=False), encoding="utf-8")
+
+            result = evaluate_project_actions(project_dir=project_dir)
+            repaired_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+
+            self.assertEqual(result["后台执行最近摘要"], "上一轮后台推进状态丢失，已自动回收，等待重新启动")
+            self.assertEqual(result["后台执行最近诊断"], "worker_run_id_missing")
+            self.assertEqual(
+                repaired_payload["自动推进设置"]["后台执行最近摘要"],
+                "上一轮后台推进状态丢失，已自动回收，等待重新启动",
+            )
+
+    def test_inspect_reports_cron_binding_mismatch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="cron 归属诊断测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 inspect 能识别旧 cron 归属",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            project_path = project_dir / "项目总表.yaml"
+            project_payload = yaml.safe_load(project_path.read_text(encoding="utf-8"))
+            project_payload["巡检设置"]["推进任务ID"] = "advance-job"
+            project_payload["巡检设置"]["汇报任务ID"] = "inspect-job"
+            project_payload["巡检设置"]["是否已注册"] = True
+            project_path.write_text(yaml.safe_dump(project_payload, allow_unicode=True, sort_keys=False), encoding="utf-8")
+            cron_jobs_path.write_text(
+                json.dumps(
+                    {
+                        "version": 1,
+                        "jobs": [
+                            {
+                                "id": "advance-job",
+                                "name": "内部访谈调研推进-cron 归属诊断测试",
+                                "agentId": "main",
+                                "enabled": True,
+                                "createdAtMs": 1,
+                                "updatedAtMs": 1,
+                                "schedule": {"kind": "cron", "expr": "*/30 * * * *", "tz": "Asia/Shanghai", "staggerMs": 0},
+                                "sessionTarget": "isolated",
+                                "wakeMode": "now",
+                                "payload": {
+                                    "kind": "agentTurn",
+                                    "message": "你是 research 调研推进执行器。先运行：python3 manage_internal_interview_project.py advance",
+                                    "lightContext": True,
+                                },
+                                "delivery": {"mode": "none"},
+                                "state": {},
+                            },
+                            {
+                                "id": "inspect-job",
+                                "name": "内部访谈调研汇报-cron 归属诊断测试",
+                                "agentId": "main",
+                                "enabled": True,
+                                "createdAtMs": 1,
+                                "updatedAtMs": 1,
+                                "schedule": {"kind": "cron", "expr": "*/30 * * * *", "tz": "Asia/Shanghai", "staggerMs": 0},
+                                "sessionTarget": "isolated",
+                                "wakeMode": "now",
+                                "payload": {
+                                    "kind": "agentTurn",
+                                    "message": "你是 research 调研汇报。先运行：python3 manage_internal_interview_project.py inspect",
+                                    "lightContext": True,
+                                },
+                                "delivery": {"mode": "none"},
+                                "state": {},
+                            },
+                        ],
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+
+            result = evaluate_project_actions(project_dir=project_dir, cron_jobs_path=cron_jobs_path)
+
+            self.assertEqual(result["cron诊断"]["状态"], "异常")
+            self.assertTrue(any("cron 运行归属错误" in item for item in result["cron诊断"]["问题"]))
+            self.assertTrue(any("旧 prompt 未刷新" in item for item in result["cron诊断"]["问题"]))
+
+    def test_register_cron_normalizes_sixty_minute_schedule(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="整点巡检测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 60 分钟表达式规范化",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+
+            result = register_project_check_job(
+                project_dir=project_dir,
+                cron_jobs_path=cron_jobs_path,
+                interval_minutes=60,
+                report_mode="changed-only",
+                auto_created=True,
+            )
+
+            self.assertEqual(result["推进任务"]["cron表达式"], "0 * * * *")
+            self.assertEqual(result["汇报任务"]["cron表达式"], "0 * * * *")
+            self.assertEqual(result["汇报模式"], "changed-only")
+            self.assertTrue(result["自动创建"])
+
+    def test_evaluate_project_actions_flags_cron_interval_drift(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="cron 间隔漂移测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证项目间隔与 job expr 不一致时会被诊断拦住",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            project_payload = yaml.safe_load((project_dir / "项目总表.yaml").read_text(encoding="utf-8"))
+            project_payload["巡检设置"]["是否已注册"] = True
+            project_payload["巡检设置"]["推进任务ID"] = "advance-job"
+            project_payload["巡检设置"]["汇报任务ID"] = "inspect-job"
+            project_payload["巡检设置"]["巡检间隔分钟"] = 180
+            project_payload["自动推进设置"]["推进间隔分钟"] = 180
+            (project_dir / "项目总表.yaml").write_text(
+                yaml.safe_dump(project_payload, allow_unicode=True, sort_keys=False),
+                encoding="utf-8",
+            )
+            cron_jobs_path.write_text(
+                json.dumps(
+                    {
+                        "version": 1,
+                        "jobs": [
+                            {
+                                "id": "advance-job",
+                                "name": "内部访谈调研推进-cron 间隔漂移测试",
+                                "agentId": "research",
+                                "enabled": True,
+                                "createdAtMs": 1,
+                                "updatedAtMs": 1,
+                                "schedule": {"kind": "cron", "expr": "*/30 * * * *", "tz": "Asia/Shanghai", "staggerMs": 0},
+                                "sessionTarget": "isolated",
+                                "wakeMode": "now",
+                                "payload": {
+                                    "kind": "agentTurn",
+                                    "message": "你是 research 调研推进后台 worker。先运行：python3 manage_internal_interview_project.py run-batch-worker --status prepare。每次 exec 只允许一条命令，禁止使用 &&。",
+                                    "lightContext": True,
+                                },
+                                "delivery": {"mode": "none"},
+                                "state": {},
+                            },
+                            {
+                                "id": "inspect-job",
+                                "name": "内部访谈调研汇报-cron 间隔漂移测试",
+                                "agentId": "research",
+                                "enabled": True,
+                                "createdAtMs": 1,
+                                "updatedAtMs": 1,
+                                "schedule": {"kind": "cron", "expr": "*/30 * * * *", "tz": "Asia/Shanghai", "staggerMs": 0},
+                                "sessionTarget": "isolated",
+                                "wakeMode": "now",
+                                "payload": {
+                                    "kind": "agentTurn",
+                                    "message": "你是 research 调研汇报。先运行：python3 manage_internal_interview_project.py inspect --project-dir '/tmp/demo'。不要执行首轮外发。",
+                                    "lightContext": True,
+                                },
+                                "delivery": {"mode": "none"},
+                                "state": {},
+                            },
+                        ],
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+
+            result = evaluate_project_actions(project_dir=project_dir, cron_jobs_path=cron_jobs_path)
+
+            self.assertEqual(result["cron诊断"]["状态"], "异常")
+            self.assertEqual(result["cron诊断"]["期望cron表达式"], "0 */3 * * *")
+            self.assertTrue(any("cron 间隔配置漂移" in item for item in result["cron诊断"]["问题"]))
+
+    def test_advance_rewinds_waiting_reply_without_confirmed_receipt(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="发送确认回退测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证待回复脏状态回退",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"}],
+            )
+            participants_path = project_dir / "受访对象清单.yaml"
+            participants_payload = yaml.safe_load(participants_path.read_text(encoding="utf-8"))
+            participant = participants_payload["受访对象列表"][0]
+            participant["当前状态"] = "待回复"
+            participant["执行会话ID"] = "session-jia"
+            participant["执行会话Key"] = "research-shared-jia"
+            participant["会话绑定ID"] = "research:ou_jia"
+            participant["会话绑定状态"] = "已绑定"
+            participant["最近一次绑定确认时间"] = _ts(hours_offset=-1)
+            participant["最近一次绑定确认依据"] = "status 校验通过"
+            participant["最近一次绑定目标会话Key"] = "research-shared-jia"
+            participant["最近一次绑定检查结果"] = "已核验通过"
+            participant["最近发出时间"] = _ts(hours_offset=-1)
+            participant["最近一次发送消息ID"] = "om_jia_1"
+            participant["最近一次发送chatID"] = "oc_jia_1"
+            participant["最近一次发送确认状态"] = "已调用发送"
+            participants_path.write_text(
+                yaml.safe_dump(participants_payload, allow_unicode=True, sort_keys=False),
+                encoding="utf-8",
+            )
+
+            with mock.patch.object(
+                project_module,
+                "_检查严格shared投递配置",
+                return_value={"是否通过": True, "阻止原因": []},
+            ):
+                result = advance_project(project_dir=project_dir, cron_jobs_path=cron_jobs_path)
+
+            participants_payload = yaml.safe_load((project_dir / "受访对象清单.yaml").read_text(encoding="utf-8"))
+            participant = participants_payload["受访对象列表"][0]
+            self.assertEqual(result["发送确认回退人数"], 1)
+            self.assertEqual(participant["当前状态"], "待核验发送")
+            self.assertEqual(participant["最近一次业务状态"], "历史发送确认不足，已回退待补核验")
+            self.assertIn("已回退待补核验", participant["最近一次链路状态"])
+
+    def test_advance_auto_registers_and_builds_batch_execution_contract(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            cron_jobs_path = Path(tmp) / "jobs.json"
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="自动推进合同测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证 advance 输出当前批次执行合同",
+                research_scope="双人",
+                participant_source_mode="直接名单",
+                participant_scope_text="双人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[
+                    {"姓名": "甲", "飞书标识": "user:ou_jia", "纳入原因": "成员"},
+                    {"姓名": "乙", "飞书标识": "user:ou_yi", "纳入原因": "成员"},
+                ],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="甲",
+                status="待首发",
+                execution_session_id="session-jia",
+                execution_session_key="research-shared-jia",
+                **_verified_binding_kwargs("ou_jia", "research-shared-jia"),
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="乙",
+                status="待首发",
+                execution_session_id="session-yi",
+                execution_session_key="research-shared-yi",
+                **_verified_binding_kwargs("ou_yi", "research-shared-yi"),
+            )
+
+            with mock.patch.object(
+                project_module,
+                "_检查严格shared投递配置",
+                return_value={"是否通过": True, "阻止原因": []},
+            ):
+                result = advance_project(project_dir=project_dir, cron_jobs_path=cron_jobs_path)
+
+            project_payload = yaml.safe_load((project_dir / "项目总表.yaml").read_text(encoding="utf-8"))
+            self.assertTrue(result["允许推进"])
+            self.assertEqual(result["执行状态"], "待执行当前批次")
+            self.assertEqual(result["当前批次状态"], "待推进")
+            self.assertEqual(result["当前批次对象列表"], ["甲", "乙"])
+            self.assertEqual(len(result["执行合同"]), 2)
+            self.assertTrue(result["自动注册结果"]["已创建"])
+            self.assertEqual(project_payload["自动推进设置"]["推进间隔分钟"], 180)
+            self.assertEqual(project_payload["当前批次对象列表"], ["甲", "乙"])
 
     def test_close_project_unbinds_after_observation_window(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -2421,6 +3456,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
             self.assertEqual(result["补回人数"], 0)
             self.assertEqual(result["shared发送补偿人数"], 0)
             self.assertEqual(result["发送核验补偿人数"], 1)
+            self.assertEqual(participant["当前状态"], "待核验发送")
             self.assertEqual(participant["最近一次发送chatID"], "oc_send_1")
             self.assertEqual(participant["最近一次发送确认状态"], "发送记录存在但待人工确认")
             self.assertIn("message 工具返回", participant["最近一次发送确认依据"])
@@ -2540,10 +3576,11 @@ class InternalInterviewResearchTests(unittest.TestCase):
             self.assertEqual(result["shared发送补偿人数"], 1)
             self.assertEqual(result["发送核验补偿人数"], 0)
             self.assertEqual(participant["执行会话ID"], "shared-session")
-            self.assertEqual(participant["执行会话Key"], "agent:research-shared:subagent:abc123")
+            self.assertEqual(participant["执行会话Key"], "agent:research-shared:feishu:direct:ou_1234567890abcdef")
+            self.assertEqual(participant["辅助执行会话ID"], "shared-session")
             self.assertEqual(participant["会话绑定ID"], "research:ou_1234567890abcdef")
             self.assertEqual(participant["会话绑定状态"], "已绑定")
-            self.assertEqual(participant["最近一次绑定目标会话Key"], "agent:research-shared:subagent:abc123")
+            self.assertEqual(participant["最近一次绑定目标会话Key"], "agent:research-shared:feishu:direct:ou_1234567890abcdef")
             self.assertEqual(participant["最近一次绑定检查结果"], "已核验通过")
             self.assertEqual(participant["最近一次发送消息ID"], "om_send_shared_1")
             self.assertEqual(participant["最近一次发送chatID"], "oc_send_shared_1")
@@ -2644,7 +3681,7 @@ class InternalInterviewResearchTests(unittest.TestCase):
             self.assertEqual(participant["最近一次发送确认状态"], "发送记录缺失")
             self.assertIn("已清理半成品状态", participant["最近一次链路状态"])
 
-    def test_update_participant_clears_verified_binding_when_execution_session_changes(self):
+    def test_update_participant_keeps_verified_binding_when_only_helper_session_changes(self):
         with tempfile.TemporaryDirectory() as tmp:
             workspace_root = Path(tmp) / "workspace-research"
             project_dir = create_internal_interview_project(
@@ -2665,23 +3702,26 @@ class InternalInterviewResearchTests(unittest.TestCase):
                 participant_name="甲",
                 status="待首发",
                 execution_session_id="session-old",
-                execution_session_key="research-shared-old-jia",
-                **_verified_binding_kwargs("ou_jia", "research-shared-old-jia"),
+                helper_execution_session_id="session-old",
+                helper_execution_session_key="research-shared-old-jia",
+                execution_session_key="agent:research-shared:feishu:direct:ou_jia",
+                **_verified_binding_kwargs("ou_jia", "agent:research-shared:feishu:direct:ou_jia"),
             )
 
             participant = update_participant(
                 project_dir=project_dir,
                 participant_name="甲",
                 execution_session_id="session-new",
-                execution_session_key="research-shared-new-jia",
+                helper_execution_session_id="session-new",
+                helper_execution_session_key="research-shared-new-jia",
             )
 
-            self.assertEqual(participant["执行会话Key"], "research-shared-new-jia")
-            self.assertEqual(participant["会话绑定状态"], "未绑定")
-            self.assertEqual(participant["会话绑定ID"], "")
-            self.assertEqual(participant["最近一次绑定确认时间"], "")
-            self.assertEqual(participant["最近一次绑定目标会话Key"], "")
-            self.assertEqual(participant["最近一次绑定检查结果"], "执行会话已切换，旧绑定已失效")
+            self.assertEqual(participant["执行会话Key"], "agent:research-shared:feishu:direct:ou_jia")
+            self.assertEqual(participant["辅助执行会话ID"], "session-new")
+            self.assertEqual(participant["辅助执行会话Key"], "research-shared-new-jia")
+            self.assertEqual(participant["会话绑定状态"], "已绑定")
+            self.assertEqual(participant["会话绑定ID"], "research:ou_jia")
+            self.assertEqual(participant["最近一次绑定目标会话Key"], "agent:research-shared:feishu:direct:ou_jia")
 
     def test_update_participant_does_not_count_pre_send_inbound_as_shared_recovery(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -3023,6 +4063,84 @@ class InternalInterviewResearchTests(unittest.TestCase):
             )
             self.assertTrue(participant["是否已达到收口条件"])
             self.assertEqual(participant["最近一次业务状态"], "已完成并自动解绑")
+
+    def test_recover_replies_reports_metadata_only_entries_without_counting_recovery(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace_root = Path(tmp) / "workspace-research"
+            gateway_log_path = Path(tmp) / "gateway.log"
+            session_root = Path(tmp) / "shared-sessions"
+            research_session_root = Path(tmp) / "research-sessions"
+            session_root.mkdir(parents=True, exist_ok=True)
+            research_session_root.mkdir(parents=True, exist_ok=True)
+            project_dir = create_internal_interview_project(
+                workspace_root=workspace_root,
+                project_name="仅元数据回收测试",
+                initiator_name="林经理",
+                initiator_feishu_id="user:ou_lin",
+                research_goal="验证只有 runtime metadata 时不计回收",
+                research_scope="单人",
+                participant_source_mode="直接名单",
+                participant_scope_text="单人",
+                project_deadline_at=_ts(hours_offset=24),
+                participants=[{"姓名": "甲", "飞书标识": "user:ou_1234567890abcdef", "纳入原因": "成员"}],
+            )
+            update_participant(
+                project_dir=project_dir,
+                participant_name="甲",
+                execution_session_id="session-jia",
+                execution_session_key="agent:research-shared:subagent:jia",
+                **_verified_binding_kwargs("ou_1234567890abcdef", "agent:research-shared:subagent:jia"),
+                last_message_id="om_send_1",
+                last_chat_id="oc_send_1",
+                last_outbound_at="2026-05-23T21:36:00+08:00",
+                send_confirmation_status="已形成可回收 shared 会话",
+            )
+            gateway_log_path.write_text(
+                "2026-05-23T21:36:36.461+08:00 [feishu] feishu[research]: routed via bound conversation ou_1234567890abcdef -> agent:research-shared:subagent:jia\n",
+                encoding="utf-8",
+            )
+            (session_root / "shared-session.jsonl").write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "type": "message",
+                                "message": {
+                                    "role": "assistant",
+                                    "content": [{"type": "text", "text": "请直接回复：经常用 / 用过几次 / 还没真正用 / 说不清"}],
+                                },
+                            },
+                            ensure_ascii=False,
+                        ),
+                        json.dumps(
+                            {
+                                "type": "custom_message",
+                                "customType": "openclaw.runtime-context",
+                                "content": "System: [2026-05-23 21:36 GMT+8] Feishu[research] DM | 甲 (ou_1234567890abcdef) [msg:om_1]",
+                            },
+                            ensure_ascii=False,
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            result = recover_project_replies(
+                project_dir=project_dir,
+                gateway_log_path=gateway_log_path,
+                session_root=session_root,
+                research_session_root=research_session_root,
+            )
+            participants_payload = yaml.safe_load((project_dir / "受访对象清单.yaml").read_text(encoding="utf-8"))
+            participant = participants_payload["受访对象列表"][0]
+
+            self.assertEqual(result["补回人数"], 0)
+            self.assertEqual(result["仅元数据通知"], ["甲"])
+            self.assertIn({"姓名": "甲", "结果": "reply_metadata_only"}, result["首次回复路由核验"])
+            self.assertEqual(participant["最近回复时间"], "")
+            self.assertEqual(participant["最近一次回收时间"], "")
+            self.assertFalse(participant["是否已回收至research"])
 
     def test_build_final_delivery_payload_returns_doc_and_summary(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -1,7 +1,7 @@
 {
-  "primary_down_until": 1779471047.934379,
+  "primary_down_until": 0,
   "last_failure_at": 1779470147.934379,
   "last_failure_reason": "502 from /v1/images/edits: <html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n",
   "last_failed_provider": "n.lconai",
-  "last_primary_recovered_at": 1779441665.642324
+  "last_primary_recovered_at": 1779645199.197085
 }

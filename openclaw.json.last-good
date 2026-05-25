@@ -182,7 +182,7 @@
         "name": "龙虾总指挥",
         "workspace": "/Users/a123/.openclaw/workspace",
         "model": {
-          "primary": "aixor/claude-opus-4-6",
+          "primary": "aixor/claude-opus-4-7",
           "fallbacks": [
             "aixor-g/gpt-5.5"
           ]
@@ -637,7 +637,7 @@
             "deep-research"
           ],
           "exec": {
-            "host": "gateway",
+            "host": "auto",
             "security": "full",
             "ask": "off"
           },
@@ -981,7 +981,7 @@
             "apply_patch"
           ],
           "exec": {
-            "host": "gateway",
+            "host": "auto",
             "security": "full",
             "ask": "off"
           },
@@ -1094,7 +1094,7 @@
             "apply_patch"
           ],
           "exec": {
-            "host": "gateway",
+            "host": "auto",
             "security": "full",
             "ask": "off"
           },
@@ -1398,7 +1398,7 @@
             "apply_patch"
           ],
           "exec": {
-            "host": "gateway",
+            "host": "auto",
             "security": "full",
             "ask": "off"
           },

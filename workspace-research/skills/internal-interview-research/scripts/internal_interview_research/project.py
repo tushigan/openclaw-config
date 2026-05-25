@@ -15,16 +15,20 @@ import yaml
 
 终态状态 = {"已完成", "已超时", "已拒绝", "已关闭后回复", "验收通过并清理", "全回收处理完成"}
 待回复状态 = {"已邀约", "待回复", "已停滞", "已停滞待回", "已超时待收口"}
+待发送准备状态 = {"待联系", "待创建会话", "待绑定", "待首发", "待批次开放", "本轮冻结待后续批次"}
+待发送核验状态 = {"待核验发送"}
 项目阶段 = ["立项", "问题设计", "受访对象确认", "访谈进行中", "分析总结", "已关闭"]
 飞书交付目录 = Path("/Users/a123/.openclaw/workspace/feishu-deliver")
 默认网关日志路径 = Path("/Users/a123/.openclaw/logs/gateway.log")
 默认shared会话目录 = Path("/Users/a123/.openclaw/agents/research-shared/sessions")
 默认research会话目录 = Path("/Users/a123/.openclaw/agents/research/sessions")
+默认cron任务路径 = Path("/Users/a123/.openclaw/cron/jobs.json")
 关键收口信号 = ["是否使用过", "主要使用场景或主要阻力", "培训期待或改进方向"]
 链路验收回复时限分钟 = 5
 飞书open_id正则 = re.compile(r"^ou_[A-Za-z0-9_]+$")
 飞书用户目标正则 = re.compile(r"^user:(ou_[A-Za-z0-9_]+)$")
 飞书会话目标正则 = re.compile(r"^chat:(oc_[A-Za-z0-9_]+)$")
+direct_shared会话key正则 = re.compile(r"^agent:research-shared:feishu:direct:(ou_[A-Za-z0-9_]+)$")
 发送确认状态集合 = {
     "已调用发送",
     "已确认回执",
@@ -52,6 +56,186 @@ import yaml
 严格shared投递占位label文案 = "执行参数未按计划落地：strict shared 投递请求仍残留非法 label 占位值，尚未真正投递。"
 严格shared会话不可达文案 = "shared 会话不可达：当前专属执行会话不存在、不可见或未就绪，尚未真正投递。"
 严格shared协议不完整文案 = "shared 协议不完整：当前 inter-session payload 缺少必需字段，禁止首发，也禁止接管后续访谈。"
+非法预建shared文案 = "检测到非法预建 shared：当前对象还没正式首发，但已经存在未投递 strict payload 的 live shared 会话。"
+待回复发送确认门槛 = {"已确认回执", "已确认落到目标会话", "已形成可回收 shared 会话", "已确认送达"}
+回复正文缺失错误 = "reply_text_missing"
+回复仅元数据结果 = "reply_metadata_only"
+默认自动推进间隔分钟 = 180
+后台worker运行ID缺失错误 = "worker_run_id_missing"
+后台worker运行ID不匹配错误 = "worker_run_id_mismatch"
+后台worker超时错误 = "worker_heartbeat_timeout"
+后台worker时间缺失错误 = "worker_timing_missing"
+
+
+def _管理脚本路径() -> Path:
+    return Path(__file__).resolve().parents[1] / "manage_internal_interview_project.py"
+
+
+def _项目使用固定direct_shared真值(project_payload: dict[str, Any]) -> bool:
+    return (
+        str(project_payload.get("项目类型", "真实调研")).strip() == "真实调研"
+        and str(project_payload.get("运行模式", "真实调研")).strip() != "链路验收"
+    )
+
+
+def _固定direct_shared执行会话key(participant: dict[str, Any]) -> str:
+    open_id = _提取飞书open_id(participant.get("飞书标识", ""))
+    if not open_id:
+        return ""
+    return f"agent:research-shared:feishu:direct:{open_id}"
+
+
+def _看起来像direct_shared执行会话key(session_key: str) -> bool:
+    return bool(direct_shared会话key正则.match(str(session_key or "").strip()))
+
+
+def _看起来像helper执行会话key(session_key: str) -> bool:
+    normalized = str(session_key or "").strip()
+    if not normalized:
+        return False
+    if _看起来像direct_shared执行会话key(normalized):
+        return False
+    return normalized.startswith("agent:research-shared:subagent:") or normalized.startswith("research-shared-")
+
+
+def _辅助执行会话已真实创建(participant: dict[str, Any]) -> bool:
+    helper_id = str(participant.get("辅助执行会话ID", "")).strip() or str(participant.get("执行会话ID", "")).strip()
+    helper_key = str(participant.get("辅助执行会话Key", "")).strip()
+    if not helper_key and _看起来像helper执行会话key(participant.get("执行会话Key", "")):
+        helper_key = str(participant.get("执行会话Key", "")).strip()
+    return bool(helper_id and helper_key)
+
+
+def _helper执行会话状态(participant: dict[str, Any], session_root: Path = 默认shared会话目录) -> str:
+    helper_id = str(participant.get("辅助执行会话ID", "")).strip() or str(participant.get("执行会话ID", "")).strip()
+    if not helper_id:
+        return "未创建helper会话"
+    session_file = session_root / f"{helper_id}.jsonl"
+    return "helper会话存在" if session_file.exists() else "旧helper会话失活"
+
+
+def _执行通道是否漂移(project_payload: dict[str, Any], participant: dict[str, Any]) -> bool:
+    if not _项目使用固定direct_shared真值(project_payload):
+        return False
+    canonical_key = _执行会话key(project_payload, participant)
+    if not canonical_key:
+        return False
+    current_key = str(participant.get("执行会话Key", "")).strip()
+    binding_target = str(participant.get("最近一次绑定目标会话Key", "")).strip()
+    return (bool(current_key) and current_key != canonical_key) or (
+        bool(binding_target) and binding_target != canonical_key
+    )
+
+
+def _执行通道诊断(project_payload: dict[str, Any], participant: dict[str, Any], session_root: Path = 默认shared会话目录) -> dict[str, Any]:
+    canonical_key = _执行会话key(project_payload, participant)
+    helper_status = _helper执行会话状态(participant, session_root=session_root)
+    drift = _执行通道是否漂移(project_payload, participant)
+    if _绑定已核验(participant):
+        verdict = "旧 helper 会话失活，但 direct shared 真值仍在" if helper_status == "旧helper会话失活" else "绑定仍有效"
+    elif drift:
+        verdict = "执行通道真值漂移"
+    else:
+        verdict = "绑定真实丢失"
+    return {
+        "执行通道真值类型": str(participant.get("执行通道真值类型", "")).strip() or "direct-shared",
+        "canonical执行会话Key": canonical_key,
+        "helper会话状态": helper_status,
+        "执行通道是否漂移": drift,
+        "绑定诊断": verdict,
+        "绑定是否因重启后重新核验通过": _绑定已核验(participant) and str(participant.get("最近一次绑定目标会话Key", "")).strip() == canonical_key,
+    }
+
+
+def _默认自动推进设置() -> dict[str, Any]:
+    return {
+        "是否自动注册": False,
+        "推进间隔分钟": 默认自动推进间隔分钟,
+        "汇报模式": "every-round",
+        "自动创建": False,
+        "最近已汇报摘要键": "",
+        "最近汇报时间": "",
+        "后台执行中": False,
+        "后台执行worker类型": "",
+        "后台执行worker运行ID": "",
+        "后台执行worker会话Key": "",
+        "后台执行开始时间": "",
+        "后台执行最近心跳时间": "",
+        "后台执行最近摘要": "",
+        "后台执行最近诊断": "",
+    }
+
+
+def _空推进摘要() -> dict[str, Any]:
+    return {
+        "执行状态": "待推进",
+        "摘要": "",
+        "摘要键": "",
+        "更新时间": "",
+        "本轮新创建会话人数": 0,
+        "本轮新绑定人数": 0,
+        "本轮真实发出人数": 0,
+        "本轮完成跟进人数": 0,
+        "本轮阻塞对象": [],
+    }
+
+
+def _生成后台worker运行ID() -> str:
+    return f"worker-run-{uuid4().hex}"
+
+
+def _后台worker前台摘要(诊断代码: str, 明细: str = "") -> str:
+    if 诊断代码 == 后台worker运行ID缺失错误:
+        return "上一轮后台推进状态丢失，已自动回收，等待重新启动"
+    if 诊断代码 == 后台worker运行ID不匹配错误:
+        return "检测到重复或串线的后台推进请求，已忽略本轮无效执行"
+    if 诊断代码 == 后台worker超时错误:
+        return "后台推进超时未续心跳，已回收待下一轮重启"
+    if 诊断代码 == 后台worker时间缺失错误:
+        return "上一轮后台推进状态不完整，已自动回收，等待重新启动"
+    return 明细 or "后台推进状态异常，已自动回收，等待重新启动"
+
+
+def _后台worker状态是否完整(settings: dict[str, Any]) -> bool:
+    if not bool(settings.get("后台执行中")):
+        return True
+    worker_run_id = str(settings.get("后台执行worker运行ID", "")).strip()
+    if not worker_run_id:
+        return False
+    last_heartbeat = str(settings.get("后台执行最近心跳时间", "")).strip()
+    started_at = str(settings.get("后台执行开始时间", "")).strip()
+    return bool(last_heartbeat or started_at)
+
+
+def _推断后台worker诊断代码(summary: str) -> str:
+    text = str(summary or "").strip()
+    if not text:
+        return ""
+    if "缺少会话Key" in text or "缺少运行ID" in text:
+        return 后台worker运行ID缺失错误
+    if "缺少心跳和启动时间" in text:
+        return 后台worker时间缺失错误
+    if "没有心跳" in text:
+        return 后台worker超时错误
+    return ""
+
+
+def _规范后台worker展示状态(project_payload: dict[str, Any]) -> bool:
+    settings = _自动推进设置(project_payload)
+    summary = str(settings.get("后台执行最近摘要", "")).strip()
+    diagnostic = str(settings.get("后台执行最近诊断", "")).strip()
+    resolved_code = diagnostic or _推断后台worker诊断代码(summary)
+    if not resolved_code:
+        return False
+    friendly_summary = _后台worker前台摘要(resolved_code, summary)
+    changed = False
+    if summary != friendly_summary:
+        settings["后台执行最近摘要"] = friendly_summary
+        changed = True
+    if diagnostic != resolved_code:
+        settings["后台执行最近诊断"] = resolved_code
+        changed = True
+    return changed
 
 
 def _默认访谈执行设置() -> dict[str, Any]:
@@ -97,6 +281,10 @@ def _项目slug(project_payload: dict[str, Any]) -> str:
 
 
 def _执行会话key(project_payload: dict[str, Any], participant: dict[str, Any]) -> str:
+    if _项目使用固定direct_shared真值(project_payload):
+        direct_key = _固定direct_shared执行会话key(participant)
+        if direct_key:
+            return direct_key
     project_slug = _项目slug(project_payload)
     name_slug = _slugify_token(str(participant.get("姓名", "")).strip())
     if name_slug:
@@ -106,6 +294,44 @@ def _执行会话key(project_payload: dict[str, Any], participant: dict[str, Any
         open_id = feishu_id.split(":", 1)[-1] if ":" in feishu_id else feishu_id
         tail = open_id[-6:] if open_id else "unknown"
     return f"research-shared-{project_slug}-{tail}"
+
+
+def _迁移受访对象到固定direct_shared真值(project_payload: dict[str, Any], participant: dict[str, Any]) -> None:
+    truth_type = "direct-shared" if _项目使用固定direct_shared真值(project_payload) else "spawned-shared"
+    participant["执行通道真值类型"] = truth_type
+    participant.setdefault("辅助执行会话ID", "")
+    participant.setdefault("辅助执行会话Key", "")
+    if truth_type != "direct-shared":
+        return
+
+    canonical_key = _执行会话key(project_payload, participant)
+    if (
+        not canonical_key
+        or (
+            project_payload.get("项目状态") in {"已关闭", "已停止"}
+            and not str(participant.get("执行会话Key", "")).strip()
+            and str(participant.get("会话绑定状态", "")).strip() == "已解绑"
+        )
+    ):
+        return
+    previous_key = str(participant.get("执行会话Key", "")).strip()
+    previous_binding_target = str(participant.get("最近一次绑定目标会话Key", "")).strip()
+    previous_session_id = str(participant.get("执行会话ID", "")).strip()
+
+    if previous_session_id and not str(participant.get("辅助执行会话ID", "")).strip():
+        participant["辅助执行会话ID"] = previous_session_id
+    if _看起来像helper执行会话key(previous_key) and not str(participant.get("辅助执行会话Key", "")).strip():
+        participant["辅助执行会话Key"] = previous_key
+
+    if canonical_key:
+        participant["执行会话Key"] = canonical_key
+        if previous_binding_target and _看起来像helper执行会话key(previous_binding_target):
+            participant["最近一次绑定目标会话Key"] = canonical_key
+            evidence = str(participant.get("最近一次绑定确认依据", "")).strip()
+            if evidence and "direct shared 真值" not in evidence:
+                participant["最近一次绑定确认依据"] = f"{evidence}；已迁移到固定 direct shared 真值"
+            if str(participant.get("最近一次链路状态", "")).strip() in {"", "执行会话已切换，旧绑定已失效"}:
+                participant["最近一次链路状态"] = "执行通道真值已迁移到固定 direct shared"
 
 
 def _现在() -> datetime:
@@ -244,7 +470,11 @@ def _写入文本(path: Path, content: str) -> None:
 
 
 def _会话已真实创建(participant: dict[str, Any]) -> bool:
-    return bool(str(participant.get("执行会话ID", "")).strip()) and bool(str(participant.get("执行会话Key", "")).strip())
+    truth_type = str(participant.get("执行通道真值类型", "")).strip()
+    session_key = str(participant.get("执行会话Key", "")).strip()
+    if truth_type == "direct-shared":
+        return bool(session_key)
+    return bool(str(participant.get("执行会话ID", "")).strip()) and bool(session_key)
 
 
 def _当前绑定检查结果(participant: dict[str, Any]) -> str:
@@ -285,6 +515,10 @@ def _发送后可进入待回复(participant: dict[str, Any]) -> bool:
     return _会话已就绪(participant) and _发送记录完整(participant)
 
 
+def _仍处于首发前阶段(participant: dict[str, Any]) -> bool:
+    return str(participant.get("当前状态", "")).strip() in 待发送准备状态
+
+
 def _当前发送确认状态(participant: dict[str, Any]) -> str:
     raw = str(participant.get("最近一次发送确认状态", "")).strip()
     return raw if raw in 发送确认状态集合 else ""
@@ -292,6 +526,10 @@ def _当前发送确认状态(participant: dict[str, Any]) -> str:
 
 def _发送已确认(participant: dict[str, Any]) -> bool:
     return _当前发送确认状态(participant) in {"已确认落到目标会话", "已形成可回收 shared 会话", "已确认送达"}
+
+
+def _发送确认达到待回复门槛(participant: dict[str, Any]) -> bool:
+    return _当前发送确认状态(participant) in 待回复发送确认门槛
 
 
 def _推导默认发送确认状态(participant: dict[str, Any]) -> str:
@@ -321,6 +559,27 @@ def _清空发送证据字段(participant: dict[str, Any]) -> None:
     participant["最近一次发送确认依据"] = ""
     participant["最近一次卡片ID"] = ""
     participant["最近一次卡片结果"] = ""
+
+
+def _回退误触发待命shared(participant: dict[str, Any], reason: str | None = None, fallback_status: str = "待创建会话") -> None:
+    participant["执行会话ID"] = ""
+    participant["辅助执行会话ID"] = ""
+    participant["辅助执行会话Key"] = ""
+    if str(participant.get("执行通道真值类型", "")).strip() != "direct-shared":
+        participant["执行会话Key"] = ""
+    _清空绑定核验字段(participant, reason="误触发待命 shared，会话已作废")
+    _清空发送证据字段(participant)
+    participant["最近回复时间"] = ""
+    participant["最近一次回收时间"] = ""
+    participant["是否已回收至research"] = False
+    participant["当前状态"] = "待绑定" if _会话已真实创建(participant) else fallback_status
+    participant["最近一次业务状态"] = "检测到非法预建 shared，已回退待正式批次重建"
+    participant["最近一次链路状态"] = reason or "误触发待命 shared，会话已作废"
+    participant["访谈轮次记录"] = [
+        item
+        for item in participant.get("访谈轮次记录", [])
+        if isinstance(item, dict) and str(item.get("动作", "")).strip() not in {"发出消息", "收到回复", "收到首发前消息"}
+    ]
 
 
 def _规范绑定状态(target: dict[str, Any], requested_status: str) -> str:
@@ -355,8 +614,12 @@ def _校验发送状态(participant: dict[str, Any]) -> None:
             raise ValueError("没有 messageId + chatId 时，不能记录最近发出时间。")
     if current_status == "待首发" and not _会话已就绪(participant):
         raise ValueError("只有真实创建并完成绑定核验的专属 shared 会话，才能进入待首发。")
+    if current_status == "待核验发送" and not _发送后可进入待回复(participant):
+        raise ValueError("只有真实会话、绑定已核验且已拿到 messageId + chatId 时，才能进入待核验发送。")
     if current_status == "待回复" and not _发送后可进入待回复(participant):
         raise ValueError("只有真实会话、绑定已核验且已拿到 messageId + chatId 时，才能进入待回复。")
+    if current_status == "待回复" and not _发送确认达到待回复门槛(participant):
+        raise ValueError("发送确认状态低于已确认回执时，不能进入待回复。")
 
 
 def _项目编号(project_name: str) -> str:
@@ -784,6 +1047,14 @@ def _生成唯一执行会话keys(
     participants: list[dict[str, Any]],
     force_reset_existing: bool = False,
 ) -> None:
+    if _项目使用固定direct_shared真值(project_payload):
+        for participant in participants:
+            participant["执行通道真值类型"] = "direct-shared"
+            candidate = _执行会话key(project_payload, participant)
+            if candidate:
+                participant["执行会话Key"] = candidate
+        return
+
     used: set[str] = set()
     for participant in participants:
         existing = str(participant.get("执行会话Key", "")).strip()
@@ -832,9 +1103,12 @@ def _标准受访对象(record: dict[str, Any]) -> dict[str, Any]:
         "发送账号标识": record.get("发送账号标识", "research"),
         "首条消息工具": record.get("首条消息工具", ""),
         "会话归属账号": record.get("会话归属账号", "research"),
+        "执行通道真值类型": record.get("执行通道真值类型", "direct-shared"),
         "执行会话代理": record.get("执行会话代理", "research-shared"),
         "执行会话ID": record.get("执行会话ID", ""),
         "执行会话Key": record.get("执行会话Key", ""),
+        "辅助执行会话ID": record.get("辅助执行会话ID", ""),
+        "辅助执行会话Key": record.get("辅助执行会话Key", ""),
         "会话绑定ID": record.get("会话绑定ID", ""),
         "会话绑定状态": record.get("会话绑定状态", "未绑定"),
         "最近一次绑定确认时间": record.get("最近一次绑定确认时间", ""),
@@ -880,9 +1154,9 @@ def _统计样本(participants: list[dict[str, Any]]) -> dict[str, int]:
     }
     for participant in participants:
         status = participant.get("当前状态", "待联系")
-        if status in {"待联系", "待创建会话", "待绑定", "待首发"}:
+        if status in {"待联系", "待创建会话", "待绑定", "待首发", "待批次开放", "本轮冻结待后续批次"}:
             counts["待联系人数"] += 1
-        elif status in {"已邀约", "待回复"}:
+        elif status in {"已邀约", "待回复", "待核验发送"}:
             counts["待回复人数"] += 1
         elif status in {"访谈中", "超时后补回", "已完成待回写"}:
             counts["访谈中人数"] += 1
@@ -898,7 +1172,7 @@ def _统计样本(participants: list[dict[str, Any]]) -> dict[str, int]:
 
 
 def _统计当前活跃受访对象数(participants: list[dict[str, Any]]) -> int:
-    active_statuses = {"已邀约", "待回复", "访谈中", "已停滞", "已停滞待回", "已超时待收口", "超时后补回", "已完成待回写"}
+    active_statuses = {"已邀约", "待回复", "待核验发送", "访谈中", "已停滞", "已停滞待回", "已超时待收口", "超时后补回", "已完成待回写"}
     return sum(1 for participant in participants if participant.get("当前状态", "") in active_statuses)
 
 
@@ -1025,7 +1299,7 @@ def _项目总表(
         },
         "截止时间变更记录": [],
         "巡检设置": {
-            "巡检间隔分钟": 30,
+            "巡检间隔分钟": 默认自动推进间隔分钟,
             "巡检任务ID": "",
             "推进任务ID": "",
             "汇报任务ID": "",
@@ -1033,6 +1307,12 @@ def _项目总表(
             "上次巡检时间": "",
             "下次建议巡检时间": "",
         },
+        "自动推进设置": _默认自动推进设置(),
+        "当前批次序号": 0,
+        "当前批次状态": "待推进",
+        "当前批次对象列表": [],
+        "上次推进结果摘要": _空推进摘要(),
+        "下次自动推进时间": "",
         "最终交付信息": {
             "交付渠道": "飞书文档+摘要消息",
             "发起人飞书标识": initiator_feishu_id,
@@ -1169,13 +1449,23 @@ def _补全项目默认字段(project_dir: Path, project_payload: dict[str, Any]
     project_payload.setdefault("派发批次记录", [])
     project_payload.setdefault("批次状态", "未生成")
     project_payload.setdefault("巡检设置", {})
-    project_payload["巡检设置"].setdefault("巡检间隔分钟", 30)
+    project_payload["巡检设置"].setdefault("巡检间隔分钟", 默认自动推进间隔分钟)
     project_payload["巡检设置"].setdefault("巡检任务ID", "")
     project_payload["巡检设置"].setdefault("推进任务ID", "")
     project_payload["巡检设置"].setdefault("汇报任务ID", "")
     project_payload["巡检设置"].setdefault("是否已注册", False)
     project_payload["巡检设置"].setdefault("上次巡检时间", "")
     project_payload["巡检设置"].setdefault("下次建议巡检时间", "")
+    project_payload.setdefault("自动推进设置", {})
+    for key, value in _默认自动推进设置().items():
+        project_payload["自动推进设置"].setdefault(key, deepcopy(value) if isinstance(value, dict) else value)
+    project_payload.setdefault("当前批次序号", 0)
+    project_payload.setdefault("当前批次状态", "待推进")
+    project_payload.setdefault("当前批次对象列表", [])
+    project_payload.setdefault("上次推进结果摘要", {})
+    for key, value in _空推进摘要().items():
+        project_payload["上次推进结果摘要"].setdefault(key, deepcopy(value) if isinstance(value, dict) else value)
+    project_payload.setdefault("下次自动推进时间", "")
     project_payload.setdefault("最终交付信息", {})
     project_payload["最终交付信息"].setdefault("交付渠道", "飞书文档+摘要消息")
     project_payload["最终交付信息"].setdefault("摘要消息状态", "待生成")
@@ -1191,15 +1481,16 @@ def _补全项目默认字段(project_dir: Path, project_payload: dict[str, Any]
         normalized = _标准受访对象(participant)
         participant.clear()
         participant.update(normalized)
+        _迁移受访对象到固定direct_shared真值(project_payload, participant)
         if participant.get("当前状态") == "待联系":
             participant["当前状态"] = "待创建会话"
-        if participant.get("执行会话ID") and participant.get("当前状态") == "待创建会话":
+        if _辅助执行会话已真实创建(participant) and participant.get("当前状态") == "待创建会话":
             participant["当前状态"] = "待绑定"
         if _会话已就绪(participant) and participant.get("当前状态") in {"待创建会话", "待绑定"}:
             participant["当前状态"] = "待首发"
         participant["最近一次发送确认状态"] = _推导默认发送确认状态(participant)
         if _发送后可进入待回复(participant) and participant.get("当前状态") in {"待创建会话", "待绑定", "待首发", "待联系"}:
-            participant["当前状态"] = "待回复"
+            participant["当前状态"] = "待回复" if _发送确认达到待回复门槛(participant) else "待核验发送"
         if not participant.get("访谈记录路径") and participant.get("姓名"):
             participant["访谈记录路径"] = str(project_dir / "访谈记录" / f"{participant['姓名']}.md")
         try:
@@ -1287,7 +1578,8 @@ def update_project_deadline(
         participants=participants,
         suggestions_pending=suggestions_pending,
     )
-    project_payload["巡检设置"]["下次建议巡检时间"] = (_现在() + timedelta(minutes=30)).isoformat()
+    interval_minutes = int(project_payload.get("巡检设置", {}).get("巡检间隔分钟", 默认自动推进间隔分钟) or 默认自动推进间隔分钟)
+    project_payload["巡检设置"]["下次建议巡检时间"] = (_现在() + timedelta(minutes=interval_minutes)).isoformat()
     _写回项目(project_dir, project_payload, participants_payload)
     return record
 
@@ -1320,9 +1612,12 @@ def update_participant(
     sender_account: str | None = None,
     first_message_tool: str | None = None,
     conversation_account: str | None = None,
+    execution_channel_truth_type: str | None = None,
     execution_agent: str | None = None,
     execution_session_id: str | None = None,
     execution_session_key: str | None = None,
+    helper_execution_session_id: str | None = None,
+    helper_execution_session_key: str | None = None,
     conversation_binding_id: str | None = None,
     conversation_binding_status: str | None = None,
     binding_confirmed_at: str | None = None,
@@ -1400,23 +1695,39 @@ def update_participant(
         target["首条消息工具"] = first_message_tool
     if conversation_account is not None:
         target["会话归属账号"] = conversation_account
+    if execution_channel_truth_type is not None:
+        target["执行通道真值类型"] = execution_channel_truth_type
     previous_execution_session_id = str(target.get("执行会话ID", "")).strip()
     previous_execution_session_key = str(target.get("执行会话Key", "")).strip()
+    previous_helper_session_id = str(target.get("辅助执行会话ID", "")).strip()
+    previous_helper_session_key = str(target.get("辅助执行会话Key", "")).strip()
     if execution_agent is not None:
         target["执行会话代理"] = execution_agent
     if execution_session_id is not None:
         target["执行会话ID"] = execution_session_id
     if execution_session_key is not None:
         target["执行会话Key"] = execution_session_key
-    session_changed = (
-        (execution_session_id is not None and str(execution_session_id).strip() != previous_execution_session_id)
-        or (execution_session_key is not None and str(execution_session_key).strip() != previous_execution_session_key)
+    if helper_execution_session_id is not None:
+        target["辅助执行会话ID"] = helper_execution_session_id
+    elif execution_session_id is not None:
+        target["辅助执行会话ID"] = execution_session_id
+    if helper_execution_session_key is not None:
+        target["辅助执行会话Key"] = helper_execution_session_key
+    elif execution_session_key is not None and _看起来像helper执行会话key(execution_session_key):
+        target["辅助执行会话Key"] = execution_session_key
+    canonical_session_changed = execution_session_key is not None and str(execution_session_key).strip() != previous_execution_session_key
+    helper_session_changed = (
+        (execution_session_id is not None and str(target.get("执行会话ID", "")).strip() != previous_execution_session_id)
+        or (helper_execution_session_id is not None and str(target.get("辅助执行会话ID", "")).strip() != previous_helper_session_id)
+        or (helper_execution_session_key is not None and str(target.get("辅助执行会话Key", "")).strip() != previous_helper_session_key)
     )
-    if session_changed:
+    if canonical_session_changed:
         _清空绑定核验字段(target, reason="执行会话已切换，旧绑定已失效")
         _清空发送证据字段(target)
         if status is None:
             target["当前状态"] = "待绑定" if _会话已真实创建(target) else "待创建会话"
+    elif helper_session_changed and status is None and target.get("当前状态") == "待创建会话":
+        target["当前状态"] = "待绑定" if _会话已真实创建(target) else "待创建会话"
     if conversation_binding_id is not None:
         target["会话绑定ID"] = conversation_binding_id
     if binding_confirmed_at is not None:
@@ -1434,7 +1745,7 @@ def update_participant(
             target["会话绑定ID"] = ""
             if normalized_binding_status == "已解绑":
                 target["最近一次绑定检查结果"] = target.get("最近一次绑定检查结果") or "已解绑"
-    elif session_changed and not target.get("会话绑定状态"):
+    elif canonical_session_changed and not target.get("会话绑定状态"):
         target["会话绑定状态"] = "未绑定"
     if last_outbound_at is not None:
         target["最近发出时间"] = last_outbound_at
@@ -1469,12 +1780,12 @@ def update_participant(
     inbound_before_first_touch = bool(inbound_time and send_time_for_inbound and inbound_time < send_time_for_inbound)
     target["最近一次发送确认状态"] = _推导默认发送确认状态(target)
     if not explicit_status:
-        if target.get("执行会话ID") and target.get("当前状态") == "待创建会话":
+        if _辅助执行会话已真实创建(target) and target.get("当前状态") == "待创建会话":
             target["当前状态"] = "待绑定"
         if _会话已就绪(target) and target.get("当前状态") in {"待创建会话", "待绑定"}:
             target["当前状态"] = "待首发"
         if _发送后可进入待回复(target) and target.get("当前状态") in {"待创建会话", "待绑定", "待首发", "待联系"}:
-            target["当前状态"] = "待回复"
+            target["当前状态"] = "待回复" if _发送确认达到待回复门槛(target) else "待核验发送"
     if target.get("最近发出时间") and not business_status and not inbound_time:
         target["最近一次业务状态"] = "首轮已确认发出，等待回复" if _发送已确认(target) else "已调用发送，等待确认"
         if not link_status:
@@ -1517,6 +1828,7 @@ def update_participant(
 
     question_limit = _单人有效问题上限(project_payload=project_payload, participant=target)
     _更新收口状态(target, question_limit=question_limit)
+    _迁移受访对象到固定direct_shared真值(project_payload, target)
     if target.get("是否已达到收口条件") and not explicit_status and target.get("当前状态") in {"访谈中", "超时后补回", "待回复", "已停滞待回"}:
         target["当前状态"] = "已完成"
         target["收口方式"] = target.get("收口方式") or "达到默认收口条件"
@@ -1621,6 +1933,15 @@ def ingest_participant_reply(
     reply_at_text = _时间字符串(reply_at) or _现在字符串()
     prompt_text = str(assistant_text or "").strip()
     normalized_reply = str(reply_text or "").strip()
+    if not normalized_reply:
+        return {
+            "ok": False,
+            "错误": 回复正文缺失错误,
+            "详情": "当前消息未附正文",
+            "shouldUnbind": False,
+            "nextQuestion": "",
+            "nextSignal": "",
+        }
     prompt_target = _识别访谈问题目标(prompt_text)
     fallback_signals = _从回复文本提取信号(normalized_reply)
     recognized_signals = [prompt_target] if prompt_target else fallback_signals
@@ -1728,6 +2049,8 @@ def repair_project_participants(project_dir: Path) -> dict[str, Any]:
         if not participant.pop("_需要重置链路", False):
             continue
         participant["执行会话ID"] = ""
+        participant["辅助执行会话ID"] = ""
+        participant["辅助执行会话Key"] = ""
         participant["会话绑定ID"] = ""
         participant["会话绑定状态"] = "未绑定"
         participant["最近一次绑定确认时间"] = ""
@@ -1927,18 +2250,19 @@ def _shared_protocol_message_is_complete(message_text: str) -> bool:
 def _检查shared协议状态(participant: dict[str, Any], session_root: Path | None = None) -> dict[str, str | bool]:
     if session_root is None:
         session_root = 默认shared会话目录
-    execution_session_id = str(participant.get("执行会话ID", "")).strip()
-    if not execution_session_id:
-        return {"状态": "未创建会话", "是否完整": False, "原因": "当前对象还没有真实执行会话ID"}
-    session_file = session_root / f"{execution_session_id}.jsonl"
+    helper_session_id = str(participant.get("辅助执行会话ID", "")).strip() or str(participant.get("执行会话ID", "")).strip()
+    if not helper_session_id:
+        return {"状态": "未创建helper会话", "是否完整": False, "是否已投递": False, "原因": "当前对象还没有 helper shared 会话"}
+    session_file = session_root / f"{helper_session_id}.jsonl"
     if not session_file.exists():
-        return {"状态": "未找到会话文件", "是否完整": False, "原因": f"缺少 shared 会话文件：{session_file}"}
+        return {"状态": "未找到helper会话文件", "是否完整": False, "是否已投递": False, "原因": f"缺少 helper shared 会话文件：{session_file}"}
 
     last_inter_session_message = ""
+    saw_spawn_bootstrap = False
     try:
         lines = session_file.read_text(encoding="utf-8").splitlines()
     except Exception as exc:
-        return {"状态": "读取失败", "是否完整": False, "原因": str(exc)}
+        return {"状态": "读取失败", "是否完整": False, "是否已投递": False, "原因": str(exc)}
     for raw_line in lines:
         try:
             entry = json.loads(raw_line)
@@ -1949,11 +2273,38 @@ def _检查shared协议状态(participant: dict[str, Any], session_root: Path | 
             continue
         if "[Inter-session message]" in message_text:
             last_inter_session_message = message_text
+        elif "[Subagent Context]" in message_text:
+            saw_spawn_bootstrap = True
     if not last_inter_session_message:
-        return {"状态": "未发现投递协议", "是否完整": False, "原因": "shared 会话里没有 inter-session payload 记录"}
+        reason = "当前 shared 会话仅被创建，尚未收到正式 strict payload 投递" if saw_spawn_bootstrap else "shared 会话里还没有 inter-session payload 记录"
+        return {"状态": "未收到正式投递", "是否完整": False, "是否已投递": False, "原因": reason}
     if _shared_protocol_message_is_complete(last_inter_session_message):
-        return {"状态": "协议完整", "是否完整": True, "原因": "最近一条 inter-session payload 已包含完整 strict shared 协议"}
-    return {"状态": "协议不完整", "是否完整": False, "原因": "最近一条 inter-session payload 缺少 strict shared 协议字段"}
+        return {"状态": "协议完整", "是否完整": True, "是否已投递": True, "原因": "最近一条 inter-session payload 已包含完整 strict shared 协议"}
+    return {"状态": "协议不完整", "是否完整": False, "是否已投递": True, "原因": "最近一条 inter-session payload 缺少 strict shared 协议字段"}
+
+
+def _是否非法预建shared(participant: dict[str, Any], protocol_check: dict[str, str | bool] | None = None) -> bool:
+    if not _辅助执行会话已真实创建(participant):
+        return False
+    if _发送记录完整(participant):
+        return False
+    if not _仍处于首发前阶段(participant):
+        return False
+    protocol = protocol_check or _检查shared协议状态(participant)
+    return str(protocol.get("状态", "")).strip() == "未收到正式投递" and not bool(protocol.get("是否已投递", False))
+
+
+def _是否需要回退半成品shared(participant: dict[str, Any], protocol_check: dict[str, str | bool] | None = None) -> bool:
+    if not _辅助执行会话已真实创建(participant):
+        return False
+    if _发送记录完整(participant):
+        return False
+    protocol = protocol_check or _检查shared协议状态(participant)
+    if _是否非法预建shared(participant, protocol_check=protocol):
+        return True
+    status = str(participant.get("当前状态", "")).strip()
+    protocol_status = str(protocol.get("状态", "")).strip()
+    return status in {"本轮冻结待后续批次", "待批次开放"} and protocol_status in {"未收到正式投递", "未找到helper会话文件"}
 
 
 def _构建shared首轮投递消息(
@@ -1982,9 +2333,12 @@ def _构建shared首轮投递消息(
         f"--sender-account {json.dumps(send_account, ensure_ascii=False)} "
         f"--first-message-tool message "
         f"--conversation-account {json.dumps(send_account, ensure_ascii=False)} "
+        f"--execution-channel-truth-type {json.dumps(participant.get('执行通道真值类型', 'direct-shared'), ensure_ascii=False)} "
         f"--execution-agent research-shared "
         f"--execution-session-id {json.dumps(participant.get('执行会话ID', ''), ensure_ascii=False)} "
         f"--execution-session-key {json.dumps(participant.get('执行会话Key', ''), ensure_ascii=False)} "
+        f"--helper-execution-session-id {json.dumps(participant.get('辅助执行会话ID', participant.get('执行会话ID', '')), ensure_ascii=False)} "
+        f"--helper-execution-session-key {json.dumps(participant.get('辅助执行会话Key', ''), ensure_ascii=False)} "
         f"--conversation-binding-id {json.dumps(participant.get('会话绑定ID', ''), ensure_ascii=False)} "
         f"--conversation-binding-status 已绑定 "
         f"--binding-confirmed-at <bindingConfirmedAt> "
@@ -2055,16 +2409,20 @@ def _构建shared首轮投递消息(
         "如果没拿到 `messageId + chatId`，不要回写待回复，只回复失败原因。"
         f"\n{participant_command}"
         "\n3. 从现在开始，这条 shared 会话后续每次收到用户回复时，都必须先做正式回写，再决定是否继续追问。"
-        "\n3.1 先从当前消息里提取 `<latestUserReply>`、`<replyAt>`，再把你上一条真正发给用户的问题文本填到 `<lastQuestionText>`。"
-        "\n3.2 立刻用 `exec` 执行下面这条正式回写命令；如果返回 `ok=false`，停止访谈，只说明“项目回写失败”。"
+        "\n3.1 如果当前 turn 同时存在真实 `user` 文本和 `openclaw.runtime-context`，真实 `user` 文本是唯一正文真值。"
+        "`openclaw.runtime-context` 只允许用来提取 `<replyAt>`、`message_id`、`sender_id`。"
+        "先从真实 `user` 文本提取 `<latestUserReply>`，再把你上一条真正发给用户的问题文本填到 `<lastQuestionText>`。"
+        "\n3.2 如果当前消息没有真实 `user` 正文，不要猜，也不要说“没看到正文”。"
+        "必须直接返回结构化错误：`{\"ok\": false, \"错误\": \"reply_text_missing\", \"详情\": \"当前消息未附正文\"}`。"
+        "\n3.3 立刻用 `exec` 执行下面这条正式回写命令；如果返回 `ok=false`，停止访谈，只说明“项目回写失败”。"
         f"\n{ingest_reply_command}"
-        "\n3.3 如果回写结果里 `shouldUnbind=true`："
+        "\n3.4 如果回写结果里 `shouldUnbind=true`："
         "\n- 先向用户发送结束提示，固定口径必须包含：本次调研已完成 / 后续补充不再纳入记录 / 当前私聊已切回 research 主对话"
         f"\n- 再调用 `feishu_conversation_binding` 执行 `action=unbind, accountId={send_account}, target=user:{open_id}`"
         "\n- 只有解绑工具成功后，才能再执行下面这条命令，把项目文件正式写成已解绑："
         f"\n{finalize_command}"
         "\n- 完成后不要继续追问。"
-        "\n3.4 如果回写结果里 `是否非调研流程消息=true`：只短提示“当前这条私聊用于本次调研回收；非调研问题请到 `research` 主对话单独提”，不要继续展开，也不要计入有效问题数。"
+        "\n3.5 如果回写结果里 `是否非调研流程消息=true`：只短提示“当前这条私聊用于本次调研回收；非调研问题请到 `research` 主对话单独提”，不要继续展开，也不要计入有效问题数。"
         "\n最后只回复一段 JSON，必须包含：ok、messageId、chatId、sendTime。"
     )
 
@@ -2135,23 +2493,710 @@ def _派发候选对象(participants: list[dict[str, Any]]) -> list[dict[str, An
     return [participant for participant in participants if participant.get("当前状态", "待创建会话") in _待派发状态集合()]
 
 
-def _派发阻塞对象(participants: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def _派发阻塞对象(participants: list[dict[str, Any]], session_root: Path | None = None) -> list[dict[str, Any]]:
     blocked: list[dict[str, Any]] = []
     for participant in participants:
         status = participant.get("当前状态", "待创建会话")
         if status not in _待派发状态集合():
             continue
+        protocol_check = _检查shared协议状态(participant, session_root=session_root)
         if not participant.get("飞书标识"):
             blocked.append({"姓名": participant.get("姓名", ""), "原因": "受访对象缺少飞书标识"})
         elif not _提取飞书open_id(participant.get("飞书标识", "")):
             blocked.append({"姓名": participant.get("姓名", ""), "原因": "受访对象飞书标识不合法"})
-        elif not participant.get("执行会话ID"):
-            blocked.append({"姓名": participant.get("姓名", ""), "原因": "未真实创建专属 shared 会话"})
+        elif _是否需要回退半成品shared(participant, protocol_check=protocol_check):
+            blocked.append({"姓名": participant.get("姓名", ""), "原因": f"{非法预建shared文案} 当前应先回退清理后再按正式批次重建。"})
         elif not participant.get("执行会话Key"):
             blocked.append({"姓名": participant.get("姓名", ""), "原因": "未生成执行会话Key"})
         elif not _绑定已核验(participant):
-            blocked.append({"姓名": participant.get("姓名", ""), "原因": "未完成专属 shared 会话绑定核验"})
+            blocked.append({"姓名": participant.get("姓名", ""), "原因": "未完成固定 direct shared 通道绑定核验"})
     return blocked
+
+
+def _规范cron表达式(interval_minutes: int) -> str:
+    interval = int(interval_minutes or 0)
+    if interval <= 0:
+        raise ValueError("interval_minutes 必须大于 0")
+    if interval < 60:
+        return f"*/{interval} * * * *"
+    if interval == 60:
+        return "0 * * * *"
+    if interval % 60 == 0:
+        hours = interval // 60
+        if hours == 24:
+            return "0 0 * * *"
+        return f"0 */{hours} * * *"
+    return f"*/{interval} * * * *"
+
+
+def _需要自动注册推进任务(project_payload: dict[str, Any], participants: list[dict[str, Any]]) -> bool:
+    if str(project_payload.get("项目类型", "真实调研")).strip() != "真实调研":
+        return False
+    if project_payload.get("运行模式") == "链路验收":
+        return False
+    if not project_payload.get("项目截止时间"):
+        return False
+    if str(project_payload.get("受访对象来源方式", "")).strip() != "直接名单":
+        return False
+    if project_payload.get("建议名单待确认"):
+        return False
+    if project_payload.get("停止信息", {}).get("是否已停止"):
+        return False
+    if _是否项目已冻结(project_payload):
+        return False
+    actionable_statuses = {"待创建会话", "待绑定", "待首发", "待核验发送", "待回复", "访谈中"}
+    return any(str(item.get("当前状态", "")).strip() in actionable_statuses for item in participants)
+
+
+def _发送确认不足回退状态(participant: dict[str, Any]) -> str:
+    if _发送记录完整(participant) and _会话已就绪(participant):
+        return "待核验发送"
+    return "待首发"
+
+
+def _回退发送确认不足对象(participants: list[dict[str, Any]]) -> list[str]:
+    rewound: list[str] = []
+    for participant in participants:
+        if str(participant.get("当前状态", "")).strip() != "待回复":
+            continue
+        if _发送确认达到待回复门槛(participant):
+            continue
+        participant["当前状态"] = _发送确认不足回退状态(participant)
+        participant["最近一次业务状态"] = "历史发送确认不足，已回退待补核验"
+        participant["最近一次链路状态"] = "历史发送确认不足，已回退待补核验"
+        rewound.append(str(participant.get("姓名", "")).strip())
+    return rewound
+
+
+def _同步当前批次信息(
+    project_payload: dict[str, Any],
+    participants: list[dict[str, Any]],
+    dispatch_plan: dict[str, Any] | None = None,
+) -> None:
+    batch_size = int(project_payload.get("派发策略", {}).get("每批人数", 10) or 10)
+    active_pending_statuses = {"待创建会话", "待绑定", "待首发", "待核验发送"}
+    current_batch: list[str] = []
+    if dispatch_plan:
+        current_batch = [
+            str(item.get("姓名", "")).strip()
+            for item in dispatch_plan.get("首轮对象列表", [])
+            if str(item.get("姓名", "")).strip()
+        ]
+        if not current_batch:
+            first_batch = (dispatch_plan.get("批次列表") or [{}])[0]
+            current_batch = [
+                str(item.get("姓名", "")).strip()
+                for item in first_batch.get("成员", [])
+                if str(item.get("姓名", "")).strip()
+            ]
+    if not current_batch:
+        current_batch = [
+            str(participant.get("姓名", "")).strip()
+            for participant in participants
+            if str(participant.get("当前状态", "")).strip() in active_pending_statuses
+        ][:batch_size]
+    if dispatch_plan:
+        batches = dispatch_plan.get("批次列表") or []
+        if batches:
+            project_payload["当前批次序号"] = int(batches[0].get("批次序号", 1) or 1)
+        else:
+            project_payload["当前批次序号"] = 1 if current_batch else 0
+    else:
+        project_payload["当前批次序号"] = 1 if current_batch else 0
+    project_payload["当前批次对象列表"] = current_batch
+    if current_batch:
+        project_payload["当前批次状态"] = "待推进"
+    elif any(str(item.get("当前状态", "")).strip() == "待回复" for item in participants):
+        project_payload["当前批次状态"] = "等待回复"
+    else:
+        project_payload["当前批次状态"] = "无待推进对象"
+
+
+def _构建首轮执行合同(project_dir: Path, participant: dict[str, Any]) -> dict[str, Any]:
+    script_path = _管理脚本路径()
+    participant_name = str(participant.get("姓名", "")).strip()
+    project_dir_text = str(project_dir)
+    return {
+        "姓名": participant_name,
+        "当前状态": str(participant.get("当前状态", "")).strip(),
+        "动作类型": "strict-shared-首轮派发",
+        "必须执行到": "shared 首发完成并完成发送核验回写",
+        "outreachPlan命令": (
+            f"python3 {script_path} outreach-plan --project-dir '{project_dir_text}' --name '{participant_name}'"
+        ),
+        "执行步骤": [
+            "创建或确认专属 shared 会话",
+            "绑定并执行 status verify",
+            "只用 outreach-plan 给出的 sessionKey 投递 strict payload",
+            "由 shared 会话实际调用 message(accountId=research) 发出首轮",
+            "拿到 ok + messageId + chatId 后回写项目文件",
+        ],
+        "禁止事项": [
+            "禁止手写 sessions_send 参数",
+            "禁止追加 label",
+            "禁止泄漏 NO_REPLY 或内部待机文案",
+        ],
+    }
+
+
+def _构建跟进行动合同(project_dir: Path, action: dict[str, str]) -> dict[str, Any]:
+    script_path = _管理脚本路径()
+    participant_name = str(action.get("姓名", "")).strip()
+    action_name = str(action.get("建议动作", "")).strip()
+    return {
+        "姓名": participant_name,
+        "当前状态": str(action.get("当前状态", "")).strip(),
+        "动作类型": action_name,
+        "inspect命令": f"python3 {script_path} inspect --project-dir '{project_dir}'",
+        "执行约束": "先读取 inspect/advance 结果，再按项目文件真实状态执行，不得临场改口径。",
+    }
+
+
+def _构建推进摘要(
+    *,
+    status: str,
+    now: datetime,
+    current_batch: list[str],
+    blocked: list[dict[str, Any]],
+    rewound: list[str],
+    auto_unbound: list[str] | None = None,
+    followups: list[dict[str, str]] | None = None,
+) -> dict[str, Any]:
+    followups = followups or []
+    auto_unbound = auto_unbound or []
+    summary = _空推进摘要()
+    summary["执行状态"] = status
+    summary["更新时间"] = now.isoformat()
+    summary["本轮完成跟进人数"] = len(followups)
+    summary["本轮阻塞对象"] = blocked
+    detail_parts: list[str] = []
+    if current_batch:
+        detail_parts.append(f"当前批次 {len(current_batch)} 人：{'、'.join(current_batch)}")
+    if rewound:
+        detail_parts.append(f"发送确认回退 {len(rewound)} 人")
+    if auto_unbound:
+        detail_parts.append(f"自动解绑 {len(auto_unbound)} 人")
+    if blocked:
+        detail_parts.append(f"阻塞 {len(blocked)} 人")
+    summary_text = "；".join(detail_parts) if detail_parts else status
+    summary["摘要"] = summary_text
+    summary["摘要键"] = f"{status}|{'/'.join(current_batch)}|{len(rewound)}|{len(auto_unbound)}|{len(blocked)}|{len(followups)}"
+    return summary
+
+
+def _自动推进设置(project_payload: dict[str, Any]) -> dict[str, Any]:
+    settings = project_payload.setdefault("自动推进设置", {})
+    for key, value in _默认自动推进设置().items():
+        settings.setdefault(key, deepcopy(value) if isinstance(value, dict) else value)
+    return settings
+
+
+def _标准后台worker类型(trigger: str | None) -> str:
+    normalized = str(trigger or "manual").strip()
+    if normalized in {"cron", "cron-worker"}:
+        return "cron-worker"
+    return "manual-worker"
+
+
+def _后台worker活跃(project_payload: dict[str, Any]) -> bool:
+    return bool(_自动推进设置(project_payload).get("后台执行中"))
+
+
+def _后台worker过期信息(project_payload: dict[str, Any], *, now_at: str | None = None) -> dict[str, str]:
+    settings = _自动推进设置(project_payload)
+    if not bool(settings.get("后台执行中")):
+        return {}
+    worker_run_id = str(settings.get("后台执行worker运行ID", "")).strip()
+    if not worker_run_id:
+        return {"code": 后台worker运行ID缺失错误, "detail": "后台 worker 缺少运行ID，视为失活。"}
+    last_heartbeat = _解析时间(str(settings.get("后台执行最近心跳时间", "")).strip())
+    started_at = _解析时间(str(settings.get("后台执行开始时间", "")).strip())
+    anchor_time = last_heartbeat or started_at
+    if anchor_time is None:
+        return {"code": 后台worker时间缺失错误, "detail": "后台 worker 缺少心跳和启动时间，视为失活。"}
+    current_time = _解析时间(now_at) if now_at else _现在()
+    threshold_minutes = max(
+        int(settings.get("推进间隔分钟", 默认自动推进间隔分钟) or 默认自动推进间隔分钟),
+        15,
+    )
+    if current_time - anchor_time > timedelta(minutes=threshold_minutes):
+        return {
+            "code": 后台worker超时错误,
+            "detail": f"后台 worker 超过 {threshold_minutes} 分钟没有心跳，视为失活。",
+        }
+    return {}
+
+
+def _清理失活后台worker(
+    project_dir: Path,
+    project_payload: dict[str, Any],
+    participants_payload: dict[str, Any],
+    *,
+    code: str,
+    detail: str,
+    now_at: str | None = None,
+) -> None:
+    settings = _自动推进设置(project_payload)
+    current_time = _时间字符串(now_at) or _现在字符串()
+    settings["后台执行中"] = False
+    settings["后台执行worker类型"] = ""
+    settings["后台执行worker运行ID"] = ""
+    settings["后台执行worker会话Key"] = ""
+    settings["后台执行开始时间"] = ""
+    settings["后台执行最近心跳时间"] = current_time
+    settings["后台执行最近摘要"] = _后台worker前台摘要(code, detail)
+    settings["后台执行最近诊断"] = code
+    _写回项目(project_dir, project_payload, participants_payload)
+
+
+def _当前批次真实快照(project_payload: dict[str, Any], participants: list[dict[str, Any]]) -> dict[str, Any]:
+    payload_copy = deepcopy(project_payload)
+    _同步当前批次信息(payload_copy, participants)
+    return {
+        "当前批次序号": int(payload_copy.get("当前批次序号", 0) or 0),
+        "当前批次状态": str(payload_copy.get("当前批次状态", "")).strip(),
+        "当前批次对象列表": list(payload_copy.get("当前批次对象列表", [])),
+    }
+
+
+def _当前批次是否与真实状态一致(project_payload: dict[str, Any], participants: list[dict[str, Any]]) -> bool:
+    expected = _当前批次真实快照(project_payload, participants)
+    return (
+        int(project_payload.get("当前批次序号", 0) or 0) == expected["当前批次序号"]
+        and str(project_payload.get("当前批次状态", "")).strip() == expected["当前批次状态"]
+        and list(project_payload.get("当前批次对象列表", [])) == expected["当前批次对象列表"]
+    )
+
+
+def _读取cron任务列表(cron_jobs_path: Path | None) -> list[dict[str, Any]]:
+    path = cron_jobs_path or 默认cron任务路径
+    if not path.exists():
+        return []
+    payload = _读取结构化文件(path)
+    if not isinstance(payload, dict):
+        return []
+    jobs = payload.get("jobs", [])
+    if not isinstance(jobs, list):
+        return []
+    return [job for job in jobs if isinstance(job, dict)]
+
+
+def _查找项目cron任务(project_payload: dict[str, Any], jobs: list[dict[str, Any]]) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+    advance_id = str(project_payload.get("巡检设置", {}).get("推进任务ID", "")).strip()
+    inspect_id = str(project_payload.get("巡检设置", {}).get("汇报任务ID", "")).strip()
+    project_name = str(project_payload.get("项目名称", "")).strip()
+    advance_name = f"内部访谈调研推进-{project_name}"
+    inspect_name = f"内部访谈调研汇报-{project_name}"
+    advance_job = None
+    inspect_job = None
+    for job in jobs:
+        job_id = str(job.get("id", "")).strip()
+        job_name = str(job.get("name", "")).strip()
+        if advance_job is None and ((advance_id and job_id == advance_id) or job_name == advance_name):
+            advance_job = job
+        if inspect_job is None and ((inspect_id and job_id == inspect_id) or job_name == inspect_name):
+            inspect_job = job
+    return advance_job, inspect_job
+
+
+def _是否worker推进prompt(message: str) -> bool:
+    text = str(message or "").strip()
+    return (
+        "run-batch-worker" in text
+        and "--status prepare" in text
+        and "每次 exec 只允许一条命令" in text
+        and "禁止使用 &&" in text
+    )
+
+
+def _是否inspect汇报prompt(message: str) -> bool:
+    text = str(message or "").strip()
+    return "inspect --project-dir" in text and "不要执行首轮外发" in text
+
+
+def _诊断项目cron配置(project_payload: dict[str, Any], cron_jobs_path: Path | None = None) -> dict[str, Any]:
+    if not bool(project_payload.get("巡检设置", {}).get("是否已注册")):
+        return {"状态": "未注册", "问题": []}
+    jobs = _读取cron任务列表(cron_jobs_path)
+    if not jobs:
+        return {"状态": "异常", "问题": ["cron 任务缺失：未找到 jobs.json 或任务列表为空"]}
+
+    advance_job, inspect_job = _查找项目cron任务(project_payload, jobs)
+    issues: list[str] = []
+    expected_interval = int(
+        project_payload.get("自动推进设置", {}).get("推进间隔分钟", 默认自动推进间隔分钟)
+        or 默认自动推进间隔分钟
+    )
+    inspect_interval = int(
+        project_payload.get("巡检设置", {}).get("巡检间隔分钟", expected_interval) or expected_interval
+    )
+    if inspect_interval != expected_interval:
+        issues.append(
+            f"cron 间隔配置漂移：巡检设置={inspect_interval} 分钟，但自动推进设置={expected_interval} 分钟"
+        )
+    expected_expr = _规范cron表达式(expected_interval)
+    if advance_job is None:
+        issues.append("cron 运行归属错误：未找到当前项目的推进任务")
+    else:
+        if str(advance_job.get("agentId", "")).strip() != "research":
+            issues.append("cron 运行归属错误：推进任务 agentId 不是 research")
+        if str(advance_job.get("schedule", {}).get("expr", "")).strip() != expected_expr:
+            issues.append(
+                f"cron 间隔配置漂移：推进任务 expr={str(advance_job.get('schedule', {}).get('expr', '')).strip() or '<empty>'}，期望 {expected_expr}"
+            )
+        if not _是否worker推进prompt(str(advance_job.get("payload", {}).get("message", ""))):
+            issues.append("旧 prompt 未刷新：推进任务仍未使用 run-batch-worker --status prepare")
+    if inspect_job is None:
+        issues.append("cron 运行归属错误：未找到当前项目的汇报任务")
+    else:
+        if str(inspect_job.get("agentId", "")).strip() != "research":
+            issues.append("cron 运行归属错误：汇报任务 agentId 不是 research")
+        if str(inspect_job.get("schedule", {}).get("expr", "")).strip() != expected_expr:
+            issues.append(
+                f"cron 间隔配置漂移：汇报任务 expr={str(inspect_job.get('schedule', {}).get('expr', '')).strip() or '<empty>'}，期望 {expected_expr}"
+            )
+        if not _是否inspect汇报prompt(str(inspect_job.get("payload", {}).get("message", ""))):
+            issues.append("旧 prompt 未刷新：汇报任务仍未使用 inspect 静默汇报模板")
+
+    return {
+        "状态": "正常" if not issues else "异常",
+        "问题": issues,
+        "推进任务agentId": str((advance_job or {}).get("agentId", "")).strip(),
+        "汇报任务agentId": str((inspect_job or {}).get("agentId", "")).strip(),
+        "期望cron表达式": expected_expr,
+    }
+
+
+def _后台worker命令(
+    *,
+    project_dir: Path,
+    trigger: str,
+    status: str,
+    worker_run_id: str | None = None,
+    cron_jobs_path: Path | None = None,
+) -> str:
+    manage_script = _管理脚本路径()
+    command = (
+        f"python3 {manage_script} run-batch-worker --project-dir '{project_dir}' "
+        f"--trigger {trigger} --status {status}"
+    )
+    if worker_run_id:
+        command += f" --worker-run-id '{worker_run_id}'"
+    if cron_jobs_path is not None:
+        command += f" --cron-jobs-path '{cron_jobs_path}'"
+    return command
+
+
+def _是否需要启动后台worker(advance_result: dict[str, Any]) -> bool:
+    if not bool(advance_result.get("允许推进")):
+        return False
+    return any(
+        bool(advance_result.get(key))
+        for key in ("执行合同", "跟进行动", "自动解绑对象", "待补偿回写对象")
+    )
+
+
+def _构建后台worker合同(
+    *,
+    project_dir: Path,
+    project_payload: dict[str, Any],
+    trigger: str,
+    advance_result: dict[str, Any],
+    cron_jobs_path: Path | None = None,
+) -> dict[str, Any]:
+    settings = _自动推进设置(project_payload)
+    should_start = not _后台worker活跃(project_payload) and _是否需要启动后台worker(advance_result)
+    worker_type = _标准后台worker类型(trigger)
+    worker_run_id = _生成后台worker运行ID() if should_start else ""
+    return {
+        "项目名称": project_payload.get("项目名称", ""),
+        "状态": "后台仍在执行" if _后台worker活跃(project_payload) else ("待启动后台worker" if should_start else "无需启动后台worker"),
+        "后台执行中": bool(settings.get("后台执行中")),
+        "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+        "后台执行worker运行ID": str(settings.get("后台执行worker运行ID", "")).strip(),
+        "后台执行worker会话Key": str(settings.get("后台执行worker会话Key", "")).strip(),
+        "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+        "workerRunId": worker_run_id,
+        "是否启动后台worker": should_start,
+        "worker类型": worker_type,
+        "sessionTarget": "isolated",
+        "agentId": "research",
+        "即时回复": "已转后台执行，本轮结束或遇阻塞后汇报",
+        "启动命令": _后台worker命令(
+            project_dir=project_dir,
+            trigger=worker_type,
+            status="started",
+            worker_run_id=worker_run_id,
+            cron_jobs_path=cron_jobs_path,
+        ),
+        "心跳命令": _后台worker命令(
+            project_dir=project_dir,
+            trigger=worker_type,
+            status="heartbeat",
+            worker_run_id=worker_run_id,
+            cron_jobs_path=cron_jobs_path,
+        ),
+        "完成命令": _后台worker命令(
+            project_dir=project_dir,
+            trigger=worker_type,
+            status="finished",
+            worker_run_id=worker_run_id,
+            cron_jobs_path=cron_jobs_path,
+        ),
+        "advance结果": advance_result,
+    }
+
+
+def build_manual_continue_worker_contract(
+    project_dir: Path,
+    trigger: str = "manual",
+    now_at: str | None = None,
+    config_path: Path = 默认配置文件路径,
+    requester_session_key: str | None = None,
+    requester_session_root: Path = 默认research会话目录,
+    cron_jobs_path: Path | None = None,
+) -> dict[str, Any]:
+    advance_result = advance_project(
+        project_dir=project_dir,
+        now_at=now_at,
+        config_path=config_path,
+        requester_session_key=requester_session_key,
+        requester_session_root=requester_session_root,
+        cron_jobs_path=cron_jobs_path,
+    )
+    project_payload, _ = _读取项目(project_dir)
+    return _构建后台worker合同(
+        project_dir=project_dir,
+        project_payload=project_payload,
+        trigger=trigger,
+        advance_result=advance_result,
+        cron_jobs_path=cron_jobs_path,
+    )
+
+
+def run_project_batch_worker(
+    project_dir: Path,
+    trigger: str = "manual",
+    status: str = "prepare",
+    worker_run_id: str | None = None,
+    worker_session_key: str | None = None,
+    summary: str | None = None,
+    now_at: str | None = None,
+    config_path: Path = 默认配置文件路径,
+    requester_session_key: str | None = None,
+    requester_session_root: Path = 默认research会话目录,
+    cron_jobs_path: Path | None = None,
+) -> dict[str, Any]:
+    normalized_status = str(status or "prepare").strip() or "prepare"
+    project_payload, participants_payload = _读取项目(project_dir)
+    if _规范后台worker展示状态(project_payload):
+        _写回项目(project_dir, project_payload, participants_payload)
+        project_payload, participants_payload = _读取项目(project_dir)
+    participants = participants_payload.get("受访对象列表", [])
+    settings = _自动推进设置(project_payload)
+    worker_type = _标准后台worker类型(trigger)
+    current_run_id = str(settings.get("后台执行worker运行ID", "")).strip()
+    current_key = str(settings.get("后台执行worker会话Key", "")).strip()
+    provided_run_id = str(worker_run_id or "").strip()
+    now_text = _时间字符串(now_at) or _现在字符串()
+    summary_text = str(summary or "").strip()
+    stale_info = _后台worker过期信息(project_payload, now_at=now_at)
+    if stale_info:
+        _清理失活后台worker(
+            project_dir,
+            project_payload,
+            participants_payload,
+            code=str(stale_info.get("code", "")).strip(),
+            detail=str(stale_info.get("detail", "")).strip(),
+            now_at=now_at,
+        )
+        project_payload, participants_payload = _读取项目(project_dir)
+        participants = participants_payload.get("受访对象列表", [])
+        settings = _自动推进设置(project_payload)
+        current_run_id = str(settings.get("后台执行worker运行ID", "")).strip()
+        current_key = str(settings.get("后台执行worker会话Key", "")).strip()
+
+    if normalized_status == "prepare":
+        if _后台worker活跃(project_payload):
+            return {
+                "项目名称": project_payload.get("项目名称", ""),
+                "状态": "后台仍在执行",
+                "是否启动后台worker": False,
+                "后台执行中": True,
+                "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+                "后台执行worker运行ID": current_run_id,
+                "后台执行worker会话Key": current_key,
+                "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+            }
+        advance_result = advance_project(
+            project_dir=project_dir,
+            now_at=now_at,
+            config_path=config_path,
+            requester_session_key=requester_session_key,
+            requester_session_root=requester_session_root,
+            cron_jobs_path=cron_jobs_path,
+        )
+        project_payload, _ = _读取项目(project_dir)
+        return _构建后台worker合同(
+            project_dir=project_dir,
+            project_payload=project_payload,
+            trigger=trigger,
+            advance_result=advance_result,
+            cron_jobs_path=cron_jobs_path,
+        )
+
+    if normalized_status == "started":
+        if not provided_run_id:
+            return {
+                "项目名称": project_payload.get("项目名称", ""),
+                "状态": "阻塞",
+                "错误": 后台worker运行ID缺失错误,
+                "说明": _后台worker前台摘要(后台worker运行ID缺失错误),
+                "后台执行中": bool(settings.get("后台执行中")),
+                "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+                "后台执行worker运行ID": current_run_id,
+                "后台执行worker会话Key": current_key,
+                "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+            }
+        if _后台worker活跃(project_payload) and current_run_id and current_run_id != provided_run_id:
+            return {
+                "项目名称": project_payload.get("项目名称", ""),
+                "状态": "阻塞",
+                "错误": 后台worker运行ID不匹配错误,
+                "说明": _后台worker前台摘要(后台worker运行ID不匹配错误),
+                "是否启动后台worker": False,
+                "后台执行中": True,
+                "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+                "后台执行worker运行ID": current_run_id,
+                "后台执行worker会话Key": current_key,
+                "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+            }
+        settings["后台执行中"] = True
+        settings["后台执行worker类型"] = worker_type
+        settings["后台执行worker运行ID"] = provided_run_id
+        settings["后台执行worker会话Key"] = str(worker_session_key or current_key).strip()
+        settings["后台执行最近诊断"] = ""
+        if not str(settings.get("后台执行开始时间", "")).strip():
+            settings["后台执行开始时间"] = now_text
+        settings["后台执行最近心跳时间"] = now_text
+        if summary_text:
+            settings["后台执行最近摘要"] = summary_text
+        _写回项目(project_dir, project_payload, participants_payload)
+
+        advance_result = advance_project(
+            project_dir=project_dir,
+            now_at=now_at,
+            config_path=config_path,
+            requester_session_key=requester_session_key,
+            requester_session_root=requester_session_root,
+            cron_jobs_path=cron_jobs_path,
+        )
+        project_payload, participants_payload = _读取项目(project_dir)
+        return {
+            "项目名称": project_payload.get("项目名称", ""),
+            "状态": "后台执行中",
+            "后台执行中": True,
+            "后台执行worker类型": str(_自动推进设置(project_payload).get("后台执行worker类型", "")).strip(),
+            "后台执行worker运行ID": str(_自动推进设置(project_payload).get("后台执行worker运行ID", "")).strip(),
+            "后台执行worker会话Key": str(_自动推进设置(project_payload).get("后台执行worker会话Key", "")).strip(),
+            "后台执行最近摘要": str(_自动推进设置(project_payload).get("后台执行最近摘要", "")).strip(),
+            "advance结果": advance_result,
+            "当前批次是否与真实状态一致": _当前批次是否与真实状态一致(
+                project_payload, participants_payload.get("受访对象列表", [])
+            ),
+        }
+
+    if normalized_status == "heartbeat":
+        if not provided_run_id:
+            return {
+                "项目名称": project_payload.get("项目名称", ""),
+                "状态": "阻塞",
+                "错误": 后台worker运行ID缺失错误,
+                "说明": _后台worker前台摘要(后台worker运行ID缺失错误),
+                "后台执行中": bool(settings.get("后台执行中")),
+                "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+                "后台执行worker运行ID": current_run_id,
+                "后台执行worker会话Key": current_key,
+                "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+            }
+        if not _后台worker活跃(project_payload) or current_run_id != provided_run_id:
+            return {
+                "项目名称": project_payload.get("项目名称", ""),
+                "状态": "阻塞",
+                "错误": 后台worker运行ID不匹配错误,
+                "说明": _后台worker前台摘要(后台worker运行ID不匹配错误),
+                "后台执行中": bool(settings.get("后台执行中")),
+                "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+                "后台执行worker运行ID": current_run_id,
+                "后台执行worker会话Key": current_key,
+                "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+            }
+        if worker_session_key:
+            settings["后台执行worker会话Key"] = str(worker_session_key).strip()
+        if not str(settings.get("后台执行worker类型", "")).strip():
+            settings["后台执行worker类型"] = worker_type
+        settings["后台执行最近心跳时间"] = now_text
+        if summary_text:
+            settings["后台执行最近摘要"] = summary_text
+        _写回项目(project_dir, project_payload, participants_payload)
+        return {
+            "项目名称": project_payload.get("项目名称", ""),
+            "状态": "后台心跳已更新",
+            "后台执行中": bool(settings.get("后台执行中")),
+            "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+            "后台执行worker运行ID": str(settings.get("后台执行worker运行ID", "")).strip(),
+            "后台执行worker会话Key": str(settings.get("后台执行worker会话Key", "")).strip(),
+            "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+        }
+
+    if normalized_status == "finished":
+        if not provided_run_id:
+            return {
+                "项目名称": project_payload.get("项目名称", ""),
+                "状态": "阻塞",
+                "错误": 后台worker运行ID缺失错误,
+                "说明": _后台worker前台摘要(后台worker运行ID缺失错误),
+                "后台执行中": bool(settings.get("后台执行中")),
+                "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+                "后台执行worker运行ID": current_run_id,
+                "后台执行worker会话Key": current_key,
+                "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+            }
+        if not _后台worker活跃(project_payload) or current_run_id != provided_run_id:
+            return {
+                "项目名称": project_payload.get("项目名称", ""),
+                "状态": "阻塞",
+                "错误": 后台worker运行ID不匹配错误,
+                "说明": _后台worker前台摘要(后台worker运行ID不匹配错误),
+                "后台执行中": bool(settings.get("后台执行中")),
+                "后台执行worker类型": str(settings.get("后台执行worker类型", "")).strip(),
+                "后台执行worker运行ID": current_run_id,
+                "后台执行worker会话Key": current_key,
+                "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+            }
+        if summary_text:
+            settings["后台执行最近摘要"] = summary_text
+        settings["后台执行最近心跳时间"] = now_text
+        settings["后台执行中"] = False
+        settings["后台执行worker类型"] = ""
+        settings["后台执行worker运行ID"] = ""
+        settings["后台执行worker会话Key"] = ""
+        settings["后台执行开始时间"] = ""
+        settings["后台执行最近诊断"] = ""
+        _同步当前批次信息(project_payload, participants)
+        project_payload["下次自动推进时间"] = project_payload.get("巡检设置", {}).get("下次建议巡检时间", "")
+        _写回项目(project_dir, project_payload, participants_payload)
+        return {
+            "项目名称": project_payload.get("项目名称", ""),
+            "状态": "后台执行已结束",
+            "后台执行中": False,
+            "后台执行最近摘要": str(settings.get("后台执行最近摘要", "")).strip(),
+            "当前批次是否与真实状态一致": _当前批次是否与真实状态一致(project_payload, participants),
+            "当前批次状态": project_payload.get("当前批次状态", ""),
+            "当前批次对象列表": project_payload.get("当前批次对象列表", []),
+        }
+
+    raise ValueError(f"不支持的 worker 状态：{normalized_status}")
 
 
 def _更新项目派发状态(project_payload: dict[str, Any], participants: list[dict[str, Any]], mode: str) -> None:
@@ -2329,7 +3374,7 @@ def _扫描补回候选(
     participants: list[dict[str, Any]],
     gateway_log_path: Path,
     session_root: Path,
-) -> list[dict[str, Any]]:
+) -> dict[str, list[dict[str, Any]]]:
     participant_by_openid: dict[str, dict[str, Any]] = {}
     for participant in participants:
         feishu_target = _标准飞书目标(participant.get("飞书标识", ""))
@@ -2347,8 +3392,9 @@ def _扫描补回候选(
                 candidate_openids.add(match.group(1))
 
     recovered: list[dict[str, Any]] = []
+    metadata_only: list[dict[str, Any]] = []
     if not candidate_openids or not session_root.exists():
-        return recovered
+        return {"recovered": recovered, "metadata_only": metadata_only}
 
     for session_file in session_root.rglob("*.jsonl"):
         try:
@@ -2358,12 +3404,25 @@ def _扫描补回候选(
         current_openid = ""
         current_timestamp = ""
         last_assistant_text = ""
+        pending_metadata: dict[str, Any] | None = None
         for raw_line in lines:
             try:
                 entry = json.loads(raw_line)
             except Exception:
                 continue
             if entry.get("customType") == "openclaw.runtime-context":
+                if pending_metadata and pending_metadata.get("open_id") in candidate_openids:
+                    participant = participant_by_openid.get(str(pending_metadata.get("open_id", "")).strip())
+                    if participant:
+                        metadata_only.append(
+                            {
+                                "open_id": pending_metadata["open_id"],
+                                "participant": participant,
+                                "timestamp": pending_metadata.get("timestamp", ""),
+                                "session_file": str(session_file),
+                                "assistant_text": last_assistant_text,
+                            }
+                        )
                 content = str(entry.get("content", ""))
                 match = re.search(r"Feishu\[research\].*\((ou_[a-zA-Z0-9]+)\)", content)
                 if not match:
@@ -2373,6 +3432,10 @@ def _扫描补回候选(
                 ts_match = re.search(r"\[(\d{4}-\d{2}-\d{2} [^\]]+)\]", content)
                 if ts_match:
                     current_timestamp = ts_match.group(1)
+                pending_metadata = {
+                    "open_id": current_openid,
+                    "timestamp": current_timestamp,
+                }
                 continue
             role, message_text, message_timestamp = _提取会话消息(entry)
             if role == "assistant":
@@ -2399,7 +3462,20 @@ def _扫描补回候选(
                         "assistant_text": last_assistant_text,
                     }
                 )
-    return recovered
+                pending_metadata = None
+        if pending_metadata and pending_metadata.get("open_id") in candidate_openids:
+            participant = participant_by_openid.get(str(pending_metadata.get("open_id", "")).strip())
+            if participant:
+                metadata_only.append(
+                    {
+                        "open_id": pending_metadata["open_id"],
+                        "participant": participant,
+                        "timestamp": pending_metadata.get("timestamp", ""),
+                        "session_file": str(session_file),
+                        "assistant_text": last_assistant_text,
+                    }
+                )
+    return {"recovered": recovered, "metadata_only": metadata_only}
 
 
 def _扫描网关回复路由(
@@ -2517,6 +3593,8 @@ def _扫描shared发送记录(
                 "session_file": str(session_file),
                 "executionSessionId": session_file.stem,
                 "executionSessionKey": status_session_key,
+                "helperSessionId": session_file.stem,
+                "helperSessionKey": "",
                 "bindingId": current_binding_id,
                 "bindingStatus": "已绑定",
                 "bindingConfirmedAt": binding_confirmed_at,
@@ -3031,6 +4109,14 @@ def build_participant_outreach_plan(
         requester_session_key=requester_session_key,
         requester_session_root=requester_session_root,
     )
+    has_valid_target = bool(_提取飞书open_id(participant.get("飞书标识", "")))
+    can_create_live_shared_now = bool(
+        research_account_ready
+        and project_payload.get("项目截止时间")
+        and has_valid_target
+        and not _是否达到收口条件(participant, question_limit=question_limit)
+        and strict_shared_check.get("是否通过")
+    )
 
     base_plan = {
         "项目名称": project_payload.get("项目名称", ""),
@@ -3038,9 +4124,12 @@ def build_participant_outreach_plan(
         "发送账号标识": execution_settings.get("发送账号标识", "research"),
         "禁止工具": ["feishu_im_user_message"],
         "已达到收口条件": _是否达到收口条件(participant, question_limit=question_limit),
+        "执行通道真值类型": participant.get("执行通道真值类型", "direct-shared"),
         "执行会话代理": participant.get("执行会话代理", "research-shared"),
         "执行会话ID": participant.get("执行会话ID", ""),
         "执行会话Key": participant.get("执行会话Key", ""),
+        "辅助执行会话ID": participant.get("辅助执行会话ID", ""),
+        "辅助执行会话Key": participant.get("辅助执行会话Key", ""),
         "会话绑定状态": participant.get("会话绑定状态", "未绑定"),
         "会话绑定ID": participant.get("会话绑定ID", ""),
         "最近一次绑定确认时间": participant.get("最近一次绑定确认时间", ""),
@@ -3049,6 +4138,9 @@ def build_participant_outreach_plan(
         "最近一次发送确认状态": participant.get("最近一次发送确认状态", ""),
         "严格shared配置检查": strict_shared_check,
         "诊断状态": strict_shared_check.get("诊断状态", "通过"),
+        "禁止预建待命会话": True,
+        "是否允许立即创建live shared": can_create_live_shared_now,
+        "是否允许立即首发": False,
     }
 
     if not research_account_ready:
@@ -3083,23 +4175,17 @@ def build_participant_outreach_plan(
         return {
             **base_plan,
             "允许发送": True,
+            "是否允许立即首发": True,
             "建议动作": "直接收口",
             "收口说明": participant.get("收口原因") or "已拿到足够信号，不要继续追问。",
             "收口消息": "谢谢，信息已经足够了。我先整理这轮结论，后面如有必要再补充联系你。",
-        }
-    if not _会话已真实创建(participant):
-        return {
-            **base_plan,
-            "允许发送": False,
-            "建议动作": "先真实创建专属会话",
-            "阻止原因": "当前只有执行会话Key 文本或绑定意图，缺少真实执行会话实体。必须先用 sessions_spawn 创建专属 research-shared 会话，再继续绑定和外发。",
         }
     if not participant.get("执行会话Key") or not _绑定已核验(participant):
         return {
             **base_plan,
             "允许发送": False,
-            "建议动作": "先创建并核验专属会话绑定",
-            "阻止原因": "当前受访对象还没有完成专属 research-shared 会话绑定核验，禁止直接外发。",
+            "建议动作": "先创建并核验 fixed direct shared 绑定",
+            "阻止原因": "当前受访对象还没有完成固定 direct shared 通道绑定核验，禁止直接外发。",
         }
     if not strict_shared_check.get("是否通过"):
         return {
@@ -3130,6 +4216,7 @@ def build_participant_outreach_plan(
     return {
         **base_plan,
         "允许发送": True,
+        "是否允许立即首发": True,
         "建议动作": "发起首次邀约" if participant.get("当前状态") == "待联系" else "继续轻量跟进",
         "运行模式": project_payload.get("运行模式", "真实调研"),
         "说明消息": intro,
@@ -3198,7 +4285,7 @@ def build_dispatch_plan(
     project_payload, participants_payload = _读取项目(project_dir)
     participants = participants_payload.get("受访对象列表", [])
     candidates = _派发候选对象(participants)
-    blocked = _派发阻塞对象(candidates)
+    blocked = _派发阻塞对象(candidates, session_root=默认shared会话目录)
     strict_shared_check = _检查严格shared投递配置(
         config_path=config_path,
         requester_session_key=requester_session_key,
@@ -3219,7 +4306,10 @@ def build_dispatch_plan(
         and item.get("执行会话Key")
         and item.get("执行会话ID")
         and strict_shared_check.get("是否通过")
+        and not _是否非法预建shared(item, protocol_check=_检查shared协议状态(item))
     ]
+    allow_create_live_shared_now = bool(candidates) and bool(strict_shared_check.get("是否通过")) and not blocked
+    allow_first_touch_now = bool(dispatchable) and not blocked
 
     if batch_size is None:
         _更新项目派发状态(project_payload, participants, "一次性全发")
@@ -3236,11 +4326,16 @@ def build_dispatch_plan(
             "运行模式": project_payload.get("运行模式", "真实调研"),
             "派发模式": "一次性全发",
             "首轮发送人数": len(dispatchable),
+            "禁止预建待命会话": True,
+            "是否允许立即创建live shared": allow_create_live_shared_now,
+            "是否允许立即首发": allow_first_touch_now,
             "首轮对象列表": [
                 {
                     "姓名": item.get("姓名", ""),
                     "飞书标识": item.get("飞书标识", ""),
                     "执行会话Key": item.get("执行会话Key", ""),
+                    "是否允许立即创建live shared": True,
+                    "是否允许立即首发": True,
                 }
                 for item in dispatchable
             ],
@@ -3282,6 +4377,9 @@ def build_dispatch_plan(
         "项目名称": project_payload.get("项目名称", ""),
         "运行模式": project_payload.get("运行模式", "真实调研"),
         "派发模式": "分批限流",
+        "禁止预建待命会话": True,
+        "是否允许立即创建live shared": allow_create_live_shared_now,
+        "是否允许立即首发": allow_first_touch_now,
         "批次数": len(batches),
         "每批人数": batch_size,
         "批间隔分钟": batch_interval_minutes,
@@ -3298,6 +4396,7 @@ def advance_project(
     config_path: Path = 默认配置文件路径,
     requester_session_key: str | None = None,
     requester_session_root: Path = 默认research会话目录,
+    cron_jobs_path: Path | None = None,
 ) -> dict[str, Any]:
     project_payload, participants_payload = _读取项目(project_dir)
     now = _解析时间(now_at) if now_at else _现在()
@@ -3310,9 +4409,12 @@ def advance_project(
     if not project_payload.get("项目截止时间"):
         return {"允许推进": False, "执行状态": "缺少截止时间", "阻塞人数": 0, "阻塞对象": []}
 
+    participants = participants_payload.get("受访对象列表", [])
+    rewound_waiting = _回退发送确认不足对象(participants)
+
     auto_unbound: list[str] = []
     pending_writeback: list[str] = []
-    for participant in participants_payload.get("受访对象列表", []):
+    for participant in participants:
         if not _需要自动解绑已完成对象(participant):
             continue
         result = _自动解绑已完成对象(
@@ -3324,48 +4426,129 @@ def advance_project(
             auto_unbound.append(str(participant.get("姓名", "")).strip())
         else:
             pending_writeback.append(str(participant.get("姓名", "")).strip())
-    if auto_unbound or pending_writeback:
+    if rewound_waiting or auto_unbound or pending_writeback:
         _写回项目(project_dir, project_payload, participants_payload)
-        return {
-            "允许推进": True,
-            "执行状态": "已补偿完成对象收尾",
-            "自动解绑对象": auto_unbound,
-            "待补偿回写对象": pending_writeback,
-        }
 
-    participants = participants_payload.get("受访对象列表", [])
-    candidates = _派发候选对象(participants)
-    blocked = _派发阻塞对象(candidates)
-    if blocked:
-        return {
-            "允许推进": False,
-            "执行状态": "已阻止",
-            "阻塞人数": len(blocked),
-            "阻塞对象": blocked,
-            "建议动作": "先补齐会话、绑定或飞书标识，再统一首发",
-        }
-
-    first_wave = build_dispatch_plan(
-        project_dir=project_dir,
+    strict_shared_check = _检查严格shared投递配置(
         config_path=config_path,
         requester_session_key=requester_session_key,
         requester_session_root=requester_session_root,
     )
-    if first_wave.get("首轮发送人数", 0) > 0:
-        return {
-            "允许推进": True,
-            "执行状态": "待执行首轮外发",
-            "首轮发送人数": first_wave.get("首轮发送人数", 0),
-            "首轮对象列表": first_wave.get("首轮对象列表", []),
-            "派发模式": first_wave.get("派发模式", "一次性全发"),
+
+    batch_size = int(project_payload.get("派发策略", {}).get("每批人数", 10) or 10)
+    batch_interval = int(project_payload.get("派发策略", {}).get("批间隔分钟", 10) or 10)
+    dispatch_plan = build_dispatch_plan(
+        project_dir=project_dir,
+        batch_size=batch_size,
+        batch_interval_minutes=batch_interval,
+        config_path=config_path,
+        requester_session_key=requester_session_key,
+        requester_session_root=requester_session_root,
+    )
+    _同步当前批次信息(project_payload, participants, dispatch_plan=dispatch_plan)
+
+    auto_register_result = {
+        "已创建": False,
+        "推进任务ID": str(project_payload.get("巡检设置", {}).get("推进任务ID", "")).strip(),
+        "汇报任务ID": str(project_payload.get("巡检设置", {}).get("汇报任务ID", "")).strip(),
+    }
+    if (
+        cron_jobs_path is not None
+        and not bool(project_payload.get("巡检设置", {}).get("是否已注册"))
+        and _需要自动注册推进任务(project_payload, participants)
+    ):
+        register_result = register_project_check_job(
+            project_dir=project_dir,
+            cron_jobs_path=cron_jobs_path,
+            interval_minutes=int(
+                project_payload.get("自动推进设置", {}).get("推进间隔分钟", 默认自动推进间隔分钟)
+                or 默认自动推进间隔分钟
+            ),
+            report_mode=str(project_payload.get("自动推进设置", {}).get("汇报模式", "every-round")).strip() or "every-round",
+            auto_created=True,
+        )
+        project_payload, participants_payload = _读取项目(project_dir)
+        participants = participants_payload.get("受访对象列表", [])
+        auto_register_result = {
+            "已创建": True,
+            "推进任务ID": register_result["推进任务"]["任务ID"],
+            "汇报任务ID": register_result["汇报任务"]["任务ID"],
         }
 
-    actions = evaluate_project_actions(project_dir=project_dir, now_at=now.isoformat())
+    blocked = list(dispatch_plan.get("阻塞对象", []))
+    if dispatch_plan.get("首轮对象列表"):
+        current_batch_names = [str(item.get("姓名", "")).strip() for item in dispatch_plan.get("首轮对象列表", [])]
+    else:
+        first_batch = (dispatch_plan.get("批次列表") or [{}])[0]
+        current_batch_names = [str(item.get("姓名", "")).strip() for item in first_batch.get("成员", [])]
+    _同步当前批次信息(project_payload, participants, dispatch_plan=dispatch_plan)
+
+    followup_actions: list[dict[str, str]] = []
+    for action in evaluate_project_actions(project_dir=project_dir, now_at=now.isoformat()).get("受访对象动作", []):
+        action_name = str(action.get("建议动作", "")).strip()
+        if action_name in {"第一次跟进", "第二次跟进", "最终截止提醒", "到期封口", "刷新分析", "执行自动解绑", "补偿回写后解绑"}:
+            followup_actions.append(action)
+
+    execution_contract = [_构建首轮执行合同(project_dir=project_dir, participant=participant) for participant in participants if str(participant.get("姓名", "")).strip() in current_batch_names]
+    execution_contract.extend(_构建跟进行动合同(project_dir=project_dir, action=action) for action in followup_actions)
+
+    execution_status = "待执行当前批次"
+    if blocked and not execution_contract:
+        execution_status = "已阻止"
+    elif not execution_contract and not followup_actions:
+        execution_status = "无待推进动作"
+    elif pending_writeback or auto_unbound:
+        execution_status = "已补偿完成对象收尾"
+
+    summary = _构建推进摘要(
+        status=execution_status,
+        now=now,
+        current_batch=current_batch_names,
+        blocked=blocked,
+        rewound=rewound_waiting,
+        auto_unbound=auto_unbound,
+        followups=followup_actions,
+    )
+    project_payload["上次推进结果摘要"] = summary
+    project_payload["自动推进设置"]["是否自动注册"] = bool(project_payload.get("巡检设置", {}).get("是否已注册"))
+    project_payload["下次自动推进时间"] = project_payload.get("巡检设置", {}).get("下次建议巡检时间", "")
+    _写回项目(project_dir, project_payload, participants_payload)
+
+    if blocked and not execution_contract:
+        return {
+            "允许推进": False,
+            "执行状态": execution_status,
+            "阻塞人数": len(blocked),
+            "阻塞对象": blocked,
+            "发送确认回退人数": len(rewound_waiting),
+            "自动解绑对象": auto_unbound,
+            "待补偿回写对象": pending_writeback,
+            "自动注册结果": auto_register_result,
+            "当前批次状态": project_payload.get("当前批次状态", ""),
+            "当前批次对象列表": project_payload.get("当前批次对象列表", []),
+            "本轮汇报摘要": summary,
+        }
+
     return {
         "允许推进": True,
-        "执行状态": "按巡检建议推进",
-        "项目动作": actions.get("项目动作", []),
-        "受访对象动作": actions.get("受访对象动作", []),
+        "执行状态": execution_status,
+        "发送确认回退人数": len(rewound_waiting),
+        "发送确认回退对象": rewound_waiting,
+        "自动解绑对象": auto_unbound,
+        "待补偿回写对象": pending_writeback,
+        "当前批次序号": project_payload.get("当前批次序号", 0),
+        "当前批次状态": project_payload.get("当前批次状态", ""),
+        "当前批次对象列表": project_payload.get("当前批次对象列表", []),
+        "执行合同": execution_contract,
+        "跟进行动": followup_actions,
+        "严格shared检查": strict_shared_check,
+        "自动注册结果": auto_register_result,
+        "本轮汇报摘要": summary,
+        "本轮新创建会话人数": 0,
+        "本轮新绑定人数": 0,
+        "本轮真实发出人数": 0,
+        "本轮完成跟进人数": len(followup_actions),
+        "本轮阻塞对象": blocked,
     }
 
 
@@ -3551,6 +4734,10 @@ def mark_delivery_complete(
     project_payload["巡检设置"]["汇报任务ID"] = ""
     project_payload["巡检设置"]["是否已注册"] = False
     project_payload["巡检设置"]["下次建议巡检时间"] = ""
+    project_payload["自动推进设置"]["是否自动注册"] = False
+    project_payload["下次自动推进时间"] = ""
+    project_payload["当前批次状态"] = "已交付冻结"
+    project_payload["当前批次对象列表"] = []
     _写回项目(project_dir, project_payload, participants_payload)
     return {
         "项目名称": project_payload.get("项目名称", ""),
@@ -3563,17 +4750,37 @@ def mark_delivery_complete(
     }
 
 
-def evaluate_project_actions(project_dir: Path, now_at: str | None = None) -> dict[str, Any]:
+def evaluate_project_actions(
+    project_dir: Path,
+    now_at: str | None = None,
+    cron_jobs_path: Path | None = None,
+) -> dict[str, Any]:
     project_payload, participants_payload = _读取项目(project_dir)
+    if _规范后台worker展示状态(project_payload):
+        _写回项目(project_dir, project_payload, participants_payload)
+        project_payload, participants_payload = _读取项目(project_dir)
+    stale_info = _后台worker过期信息(project_payload, now_at=now_at)
+    if stale_info:
+        _清理失活后台worker(
+            project_dir,
+            project_payload,
+            participants_payload,
+            code=str(stale_info.get("code", "")).strip(),
+            detail=str(stale_info.get("detail", "")).strip(),
+            now_at=now_at,
+        )
+        project_payload, participants_payload = _读取项目(project_dir)
     now = _解析时间(now_at) if now_at else _现在()
     if now is None:
         now = _现在()
     deadline = _解析时间(project_payload.get("项目截止时间", ""))
     frozen = _是否项目已冻结(project_payload)
     strategy = project_payload.get("跟进策略", {})
+    auto_settings = _自动推进设置(project_payload)
     first_hours = int(strategy.get("首次跟进间隔小时", 6))
     second_hours = int(strategy.get("第二次跟进间隔小时", 12))
     final_hours = int(strategy.get("最终截止提醒提前小时", 6))
+    cron_diag = _诊断项目cron配置(project_payload, cron_jobs_path=cron_jobs_path)
 
     project_actions: list[dict[str, str]] = []
     participant_actions: list[dict[str, str]] = []
@@ -3584,15 +4791,26 @@ def evaluate_project_actions(project_dir: Path, now_at: str | None = None) -> di
         project_actions.append({"建议动作": "确认建议名单", "原因": "当前是范围建议模式，需先确认受访对象名单"})
     if deadline and now >= deadline and not frozen:
         project_actions.append({"建议动作": "进入截止收口", "原因": "已达到项目截止时间"})
+    if cron_diag.get("状态") == "异常":
+        project_actions.append(
+            {
+                "建议动作": "修复 cron 运行归属与 prompt",
+                "原因": "；".join([str(item).strip() for item in cron_diag.get("问题", []) if str(item).strip()]),
+            }
+        )
 
     for participant in participants_payload.get("受访对象列表", []):
         action = "继续等待"
         reason = "当前无需动作"
         status = participant.get("当前状态", "待联系")
         protocol_check = _检查shared协议状态(participant)
+        channel_diag = _执行通道诊断(project_payload, participant)
 
-        has_live_shared_session = _会话已真实创建(participant) or bool(str(participant.get("会话绑定ID", "")).strip())
-        if (
+        has_live_shared_session = _辅助执行会话已真实创建(participant) or bool(str(participant.get("会话绑定ID", "")).strip())
+        if _是否需要回退半成品shared(participant, protocol_check=protocol_check):
+            action = "回退清理后再按正式批次重建"
+            reason = f"{非法预建shared文案} {str(protocol_check.get('原因', '')).strip()}".strip()
+        elif (
             has_live_shared_session
             and status in {"待回复", "访谈中"}
             and str(protocol_check.get("状态", "")) == "协议不完整"
@@ -3620,6 +4838,9 @@ def evaluate_project_actions(project_dir: Path, now_at: str | None = None) -> di
         elif status == "超时后补回":
             action = "刷新分析"
             reason = "截止后补回已到达，需刷新阶段分析与交付草案"
+        elif status == "待核验发送":
+            action = "核验发送结果"
+            reason = "已有 messageId + chatId，但发送确认状态仍低于已确认回执"
         elif deadline and status in 待回复状态:
             remaining_hours = (deadline - now).total_seconds() / 3600
             if remaining_hours <= final_hours and not participant.get("截止提醒已发送", False):
@@ -3644,18 +4865,89 @@ def evaluate_project_actions(project_dir: Path, now_at: str | None = None) -> di
                 "建议动作": action,
                 "原因": reason,
                 "shared协议状态": str(protocol_check.get("状态", "")),
+                "执行通道真值类型": channel_diag["执行通道真值类型"],
+                "canonical执行会话Key": channel_diag["canonical执行会话Key"],
+                "helper会话状态": channel_diag["helper会话状态"],
+                "执行通道是否漂移": channel_diag["执行通道是否漂移"],
+                "绑定诊断": channel_diag["绑定诊断"],
+                "绑定是否因重启后重新核验通过": channel_diag["绑定是否因重启后重新核验通过"],
             }
         )
 
     project_payload["巡检设置"]["上次巡检时间"] = now.isoformat()
-    project_payload["巡检设置"]["下次建议巡检时间"] = (now + timedelta(minutes=int(project_payload["巡检设置"].get("巡检间隔分钟", 30)))).isoformat()
+    project_payload["巡检设置"]["下次建议巡检时间"] = (
+        now
+        + timedelta(
+            minutes=int(
+                project_payload["巡检设置"].get("巡检间隔分钟", 默认自动推进间隔分钟)
+                or 默认自动推进间隔分钟
+            )
+        )
+    ).isoformat()
     _写回项目(project_dir, project_payload, participants_payload)
 
     return {
         "项目名称": project_payload.get("项目名称", ""),
         "当前阶段": project_payload.get("当前阶段", ""),
+        "是否建议自动注册": _需要自动注册推进任务(project_payload, participants_payload.get("受访对象列表", []))
+        and not bool(project_payload.get("巡检设置", {}).get("是否已注册")),
+        "cron诊断": cron_diag,
+        "后台执行中": bool(auto_settings.get("后台执行中")),
+        "后台执行worker类型": str(auto_settings.get("后台执行worker类型", "")).strip(),
+        "后台执行worker运行ID": str(auto_settings.get("后台执行worker运行ID", "")).strip(),
+        "后台执行worker会话Key": str(auto_settings.get("后台执行worker会话Key", "")).strip(),
+        "后台执行最近摘要": str(auto_settings.get("后台执行最近摘要", "")).strip(),
+        "后台执行最近诊断": str(auto_settings.get("后台执行最近诊断", "")).strip(),
+        "后台执行状态是否完整": _后台worker状态是否完整(auto_settings),
+        "当前批次状态": project_payload.get("当前批次状态", ""),
+        "当前批次对象列表": project_payload.get("当前批次对象列表", []),
+        "当前批次是否与真实状态一致": _当前批次是否与真实状态一致(
+            project_payload, participants_payload.get("受访对象列表", [])
+        ),
+        "是否存在发送确认不足": any(
+            str(item.get("当前状态", "")).strip() in {"待回复", "待核验发送"} and not _发送确认达到待回复门槛(item)
+            for item in participants_payload.get("受访对象列表", [])
+        ),
+        "上次推进结果摘要": project_payload.get("上次推进结果摘要", {}),
         "项目动作": project_actions,
         "受访对象动作": participant_actions,
+        "执行通道概览": [
+            {
+                "姓名": participant.get("姓名", ""),
+                **_执行通道诊断(project_payload, participant),
+            }
+            for participant in participants_payload.get("受访对象列表", [])
+        ],
+    }
+
+
+def cleanup_prebuilt_shared_sessions(
+    project_dir: Path,
+    session_root: Path = 默认shared会话目录,
+    participant_names: list[str] | None = None,
+) -> dict[str, Any]:
+    project_payload, participants_payload = _读取项目(project_dir)
+    requested_names = {str(name).strip() for name in (participant_names or []) if str(name).strip()}
+    cleaned: list[str] = []
+    for participant in participants_payload.get("受访对象列表", []):
+        participant_name = str(participant.get("姓名", "")).strip()
+        if requested_names and participant_name not in requested_names:
+            continue
+        protocol_check = _检查shared协议状态(participant, session_root=session_root)
+        if not _是否需要回退半成品shared(participant, protocol_check=protocol_check):
+            continue
+        reason = f"误触发待命 shared，会话已作废；{str(protocol_check.get('原因', '')).strip()}".strip("；")
+        _回退误触发待命shared(participant, reason=reason)
+        cleaned.append(participant_name)
+
+    if cleaned:
+        _写回项目(project_dir, project_payload, participants_payload)
+
+    return {
+        "项目名称": project_payload.get("项目名称", ""),
+        "清理人数": len(cleaned),
+        "清理对象": cleaned,
+        "扫描shared会话目录": str(session_root),
     }
 
 
@@ -3716,6 +5008,8 @@ def stop_project_and_cleanup(
         participant["最近一次绑定目标会话Key"] = ""
         participant["最近一次绑定检查结果"] = "已解绑"
         participant["执行会话ID"] = ""
+        participant["辅助执行会话ID"] = ""
+        participant["辅助执行会话Key"] = ""
         participant["执行会话Key"] = ""
         participant["最近发出时间"] = ""
         participant["最近一次发送消息ID"] = ""
@@ -3774,6 +5068,10 @@ def stop_project_and_cleanup(
     project_payload["巡检设置"]["汇报任务ID"] = ""
     project_payload["巡检设置"]["是否已注册"] = False
     project_payload["巡检设置"]["下次建议巡检时间"] = ""
+    project_payload["自动推进设置"]["是否自动注册"] = False
+    project_payload["下次自动推进时间"] = ""
+    project_payload["当前批次状态"] = "已停止"
+    project_payload["当前批次对象列表"] = []
 
     report = (
         f"# {project_payload['项目名称']} 最终调研报告\n\n"
@@ -3833,6 +5131,8 @@ def close_project(project_dir: Path, now_at: str | None = None) -> dict[str, Any
         participant["最近一次绑定目标会话Key"] = ""
         participant["最近一次绑定检查结果"] = "已解绑"
         participant["执行会话ID"] = ""
+        participant["辅助执行会话ID"] = ""
+        participant["辅助执行会话Key"] = ""
         participant["执行会话Key"] = ""
         participant["最近发出时间"] = ""
         participant["最近一次发送消息ID"] = ""
@@ -3849,6 +5149,10 @@ def close_project(project_dir: Path, now_at: str | None = None) -> dict[str, Any
     project_payload["当前阶段"] = "已关闭"
     if project_payload.get("项目状态") != "已停止":
         project_payload["项目状态"] = "已关闭"
+    project_payload["自动推进设置"]["是否自动注册"] = False
+    project_payload["下次自动推进时间"] = ""
+    project_payload["当前批次状态"] = "已关闭"
+    project_payload["当前批次对象列表"] = []
     _写回项目(project_dir, project_payload, participants_payload)
     return {
         "项目状态": project_payload["项目状态"],
@@ -3866,11 +5170,20 @@ def recover_project_replies(
     project_payload, participants_payload = _读取项目(project_dir)
     participants = participants_payload.get("受访对象列表", [])
     shared_send_records = _扫描shared发送记录(participants, session_root=session_root)
-    recovered_items = _扫描补回候选(participants, gateway_log_path=gateway_log_path, session_root=session_root)
+    recover_scan = _扫描补回候选(participants, gateway_log_path=gateway_log_path, session_root=session_root)
+    recovered_items = recover_scan["recovered"]
+    metadata_only_items = recover_scan["metadata_only"]
     route_map = _扫描网关回复路由(participants, gateway_log_path=gateway_log_path)
     recovered_by_name: dict[str, list[dict[str, Any]]] = {}
     for item in recovered_items:
         recovered_by_name.setdefault(str(item["participant"].get("姓名", "")).strip(), []).append(item)
+    metadata_only_names = sorted(
+        {
+            str(item.get("participant", {}).get("姓名", "")).strip()
+            for item in metadata_only_items
+            if str(item.get("participant", {}).get("姓名", "")).strip()
+        }
+    )
 
     shared_send_compensated = 0
     for participant in participants_payload.get("受访对象列表", []):
@@ -3879,17 +5192,23 @@ def recover_project_replies(
         record = shared_send_records.get(open_id)
         if not record:
             continue
+        route_info = route_map.get(open_id or "", {})
+        canonical_session_key = _固定direct_shared执行会话key(participant) or participant.get("执行会话Key", "")
+        routed_session_key = str(route_info.get("boundSessionKey", "")).strip()
+        target_session_key = routed_session_key or canonical_session_key or record.get("bindingTargetSessionKey", "") or record["executionSessionKey"]
         update_participant(
             project_dir=project_dir,
             participant_name=participant.get("姓名", ""),
             last_outbound_at=record["timestamp"],
             execution_session_id=record["executionSessionId"],
-            execution_session_key=record["executionSessionKey"] or participant.get("执行会话Key", ""),
+            execution_session_key=target_session_key,
+            helper_execution_session_id=record.get("helperSessionId", "") or record["executionSessionId"],
+            helper_execution_session_key=participant.get("辅助执行会话Key", "") or record.get("helperSessionKey", ""),
             conversation_binding_id=record["bindingId"] or participant.get("会话绑定ID", ""),
             conversation_binding_status=record["bindingStatus"] or participant.get("会话绑定状态", ""),
             binding_confirmed_at=record.get("bindingConfirmedAt", "") or participant.get("最近一次绑定确认时间", ""),
             binding_confirmation_evidence=record.get("bindingEvidence", "") or participant.get("最近一次绑定确认依据", ""),
-            binding_target_session_key=record.get("bindingTargetSessionKey", "") or participant.get("最近一次绑定目标会话Key", ""),
+            binding_target_session_key=target_session_key,
             binding_check_result=record.get("bindingCheckResult", "") or participant.get("最近一次绑定检查结果", ""),
             last_message_id=record["messageId"],
             last_chat_id=record["chatId"],
@@ -4045,6 +5364,7 @@ def recover_project_replies(
             update_participant(
                 project_dir=project_dir,
                 participant_name=participant.get("姓名", ""),
+                status="待回复" if confirmation_status in 待回复发送确认门槛 else "待核验发送",
                 last_chat_id=participant.get("最近一次发送chatID") or record["chatId"],
                 send_confirmation_status=confirmation_status,
                 send_confirmation_time=now_text,
@@ -4082,6 +5402,9 @@ def recover_project_replies(
         if name in shared_recovered:
             route_verdicts.append({"姓名": name, "结果": "shared 已真实回收"})
             continue
+        if name in metadata_only_names:
+            route_verdicts.append({"姓名": name, "结果": 回复仅元数据结果})
+            continue
         if route_info.get("main"):
             main_dialog_replies.append(name)
             route_verdicts.append({"姓名": name, "结果": "回复仍在主对话 / 未命中 shared"})
@@ -4096,6 +5419,7 @@ def recover_project_replies(
         "发送核验补偿人数": send_compensated,
         "清理缺证据对象": cleaned_missing_records,
         "shared已真实回收": shared_recovered,
+        "仅元数据通知": metadata_only_names,
         "回复仍在主对话": sorted(name for name in main_dialog_replies if name),
         "首次回复路由核验": route_verdicts,
         "扫描会话目录": str(session_root),
@@ -4241,7 +5565,9 @@ def prepare_feishu_delivery(project_dir: Path) -> dict[str, Any]:
 def register_project_check_job(
     project_dir: Path,
     cron_jobs_path: Path,
-    interval_minutes: int = 10,
+    interval_minutes: int = 默认自动推进间隔分钟,
+    report_mode: str = "every-round",
+    auto_created: bool = False,
     agent_id: str = "research",
 ) -> dict[str, Any]:
     if cron_jobs_path.exists():
@@ -4251,8 +5577,12 @@ def register_project_check_job(
 
     project_payload, participants_payload = _读取项目(project_dir)
     jobs = cron_payload.setdefault("jobs", [])
+    manage_script = _管理脚本路径()
+    normalized_interval_expr = _规范cron表达式(interval_minutes)
+    normalized_report_mode = str(report_mode or "every-round").strip() or "every-round"
 
     def upsert_job(name: str, expr: str, message: str) -> dict[str, Any]:
+        now_ms = int(_现在().timestamp() * 1000)
         existing = None
         for job in jobs:
             if job.get("name") == name:
@@ -4261,9 +5591,11 @@ def register_project_check_job(
         if existing is None:
             job = {
                 "id": str(uuid4()),
+                "agentId": agent_id,
                 "name": name,
                 "enabled": True,
-                "createdAtMs": int(_现在().timestamp() * 1000),
+                "createdAtMs": now_ms,
+                "updatedAtMs": now_ms,
                 "schedule": {
                     "kind": "cron",
                     "expr": expr,
@@ -4278,33 +5610,51 @@ def register_project_check_job(
                     "lightContext": True,
                 },
                 "delivery": {"mode": "none"},
-                "state": {},
+                "state": {
+                    "projectDir": str(project_dir),
+                    "reportMode": normalized_report_mode,
+                    "autoCreated": auto_created,
+                },
             }
             jobs.append(job)
             return job
+        existing["agentId"] = agent_id
         existing["payload"]["message"] = message
         existing["schedule"]["expr"] = expr
+        existing["updatedAtMs"] = now_ms
+        existing.setdefault("state", {})
+        existing["state"]["projectDir"] = str(project_dir)
+        existing["state"]["reportMode"] = normalized_report_mode
+        existing["state"]["autoCreated"] = auto_created
         return existing
 
     advance_prompt = (
-        "你是 research 调研推进。"
-        f"请先读取 {project_dir / '项目总表.yaml'} 与 {project_dir / '受访对象清单.yaml'}，"
-        "先执行项目推进：如需首轮外发、第一次跟进、第二次跟进、最终截止提醒、到期封口或补回后刷新分析，优先推进。"
+        "你是 research 调研推进后台 worker。"
+        f"先运行：python3 {manage_script} run-batch-worker --project-dir '{project_dir}' --trigger cron --status prepare --cron-jobs-path '{cron_jobs_path}'。"
+        "如果返回“后台仍在执行”，本轮静默结束。"
+        "如果返回“是否启动后台worker=true”，只能继续执行 prepare 结果里的 `启动命令`、`心跳命令`、`完成命令`；禁止自己补 worker 标识。"
+        "然后只按 advance结果.执行合同 和 advance结果.跟进行动 执行整轮推进。"
+        "本轮结束后运行 prepare 结果里的 `完成命令`。"
+        "每次 exec 只允许一条命令，先看结果再执行下一条。"
+        "禁止使用 &&、;、|、printf 或 here-doc 拼接多条命令。"
+        "禁止临场手写 sessions_send / bind / status / writeback 参数，禁止把 NO_REPLY、待命 completion 或内部补偿文案发给用户。"
     )
     inspect_prompt = (
         "你是 research 调研汇报。"
-        f"请先读取 {project_dir / '项目总表.yaml'} 与 {project_dir / '受访对象清单.yaml'}，"
-        "只输出当前进展、阻塞项、样本覆盖和下一步建议，不执行发送。"
+        f"先运行：python3 {manage_script} inspect --project-dir '{project_dir}'。"
+        f"汇报模式={normalized_report_mode}。"
+        "只在本轮有进展、阻塞变化或里程碑变化时给发起人发送短汇报；否则静默。"
+        "不要执行首轮外发，不要拼任何 sessions_send 参数。"
     )
 
     advance_job = upsert_job(
         name=f"内部访谈调研推进-{project_payload['项目名称']}",
-        expr=f"*/{interval_minutes} * * * *",
+        expr=normalized_interval_expr,
         message=advance_prompt,
     )
     inspect_job = upsert_job(
         name=f"内部访谈调研汇报-{project_payload['项目名称']}",
-        expr="0 */3 * * *",
+        expr=normalized_interval_expr,
         message=inspect_prompt,
     )
 
@@ -4316,6 +5666,13 @@ def register_project_check_job(
     project_payload["巡检设置"]["汇报任务ID"] = inspect_job["id"]
     project_payload["巡检设置"]["是否已注册"] = True
     project_payload["巡检设置"]["下次建议巡检时间"] = (_现在() + timedelta(minutes=interval_minutes)).isoformat()
+    project_payload["自动推进设置"]["是否自动注册"] = True
+    project_payload["自动推进设置"]["推进间隔分钟"] = interval_minutes
+    project_payload["自动推进设置"]["汇报模式"] = normalized_report_mode
+    project_payload["自动推进设置"]["自动创建"] = bool(auto_created)
+    project_payload["当前批次状态"] = project_payload.get("当前批次状态", "") or "待推进"
+    project_payload["上次推进结果摘要"]["执行状态"] = project_payload["上次推进结果摘要"].get("执行状态") or "待推进"
+    project_payload["下次自动推进时间"] = project_payload["巡检设置"]["下次建议巡检时间"]
     _写回项目(project_dir, project_payload, participants_payload)
     return {
         "推进任务": {
@@ -4328,4 +5685,6 @@ def register_project_check_job(
             "任务名称": inspect_job["name"],
             "cron表达式": inspect_job["schedule"]["expr"],
         },
+        "汇报模式": normalized_report_mode,
+        "自动创建": bool(auto_created),
     }

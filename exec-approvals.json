@@ -12,7 +12,7 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1779587409226,
+          "lastUsedAt": 1779694222305,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -49,24 +49,24 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1779579035254,
-          "lastUsedCommand": "ls /Users/a123/.openclaw/workspace/outputs/feishu_daily/ | sort | tail -5",
+          "lastUsedAt": 1779622258792,
+          "lastUsedCommand": "ls '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/'",
           "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "main-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1779496337446,
-          "lastUsedCommand": "cat /tmp/daily_report_20260522.txt",
+          "lastUsedAt": 1779622263899,
+          "lastUsedCommand": "cat '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/项目总表.yaml'",
           "lastResolvedPath": "/bin/cat"
         },
         {
           "id": "main-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1779462634035,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace/.openclaw-inbound-media && ls -la *2eca6d68*",
+          "lastUsedAt": 1779613507391,
+          "lastUsedCommand": "cd \"/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启\" && python3 ~/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py participant --project-dir . --name 林惠惠 --followup-count 1 --status 待回复 && python3 ~/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py participant --project-dir . --name 林佳 --followup-count 1 --status 待回复 && python3 ~/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py participant --project-dir . --name 杜海雪 --followup-count 1 --status 待回复 && python3 ~/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py participant --project-dir . --name 周荷花 --followup-count 1 --status 待回复 && python3 ~/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py participant --project-dir . --name 蔡雅琪 --followup-count 1 --status 待回复 && python3 ~/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py participant --project-dir . --name 林清 --followup-count 1 --status 待回复 && python3 ~/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py participant --project-dir . --name 林翀 --followup-count 1 --status 待回复",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -113,8 +113,8 @@
           "id": "design-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1778564522363,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace-design/generate_yuqishu_v2.sh",
+          "lastUsedAt": 1779645015474,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260525-001/run.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -271,8 +271,8 @@
           "id": "shared-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1779547016969,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/_temp_chundong_ppt_data.py",
+          "lastUsedAt": 1779692687220,
+          "lastUsedCommand": "python3 - <<'PY'\nimport math\nS=10.37\n# solve ((Z-S)/1.07 - .16Z)/Z = .06 -> (Z-S)/1.07 = .22Z -> Z-S = .2354Z -> .7646Z=S\nZ=S/(1-1.07*0.22)\nprint(Z, math.ceil(Z*10)/10)\n# exact from values\nM=14100;F=500;G=35;H=F/G;I=8;R=0.25\nN=M/1000/1000*F/0.97\nO=(6.41/140/2-M/1000000)*2*H/0.96\nP=0;Q=2/I\nS=(N+O+P+Q)/(1-R)\nZ=S/(1-1.07*(0.06+0.16))\nprint(N,O,Q,S,Z,math.ceil(Z*10)/10)\nfor z in [13.6,13.7,13.8,13.9,14.0]:\n y=(((z-S)/1.07)-z*.06-z*.10)/z\n print(z,y)\nPY",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -292,32 +292,32 @@
           "id": "shared-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1779540151157,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/tmp/pork-shank-channel-sheets && cp outputs/pork-shank-channel-research/category_sheets/*.jpg /Users/a123/.openclaw/tmp/pork-shank-channel-sheets/ && ls -lh /Users/a123/.openclaw/tmp/pork-shank-channel-sheets",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1779674463223,
+          "lastUsedCommand": "cp /tmp/openclaw/bot-resource-1779674456825-c8203e95-5dce-4dad-a610-3f4e10549495.png images/blue_speckles_round2_source.png && python3 - <<'PY'\nfrom PIL import Image\nim=Image.open('images/blue_speckles_round2_source.png')\nprint(im.size, im.mode)\nPY",
+          "lastResolvedPath": "/bin/cp"
         },
         {
           "id": "shared-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1779540151156,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/tmp/pork-shank-channel-sheets && cp outputs/pork-shank-channel-research/category_sheets/*.jpg /Users/a123/.openclaw/tmp/pork-shank-channel-sheets/ && ls -lh /Users/a123/.openclaw/tmp/pork-shank-channel-sheets",
+          "lastUsedAt": 1779678686931,
+          "lastUsedCommand": "mkdir -p outputs/psd_rebuild && file .openclaw-inbound-media/06606222-a886-4781-8877-20d7dc965ffa.jpg && sips -g pixelWidth -g pixelHeight .openclaw-inbound-media/06606222-a886-4781-8877-20d7dc965ffa.jpg",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1779541987956,
-          "lastUsedCommand": "python3 _temp_prepare_individual_images.py && ls /Users/a123/.openclaw/tmp/pork-shank-individual | wc -l && du -sh /Users/a123/.openclaw/tmp/pork-shank-individual",
-          "lastResolvedPath": "/usr/bin/python3"
+          "lastUsedAt": 1779686092810,
+          "lastUsedCommand": "ls -l /opt/homebrew/bin/lark-cli && head -20 /opt/homebrew/bin/lark-cli",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1779459302413,
-          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/SKILL.md",
+          "lastUsedAt": 1779673697974,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/skills/visual-production/SKILL.md",
           "lastResolvedPath": "/bin/cat"
         },
         {
@@ -332,8 +332,8 @@
           "id": "shared-lark-cli",
           "pattern": "/opt/homebrew/bin/lark-cli",
           "description": "允许执行飞书 CLI",
-          "lastUsedAt": 1778731282045,
-          "lastUsedCommand": "lark-cli sheets +read --spreadsheet-token SyZjsui46hygSeti1atcs105n6g --sheet-id TS8HnI --range 'A1:T20' --value-render-option ToString --as user",
+          "lastUsedAt": 1779692233857,
+          "lastUsedCommand": "lark-cli sheets +batch-set-style --spreadsheet-token VzD1s30uxhfho0tGwbbcVTi5nXy --as user --data '[\n {\"ranges\":[\"uYgsCc!Z6:AA6\"],\"style\":{\"formatter\":\"¥#,##0.00\"}},\n {\"ranges\":[\"uYgsCc!AB6:AB6\",\"uYgsCc!AD6:AD6\"],\"style\":{\"formatter\":\"¥#,##0.00\"}},\n {\"ranges\":[\"uYgsCc!AC6:AC6\"],\"style\":{\"formatter\":\"0.00%\"}}\n]'",
           "lastResolvedPath": "/opt/homebrew/bin/lark-cli"
         },
         {
@@ -350,17 +350,17 @@
           "id": "shared-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容（shared 只读检索）",
-          "lastUsedAt": 1779433648856,
-          "lastUsedCommand": "find /System/Library/Fonts /Library/Fonts -iname '*PingFang*' -o -iname '*Heiti*' -o -iname '*Arial Unicode*' | head -20",
+          "lastUsedAt": 1779686156005,
+          "lastUsedCommand": "find /Users/a123/.openclaw -name '*hxg*product*line*.xlsx' -o -name '*.xlsx' | head -50",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "shared-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（shared 常见输出裁剪）",
-          "lastUsedAt": 1779436528547,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/skills/mask-edit-localized -maxdepth 3 -type f | sed -n '1,80p'",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1779686335541,
+          "lastUsedCommand": "lark-cli sheets +update-dimension --help | sed -n '1,220p'",
+          "lastResolvedPath": "/opt/homebrew/bin/lark-cli"
         },
         {
           "id": "shared-curl",
@@ -405,8 +405,8 @@
           "id": "shared-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件（shared 只读检索）",
-          "lastUsedAt": 1779542128236,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace/outputs -iname '*chundong*' -o -iname '*唇动*' | sort",
+          "lastUsedAt": 1779686156005,
+          "lastUsedCommand": "find /Users/a123/.openclaw -name '*hxg*product*line*.xlsx' -o -name '*.xlsx' | head -50",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -925,8 +925,8 @@
           "id": "shared-research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1779586995430,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py finalize-participant --project-dir '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启' --name '涂是淦'",
+          "lastUsedAt": 1779634438457,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py finalize-participant --project-dir '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启' --name '兰琪' --finalized-at '2026-05-24T22:53:00+08:00'",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -938,6 +938,11 @@
           "id": "shared-research-sh",
           "pattern": "/bin/sh",
           "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-research-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令"
         },
         {
           "id": "shared-research-cp",
@@ -968,7 +973,7 @@
           "id": "shared-research-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1779541586985,
+          "lastUsedAt": 1779673116672,
           "lastUsedCommand": "cat /Users/a123/.openclaw/plugin-skills/feishu-channel-rules/SKILL.md",
           "lastResolvedPath": "/bin/cat"
         },
@@ -1046,8 +1051,8 @@
           "id": "research-rg",
           "pattern": "/opt/homebrew/bin/rg",
           "description": "允许 ripgrep 搜索（shared 只读检索）",
-          "lastUsedAt": 1779446518832,
-          "lastUsedCommand": "rg -n \"肖宁劼|ou_c706ce4bb33e2bf0f4db7dde57caf5e7|research-shared|执行会话\" /Users/a123/.openclaw/workspace-research/projects/openclaw\\ 小龙虾使用情况调研 -S",
+          "lastUsedAt": 1779622777864,
+          "lastUsedCommand": "rg -n \"高静|ou_8a737f6264999be0b45ccad749a04f18\" \"/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/受访对象清单.yaml\"",
           "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
@@ -1066,6 +1071,12 @@
           "pattern": "=command:934383c88efb1525",
           "source": "allow-always",
           "lastUsedAt": 1779511809587
+        },
+        {
+          "id": "0b7c94e0-481c-42b5-9b51-e8f0ad9f6500",
+          "pattern": "=command:a610a5dbda4cbe55",
+          "source": "allow-always",
+          "lastUsedAt": 1779614512886
         }
       ]
     },
@@ -1075,8 +1086,8 @@
           "id": "research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（research 调研与验收）",
-          "lastUsedAt": 1779587730422,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/manage_internal_interview_project.py dispatch-plan --project-dir '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启' --batch-size 10 --batch-interval-minutes 10 --requester-session-key 'agent:research:feishu:direct:ou_3669c86e1e9957992630dd1fc0b85577'",
+          "lastUsedAt": 1779677545612,
+          "lastUsedCommand": "python3 - <<'PY'\nimport yaml, json\nfrom pathlib import Path\np=Path('/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/受访对象清单.yaml')\ndata=yaml.safe_load(p.read_text())\nitems=data.get('受访对象列表',[])\ncounts={}\nnot_unbound=[]\nfor it in items:\n    st=str(it.get('会话绑定状态',''))\n    counts[st]=counts.get(st,0)+1\n    if st!='已解绑':\n        not_unbound.append({\n            '姓名':it.get('姓名',''),\n            '状态':it.get('当前状态',''),\n            '会话绑定状态':st,\n            '会话绑定ID':it.get('会话绑定ID',''),\n            '执行会话Key':it.get('执行会话Key','')\n        })\nprint(json.dumps({'counts':counts,'not_unbound':not_unbound[:50],'total_not_unbound':len(not_unbound)},ensure_ascii=False,indent=2))\nPY",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1088,6 +1099,11 @@
           "id": "research-sh",
           "pattern": "/bin/sh",
           "description": "允许执行 sh 命令（research 调研与验收）"
+        },
+        {
+          "id": "research-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令（research 调研与验收）"
         },
         {
           "id": "research-cp",
@@ -1106,22 +1122,25 @@
           "id": "research-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录（research 调研与验收）",
-          "lastUsedAt": 1779540743919,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts && sed -n '1,240p' /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts/init_internal_interview_project.py",
+          "lastUsedAt": 1779640360684,
+          "lastUsedCommand": "ls -lt \"/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启\"",
           "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "research-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容（research 调研与验收）",
-          "lastUsedAt": 1779448965424,
-          "lastUsedCommand": "cat ~/.openclaw/plugin-skills/feishu-im-read/SKILL.md | sed -n '1,220p'",
+          "lastUsedAt": 1779672632362,
+          "lastUsedCommand": "cat '/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/SKILL.md'",
           "lastResolvedPath": "/bin/cat"
         },
         {
           "id": "research-stat",
           "pattern": "/usr/bin/stat",
-          "description": "允许读取文件状态（research 调研与验收）"
+          "description": "允许读取文件状态（research 调研与验收）",
+          "lastUsedAt": 1779672351902,
+          "lastUsedCommand": "stat -f '%Sm %N' -t '%Y-%m-%d %H:%M:%S' '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/项目总表.yaml' '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/受访对象清单.yaml' '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/最终调研报告.md'",
+          "lastResolvedPath": "/usr/bin/stat"
         },
         {
           "id": "research-test",
@@ -1131,14 +1150,17 @@
         {
           "id": "research-head",
           "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（research 调研与验收）"
+          "description": "允许读取前几行内容（research 调研与验收）",
+          "lastUsedAt": 1779651156758,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-research -type f \\( -path '*/outputs/*' -o -path '*/images/*' -o -name '_temp_*' -o -name '*.md' -o -name '*.json' -o -name '*.csv' -o -name '*.xlsx' \\) -mtime -1 -print | xargs -I{} stat -f '%Sm %N' -t '%Y-%m-%d %H:%M:%S' '{}' | sort -r | head -n 60",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "research-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（research 调研与验收）",
-          "lastUsedAt": 1779586552275,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-research/skills/internal-interview-research -maxdepth 2 -type f | sed 's#^#/##' | sed 's#^/##' | grep 'manage_internal_interview_project\\|shared\\|interview' | sort",
+          "lastUsedAt": 1779672324735,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-research/projects -maxdepth 2 \\( -name '项目总表.yaml' -o -name '最终调研报告.md' -o -name '受访对象清单.yaml' \\) -mtime -3 | sed 's#^#/FOUND #'; echo '---'; find /Users/a123/.openclaw/workspace-research/projects -maxdepth 1 -type d -mtime -3 | sed 's#^#/DIR #'; echo '---'; ls -lt /Users/a123/.openclaw/workspace-research/projects | head -20",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1155,8 +1177,8 @@
           "id": "research-sort",
           "pattern": "/usr/bin/sort",
           "description": "允许排序文本结果（research 调研与验收）",
-          "lastUsedAt": 1779530602620,
-          "lastUsedCommand": "find '/Users/a123/.openclaw/workspace-research/projects/内部访谈链路验收-2026-05-23-涂是淦-v2' -maxdepth 2 -type f | sort",
+          "lastUsedAt": 1779660156072,
+          "lastUsedCommand": "find '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启' -maxdepth 2 -type f | sort",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1167,7 +1189,10 @@
         {
           "id": "research-xargs",
           "pattern": "/usr/bin/xargs",
-          "description": "允许拼接只读查询命令（research 调研与验收）"
+          "description": "允许拼接只读查询命令（research 调研与验收）",
+          "lastUsedAt": 1779651156758,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-research -type f \\( -path '*/outputs/*' -o -path '*/images/*' -o -name '_temp_*' -o -name '*.md' -o -name '*.json' -o -name '*.csv' -o -name '*.xlsx' \\) -mtime -1 -print | xargs -I{} stat -f '%Sm %N' -t '%Y-%m-%d %H:%M:%S' '{}' | sort -r | head -n 60",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "research-tee",
@@ -1178,22 +1203,28 @@
           "id": "research-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件（research 调研与验收）",
-          "lastUsedAt": 1779586557136,
-          "lastUsedCommand": "find '/Users/a123/.openclaw/workspace-research/skills/internal-interview-research' -maxdepth 2 -type f | grep 'manage_internal_interview_project\\|shared\\|interview' | sort",
+          "lastUsedAt": 1779675514933,
+          "lastUsedCommand": "find /Users/a123/.openclaw/agents/research-shared/sessions -maxdepth 2 -type f | tail -n 20",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "research-rg",
           "pattern": "/opt/homebrew/bin/rg",
           "description": "允许 ripgrep 搜索（research 调研与验收）",
-          "lastUsedAt": 1779466193635,
-          "lastUsedCommand": "rg -n \"conversation_binding|sessions_spawn|research-shared|targetSessionKey|执行会话ID\" /Users/a123/.openclaw/workspace-research/skills/internal-interview-research -S",
+          "lastUsedAt": 1779675490199,
+          "lastUsedCommand": "rg -n \"未找到会话文件|shared协议状态|会话文件|cleanup-prebuilt-shared|recover-replies|待创建会话|执行会话Key\" /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/scripts /Users/a123/.openclaw/workspace-research/skills/internal-interview-research/references",
           "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
           "id": "research-git",
           "pattern": "/usr/bin/git",
           "description": "允许 Git 只读查询命令（research 调研与验收）"
+        },
+        {
+          "id": "a569d522-c759-4fa3-aa99-e5a4fe2e7f51",
+          "pattern": "=command:766fcfa0fa6e9528",
+          "source": "allow-always",
+          "lastUsedAt": 1779633185066
         }
       ]
     },

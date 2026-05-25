@@ -7,11 +7,13 @@ from pathlib import Path
 from internal_interview_research.project import (
     analyze_project,
     advance_project,
+    build_manual_continue_worker_contract,
     build_chain_acceptance_test_plan,
     build_dispatch_plan,
     build_final_delivery_payload,
     build_parallel_chain_acceptance_test_plan,
     build_participant_outreach_plan,
+    cleanup_prebuilt_shared_sessions,
     close_project,
     evaluate_project_actions,
     finalize_participant,
@@ -22,6 +24,7 @@ from internal_interview_research.project import (
     repair_project_participants,
     recover_project_replies,
     register_project_check_job,
+    run_project_batch_worker,
     stop_project_and_cleanup,
     update_participant,
     update_project_deadline,
@@ -66,9 +69,12 @@ def main() -> None:
     participant_parser.add_argument("--sender-account")
     participant_parser.add_argument("--first-message-tool")
     participant_parser.add_argument("--conversation-account")
+    participant_parser.add_argument("--execution-channel-truth-type")
     participant_parser.add_argument("--execution-agent")
     participant_parser.add_argument("--execution-session-id")
     participant_parser.add_argument("--execution-session-key")
+    participant_parser.add_argument("--helper-execution-session-id")
+    participant_parser.add_argument("--helper-execution-session-key")
     participant_parser.add_argument("--conversation-binding-id")
     participant_parser.add_argument("--conversation-binding-status")
     participant_parser.add_argument("--binding-confirmed-at")
@@ -105,6 +111,7 @@ def main() -> None:
     inspect_parser = subparsers.add_parser("inspect")
     inspect_parser.add_argument("--project-dir", required=True)
     inspect_parser.add_argument("--now-at")
+    inspect_parser.add_argument("--cron-jobs-path")
 
     advance_parser = subparsers.add_parser("advance")
     advance_parser.add_argument("--project-dir", required=True)
@@ -112,6 +119,29 @@ def main() -> None:
     advance_parser.add_argument("--config-path", default="/Users/a123/.openclaw/openclaw.json")
     advance_parser.add_argument("--requester-session-key")
     advance_parser.add_argument("--requester-session-root")
+    advance_parser.add_argument("--cron-jobs-path")
+
+    worker_contract_parser = subparsers.add_parser("manual-continue-contract")
+    worker_contract_parser.add_argument("--project-dir", required=True)
+    worker_contract_parser.add_argument("--trigger", default="manual")
+    worker_contract_parser.add_argument("--now-at")
+    worker_contract_parser.add_argument("--config-path", default="/Users/a123/.openclaw/openclaw.json")
+    worker_contract_parser.add_argument("--requester-session-key")
+    worker_contract_parser.add_argument("--requester-session-root")
+    worker_contract_parser.add_argument("--cron-jobs-path")
+
+    run_batch_worker_parser = subparsers.add_parser("run-batch-worker")
+    run_batch_worker_parser.add_argument("--project-dir", required=True)
+    run_batch_worker_parser.add_argument("--trigger", default="manual")
+    run_batch_worker_parser.add_argument("--status", choices=["prepare", "started", "heartbeat", "finished"], default="prepare")
+    run_batch_worker_parser.add_argument("--worker-run-id")
+    run_batch_worker_parser.add_argument("--worker-session-key")
+    run_batch_worker_parser.add_argument("--summary")
+    run_batch_worker_parser.add_argument("--now-at")
+    run_batch_worker_parser.add_argument("--config-path", default="/Users/a123/.openclaw/openclaw.json")
+    run_batch_worker_parser.add_argument("--requester-session-key")
+    run_batch_worker_parser.add_argument("--requester-session-root")
+    run_batch_worker_parser.add_argument("--cron-jobs-path")
 
     dispatch_parser = subparsers.add_parser("dispatch-plan")
     dispatch_parser.add_argument("--project-dir", required=True)
@@ -175,6 +205,11 @@ def main() -> None:
     repair_parser = subparsers.add_parser("repair-participants")
     repair_parser.add_argument("--project-dir", required=True)
 
+    cleanup_prebuilt_parser = subparsers.add_parser("cleanup-prebuilt-shared")
+    cleanup_prebuilt_parser.add_argument("--project-dir", required=True)
+    cleanup_prebuilt_parser.add_argument("--session-root")
+    cleanup_prebuilt_parser.add_argument("--name", action="append", default=[])
+
     close_parser = subparsers.add_parser("close-project")
     close_parser.add_argument("--project-dir", required=True)
     close_parser.add_argument("--now-at")
@@ -182,7 +217,9 @@ def main() -> None:
     cron_parser = subparsers.add_parser("register-cron")
     cron_parser.add_argument("--project-dir", required=True)
     cron_parser.add_argument("--cron-jobs-path", required=True)
-    cron_parser.add_argument("--interval-minutes", type=int, default=30)
+    cron_parser.add_argument("--interval-minutes", type=int, default=180)
+    cron_parser.add_argument("--report-mode", choices=["changed-only", "every-round"], default="every-round")
+    cron_parser.add_argument("--auto-created", choices=["true", "false"], default="false")
     cron_parser.add_argument("--agent-id", default="research")
 
     args = parser.parse_args()
@@ -235,9 +272,12 @@ def main() -> None:
             sender_account=args.sender_account,
             first_message_tool=args.first_message_tool,
             conversation_account=args.conversation_account,
+            execution_channel_truth_type=args.execution_channel_truth_type,
             execution_agent=args.execution_agent,
             execution_session_id=args.execution_session_id,
             execution_session_key=args.execution_session_key,
+            helper_execution_session_id=args.helper_execution_session_id,
+            helper_execution_session_key=args.helper_execution_session_key,
             conversation_binding_id=args.conversation_binding_id,
             conversation_binding_status=args.conversation_binding_status,
             binding_confirmed_at=args.binding_confirmed_at,
@@ -257,7 +297,11 @@ def main() -> None:
             closure_reason=args.closure_reason,
         )
     elif args.command == "inspect":
-        result = evaluate_project_actions(project_dir=Path(args.project_dir), now_at=args.now_at)
+        result = evaluate_project_actions(
+            project_dir=Path(args.project_dir),
+            now_at=args.now_at,
+            cron_jobs_path=Path(args.cron_jobs_path) if args.cron_jobs_path else None,
+        )
     elif args.command == "finalize-participant":
         result = finalize_participant(
             project_dir=Path(args.project_dir),
@@ -282,6 +326,31 @@ def main() -> None:
             config_path=Path(args.config_path),
             requester_session_key=args.requester_session_key,
             requester_session_root=Path(args.requester_session_root) if args.requester_session_root else Path("/Users/a123/.openclaw/agents/research/sessions"),
+            cron_jobs_path=Path(args.cron_jobs_path) if args.cron_jobs_path else None,
+        )
+    elif args.command == "manual-continue-contract":
+        result = build_manual_continue_worker_contract(
+            project_dir=Path(args.project_dir),
+            trigger=args.trigger,
+            now_at=args.now_at,
+            config_path=Path(args.config_path),
+            requester_session_key=args.requester_session_key,
+            requester_session_root=Path(args.requester_session_root) if args.requester_session_root else Path("/Users/a123/.openclaw/agents/research/sessions"),
+            cron_jobs_path=Path(args.cron_jobs_path) if args.cron_jobs_path else None,
+        )
+    elif args.command == "run-batch-worker":
+        result = run_project_batch_worker(
+            project_dir=Path(args.project_dir),
+            trigger=args.trigger,
+            status=args.status,
+            worker_run_id=args.worker_run_id,
+            worker_session_key=args.worker_session_key,
+            summary=args.summary,
+            now_at=args.now_at,
+            config_path=Path(args.config_path),
+            requester_session_key=args.requester_session_key,
+            requester_session_root=Path(args.requester_session_root) if args.requester_session_root else Path("/Users/a123/.openclaw/agents/research/sessions"),
+            cron_jobs_path=Path(args.cron_jobs_path) if args.cron_jobs_path else None,
         )
     elif args.command == "dispatch-plan":
         result = build_dispatch_plan(
@@ -359,6 +428,13 @@ def main() -> None:
         result = recover_project_replies(**kwargs)
     elif args.command == "repair-participants":
         result = repair_project_participants(project_dir=Path(args.project_dir))
+    elif args.command == "cleanup-prebuilt-shared":
+        kwargs = {"project_dir": Path(args.project_dir)}
+        if args.session_root:
+            kwargs["session_root"] = Path(args.session_root)
+        if args.name:
+            kwargs["participant_names"] = args.name
+        result = cleanup_prebuilt_shared_sessions(**kwargs)
     elif args.command == "close-project":
         result = close_project(project_dir=Path(args.project_dir), now_at=args.now_at)
     else:
@@ -366,6 +442,8 @@ def main() -> None:
             project_dir=Path(args.project_dir),
             cron_jobs_path=Path(args.cron_jobs_path),
             interval_minutes=args.interval_minutes,
+            report_mode=args.report_mode,
+            auto_created=args.auto_created == "true",
             agent_id=args.agent_id,
         )
 
