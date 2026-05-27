@@ -176,9 +176,12 @@ python3 scripts/run_workflow.py generate-refs --run-dir /path/to/run
 
 如果用户已经有现成参考图，把路径写进 `brief.json` 的 `existing_references`，脚本会自动复制进本次运行目录，并**自动归一化到安全尺寸**。
 
-如果用户给的是准确三视图、官方定稿或最高结构依据，优先放进：
+支持的现成参考图类型：
 
-- `existing_references.identity_source`
+- `existing_references.identity_source` - 准确三视图、官方定稿或最高结构依据
+- `existing_references.final_frame_poster` - 尾帧定版海报（包含最终构图、文字、品牌元素）
+
+**重要：当提供 `final_frame_poster` 时，系统会自动将其复用为 `original`（风格与世界参考），避免生成与定版不一致的原图。**
 
 身份策略固定分两种：
 

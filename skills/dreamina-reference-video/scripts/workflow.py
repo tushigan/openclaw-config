@@ -36,6 +36,7 @@ REFERENCE_FILE_MAP = {
     "identity_source": "identity-source.png",
     "identity_board": "identity-board.png",
     "storyboard": "storyboard.png",
+    "final_frame_poster": "final-frame-poster.png",
 }
 
 REQUIRED_PATHS = [
@@ -612,6 +613,14 @@ def materialize_existing_references(brief: dict[str, Any], run_dir: Path) -> dic
         target = run_dir / "refs" / REFERENCE_FILE_MAP["identity_board"]
         shutil.copyfile(source_path, target)
         resolved["identity_board"] = str(target)
+
+    # 如果提供了 final_frame_poster，且没有提供 original，则复用 final_frame_poster 作为 original
+    if "final_frame_poster" in resolved and "original" not in resolved:
+        source_path = Path(resolved["final_frame_poster"])
+        target = run_dir / "refs" / REFERENCE_FILE_MAP["original"]
+        shutil.copyfile(source_path, target)
+        resolved["original"] = str(target)
+
     return resolved
 
 
