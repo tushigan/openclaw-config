@@ -1,13 +1,15 @@
 ---
 name: dreamina-cli
-description: Use when the user explicitly mentions Dreamina, 即梦, dreamina CLI, Seedance, seedance2.0, 即梦账号, 即梦余额, 即梦任务, or wants to use the official 即梦 CLI for image/video generation.
+description: Low-level Dreamina CLI wrapper. Should NOT be invoked directly by users. This skill is designed to be called by other skills (like dreamina-reference-video) as a底层能力.
 ---
 
 # Dreamina CLI
 
-Use this skill when you need Dreamina（即梦） image or video generation through `dreamina`.
+**注意：此 skill 不应被用户直接触发，而是作为底层能力被其他 skill 调用。**
 
-即梦 is the Chinese product name of Dreamina. If the user says 即梦, treat it as Dreamina and use this skill.
+This skill provides low-level access to the Dreamina（即梦） CLI for image/video generation. It should be invoked programmatically by other skills, not directly by user requests.
+
+即梦 is the Chinese product name of Dreamina.
 
 This skill is intentionally short. Detailed flags and supported values belong to the CLI itself, so always treat `dreamina -h` and `dreamina <subcommand> -h` as the primary reference.
 

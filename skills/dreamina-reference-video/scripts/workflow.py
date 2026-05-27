@@ -951,13 +951,20 @@ def update_project_state(
     project_config.project_slug = brief["project_slug"]
     project_config.project_dir = str(project_dir)
 
-    # 更新 defaults
-    project_config.defaults.update({
-        "ratio": brief["ratio"],
-        "duration": brief["duration"],
-        "quality_tier": brief["quality_tier"],
-        "identity_strategy": brief.get("identity_strategy"),
-    })
+    # 只在 defaults 缺失时补齐，避免把单次 run 覆盖值污染成项目长期默认
+    project_config.defaults.setdefault("ratio", brief["ratio"])
+    project_config.defaults.setdefault("duration", brief["duration"])
+    project_config.defaults.setdefault("quality_tier", brief["quality_tier"])
+    if brief.get("identity_strategy") is not None:
+        project_config.defaults.setdefault("identity_strategy", brief.get("identity_strategy"))
+    project_config.defaults.setdefault(
+        "storyboard_strategy",
+        brief.get("storyboard_strategy", "auto_beats"),
+    )
+    project_config.defaults.setdefault(
+        "normalize_references",
+        brief.get("normalize_references", True),
+    )
 
     # 更新约束
     project_config.constraints = convert_constraints_to_structured(brief)

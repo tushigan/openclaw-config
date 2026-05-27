@@ -107,7 +107,7 @@ class ProjectConfig:
     updated_at: str = ""
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        payload = {
             "schema_version": self.schema_version,
             "project_id": self.project_id,
             "project_name": self.project_name,
@@ -123,6 +123,13 @@ class ProjectConfig:
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
+        payload.update({
+            "status": self.state.get("status", ""),
+            "current_phase": self.state.get("current_phase", ""),
+            "latest_run_id": self.state.get("latest_run_id", ""),
+            "latest_run_dir": self.state.get("latest_run_dir", ""),
+        })
+        return payload
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> ProjectConfig:
@@ -343,6 +350,7 @@ class StateManager:
     def save_project(self, config: ProjectConfig) -> None:
         """保存项目配置"""
         config.updated_at = now_iso()
+        config.state["updated_at"] = config.updated_at
         self.project_dir.mkdir(parents=True, exist_ok=True)
         self.project_file.write_text(
             json.dumps(config.to_dict(), ensure_ascii=False, indent=2),

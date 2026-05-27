@@ -7,6 +7,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 if str(SKILL_ROOT) not in sys.path:
@@ -38,8 +39,8 @@ from scripts.workflow import (
     write_prompts,
     write_summary,
 )
-from scripts.state_manager import StateManager
-from scripts.validator import validate_run, ManualChecklistGenerator
+from scripts.state_manager import StateManager, now_iso
+from scripts.validator import validate_run
 from scripts.iteration_engine import IterationEngine
 from scripts.prompt_risk_analyzer import analyze_prompts
 
@@ -65,6 +66,70 @@ def load_brief(args: argparse.Namespace) -> dict:
         "identity_anchor_rules": args.identity_anchor_rules,
     }
     return {k: v for k, v in payload.items() if v not in (None, "")}
+
+
+def load_run_state_or_error(state_manager: StateManager, run_dir: Path):
+    run_state = state_manager.load_run_state(run_dir)
+    if run_state is None:
+        raise ValueError(f"运行状态不存在: {run_dir}")
+    return run_state
+
+
+def prompt_text_for_stage(stage: str, prompts: dict[str, str]) -> str:
+    if stage == "reference_system":
+        ordered = ("original", "identity_board", "storyboard", "video")
+        return "\n\n".join(prompts[name] for name in ordered if name in prompts)
+    if stage == "storyboard":
+        return prompts.get("storyboard", "")
+    if stage == "video":
+        return prompts.get("video", "")
+    return ""
+
+
+def parse_check_assignment(raw: str) -> tuple[str, bool]:
+    if "=" not in raw:
+        raise ValueError(f"检查项参数格式错误: {raw}")
+    check_id, raw_value = raw.split("=", 1)
+    value = raw_value.strip().lower()
+    if value in {"true", "1", "yes", "y", "checked"}:
+        return check_id.strip(), True
+    if value in {"false", "0", "no", "n", "unchecked"}:
+        return check_id.strip(), False
+    raise ValueError(f"检查项布尔值无法识别: {raw}")
+
+
+def load_manual_check_updates(args: argparse.Namespace) -> dict[str, bool]:
+    updates: dict[str, bool] = {}
+
+    if args.file:
+        payload = json.loads(Path(args.file).read_text(encoding="utf-8"))
+        if isinstance(payload, dict) and "manual_checks" in payload:
+            payload = payload["manual_checks"]
+        if isinstance(payload, dict):
+            for check_id, checked in payload.items():
+                updates[str(check_id)] = bool(checked)
+        elif isinstance(payload, list):
+            for item in payload:
+                if not isinstance(item, dict) or "id" not in item:
+                    raise ValueError("manual checks JSON 列表里的每一项都必须包含 id")
+                updates[str(item["id"])] = bool(item.get("checked", False))
+        else:
+            raise ValueError("manual checks JSON 必须是对象、列表，或包含 manual_checks 的对象")
+
+    for raw in args.check or []:
+        check_id, checked = parse_check_assignment(raw)
+        updates[check_id] = checked
+
+    if not updates:
+        raise ValueError("请通过 --file 或 --check 提供至少一个人工检查更新")
+    return updates
+
+
+def persist_validation_report(run_dir: Path, validation_report: dict[str, Any]) -> Path:
+    stage = validation_report.get("stage", "unknown")
+    report_file = run_dir / f"validation_report_{stage}.json"
+    report_file.write_text(json.dumps(validation_report, ensure_ascii=False, indent=2), encoding="utf-8")
+    return report_file
 
 
 def cmd_preflight(_: argparse.Namespace) -> int:
@@ -245,6 +310,30 @@ def cmd_submit_video(args: argparse.Namespace) -> int:
     brief, prompts = read_brief_and_prompts(run_dir)
     project_dir = resolve_project_dir_for_run(run_dir, brief)
     state_manager = StateManager(project_dir)
+    run_state = load_run_state_or_error(state_manager, run_dir)
+
+    if not args.dry_run:
+        validation_report = run_state.validation_report or {}
+        next_action = run_state.next_action or {}
+        if not validation_report:
+            print(json.dumps({"error": "提交视频前请先执行 validate-run"}, ensure_ascii=False, indent=2))
+            return 1
+        if not next_action.get("reviewed_at"):
+            print(json.dumps({"error": "提交视频前请先执行 review-run"}, ensure_ascii=False, indent=2))
+            return 1
+        if next_action.get("decision") != "continue":
+            print(
+                json.dumps(
+                    {
+                        "error": "当前 review-run 尚未放行提交视频",
+                        "next_action": next_action,
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return 1
+
     cmd = build_dreamina_command(run_dir, brief, prompts)
 
     if args.dry_run:
@@ -331,25 +420,86 @@ def cmd_fetch_result(args: argparse.Namespace) -> int:
 def cmd_validate_run(args: argparse.Namespace) -> int:
     """验证运行结果"""
     run_dir = Path(args.run_dir)
-    brief, _ = read_brief_and_prompts(run_dir)
+    brief, prompts = read_brief_and_prompts(run_dir)
     project_dir = resolve_project_dir_for_run(run_dir, brief)
     state_manager = StateManager(project_dir)
+    run_state = load_run_state_or_error(state_manager, run_dir)
 
     stage = args.stage or "reference_system"
     report = validate_run(run_dir, brief, stage)
+    report_dict = report.to_dict()
 
-    # 更新 run_state.json
-    state_manager.update_run_state(
-        run_dir,
-        validation_report=report.to_dict(),
+    run_state.validation_report = report_dict
+    run_state.add_iteration(
+        artifact_type=stage,
+        prompt=prompt_text_for_stage(stage, prompts),
+        issues=report_dict.get("issues", []),
+        validation_score=report_dict.get("score", 0.0),
     )
+    state_manager.save_run_state(run_dir, run_state)
 
-    # 保存验证报告到文件
-    report_file = run_dir / f"validation_report_{stage}.json"
-    report_file.write_text(json.dumps(report.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+    persist_validation_report(run_dir, report_dict)
 
-    print(json.dumps(report.to_dict(), ensure_ascii=False, indent=2))
+    print(json.dumps(report_dict, ensure_ascii=False, indent=2))
     return 0 if report.passed else 1
+
+
+def cmd_complete_manual_checks(args: argparse.Namespace) -> int:
+    """回写人工检查清单"""
+    run_dir = Path(args.run_dir)
+    brief, _ = read_brief_and_prompts(run_dir)
+    project_dir = resolve_project_dir_for_run(run_dir, brief)
+    state_manager = StateManager(project_dir)
+    run_state = load_run_state_or_error(state_manager, run_dir)
+
+    validation_report = run_state.validation_report or {}
+    manual_checks = validation_report.get("manual_checks", [])
+    if not manual_checks:
+        print(json.dumps({"error": "当前 run 没有可回写的人工检查清单"}, ensure_ascii=False, indent=2))
+        return 1
+
+    try:
+        updates = load_manual_check_updates(args)
+    except ValueError as exc:
+        print(json.dumps({"error": str(exc)}, ensure_ascii=False, indent=2))
+        return 1
+
+    check_index = {check.get("id"): check for check in manual_checks}
+    unknown_ids = sorted(check_id for check_id in updates if check_id not in check_index)
+    if unknown_ids:
+        print(
+            json.dumps(
+                {
+                    "error": "存在未知的人工检查项",
+                    "unknown_ids": unknown_ids,
+                    "known_ids": sorted(check_index.keys()),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 1
+
+    for check_id, checked in updates.items():
+        check_index[check_id]["checked"] = checked
+
+    run_state.validation_report = validation_report
+    state_manager.save_run_state(run_dir, run_state)
+    report_file = persist_validation_report(run_dir, validation_report)
+
+    print(
+        json.dumps(
+            {
+                "ok": True,
+                "run_dir": str(run_dir),
+                "report_file": str(report_file),
+                "manual_checks": manual_checks,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
+    return 0
 
 
 def cmd_review_run(args: argparse.Namespace) -> int:
@@ -363,6 +513,9 @@ def cmd_review_run(args: argparse.Namespace) -> int:
     run_state = state_manager.load_run_state(run_dir)
     if run_state is None:
         print(json.dumps({"error": "运行状态不存在"}, ensure_ascii=False, indent=2))
+        return 1
+    if not run_state.validation_report:
+        print(json.dumps({"error": "还没有验证报告，请先执行 validate-run"}, ensure_ascii=False, indent=2))
         return 1
 
     # 加载项目配置
@@ -380,14 +533,17 @@ def cmd_review_run(args: argparse.Namespace) -> int:
         iterations=run_state.iterations,
         stage=run_state.stage,
     )
+    decision_payload = decision.to_dict()
+    decision_payload["reviewed_at"] = now_iso()
+    decision_payload["validation_stage"] = run_state.validation_report.get("stage", "")
 
     # 更新 run_state.json
     state_manager.update_run_state(
         run_dir,
-        next_action=decision.to_dict(),
+        next_action=decision_payload,
     )
 
-    print(json.dumps(decision.to_dict(), ensure_ascii=False, indent=2))
+    print(json.dumps(decision_payload, ensure_ascii=False, indent=2))
     return 0
 
 
@@ -468,6 +624,12 @@ def build_parser() -> argparse.ArgumentParser:
     validate.add_argument("--run-dir", required=True)
     validate.add_argument("--stage", choices=["reference_system", "storyboard", "video"], help="验证阶段")
     validate.set_defaults(func=cmd_validate_run)
+
+    complete_manual = subparsers.add_parser("complete-manual-checks", help="回写人工检查清单")
+    complete_manual.add_argument("--run-dir", required=True)
+    complete_manual.add_argument("--file", help="包含人工检查结果的 JSON 文件")
+    complete_manual.add_argument("--check", action="append", help="单项更新，格式为 check_id=true/false")
+    complete_manual.set_defaults(func=cmd_complete_manual_checks)
 
     review = subparsers.add_parser("review-run", help="审查运行结果并决定下一步动作")
     review.add_argument("--run-dir", required=True)

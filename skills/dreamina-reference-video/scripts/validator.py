@@ -180,31 +180,50 @@ class DeterministicValidator:
             report.calculate_score()
             return report
 
-        # 检查故事板尺寸和比例
+        # 检查故事板关键依赖是否齐套
+        supporting_refs = {
+            "original": self.run_dir / "refs" / "original.png",
+        }
+        identity_source = self.run_dir / "refs" / "identity-source.png"
+        identity_board = self.run_dir / "refs" / "identity-board.png"
+        if self.brief.get("existing_references", {}).get("identity_source"):
+            supporting_refs["identity_source"] = identity_source
+        elif identity_source.exists():
+            supporting_refs["identity_source"] = identity_source
+        else:
+            supporting_refs["identity_board"] = identity_board
+
+        for ref_name, ref_path in supporting_refs.items():
+            if not ref_path.exists():
+                report.add_issue(ValidationIssue(
+                    rule_id=f"storyboard_support_missing_{ref_name}",
+                    severity="error",
+                    message=f"故事板依赖文件缺失: {ref_path.name}",
+                    validation_mode="deterministic",
+                    auto_retry=False,
+                ))
+
+        storyboard_prompt = self.run_dir / "prompts" / "storyboard.txt"
+        if not storyboard_prompt.exists():
+            report.add_issue(ValidationIssue(
+                rule_id="storyboard_prompt_missing",
+                severity="error",
+                message="故事板提示词文件不存在",
+                validation_mode="deterministic",
+                auto_retry=False,
+            ))
+
+        # 检查故事板可读性和最小尺寸
         if Image is not None:
             try:
                 img = Image.open(storyboard_file)
                 width, height = img.size
 
-                # 检查是否符合目标比例
-                target_ratio = self.brief.get("ratio", "16:9")
-                ratio_map = {
-                    "1:1": 1.0,
-                    "3:4": 0.75,
-                    "4:3": 1.333,
-                    "16:9": 1.778,
-                    "9:16": 0.5625,
-                    "21:9": 2.333,
-                }
-                expected_ratio = ratio_map.get(target_ratio, 1.778)
-                actual_ratio = width / height if height > 0 else 0
-
-                # 允许 10% 的误差
-                if abs(actual_ratio - expected_ratio) / expected_ratio > 0.1:
+                if width < 512 or height < 512:
                     report.add_issue(ValidationIssue(
-                        rule_id="storyboard_ratio_mismatch",
+                        rule_id="storyboard_too_small",
                         severity="warning",
-                        message=f"故事板整体比例 ({actual_ratio:.2f}) 与目标比例 {target_ratio} ({expected_ratio:.2f}) 不匹配",
+                        message=f"故事板尺寸过小: {width}x{height}",
                         validation_mode="deterministic",
                         auto_retry=False,
                     ))

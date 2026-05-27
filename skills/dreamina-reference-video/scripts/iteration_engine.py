@@ -48,6 +48,16 @@ class IterationEngine:
         Returns:
             迭代决策
         """
+        if not validation_report:
+            return IterationDecision(
+                decision="ask_user",
+                reason="还没有验证报告",
+                suggested_action="请先执行 validate-run",
+            )
+
+        current_iteration = len(iterations)
+        prior_iterations = iterations[:-1] if iterations else []
+
         # 检查是否有 manual 检查项未完成
         manual_checks = validation_report.get("manual_checks", [])
         if manual_checks and self.ask_user_on_manual_checks:
@@ -68,7 +78,6 @@ class IterationEngine:
             )
 
         # 检查迭代次数
-        current_iteration = len(iterations)
         if current_iteration >= self.max_iterations:
             return IterationDecision(
                 decision="ask_user",
@@ -80,7 +89,7 @@ class IterationEngine:
         issues = validation_report.get("issues", [])
         if issues:
             error_signatures = self._extract_error_signatures(issues)
-            repeat_count = self._count_error_repeats(error_signatures, iterations)
+            repeat_count = self._count_error_repeats(error_signatures, prior_iterations)
             if repeat_count >= self.max_same_error_repeats:
                 return IterationDecision(
                     decision="ask_user",
@@ -89,9 +98,9 @@ class IterationEngine:
                 )
 
         # 检查改进幅度
-        if len(iterations) >= 2:
+        if prior_iterations:
             current_score = validation_report.get("score", 0.0)
-            previous_score = iterations[-1].get("validation_score", 0.0)
+            previous_score = prior_iterations[-1].get("validation_score", 0.0)
             improvement = current_score - previous_score
 
             if improvement < self.improvement_threshold:
@@ -128,11 +137,11 @@ class IterationEngine:
 
     def _count_error_repeats(self, error_signatures: list[str], iterations: list[dict[str, Any]]) -> int:
         """统计相同错误的重复次数"""
-        if not error_signatures or not iterations:
+        if not error_signatures:
             return 0
 
         # 检查最近的迭代中是否有相同的错误
-        repeat_count = 0
+        repeat_count = 1
         for iteration in reversed(iterations):
             iteration_issues = iteration.get("issues", [])
             iteration_signatures = [

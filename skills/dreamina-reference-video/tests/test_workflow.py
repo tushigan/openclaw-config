@@ -1,3 +1,4 @@
+import base64
 import json
 import subprocess
 import sys
@@ -23,6 +24,10 @@ from scripts.workflow import (
     summarize_reusable_fields,
     sync_project_canonical_files,
     update_project_state,
+)
+
+SMALL_PNG = base64.b64decode(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO2k4L8AAAAASUVORK5CYII="
 )
 
 
@@ -236,6 +241,64 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(manifest["runs"][0]["stage"], "prepare")
             self.assertIn("identity_source", manifest["canonical_files"])
             self.assertEqual(state["project_id"], manifest["project_id"])
+
+    def test_update_project_state_preserves_project_defaults_across_runs(self):
+        brief_first = normalize_brief(
+            {
+                "project_name": "黄小咕品牌视频",
+                "project_slug": "huangxiaogu-brand",
+                "subject": "黄小咕",
+                "action": "跳舞后定格",
+                "scene": "林间步道",
+                "style": "3D卡通",
+                "ratio": "9:16",
+                "duration": 8,
+                "quality_tier": "final",
+            }
+        )
+        brief_second = normalize_brief(
+            {
+                "project_name": "黄小咕品牌视频",
+                "project_slug": "huangxiaogu-brand",
+                "subject": "黄小咕",
+                "action": "林间奔跑",
+                "scene": "金色麦田",
+                "style": "3D卡通",
+                "ratio": "16:9",
+                "duration": 5,
+                "quality_tier": "draft",
+            }
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            project_dir = build_project_dir(root, brief_first)
+
+            first_run_dir = build_run_dir(root, brief_first)
+            ensure_run_layout(first_run_dir)
+            update_project_state(
+                project_dir,
+                brief_first,
+                first_run_dir,
+                stage="prepare",
+                status="ready_for_ref_generation",
+            )
+
+            second_run_dir = build_run_dir(root, brief_second)
+            ensure_run_layout(second_run_dir)
+            update_project_state(
+                project_dir,
+                brief_second,
+                second_run_dir,
+                stage="prepare",
+                status="ready_for_ref_generation",
+            )
+
+            manifest = json.loads((project_dir / "project.json").read_text(encoding="utf-8"))
+            self.assertEqual(manifest["defaults"]["ratio"], "9:16")
+            self.assertEqual(manifest["defaults"]["duration"], 8)
+            self.assertEqual(manifest["defaults"]["quality_tier"], "final")
+            self.assertEqual(manifest["latest_run_dir"], str(second_run_dir))
 
     def test_build_gpt_image_jobs_skips_existing_references(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -537,10 +600,37 @@ class WorkflowTests(unittest.TestCase):
 
 
 class CliSmokeTests(unittest.TestCase):
-    def test_cli_help(self):
-        script = Path(__file__).resolve().parents[1] / "scripts" / "run_workflow.py"
+    def setUp(self):
+        self.script = Path(__file__).resolve().parents[1] / "scripts" / "run_workflow.py"
+
+    def _prepare_run(self, tmp_dir: str, brief_payload: dict[str, object]) -> tuple[dict[str, object], Path]:
+        input_brief = Path(tmp_dir) / "brief.json"
+        input_brief.write_text(json.dumps(brief_payload, ensure_ascii=False), encoding="utf-8")
         result = subprocess.run(
-            ["python3", str(script), "--help"],
+            [
+                "python3",
+                str(self.script),
+                "prepare",
+                "--brief-file",
+                str(input_brief),
+                "--output-root",
+                tmp_dir,
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        return payload, Path(payload["run_dir"])
+
+    def _write_refs(self, run_dir: Path, *names: str) -> None:
+        for name in names:
+            (run_dir / "refs" / f"{name}.png").write_bytes(SMALL_PNG)
+
+    def test_cli_help(self):
+        result = subprocess.run(
+            ["python3", str(self.script), "--help"],
             capture_output=True,
             text=True,
             check=False,
@@ -549,7 +639,6 @@ class CliSmokeTests(unittest.TestCase):
         self.assertIn("dreamina", result.stdout)
 
     def test_prepare_phase_outputs_brief_and_prompts(self):
-        script = Path(__file__).resolve().parents[1] / "scripts" / "run_workflow.py"
         with tempfile.TemporaryDirectory() as tmp:
             input_brief = Path(tmp) / "brief.json"
             input_brief.write_text(
@@ -568,7 +657,7 @@ class CliSmokeTests(unittest.TestCase):
             result = subprocess.run(
                 [
                     "python3",
-                    str(script),
+                    str(self.script),
                     "prepare",
                     "--brief-file",
                     str(input_brief),
@@ -591,6 +680,158 @@ class CliSmokeTests(unittest.TestCase):
             self.assertEqual(run_dir.parent, project_dir / "runs")
             self.assertIn("storyboard_panel_count", brief)
             self.assertIn("storyboard_beats", brief)
+
+    def test_subcommand_help_outputs_exist(self):
+        for subcommand in ("validate-run", "review-run", "complete-manual-checks"):
+            result = subprocess.run(
+                ["python3", str(self.script), subcommand, "--help"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn(subcommand, result.stdout)
+
+    def test_manual_checklist_flow_unblocks_review(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, run_dir = self._prepare_run(
+                tmp,
+                {
+                    "project_name": "黄小咕品牌视频",
+                    "project_slug": "huangxiaogu-brand",
+                    "subject": "黄小咕",
+                    "action": "在林间走来后定格",
+                    "scene": "秋日林间",
+                    "style": "3D卡通",
+                    "ratio": "9:16",
+                },
+            )
+            self._write_refs(run_dir, "original", "identity-board", "storyboard")
+
+            validate = subprocess.run(
+                ["python3", str(self.script), "validate-run", "--run-dir", str(run_dir), "--stage", "storyboard"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(validate.returncode, 0, validate.stderr)
+
+            run_state = json.loads((run_dir / "run_state.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(run_state["iterations"]), 1)
+
+            review_before = subprocess.run(
+                ["python3", str(self.script), "review-run", "--run-dir", str(run_dir)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(review_before.returncode, 0, review_before.stderr)
+            review_before_payload = json.loads(review_before.stdout)
+            self.assertEqual(review_before_payload["decision"], "ask_user")
+
+            complete = subprocess.run(
+                [
+                    "python3",
+                    str(self.script),
+                    "complete-manual-checks",
+                    "--run-dir",
+                    str(run_dir),
+                    "--check",
+                    "storyboard_panel_aspect=true",
+                    "--check",
+                    "storyboard_panel_count=true",
+                    "--check",
+                    "storyboard_continuity=true",
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(complete.returncode, 0, complete.stderr)
+
+            review_after = subprocess.run(
+                ["python3", str(self.script), "review-run", "--run-dir", str(run_dir)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(review_after.returncode, 0, review_after.stderr)
+            review_after_payload = json.loads(review_after.stdout)
+            self.assertEqual(review_after_payload["decision"], "continue")
+
+    def test_repeated_validation_errors_trigger_ask_user(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, run_dir = self._prepare_run(
+                tmp,
+                {
+                    "project_name": "黄小咕品牌视频",
+                    "project_slug": "huangxiaogu-brand",
+                    "subject": "黄小咕",
+                    "action": "在林间走来后定格",
+                    "scene": "秋日林间",
+                    "style": "3D卡通",
+                    "ratio": "9:16",
+                },
+            )
+            self._write_refs(run_dir, "storyboard")
+
+            for _ in range(2):
+                validate = subprocess.run(
+                    ["python3", str(self.script), "validate-run", "--run-dir", str(run_dir), "--stage", "storyboard"],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                self.assertEqual(validate.returncode, 1, validate.stderr)
+
+                complete = subprocess.run(
+                    [
+                        "python3",
+                        str(self.script),
+                        "complete-manual-checks",
+                        "--run-dir",
+                        str(run_dir),
+                        "--check",
+                        "storyboard_panel_aspect=true",
+                        "--check",
+                        "storyboard_panel_count=true",
+                        "--check",
+                        "storyboard_continuity=true",
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                self.assertEqual(complete.returncode, 0, complete.stderr)
+
+            run_state = json.loads((run_dir / "run_state.json").read_text(encoding="utf-8"))
+            self.assertGreaterEqual(len(run_state["iterations"]), 2)
+
+            review = subprocess.run(
+                ["python3", str(self.script), "review-run", "--run-dir", str(run_dir)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(review.returncode, 0, review.stderr)
+            review_payload = json.loads(review.stdout)
+            self.assertEqual(review_payload["decision"], "ask_user")
+            self.assertIn("相同错误重复 2 次", review_payload["reason"])
+
+
+class RoutingTextTests(unittest.TestCase):
+    def test_dreamina_cli_is_scoped_to_low_level_operations(self):
+        skill_text = Path("/Users/a123/.openclaw/skills/dreamina-cli/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("inspect Dreamina CLI help", skill_text)
+        self.assertIn("query a submit_id result", skill_text)
+        self.assertNotIn("image/video generation", skill_text)
+        self.assertNotIn("Use this skill only when the user explicitly names `即梦`, `Dreamina`, `dreamina`, `Seedance`", skill_text)
+
+    def test_dreamina_reference_video_is_default_entry(self):
+        skill_text = Path("/Users/a123/.openclaw/skills/dreamina-reference-video/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("调用即梦生成视频", skill_text)
+        self.assertIn("做一个新的小视频", skill_text)
+        self.assertIn("dreamina-cli 只可作为本 skill 内部调用", skill_text)
 
 
 if __name__ == "__main__":
