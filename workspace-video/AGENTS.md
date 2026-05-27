@@ -41,8 +41,43 @@
 
 ## 2. 文件与交付
 
+### 2.1 文件发送规范
+
+**重要：禁止使用 `MEDIA:` 前缀或直接输出路径来”发送”文件，这只是文本，用户收不到文件！**
+
+在 Feishu 直连会话中发送文件（视频、PPT、HTML、ZIP 等），必须使用 `message` 工具：
+
+```
+message(
+  action=send,
+  channel=feishu,
+  media=/absolute/path/to/file.mp4,
+  mimeType=video/mp4
+)
+```
+
+常用 mimeType：
+- 视频：`video/mp4`
+- PPT：`application/vnd.openxmlformats-officedocument.presentationml.presentation`
+- HTML：`text/html`
+- ZIP：`application/zip`
+- 图片：`image/png` 或 `image/jpeg`
+
+**错误示例（禁止）：**
+```
+MEDIA:/path/to/video.mp4  ❌ 这只是文本，用户收不到文件
+直接输出路径  ❌ 用户收不到文件
+```
+
+**正确示例：**
+```
+message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace-video/outputs/presentation.pptx, mimeType=application/vnd.openxmlformats-officedocument.presentationml.presentation)  ✅
+```
+
+### 2.2 交付规则
+
 - Feishu 直连会话中，产出文件必须真实发送；只回本地路径不算交付。
-- 中台回传给 `main` 时，只回绝对路径和交付状态，并说明“尚未对最终用户发送”。
+- 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”。
 - 大文件按飞书限制压缩或分卷，发送副本不得覆盖原始产物。
 - 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续。
 

@@ -8,6 +8,7 @@
 - 执行任务前先扫描可用 skills。
 - 生图、海报、包装、改图、PSD、详情页、TVC 等任务，命中 skill 时必须先读 `SKILL.md`。
 - 局部改图、红框修改、替换 logo、遮罩改图，必须走 `mask-edit-localized`，不得直接自由发挥。
+- 收到 `main` / `main-shared` 派发的图片任务时，先按“入站图片任务合同”判断是局部改图还是整图生图。
 - 分层 PSD、拆 PSD、真分层任务，必须走 `psd-layered-rebuilder`，不得用像素粗拆冒充正式交付。
 - 搜索参考、案例、品牌、竞品时，默认先用 `multi-search-engine`。
 
@@ -37,6 +38,24 @@
 
 ## 1. 输出要求
 
+### 1.1 入站图片任务合同
+- 来自 `main` / `main-shared` 的图片任务，先判断是 `complex_local_edit` 还是整图重做。
+- 局部改图、红框修改、局部删除、局部替换、换包装、换产品、换 logo、强调“其他不动”的任务，默认优先走 `mask-edit-localized`。
+- 整图重做、整图重生、参考图主导但不要求局部锁区的任务，走 `gpt-image2-gen`、`packaging-design` 或等价正式生图 skill。
+- 本地辅助步骤只允许用于：
+  - 遮罩检测
+  - `mask_spec.json` 规划
+  - 预览图
+  - 压缩
+  - 投递准备
+- 本地辅助步骤不得产出正式最终图。禁止用 PIL / OpenCV / 局部硬贴 / 手工拼贴 作为正式交付。
+- 局部改图失败回退顺序固定为：
+  - 自动检测失败
+  - 改走手工 `mask_spec.json`
+  - 生成预览并等用户确认
+  - 调用模型 edits 正式执行
+- 如果模型接口、额度、权限或交付失败，可以报错、重试或继续模型链路，但不能退化成本地硬贴正式交付。
+
 - 图片写入 `/Users/a123/.openclaw/workspace-design/images/`。
 - 文档、PSD、压缩包、结构化结果写入 `/Users/a123/.openclaw/workspace-design/outputs/`。
 - 给上游的结果至少包含：成品绝对路径、版本说明、交付状态、未解决风险。
@@ -44,10 +63,38 @@
 
 ## 2. 文件与交付
 
+### 2.1 图片发送规范
+
+**重要：禁止使用 `MEDIA:` 前缀来”发送”图片，这只是文本，用户收不到图片！**
+
+在 Feishu 直连会话中发送图片，必须使用 `message` 工具：
+
+```
+message(
+  action=send,
+  channel=feishu,
+  media=/absolute/path/to/image.png,
+  mimeType=image/png
+)
+```
+
+**错误示例（禁止）：**
+```
+MEDIA:/path/to/image.png  ❌ 这只是文本，用户收不到图片
+直接输出路径  ❌ 用户收不到图片
+```
+
+**正确示例：**
+```
+message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feishu-deliver/result.png, mimeType=image/png)  ✅
+```
+
+### 2.2 交付规则
+
 - Feishu 直连会话中，产出图片或文件必须真实发送；只回本地路径不算交付。
 - 图片 `<=10MB` 优先按图片发送；更大文件按文件或 ZIP 发送；超过限制时分卷。
 - 发送副本放入 `/Users/a123/.openclaw/workspace/feishu-deliver/`，不得覆盖原始产物。
-- 中台回传给 `main` 时，只回绝对路径和交付状态，并说明“尚未对最终用户发送”。
+- 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”。
 - 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续。
 
 ## 3. 执行纪律
