@@ -1143,10 +1143,47 @@ def write_summary(run_dir: Path, brief: dict[str, Any], prompts: dict[str, str],
         "",
         summarize_reusable_fields(brief),
         "",
+    ]
+
+    # 风险摘要区
+    risk_report_file = run_dir / "prompts" / "risk_report.json"
+    if risk_report_file.exists():
+        try:
+            risk_reports = json.loads(risk_report_file.read_text(encoding="utf-8"))
+            total_risks = sum(len(report.get("risks", [])) for report in risk_reports.values())
+            high_risks = [
+                {"prompt": name, "rule_id": risk["rule_id"], "message": risk["message"]}
+                for name, report in risk_reports.items()
+                for risk in report.get("risks", [])
+                if risk.get("severity") == "high"
+            ]
+
+            if total_risks > 0:
+                lines.extend([
+                    "## ⚠️ 风险摘要",
+                    "",
+                    f"- **总风险数**: {total_risks} 个",
+                    f"- **高风险数**: {len(high_risks)} 个",
+                    "",
+                ])
+
+                if high_risks:
+                    lines.append("**最值得现在就改的前 3 条**：")
+                    for i, risk in enumerate(high_risks[:3], 1):
+                        lines.append(f"{i}. [{risk['prompt']}] {risk['message']}")
+                    lines.append("")
+                    lines.append("💡 **建议**：如果高风险数较多，建议先修改 prompt 再继续生成参考图，避免浪费额度。")
+                    lines.append("")
+                    lines.append(f"完整风险报告：`prompts/risk_report.json`")
+                    lines.append("")
+        except (json.JSONDecodeError, KeyError):
+            pass
+
+    lines.extend([
         "## 本次关键帧规划",
         *[f"- {beat}" for beat in brief["storyboard_beats"]],
         "",
-    ]
+    ])
 
     # 归一化结果
     normalized_manifest_file = run_dir / "refs" / "normalized" / "manifest.json"

@@ -215,6 +215,26 @@ def cmd_prepare(args: argparse.Namespace) -> int:
         if risk.severity == "high"
     )
 
+    # 提取前 3 条高风险
+    all_high_risks = [
+        {"prompt": name, "rule_id": risk.rule_id, "message": risk.message}
+        for name, report in risk_reports.items()
+        for risk in report.risks
+        if risk.severity == "high"
+    ]
+    top_risks = all_high_risks[:3]
+
+    # 检查参考图复用策略
+    reference_reuse_plan = {}
+    existing_refs = brief.get("existing_references", {})
+    if "final_frame_poster" in existing_refs:
+        reference_reuse_plan["final_frame_poster_reuse"] = "会自动复用为 original，避免生成冲突原图"
+    if "identity_source" in existing_refs:
+        identity_strategy = brief.get("identity_strategy", "reuse_exact")
+        reference_reuse_plan["identity_strategy"] = identity_strategy
+        if identity_strategy == "reuse_exact":
+            reference_reuse_plan["identity_note"] = "直接使用 identity_source，不额外生成 AI 身份板"
+
     print(
         json.dumps(
             {
@@ -229,7 +249,10 @@ def cmd_prepare(args: argparse.Namespace) -> int:
                 "risk_summary": {
                     "total_risks": total_risks,
                     "high_severity_risks": high_severity_risks,
+                    "top_risks": top_risks,
                 },
+                "reference_reuse_plan": reference_reuse_plan,
+                "next_step": "generate-refs",
                 "summary": summarize_reusable_fields(brief),
             },
             ensure_ascii=False,
@@ -306,7 +329,33 @@ def cmd_generate_refs(args: argparse.Namespace) -> int:
         reference_files=reference_files,
         canonical_files=canonical_files,
     )
-    print(json.dumps({"ok": True, "results": results}, ensure_ascii=False, indent=2))
+
+    # 构建结构化输出
+    generated_refs = []
+    preview_candidates = []
+    for name, path in reference_files.items():
+        generated_refs.append({"name": name, "path": path})
+        # 只有这三张图需要发送给用户确认
+        if name in ("original", "identity_board", "identity_source", "storyboard"):
+            preview_candidates.append({"name": name, "path": path})
+
+    # 提取关键帧信息
+    storyboard_prompt = prompts.get("storyboard", "")
+    beats_count = brief.get("storyboard_strategy", {}).get("beats_count", 0) if isinstance(brief.get("storyboard_strategy"), dict) else 0
+
+    print(json.dumps({
+        "ok": True,
+        "results": results,
+        "generated_refs": generated_refs,
+        "preview_candidates": preview_candidates,
+        "requires_user_confirmation": True,
+        "next_step": "validate-run --stage storyboard",
+        "keyframe_info": {
+            "beats_count": beats_count,
+            "ratio": brief.get("ratio", "16:9"),
+            "duration": brief.get("duration", 5),
+        },
+    }, ensure_ascii=False, indent=2))
     return 0
 
 
