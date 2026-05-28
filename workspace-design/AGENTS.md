@@ -41,21 +41,44 @@
 
 ### 1.1 入站图片任务合同
 - 来自 `main` / `main-shared` 的图片任务，先判断是 `complex_local_edit` 还是整图重做。
-- 局部改图、红框修改、局部删除、局部替换、换包装、换产品、换 logo、强调“其他不动”的任务，当前一律不走 `mask-edit-localized`。
+- 局部改图、红框修改、局部删除、局部替换、换包装、换产品、换 logo、强调”其他不动”的任务，当前一律不走 `mask-edit-localized`。
 - 整图重做、整图重生、参考图主导但不要求局部锁区的任务，走 `gpt-image2-gen`、`packaging-design` 或等价正式生图 skill。
-- 本地辅助步骤只允许用于：
-  - 遮罩检测
-  - `mask_spec.json` 规划
-  - 预览图
-  - 压缩
-  - 投递准备
-- 本地辅助步骤不得产出正式最终图。禁止用 PIL / OpenCV / 局部硬贴 / 手工拼贴 作为正式交付。
-- 局部改图失败回退顺序固定为：
-  - 自动检测失败
-  - 改走手工 `mask_spec.json`
-  - 生成预览并等用户确认
-  - 调用模型 edits 正式执行
-- 如果模型接口、额度、权限或交付失败，可以报错、重试或继续模型链路，但不能退化成本地硬贴正式交付。
+
+### 1.1.1 禁止本地拼图作为正式交付（硬约束）
+
+**绝对禁止**以下做法作为正式图片交付：
+- 使用 PIL / Pillow / OpenCV / ImageMagick 进行最终图像合成
+- 使用 `Image.paste()`、`alpha_composite()`、`Image.blend()` 等方法拼接正式海报/产品图
+- canvas 手工合成
+- 局部硬贴
+- 先本地拼图，再冒充正式改图结果
+
+**允许的本地图像操作**（仅限辅助用途）：
+- 遮罩检测（mask detection）
+- `mask_spec.json` 规划
+- 预览图生成（preview generation）
+- 图像压缩（compression）
+- 投递准备（delivery preparation）
+
+**正式生图失败时的正确处理**：
+1. 记录失败原因到 `generation_result.json` 或等价结果文件
+2. 返回失败状态给 `main` agent
+3. 由 `main` agent 决定是否重试、切换 provider 或告知用户
+4. **不得**自行产出本地合成图顶替正式结果
+
+**违反此规则的后果**：
+- 本地拼图产出的图片会有明显拼贴感、不自然的边缘、光影不一致
+- 用户会明确感知到”这是拼出来的”，而不是”AI 生成的”
+- 必须重新走正式生图链路
+
+### 1.1.2 局部改图失败回退顺序
+局部改图失败回退顺序固定为：
+- 自动检测失败
+- 改走手工 `mask_spec.json`
+- 生成预览并等用户确认
+- 调用模型 edits 正式执行
+
+如果模型接口、额度、权限或交付失败，可以报错、重试或继续模型链路，但**不能退化成本地硬贴正式交付**。
 
 - 图片写入 `/Users/a123/.openclaw/workspace-design/images/`。
 - 文档、PSD、压缩包、结构化结果写入 `/Users/a123/.openclaw/workspace-design/outputs/`。
