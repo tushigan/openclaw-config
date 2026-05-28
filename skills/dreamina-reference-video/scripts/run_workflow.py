@@ -608,6 +608,68 @@ def cmd_review_run(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_adjust_beats(args: argparse.Namespace) -> int:
+    """调整关键帧规划"""
+    run_dir = Path(args.run_dir)
+    brief_file = run_dir / "brief.json"
+
+    if not brief_file.exists():
+        print(json.dumps({"error": "brief.json 不存在"}, ensure_ascii=False, indent=2))
+        return 1
+
+    brief = json.loads(brief_file.read_text(encoding="utf-8"))
+
+    # 如果指定了新的 beats
+    if args.beats:
+        new_beats = args.beats
+    elif args.beats_file:
+        beats_file = Path(args.beats_file)
+        if not beats_file.exists():
+            print(json.dumps({"error": f"beats 文件不存在: {args.beats_file}"}, ensure_ascii=False, indent=2))
+            return 1
+        beats_data = json.loads(beats_file.read_text(encoding="utf-8"))
+        if isinstance(beats_data, list):
+            new_beats = beats_data
+        elif isinstance(beats_data, dict) and "storyboard_beats" in beats_data:
+            new_beats = beats_data["storyboard_beats"]
+        else:
+            print(json.dumps({"error": "beats 文件格式错误，应该是数组或包含 storyboard_beats 的对象"}, ensure_ascii=False, indent=2))
+            return 1
+    elif args.panel_count:
+        # 调整格数
+        from scripts.workflow import apply_storyboard_panel_override
+        current_beats = brief.get("storyboard_beats", [])
+        new_beats = apply_storyboard_panel_override(current_beats, args.panel_count)
+    else:
+        print(json.dumps({"error": "请通过 --beats、--beats-file 或 --panel-count 指定新的关键帧规划"}, ensure_ascii=False, indent=2))
+        return 1
+
+    # 更新 brief
+    brief["storyboard_beats"] = new_beats
+    if args.panel_count:
+        if "storyboard_strategy" not in brief or not isinstance(brief["storyboard_strategy"], dict):
+            brief["storyboard_strategy"] = {}
+        brief["storyboard_strategy"]["beats_count"] = len(new_beats)
+
+    # 保存 brief
+    brief_file.write_text(json.dumps(brief, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # 重新生成 prompts 和 summary
+    from scripts.workflow import build_prompts, write_prompts, write_summary
+    prompts = build_prompts(brief)
+    write_prompts(run_dir, prompts)
+    write_summary(run_dir, brief, prompts)
+
+    print(json.dumps({
+        "ok": True,
+        "run_dir": str(run_dir),
+        "new_beats": new_beats,
+        "beats_count": len(new_beats),
+        "next_step": "generate-refs（需要重新生成故事板）",
+    }, ensure_ascii=False, indent=2))
+    return 0
+
+
 def cmd_project_status(args: argparse.Namespace) -> int:
     """显示项目状态"""
     project_dir = Path(args.project_dir)
@@ -697,6 +759,13 @@ def build_parser() -> argparse.ArgumentParser:
     review = subparsers.add_parser("review-run", help="审查运行结果并决定下一步动作")
     review.add_argument("--run-dir", required=True)
     review.set_defaults(func=cmd_review_run)
+
+    adjust_beats = subparsers.add_parser("adjust-beats", help="调整关键帧规划")
+    adjust_beats.add_argument("--run-dir", required=True)
+    adjust_beats.add_argument("--beats", nargs="+", help="新的关键帧列表")
+    adjust_beats.add_argument("--beats-file", help="包含关键帧列表的 JSON 文件")
+    adjust_beats.add_argument("--panel-count", type=int, help="调整格数（3-10）")
+    adjust_beats.set_defaults(func=cmd_adjust_beats)
 
     status = subparsers.add_parser("project-status", help="显示项目状态")
     status.add_argument("--project-dir", required=True)

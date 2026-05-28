@@ -344,10 +344,28 @@ def normalize_action_clause(clause: str) -> str:
 
 
 def split_action_clauses(action: str) -> list[str]:
+    """切分动作子句，优先按语义切分，避免断句异常"""
     text = action
-    for connector in ("然后", "接着", "随后", "之后", "最后", "并且", "同时", "再"):
-        text = text.replace(connector, "|")
+
+    # 先处理标点符号切分
     text = re.sub(r"[，,。；;\n]+", "|", text)
+
+    # 只在连接词前后有合理边界时才切分（避免误切"在"、"并"等字）
+    # 使用正则确保连接词是独立的词，而不是其他词的一部分
+    connectors = [
+        (r"(?<=[，,。；;\s]|^)(然后)(?=[，,。；;\s]|$)", "|"),
+        (r"(?<=[，,。；;\s]|^)(接着)(?=[，,。；;\s]|$)", "|"),
+        (r"(?<=[，,。；;\s]|^)(随后)(?=[，,。；;\s]|$)", "|"),
+        (r"(?<=[，,。；;\s]|^)(之后)(?=[，,。；;\s]|$)", "|"),
+        (r"(?<=[，,。；;\s]|^)(最后)(?=[，,。；;\s]|$)", "|"),
+        (r"(?<=[，,。；;\s]|^)(并且)(?=[，,。；;\s]|$)", "|"),
+        (r"(?<=[，,。；;\s]|^)(同时)(?=[，,。；;\s]|$)", "|"),
+        (r"(?<=[，,。；;\s]|^)(再)(?=[，,。；;\s]|$)", "|"),
+    ]
+
+    for pattern, replacement in connectors:
+        text = re.sub(pattern, replacement, text)
+
     clauses = [normalize_action_clause(part) for part in text.split("|")]
     return [clause for clause in clauses if clause]
 
@@ -428,8 +446,15 @@ def build_auto_storyboard_beats(brief: dict[str, Any]) -> list[str]:
     if len(beats) == 1:
         beats.append(describe_storyboard_beat("progression", brief["action"]))
 
+    # 如果提供了 final_frame_poster，明确说明收束到定版海报
+    existing_refs = brief.get("existing_references", {})
+    has_final_poster = "final_frame_poster" in existing_refs
+
     if not any(beat.startswith("收束定格：") for beat in beats):
-        beats.append(describe_storyboard_beat("final_pose", "主体收束到最终定格或关键落版"))
+        if has_final_poster:
+            beats.append(describe_storyboard_beat("final_pose", "主体收束到定版海报构图，文案元素逐渐出现"))
+        else:
+            beats.append(describe_storyboard_beat("final_pose", "主体收束到最终定格或关键落版"))
 
     max_panels = target_storyboard_max_panels(brief["duration"], str(brief.get("notes", "")))
     beats = compress_storyboard_beats(beats, max_panels)
