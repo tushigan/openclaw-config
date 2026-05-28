@@ -19,6 +19,23 @@ description: Use when the user wants to reduce 视频抽卡, keep 角色一致�
 
 不要跳过人工确认关卡，除非用户明确要求承担直接生视频的风险。
 
+## 环境要求
+
+### Python 版本
+- **最低要求**：Python 3.9+
+- **推荐版本**：Python 3.10 或更高
+
+### 依赖安装
+
+```bash
+pip install -r requirements.txt
+```
+
+**必需依赖**：
+- `Pillow>=10.0.0` - 用于参考图归一化（压缩、格式转换）
+
+如果缺少 Pillow，参考图归一化功能将无法使用，可能导致大图上传失败。
+
 ## 新增功能（v2 优化）
 
 ### 1. 参考图自动归一化

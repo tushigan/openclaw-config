@@ -1177,7 +1177,7 @@ def write_summary(run_dir: Path, brief: dict[str, Any], prompts: dict[str, str],
             risk_reports = json.loads(risk_report_file.read_text(encoding="utf-8"))
             total_risks = sum(len(report.get("risks", [])) for report in risk_reports.values())
             high_risks = [
-                {"prompt": name, "rule_id": risk["rule_id"], "message": risk["message"]}
+                {"prompt": name, "risk_type": risk["risk_type"], "message": risk["reason"]}
                 for name, report in risk_reports.items()
                 for risk in report.get("risks", [])
                 if risk.get("severity") == "high"

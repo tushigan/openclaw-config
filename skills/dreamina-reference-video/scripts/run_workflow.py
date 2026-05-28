@@ -217,7 +217,7 @@ def cmd_prepare(args: argparse.Namespace) -> int:
 
     # 提取前 3 条高风险
     all_high_risks = [
-        {"prompt": name, "rule_id": risk.rule_id, "message": risk.message}
+        {"prompt": name, "risk_type": risk.risk_type, "message": risk.reason}
         for name, report in risk_reports.items()
         for risk in report.risks
         if risk.severity == "high"
