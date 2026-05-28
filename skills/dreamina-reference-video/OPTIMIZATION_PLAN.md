@@ -196,6 +196,46 @@
 
 ---
 
+## 后续发现的问题（2026-05-28）
+
+### 问题 9：字段名不匹配导致 prepare 失败（已修复）
+
+**发现时间**：2026-05-28 10:45（生图高手反馈）
+
+**现象**：
+- prepare 阶段提取高风险时报错：`AttributeError: 'PromptRisk' object has no attribute 'rule_id'`
+- 风险分析功能无法正常工作
+
+**根本原因**：
+- `PromptRisk` 类定义的字段是 `risk_type` 和 `reason`
+- 但 `run_workflow.py:220` 和 `workflow.py:1180` 访问的是 `rule_id` 和 `message`
+
+**修复状态**：✅ 已修复（commit d3e6ea11）
+- 修正字段名：`rule_id` → `risk_type`，`message` → `reason`
+- 同时修复了两处访问位置
+
+---
+
+### 问题 10：Pillow 依赖未说明（已修复）
+
+**发现时间**：2026-05-28 10:45（生图高手反馈）
+
+**现象**：
+- 生图高手环境中缺少 Pillow 库
+- 参考图归一化功能无法使用
+- 错误信息：`NameError: name 'Image' is not defined`
+
+**根本原因**：
+- `workflow.py` 和 `validator.py` 使用了 `from PIL import Image`
+- 但没有在文档中说明这是必需依赖
+
+**修复状态**：✅ 已修复（commit d3e6ea11）
+- 新增 `requirements.txt` 说明 `Pillow>=10.0.0` 依赖
+- 在 SKILL.md 中添加"环境要求"章节
+- 说明 Python 3.9+ 和 Pillow 依赖
+
+---
+
 ## 实施完成总结
 
 **完成时间**: 2026-05-28
@@ -223,6 +263,11 @@
 2. ✅ 提高流程执行的自主性 - 明确每个步骤的输入输出和下一步
 3. ✅ 减少重复执行的情况 - 提前说明参考图复用策略
 4. ✅ 提升整体用户体验 - 固定汇报模板、风险摘要、可调整关键帧
+
+### 第四批：环境兼容性修复（commit d3e6ea11）
+- 修复字段名不匹配：rule_id → risk_type, message → reason
+- 添加 requirements.txt 说明 Pillow 依赖
+- SKILL.md 添加环境要求章节（Python 3.9+）
 
 ---
 
