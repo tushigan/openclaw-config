@@ -824,7 +824,7 @@ def build_prompts(brief: dict[str, Any]) -> dict[str, str]:
     if identity_forbidden_text:
         identity_board_forbidden_block = f"\n7. 禁止变形：{identity_forbidden_text}。"
 
-    identity_board = f"""身份板任务：只负责角色一致性，不负责背景叙事。
+    identity_board = f"""{constraint_header}身份板任务：只负责角色一致性，不负责背景叙事。
 主体：{subject}
 主体行为线索：{action}
 目标：{identity_board_goal}{identity_board_mode_block}
@@ -841,7 +841,7 @@ def build_prompts(brief: dict[str, Any]) -> dict[str, str]:
     if identity_forbidden_text:
         storyboard_forbidden_block = f"\n10. 禁止变形：{identity_forbidden_text}。"
 
-    storyboard = f"""故事板任务：只负责镜头与动作节奏，不负责重新定义角色。
+    storyboard = f"""{constraint_header}故事板任务：只负责镜头与动作节奏，不负责重新定义角色。
 主体：{subject}
 主体行为主线：{action}
 场景 / 世界观：{scene}
@@ -867,7 +867,7 @@ def build_prompts(brief: dict[str, Any]) -> dict[str, str]:
     if identity_forbidden_text:
         video_forbidden_block = f"\n10. 禁止变形：{identity_forbidden_text}。"
 
-    video = f"""视频提示词任务：必须引用前三张图的职责，不能重新发明一个冲突的新世界。
+    video = f"""{constraint_header}视频提示词任务：必须引用前三张图的职责，不能重新发明一个冲突的新世界。
 使用三张参考图：
 - 原图：负责风格与世界
 - 身份板：负责角色一致性
@@ -1542,6 +1542,72 @@ def summarize_reusable_fields(brief: dict[str, Any]) -> str:
     )
 
 
+def generate_constraint_checklist(identity_structure: list[str], identity_forbidden: list[str]) -> list[str]:
+    """
+    根据约束生成具体的检查清单
+
+    Args:
+        identity_structure: 结构真相列表
+        identity_forbidden: 禁止变形列表
+
+    Returns:
+        检查清单项列表
+    """
+    checklist = []
+
+    # 为禁止约束生成针对性检查项
+    if identity_forbidden:
+        checklist.append("### 2. IP 约束检查（最重要）")
+        checklist.append("")
+        checklist.append("**⚠️ 关键**：如果参考图违反了约束，后续视频必然违反约束！")
+        checklist.append("")
+        checklist.append("**禁止变形检查**（以下特征应该全部没有出现）：")
+
+        for constraint in identity_forbidden:
+            constraint_lower = constraint.lower()
+
+            # 针对翅膀约束
+            if '翅膀' in constraint or 'wing' in constraint_lower:
+                checklist.extend([
+                    f"- [ ] ❌ 身份板中角色两侧是否出现了翅膀状结构？（约束：{constraint}）",
+                    f"- [ ] ❌ 故事板每一格中角色是否保持了无翅膀状态？",
+                    f"- [ ] ❌ 侧面视角时是否错误地出现了翅膀轮廓？"
+                ])
+
+            # 针对手/手臂约束
+            elif '手' in constraint or 'hand' in constraint_lower or 'arm' in constraint_lower:
+                checklist.extend([
+                    f"- [ ] ❌ 身份板中是否出现了手臂、手掌或手指？（约束：{constraint}）",
+                    f"- [ ] ❌ 故事板中角色的肢体是否只有脚部？"
+                ])
+
+            # 针对尾巴约束
+            elif '尾巴' in constraint or 'tail' in constraint_lower:
+                checklist.extend([
+                    f"- [ ] ❌ 是否在不应该出现尾巴的视角出现了尾巴？（约束：{constraint}）"
+                ])
+
+            # 通用约束检查
+            else:
+                checklist.append(f"- [ ] ❌ 是否违反了约束：{constraint}？")
+
+        checklist.extend([
+            "",
+            "**如果发现违反约束，必须重新生成对应参考图！**",
+            ""
+        ])
+
+    # 为结构真相生成检查项
+    if identity_structure:
+        checklist.append("### 3. 结构真相检查")
+        checklist.append("")
+        for item in identity_structure:
+            checklist.append(f"- [ ] ✅ {item}")
+        checklist.append("")
+
+    return checklist
+
+
 def write_summary(run_dir: Path, brief: dict[str, Any], prompts: dict[str, str], submit_id: str | None = None) -> None:
     identity_source = reference_target(run_dir, "identity_source")
     identity_reference = "refs/identity-source.png" if identity_source.exists() else "refs/identity-board.png"
@@ -1647,21 +1713,18 @@ def write_summary(run_dir: Path, brief: dict[str, Any], prompts: dict[str, str],
     lines.extend([
         "## 人工检查清单",
         "",
-        f"请在生成参考图和视频后，检查以下项目：",
+        "请在生成参考图和视频后，检查以下项目：",
         "",
-        f"- [ ] 故事板每一格是否都是 **{brief['ratio']}** 画幅？（不是横向长条，不是电影条带）",
+        "### 1. 故事板画幅检查",
+        f"- [ ] 每一格是否都是 **{brief['ratio']}** 画幅？（不是横向长条，不是电影条带）",
         f"- [ ] 角色身份是否和 {identity_reference} 一致？（脸、服装、比例、姿态）",
+        "",
     ])
 
-    if identity_structure:
-        lines.append("- [ ] 以下结构真相是否都保持了？")
-        for item in identity_structure:
-            lines.append(f"  - [ ] {item}")
-
-    if identity_forbidden:
-        lines.append("- [ ] 是否出现了以下禁止变形？（应该全部没有出现）")
-        for item in identity_forbidden:
-            lines.append(f"  - [ ] {item}")
+    # 使用新的检查清单生成逻辑
+    constraint_checklist = generate_constraint_checklist(identity_structure, identity_forbidden)
+    if constraint_checklist:
+        lines.extend(constraint_checklist)
 
     lines.extend([
         "",
