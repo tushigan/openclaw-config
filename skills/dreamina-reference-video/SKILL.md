@@ -77,17 +77,33 @@ python3 scripts/run_workflow.py preflight
 
 4. 如果 `preflight` 报 `gpt_image_config` 或 `dreamina_credit` 失败，先把问题讲清楚，再继续下一步。
 
-## 固定工作流
+## 标准执行流程（必须按顺序）
 
-### 1. 准备运行目录与提示词
+这是固定流程，不要跳步骤，不要省略验证：
 
-优先把需求写成一个简短 `brief.json`，再执行：
+```
+preflight → prepare → generate-refs → validate-run → complete-manual-checks → review-run → submit-video → fetch-result
+```
+
+### 步骤 1：preflight - 环境检查
+
+检查 GPT 图生图配置和即梦额度是否可用。
+
+```bash
+python3 scripts/run_workflow.py preflight
+```
+
+如果失败，先解决配置问题再继续。
+
+### 步骤 2：prepare - 准备运行目录与提示词
+
+优先把需求写成 `brief.json`，再执行：
 
 ```bash
 python3 scripts/run_workflow.py prepare --brief-file /path/to/brief.json
 ```
 
-或者直接传最小字段：
+或直接传最小字段：
 
 ```bash
 python3 scripts/run_workflow.py prepare \
@@ -97,10 +113,9 @@ python3 scripts/run_workflow.py prepare \
   --style “电影感街头纪实”
 ```
 
-**新增字段**（可选）：
+**IP 约束字段**（可选）：
 
 ```bash
-# IP 约束字段
 --identity-structure “整体读成点赞大拇指体块” \
 --identity-structure “正面也能看到尾巴” \
 --identity-forbidden “禁止普通圆鸡化” \
@@ -134,18 +149,16 @@ python3 scripts/run_workflow.py prepare \
 }
 ```
 
-默认值已经写死：
+默认值：
 
 - 比例：`16:9`
 - 时长：`5`
-- 质量档：`draft`
-- `draft` -> `seedance2.0fast`
-- `final` -> `seedance2.0_vip` + 优先 `1080p`
+- 质量档：`draft`（`draft` → `seedance2.0fast`，`final` → `seedance2.0_vip` + 1080p）
 - 故事板策略：`auto_beats`
-- 如果用户给了准确三视图但没指定身份策略：默认 `reuse_exact`
+- 身份策略：如果提供准确三视图，默认 `reuse_exact`
 - 参考图归一化：默认开启
 
-`prepare` 会自动落这些文件：
+`prepare` 输出文件：
 
 - `brief.json`
 - `prompts/original.txt`
@@ -153,8 +166,20 @@ python3 scripts/run_workflow.py prepare \
 - `prompts/storyboard.txt`
 - `prompts/video.txt`
 - `summary.md`
+- `risk_analysis.json`（如果有风险）
 
-### 2. 生成三张参考图
+**prepare 完成后必须做的事：**
+
+1. **汇报风险摘要**（如果有高风险）：
+   - 总风险数
+   - 高风险数
+   - 最值得现在就改的前 3 条
+   
+2. **说明参考图复用策略**（如果提供了 `final_frame_poster`）：
+   - 会自动复用为 `original`
+   - 不会额外生成冲突原图
+
+### 步骤 3：generate-refs - 生成参考图
 
 先看 dry run：
 
@@ -162,51 +187,101 @@ python3 scripts/run_workflow.py prepare \
 python3 scripts/run_workflow.py generate-refs --run-dir /path/to/run --dry-run
 ```
 
-确认命令没问题后再执行：
+确认后执行：
 
 ```bash
 python3 scripts/run_workflow.py generate-refs --run-dir /path/to/run
 ```
 
-角色分工不要改：
+角色分工：
 
 - `原图`：只负责风格与世界
 - `身份板 / identity-source`：只负责角色一致性
 - `故事板`：只负责关键帧、镜头与动作节奏
 
-如果用户已经有现成参考图，把路径写进 `brief.json` 的 `existing_references`，脚本会自动复制进本次运行目录，并**自动归一化到安全尺寸**。
+现成参考图支持：
 
-支持的现成参考图类型：
+- `existing_references.identity_source` - 准确三视图、官方定稿
+- `existing_references.final_frame_poster` - 尾帧定版海报
 
-- `existing_references.identity_source` - 准确三视图、官方定稿或最高结构依据
-- `existing_references.final_frame_poster` - 尾帧定版海报（包含最终构图、文字、品牌元素）
+**重要：提供 `final_frame_poster` 时，系统会自动将其复用为 `original`，避免生成与定版不一致的原图。**
 
-**重要：当提供 `final_frame_poster` 时，系统会自动将其复用为 `original`（风格与世界参考），避免生成与定版不一致的原图。**
+身份策略：
 
-身份策略固定分两种：
+- `reuse_exact`：直接用 `identity_source`，不额外生成 AI 身份板
+- `extend_from_source`：基于 `identity_source` 延展身份板，但后续仍优先服从 `identity_source`
 
-- `reuse_exact`
-  - 直接把 `identity_source` 当最高角色依据
-  - 不额外生成 AI 身份板
-- `extend_from_source`
-  - 允许基于 `identity_source` 再延展一张更正式的身份板
-  - 但后续故事板和视频仍优先服从 `identity_source`
+**generate-refs 完成后必须做的事：**
 
-### 3. 人工确认关卡
+1. **使用 message 工具发送参考图给用户**：
+   - 发送 `original.png`
+   - 发送 `identity-board.png` 或 `identity-source.png`
+   - 发送 `storyboard.png`
+   
+2. **汇报关键信息**：
+   - 参考图路径
+   - 关键帧提纲与规划格数
+   - 角色结构最高依据是哪张图
+   - 参考图归一化结果（如果有压缩）
 
-参考图生成完成后，必须先把下面这些信息给用户看：
+3. **明确等待用户确认**：
+   - 说明”请先确认这 3 张图”
+   - 说明”确认后我会继续验证并提交视频”
 
-- 参考图路径
-- 本次摘要（`summary.md`）
-- 本次关键帧提纲与规划格数
-- 当前角色结构最高依据是哪一张图
-- **参考图归一化结果**（如果有压缩）
-- **人工检查清单**（故事板画幅、IP 约束验证）
-- 是否存在明显串模板、角色漂移、世界观冲突
+### 步骤 4：validate-run - 验证参考图
 
-只有在用户确认通过后，才进入视频阶段。
+**这一步是必须的，不能跳过。**
 
-### 4. 提交即梦视频
+参考图生成后，默认验证 `storyboard` 阶段（不是 `reference_system`）：
+
+```bash
+python3 scripts/run_workflow.py validate-run --run-dir /path/to/run --stage storyboard
+```
+
+这会检查：
+- 故事板画幅是否正确（每格是独立的成片画幅，不是横向长条）
+- 角色一致性（是否出现不该有的特征）
+- IP 约束验证（`identity_structure` 和 `identity_forbidden`）
+
+验证结果保存在 `validation_reports/storyboard_*.json`。
+
+### 步骤 5：complete-manual-checks - 完成人工检查
+
+**用户确认参考图后，必须回写人工检查结果。**
+
+这一步不能省略，否则 `review-run` 会拒绝放行。
+
+人工检查项（从 `summary.md` 中提取）：
+- 故事板每格画幅是否正确
+- 角色是否出现漂移或串模板
+- IP 约束是否被违反
+- 世界观是否一致
+
+回写方式：在最新的验证报告中补充 `manual_checks` 字段，或使用命令：
+
+```bash
+python3 scripts/run_workflow.py complete-manual-checks --run-dir /path/to/run --all-passed
+```
+
+如果有问题，标记具体检查项为 `failed`，并说明原因。
+
+### 步骤 6：review-run - 决定下一步
+
+**这一步检查验证结果和人工检查是否完成。**
+
+```bash
+python3 scripts/run_workflow.py review-run --run-dir /path/to/run
+```
+
+`review-run` 会返回三种结果：
+
+- `proceed`：验证通过且人工检查完成，可以提交视频
+- `iterate`：发现问题，需要重新生成参考图
+- `ask_user`：人工检查未完成，需要用户确认
+
+**只有返回 `proceed` 时，才能进入下一步。**
+
+### 步骤 7：submit-video - 提交即梦视频
 
 先看 dry run：
 
@@ -214,40 +289,80 @@ python3 scripts/run_workflow.py generate-refs --run-dir /path/to/run
 python3 scripts/run_workflow.py submit-video --run-dir /path/to/run --dry-run
 ```
 
-确认后正式提交：
+确认后提交：
 
 ```bash
 python3 scripts/run_workflow.py submit-video --run-dir /path/to/run
 ```
 
-默认只走：
+默认使用 `dreamina multimodal2video`。
 
-- `dreamina multimodal2video`
+其他模式（`frames2video`、`image2video`、`multiframe2video`）只作为扩展，不是默认主通路。
 
-不要把第一版主流程改成：
+### 步骤 8：fetch-result - 查询并下载结果
 
-- `frames2video`
-- `image2video`
-- `multiframe2video`
-
-这些只作为后续扩展，不作为默认主通路。
-
-### 5. 查询并下载结果
-
-如果提交后没有直接拿到完整结果，执行：
+如果提交后没有直接拿到完整结果：
 
 ```bash
 python3 scripts/run_workflow.py fetch-result --run-dir /path/to/run
 ```
 
-结果默认下载到：
+结果下载到 `dreamina/downloads/`。
 
-- `dreamina/downloads/`
-
-提交与查询结果默认写到：
-
+提交与查询结果记录在：
 - `dreamina/submit_id.txt`
 - `dreamina/result.json`
+
+## 确认关卡规则（不可跳过）
+
+### 规则 1：参考图生成后必须发图
+
+**generate-refs 完成后，必须使用 message 工具发送参考图给用户。**
+
+- 发送 `original.png`
+- 发送 `identity-board.png` 或 `identity-source.png`
+- 发送 `storyboard.png`
+
+**没发图，不算进入确认。**
+
+### 规则 2：必须明确等待用户确认
+
+发图后，必须明确告诉用户：
+
+- "请先确认这 3 张图"
+- "确认后我会继续验证并提交视频"
+
+**没明确等待，不算确认关卡。**
+
+### 规则 3：用户确认前不得提交视频
+
+只有以下情况可以继续：
+
+- 用户明确说"确认"、"可以"、"继续"
+- 用户明确要求"跳过确认，直接生成视频"（需承担风险）
+
+**没确认，不得提交视频。**
+
+### 规则 4：确认后必须回写人工检查
+
+用户确认后，必须执行：
+
+```bash
+python3 scripts/run_workflow.py complete-manual-checks --run-dir /path/to/run --all-passed
+```
+
+或在验证报告中补充 `manual_checks` 字段。
+
+**没回写，review-run 会拒绝放行。**
+
+### 规则 5：review-run 必须返回 proceed 才能提交
+
+执行 `review-run` 后，只有返回 `proceed` 才能继续。
+
+- `iterate`：需要重新生成参考图
+- `ask_user`：需要用户确认
+
+**没有 proceed，不得提交视频。**
 
 ## 关键约束
 
@@ -267,6 +382,33 @@ python3 scripts/run_workflow.py fetch-result --run-dir /path/to/run
 6. 默认先出参考图，再让用户确认，不要直接冲视频。
 7. **大参考图会自动压缩**：超过 1920px 或 3MB 的图片会被归一化到安全尺寸。
 
+## 验收标准
+
+### 第一批优化验收标准
+
+连续跑一轮测试时，必须满足：
+
+1. **不催也能走到确认**：
+   - 用户不催促，agent 也能自动走到"发图等待确认"
+   - agent 主动发送参考图
+   - agent 主动汇报关键信息
+   - agent 明确等待用户确认
+
+2. **验证不能被跳过**：
+   - 没有 `storyboard` 验证报告时，不能进视频提交
+   - `validate-run` 默认验证 `storyboard` 阶段
+   - 验证报告保存在 `validation_reports/` 目录
+
+3. **人工检查必须回写**：
+   - 没有 `manual_checks` 回写时，不能被 review 放行
+   - `review-run` 返回 `ask_user` 时，必须完成人工检查
+   - 完成后 `review-run` 才能返回 `proceed`
+
+4. **风险必须汇报**：
+   - `prepare` 后如果有高风险，必须主动汇报
+   - 汇报内容：总风险数、高风险数、前 3 条建议
+   - 不能等用户问才说
+
 ## 参考资料
 
 - 角色分工与方法边界：`references/methodology.md`
@@ -274,15 +416,114 @@ python3 scripts/run_workflow.py fetch-result --run-dir /path/to/run
 
 ## 交付时怎么汇报
 
-至少明确告诉用户：
+### 固定汇报模板
+
+**不是文学创作，是工作口令。**
+
+#### prepare 完成后
+
+如果有高风险：
+
+```
+准备完成。本次运行目录：[路径]
+
+⚠️ 风险提示：
+- 总风险数：X 个
+- 高风险数：Y 个
+- 最值得现在就改的前 3 条：
+  1. [风险描述]
+  2. [风险描述]
+  3. [风险描述]
+
+是否需要先修改 prompt 再继续？
+```
+
+如果提供了 `final_frame_poster`：
+
+```
+准备完成。本次运行目录：[路径]
+
+📌 参考图复用策略：
+- 检测到 final_frame_poster，会自动复用为 original
+- 不会额外生成冲突原图
+```
+
+#### generate-refs 完成后
+
+```
+参考图已生成。
+
+📊 本次关键帧规划：
+- 格数：X 格
+- 关键帧提纲：[简要列出]
+- 角色结构最高依据：[identity-source 或 identity-board]
+
+📷 参考图归一化结果：
+- original.png：[原始尺寸] → [工作尺寸]
+- identity-board.png：[原始尺寸] → [工作尺寸]
+- storyboard.png：[原始尺寸] → [工作尺寸]
+
+[发送 3 张参考图]
+
+请先确认这 3 张图。确认后我会继续验证并提交视频。
+```
+
+#### validate-run 完成后
+
+```
+验证完成。
+
+✅ 验证通过项：
+- [检查项 1]
+- [检查项 2]
+
+⚠️ 需要人工确认项：
+- 故事板每格画幅是否正确
+- 角色是否出现漂移或串模板
+- IP 约束是否被违反
+
+请确认以上检查项。
+```
+
+#### submit-video 完成后
+
+```
+视频已提交。
+
+📋 提交信息：
+- 任务 ID：[submit_id]
+- 预计等待时间：[时长]
+- 结果保存路径：dreamina/downloads/
+
+我会持续查询结果。
+```
+
+#### fetch-result 完成后
+
+```
+视频已下载。
+
+📁 结果路径：[完整路径]
+📊 视频信息：
+- 分辨率：[宽x高]
+- 时长：[秒数]
+- 文件大小：[MB]
+
+💡 下次复用时最值得改的字段：
+- [建议 1]
+- [建议 2]
+```
+
+### 最少必须告诉用户的信息
 
 1. 本次运行目录
 2. 参考图路径
 3. **参考图归一化结果**（如果有压缩）
 4. 本次关键帧提纲与规划格数
-5. **人工检查清单**（从 `summary.md` 中提取）
-6. 视频结果路径
-7. 下次复用时最值得改的字段
+5. **风险摘要**（如果有高风险）
+6. **人工检查清单**（从 `summary.md` 中提取）
+7. 视频结果路径
+8. 下次复用时最值得改的字段
 
 ## 故障排除
 

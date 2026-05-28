@@ -101,6 +101,11 @@ def parse_check_assignment(raw: str) -> tuple[str, bool]:
 def load_manual_check_updates(args: argparse.Namespace) -> dict[str, bool]:
     updates: dict[str, bool] = {}
 
+    # 如果指定了 --all-passed，标记所有检查项为通过
+    if getattr(args, 'all_passed', False):
+        # 这个标记会在 cmd_complete_manual_checks 中处理
+        return {}
+
     if args.file:
         payload = json.loads(Path(args.file).read_text(encoding="utf-8"))
         if isinstance(payload, dict) and "manual_checks" in payload:
@@ -120,8 +125,8 @@ def load_manual_check_updates(args: argparse.Namespace) -> dict[str, bool]:
         check_id, checked = parse_check_assignment(raw)
         updates[check_id] = checked
 
-    if not updates:
-        raise ValueError("请通过 --file 或 --check 提供至少一个人工检查更新")
+    if not updates and not getattr(args, 'all_passed', False):
+        raise ValueError("请通过 --file、--check 或 --all-passed 提供至少一个人工检查更新")
     return updates
 
 
@@ -425,7 +430,8 @@ def cmd_validate_run(args: argparse.Namespace) -> int:
     state_manager = StateManager(project_dir)
     run_state = load_run_state_or_error(state_manager, run_dir)
 
-    stage = args.stage or "reference_system"
+    # 默认验证 storyboard 阶段（包含人工检查清单）
+    stage = args.stage or "storyboard"
     report = validate_run(run_dir, brief, stage)
     report_dict = report.to_dict()
 
@@ -458,30 +464,36 @@ def cmd_complete_manual_checks(args: argparse.Namespace) -> int:
         print(json.dumps({"error": "当前 run 没有可回写的人工检查清单"}, ensure_ascii=False, indent=2))
         return 1
 
-    try:
-        updates = load_manual_check_updates(args)
-    except ValueError as exc:
-        print(json.dumps({"error": str(exc)}, ensure_ascii=False, indent=2))
-        return 1
+    # 如果指定了 --all-passed，标记所有检查项为通过
+    if getattr(args, 'all_passed', False):
+        for check in manual_checks:
+            check["checked"] = True
+        updates = {check.get("id"): True for check in manual_checks}
+    else:
+        try:
+            updates = load_manual_check_updates(args)
+        except ValueError as exc:
+            print(json.dumps({"error": str(exc)}, ensure_ascii=False, indent=2))
+            return 1
 
-    check_index = {check.get("id"): check for check in manual_checks}
-    unknown_ids = sorted(check_id for check_id in updates if check_id not in check_index)
-    if unknown_ids:
-        print(
-            json.dumps(
-                {
-                    "error": "存在未知的人工检查项",
-                    "unknown_ids": unknown_ids,
-                    "known_ids": sorted(check_index.keys()),
-                },
-                ensure_ascii=False,
-                indent=2,
+        check_index = {check.get("id"): check for check in manual_checks}
+        unknown_ids = sorted(check_id for check_id in updates if check_id not in check_index)
+        if unknown_ids:
+            print(
+                json.dumps(
+                    {
+                        "error": "存在未知的人工检查项",
+                        "unknown_ids": unknown_ids,
+                        "known_ids": sorted(check_index.keys()),
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
             )
-        )
-        return 1
+            return 1
 
-    for check_id, checked in updates.items():
-        check_index[check_id]["checked"] = checked
+        for check_id, checked in updates.items():
+            check_index[check_id]["checked"] = checked
 
     run_state.validation_report = validation_report
     state_manager.save_run_state(run_dir, run_state)
@@ -620,15 +632,17 @@ def build_parser() -> argparse.ArgumentParser:
     fetch.add_argument("--dreamina-bin", default=DREAMINA_BIN)
     fetch.set_defaults(func=cmd_fetch_result)
 
-    validate = subparsers.add_parser("validate-run", help="验证运行结果")
+    validate = subparsers.add_parser("validate-run", help="验证运行结果（默认验证 storyboard 阶段）")
     validate.add_argument("--run-dir", required=True)
-    validate.add_argument("--stage", choices=["reference_system", "storyboard", "video"], help="验证阶段")
+    validate.add_argument("--stage", choices=["reference_system", "storyboard", "video"],
+                         help="验证阶段（默认：storyboard，包含人工检查清单）")
     validate.set_defaults(func=cmd_validate_run)
 
     complete_manual = subparsers.add_parser("complete-manual-checks", help="回写人工检查清单")
     complete_manual.add_argument("--run-dir", required=True)
     complete_manual.add_argument("--file", help="包含人工检查结果的 JSON 文件")
     complete_manual.add_argument("--check", action="append", help="单项更新，格式为 check_id=true/false")
+    complete_manual.add_argument("--all-passed", action="store_true", help="标记所有检查项为通过")
     complete_manual.set_defaults(func=cmd_complete_manual_checks)
 
     review = subparsers.add_parser("review-run", help="审查运行结果并决定下一步动作")
