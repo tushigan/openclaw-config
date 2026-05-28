@@ -16,6 +16,7 @@ if str(SKILL_ROOT) not in sys.path:
 from scripts.workflow import (
     DREAMINA_BIN,
     DEFAULT_OUTPUT_ROOT,
+    REFERENCE_FILE_MAP,
     build_project_dir,
     build_dreamina_command,
     build_gpt_image_jobs,
@@ -25,8 +26,11 @@ from scripts.workflow import (
     collect_reference_files,
     ensure_run_layout,
     ensure_project_layout,
+    load_validation_report,
     materialize_existing_references,
     normalize_brief,
+    prepare_validation_references,
+    resolve_reference_path,
     resolve_project_dir_for_run,
     run_command,
     run_preflight,
@@ -35,11 +39,12 @@ from scripts.workflow import (
     summarize_reusable_fields,
     sync_project_canonical_files,
     update_project_state,
+    write_validation_report,
     write_brief,
     write_prompts,
     write_summary,
 )
-from scripts.state_manager import StateManager, now_iso
+from scripts.state_manager import RunState, StateManager, now_iso
 from scripts.validator import validate_run
 from scripts.iteration_engine import IterationEngine
 from scripts.prompt_risk_analyzer import analyze_prompts
@@ -131,10 +136,162 @@ def load_manual_check_updates(args: argparse.Namespace) -> dict[str, bool]:
 
 
 def persist_validation_report(run_dir: Path, validation_report: dict[str, Any]) -> Path:
-    stage = validation_report.get("stage", "unknown")
-    report_file = run_dir / f"validation_report_{stage}.json"
-    report_file.write_text(json.dumps(validation_report, ensure_ascii=False, indent=2), encoding="utf-8")
-    return report_file
+    report_files = write_validation_report(run_dir, validation_report)
+    return report_files[0]
+
+
+def infer_run_stage_and_status(
+    run_dir: Path,
+    project_config: Any | None,
+) -> tuple[str, str]:
+    if project_config is not None:
+        for record in project_config.runs:
+            if record.get("run_id") == run_dir.name:
+                return record.get("stage", "prepare"), record.get("status", "pending")
+
+    if (run_dir / "dreamina" / "result.json").exists() or (run_dir / "dreamina" / "submit_id.txt").exists():
+        return "submit_video", "video_submitted"
+    if collect_reference_files(run_dir):
+        return "generate_refs", "references_generated"
+    return "prepare", "ready_for_ref_generation"
+
+
+def build_artifact_map(run_dir: Path) -> dict[str, str]:
+    artifacts: dict[str, str] = {}
+    result_file = run_dir / "dreamina" / "result.json"
+    submit_id_file = run_dir / "dreamina" / "submit_id.txt"
+    downloads_dir = run_dir / "dreamina" / "downloads"
+    if result_file.exists():
+        artifacts["result_file"] = str(result_file)
+    if submit_id_file.exists():
+        artifacts["submit_id_file"] = str(submit_id_file)
+    if downloads_dir.exists():
+        artifacts["downloads_dir"] = str(downloads_dir)
+    return artifacts
+
+
+def refresh_project_canonical_manifest(
+    state_manager: StateManager,
+) -> list[dict[str, Any]]:
+    recovery_actions: list[dict[str, Any]] = []
+    project_config = state_manager.load_project()
+    if project_config is None:
+        return recovery_actions
+
+    canonical_changed = False
+    for key, filename in REFERENCE_FILE_MAP.items():
+        canonical_path = Path(project_config.project_dir) / "canonical" / filename
+        if canonical_path.exists() and project_config.canonical_files.get(key) != str(canonical_path):
+            project_config.canonical_files[key] = str(canonical_path)
+            canonical_changed = True
+
+    if canonical_changed:
+        state_manager.save_project(project_config)
+        recovery_actions.append(
+            {
+                "action": "refresh_project_canonical_manifest",
+                "target": str(Path(project_config.project_dir) / "project.json"),
+            }
+        )
+
+    return recovery_actions
+
+
+def load_or_recover_run_state(
+    state_manager: StateManager,
+    run_dir: Path,
+    brief: dict[str, Any],
+) -> tuple[RunState, list[dict[str, Any]]]:
+    recovery_actions: list[dict[str, Any]] = []
+    run_state = state_manager.load_run_state(run_dir)
+    project_config = state_manager.load_project()
+    recovery_actions.extend(refresh_project_canonical_manifest(state_manager))
+
+    if run_state is None:
+        stage, status = infer_run_stage_and_status(run_dir, project_config)
+        run_state = RunState(
+            run_id=run_dir.name,
+            project_id=brief.get("project_slug", ""),
+            stage=stage,
+            status=status,
+            created_at=now_iso(),
+            updated_at=now_iso(),
+            config_snapshot=brief,
+            prompt_files=collect_prompt_files(run_dir),
+            reference_files=collect_reference_files(run_dir),
+            artifacts=build_artifact_map(run_dir),
+        )
+        validation_report, report_path = load_validation_report(run_dir)
+        if validation_report:
+            run_state.validation_report = validation_report
+            recovery_actions.append(
+                {
+                    "action": "recover_validation_report",
+                    "source": str(report_path),
+                }
+            )
+        state_manager.save_run_state(run_dir, run_state)
+        recovery_actions.append(
+            {
+                "action": "rebuild_run_state",
+                "target": str(run_dir / "run_state.json"),
+                "stage": stage,
+                "status": status,
+            }
+        )
+        return run_state, recovery_actions
+
+    changed = False
+    if not run_state.config_snapshot:
+        run_state.config_snapshot = brief
+        changed = True
+    if not run_state.prompt_files:
+        run_state.prompt_files = collect_prompt_files(run_dir)
+        changed = True
+    current_references = collect_reference_files(run_dir)
+    if current_references and current_references != run_state.reference_files:
+        run_state.reference_files.update(current_references)
+        changed = True
+    current_artifacts = build_artifact_map(run_dir)
+    if current_artifacts:
+        for key, value in current_artifacts.items():
+            if run_state.artifacts.get(key) != value:
+                run_state.artifacts[key] = value
+                changed = True
+    if not run_state.validation_report:
+        validation_report, report_path = load_validation_report(run_dir)
+        if validation_report:
+            run_state.validation_report = validation_report
+            changed = True
+            recovery_actions.append(
+                {
+                    "action": "recover_validation_report",
+                    "source": str(report_path),
+                }
+            )
+
+    if changed:
+        state_manager.save_run_state(run_dir, run_state)
+        recovery_actions.append(
+            {
+                "action": "refresh_run_state",
+                "target": str(run_dir / "run_state.json"),
+            }
+        )
+
+    return run_state, recovery_actions
+
+
+def build_validation_gate_status(run_state: RunState) -> dict[str, Any]:
+    next_action = run_state.next_action or {}
+    decision = next_action.get("decision")
+    can_submit = bool(run_state.validation_report) and bool(next_action.get("reviewed_at")) and decision in {"proceed", "continue"}
+    return {
+        "has_validation_report": bool(run_state.validation_report),
+        "has_review": bool(next_action.get("reviewed_at")),
+        "review_decision": decision or "",
+        "can_submit": bool(can_submit),
+    }
 
 
 def cmd_preflight(_: argparse.Namespace) -> int:
@@ -364,7 +521,7 @@ def cmd_submit_video(args: argparse.Namespace) -> int:
     brief, prompts = read_brief_and_prompts(run_dir)
     project_dir = resolve_project_dir_for_run(run_dir, brief)
     state_manager = StateManager(project_dir)
-    run_state = load_run_state_or_error(state_manager, run_dir)
+    run_state, recovery_actions = load_or_recover_run_state(state_manager, run_dir, brief)
 
     if not args.dry_run:
         validation_report = run_state.validation_report or {}
@@ -375,7 +532,7 @@ def cmd_submit_video(args: argparse.Namespace) -> int:
         if not next_action.get("reviewed_at"):
             print(json.dumps({"error": "提交视频前请先执行 review-run"}, ensure_ascii=False, indent=2))
             return 1
-        if next_action.get("decision") != "continue":
+        if next_action.get("decision") not in {"proceed", "continue"}:
             print(
                 json.dumps(
                     {
@@ -388,10 +545,53 @@ def cmd_submit_video(args: argparse.Namespace) -> int:
             )
             return 1
 
-    cmd = build_dreamina_command(run_dir, brief, prompts)
+    command_recovery_actions = list(recovery_actions)
+    cmd = build_dreamina_command(
+        run_dir,
+        brief,
+        prompts,
+        project_dir=project_dir,
+        recovery_actions=command_recovery_actions,
+    )
+    command_recovery_actions.extend(refresh_project_canonical_manifest(state_manager))
+    resolved_identity_source = resolve_reference_path(run_dir, "identity_source", project_dir=project_dir)
+    resolved_identity = (
+        resolved_identity_source
+        if resolved_identity_source.exists()
+        else resolve_reference_path(run_dir, "identity_board", project_dir=project_dir)
+    )
+    resolved_references = {
+        "original": str(
+            resolve_reference_path(
+                run_dir,
+                "original",
+                project_dir=project_dir,
+            )
+        ),
+        "identity": str(resolved_identity),
+        "storyboard": str(
+            resolve_reference_path(
+                run_dir,
+                "storyboard",
+                project_dir=project_dir,
+                purpose="submit",
+            )
+        ),
+    }
 
     if args.dry_run:
-        print(json.dumps({"command": cmd}, ensure_ascii=False, indent=2))
+        print(
+            json.dumps(
+                {
+                    "command": cmd,
+                    "resolved_references": resolved_references,
+                    "recovery_actions": command_recovery_actions,
+                    "validation_gate_status": build_validation_gate_status(run_state),
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
         return 0
 
     proc = run_command(cmd)
@@ -429,6 +629,7 @@ def cmd_fetch_result(args: argparse.Namespace) -> int:
     brief, _ = read_brief_and_prompts(run_dir)
     project_dir = resolve_project_dir_for_run(run_dir, brief)
     state_manager = StateManager(project_dir)
+    _, _ = load_or_recover_run_state(state_manager, run_dir, brief)
     submit_id_path = run_dir / "dreamina" / "submit_id.txt"
     submit_id = args.submit_id or submit_id_path.read_text(encoding="utf-8").strip()
     downloads = run_dir / "dreamina" / "downloads"
@@ -477,13 +678,24 @@ def cmd_validate_run(args: argparse.Namespace) -> int:
     brief, prompts = read_brief_and_prompts(run_dir)
     project_dir = resolve_project_dir_for_run(run_dir, brief)
     state_manager = StateManager(project_dir)
-    run_state = load_run_state_or_error(state_manager, run_dir)
+    run_state, recovery_actions = load_or_recover_run_state(state_manager, run_dir, brief)
 
     # 默认验证 storyboard 阶段（包含人工检查清单）
     stage = args.stage or "storyboard"
+    prepare_validation_references(
+        run_dir,
+        brief,
+        stage,
+        project_dir=project_dir,
+        recovery_actions=recovery_actions,
+    )
+    recovery_actions.extend(refresh_project_canonical_manifest(state_manager))
     report = validate_run(run_dir, brief, stage)
     report_dict = report.to_dict()
+    if recovery_actions:
+        report_dict["recovery_actions"] = recovery_actions
 
+    run_state.reference_files = collect_reference_files(run_dir)
     run_state.validation_report = report_dict
     run_state.add_iteration(
         artifact_type=stage,
@@ -505,7 +717,7 @@ def cmd_complete_manual_checks(args: argparse.Namespace) -> int:
     brief, _ = read_brief_and_prompts(run_dir)
     project_dir = resolve_project_dir_for_run(run_dir, brief)
     state_manager = StateManager(project_dir)
-    run_state = load_run_state_or_error(state_manager, run_dir)
+    run_state, _ = load_or_recover_run_state(state_manager, run_dir, brief)
 
     validation_report = run_state.validation_report or {}
     manual_checks = validation_report.get("manual_checks", [])
@@ -571,10 +783,7 @@ def cmd_review_run(args: argparse.Namespace) -> int:
     state_manager = StateManager(project_dir)
 
     # 加载 run_state
-    run_state = state_manager.load_run_state(run_dir)
-    if run_state is None:
-        print(json.dumps({"error": "运行状态不存在"}, ensure_ascii=False, indent=2))
-        return 1
+    run_state, recovery_actions = load_or_recover_run_state(state_manager, run_dir, brief)
     if not run_state.validation_report:
         print(json.dumps({"error": "还没有验证报告，请先执行 validate-run"}, ensure_ascii=False, indent=2))
         return 1
@@ -597,6 +806,8 @@ def cmd_review_run(args: argparse.Namespace) -> int:
     decision_payload = decision.to_dict()
     decision_payload["reviewed_at"] = now_iso()
     decision_payload["validation_stage"] = run_state.validation_report.get("stage", "")
+    if recovery_actions:
+        decision_payload["recovery_actions"] = recovery_actions
 
     # 更新 run_state.json
     state_manager.update_run_state(

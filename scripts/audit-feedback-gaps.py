@@ -109,7 +109,14 @@ def iter_agent_session_files() -> list[Path]:
         if _is_cron_session_path(path):
             continue
         unique[str(path)] = path
-    return sorted(unique.values(), key=lambda p: p.stat().st_mtime, reverse=True)
+    
+    # Sort by mtime, but handle files that may have been deleted
+    def safe_mtime(p: Path) -> float:
+        try:
+            return p.stat().st_mtime
+        except FileNotFoundError:
+            return 0.0
+    return sorted(unique.values(), key=safe_mtime, reverse=True)
 
 
 def short(text: Any, limit: int = 180) -> str:

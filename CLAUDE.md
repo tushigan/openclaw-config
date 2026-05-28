@@ -94,9 +94,12 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 ```
 ~/.openclaw/
 ├── openclaw.json         # Main config (models, channels, agents, plugins, skills, cron)
+├── CLAUDE.md             # Claude Code guidance (this file)
+├── AGENTS.md             # Root-level agent execution rules
 ├── .env                  # Environment variables (API keys: BANANA, KLING, DIFY, MEMOS)
 ├── exec-approvals.json   # Per-agent command execution allowlists
 ├── .mcp.json             # MCP server config (Apifox)
+├── .gitignore            # Git tracking rules
 │
 ├── agents/               # Agent runtime dirs (models.json, auth-profiles.json, sessions/)
 ├── workspace*/           # Per-agent workspaces (AGENTS.md, SOUL.md, IDENTITY.md, etc.)
@@ -114,6 +117,8 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 ├── flows/                # Flow registry (SQLite)
 ├── tasks/                # Task run history (SQLite)
 ├── extensions/           # OpenClaw plugins (memos-local, openclaw-lark)
+├── delivery-queue/       # Message delivery queue
+├── devices/              # Device registration data
 └── scripts/              # Utility scripts (cleanup-ghost-group-sessions.sh)
 ```
 
@@ -123,6 +128,17 @@ Only personality/rule files are tracked in git for sub-workspaces (per `.gitigno
 - `AGENTS.md`, `SOUL.md`, `IDENTITY.md`, `USER.md` — tracked
 - Everything else in workspace*/ — ignored (images, outputs, scripts, memory)
 - Root `memory/` SQLite DBs, `logs/`, `flows/`, `.env`, credentials — ignored
+
+## Utility Scripts
+
+Key scripts in `scripts/` directory:
+- `deploy-openclaw.sh`: Deploy OpenClaw config to new machine from GitHub
+- `setup-sensitive.sh`: Restore sensitive config from templates
+- `cleanup-ghost-group-sessions.sh`: Clean up orphaned group chat sessions
+- `audit-feedback-gaps.py`: Audit feedback coverage gaps
+- `feishu-id-registry.py`: Manage Feishu user/group ID registry
+- `record_feishu_delivery.py`: Record Feishu message delivery events
+- `ensure-openclaw-image-deps.sh`: Ensure image processing dependencies are installed
 
 ## Git Version Management
 
@@ -199,9 +215,12 @@ Don't need to save after:
 ## Model Providers
 
 Configured in `openclaw.json` under `models.providers`:
-- `zhichuang`: Claude Opus 4.6 (reasoning, via Anthropic Messages API)
+- `aixor`: Claude Opus 4.7, Claude Opus 4.6 (reasoning, via Anthropic Messages API)
+- `cc-vibe`: Claude Opus 4.7, Claude Opus 4.6 (reasoning, via Anthropic Messages API)
+- `aixor-g`: GPT-5.4, GPT-5.5 (reasoning, via OpenAI-compatible API)
 - `huoshan`: Kimi K2.6 (reasoning), Kimi K2.5, GLM-5.1 (via Volces/火山引擎)
-- `newapi_channel_conn`: GPT-5.4, GPT-5.5 (reasoning, via Aixor OpenAI-compatible API)
+
+Provider selection is automatic based on model availability and load balancing.
 
 ## Key Conventions
 
@@ -209,11 +228,20 @@ Configured in `openclaw.json` under `models.providers`:
 - **Always use absolute paths**: `/Users/a123/.openclaw/workspace/...`
 - **Never use `~/` or relative paths** in subagent tasks
 
+### Image task routing
+Before handling any image-related task:
+1. Read `image-task-router` skill first to classify the task
+2. For complex local edits (red box annotations, selective deletion, partial replacement, "keep other parts unchanged"), **must dispatch to `design` or `design-shared` agent**
+3. `main` agent can only: coordinate/route image tasks, or directly call approved image generation skills
+4. Never attempt final image composition locally in `main` for complex edit tasks
+
 ### Feishu image delivery
 When sending images to user via Feishu:
 1. Copy image to `/Users/a123/.openclaw/workspace/feishu-deliver/`
-2. Use `feishu-send-image` tool to send
+2. Use `message` tool with `path` parameter (not `image` parameter) to send
 3. Never just return local path as "delivery"
+
+**Important**: The `feishu-send-image` tool does not exist. Always use `message` tool's `path` parameter for image delivery.
 
 ### Subagent spawn format
 ```json
@@ -233,7 +261,18 @@ When sending images to user via Feishu:
 - `runtime="acp"`: Can pass `streamTo`, never pass `lightContext`
 - `lightContext` only valid for `runtime="subagent"`
 
+### Long-running task execution
+For tasks that take significant time (>30 seconds):
+1. **Prefer subagent execution**: Use `openclaw subagents spawn` instead of direct `exec`
+2. **Write completion markers**: Scripts should write a `.done` file when finished
+3. **Track completion status**: After starting, monitor for the `.done` file or check process status
+4. Never assume completion without verification
+
 ## Workspace Personality Files
+
+### Root vs Workspace AGENTS.md
+- `/Users/a123/.openclaw/AGENTS.md`: Root-level execution rules (applies to all agents)
+- `workspace*/AGENTS.md`: Per-agent specific rules (overrides root rules for that agent)
 
 Each workspace has:
 - `IDENTITY.md`: Who I am, role, domain focus
@@ -245,7 +284,13 @@ Each workspace has:
 - `DREAMS.md`: Goals, aspirations, future plans
 - `HEARTBEAT.md`: Background check rules (email, calendar, notifications)
 
-When files conflict, **AGENTS.md takes precedence**.
+When files conflict, **AGENTS.md takes precedence over all other personality files** (SOUL.md, IDENTITY.md, USER.md, MEMORY.md).
+
+Key principles from AGENTS.md:
+- **Rule 0.1**: Check skills first before any task execution
+- **Rule 0.2**: Verify runtime facts before claiming completion (never say "done" without evidence)
+- **Rule 0.3**: Unified response style (Chinese, conclusion-first, short sentences)
+- **Rule 0.4**: Main agent's role is coordination, routing, progress tracking, and unified delivery
 
 ## Security
 
@@ -259,6 +304,34 @@ When files conflict, **AGENTS.md takes precedence**.
 
 Configured in `.mcp.json`:
 - `apifox`: Apifox OpenAPI spec reader (site-id 5484736), used for API spec reference
+
+## Troubleshooting
+
+### Gateway issues
+If gateway fails to start:
+1. Check if port 18789 is already in use: `lsof -i :18789`
+2. Review logs: `openclaw logs` or check `logs/gateway.log`
+3. Run health check: `openclaw doctor`
+4. Verify `.env` has required API keys (BANANA, KLING, DIFY, MEMOS)
+
+### Subagent timeout
+If subagent tasks timeout:
+1. Check if timeout is appropriate for task complexity (see timeout guidelines)
+2. Review subagent logs in `agents/*/sessions/`
+3. Consider splitting complex tasks into smaller subtasks
+4. Verify model provider is responding (check `openclaw.json` provider config)
+
+### Model call failures
+1. Verify API keys in `.env` and `agents/*/agent/models.json`
+2. Check provider status in `openclaw.json` under `models.providers`
+3. Review error messages in gateway logs
+4. Test with `openclaw doctor` to verify connectivity
+
+### Image generation wrapper errors
+When debugging image generation failures:
+1. **Check output files first** before interpreting return codes
+2. Distinguish between generation failure (no output file) and delivery failure (file exists but delivery failed)
+3. Never report generation failure if output file exists
 
 ## Scheduled Tasks (Cron Jobs)
 
@@ -276,9 +349,35 @@ Job properties:
 
 Local skills in `skills/` directory:
 - `brand-poster-creator`: Brand poster design workflow
+- `business-project-intake`: Business project intake and requirements gathering
+- `dreamina-cli`: Dreamina AI image generation CLI wrapper
+- `dreamina-reference-video`: Reference video processing for Dreamina
+- `feishu-create-doc`: Feishu document creation automation
 - `klingai`: Kling AI video/image generation
+- `memos-memory-guide`: Memory management with Memos integration
+- `multi-search-engine`: Multi-engine search aggregation
+- `nanobanana-ppt`: AI-powered PPT generation with image slides
+- `quote-skill`: Quote generation and formatting
 - `tvc-director`: TVC commercial direction
 - `wechat-article-reader`: WeChat article reading
 - `xiangqingye-desigen`: Product detail page design
 
 Each skill has a `SKILL.md` defining the workflow. AGENTS.md rule 0.1 mandates checking skills before any task.
+
+### Skill lookup hierarchy
+Skills are searched in three layers:
+1. **Workspace-local skills**: `workspace/skills/` (highest priority)
+2. **Global skills**: `~/.openclaw/skills/`
+3. **Built-in skills**: Bundled with OpenClaw package
+
+### Skill development
+- Each skill must have a `SKILL.md` with workflow definition
+- Test skills before deployment to avoid breaking production workflows
+- When optimizing skills, prepare changes but don't auto-execute project generation tasks
+- Archive inactive skills to `skills-store*/` directories
+
+### Storyboard generation rules
+For video storyboard generation:
+- **Must use standard grid layouts**: Refer to the standard layout table (GRID_LAYOUT)
+- **Non-standard shot counts** (5, 7, 11, etc.) must be merged/split/expanded to standard counts first
+- Never invent custom layouts

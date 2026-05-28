@@ -2,61 +2,99 @@
   "version": 1,
   "jobs": {
     "e489dfcf-dc9f-4481-b96c-58ab5b3928f4": {
-      "updatedAtMs": 1779649226034,
+      "updatedAtMs": 1779908427606,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 3 * * *\"}}",
       "state": {
-        "nextRunAtMs": 1779735600000,
-        "lastRunAtMs": 1779649200009,
+        "nextRunAtMs": 1779994800000,
+        "lastRunAtMs": 1779908400009,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 26025,
+        "lastDurationMs": 27597,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "616f4650-758f-411d-bfb3-d363fb62347f": {
-      "updatedAtMs": 1779663725049,
+      "updatedAtMs": 1779932908009,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1779750000000,
-        "lastRunAtMs": 1779663600009,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 125040,
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1780009200000,
+        "lastRunAtMs": 1779932908009,
+        "lastRunStatus": "skipped",
+        "lastStatus": "skipped",
+        "lastDurationMs": 0,
+        "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
-        "consecutiveSkipped": 0
+        "consecutiveSkipped": 2,
+        "lastError": "Error: main cron jobs require payload.kind=\"systemEvent\"",
+        "lastDiagnostics": {
+          "summary": "Error: main cron jobs require payload.kind=\"systemEvent\"",
+          "entries": [
+            {
+              "ts": 1779932908009,
+              "source": "cron-preflight",
+              "severity": "warn",
+              "message": "Error: main cron jobs require payload.kind=\"systemEvent\""
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "Error: main cron jobs require payload.kind=\"systemEvent\""
       }
     },
     "da698c09-e032-4186-a941-4a736674bab3": {
-      "updatedAtMs": 1779665485338,
+      "updatedAtMs": 1779932539923,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"30 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1779751800000,
-        "lastRunAtMs": 1779665400009,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 85329,
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1780011000000,
+        "lastRunAtMs": 1779932539923,
+        "lastRunStatus": "skipped",
+        "lastStatus": "skipped",
+        "lastDurationMs": 0,
+        "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "consecutiveSkipped": 0
+        "consecutiveSkipped": 2,
+        "lastDiagnostics": {
+          "summary": "Error: main cron jobs require payload.kind=\"systemEvent\"",
+          "entries": [
+            {
+              "ts": 1779932539923,
+              "source": "cron-preflight",
+              "severity": "warn",
+              "message": "Error: main cron jobs require payload.kind=\"systemEvent\""
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "Error: main cron jobs require payload.kind=\"systemEvent\"",
+        "lastError": "Error: main cron jobs require payload.kind=\"systemEvent\""
       }
     },
     "b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d": {
-      "updatedAtMs": 1779694228450,
+      "updatedAtMs": 1779950100628,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"*/10 * * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1779694800000,
-        "lastRunAtMs": 1779694200011,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 28439,
+        "nextRunAtMs": 1779950400000,
+        "lastRunAtMs": 1779949800072,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 300556,
         "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 0,
-        "consecutiveSkipped": 0
+        "consecutiveErrors": 1,
+        "consecutiveSkipped": 0,
+        "lastDiagnostics": {
+          "summary": "cron: job execution timed out",
+          "entries": [
+            {
+              "ts": 1779950100628,
+              "source": "cron-setup",
+              "severity": "error",
+              "message": "cron: job execution timed out"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "cron: job execution timed out",
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1779950400009
       }
     }
   }

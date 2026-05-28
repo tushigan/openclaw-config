@@ -757,7 +757,7 @@ class CliSmokeTests(unittest.TestCase):
             )
             self.assertEqual(review_after.returncode, 0, review_after.stderr)
             review_after_payload = json.loads(review_after.stdout)
-            self.assertEqual(review_after_payload["decision"], "continue")
+            self.assertEqual(review_after_payload["decision"], "proceed")
 
     def test_repeated_validation_errors_trigger_ask_user(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -817,6 +817,135 @@ class CliSmokeTests(unittest.TestCase):
             review_payload = json.loads(review.stdout)
             self.assertEqual(review_payload["decision"], "ask_user")
             self.assertIn("相同错误重复 2 次", review_payload["reason"])
+
+    def test_validate_run_recovers_latest_storyboard_variant(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, run_dir = self._prepare_run(
+                tmp,
+                {
+                    "project_name": "黄小咕品牌视频",
+                    "project_slug": "huangxiaogu-brand",
+                    "subject": "黄小咕",
+                    "action": "在林间走来后定格",
+                    "scene": "秋日林间",
+                    "style": "3D卡通",
+                    "ratio": "9:16",
+                },
+            )
+            self._write_refs(run_dir, "original", "identity-board")
+            (run_dir / "refs" / "storyboard-v3.png").write_bytes(SMALL_PNG)
+            (run_dir / "refs" / "storyboard-v4.png").write_bytes(SMALL_PNG)
+            (run_dir / "refs" / "storyboard-v5-annotated.png").write_bytes(SMALL_PNG)
+
+            validate = subprocess.run(
+                ["python3", str(self.script), "validate-run", "--run-dir", str(run_dir), "--stage", "storyboard"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(validate.returncode, 0, validate.stderr)
+            payload = json.loads(validate.stdout)
+            self.assertTrue((run_dir / "refs" / "storyboard.png").exists())
+            self.assertTrue((run_dir / "validation_reports" / "storyboard.json").exists())
+            materialize_action = next(
+                action for action in payload["recovery_actions"] if action["action"] == "materialize_standard_reference"
+            )
+            self.assertEqual(materialize_action["source"], str(run_dir / "refs" / "storyboard-v4.png"))
+
+    def test_submit_video_dry_run_prefers_clean_for_video_storyboard(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, run_dir = self._prepare_run(
+                tmp,
+                {
+                    "project_name": "黄小咕品牌视频",
+                    "project_slug": "huangxiaogu-brand",
+                    "subject": "黄小咕",
+                    "action": "在林间走来后定格",
+                    "scene": "秋日林间",
+                    "style": "3D卡通",
+                    "ratio": "9:16",
+                },
+            )
+            self._write_refs(run_dir, "original", "identity-source", "storyboard")
+            (run_dir / "refs" / "storyboard.clean-for-video-v2.png").write_bytes(SMALL_PNG)
+            (run_dir / "refs" / "storyboard-v5-annotated.png").write_bytes(SMALL_PNG)
+
+            validate = subprocess.run(
+                ["python3", str(self.script), "validate-run", "--run-dir", str(run_dir), "--stage", "storyboard"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(validate.returncode, 0, validate.stderr)
+            complete = subprocess.run(
+                ["python3", str(self.script), "complete-manual-checks", "--run-dir", str(run_dir), "--all-passed"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(complete.returncode, 0, complete.stderr)
+            review = subprocess.run(
+                ["python3", str(self.script), "review-run", "--run-dir", str(run_dir)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(review.returncode, 0, review.stderr)
+
+            dry_run = subprocess.run(
+                ["python3", str(self.script), "submit-video", "--run-dir", str(run_dir), "--dry-run"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(dry_run.returncode, 0, dry_run.stderr)
+            payload = json.loads(dry_run.stdout)
+            self.assertEqual(payload["resolved_references"]["storyboard"], str(run_dir / "refs" / "storyboard.clean-for-video-v2.png"))
+            self.assertTrue(payload["validation_gate_status"]["can_submit"])
+
+    def test_review_run_recovers_missing_run_state_and_legacy_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            _, run_dir = self._prepare_run(
+                tmp,
+                {
+                    "project_name": "黄小咕品牌视频",
+                    "project_slug": "huangxiaogu-brand",
+                    "subject": "黄小咕",
+                    "action": "在林间走来后定格",
+                    "scene": "秋日林间",
+                    "style": "3D卡通",
+                    "ratio": "9:16",
+                },
+            )
+            self._write_refs(run_dir, "original", "identity-board", "storyboard")
+            legacy_report = {
+                "stage": "storyboard",
+                "passed": True,
+                "score": 1.0,
+                "issues": [],
+                "manual_checks": [
+                    {"id": "storyboard_panel_aspect", "description": "ok", "checked": True},
+                    {"id": "storyboard_panel_count", "description": "ok", "checked": True},
+                    {"id": "storyboard_continuity", "description": "ok", "checked": True},
+                ],
+            }
+            (run_dir / "validation_report_storyboard.json").write_text(
+                json.dumps(legacy_report, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            (run_dir / "run_state.json").unlink()
+
+            review = subprocess.run(
+                ["python3", str(self.script), "review-run", "--run-dir", str(run_dir)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(review.returncode, 0, review.stderr)
+            payload = json.loads(review.stdout)
+            self.assertEqual(payload["decision"], "proceed")
+            self.assertTrue((run_dir / "run_state.json").exists())
+            self.assertEqual(payload["recovery_actions"][0]["action"], "recover_validation_report")
 
 
 class RoutingTextTests(unittest.TestCase):

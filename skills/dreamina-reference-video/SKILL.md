@@ -8,6 +8,8 @@ description: Use when the user wants to reduce 视频抽卡, keep 角色一致�
 ## Overview
 
 用这套 skill 把”直接抽视频”改成”先锁世界、再锁角色、再锁镜头、最后生视频”。
+这是默认入口，用来调用即梦生成视频，也适合用户说“做一个新的小视频”这类需求。
+dreamina-cli 只可作为本 skill 内部调用，不应替代这套主流程。
 
 默认流程固定为：
 
@@ -260,7 +262,7 @@ python3 scripts/run_workflow.py validate-run --run-dir /path/to/run --stage stor
 - 角色一致性（是否出现不该有的特征）
 - IP 约束验证（`identity_structure` 和 `identity_forbidden`）
 
-验证结果保存在 `validation_reports/storyboard_*.json`。
+验证结果标准保存在 `validation_reports/storyboard.json`，同时兼容写出旧格式 `validation_report_storyboard.json`。
 
 ### 步骤 5：complete-manual-checks - 完成人工检查
 
@@ -305,6 +307,11 @@ python3 scripts/run_workflow.py review-run --run-dir /path/to/run
 ```bash
 python3 scripts/run_workflow.py submit-video --run-dir /path/to/run --dry-run
 ```
+
+dry run 会额外返回：
+- `resolved_references`：本次真正会提交的 3 张图
+- `recovery_actions`：自动补齐或恢复了哪些文件
+- `validation_gate_status`：当前是否已经满足正式提交流程
 
 确认后提交：
 

@@ -9,6 +9,10 @@ workspace-design/*
 !workspace-design/SOUL.md
 !workspace-design/IDENTITY.md
 !workspace-design/USER.md
+!workspace-design/skills/
+workspace-design/skills/*
+!workspace-design/skills/product-photography-workflow/
+!workspace-design/skills/product-photography-workflow/**
 
 workspace-video/*
 !workspace-video/AGENTS.md

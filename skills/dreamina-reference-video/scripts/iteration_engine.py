@@ -10,7 +10,7 @@ from typing import Any
 @dataclass
 class IterationDecision:
     """迭代决策"""
-    decision: str  # continue, ask_user, stop
+    decision: str  # proceed, iterate, ask_user
     reason: str
     suggested_action: str = ""
 
@@ -72,7 +72,7 @@ class IterationEngine:
         # 检查是否通过验证
         if validation_report.get("passed", False):
             return IterationDecision(
-                decision="continue",
+                decision="proceed",
                 reason="验证通过",
                 suggested_action="可以继续下一阶段",
             )
@@ -114,7 +114,7 @@ class IterationEngine:
         auto_retryable = all(issue.get("auto_retry", False) for issue in issues if issue.get("severity") == "error")
         if auto_retryable and current_iteration < self.max_iterations:
             return IterationDecision(
-                decision="continue",
+                decision="iterate",
                 reason="所有错误都可以自动重试",
                 suggested_action="建议自动重试一次",
             )

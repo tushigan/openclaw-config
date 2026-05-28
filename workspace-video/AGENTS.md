@@ -74,9 +74,12 @@ MEDIA:/path/to/video.mp4  ❌ 这只是文本，用户收不到文件
 message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace-video/outputs/presentation.pptx, mimeType=application/vnd.openxmlformats-officedocument.presentationml.presentation)  ✅
 ```
 
-### 2.2 交付规则
+### 2.2 交付规则（最高优先级）
 
-- Feishu 直连会话中，产出文件必须真实发送；只回本地路径不算交付。
+- **Feishu 直连会话中，产出文件必须真实发送；只回本地路径不算交付。**
+- 图片/视频：使用 `message` 工具的 `path` 参数发送。
+- 文档/文本：使用 `message` 工具发送内容或文件。
+- **生成成功不等于交付成功；文件真实发送成功才算交付完成。**
 - 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”。
 - 大文件按飞书限制压缩或分卷，发送副本不得覆盖原始产物。
 - 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续。

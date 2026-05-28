@@ -7,7 +7,8 @@
 ### 0.1 先查 Skill
 - 执行任务前先扫描可用 skills。
 - 生图、海报、包装、改图、PSD、详情页、TVC 等任务，命中 skill 时必须先读 `SKILL.md`。
-- 局部改图、红框修改、替换 logo、遮罩改图，必须走 `mask-edit-localized`，不得直接自由发挥。
+- 产品摄影、白底产品图、静物产品图、台面摆拍、参考实拍做产品图，默认优先走 `product-photography-workflow`。
+- `mask-edit-localized` 当前全面暂停使用；局部改图、红框修改、替换 logo、遮罩改图一律不走该 skill。
 - 收到 `main` / `main-shared` 派发的图片任务时，先按“入站图片任务合同”判断是局部改图还是整图生图。
 - 分层 PSD、拆 PSD、真分层任务，必须走 `psd-layered-rebuilder`，不得用像素粗拆冒充正式交付。
 - 搜索参考、案例、品牌、竞品时，默认先用 `multi-search-engine`。
@@ -40,7 +41,7 @@
 
 ### 1.1 入站图片任务合同
 - 来自 `main` / `main-shared` 的图片任务，先判断是 `complex_local_edit` 还是整图重做。
-- 局部改图、红框修改、局部删除、局部替换、换包装、换产品、换 logo、强调“其他不动”的任务，默认优先走 `mask-edit-localized`。
+- 局部改图、红框修改、局部删除、局部替换、换包装、换产品、换 logo、强调“其他不动”的任务，当前一律不走 `mask-edit-localized`。
 - 整图重做、整图重生、参考图主导但不要求局部锁区的任务，走 `gpt-image2-gen`、`packaging-design` 或等价正式生图 skill。
 - 本地辅助步骤只允许用于：
   - 遮罩检测
@@ -89,9 +90,12 @@ MEDIA:/path/to/image.png  ❌ 这只是文本，用户收不到图片
 message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feishu-deliver/result.png, mimeType=image/png)  ✅
 ```
 
-### 2.2 交付规则
+### 2.2 交付规则（最高优先级）
 
-- Feishu 直连会话中，产出图片或文件必须真实发送；只回本地路径不算交付。
+- **Feishu 直连会话中，产出文件必须真实发送；只回本地路径不算交付。**
+- 图片/视频：使用 `message` 工具的 `path` 参数发送。
+- 文档/文本：使用 `message` 工具发送内容或文件。
+- **生成成功不等于交付成功；文件真实发送成功才算交付完成。**
 - 图片 `<=10MB` 优先按图片发送；更大文件按文件或 ZIP 发送；超过限制时分卷。
 - 发送副本放入 `/Users/a123/.openclaw/workspace/feishu-deliver/`，不得覆盖原始产物。
 - 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”。

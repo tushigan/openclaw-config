@@ -39,6 +39,9 @@ REFERENCE_FILE_MAP = {
     "final_frame_poster": "final-frame-poster.png",
 }
 
+VALIDATION_REPORTS_DIR_NAME = "validation_reports"
+STORYBOARD_EXCLUDED_NAME_TOKENS = ("annotated", "delivery", "result")
+
 REQUIRED_PATHS = [
     "prompts",
     "refs",
@@ -352,19 +355,11 @@ def split_action_clauses(action: str) -> list[str]:
 
     # 只在连接词前后有合理边界时才切分（避免误切"在"、"并"等字）
     # 使用正则确保连接词是独立的词，而不是其他词的一部分
-    connectors = [
-        (r"(?<=[，,。；;\s]|^)(然后)(?=[，,。；;\s]|$)", "|"),
-        (r"(?<=[，,。；;\s]|^)(接着)(?=[，,。；;\s]|$)", "|"),
-        (r"(?<=[，,。；;\s]|^)(随后)(?=[，,。；;\s]|$)", "|"),
-        (r"(?<=[，,。；;\s]|^)(之后)(?=[，,。；;\s]|$)", "|"),
-        (r"(?<=[，,。；;\s]|^)(最后)(?=[，,。；;\s]|$)", "|"),
-        (r"(?<=[，,。；;\s]|^)(并且)(?=[，,。；;\s]|$)", "|"),
-        (r"(?<=[，,。；;\s]|^)(同时)(?=[，,。；;\s]|$)", "|"),
-        (r"(?<=[，,。；;\s]|^)(再)(?=[，,。；;\s]|$)", "|"),
-    ]
+    connectors = ["然后", "接着", "随后", "之后", "最后", "并且", "同时", "再"]
 
-    for pattern, replacement in connectors:
-        text = re.sub(pattern, replacement, text)
+    for connector in connectors:
+        pattern = rf"(^|[，,。；;\s]){connector}(?=[，,。；;\s]|$)"
+        text = re.sub(pattern, "|", text)
 
     clauses = [normalize_action_clause(part) for part in text.split("|")]
     return [clause for clause in clauses if clause]
@@ -669,6 +664,105 @@ def sync_project_canonical_files(project_dir: Path, run_dir: Path, keys: list[st
     return synced
 
 
+def enhance_constraint_expression(forbidden_list: list[str]) -> dict[str, list[str]]:
+    """
+    将负向约束改写为更有效的表达
+
+    策略：
+    1. 负向 → 正向 + 强化负向
+    2. 添加对比说明
+    3. 使用更强的否定词
+    """
+    enhanced = {
+        'positive_alternative': [],  # 正向替代描述
+        'strong_negative': [],       # 强化负向
+        'contrast': []               # 对比说明
+    }
+
+    for constraint in forbidden_list:
+        constraint_lower = constraint.lower()
+
+        # 识别：翅膀相关约束
+        if '翅膀' in constraint or 'wing' in constraint_lower:
+            enhanced['positive_alternative'].append(
+                "身体两侧是主体造型的侧面轮廓，不是独立肢体"
+            )
+            enhanced['strong_negative'].append(
+                "严禁添加任何翅膀、翼状结构或类似飞行器官"
+            )
+            enhanced['contrast'].append(
+                "不是：普通动物 + 翅膀；而是：特定造型的完整体块"
+            )
+
+        # 识别：手/手臂相关约束
+        elif '手' in constraint or 'hand' in constraint_lower or 'arm' in constraint_lower:
+            enhanced['positive_alternative'].append(
+                "只有脚部作为肢体，身体是完整造型体块"
+            )
+            enhanced['strong_negative'].append(
+                "严禁添加任何手臂、手掌、手指或上肢结构"
+            )
+            enhanced['contrast'].append(
+                "不是：身体 + 手臂；而是：造型本身就是完整体"
+            )
+
+        # 识别：尾巴相关约束
+        elif '尾巴' in constraint or 'tail' in constraint_lower:
+            enhanced['strong_negative'].append(
+                constraint.replace('禁止', '严禁').replace('不能', '绝对不能')
+            )
+
+        # 通用处理：强化否定词
+        else:
+            enhanced['strong_negative'].append(
+                constraint.replace('禁止', '严禁').replace('不能', '绝对不能')
+            )
+
+    return enhanced
+
+
+def build_constraint_header(identity_structure: list[str], identity_forbidden: list[str]) -> str:
+    """构建约束头部（用于提示词开头）"""
+    if not identity_forbidden and not identity_structure:
+        return ""
+
+    header_parts = []
+
+    # 如果有禁止约束，进行增强表达
+    if identity_forbidden:
+        enhanced = enhance_constraint_expression(identity_forbidden)
+
+        header_parts.append("**关键约束（最高优先级）**：")
+
+        if enhanced['positive_alternative']:
+            header_parts.append("正确理解：")
+            for item in enhanced['positive_alternative']:
+                header_parts.append(f"- {item}")
+
+        if enhanced['strong_negative']:
+            header_parts.append("严格禁止：")
+            for item in enhanced['strong_negative']:
+                header_parts.append(f"- {item}")
+
+        if enhanced['contrast']:
+            header_parts.append("对比说明：")
+            for item in enhanced['contrast']:
+                header_parts.append(f"- {item}")
+
+    # 如果有结构真相，也加入头部
+    if identity_structure:
+        if header_parts:
+            header_parts.append("")
+        header_parts.append("**结构真相**：")
+        for item in identity_structure:
+            header_parts.append(f"- {item}")
+
+    if header_parts:
+        header_parts.append("")  # 空行分隔
+
+    return "\n".join(header_parts)
+
+
 def build_prompts(brief: dict[str, Any]) -> dict[str, str]:
     anchor_text = "、".join(brief["anchor_elements"]) if brief["anchor_elements"] else "保留能稳定识别空间关系的地标"
     subject = brief["subject"]
@@ -694,6 +788,9 @@ def build_prompts(brief: dict[str, Any]) -> dict[str, str]:
     else:
         identity_structure_text = "；".join(identity_structure) if identity_structure else "保持主体的核心识别点稳定不漂"
         identity_forbidden_text = "；".join(identity_forbidden) if identity_forbidden else ""
+
+    # 生成约束头部（用于提示词开头）
+    constraint_header = build_constraint_header(identity_structure, identity_forbidden)
 
     has_identity_source = bool(brief.get("existing_references", {}).get("identity_source"))
     identity_strategy = brief.get("identity_strategy")
@@ -854,6 +951,56 @@ def collect_reference_files(run_dir: Path) -> dict[str, str]:
     if normalized_manifest.exists():
         files["normalized_manifest"] = str(normalized_manifest)
     return files
+
+
+def validation_reports_dir(run_dir: Path) -> Path:
+    return run_dir / VALIDATION_REPORTS_DIR_NAME
+
+
+def validation_report_path(run_dir: Path, stage: str) -> Path:
+    return validation_reports_dir(run_dir) / f"{stage}.json"
+
+
+def legacy_validation_report_path(run_dir: Path, stage: str) -> Path:
+    return run_dir / f"validation_report_{stage}.json"
+
+
+def validation_report_candidate_paths(run_dir: Path, stage: str) -> list[Path]:
+    return [
+        validation_report_path(run_dir, stage),
+        legacy_validation_report_path(run_dir, stage),
+    ]
+
+
+def load_validation_report(run_dir: Path, stage: str | None = None) -> tuple[dict[str, Any] | None, Path | None]:
+    if stage:
+        candidates = validation_report_candidate_paths(run_dir, stage)
+    else:
+        candidates = []
+        for known_stage in ("storyboard", "video", "reference_system"):
+            candidates.extend(validation_report_candidate_paths(run_dir, known_stage))
+        candidates = [path for path in candidates if path.exists()]
+        candidates.sort(key=lambda path: path.stat().st_mtime, reverse=True)
+
+    for path in candidates:
+        if not path.exists():
+            continue
+        try:
+            return json.loads(path.read_text(encoding="utf-8")), path
+        except json.JSONDecodeError:
+            continue
+    return None, None
+
+
+def write_validation_report(run_dir: Path, validation_report: dict[str, Any]) -> list[Path]:
+    stage = validation_report.get("stage", "unknown")
+    primary = validation_report_path(run_dir, stage)
+    legacy = legacy_validation_report_path(run_dir, stage)
+    primary.parent.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(validation_report, ensure_ascii=False, indent=2)
+    primary.write_text(payload, encoding="utf-8")
+    legacy.write_text(payload, encoding="utf-8")
+    return [primary, legacy]
 
 
 def build_run_record(
@@ -1052,11 +1199,222 @@ def reference_target(run_dir: Path, name: str) -> Path:
     return run_dir / "refs" / REFERENCE_FILE_MAP[name]
 
 
-def preferred_identity_reference(run_dir: Path) -> Path:
-    identity_source = reference_target(run_dir, "identity_source")
+def storyboard_candidate_is_usable(path: Path) -> bool:
+    name = path.name.lower()
+    return path.suffix.lower() == ".png" and not any(token in name for token in STORYBOARD_EXCLUDED_NAME_TOKENS)
+
+
+def extract_version_number(path: Path) -> int:
+    match = re.search(r"-v(\d+)(?:\.[^.]+)?$", path.name.lower())
+    if match:
+        return int(match.group(1))
+    match = re.search(r"\.v(\d+)(?:\.[^.]+)?$", path.name.lower())
+    if match:
+        return int(match.group(1))
+    return 0
+
+
+def latest_paths(paths: list[Path]) -> list[Path]:
+    return sorted(
+        paths,
+        key=lambda path: (extract_version_number(path), path.stat().st_mtime, path.name.lower()),
+        reverse=True,
+    )
+
+
+def canonical_reference_path(project_dir: Path | None, name: str) -> Path | None:
+    if project_dir is None:
+        return None
+    return canonical_target(project_dir, name)
+
+
+def generic_reference_candidates(run_dir: Path, name: str, project_dir: Path | None = None) -> list[Path]:
+    candidates = [reference_target(run_dir, name)]
+    canonical_path = canonical_reference_path(project_dir, name)
+    if canonical_path is not None:
+        candidates.append(canonical_path)
+
+    ref_dir = run_dir / "refs"
+    stem = Path(REFERENCE_FILE_MAP[name]).stem
+    extras = latest_paths(
+        [
+            path
+            for path in ref_dir.glob(f"{stem}*.png")
+            if path.name != REFERENCE_FILE_MAP[name]
+        ]
+    )
+    candidates.extend(extras)
+    return candidates
+
+
+def storyboard_reference_candidates(
+    run_dir: Path,
+    project_dir: Path | None = None,
+    purpose: str = "review",
+) -> list[Path]:
+    ref_dir = run_dir / "refs"
+    seen: set[Path] = set()
+    ordered: list[Path] = []
+
+    def add(path: Path | None) -> None:
+        if path is None or path in seen:
+            return
+        if not path.exists() or not storyboard_candidate_is_usable(path):
+            return
+        seen.add(path)
+        ordered.append(path)
+
+    if purpose == "submit":
+        for path in latest_paths([path for path in ref_dir.glob("storyboard.clean-for-video*.png") if storyboard_candidate_is_usable(path)]):
+            add(path)
+
+    add(reference_target(run_dir, "storyboard"))
+    add(canonical_reference_path(project_dir, "storyboard"))
+    add(ref_dir / "storyboard.pre-approved-backup.png")
+
+    for path in latest_paths([path for path in ref_dir.glob("storyboard-v*.png") if storyboard_candidate_is_usable(path)]):
+        add(path)
+
+    for path in latest_paths([path for path in ref_dir.glob("storyboard*.png") if storyboard_candidate_is_usable(path)]):
+        add(path)
+
+    return ordered
+
+
+def maybe_materialize_reference(
+    chosen: Path,
+    standard_target: Path,
+    project_dir: Path | None = None,
+    recovery_actions: list[dict[str, Any]] | None = None,
+    sync_canonical: bool = False,
+) -> Path:
+    resolved = chosen
+    if chosen != standard_target and not standard_target.exists():
+        standard_target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(chosen, standard_target)
+        resolved = standard_target
+        if recovery_actions is not None:
+            recovery_actions.append(
+                {
+                    "action": "materialize_standard_reference",
+                    "source": str(chosen),
+                    "target": str(standard_target),
+                }
+            )
+
+    canonical_path = canonical_reference_path(project_dir, next(key for key, value in REFERENCE_FILE_MAP.items() if value == standard_target.name))
+    if sync_canonical and canonical_path is not None and canonical_path != resolved and (not canonical_path.exists() or resolved == standard_target):
+        canonical_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(resolved, canonical_path)
+        if recovery_actions is not None:
+            recovery_actions.append(
+                {
+                    "action": "sync_canonical_reference",
+                    "source": str(resolved),
+                    "target": str(canonical_path),
+                }
+            )
+
+    return resolved
+
+
+def resolve_reference_path(
+    run_dir: Path,
+    name: str,
+    project_dir: Path | None = None,
+    purpose: str = "default",
+    materialize_standard: bool = False,
+    sync_canonical: bool = False,
+    recovery_actions: list[dict[str, Any]] | None = None,
+) -> Path:
+    if name == "storyboard":
+        candidates = storyboard_reference_candidates(run_dir, project_dir=project_dir, purpose=purpose)
+    else:
+        candidates = generic_reference_candidates(run_dir, name, project_dir=project_dir)
+
+    standard_target = reference_target(run_dir, name)
+    for candidate in candidates:
+        if not candidate.exists():
+            continue
+        if materialize_standard:
+            return maybe_materialize_reference(
+                candidate,
+                standard_target,
+                project_dir=project_dir,
+                recovery_actions=recovery_actions,
+                sync_canonical=sync_canonical,
+            )
+        return candidate
+    return standard_target
+
+
+def preferred_identity_reference(
+    run_dir: Path,
+    project_dir: Path | None = None,
+    recovery_actions: list[dict[str, Any]] | None = None,
+    materialize_standard: bool = False,
+    sync_canonical: bool = False,
+) -> Path:
+    identity_source = resolve_reference_path(
+        run_dir,
+        "identity_source",
+        project_dir=project_dir,
+        purpose="default",
+        materialize_standard=materialize_standard,
+        sync_canonical=sync_canonical,
+        recovery_actions=recovery_actions,
+    )
     if identity_source.exists():
         return identity_source
-    return reference_target(run_dir, "identity_board")
+    return resolve_reference_path(
+        run_dir,
+        "identity_board",
+        project_dir=project_dir,
+        purpose="default",
+        materialize_standard=materialize_standard,
+        sync_canonical=sync_canonical,
+        recovery_actions=recovery_actions,
+    )
+
+
+def prepare_validation_references(
+    run_dir: Path,
+    brief: dict[str, Any],
+    stage: str,
+    project_dir: Path | None = None,
+    recovery_actions: list[dict[str, Any]] | None = None,
+) -> dict[str, str]:
+    prepared: dict[str, str] = {}
+    if stage == "reference_system":
+        required = ["original", "storyboard"]
+        if brief.get("identity_strategy") != "reuse_exact":
+            required.append("identity_board")
+        if brief.get("existing_references", {}).get("identity_source"):
+            required.append("identity_source")
+    elif stage == "storyboard":
+        required = ["storyboard", "original"]
+        identity_source = resolve_reference_path(run_dir, "identity_source", project_dir=project_dir)
+        if brief.get("existing_references", {}).get("identity_source") or identity_source.exists():
+            required.append("identity_source")
+        else:
+            required.append("identity_board")
+    else:
+        return prepared
+
+    for name in required:
+        purpose = "review" if name == "storyboard" else "default"
+        resolved = resolve_reference_path(
+            run_dir,
+            name,
+            project_dir=project_dir,
+            purpose=purpose,
+            materialize_standard=True,
+            sync_canonical=True,
+            recovery_actions=recovery_actions,
+        )
+        prepared[name] = str(resolved)
+
+    return prepared
 
 
 def build_gpt_image_jobs(brief: dict[str, Any], run_dir: Path, prompts: dict[str, str]) -> list[dict[str, Any]]:
@@ -1115,16 +1473,41 @@ def model_settings(brief: dict[str, Any]) -> dict[str, str]:
     return {"model_version": "seedance2.0fast", "video_resolution": "720p"}
 
 
-def build_dreamina_command(run_dir: Path, brief: dict[str, Any], prompts: dict[str, str]) -> list[str]:
+def build_dreamina_command(
+    run_dir: Path,
+    brief: dict[str, Any],
+    prompts: dict[str, str],
+    project_dir: Path | None = None,
+    recovery_actions: list[dict[str, Any]] | None = None,
+) -> list[str]:
     settings = model_settings(brief)
     cmd = [
         DREAMINA_BIN,
         "multimodal2video",
     ]
     image_refs = [
-        reference_target(run_dir, "original"),
-        preferred_identity_reference(run_dir),
-        reference_target(run_dir, "storyboard"),
+        resolve_reference_path(
+            run_dir,
+            "original",
+            project_dir=project_dir,
+            materialize_standard=True,
+            sync_canonical=True,
+            recovery_actions=recovery_actions,
+        ),
+        preferred_identity_reference(
+            run_dir,
+            project_dir=project_dir,
+            materialize_standard=True,
+            sync_canonical=True,
+            recovery_actions=recovery_actions,
+        ),
+        resolve_reference_path(
+            run_dir,
+            "storyboard",
+            project_dir=project_dir,
+            purpose="submit",
+            recovery_actions=recovery_actions,
+        ),
     ]
     for path in image_refs:
         cmd.extend(["--image", str(path)])

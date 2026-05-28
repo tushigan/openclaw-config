@@ -7,15 +7,16 @@ description: Low-level Dreamina CLI wrapper. Should NOT be invoked directly by u
 
 **注意：此 skill 不应被用户直接触发，而是作为底层能力被其他 skill 调用。**
 
-This skill provides low-level access to the Dreamina（即梦） CLI for image/video generation. It should be invoked programmatically by other skills, not directly by user requests.
+This skill provides low-level access to the Dreamina（即梦） CLI for Dreamina task submission and result querying. It should be invoked programmatically by other skills, not directly by user requests.
 
 即梦 is the Chinese product name of Dreamina.
 
 This skill is intentionally short. Detailed flags and supported values belong to the CLI itself, so always treat `dreamina -h` and `dreamina <subcommand> -h` as the primary reference.
+Use it to inspect Dreamina CLI help and query a submit_id result when a higher-level workflow needs low-level CLI access.
 
 ## OpenClaw Routing
 
-- Use this skill only when the user explicitly names `即梦`, `Dreamina`, `dreamina`, `Seedance`, or the official 即梦 CLI.
+- This low-level wrapper should be selected only when a higher-level workflow explicitly requires the official 即梦 CLI.
 - For generic `文生视频`, `图生视频`, `视频生成`, or `AI 画图` requests with no provider named, do not assume 即梦. Follow the current OpenClaw routing/default provider rules.
 - For `可灵` or `Kling`, use the `klingai` skill instead.
 - For low-level Volcengine API work, only use a separate API path if the user explicitly asks for `visual.volcengineapi.com`, `火山 OpenAPI`, or API signature/debugging.

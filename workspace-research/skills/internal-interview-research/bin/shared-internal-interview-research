@@ -1,0 +1,69 @@
+#!/bin/bash
+set -euo pipefail
+
+workspace_root="/Users/a123/.openclaw/workspace-research"
+projects_root="$workspace_root/projects"
+scripts_root="$workspace_root/skills/internal-interview-research/scripts"
+
+fail() {
+  echo "$1" >&2
+  exit 64
+}
+
+if [ "$#" -lt 1 ]; then
+  fail "usage: shared-internal-interview-research <init|manage> [args...]"
+fi
+
+mode="$1"
+shift
+
+case "$mode" in
+  init)
+    args=()
+    seen_workspace_root=0
+    while [ "$#" -gt 0 ]; do
+      case "$1" in
+        --workspace-root)
+          [ "$#" -ge 2 ] || fail "missing value for --workspace-root"
+          [ "$2" = "$workspace_root" ] || fail "shared research init only allows --workspace-root=$workspace_root"
+          args+=("$1" "$2")
+          seen_workspace_root=1
+          shift 2
+          ;;
+        *)
+          args+=("$1")
+          shift
+          ;;
+      esac
+    done
+    if [ "$seen_workspace_root" -eq 0 ]; then
+      args=(--workspace-root "$workspace_root" "${args[@]}")
+    fi
+    exec /usr/bin/python3 "$scripts_root/init_internal_interview_project.py" "${args[@]}"
+    ;;
+  manage)
+    [ "$#" -ge 1 ] || fail "usage: shared-internal-interview-research manage <subcommand> [args...]"
+    args=()
+    while [ "$#" -gt 0 ]; do
+      case "$1" in
+        --project-dir)
+          [ "$#" -ge 2 ] || fail "missing value for --project-dir"
+          case "$2" in
+            "$projects_root"/*) ;;
+            *) fail "shared research manage only allows --project-dir under $projects_root" ;;
+          esac
+          args+=("$1" "$2")
+          shift 2
+          ;;
+        *)
+          args+=("$1")
+          shift
+          ;;
+      esac
+    done
+    exec /usr/bin/python3 "$scripts_root/manage_internal_interview_project.py" "${args[@]}"
+    ;;
+  *)
+    fail "unsupported mode: $mode"
+    ;;
+esac
