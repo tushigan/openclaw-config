@@ -1469,9 +1469,25 @@ def build_gpt_image_jobs(brief: dict[str, Any], run_dir: Path, prompts: dict[str
 
 
 def model_settings(brief: dict[str, Any]) -> dict[str, str]:
-    if brief["quality_tier"] == "final":
-        return {"model_version": "seedance2.0_vip", "video_resolution": "1080p"}
-    return {"model_version": "seedance2.0fast", "video_resolution": "720p"}
+    """
+    根据质量档返回模型设置
+
+    支持的质量档：
+    - draft: seedance2.0fast, 720p（快速打样）
+    - standard: seedance2.0, 720p（标准质量）
+    - fast_vip: seedance2.0fast_vip, 720p（快速高质量）
+    - final: seedance2.0_vip, 1080p（正式交付）
+    """
+    tier = brief["quality_tier"]
+
+    settings_map = {
+        "draft": {"model_version": "seedance2.0fast", "video_resolution": "720p"},
+        "standard": {"model_version": "seedance2.0", "video_resolution": "720p"},
+        "fast_vip": {"model_version": "seedance2.0fast_vip", "video_resolution": "720p"},
+        "final": {"model_version": "seedance2.0_vip", "video_resolution": "1080p"},
+    }
+
+    return settings_map.get(tier, settings_map["draft"])
 
 
 def build_dreamina_command(
@@ -1534,14 +1550,16 @@ def get_poll_timeout(quality_tier: str) -> int:
     根据质量档返回合适的轮询超时时间（秒）
 
     Args:
-        quality_tier: 质量档（draft/final）
+        quality_tier: 质量档（draft/standard/fast_vip/final）
 
     Returns:
         轮询超时时间（秒）
     """
     timeout_map = {
-        "draft": 600,   # 10 分钟，快速通道
-        "final": 1200,  # 20 分钟，高质量通道
+        "draft": 600,      # 10 分钟，快速通道
+        "standard": 900,   # 15 分钟，标准通道
+        "fast_vip": 720,   # 12 分钟，快速 VIP 通道
+        "final": 1200,     # 20 分钟，高质量通道
     }
     return timeout_map.get(quality_tier, 900)  # 默认 15 分钟
 
@@ -1558,8 +1576,10 @@ def get_quality_tier_options(duration: int) -> list[dict[str, Any]]:
     """
     # 每秒基础积分消耗（估算值）
     base_cost_per_second = {
-        "draft": 10,      # seedance2.0fast, 720p
-        "final": 30,      # seedance2.0_vip, 1080p
+        "draft": 10,       # seedance2.0fast, 720p
+        "standard": 15,    # seedance2.0, 720p
+        "fast_vip": 20,    # seedance2.0fast_vip, 720p
+        "final": 30,       # seedance2.0_vip, 1080p
     }
 
     options = [
@@ -1574,6 +1594,30 @@ def get_quality_tier_options(duration: int) -> list[dict[str, Any]]:
             "estimated_time": "5-8 分钟",
             "use_case": "快速验证创意、打样测试、迭代优化",
             "recommended_for": "打样阶段"
+        },
+        {
+            "tier": "standard",
+            "name": "标准质量",
+            "model": "seedance2.0",
+            "resolution": "720p",
+            "speed": "中（约 8-12 分钟）",
+            "quality": "高",
+            "estimated_credits": base_cost_per_second["standard"] * duration,
+            "estimated_time": "8-12 分钟",
+            "use_case": "平衡速度和质量、日常使用",
+            "recommended_for": "日常使用"
+        },
+        {
+            "tier": "fast_vip",
+            "name": "快速高质量",
+            "model": "seedance2.0fast_vip",
+            "resolution": "720p",
+            "speed": "快（约 6-10 分钟）",
+            "quality": "高",
+            "estimated_credits": base_cost_per_second["fast_vip"] * duration,
+            "estimated_time": "6-10 分钟",
+            "use_case": "需要快速出高质量结果、时间紧迫",
+            "recommended_for": "快速高质量"
         },
         {
             "tier": "final",
@@ -1605,6 +1649,8 @@ def estimate_credit_cost(tier: str, duration: int) -> int:
     """
     base_cost_per_second = {
         "draft": 10,
+        "standard": 15,
+        "fast_vip": 20,
         "final": 30,
     }
     return base_cost_per_second.get(tier, 10) * duration
