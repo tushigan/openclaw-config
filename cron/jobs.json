@@ -34,7 +34,7 @@
         "tz": "Asia/Shanghai",
         "staggerMs": 0
       },
-      "sessionTarget": "main",
+      "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
@@ -56,7 +56,7 @@
         "tz": "Asia/Shanghai",
         "staggerMs": 0
       },
-      "sessionTarget": "main",
+      "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
@@ -82,7 +82,7 @@
       "createdAtMs": 1779331518143,
       "schedule": {
         "kind": "cron",
-        "expr": "*/10 * * * *",
+        "expr": "*/30 9-23 * * *",
         "tz": "Asia/Shanghai",
         "staggerMs": 0
       },
@@ -102,141 +102,6 @@
       },
       "delivery": {
         "mode": "none"
-      },
-      "state": {}
-    },
-    {
-      "id": "b88d167c-08c0-4ae8-851a-280d610ff536",
-      "agentId": "main-shared",
-      "name": "过稿监测巡检-半小时",
-      "description": "巡检指定项目群中的待过稿/待确认/催办消息，并向一眼过稿管理群提醒",
-      "enabled": false,
-      "createdAtMs": 1779962002249,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0,30 9-23 * * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "你现在执行【过稿监测巡检】。\n\n监测目标群（名称 | chat_id）：\n- 泓一项目沟通群 | oc_19bae0e30b21727ad2f07c3caf8f1da0\n- 星搭档 | oc_1b21f39229dd783e026572ab9cae2171\n- 游世佳族-零食系统产品增长！ | oc_c04d3c7722d4d04ef03822c8320c6867\n- 秘语项目群 | oc_89d2fca64668ee6a708c5c2cde988ecc\n- 黄小咕干脆面全案群 | oc_8d0fdbca1532d4388dd2da3deee11e3d\n- 莎布蕾-软心曲奇创新增长！ | oc_d54b753ed446bc45e14fbdd508643952\n- 【欣欣】 | oc_6a70e89cb66ec1f7324305a95f4dda84\n- 小白心里软 | oc_0f8fb272db148bf2b26e715fbfa539a4\n- 奥丹中岛谷 | oc_bc6fe4c224b6e2f541238ec4f93f6046\n- 盐津大魔王 | oc_857cd072f6ff5f212293186719fe95e8\n- 三元 | oc_7bd0f154d96521d558a83395e523844e\n- 格士利 | oc_c8cbbeeda740bdd7d86c572620811960\n- 阿嫲秘诀 | oc_a44c39054e032be421019bce56108993\n- 朴鲜鲜 | oc_66d8106d306e3e3395df7c6fb8cbd73b\n\n提醒发送目标群：一眼过稿管理群 | oc_38ff83e3a066fc7dd63e9dfcb56a0675\n\n执行规则：\n1. 检查每个群最近 4 小时消息，重点找：过稿、确认、定稿、客户催促、请回复、待反馈、待发送、待修改、待确认方向、待给图/待给文案。\n2. 识别“需要提醒”的情况：\n   - 明确有人在催或等确认\n   - 有待办但超过 30 分钟无人承接/无明确回复\n   - 同一问题被再次追问\n   - 客户或同事发出明确 deadline/今天要/尽快\n3. 只输出真正需要跟进的项目；没有风险就不要硬凑。\n4. 如果没有需要提醒的事项，回复 NO_REPLY。\n5. 如果有提醒事项，用 message 工具发送到 feishu 群 chat:oc_38ff83e3a066fc7dd63e9dfcb56a0675，accountId 用 main。\n6. 提醒格式简洁：\n   【过稿巡检提醒｜HH:mm】\n   1. 项目群名：问题概述｜建议动作\n   2. ...\n7. 如需周边上下文，可读取最近 20-50 条消息；不要扫描整月历史。",
-        "thinking": "medium",
-        "timeoutSeconds": 180,
-        "lightContext": true
-      },
-      "delivery": {
-        "mode": "none",
-        "channel": "last"
-      },
-      "state": {}
-    },
-    {
-      "id": "9055540a-dd4c-42ce-a5f7-86d6168567e8",
-      "agentId": "main-shared",
-      "name": "过稿监测周报-每周一",
-      "description": "每周汇总指定项目群的过稿进展、催办情况、响应效率与风险点，发送到一眼过稿管理群",
-      "enabled": true,
-      "createdAtMs": 1779962033239,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 10 * * 1",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "你现在执行【过稿监测周报】。\n\n监测目标群：\n- 泓一项目沟通群 | oc_19bae0e30b21727ad2f07c3caf8f1da0\n- 星搭档 | oc_1b21f39229dd783e026572ab9cae2171\n- 游世佳族-零食系统产品增长！ | oc_c04d3c7722d4d04ef03822c8320c6867\n- 秘语项目群 | oc_89d2fca64668ee6a708c5c2cde988ecc\n- 黄小咕干脆面全案群 | oc_8d0fdbca1532d4388dd2da3deee11e3d\n- 莎布蕾-软心曲奇创新增长！ | oc_d54b753ed446bc45e14fbdd508643952\n- 【欣欣】 | oc_6a70e89cb66ec1f7324305a95f4dda84\n- 小白心里软 | oc_0f8fb272db148bf2b26e715fbfa539a4\n- 奥丹中岛谷 | oc_bc6fe4c224b6e2f541238ec4f93f6046\n- 盐津大魔王 | oc_857cd072f6ff5f212293186719fe95e8\n- 三元 | oc_7bd0f154d96521d558a83395e523844e\n- 格士利 | oc_c8cbbeeda740bdd7d86c572620811960\n- 阿嫲秘诀 | oc_a44c39054e032be421019bce56108993\n- 朴鲜鲜 | oc_66d8106d306e3e3395df7c6fb8cbd73b\n\n提醒发送目标群：一眼过稿管理群 | oc_38ff83e3a066fc7dd63e9dfcb56a0675\n\n执行规则：\n1. 统计最近 7 天各群中的过稿/确认/催办/待反馈相关动态。\n2. 输出：\n   - 本周高频催办项目\n   - 本周高风险未闭环事项\n   - 响应慢/反复追问的典型问题\n   - 已闭环较好的项目亮点\n3. 周报格式简洁，适合群内阅读。\n4. 用 message 工具发送到 feishu 群 chat:oc_38ff83e3a066fc7dd63e9dfcb56a0675，accountId 用 main。",
-        "thinking": "medium",
-        "timeoutSeconds": 300,
-        "lightContext": true
-      },
-      "delivery": {
-        "mode": "none",
-        "channel": "last"
-      },
-      "state": {}
-    },
-    {
-      "id": "3a5d644e-71c2-49aa-a67a-091c91c70bde",
-      "agentId": "main-shared",
-      "name": "过稿监测月度方法论-每月1号",
-      "description": "每月提炼过稿协同中的方法论、常见卡点、提效建议，发送到一眼过稿管理群",
-      "enabled": true,
-      "createdAtMs": 1779962064646,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 11 1 * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "你现在执行【过稿监测月度方法论汇总】。\n\n监测目标群：\n- 泓一项目沟通群 | oc_19bae0e30b21727ad2f07c3caf8f1da0\n- 星搭档 | oc_1b21f39229dd783e026572ab9cae2171\n- 游世佳族-零食系统产品增长！ | oc_c04d3c7722d4d04ef03822c8320c6867\n- 秘语项目群 | oc_89d2fca64668ee6a708c5c2cde988ecc\n- 黄小咕干脆面全案群 | oc_8d0fdbca1532d4388dd2da3deee11e3d\n- 莎布蕾-软心曲奇创新增长！ | oc_d54b753ed446bc45e14fbdd508643952\n- 【欣欣】 | oc_6a70e89cb66ec1f7324305a95f4dda84\n- 小白心里软 | oc_0f8fb272db148bf2b26e715fbfa539a4\n- 奥丹中岛谷 | oc_bc6fe4c224b6e2f541238ec4f93f6046\n- 盐津大魔王 | oc_857cd072f6ff5f212293186719fe95e8\n- 三元 | oc_7bd0f154d96521d558a83395e523844e\n- 格士利 | oc_c8cbbeeda740bdd7d86c572620811960\n- 阿嫲秘诀 | oc_a44c39054e032be421019bce56108993\n- 朴鲜鲜 | oc_66d8106d306e3e3395df7c6fb8cbd73b\n\n提醒发送目标群：一眼过稿管理群 | oc_38ff83e3a066fc7dd63e9dfcb56a0675\n\n执行规则：\n1. 回顾最近 30 天这些群里的过稿协作、催办、确认、返工、定稿节奏。\n2. 输出方法论汇总，重点包括：\n   - 常见卡点类型\n   - 哪类表达最容易引发反复确认\n   - 哪类项目最容易超时\n   - 哪种协作动作最有效\n   - 下月建议优化动作\n3. 输出不要流水账，要有判断、有归纳。\n4. 用 message 工具发送到 feishu 群 chat:oc_38ff83e3a066fc7dd63e9dfcb56a0675，accountId 用 main。",
-        "thinking": "medium",
-        "timeoutSeconds": 420,
-        "lightContext": true
-      },
-      "delivery": {
-        "mode": "none",
-        "channel": "last"
-      },
-      "state": {}
-    },
-    {
-      "id": "30543995-1e91-4e53-8266-b5caea16e05e",
-      "agentId": "main-shared",
-      "name": "今日需关注简报-每日17点",
-      "description": "每天17点汇总指定项目群的当日需关注信息，发送到林奕衍私聊",
-      "enabled": true,
-      "createdAtMs": 1779963531597,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 17 * * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "你现在执行【今日需关注简报】。\n\n监测目标群（名称 | chat_id）：\n- 泓一项目沟通群 | oc_19bae0e30b21727ad2f07c3caf8f1da0\n- 星搭档 | oc_1b21f39229dd783e026572ab9cae2171\n- 游世佳族-零食系统产品增长！ | oc_c04d3c7722d4d04ef03822c8320c6867\n- 秘语项目群 | oc_89d2fca64668ee6a708c5c2cde988ecc\n- 黄小咕干脆面全案群 | oc_8d0fdbca1532d4388dd2da3deee11e3d\n- 莎布蕾-软心曲奇创新增长！ | oc_d54b753ed446bc45e14fbdd508643952\n- 【欣欣】 | oc_6a70e89cb66ec1f7324305a95f4dda84\n- 小白心里软 | oc_0f8fb272db148bf2b26e715fbfa539a4\n- 奥丹中岛谷 | oc_bc6fe4c224b6e2f541238ec4f93f6046\n- 盐津大魔王 | oc_857cd072f6ff5f212293186719fe95e8\n- 三元 | oc_7bd0f154d96521d558a83395e523844e\n- 格士利 | oc_c8cbbeeda740bdd7d86c572620811960\n- 阿嫲秘诀 | oc_a44c39054e032be421019bce56108993\n- 朴鲜鲜 | oc_66d8106d306e3e3395df7c6fb8cbd73b\n\n发送目标：一眼过稿管理群 | chat:oc_38ff83e3a066fc7dd63e9dfcb56a0675\n\n执行规则：\n1. 检查各群当日消息，优先抓：待确认、待过稿、客户催办、今天要、反复追问、需要你知情但未必直接@你的重要推进。\n2. 这是“每日关注梳理”，不是频发提醒，所以只做 1 次汇总，控制在 5-8 条以内，只保留真正需要关注的。\n3. 输出格式：\n【今日需关注简报｜MM-DD 17:00】\n1. 项目群名：发生了什么｜你为什么要看\n2. ...\n4. 没有高价值事项时，回复 NO_REPLY。\n5. 如果有内容，用 message 工具发送到 feishu 群 chat:oc_38ff83e3a066fc7dd63e9dfcb56a0675，accountId 用 default。",
-        "thinking": "medium",
-        "timeoutSeconds": 300,
-        "lightContext": true
-      },
-      "delivery": {
-        "mode": "none",
-        "channel": "last"
-      },
-      "state": {}
-    },
-    {
-      "id": "34e8aa1f-fd0d-4676-84cc-79e378de44dc",
-      "agentId": "main-shared",
-      "name": "艾特过稿提醒-每5分钟",
-      "description": "检测艾特林奕衍+过稿关键词+图片三条件，10分钟首提醒，之后每5分钟提醒一次，直到回复",
-      "enabled": true,
-      "createdAtMs": 1779963532941,
-      "schedule": {
-        "kind": "cron",
-        "expr": "*/5 * * * *",
-        "tz": "Asia/Shanghai"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "你现在执行【艾特过稿提醒】。\n\n你的目标是检测“林奕衍还没有及时回复的过稿消息”，并只在满足严格规则时提醒。\n\n监测目标群（名称 | chat_id）：\n- 泓一项目沟通群 | oc_19bae0e30b21727ad2f07c3caf8f1da0\n- 星搭档 | oc_1b21f39229dd783e026572ab9cae2171\n- 游世佳族-零食系统产品增长！ | oc_c04d3c7722d4d04ef03822c8320c6867\n- 秘语项目群 | oc_89d2fca64668ee6a708c5c2cde988ecc\n- 黄小咕干脆面全案群 | oc_8d0fdbca1532d4388dd2da3deee11e3d\n- 莎布蕾-软心曲奇创新增长！ | oc_d54b753ed446bc45e14fbdd508643952\n- 【欣欣】 | oc_6a70e89cb66ec1f7324305a95f4dda84\n- 小白心里软 | oc_0f8fb272db148bf2b26e715fbfa539a4\n- 奥丹中岛谷 | oc_bc6fe4c224b6e2f541238ec4f93f6046\n- 盐津大魔王 | oc_857cd072f6ff5f212293186719fe95e8\n- 三元 | oc_7bd0f154d96521d558a83395e523844e\n- 格士利 | oc_c8cbbeeda740bdd7d86c572620811960\n- 阿嫲秘诀 | oc_a44c39054e032be421019bce56108993\n- 朴鲜鲜 | oc_66d8106d306e3e3395df7c6fb8cbd73b\n\n提醒目标：一眼过稿管理群 | chat:oc_38ff83e3a066fc7dd63e9dfcb56a0675\n林奕衍 open_id：ou_232a2e2e182c2f8378d1b9c82d4cd1ad\n\n严格判断规则：\n1. 只看同一发送人在同一群里“近5条相关消息”的组合，不要求单条同时满足。\n2. 三个条件必须同时满足：\n   A. 有@林奕衍（排除 @所有人 / @all，只有明确 mentions 里包含 ou_232a2e2e182c2f8378d1b9c82d4cd1ad 才算）\n   B. 文本里有过稿意图关键词，例如：看看、过稿、kk、看下、确认下、帮忙看、审下、看一眼、看看设计\n   C. 这同一发送人的近5条相关消息里有图片（msg_type=image，或 post 内容里含 image）\n3. 如果三条件满足，记该组合的“触发时间”为这组消息里最后一条消息的时间。\n4. 只要触发时间之后，林奕衍本人在该群里有任何回复消息，就视为已响应，不提醒。\n5. 如果触发相关消息上，林奕衍点过 OK 表情回复，也视为已回复，不提醒。只认 OK，不扩展到其他表情。\n6. 提醒节奏：\n   - 触发后满10分钟，且仍未回复 -> 第一次提醒\n   - 之后每满5分钟，且仍未回复 -> 再提醒一次\n7. 如果不满足上述条件，或已经回复，回复 NO_REPLY。\n\n执行要求：\n1. 每个群读取最近 50 条消息，时间窗口优先最近 3 小时。\n2. 识别出所有满足提醒条件且当前应提醒的事项。\n3. 提醒文案必须以“原消息摘录”为核心，不要只写抽象判断，不要只写命中信号。\n4. 每条提醒格式改为：\n【过稿待回复提醒｜HH:mm】\n- 项目群：xxx\n- 发送人：xxx\n- 触发时间：HH:mm\n- 原消息摘录：\n  “消息1内容”\n  “消息2内容”\n- 图片：X张\n- 状态：已超过X分钟未回复\n5. 原消息摘录优先取触发组合里最关键的 1-3 条消息，尽量保留原话，控制长度，方便一眼判断。\n6. 如有多条事项，可合并成一条群消息发送到 feishu 群 chat:oc_38ff83e3a066fc7dd63e9dfcb56a0675，accountId 用 default。",
-        "thinking": "medium",
-        "timeoutSeconds": 300,
-        "lightContext": true
-      },
-      "delivery": {
-        "mode": "none",
-        "channel": "last"
       },
       "state": {}
     }
