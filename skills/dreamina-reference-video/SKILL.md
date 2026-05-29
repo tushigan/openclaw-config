@@ -300,7 +300,64 @@ python3 scripts/run_workflow.py review-run --run-dir /path/to/run
 
 **只有返回 `proceed` 时，才能进入下一步。**
 
-### 步骤 7：submit-video - 提交即梦视频
+### 步骤 7：确认视频生成通道
+
+**在提交视频生成前，必须让用户确认通道选择。**
+
+#### 为什么需要确认？
+
+不同通道的积分消耗和生成时间差异很大：
+- **draft 通道**：快速打样，约 50-100 积分，5-8 分钟
+- **final 通道**：正式交付，约 150-300 积分，15-20 分钟
+
+#### 如何确认？
+
+**Agent 必须使用 AskUserQuestion 让用户选择通道**：
+
+```python
+# 1. 先显示当前配置和可用选项
+from workflow import format_quality_tier_info, get_quality_tier_options
+
+info = format_quality_tier_info(brief)
+print(info)  # 显示给用户
+
+# 2. 使用 AskUserQuestion 让用户选择
+options = get_quality_tier_options(brief['duration'])
+
+AskUserQuestion({
+    "questions": [{
+        "question": "请选择视频生成通道",
+        "header": "通道选择",
+        "options": [
+            {
+                "label": f"{opt['name']} ({opt['tier']})",
+                "description": f"{opt['model']}, {opt['resolution']}, {opt['estimated_time']}, 约 {opt['estimated_credits']} 积分, {opt['use_case']}"
+            }
+            for opt in options
+        ],
+        "multiSelect": False
+    }]
+})
+
+# 3. 根据用户选择更新 brief.json 中的 quality_tier
+# 4. 继续下一步提交
+```
+
+#### 通道说明
+
+| 通道 | 模型 | 分辨率 | 速度 | 质量 | 适用场景 |
+|------|------|--------|------|------|---------|
+| **draft** | seedance2.0fast | 720p | 快（5-8分钟） | 中等 | 快速验证、打样测试、迭代优化 |
+| **final** | seedance2.0_vip | 1080p | 慢（15-20分钟） | 最高 | 正式交付、客户展示、最终成品 |
+
+**注意**：
+- 积分消耗和生成时间为估算值，实际可能因视频复杂度有所不同
+- 建议打样阶段使用 draft，正式交付使用 final
+- 用户确认后才能提交，不要擅自决定
+
+### 步骤 8：submit-video - 提交即梦视频
+
+**确认通道后，提交视频生成任务。**
 
 先看 dry run：
 
@@ -319,11 +376,25 @@ dry run 会额外返回：
 python3 scripts/run_workflow.py submit-video --run-dir /path/to/run
 ```
 
+**提交后的自动轮询**：
+- 系统会自动轮询任务状态，无需手动查询
+- draft 通道：轮询 10 分钟
+- final 通道：轮询 20 分钟
+- 生成完成后自动下载结果
+
+**Agent 应该在提交后告知用户**：
+```
+视频生成任务已提交
+- 通道：{quality_tier}
+- 预估时间：{estimated_time}
+- 系统会自动轮询进度，生成完成后自动下载
+```
+
 默认使用 `dreamina multimodal2video`。
 
 其他模式（`frames2video`、`image2video`、`multiframe2video`）只作为扩展，不是默认主通路。
 
-### 步骤 8：fetch-result - 查询并下载结果
+### 步骤 9：fetch-result - 查询并下载结果
 
 如果提交后没有直接拿到完整结果：
 

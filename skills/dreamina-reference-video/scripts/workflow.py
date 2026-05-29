@@ -1482,6 +1482,10 @@ def build_dreamina_command(
     recovery_actions: list[dict[str, Any]] | None = None,
 ) -> list[str]:
     settings = model_settings(brief)
+
+    # 根据质量档设置轮询超时时间
+    poll_timeout = get_poll_timeout(brief["quality_tier"])
+
     cmd = [
         DREAMINA_BIN,
         "multimodal2video",
@@ -1519,10 +1523,153 @@ def build_dreamina_command(
             f"--ratio={brief['ratio']}",
             f"--model_version={settings['model_version']}",
             f"--video_resolution={settings['video_resolution']}",
-            "--poll=15",
+            f"--poll={poll_timeout}",
         ]
     )
     return cmd
+
+
+def get_poll_timeout(quality_tier: str) -> int:
+    """
+    根据质量档返回合适的轮询超时时间（秒）
+
+    Args:
+        quality_tier: 质量档（draft/final）
+
+    Returns:
+        轮询超时时间（秒）
+    """
+    timeout_map = {
+        "draft": 600,   # 10 分钟，快速通道
+        "final": 1200,  # 20 分钟，高质量通道
+    }
+    return timeout_map.get(quality_tier, 900)  # 默认 15 分钟
+
+
+def get_quality_tier_options(duration: int) -> list[dict[str, Any]]:
+    """
+    获取所有质量档选项及其详细信息
+
+    Args:
+        duration: 视频时长（秒）
+
+    Returns:
+        质量档选项列表
+    """
+    # 每秒基础积分消耗（估算值）
+    base_cost_per_second = {
+        "draft": 10,      # seedance2.0fast, 720p
+        "final": 30,      # seedance2.0_vip, 1080p
+    }
+
+    options = [
+        {
+            "tier": "draft",
+            "name": "快速打样",
+            "model": "seedance2.0fast",
+            "resolution": "720p",
+            "speed": "快（约 5-8 分钟）",
+            "quality": "中等",
+            "estimated_credits": base_cost_per_second["draft"] * duration,
+            "estimated_time": "5-8 分钟",
+            "use_case": "快速验证创意、打样测试、迭代优化",
+            "recommended_for": "打样阶段"
+        },
+        {
+            "tier": "final",
+            "name": "正式交付",
+            "model": "seedance2.0_vip",
+            "resolution": "1080p",
+            "speed": "慢（约 15-20 分钟）",
+            "quality": "最高",
+            "estimated_credits": base_cost_per_second["final"] * duration,
+            "estimated_time": "15-20 分钟",
+            "use_case": "正式交付、客户展示、最终成品",
+            "recommended_for": "正式交付"
+        }
+    ]
+
+    return options
+
+
+def estimate_credit_cost(tier: str, duration: int) -> int:
+    """
+    估算积分消耗
+
+    Args:
+        tier: 质量档
+        duration: 视频时长（秒）
+
+    Returns:
+        预估积分消耗
+    """
+    base_cost_per_second = {
+        "draft": 10,
+        "final": 30,
+    }
+    return base_cost_per_second.get(tier, 10) * duration
+
+
+def format_quality_tier_info(brief: dict[str, Any]) -> str:
+    """
+    格式化质量档信息，用于显示给用户
+
+    Args:
+        brief: brief 配置
+
+    Returns:
+        格式化的信息字符串
+    """
+    current_tier = brief.get("quality_tier", "draft")
+    duration = brief.get("duration", 5)
+    ratio = brief.get("ratio", "16:9")
+
+    options = get_quality_tier_options(duration)
+    current_option = next((opt for opt in options if opt["tier"] == current_tier), options[0])
+
+    lines = [
+        "=" * 70,
+        "视频生成配置确认",
+        "=" * 70,
+        "",
+        "当前配置：",
+        f"  - 质量档：{current_option['name']} ({current_tier})",
+        f"  - 时长：{duration} 秒",
+        f"  - 画幅：{ratio}",
+        f"  - 预估积分消耗：{current_option['estimated_credits']} 积分",
+        f"  - 预估生成时间：{current_option['estimated_time']}",
+        "",
+        "可用通道：",
+        ""
+    ]
+
+    for i, option in enumerate(options, 1):
+        is_current = option["tier"] == current_tier
+        marker = " ← 当前选择" if is_current else ""
+        lines.extend([
+            f"{i}. {option['name']} ({option['tier']}){marker}",
+            f"   模型：{option['model']}",
+            f"   分辨率：{option['resolution']}",
+            f"   速度：{option['speed']}",
+            f"   质量：{option['quality']}",
+            f"   预估积分：{option['estimated_credits']} 积分",
+            f"   预估时间：{option['estimated_time']}",
+            f"   适用场景：{option['use_case']}",
+            f"   推荐用于：{option['recommended_for']}",
+            ""
+        ])
+
+    lines.extend([
+        "=" * 70,
+        "",
+        "注意：",
+        "- 积分消耗和生成时间为估算值，实际可能因视频复杂度有所不同",
+        "- draft 通道适合快速验证，final 通道适合正式交付",
+        "- 提交后会自动轮询任务状态，生成完成后自动下载",
+        ""
+    ])
+
+    return "\n".join(lines)
 
 
 def summarize_reusable_fields(brief: dict[str, Any]) -> str:
