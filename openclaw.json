@@ -2428,7 +2428,8 @@
       },
       "groups": {
         "*": {
-          "enabled": true
+          "enabled": true,
+          "systemPrompt": "在群聊中交付文件时，必须使用 message 工具真实发送，不得只输出 MEDIA: 文本或路径。\n\n错误示例：\n❌ MEDIA:/path/to/file.png\n❌ 图片路径：/path/to/file.png\n❌ 已发送（但没有调用 message 工具）\n\n正确示例：\n✅ 调用 message(action=send, channel=feishu, path=/path/to/file.png, mimeType=image/png)\n✅ 等待返回 {\"ok\": true, \"messageId\": \"...\"}\n✅ 确认：已发送图片 (messageId: ...)\n\n记住：用户在群聊中和一对一会话中有同样的交付期望。MEDIA: 只是文本，用户收不到文件。"
         }
       },
       "streaming": true,
