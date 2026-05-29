@@ -13,6 +13,8 @@ workspace-design/*
 workspace-design/skills/*
 !workspace-design/skills/product-photography-workflow/
 !workspace-design/skills/product-photography-workflow/**
+!workspace-design/skills/gpt-image2-gen/
+!workspace-design/skills/gpt-image2-gen/**
 
 workspace-video/*
 !workspace-video/AGENTS.md
