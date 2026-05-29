@@ -1,13 +1,13 @@
 ---
 name: dreamina-cli
-description: Low-level Dreamina CLI wrapper. Should NOT be invoked directly by users. This skill is designed to be called by other skills (like dreamina-reference-video) as a底层能力.
+description: 即梦视频生成底层 CLI 封装。仅用于视频生成任务，不得用于图片生成。应由其他 skill（如 dreamina-reference-video）调用，不应被用户直接触发。
 ---
 
 # Dreamina CLI
 
-**注意：此 skill 不应被用户直接触发，而是作为底层能力被其他 skill 调用。**
+**注意：此 skill 仅用于视频生成，不得用于图片生成。应作为底层能力被其他 skill 调用，不应被用户直接触发。**
 
-This skill provides low-level access to the Dreamina（即梦） CLI for Dreamina task submission and result querying. It should be invoked programmatically by other skills, not directly by user requests.
+This skill provides low-level access to the Dreamina（即梦） CLI for **video generation tasks only**. It should be invoked programmatically by other skills, not directly by user requests.
 
 即梦 is the Chinese product name of Dreamina.
 
@@ -16,20 +16,22 @@ Use it to inspect Dreamina CLI help and query a submit_id result when a higher-l
 
 ## OpenClaw Routing
 
-- This low-level wrapper should be selected only when a higher-level workflow explicitly requires the official 即梦 CLI.
-- For generic `文生视频`, `图生视频`, `视频生成`, or `AI 画图` requests with no provider named, do not assume 即梦. Follow the current OpenClaw routing/default provider rules.
-- For `可灵` or `Kling`, use the `klingai` skill instead.
-- For low-level Volcengine API work, only use a separate API path if the user explicitly asks for `visual.volcengineapi.com`, `火山 OpenAPI`, or API signature/debugging.
+**CRITICAL: 此 skill 仅用于视频生成，禁止用于图片生成。**
+
+- **图片生成任务**（`生成图片`、`做张图`、`AI 画图`、`生图`）：**绝对不得使用此 skill**，必须使用 `gpt-image2-gen` 或其他图片生成 skill
+- **视频生成任务**（`文生视频`、`图生视频`、`视频生成`、`即梦视频`、`Dreamina`）：仅当明确需要即梦能力时才使用此 skill
+- This low-level wrapper should be selected only when a higher-level workflow explicitly requires the official 即梦 CLI for **video generation**
+- For generic video requests with no provider named, do not assume 即梦. Follow the current OpenClaw routing/default provider rules
+- For low-level Volcengine API work, only use a separate API path if the user explicitly asks for `visual.volcengineapi.com`, `火山 OpenAPI`, or API signature/debugging
 
 ## What this tool is for
 
-`dreamina` is the local CLI entrypoint for all currently exposed Dreamina（即梦） image and video generation workflows, plus the account/session operations around them.
+`dreamina` is the local CLI entrypoint for Dreamina（即梦） **video generation workflows**, plus the account/session operations around them.
 
 Use it for:
 
 - checking or reusing an existing Dreamina login session
 - checking account credit
-- submitting image generation tasks
 - submitting video generation tasks
 - querying async task results
 - reviewing saved task history
@@ -51,8 +53,6 @@ At a high level:
 - Use `user_credit` to check budget.
 - Use `query_result` when you already have a `submit_id`.
 - Use `list_task` to review recent saved tasks.
-- Use image commands when the input or output is image-first.
-- Use video commands when the output is a video.
 - Use `image2video` when one main image is enough; if the user has multiple images for a coherent story, prefer `multiframe2video`.
 - Use `multiframe2video` for Dreamina's intelligent multi-frame flow: multiple images in, one coherent story video out.
 - Use `multimodal2video` for Dreamina's flagship video mode when the task needs all-around references across images, video, and audio; it supports the `seedance2.0` family.

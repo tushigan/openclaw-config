@@ -1,7 +1,7 @@
 {
   "primary_down_until": 0,
-  "last_failure_at": 1779941996.959805,
+  "last_failure_at": 1779976452.848192,
   "last_failure_reason": "HTTPSConnectionPool(host='n.lconai.com', port=443): Read timed out. (read timeout=600)",
   "last_failed_provider": "n.lconai",
-  "last_primary_recovered_at": 1779943067.5181718
+  "last_primary_recovered_at": 1779976677.357543
 }

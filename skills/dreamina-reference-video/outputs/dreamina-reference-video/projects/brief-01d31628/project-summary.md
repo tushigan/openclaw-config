@@ -3,8 +3,8 @@
 - 项目名：黄小咕
 - 项目标识：brief-01d31628
 - 当前阶段：generate_refs
-- 当前状态：ref_generation_failed
-- 最新运行：/Users/a123/.openclaw/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-01d31628/runs/20260528-110700-brief-01d31628
+- 当前状态：references_generated
+- 最新运行：/Users/a123/.openclaw/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-01d31628/runs/20260528-171914-brief-01d31628
 
 ## 默认配置
 - 比例：9:16
@@ -33,7 +33,9 @@
 - identity_source: /Users/a123/.openclaw/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-01d31628/canonical/identity-source.png
 - identity_board: /Users/a123/.openclaw/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-01d31628/canonical/identity-board.png
 - final_frame_poster: /Users/a123/.openclaw/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-01d31628/canonical/final-frame-poster.png
+- storyboard: /Users/a123/.openclaw/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-01d31628/canonical/storyboard.png
 
 ## 最近运行
 - 20260528-104928-brief-01d31628 | prepare | ready_for_ref_generation
 - 20260528-110700-brief-01d31628 | generate_refs | ref_generation_failed
+- 20260528-171914-brief-01d31628 | generate_refs | references_generated

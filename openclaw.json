@@ -520,7 +520,6 @@
           "image-task-router",
           "improve-codebase-architecture",
           "internal-interview-research",
-          "klingai",
           "lark-approval",
           "lark-attendance",
           "lark-base",
@@ -558,7 +557,6 @@
           "skill-creator",
           "taskflow",
           "taskflow-inbox-triage",
-          "tvc-director",
           "video-expert-analyzer",
           "video-frames",
           "visual-production",
@@ -1077,9 +1075,9 @@
         "name": "龙虾总指挥（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace",
         "model": {
-          "primary": "aixor-g/gpt-5.5",
+          "primary": "aixor-g/gpt-5.4",
           "fallbacks": [
-            "aixor-g/gpt-5.5"
+            "aixor-g/gpt-5.4"
           ]
         },
         "thinkingDefault": "adaptive",
@@ -1327,7 +1325,6 @@
           "image-task-router",
           "improve-codebase-architecture",
           "internal-interview-research",
-          "klingai",
           "lark-approval",
           "lark-attendance",
           "lark-base",
@@ -1365,7 +1362,6 @@
           "skill-creator",
           "taskflow",
           "taskflow-inbox-triage",
-          "tvc-director",
           "video-expert-analyzer",
           "video-frames",
           "visual-production",
@@ -1783,7 +1779,7 @@
         "name": "会议记录分析员（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-meeting",
         "model": {
-          "primary": "aixor-g/gpt-5.2"
+          "primary": "aixor-g/gpt-5.4"
         },
         "subagents": {
           "allowAgents": [
@@ -1857,7 +1853,7 @@
         "model": {
           "primary": "aixor-g/gpt-5.4",
           "fallbacks": [
-            "aixor/claude-opus-4-6"
+            "cc-vibe/claude-opus-4-7"
           ]
         },
         "thinkingDefault": "adaptive",
@@ -2664,6 +2660,9 @@
       },
       "product-photography-workflow": {
         "enabled": true
+      },
+      "tvc-director": {
+        "enabled": false
       }
     },
     "load": {

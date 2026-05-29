@@ -2,99 +2,130 @@
   "version": 1,
   "jobs": {
     "e489dfcf-dc9f-4481-b96c-58ab5b3928f4": {
-      "updatedAtMs": 1779908427606,
+      "updatedAtMs": 1779994827154,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 3 * * *\"}}",
       "state": {
-        "nextRunAtMs": 1779994800000,
-        "lastRunAtMs": 1779908400009,
+        "nextRunAtMs": 1780081200000,
+        "lastRunAtMs": 1779994800009,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 27597,
+        "lastDurationMs": 27145,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "616f4650-758f-411d-bfb3-d363fb62347f": {
-      "updatedAtMs": 1779932908009,
+      "updatedAtMs": 1780009200012,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1780009200000,
-        "lastRunAtMs": 1779932908009,
+        "nextRunAtMs": 1780095600000,
+        "lastRunAtMs": 1780009200009,
         "lastRunStatus": "skipped",
         "lastStatus": "skipped",
-        "lastDurationMs": 0,
+        "lastDurationMs": 3,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
-        "consecutiveSkipped": 2,
-        "lastError": "Error: main cron jobs require payload.kind=\"systemEvent\"",
-        "lastDiagnostics": {
-          "summary": "Error: main cron jobs require payload.kind=\"systemEvent\"",
-          "entries": [
-            {
-              "ts": 1779932908009,
-              "source": "cron-preflight",
-              "severity": "warn",
-              "message": "Error: main cron jobs require payload.kind=\"systemEvent\""
-            }
-          ]
-        },
-        "lastDiagnosticSummary": "Error: main cron jobs require payload.kind=\"systemEvent\""
+        "consecutiveSkipped": 3,
+        "lastError": "main job requires payload.kind=\"systemEvent\""
       }
     },
     "da698c09-e032-4186-a941-4a736674bab3": {
-      "updatedAtMs": 1779932539923,
+      "updatedAtMs": 1780011000013,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"30 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1780011000000,
-        "lastRunAtMs": 1779932539923,
+        "nextRunAtMs": 1780097400000,
+        "lastRunAtMs": 1780011000011,
         "lastRunStatus": "skipped",
         "lastStatus": "skipped",
-        "lastDurationMs": 0,
-        "lastDeliveryStatus": "unknown",
+        "lastDurationMs": 2,
+        "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
-        "consecutiveSkipped": 2,
-        "lastDiagnostics": {
-          "summary": "Error: main cron jobs require payload.kind=\"systemEvent\"",
-          "entries": [
-            {
-              "ts": 1779932539923,
-              "source": "cron-preflight",
-              "severity": "warn",
-              "message": "Error: main cron jobs require payload.kind=\"systemEvent\""
-            }
-          ]
-        },
-        "lastDiagnosticSummary": "Error: main cron jobs require payload.kind=\"systemEvent\"",
-        "lastError": "Error: main cron jobs require payload.kind=\"systemEvent\""
+        "consecutiveSkipped": 3,
+        "lastError": "main job requires payload.kind=\"systemEvent\""
       }
     },
     "b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d": {
-      "updatedAtMs": 1779950100628,
+      "updatedAtMs": 1780015956104,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"*/10 * * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1779950400000,
-        "lastRunAtMs": 1779949800072,
+        "nextRunAtMs": 1780016400000,
+        "lastRunAtMs": 1780015921690,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 34414,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "runningAtMs": 1780016400073
+      }
+    },
+    "b88d167c-08c0-4ae8-851a-280d610ff536": {
+      "updatedAtMs": 1779963530100,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":false,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0,30 9-23 * * *\",\"tz\":\"Asia/Shanghai\"}}",
+      "state": {
+        "lastRunAtMs": 1779962321050,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 300556,
-        "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 1,
-        "consecutiveSkipped": 0,
+        "lastDurationMs": 123746,
+        "lastError": "⚠️ 🛠️ Exec: `list files in ~/.openclaw/plugin-skills/feishu-im-read/SKILL.md → run python inline script (heredoc)` failed: exec host=sandbox requires a sandbox runtime for this session.",
         "lastDiagnostics": {
-          "summary": "cron: job execution timed out",
+          "summary": "⚠️ 🛠️ Exec: `list files in ~/.openclaw/plugin-skills/feishu-im-read/SKILL.md → run python inline script (heredoc)` failed: exec host=sandbox requires a sandbox runtime for this session.",
           "entries": [
             {
-              "ts": 1779950100628,
-              "source": "cron-setup",
+              "ts": 1779962444796,
+              "source": "tool",
               "severity": "error",
-              "message": "cron: job execution timed out"
+              "message": "⚠️ 🛠️ Exec: `list files in ~/.openclaw/plugin-skills/feishu-im-read/SKILL.md → run python inline script (heredoc)` failed: exec host=sandbox requires a sandbox runtime for this session."
+            },
+            {
+              "ts": 1779962444796,
+              "source": "agent-run",
+              "severity": "error",
+              "message": "⚠️ 🛠️ Exec: `list files in ~/.openclaw/plugin-skills/feishu-im-read/SKILL.md → run python inline script (heredoc)` failed: exec host=sandbox requires a sandbox runtime for this session."
             }
           ]
         },
-        "lastDiagnosticSummary": "cron: job execution timed out",
-        "lastErrorReason": "timeout",
-        "runningAtMs": 1779950400009
+        "lastDiagnosticSummary": "⚠️ 🛠️ Exec: `list files in ~/.openclaw/plugin-skills/feishu-im-read/SKILL.md → run python inline script (heredoc)` failed: exec host=sandbox requires a sandbox runtime for this session.",
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 1,
+        "consecutiveSkipped": 0
+      }
+    },
+    "9055540a-dd4c-42ce-a5f7-86d6168567e8": {
+      "updatedAtMs": 1779962160180,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 10 * * 1\",\"tz\":\"Asia/Shanghai\"}}",
+      "state": {
+        "nextRunAtMs": 1780279200000
+      }
+    },
+    "3a5d644e-71c2-49aa-a67a-091c91c70bde": {
+      "updatedAtMs": 1779962161748,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 11 1 * *\",\"tz\":\"Asia/Shanghai\"}}",
+      "state": {
+        "nextRunAtMs": 1780282800000
+      }
+    },
+    "30543995-1e91-4e53-8266-b5caea16e05e": {
+      "updatedAtMs": 1779964545192,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 17 * * *\",\"tz\":\"Asia/Shanghai\"}}",
+      "state": {
+        "nextRunAtMs": 1780045200000
+      }
+    },
+    "34e8aa1f-fd0d-4676-84cc-79e378de44dc": {
+      "updatedAtMs": 1780016168699,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"*/5 * * * *\",\"tz\":\"Asia/Shanghai\"}}",
+      "state": {
+        "nextRunAtMs": 1780016400000,
+        "lastRunAtMs": 1780016100013,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 68686,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0,
+        "runningAtMs": 1780016400073
       }
     }
   }
