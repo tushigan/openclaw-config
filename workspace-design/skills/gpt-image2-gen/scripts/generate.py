@@ -20,9 +20,15 @@ import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# Disable proxy to avoid requests going through local proxy
-for _p in ['http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY', 'all_proxy', 'ALL_PROXY']:
+# Disable proxy to avoid requests going through local proxy (both endpoints are directly accessible)
+for _p in ['http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY', 'all_proxy', 'ALL_PROXY', 'no_proxy', 'NO_PROXY']:
     os.environ.pop(_p, None)
+
+# Create a session that explicitly bypasses all proxies
+def create_no_proxy_session():
+    session = requests.Session()
+    session.trust_env = False  # Ignore system proxy settings
+    return session
 
 
 def load_openclaw_env() -> None:
@@ -40,16 +46,19 @@ def load_openclaw_env() -> None:
         key, value = line.split('=', 1)
         key = key.strip()
         value = value.strip().strip('"').strip("'")
-        if key and key not in os.environ:
+        if key:
+            # 强制覆盖环境变量，确保使用最新的 .env 配置
             os.environ[key] = value
 
 
 load_openclaw_env()
 
 # Dual-supplier key mapping (independent keys per endpoint)
+# 主通道：n.lconai.com 使用 BANANA_API_KEY
+# 备用通道：cn.aixor.org 使用 BANANA_API_KEY_AIXOR
 ENDPOINT_KEYS = {
-    'n.lconai.com': os.getenv('BANANA_API_KEY_N', os.getenv('BANANA_API_KEY', '')),
-    'cn.aixor.org': os.getenv('BANANA_API_KEY_AIXOR', os.getenv('BANANA_API_KEY_BACKUP', os.getenv('BANANA_API_KEY', ''))),
+    'n.lconai.com': os.getenv('BANANA_API_KEY', ''),
+    'cn.aixor.org': os.getenv('BANANA_API_KEY_AIXOR', os.getenv('BANANA_API_KEY_N', '')),
 }
 
 HOST_MODEL_ALIASES = {
@@ -493,7 +502,7 @@ def resolve_key(base_url: str) -> str:
 
 
 API_URL = os.getenv('BANANA_API_URL', 'https://n.lconai.com')
-DEFAULT_MODEL = 'gpt-image-2-pro'
+DEFAULT_MODEL = 'gpt-image-2'
 ENV_MODEL = os.getenv('BANANA_DEFAULT_MODEL', '')
 AIXOR_API_URL = os.getenv('BANANA_API_URL_AIXOR', '')
 PROVIDER_MODE = (os.getenv('BANANA_PROVIDER_MODE', 'auto') or 'auto').strip().lower()
@@ -702,7 +711,9 @@ def save_url_to_file(url: str, output_path: str):
             raise ValueError('Unsupported data URL: expected base64 payload')
         target_path.write_bytes(decode_base64_payload(payload))
         return
-    resp = requests.get(url, timeout=300, verify=False)
+    session = requests.Session()
+    session.trust_env = False
+    resp = session.get(url, timeout=300, verify=False)
     resp.raise_for_status()
     target_path.write_bytes(resp.content)
 
@@ -1102,7 +1113,9 @@ def compress_reference_image(input_path: str, max_long_edge: int = 1920, quality
 def _http_ref_to_local(url: str) -> str:
     import tempfile
 
-    resp = requests.get(url, timeout=300, verify=False)
+    session = requests.Session()
+    session.trust_env = False
+    resp = session.get(url, timeout=300, verify=False)
     resp.raise_for_status()
     ext = '.png'
     u = url.lower()
@@ -1145,7 +1158,9 @@ def call_images_edits_with_curl(prompt, size, references, model, base_url, heade
     """使用 curl 调用 /v1/images/edits（解决 Python SSL 兼容性问题）"""
     import subprocess
 
+    # 所有通道统一使用 /v1/images/edits 端点
     url = f'{base_url}/v1/images/edits'
+    print(f'[debug] using endpoint: {url}', file=sys.stderr)
 
     # 准备参考图片路径
     files, tmp_paths = _multipart_files_for(references, compress_refs=compress_refs)
@@ -1181,14 +1196,17 @@ def call_images_edits_with_curl(prompt, size, references, model, base_url, heade
         result = subprocess.run(
             cmd,
             capture_output=True,
-            text=True,
+            text=False,
             timeout=610
         )
 
-        if result.returncode != 0:
-            raise requests.HTTPError(f'curl failed with return code {result.returncode}: {result.stderr[:500]}')
+        stdout_text = result.stdout.decode('utf-8', errors='replace') if isinstance(result.stdout, (bytes, bytearray)) else str(result.stdout)
+        stderr_text = result.stderr.decode('utf-8', errors='replace') if isinstance(result.stderr, (bytes, bytearray)) else str(result.stderr)
 
-        response_data = json.loads(result.stdout)
+        if result.returncode != 0:
+            raise requests.HTTPError(f'curl failed with return code {result.returncode}: {stderr_text[:500]}')
+
+        response_data = json.loads(stdout_text)
 
         # 检查错误
         if 'error' in response_data:
@@ -1216,7 +1234,9 @@ def call_images_edits(prompt, size, references, model, base_url, headers, n=1, c
         return call_images_edits_with_curl(prompt, size, references, model, base_url, headers, n, compress_refs)
 
     # 小请求使用 requests
+    # 所有通道统一使用 /v1/images/edits 端点
     url = f'{base_url}/v1/images/edits'
+    print(f'[debug] using endpoint: {url}', file=sys.stderr)
     files, tmp_paths = _multipart_files_for(references, compress_refs=compress_refs)
     data_fields = {
         'model': model,
@@ -1226,7 +1246,9 @@ def call_images_edits(prompt, size, references, model, base_url, headers, n=1, c
         'response_format': preferred_response_format(base_url),
     }
     try:
-        response = requests.post(url, headers=headers, data=data_fields, files=files, timeout=600, verify=False)
+        session = requests.Session()
+        session.trust_env = False
+        response = session.post(url, headers=headers, data=data_fields, files=files, timeout=600, verify=False)
     finally:
         for _name, (_fn, fh, _mime) in files:
             try:
@@ -1239,7 +1261,7 @@ def call_images_edits(prompt, size, references, model, base_url, headers, n=1, c
             except Exception:
                 pass
     if response.status_code != 200:
-        raise requests.HTTPError(f'{response.status_code} from /v1/images/edits: {response.text[:500]}', response=response)
+        raise requests.HTTPError(f'{response.status_code} from {url}: {response.text[:500]}', response=response)
     return _normalise_response_items(response.json())
 
 
@@ -1252,7 +1274,9 @@ def call_images_generations(prompt, size, model, base_url, headers, n=1):
         'size': size,
         'response_format': preferred_response_format(base_url),
     }
-    response = requests.post(
+    session = requests.Session()
+    session.trust_env = False
+    response = session.post(
         url,
         headers={**headers, 'Content-Type': 'application/json'},
         json=body,
@@ -1436,6 +1460,14 @@ def call_images_api_on_provider(
 
 
 def call_images_api(prompt: str, image_size: str, reference_images=None, model: Optional[str] = None, count: int = 1, invocation_meta: Optional[dict] = None, compress_refs: bool = True) -> list:
+    # 提示词长度检查
+    prompt_length = len(prompt)
+    if prompt_length > 200:
+        print(f"[warn] prompt length {prompt_length} chars (>200) may cause slow generation", file=sys.stderr)
+        print(f"[warn] consider simplifying: current prompt has {prompt_length} chars", file=sys.stderr)
+    elif prompt_length > 150:
+        print(f"[info] prompt length {prompt_length} chars (recommended: <150)", file=sys.stderr)
+
     candidates = build_provider_candidates()
     if not candidates:
         raise ValueError('No usable image providers configured')

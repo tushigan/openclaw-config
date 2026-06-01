@@ -242,6 +242,26 @@ def main() -> None:
     status = "succeeded" if result.returncode == 0 else "failed"
     sync_preview_manifest(status, result.returncode)
 
+    # 如果生成成功，自动创建纯净版本的机位参考图（去除纹理信息）
+    pure_layout_path = None
+    if result.returncode == 0 and output_path.exists():
+        try:
+            from layout_purifier import create_pure_silhouette
+            pure_layout_path = output_path.parent / f"{output_path.stem}_pure_silhouette{output_path.suffix}"
+            create_pure_silhouette(str(output_path), str(pure_layout_path))
+            print(f"✓ 已生成纯净机位参考图: {pure_layout_path.name}")
+        except Exception as e:
+            print(f"⚠ 纯净化处理失败（不影响主流程）: {e}")
+
+    # 准备 field_updates
+    field_updates = {
+        "selected_camera_preview_id": preview_id,
+        "latest_camera_preview_id": preview_id,
+        "latest_camera_preview_output": str(output_path),
+    }
+    if pure_layout_path and pure_layout_path.exists():
+        field_updates["latest_camera_preview_pure_layout"] = str(pure_layout_path)
+
     update_task_state(
         task_dir,
         current_stage="task_camera_preview_waiting_confirm" if result.returncode == 0 else "task_camera_preview_failed",
@@ -250,11 +270,7 @@ def main() -> None:
             "camera_preview_confirmed": False,
             "generation_allowed": False,
         },
-        field_updates={
-            "selected_camera_preview_id": preview_id,
-            "latest_camera_preview_id": preview_id,
-            "latest_camera_preview_output": str(output_path),
-        },
+        field_updates=field_updates,
     )
     update_task_manifest_entry(
         project_dir,

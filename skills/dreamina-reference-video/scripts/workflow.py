@@ -721,11 +721,33 @@ def enhance_constraint_expression(forbidden_list: list[str]) -> dict[str, list[s
     return enhanced
 
 
-def build_constraint_header(identity_structure: list[str], identity_forbidden: list[str]) -> str:
-    """构建约束头部（用于提示词开头）"""
+def build_constraint_header(identity_structure: list[str], identity_forbidden: list[str], compact: bool = False) -> str:
+    """构建约束头部（用于提示词开头）
+
+    Args:
+        identity_structure: 结构真相列表
+        identity_forbidden: 禁止项列表
+        compact: 是否使用精简模式（用于解决请求体过大问题）
+    """
     if not identity_forbidden and not identity_structure:
         return ""
 
+    # 精简模式：合并为简短格式
+    if compact:
+        parts = []
+        if identity_forbidden:
+            parts.append("**核心约束**：")
+            forbidden_text = "；".join(identity_forbidden)
+            parts.append(f"严禁：{forbidden_text}")
+        if identity_structure:
+            parts.append("")
+            structure_text = "；".join(identity_structure)
+            parts.append(f"**结构**：{structure_text}")
+        if parts:
+            parts.append("")
+        return "\n".join(parts)
+
+    # 标准模式：详细格式
     header_parts = []
 
     # 如果有禁止约束，进行增强表达
@@ -763,7 +785,13 @@ def build_constraint_header(identity_structure: list[str], identity_forbidden: l
     return "\n".join(header_parts)
 
 
-def build_prompts(brief: dict[str, Any]) -> dict[str, str]:
+def build_prompts(brief: dict[str, Any], compact: bool = False) -> dict[str, str]:
+    """构建提示词
+
+    Args:
+        brief: 项目简报
+        compact: 是否使用精简模式（用于解决请求体过大的 ProxyError 问题）
+    """
     anchor_text = "、".join(brief["anchor_elements"]) if brief["anchor_elements"] else "保留能稳定识别空间关系的地标"
     subject = brief["subject"]
     action = brief["action"]
@@ -790,7 +818,7 @@ def build_prompts(brief: dict[str, Any]) -> dict[str, str]:
         identity_forbidden_text = "；".join(identity_forbidden) if identity_forbidden else ""
 
     # 生成约束头部（用于提示词开头）
-    constraint_header = build_constraint_header(identity_structure, identity_forbidden)
+    constraint_header = build_constraint_header(identity_structure, identity_forbidden, compact=compact)
 
     has_identity_source = bool(brief.get("existing_references", {}).get("identity_source"))
     identity_strategy = brief.get("identity_strategy")
@@ -841,7 +869,23 @@ def build_prompts(brief: dict[str, Any]) -> dict[str, str]:
     if identity_forbidden_text:
         storyboard_forbidden_block = f"\n10. 禁止变形：{identity_forbidden_text}。"
 
-    storyboard = f"""{constraint_header}故事板任务：只负责镜头与动作节奏，不负责重新定义角色。
+    # 精简模式：大幅简化故事板提示词
+    if compact:
+        storyboard = f"""{constraint_header}故事板：{panel_count}格黑白分镜，{ratio}画幅
+主体：{subject}
+行为：{action}
+场景：{scene}
+锚点：{anchor_text}
+
+要求：
+1. {panel_count}格独立{ratio}画幅，带文字标注和箭头
+2. 连续空间，保持角色一致
+3. 关键帧：
+{storyboard_beats_block}
+""".strip()
+    else:
+        # 标准模式：完整提示词
+        storyboard = f"""{constraint_header}故事板任务：只负责镜头与动作节奏，不负责重新定义角色。
 主体：{subject}
 主体行为主线：{action}
 场景 / 世界观：{scene}

@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "prompt": "查询一下即梦账户还有多少积分",
+    "expected": "执行 dreamina account 命令、返回积分余额"
+  },
+  {
+    "id": 2,
+    "prompt": "查询提交 ID 为 abc123 的视频生成任务状态",
+    "expected": "执行 dreamina query abc123、返回任务状态和结果"
+  }
+]

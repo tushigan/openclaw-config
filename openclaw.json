@@ -33,6 +33,21 @@
             "maxTokens": 20000
           },
           {
+            "id": "claude-opus-4-8",
+            "name": "claude-opus-4-8",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 2.5,
+              "output": 12.5
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 20000
+          },
+          {
             "id": "claude-opus-4-6",
             "name": "claude-opus-4-6",
             "reasoning": true,
@@ -57,6 +72,21 @@
           {
             "id": "claude-opus-4-7",
             "name": "claude-opus-4-7",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 2.5,
+              "output": 12.5
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 20000
+          },
+          {
+            "id": "claude-opus-4-8",
+            "name": "claude-opus-4-8",
             "reasoning": true,
             "input": [
               "text",
@@ -190,8 +220,10 @@
         "aixor-g/gpt-5.4-mini": {},
         "aixor-g/gpt-5.2": {},
         "aixor/claude-opus-4-7": {},
+        "aixor/claude-opus-4-8": {},
         "aixor/claude-opus-4-6": {},
         "cc-vibe/claude-opus-4-7": {},
+        "cc-vibe/claude-opus-4-8": {},
         "cc-vibe/claude-opus-4-6": {}
       },
       "workspace": "/Users/a123/.openclaw/workspace",
@@ -294,10 +326,9 @@
         "name": "龙虾总指挥",
         "workspace": "/Users/a123/.openclaw/workspace",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-7",
+          "primary": "cc-vibe/claude-opus-4-8",
           "fallbacks": [
-            "aixor/claude-opus-4-7",
-            "aixor-g/gpt-5.5"
+            "aixor/claude-opus-4-8"
           ]
         },
         "thinkingDefault": "adaptive",
@@ -390,9 +421,9 @@
         "name": "战略专家",
         "workspace": "/Users/a123/.openclaw/workspace-strategy",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-6",
+          "primary": "cc-vibe/claude-opus-4-8",
           "fallbacks": [
-            "aixor/claude-opus-4-6"
+            "aixor/claude-opus-4-8"
           ]
         },
         "subagents": {
@@ -836,9 +867,9 @@
         "name": "文案策划专家",
         "workspace": "/Users/a123/.openclaw/workspace-copywriter",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-6",
+          "primary": "cc-vibe/claude-opus-4-8",
           "fallbacks": [
-            "aixor/claude-opus-4-6"
+            "aixor/claude-opus-4-8"
           ]
         },
         "thinkingDefault": "adaptive",
@@ -980,7 +1011,7 @@
         "model": {
           "primary": "aixor-g/gpt-5.4",
           "fallbacks": [
-            "aixor/claude-opus-4-6"
+            "cc-vibe/claude-opus-4-7"
           ]
         },
         "thinkingDefault": "adaptive",
@@ -1127,6 +1158,7 @@
             "feishu_task_*",
             "feishu_wiki",
             "feishu_wiki*",
+            "file-guardian",
             "memory_share",
             "memory_timeline",
             "memory_unshare",
@@ -1140,6 +1172,10 @@
             "sessions_history",
             "sessions_list",
             "sessions_spawn",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_search",
             "task_share",
             "task_summary",
             "task_unshare",
@@ -1153,11 +1189,6 @@
             "gateway",
             "cron",
             "nodes",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
             "skill_install",
             "skill_publish",
             "skill_unpublish",
@@ -1165,7 +1196,6 @@
             "network_skill_pull",
             "network_memory_detail",
             "network_team_info",
-            "write",
             "edit",
             "apply_patch"
           ],
@@ -1184,9 +1214,9 @@
         "name": "战略专家（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-strategy",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-6",
+          "primary": "cc-vibe/claude-opus-4-8",
           "fallbacks": [
-            "aixor/claude-opus-4-6"
+            "aixor/claude-opus-4-7"
           ]
         },
         "subagents": {
@@ -1212,6 +1242,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -1237,6 +1268,7 @@
             "feishu_task_*",
             "feishu_wiki",
             "feishu_wiki*",
+            "file-guardian",
             "memory_share",
             "memory_timeline",
             "memory_unshare",
@@ -1248,9 +1280,15 @@
             "packaging-design",
             "pdf-smart-tool-cn",
             "product-dev-phase",
+            "read",
             "sessions_history",
             "sessions_list",
             "sessions_spawn",
+            "skill-vetter",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_search",
             "task_share",
             "task_summary",
             "task_unshare",
@@ -1264,11 +1302,6 @@
             "gateway",
             "cron",
             "nodes",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
             "skill_install",
             "skill_publish",
             "skill_unpublish",
@@ -1276,8 +1309,6 @@
             "network_skill_pull",
             "network_memory_detail",
             "network_team_info",
-            "file-guardian",
-            "read",
             "edit",
             "apply_patch"
           ],
@@ -1391,6 +1422,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -1417,9 +1449,15 @@
             "packaging-design",
             "pdf-smart-tool-cn",
             "product-dev-phase",
+            "read",
             "sessions_history",
             "sessions_list",
             "sessions_spawn",
+            "skill-vetter",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_search",
             "task_share",
             "task_summary",
             "task_unshare",
@@ -1433,11 +1471,6 @@
             "gateway",
             "cron",
             "nodes",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
             "skill_install",
             "skill_publish",
             "skill_unpublish",
@@ -1445,8 +1478,6 @@
             "network_skill_pull",
             "network_memory_detail",
             "network_team_info",
-            "file-guardian",
-            "read",
             "edit",
             "apply_patch"
           ],
@@ -1487,6 +1518,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -1518,6 +1550,11 @@
             "sessions_history",
             "sessions_list",
             "sessions_spawn",
+            "skill-vetter",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_search",
             "task_share",
             "task_summary",
             "task_unshare",
@@ -1531,11 +1568,6 @@
             "gateway",
             "cron",
             "nodes",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
             "skill_install",
             "skill_publish",
             "skill_unpublish",
@@ -1583,6 +1615,7 @@
             "data-intelligence",
             "dify-rag",
             "exec",
+            "process",
             "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
@@ -1610,6 +1643,7 @@
             "feishu_task_*",
             "feishu_wiki",
             "feishu_wiki*",
+            "file-guardian",
             "memory_share",
             "memory_timeline",
             "memory_unshare",
@@ -1621,9 +1655,15 @@
             "packaging-design",
             "pdf-smart-tool-cn",
             "product-dev-phase",
+            "read",
             "sessions_history",
             "sessions_list",
             "sessions_spawn",
+            "skill-vetter",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_search",
             "task_share",
             "task_summary",
             "task_unshare",
@@ -1631,17 +1671,13 @@
             "tavily_search",
             "tts",
             "web_fetch",
+            "write",
             "deep-research"
           ],
           "deny": [
             "gateway",
             "cron",
             "nodes",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
             "skill_install",
             "skill_publish",
             "skill_unpublish",
@@ -1649,16 +1685,12 @@
             "network_skill_pull",
             "network_memory_detail",
             "network_team_info",
-            "process",
-            "file-guardian",
-            "read",
-            "write",
             "edit",
             "apply_patch"
           ],
           "exec": {
             "host": "auto",
-            "security": "allowlist",
+            "security": "full",
             "ask": "off"
           },
           "fs": {
@@ -1671,9 +1703,9 @@
         "name": "文案策划专家（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-copywriter",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-6",
+          "primary": "cc-vibe/claude-opus-4-8",
           "fallbacks": [
-            "aixor/claude-opus-4-6"
+            "aixor/claude-opus-4-7"
           ]
         },
         "thinkingDefault": "adaptive",
@@ -1737,6 +1769,11 @@
             "sessions_history",
             "sessions_list",
             "sessions_spawn",
+            "skill-vetter",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_search",
             "task_share",
             "task_summary",
             "task_unshare",
@@ -1750,11 +1787,6 @@
             "gateway",
             "cron",
             "nodes",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
             "skill_install",
             "skill_publish",
             "skill_unpublish",
@@ -1822,11 +1854,6 @@
             "gateway",
             "cron",
             "nodes",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
             "skill_install",
             "skill_publish",
             "skill_unpublish",
@@ -1919,6 +1946,11 @@
             "sessions_history",
             "sessions_list",
             "sessions_spawn",
+            "skill-vetter",
+            "skill_file_get",
+            "skill_files",
+            "skill_get",
+            "skill_search",
             "task_share",
             "task_summary",
             "task_unshare",
@@ -1932,11 +1964,6 @@
             "gateway",
             "cron",
             "nodes",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
             "skill_install",
             "skill_publish",
             "skill_unpublish",

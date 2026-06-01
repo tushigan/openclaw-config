@@ -992,45 +992,56 @@ def describe_element(el, copywriting, refs, image_paths, brief=None, style_profi
 
 
 def validate_prompt(prompt, distill, copywriting, creative_direction=None):
-    """校验 assembled prompt 质量。"""
-    issues = []
+    """
+    校验 assembled prompt 质量。
+    返回 (blocking_errors, warnings) 两个列表。
+    blocking_errors: 必须修复才能继续的致命错误
+    warnings: 质量提醒，不阻塞流程
+    """
+    blocking_errors = []
+    warnings = []
 
+    # 工作流术语检查 → blocking（这些术语不应该出现在 prompt 中）
     for word in _FORBIDDEN_WORDS:
         if word in prompt:
-            issues.append(f"发现工作流术语: 「{word}」")
+            blocking_errors.append(f"发现工作流术语: 「{word}」")
 
+    # 蒸馏卡坐标覆盖率检查 → blocking
     if distill:
         elements = distill.get("layout_analysis", {}).get("elements", [])
         if elements and "x:" not in prompt:
-            issues.append("有蒸馏卡但 prompt 中未出现坐标数据")
+            blocking_errors.append("有蒸馏卡但 prompt 中未出现坐标数据")
         for el in elements:
             el_id = el.get("id", "")
             if el_id and el_id not in prompt:
-                issues.append(f"元素 {el_id} 未在 prompt 中出现")
+                warnings.append(f"元素 {el_id} 未在 prompt 中出现")
 
+    # 文案覆盖率检查 → blocking（用户确认的文案必须出现）
     if copywriting:
         for el_id, cw in copywriting.items():
             text = cw.get("文案", "")
             if text and text not in prompt:
-                issues.append(f"元素 {el_id} 的文案「{text}」未在 prompt 中出现")
+                blocking_errors.append(f"元素 {el_id} 的文案「{text}」未在 prompt 中出现")
 
+    # creative_direction 字段检查 → warning（这些是质量增强字段，不是必需的）
     if creative_direction:
         summary = str(creative_direction.get("summary", "") or "").strip()
         hero_focus = str(creative_direction.get("hero_focus", "") or "").strip()
         composition_plan = str(creative_direction.get("composition_plan", "") or "").strip()
         if not summary:
-            issues.append("creative_direction 缺少 summary，无法锚定整张图的核心表达")
+            warnings.append("creative_direction 缺少 summary，建议补充核心表达")
         if not hero_focus:
-            issues.append("creative_direction 缺少 hero_focus，无法锚定主视觉焦点")
+            warnings.append("creative_direction 缺少 hero_focus，建议补充主视觉焦点")
         if not composition_plan:
-            issues.append("creative_direction 缺少 composition_plan，无法锚定构图关系")
+            warnings.append("creative_direction 缺少 composition_plan，建议补充构图关系")
 
+    # prompt 长度检查 → warning（长度问题不应该阻塞流程）
     if len(prompt) < 200:
-        issues.append(f"prompt 过短（{len(prompt)} 字符），可能缺失关键信息")
+        warnings.append(f"prompt 过短（{len(prompt)} 字符），可能缺失关键信息")
     if len(prompt) > 7000:
-        issues.append(f"prompt 过长（{len(prompt)} 字符），建议精简")
+        warnings.append(f"prompt 过长（{len(prompt)} 字符），建议精简")
 
-    return issues
+    return blocking_errors, warnings
 
 
 def assemble_prompt(brief, distill, copywriting, refs, style_profile=None, creative_direction=None):
@@ -1375,9 +1386,11 @@ def main():
             print(f"  - {issue}")
         sys.exit(1)
 
-    issues = validate_prompt(prompt, distill, copywriting, creative_direction=creative_direction)
-    if issues:
-        error = '；'.join(issues)
+    blocking_errors, warnings = validate_prompt(prompt, distill, copywriting, creative_direction=creative_direction)
+
+    # 只有 blocking_errors 才阻塞流程
+    if blocking_errors:
+        error = '；'.join(blocking_errors)
         manager.fail_stage(
             'prompt',
             error=error,
@@ -1401,12 +1414,18 @@ def main():
                 }],
             },
             files=['prompt_manifest.json'],
-            extra={'validation_issues': issues},
+            extra={'blocking_errors': blocking_errors, 'warnings': warnings},
         )
-        print("WARNING: 校验发现问题:")
-        for issue in issues:
+        print("ERROR: 校验失败（阻塞性错误）:")
+        for issue in blocking_errors:
             print(f"  - {issue}")
         sys.exit(1)
+
+    # warnings 只打印，不阻塞流程
+    if warnings:
+        print("WARNING: 校验发现质量提醒（不影响生成）:")
+        for warning in warnings:
+            print(f"  - {warning}")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(prompt, encoding="utf-8")
@@ -1437,7 +1456,8 @@ def main():
             'ref_order_path': str(ref_order_path),
             'reference_count': len(image_paths),
             'reference_roles': ref_roles,
-            'validation_issues': [],
+            'blocking_errors': [],
+            'warnings': warnings,
             'user_confirmed': False,
             'history': [{
                 'ts': manager.state['updated_at'],

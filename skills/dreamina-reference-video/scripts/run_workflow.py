@@ -695,6 +695,20 @@ def cmd_validate_run(args: argparse.Namespace) -> int:
     if recovery_actions:
         report_dict["recovery_actions"] = recovery_actions
 
+    # 保留已有的人工检查状态（如果存在）
+    if run_state.validation_report and "manual_checks" in run_state.validation_report:
+        old_checks = run_state.validation_report["manual_checks"]
+        new_checks = report_dict.get("manual_checks", [])
+
+        # 构建旧检查项的索引
+        old_check_index = {check.get("id"): check for check in old_checks}
+
+        # 合并：保留旧的 checked 状态
+        for new_check in new_checks:
+            check_id = new_check.get("id")
+            if check_id in old_check_index:
+                new_check["checked"] = old_check_index[check_id].get("checked", False)
+
     run_state.reference_files = collect_reference_files(run_dir)
     run_state.validation_report = report_dict
     run_state.add_iteration(

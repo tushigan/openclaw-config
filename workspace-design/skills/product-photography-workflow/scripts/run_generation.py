@@ -290,6 +290,7 @@ def run_task_generation(args: argparse.Namespace, project_dir: Path) -> int:
 
     confirmed_preview_id = task_state.get("selected_camera_preview_id") or camera_preview_manifest.get("latest_preview_id", "")
     confirmed_preview_output = task_state.get("latest_camera_preview_output") or camera_preview_manifest.get("latest_output", "")
+    confirmed_preview_pure_layout = task_state.get("latest_camera_preview_pure_layout", "")
     camera_storyboard_refs = task_asset_entries_by_role(task_assets, ["camera_storyboard_reference"])
     task_layout_refs = task_asset_entries_by_role(task_assets, ["composition_reference"])
     project_layout_refs = asset_entries_by_role(assets_manifest, ["reference_layout"])
@@ -298,8 +299,13 @@ def run_task_generation(args: argparse.Namespace, project_dir: Path) -> int:
         and execution_mode != "local_edit"
         and confirmed_preview_output
     ):
-        layout_source_refs = [{"absolute_path": confirmed_preview_output}]
-        layout_authority_role = "confirmed_camera_preview"
+        # 优先使用纯净版机位参考图（如果存在）
+        if confirmed_preview_pure_layout and Path(confirmed_preview_pure_layout).exists():
+            layout_source_refs = [{"absolute_path": confirmed_preview_pure_layout}]
+            layout_authority_role = "confirmed_camera_preview_pure"
+        else:
+            layout_source_refs = [{"absolute_path": confirmed_preview_output}]
+            layout_authority_role = "confirmed_camera_preview"
         camera_preview_refs = layout_source_refs
     elif camera_storyboard_refs:
         layout_source_refs = camera_storyboard_refs

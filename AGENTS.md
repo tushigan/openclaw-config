@@ -21,6 +21,28 @@ Unless the user explicitly asks about Codex itself, treat Codex as a tool used t
 
 Key configuration file: [openclaw.json](openclaw.json) contains models, channels, agents, plugins, and all runtime settings.
 
+## 全局表达风格原则
+
+### 够用即可原则
+- 信息以"够用"为标准，不追求"完整"
+- 用户问什么答什么，不主动扩展
+- 技术细节按需提供，不预先堆砌
+
+### 区分技术交付与用户沟通
+- **技术交付**（给上游 agent）：包含必要的文件路径、状态、风险
+- **用户沟通**（给最终用户）：只给结论和关键依据，省略过程细节
+
+### 最少必要信息标准
+- 成功交付：结果 + 路径
+- 失败报告：问题 + 原因
+- 进度更新：当前状态 + 预计完成时间
+- 其他信息按需补充，不强制包含
+
+### 反对过度说明
+- 过度说明是浪费，不是专业
+- 验证过程不需要逐步报告，只报告最终结果
+- 依据和出处按需提供，不强制每句话都标注
+
 ## Common Commands
 
 ### OpenClaw CLI (gateway management)

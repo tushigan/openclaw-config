@@ -71,27 +71,13 @@ metadata:
 - `最终调研报告.md`
 - `访谈记录/`
 
-## 共享版正式入口
-
-`research-shared` 共享版只允许通过下面这个正式入口执行本 skill：
-
-```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research
-```
-
-共享版规则：
-
-- 不直接执行 `python3`、`bash`、`zsh` 去跑本 skill 的源码脚本。
-- 不在 workspace 根目录手工创建测试文件、临时文件或旁路结果文件。
-- 立项类动作走 `init`。
-- 项目推进、巡检、分析、收口类动作走 `manage <subcommand>`。
-
 ## 推荐命令
 
 ### 1. 初始化项目
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research init \
+python3 {baseDir}/scripts/init_internal_interview_project.py \
+  --workspace-root /Users/a123/.openclaw/workspace-research \
   --project-name 组织协作访谈 \
   --initiator-name 李经理 \
   --initiator-feishu-id user:ou_xxx \
@@ -108,7 +94,7 @@ metadata:
 ### 2. 更新截止时间
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage deadline \
+python3 {baseDir}/scripts/manage_internal_interview_project.py deadline \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈 \
   --new-deadline-at 2026-05-31T18:00:00+08:00 \
   --changed-by 李经理 \
@@ -118,7 +104,7 @@ metadata:
 ### 3. 更新受访对象状态
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage participant \
+python3 {baseDir}/scripts/manage_internal_interview_project.py participant \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈 \
   --name 张三 \
   --status 待回复 \
@@ -140,14 +126,14 @@ metadata:
 ### 4. 巡检下一步动作
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage inspect \
+python3 {baseDir}/scripts/manage_internal_interview_project.py inspect \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈
 ```
 
 ### 5. 生成手动继续推进后台合同
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage manual-continue-contract \
+python3 {baseDir}/scripts/manage_internal_interview_project.py manual-continue-contract \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈 \
   --cron-jobs-path /Users/a123/.openclaw/cron/jobs.json
 ```
@@ -162,7 +148,7 @@ metadata:
 ### 6. 生成推进合同
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage advance \
+python3 {baseDir}/scripts/manage_internal_interview_project.py advance \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈 \
   --cron-jobs-path /Users/a123/.openclaw/cron/jobs.json
 ```
@@ -178,7 +164,7 @@ metadata:
 ### 7. 后台 worker 执行入口
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage run-batch-worker \
+python3 {baseDir}/scripts/manage_internal_interview_project.py run-batch-worker \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈 \
   --trigger manual-worker \
   --status prepare \
@@ -197,7 +183,7 @@ metadata:
 ### 8. 生成某位受访对象的触达方案
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage outreach-plan \
+python3 {baseDir}/scripts/manage_internal_interview_project.py outreach-plan \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈 \
   --name 张三 \
   --requester-session-key <当前research主会话key>
@@ -206,7 +192,7 @@ metadata:
 ### 9. 生成批量派发计划
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage dispatch-plan \
+python3 {baseDir}/scripts/manage_internal_interview_project.py dispatch-plan \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈 \
   --requester-session-key <当前research主会话key>
 ```
@@ -215,7 +201,7 @@ metadata:
 只有明确需要限流时，才额外传：
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage dispatch-plan \
+python3 {baseDir}/scripts/manage_internal_interview_project.py dispatch-plan \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈 \
   --batch-size 10 \
   --batch-interval-minutes 10
@@ -224,14 +210,14 @@ metadata:
 ### 10. 到截止时间后收口
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage finalize \
+python3 {baseDir}/scripts/manage_internal_interview_project.py finalize \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈
 ```
 
 ### 11. 生成最新分析结果
 
 ```bash
-/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/bin/shared-internal-interview-research manage analyze \
+python3 {baseDir}/scripts/manage_internal_interview_project.py analyze \
   --project-dir /Users/a123/.openclaw/workspace-research/projects/组织协作访谈
 ```
 
