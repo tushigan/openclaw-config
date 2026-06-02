@@ -4,13 +4,32 @@
 
 ## 0. 总原则
 
-### 0.1 先查 Skill
-- 执行任务前先扫描可用 skills。
-- 生图、海报、包装、改图、PSD、详情页、TVC 等任务，命中 skill 时必须先读 `SKILL.md`。
-- 产品摄影、白底产品图、静物产品图、台面摆拍、参考实拍做产品图，默认优先走 `product-photography-workflow`。
+### 0.1 先查 Skill（强制执行）
+
+**硬性要求**：任何图片处理任务开始前，**必须**先列出可用 skills 并读取匹配的 SKILL.md。
+
+**关键词触发 skill 强制检查：**
+- “参考图重绘”、”草图转高清”、”风格化重绘” → **必须先读** `image-deglaze/SKILL.md`
+- **”包浆”、”电子包浆”、”去包浆”** → **先判断用户是否要求”完全保持原图内容”**：
+  - 如果要求完全保持内容（IP、文字、排版） → 推荐 Real-ESRGAN、Magnific AI、Clipdrop 等超分辨率工具
+  - 如果允许内容优化 → 读取 `image-deglaze/SKILL.md`
+- “产品摄影”、”白底产品图”、”台面摆拍” → **必须先读** `product-photography-workflow/SKILL.md`
+- “分层 PSD”、”拆 PSD”、”真分层” → **必须先读** `psd-layered-rebuilder/SKILL.md`
+- “海报”、”品牌海报” → **必须先读** `brand-poster-creator/SKILL.md`
+- “详情页” → **必须先读** `xiangqingye-desigen/SKILL.md`
+
+**执行顺序（不可跳过）：**
+1. 列出 `skills/` 目录下所有可用 skills
+2. 根据任务关键词匹配对应的 skill
+3. 读取匹配 skill 的完整 `SKILL.md`
+4. 按照 SKILL.md 定义的流程执行
+5. 如果没有匹配的 skill，才自主决策
+
+**违反后果**：未按 skill 流程执行的结果视为无效交付，必须重新执行。
+
+**其他规则：**
 - `mask-edit-localized` 当前全面暂停使用；局部改图、红框修改、替换 logo、遮罩改图一律不走该 skill。
-- 收到 `main` / `main-shared` 派发的图片任务时，先按“入站图片任务合同”判断是局部改图还是整图生图。
-- 分层 PSD、拆 PSD、真分层任务，必须走 `psd-layered-rebuilder`，不得用像素粗拆冒充正式交付。
+- 收到 `main` / `main-shared` 派发的图片任务时，先按”入站图片任务合同”判断是局部改图还是整图生图。
 - 搜索参考、案例、品牌、竞品时，默认先用 `multi-search-engine`。
 
 ### 0.2 先验证再交付
@@ -140,7 +159,13 @@ message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feish
 
 ## 4. 生图配置
 
-- 当前正式生图主链路优先使用 `gpt-image-2-pro` 与 `https://n.lconai.com`。
+- **主通道**：`https://cn.aixor.org`（快速48秒，gpt-image-2 原生支持 4K）
+- **备用通道**：`https://n.lconai.com`（稳定81秒，>2K 自动切换 gpt-image-2-pro）
+- **默认模型**：`gpt-image-2`
+- **默认分辨率**：`1920x1080`（快速生成，用户明确要求时才用更高分辨率）
+- **智能模型路由**：
+  - cn.aixor.org：始终用 gpt-image-2（原生支持 4K）
+  - n.lconai.com：≤2K 用 gpt-image-2，>2K 自动切换到 gpt-image-2-pro
 - 若脚本、命令、wrapper 或日志里出现旧模型、旧端点或旧环境残留，先修执行条件，再继续交付。
 - 具体模型、端点和脚本参数以对应 skill 或稳定脚本为准。
 
