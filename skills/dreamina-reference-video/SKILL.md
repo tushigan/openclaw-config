@@ -7,19 +7,30 @@ description: Use when the user wants to reduce 视频抽卡, keep 角色一致�
 
 ## Overview
 
-用这套 skill 把”直接抽视频”改成”先锁世界、再锁角色、再锁镜头、最后生视频”。
+用这套 skill 把”直接抽视频”改成”先判断视频类型，再决定锁什么、怎么写 prompt、怎么验证”。
 这是默认入口，用来调用即梦生成视频，也适合用户说“做一个新的小视频”这类需求。
 dreamina-cli 只可作为本 skill 内部调用，不应替代这套主流程。
 
-默认流程固定为：
+## 先判视频类型
 
-1. 原图
-2. 身份依据整理
-3. 故事板
-4. 人工确认
-5. 即梦视频
+`video_mode` 支持 3 类：
 
-不要跳过人工确认关卡，除非用户明确要求承担直接生视频的风险。
+1. `ip_poster`：有 IP 的尾帧海报视频。目标是保 IP、保构图、最后回尾帧。
+2. `non_ip_poster`：无 IP 的尾帧海报视频。目标是保产品/场景、强化质感和动效、最后回尾帧。
+3. `shot_clip`：单镜头视频素材。用户已有整片分镜，当前只生成一个镜头素材；只规划该镜头内部 3-5 秒运镜、动作、光影和可剪辑结尾。
+
+可传 `video_mode: "auto"` 或不传：
+- 有 `identity_source`、`identity_structure` 或 `identity_forbidden` → 默认 `ip_poster`
+- 有 `final_frame_poster` 且无 IP → 默认 `non_ip_poster`
+- 否则默认 `shot_clip`
+
+默认流程按类型分支：
+
+- `ip_poster`：原图/尾帧 → 身份依据 → 故事板 → 人工确认 → 即梦视频
+- `non_ip_poster`：原图/尾帧 → 产品/场景动效脚本 → 可视故事板 → 人工确认 → 即梦视频
+- `shot_clip`：当前镜头参考图/原图 → 单镜头微脚本 → 确认 → 即梦视频
+
+🔴 CHECKPOINT：不要跳过人工确认关卡，除非用户明确要求承担直接生视频的风险。
 
 ## 环境要求
 
@@ -86,6 +97,7 @@ pip install -r requirements.txt
    - 比例
    - 时长
    - 是否已有现成参考图
+   - 视频类型：有 IP 尾帧 / 无 IP 尾帧 / 单镜头素材
    - 当前是打样还是正式出片
 2. 如果用户一句话已经给够这些信息，直接整理，不要重复追问。
 3. 先运行：
@@ -95,6 +107,17 @@ python3 scripts/run_workflow.py preflight
 ```
 
 4. 如果 `preflight` 报 `gpt_image_config` 或 `dreamina_credit` 失败，先把问题讲清楚，再继续下一步。
+
+## 失败分支速查
+
+| 触发条件 | 一线处理 | 仍失败时 |
+|---|---|---|
+| `preflight` 失败 | 报出失败项和原因 | 停止生成，不提交付费任务 |
+| 参考图过大或上传超时 | 开启 `normalize_references`，检查 `refs/normalized/manifest.json` | 降低参考图尺寸后重跑 `prepare` |
+| `ip_poster` 身份板或故事板漂 IP | 修 `identity_structure` / `identity_forbidden` 后重跑参考图 | 停止提交视频，等用户确认新参考图 |
+| `non_ip_poster` 动效太保守或 prompt 太满 | 精简为产品/场景正向动效句 | 切换成静帧动效方案，不继续抽即梦 |
+| `shot_clip` 被扩写成整片故事 | 重写为单镜头 0-5 秒微脚本 | 停止提交，要求用户确认当前镜头边界 |
+| `review-run` 不是 `proceed` | 按返回的 `iterate` / `ask_user` 处理 | 不得执行 `submit-video` |
 
 ## 标准执行流程（必须按顺序）
 
@@ -146,6 +169,7 @@ python3 scripts/run_workflow.py prepare \
 ```json
 {
   “subject”: “黄小咕”,
+  “video_mode”: “ip_poster”,
   “action”: “在广场跳舞”,
   “scene”: “欧洲老城广场”,
   “style”: “3D 卡通”,
@@ -172,7 +196,8 @@ python3 scripts/run_workflow.py prepare \
 
 - 比例：`16:9`
 - 时长：`5`
-- 质量档：`draft`（`draft` → `seedance2.0fast`，`final` → `seedance2.0_vip` + 1080p）
+- 视频模式：`auto`
+- 质量档：`draft`（支持 `draft` / `standard` / `fast_vip` / `final`）
 - 故事板策略：`auto_beats`
 - 身份策略：如果提供准确三视图，默认 `reuse_exact`
 - 参考图归一化：默认开启
@@ -215,8 +240,9 @@ python3 scripts/run_workflow.py generate-refs --run-dir /path/to/run
 角色分工：
 
 - `原图`：只负责风格与世界
-- `身份板 / identity-source`：只负责角色一致性
-- `故事板`：只负责关键帧、镜头与动作节奏
+- `身份板 / identity-source`：只在 `ip_poster` 中负责角色一致性
+- `故事板`：在 `ip_poster` / `non_ip_poster` 中负责关键帧、镜头与动作节奏
+- `单镜头微脚本`：在 `shot_clip` 中负责当前镜头内部时间轴，不规划整片故事
 
 现成参考图支持：
 
@@ -234,8 +260,9 @@ python3 scripts/run_workflow.py generate-refs --run-dir /path/to/run
 
 1. **使用 message 工具发送参考图给用户**：
    - 发送 `original.png`
-   - 发送 `identity-board.png` 或 `identity-source.png`
-   - 发送 `storyboard.png`
+   - `ip_poster`：发送 `identity-board.png` 或 `identity-source.png`，并发送 `storyboard.png`
+   - `non_ip_poster`：发送 `storyboard.png`；不需要身份板
+   - `shot_clip`：通常只发送 `original.png` / 用户参考图；不强制故事板
    
 2. **汇报关键信息**：
    - 参考图路径
@@ -244,14 +271,18 @@ python3 scripts/run_workflow.py generate-refs --run-dir /path/to/run
    - 参考图归一化结果（如果有压缩）
 
 3. **明确等待用户确认**：
-   - 说明”请先确认这 3 张图”
+   - 说明”请先确认这些参考图/微脚本”
    - 说明”确认后我会继续验证并提交视频”
+
+🔴 CHECKPOINT：到这里必须停住。用户没有明确确认前，不得执行 `validate-run` 之后的提交流程。
 
 ### 步骤 4：validate-run - 验证参考图
 
 **这一步是必须的，不能跳过。**
 
-参考图生成后，默认验证 `storyboard` 阶段（不是 `reference_system`）：
+参考图生成后，默认验证阶段按 `video_mode` 决定：
+- `ip_poster` / `non_ip_poster`：验证 `storyboard`
+- `shot_clip`：验证 `reference_system`
 
 ```bash
 python3 scripts/run_workflow.py validate-run --run-dir /path/to/run --stage storyboard
@@ -259,10 +290,11 @@ python3 scripts/run_workflow.py validate-run --run-dir /path/to/run --stage stor
 
 这会检查：
 - 故事板画幅是否正确（每格是独立的成片画幅，不是横向长条）
-- 角色一致性（是否出现不该有的特征）
-- IP 约束验证（`identity_structure` 和 `identity_forbidden`）
+- `ip_poster`：角色一致性和 IP 约束验证
+- `non_ip_poster`：产品/场景数量、构图、色调和核心质感
+- `shot_clip`：原图/参考图和视频 prompt 是否齐套
 
-验证结果标准保存在 `validation_reports/storyboard.json`，同时兼容写出旧格式 `validation_report_storyboard.json`。
+验证结果标准保存在 `validation_reports/{stage}.json`，同时兼容写出旧格式 `validation_report_{stage}.json`。
 
 ### 步骤 5：complete-manual-checks - 完成人工检查
 
@@ -271,10 +303,9 @@ python3 scripts/run_workflow.py validate-run --run-dir /path/to/run --stage stor
 这一步不能省略，否则 `review-run` 会拒绝放行。
 
 人工检查项（从 `summary.md` 中提取）：
-- 故事板每格画幅是否正确
-- 角色是否出现漂移或串模板
-- IP 约束是否被违反
-- 世界观是否一致
+- `ip_poster`：故事板画幅、角色是否漂移、IP 约束是否被违反、世界观是否一致
+- `non_ip_poster`：故事板画幅、产品/场景锚点是否稳定、尾帧回版是否成立
+- `shot_clip`：确认单镜头微脚本即可；若验证报告没有人工检查项，可直接 `review-run`
 
 回写方式：在最新的验证报告中补充 `manual_checks` 字段，或使用命令：
 
@@ -368,7 +399,7 @@ python3 scripts/run_workflow.py submit-video --run-dir /path/to/run --dry-run
 ```
 
 dry run 会额外返回：
-- `resolved_references`：本次真正会提交的 3 张图
+- `resolved_references`：本次真正会提交的参考图；`ip_poster` 通常是原图/身份/故事板，`non_ip_poster` 是原图/故事板，`shot_clip` 通常是原图
 - `recovery_actions`：自动补齐或恢复了哪些文件
 - `validation_gate_status`：当前是否已经满足正式提交流程
 
@@ -410,15 +441,16 @@ python3 scripts/run_workflow.py fetch-result --run-dir /path/to/run
 - `dreamina/submit_id.txt`
 - `dreamina/result.json`
 
-## 确认关卡规则（不可跳过）
+## 🔴 CHECKPOINT 确认关卡
 
 ### 规则 1：参考图生成后必须发图
 
 **generate-refs 完成后，必须使用 message 工具发送参考图给用户。**
 
 - 发送 `original.png`
-- 发送 `identity-board.png` 或 `identity-source.png`
-- 发送 `storyboard.png`
+- `ip_poster`：发送 `identity-board.png` 或 `identity-source.png`，并发送 `storyboard.png`
+- `non_ip_poster`：发送 `storyboard.png`
+- `shot_clip`：发送当前镜头参考图/原图，并把单镜头微脚本给用户确认
 
 **没发图，不算进入确认。**
 
@@ -426,7 +458,7 @@ python3 scripts/run_workflow.py fetch-result --run-dir /path/to/run
 
 发图后，必须明确告诉用户：
 
-- "请先确认这 3 张图"
+- "请先确认这些参考图/单镜头微脚本"
 - "确认后我会继续验证并提交视频"
 
 **没明确等待，不算确认关卡。**
@@ -461,23 +493,33 @@ python3 scripts/run_workflow.py complete-manual-checks --run-dir /path/to/run --
 
 **没有 proceed，不得提交视频。**
 
+## 反模式黑名单
+
+1. 不要把所有任务都当成 `ip_poster`；无 IP 产品海报必须走 `non_ip_poster`，单镜头素材必须走 `shot_clip`。
+2. 不要给 `non_ip_poster` 生成身份板；它只锁产品、场景、构图、色调和质感。
+3. 不要给 `shot_clip` 规划整片故事、完整故事板或尾帧回版；它只服务当前一个镜头内部时间轴。
+4. 不要把产品动效 prompt 写成大段负向约束；优先写水珠、光影、质感、景深、运镜这些正向动作。
+5. 不要在没有验证报告、人工确认、`review-run=proceed` 的情况下提交即梦任务。
+6. 不要用 `dreamina-cli` 做图片生成；图片参考仍走正式生图链路。
+
 ## 关键约束
 
-1. 不要让 `身份板` 承担背景叙事。
-2. 不要让 `故事板` 重新定义角色。
-3. 不要让 `视频提示词` 推翻前三张图。
-4. 故事板固定强调：
+1. 先判 `video_mode`，不要把所有任务都按有 IP 尾帧处理。
+2. 不要让 `身份板` 承担背景叙事；`non_ip_poster` 和 `shot_clip` 默认不生成身份板。
+3. 不要让 `故事板` 重新定义角色或产品；`shot_clip` 不规划整片故事，只规划当前镜头内部时间轴。
+4. 不要让 `视频提示词` 推翻参考图。
+5. 故事板固定强调：
    - `黑白`
    - `导演分镜感`
    - `强连续空间`
    - **每一格都是独立的成片画幅**（不是横向长条）
    - `格数服务于关键帧，不追求平均切段`
-5. 默认按关键帧自动规划格数：
+6. 默认按关键帧自动规划格数：
    - 简单单动作单转折：优先 `4-6 格`
    - 连续动作推进或明显情绪变化：优先 `6-8 格`
    - 多段剧情 / 多人物 / 多空间：最多到 `8-10 格`
-6. 默认先出参考图，再让用户确认，不要直接冲视频。
-7. **大参考图会自动压缩**：超过 1920px 或 3MB 的图片会被归一化到安全尺寸。
+7. 默认先出参考图/微脚本，再让用户确认，不要直接冲视频。
+8. **大参考图会自动压缩**：超过 1920px 或 3MB 的图片会被归一化到安全尺寸。
 
 ## 验收标准
 
@@ -492,12 +534,14 @@ python3 scripts/run_workflow.py complete-manual-checks --run-dir /path/to/run --
    - agent 明确等待用户确认
 
 2. **验证不能被跳过**：
-   - 没有 `storyboard` 验证报告时，不能进视频提交
-   - `validate-run` 默认验证 `storyboard` 阶段
+   - `ip_poster` / `non_ip_poster` 没有 `storyboard` 验证报告时，不能进视频提交
+   - `shot_clip` 没有 `reference_system` 验证报告时，不能进视频提交
+   - `validate-run` 默认验证阶段由 `video_mode` 决定
    - 验证报告保存在 `validation_reports/` 目录
 
 3. **人工检查必须回写**：
-   - 没有 `manual_checks` 回写时，不能被 review 放行
+   - 有 `manual_checks` 时必须回写，否则不能被 review 放行
+   - `shot_clip` 如果验证报告没有人工检查项，确认微脚本后可直接 review
    - `review-run` 返回 `ask_user` 时，必须完成人工检查
    - 完成后 `review-run` 才能返回 `proceed`
 

@@ -24,6 +24,7 @@ from scripts.workflow import (
     build_run_dir,
     collect_prompt_files,
     collect_reference_files,
+    default_validation_stage,
     ensure_run_layout,
     ensure_project_layout,
     load_validation_report,
@@ -56,6 +57,7 @@ def load_brief(args: argparse.Namespace) -> dict:
     payload = {
         "project_name": args.project_name,
         "project_slug": args.project_slug,
+        "video_mode": args.video_mode,
         "subject": args.subject,
         "action": args.action,
         "scene": args.scene,
@@ -500,17 +502,19 @@ def cmd_generate_refs(args: argparse.Namespace) -> int:
     storyboard_prompt = prompts.get("storyboard", "")
     beats_count = brief.get("storyboard_strategy", {}).get("beats_count", 0) if isinstance(brief.get("storyboard_strategy"), dict) else 0
 
+    validation_stage = default_validation_stage(brief)
     print(json.dumps({
         "ok": True,
         "results": results,
         "generated_refs": generated_refs,
         "preview_candidates": preview_candidates,
         "requires_user_confirmation": True,
-        "next_step": "validate-run --stage storyboard",
+        "next_step": f"validate-run --stage {validation_stage}",
         "keyframe_info": {
-            "beats_count": beats_count,
+            "beats_count": beats_count or len(brief.get("storyboard_beats", [])),
             "ratio": brief.get("ratio", "16:9"),
             "duration": brief.get("duration", 5),
+            "video_mode": brief.get("video_mode", "ip_poster"),
         },
     }, ensure_ascii=False, indent=2))
     return 0
@@ -554,12 +558,7 @@ def cmd_submit_video(args: argparse.Namespace) -> int:
         recovery_actions=command_recovery_actions,
     )
     command_recovery_actions.extend(refresh_project_canonical_manifest(state_manager))
-    resolved_identity_source = resolve_reference_path(run_dir, "identity_source", project_dir=project_dir)
-    resolved_identity = (
-        resolved_identity_source
-        if resolved_identity_source.exists()
-        else resolve_reference_path(run_dir, "identity_board", project_dir=project_dir)
-    )
+    video_mode = brief.get("video_mode", "ip_poster")
     resolved_references = {
         "original": str(
             resolve_reference_path(
@@ -568,16 +567,28 @@ def cmd_submit_video(args: argparse.Namespace) -> int:
                 project_dir=project_dir,
             )
         ),
-        "identity": str(resolved_identity),
-        "storyboard": str(
+    }
+    if video_mode == "ip_poster":
+        resolved_identity_source = resolve_reference_path(run_dir, "identity_source", project_dir=project_dir)
+        resolved_identity = (
+            resolved_identity_source
+            if resolved_identity_source.exists()
+            else resolve_reference_path(run_dir, "identity_board", project_dir=project_dir)
+        )
+        resolved_references["identity"] = str(resolved_identity)
+    elif video_mode == "shot_clip":
+        identity_source = resolve_reference_path(run_dir, "identity_source", project_dir=project_dir)
+        if identity_source.exists():
+            resolved_references["identity"] = str(identity_source)
+    if video_mode in {"ip_poster", "non_ip_poster"}:
+        resolved_references["storyboard"] = str(
             resolve_reference_path(
                 run_dir,
                 "storyboard",
                 project_dir=project_dir,
                 purpose="submit",
             )
-        ),
-    }
+        )
 
     if args.dry_run:
         print(
@@ -680,8 +691,8 @@ def cmd_validate_run(args: argparse.Namespace) -> int:
     state_manager = StateManager(project_dir)
     run_state, recovery_actions = load_or_recover_run_state(state_manager, run_dir, brief)
 
-    # 默认验证 storyboard 阶段（包含人工检查清单）
-    stage = args.stage or "storyboard"
+    # 默认验证阶段按视频类型决定：尾帧模式验证故事板，单镜头素材验证参考系统
+    stage = args.stage or default_validation_stage(brief)
     prepare_validation_references(
         run_dir,
         brief,
@@ -936,6 +947,7 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--brief-file", help="输入 brief.json")
     prepare.add_argument("--project-name")
     prepare.add_argument("--project-slug")
+    prepare.add_argument("--video-mode", choices=["auto", "ip_poster", "non_ip_poster", "shot_clip"])
     prepare.add_argument("--subject")
     prepare.add_argument("--action")
     prepare.add_argument("--scene")

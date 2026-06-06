@@ -83,13 +83,19 @@ class DeterministicValidator:
         report = ValidationReport(stage="reference_system")
 
         # 检查必需的参考图文件
-        required_refs = ["original", "storyboard"]
+        video_mode = self.brief.get("video_mode", "ip_poster")
+        uses_storyboard = video_mode in {"ip_poster", "non_ip_poster"}
+        requires_identity = video_mode == "ip_poster"
+        required_refs = ["original"]
         identity_strategy = self.brief.get("identity_strategy")
 
-        if identity_strategy != "reuse_exact":
+        if uses_storyboard:
+            required_refs.append("storyboard")
+
+        if requires_identity and identity_strategy != "reuse_exact":
             required_refs.append("identity_board")
 
-        if self.brief.get("existing_references", {}).get("identity_source"):
+        if requires_identity and self.brief.get("existing_references", {}).get("identity_source"):
             required_refs.append("identity_source")
 
         ref_map = {
@@ -166,6 +172,7 @@ class DeterministicValidator:
     def validate_storyboard(self) -> ValidationReport:
         """验证故事板"""
         report = ValidationReport(stage="storyboard")
+        video_mode = self.brief.get("video_mode", "ip_poster")
 
         # 检查故事板文件存在
         storyboard_file = self.run_dir / "refs" / "storyboard.png"
@@ -186,12 +193,13 @@ class DeterministicValidator:
         }
         identity_source = self.run_dir / "refs" / "identity-source.png"
         identity_board = self.run_dir / "refs" / "identity-board.png"
-        if self.brief.get("existing_references", {}).get("identity_source"):
-            supporting_refs["identity_source"] = identity_source
-        elif identity_source.exists():
-            supporting_refs["identity_source"] = identity_source
-        else:
-            supporting_refs["identity_board"] = identity_board
+        if video_mode == "ip_poster":
+            if self.brief.get("existing_references", {}).get("identity_source"):
+                supporting_refs["identity_source"] = identity_source
+            elif identity_source.exists():
+                supporting_refs["identity_source"] = identity_source
+            else:
+                supporting_refs["identity_board"] = identity_board
 
         for ref_name, ref_path in supporting_refs.items():
             if not ref_path.exists():
@@ -250,11 +258,18 @@ class DeterministicValidator:
             "description": f"故事板是否有 {panel_count} 格？",
             "checked": False,
         })
-        report.manual_checks.append({
-            "id": "storyboard_continuity",
-            "description": "故事板是否保持连续空间？（不是每格重造世界）",
-            "checked": False,
-        })
+        if video_mode == "non_ip_poster":
+            report.manual_checks.append({
+                "id": "storyboard_product_anchors",
+                "description": "产品/场景数量、构图、色调和核心质感是否贴近尾帧海报？",
+                "checked": False,
+            })
+        else:
+            report.manual_checks.append({
+                "id": "storyboard_continuity",
+                "description": "故事板是否保持连续空间？（不是每格重造世界）",
+                "checked": False,
+            })
 
         report.calculate_score()
         return report

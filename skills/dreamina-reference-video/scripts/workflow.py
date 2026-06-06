@@ -52,6 +52,7 @@ REQUIRED_PATHS = [
 DEFAULTS = {
     "project_name": "",
     "project_slug": "",
+    "video_mode": "auto",
     "ratio": "16:9",
     "duration": 5,
     "quality_tier": "draft",
@@ -67,6 +68,39 @@ DEFAULTS = {
     "anchor_elements": [],
     "notes": "",
     "normalize_references": True,
+}
+
+VIDEO_MODES = {
+    "ip_poster",
+    "non_ip_poster",
+    "shot_clip",
+}
+
+VIDEO_MODE_ALIASES = {
+    "auto": "auto",
+    "ip": "ip_poster",
+    "ip_poster": "ip_poster",
+    "ip-poster": "ip_poster",
+    "poster_ip": "ip_poster",
+    "poster-ip": "ip_poster",
+    "有ip": "ip_poster",
+    "有ip尾帧": "ip_poster",
+    "无ip": "non_ip_poster",
+    "non_ip": "non_ip_poster",
+    "non-ip": "non_ip_poster",
+    "non_ip_poster": "non_ip_poster",
+    "non-ip-poster": "non_ip_poster",
+    "product": "non_ip_poster",
+    "product_poster": "non_ip_poster",
+    "scene_poster": "non_ip_poster",
+    "single_shot": "shot_clip",
+    "single-shot": "shot_clip",
+    "shot": "shot_clip",
+    "shot_clip": "shot_clip",
+    "shot-clip": "shot_clip",
+    "clip": "shot_clip",
+    "单镜头": "shot_clip",
+    "镜头素材": "shot_clip",
 }
 
 RATIO_IMAGE_SIZES = {
@@ -433,6 +467,9 @@ def apply_storyboard_panel_override(beats: list[str], panel_count: int) -> list[
 
 
 def build_auto_storyboard_beats(brief: dict[str, Any]) -> list[str]:
+    if brief.get("video_mode") == "shot_clip":
+        return build_single_shot_timeline(brief)
+
     beats = [describe_storyboard_beat("establishing", brief["scene"])]
     clauses = split_action_clauses(brief["action"])
     for index, clause in enumerate(clauses):
@@ -456,6 +493,17 @@ def build_auto_storyboard_beats(brief: dict[str, Any]) -> list[str]:
     if len(beats) < 3:
         beats = expand_storyboard_beats(beats, 3)
     return beats
+
+
+def build_single_shot_timeline(brief: dict[str, Any]) -> list[str]:
+    duration = max(int(brief.get("duration", 5)), 1)
+    middle_start = max(1, duration // 3)
+    middle_end = max(middle_start + 1, duration - 1)
+    return [
+        f"0-{middle_start}秒：建立当前镜头画面，主体和环境进入稳定可识别状态，延续参考图的色调与质感",
+        f"{middle_start}-{middle_end}秒：执行核心运镜和主体动作：{brief['action']}",
+        f"{middle_end}-{duration}秒：光影、景深或局部动效自然收束，停在便于后期剪辑衔接的稳定画面",
+    ]
 
 
 def resolve_storyboard_plan(brief: dict[str, Any]) -> tuple[list[str], int]:
@@ -485,6 +533,33 @@ def choose_identity_strategy(brief: dict[str, Any]) -> str | None:
     return strategy
 
 
+def normalize_video_mode(raw: Any, brief: dict[str, Any]) -> str:
+    mode_raw = str(raw or "auto").strip().lower()
+    mode = VIDEO_MODE_ALIASES.get(mode_raw, mode_raw)
+    if mode == "auto":
+        existing = brief.get("existing_references", {}) or {}
+        if existing.get("identity_source") or brief.get("identity_structure") or brief.get("identity_forbidden"):
+            return "ip_poster"
+        if existing.get("final_frame_poster"):
+            return "non_ip_poster"
+        return "shot_clip"
+    if mode not in VIDEO_MODES:
+        raise ValueError("video_mode 只支持 auto、ip_poster、non_ip_poster、shot_clip")
+    return mode
+
+
+def mode_requires_identity(mode: str) -> bool:
+    return mode == "ip_poster"
+
+
+def mode_uses_storyboard(mode: str) -> bool:
+    return mode in {"ip_poster", "non_ip_poster"}
+
+
+def default_validation_stage(brief: dict[str, Any]) -> str:
+    return "reference_system" if brief.get("video_mode") == "shot_clip" else "storyboard"
+
+
 def normalize_brief(raw: dict[str, Any], project_defaults: dict[str, Any] | None = None) -> dict[str, Any]:
     """
     归一化 brief，支持从项目配置继承默认值
@@ -509,8 +584,8 @@ def normalize_brief(raw: dict[str, Any], project_defaults: dict[str, Any] | None
 
     brief["duration"] = int(brief["duration"])
     brief["quality_tier"] = str(brief["quality_tier"]).strip().lower() or "draft"
-    if brief["quality_tier"] not in {"draft", "final"}:
-        raise ValueError("quality_tier 只支持 draft 或 final")
+    if brief["quality_tier"] not in {"draft", "standard", "fast_vip", "final"}:
+        raise ValueError("quality_tier 只支持 draft、standard、fast_vip 或 final")
 
     if brief["ratio"] not in {"1:1", "3:4", "16:9", "4:3", "9:16", "21:9"}:
         brief["ratio"] = DEFAULTS["ratio"]
@@ -545,6 +620,7 @@ def normalize_brief(raw: dict[str, Any], project_defaults: dict[str, Any] | None
             existing[norm_key] = str(Path(value).expanduser())
     brief["existing_references"] = existing
     brief["has_existing_references"] = bool(existing)
+    brief["video_mode"] = normalize_video_mode(brief.get("video_mode"), brief)
     brief["identity_strategy"] = choose_identity_strategy(brief)
 
     storyboard_beats, storyboard_panel_count = resolve_storyboard_plan(brief)
@@ -798,6 +874,7 @@ def build_prompts(brief: dict[str, Any], compact: bool = False) -> dict[str, str
     scene = brief["scene"]
     style = brief["style"]
     ratio = brief["ratio"]
+    video_mode = brief.get("video_mode", "ip_poster")
     notes = str(brief.get("notes", "")).strip()
     notes_block = f"\n补充说明：{notes}" if notes else ""
     panel_count = brief["storyboard_panel_count"]
@@ -847,6 +924,68 @@ def build_prompts(brief: dict[str, Any], compact: bool = False) -> dict[str, str
 3. 保持电影感、真实感、可继续扩展成视频的空间信息。
 4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。{notes_block}
 """.strip()
+
+    if video_mode == "shot_clip":
+        storyboard = f"""单镜头微脚本：只规划当前一个镜头内部的时间轴，不规划整片故事。
+主体：{subject}
+镜头目标：{action}
+场景 / 世界观：{scene}
+风格 / 气质：{style}
+比例：{ratio}
+时长：{brief['duration']} 秒
+
+时间轴：
+{storyboard_beats_block}
+""".strip()
+
+        video = f"""单镜头视频素材，{brief['duration']}秒，{ratio}。
+主体：{subject}。
+镜头内部节奏：
+{storyboard_beats_block}
+场景与气质：{scene}；{style}。
+要求：只生成当前一个镜头素材，不扩写整片剧情，不新增前后镜头；运镜自然，主体动作清楚，光影和景深有细微变化，结尾停在便于剪辑衔接的稳定画面。{notes_block}
+""".strip()
+
+        return {
+            "original": original,
+            "identity_board": "单镜头素材模式：默认不生成身份板；如当前镜头确有 IP，请显式提供 identity_source。",
+            "storyboard": storyboard,
+            "video": video,
+        }
+
+    if video_mode == "non_ip_poster":
+        storyboard = f"""无 IP 尾帧海报动效脚本：只规划产品/场景动效和镜头节奏，不生成角色身份板。
+主体：{subject}
+主体行为 / 动效主线：{action}
+场景 / 世界观：{scene}
+空间锚点：{anchor_text}
+比例：{ratio}
+时长：{brief['duration']} 秒
+
+关键节奏：
+{storyboard_beats_block}
+
+要求：
+1. 保持尾帧海报的产品、构图、数量、色调和核心空间关系。
+2. 动效优先写正向动作：水珠、光影、质感、景深、轻微运镜、局部高光。
+3. 最后回到或贴近定版尾帧构图，便于作为品牌收束画面。{notes_block}
+""".strip()
+
+        video = f"""基于参考尾帧海报生成{brief['duration']}秒产品/场景广告动效，{ratio}。
+主体：{subject}。
+动效：{action}。
+场景与气质：{scene}；{style}。
+镜头节奏：
+{storyboard_beats_block}
+要求：保持参考图的产品/主体数量、构图、色调和核心质感，最后稳定回到或贴近尾帧海报画面；不要新增无关主体，不要大幅改变产品结构。{notes_block}
+""".strip()
+
+        return {
+            "original": original,
+            "identity_board": "无 IP 尾帧海报模式：不生成身份板；只锁定产品、场景、构图和质感。",
+            "storyboard": storyboard,
+            "video": video,
+        }
 
     identity_board_forbidden_block = ""
     if identity_forbidden_text:
@@ -1094,6 +1233,7 @@ def write_project_summary(project_dir: Path, project_state: dict[str, Any]) -> N
         "## 默认配置",
         f"- 比例：{defaults.get('ratio', '16:9')}",
         f"- 时长：{defaults.get('duration', 5)} 秒",
+        f"- 视频模式：{defaults.get('video_mode', 'auto')}",
         f"- 质量档：{defaults.get('quality_tier', 'draft')}",
         f"- 故事板策略：{defaults.get('storyboard_strategy', 'auto_beats')}",
         f"- 参考图归一化：{'开启' if defaults.get('normalize_references', True) else '关闭'}",
@@ -1159,6 +1299,7 @@ def update_project_state(
     if project_config is None:
         # 创建新项目
         defaults = {
+            "video_mode": brief.get("video_mode", "auto"),
             "ratio": brief.get("ratio", "16:9"),
             "duration": brief.get("duration", 5),
             "quality_tier": brief.get("quality_tier", "draft"),
@@ -1180,6 +1321,7 @@ def update_project_state(
     # 只在 defaults 缺失时补齐，避免把单次 run 覆盖值污染成项目长期默认
     project_config.defaults.setdefault("ratio", brief["ratio"])
     project_config.defaults.setdefault("duration", brief["duration"])
+    project_config.defaults.setdefault("video_mode", brief.get("video_mode", "auto"))
     project_config.defaults.setdefault("quality_tier", brief["quality_tier"])
     if brief.get("identity_strategy") is not None:
         project_config.defaults.setdefault("identity_strategy", brief.get("identity_strategy"))
@@ -1430,19 +1572,23 @@ def prepare_validation_references(
     recovery_actions: list[dict[str, Any]] | None = None,
 ) -> dict[str, str]:
     prepared: dict[str, str] = {}
+    video_mode = brief.get("video_mode", "ip_poster")
     if stage == "reference_system":
-        required = ["original", "storyboard"]
-        if brief.get("identity_strategy") != "reuse_exact":
+        required = ["original"]
+        if mode_uses_storyboard(video_mode):
+            required.append("storyboard")
+        if mode_requires_identity(video_mode) and brief.get("identity_strategy") != "reuse_exact":
             required.append("identity_board")
-        if brief.get("existing_references", {}).get("identity_source"):
+        if mode_requires_identity(video_mode) and brief.get("existing_references", {}).get("identity_source"):
             required.append("identity_source")
     elif stage == "storyboard":
         required = ["storyboard", "original"]
-        identity_source = resolve_reference_path(run_dir, "identity_source", project_dir=project_dir)
-        if brief.get("existing_references", {}).get("identity_source") or identity_source.exists():
-            required.append("identity_source")
-        else:
-            required.append("identity_board")
+        if mode_requires_identity(video_mode):
+            identity_source = resolve_reference_path(run_dir, "identity_source", project_dir=project_dir)
+            if brief.get("existing_references", {}).get("identity_source") or identity_source.exists():
+                required.append("identity_source")
+            else:
+                required.append("identity_board")
     else:
         return prepared
 
@@ -1464,14 +1610,17 @@ def prepare_validation_references(
 
 def build_gpt_image_jobs(brief: dict[str, Any], run_dir: Path, prompts: dict[str, str]) -> list[dict[str, Any]]:
     jobs = []
+    video_mode = brief.get("video_mode", "ip_poster")
     preferred_identity_ref = preferred_identity_reference(run_dir)
     typed_refs = {
         "identity_board": [("--ref-style", str(reference_target(run_dir, "original")))],
-        "storyboard": [
-            ("--ref-style", str(reference_target(run_dir, "original"))),
-            ("--ref-mascot", str(preferred_identity_ref)),
-        ],
+        "storyboard": [("--ref-style", str(reference_target(run_dir, "original")))],
     }
+    if mode_requires_identity(video_mode):
+        storyboard_identity_ref = preferred_identity_ref
+        if not storyboard_identity_ref.exists() and brief.get("identity_strategy") != "reuse_exact":
+            storyboard_identity_ref = reference_target(run_dir, "identity_board")
+        typed_refs["storyboard"].append(("--ref-mascot", str(storyboard_identity_ref)))
     if brief.get("identity_strategy") == "extend_from_source" and preferred_identity_ref.exists():
         typed_refs["identity_board"].append(("--ref-mascot", str(preferred_identity_ref)))
     target_size = RATIO_IMAGE_SIZES.get(brief["ratio"], RATIO_IMAGE_SIZES["16:9"])
@@ -1481,7 +1630,13 @@ def build_gpt_image_jobs(brief: dict[str, Any], run_dir: Path, prompts: dict[str
         "storyboard": target_size,
     }
 
-    for name in ("original", "identity_board", "storyboard"):
+    job_names = ["original"]
+    if mode_requires_identity(video_mode):
+        job_names.append("identity_board")
+    if mode_uses_storyboard(video_mode):
+        job_names.append("storyboard")
+
+    for name in job_names:
         if name == "identity_board" and brief.get("identity_strategy") == "reuse_exact":
             continue
         target = reference_target(run_dir, name)
@@ -1550,6 +1705,7 @@ def build_dreamina_command(
         DREAMINA_BIN,
         "multimodal2video",
     ]
+    video_mode = brief.get("video_mode", "ip_poster")
     image_refs = [
         resolve_reference_path(
             run_dir,
@@ -1559,23 +1715,34 @@ def build_dreamina_command(
             sync_canonical=True,
             recovery_actions=recovery_actions,
         ),
-        preferred_identity_reference(
-            run_dir,
-            project_dir=project_dir,
-            materialize_standard=True,
-            sync_canonical=True,
-            recovery_actions=recovery_actions,
-        ),
-        resolve_reference_path(
-            run_dir,
-            "storyboard",
-            project_dir=project_dir,
-            purpose="submit",
-            recovery_actions=recovery_actions,
-        ),
     ]
+    if mode_requires_identity(video_mode):
+        image_refs.append(
+            preferred_identity_reference(
+                run_dir,
+                project_dir=project_dir,
+                materialize_standard=True,
+                sync_canonical=True,
+                recovery_actions=recovery_actions,
+            )
+        )
+    elif video_mode == "shot_clip":
+        identity_source = resolve_reference_path(run_dir, "identity_source", project_dir=project_dir)
+        if identity_source.exists():
+            image_refs.append(identity_source)
+    if mode_uses_storyboard(video_mode):
+        image_refs.append(
+            resolve_reference_path(
+                run_dir,
+                "storyboard",
+                project_dir=project_dir,
+                purpose="submit",
+                recovery_actions=recovery_actions,
+            )
+        )
     for path in image_refs:
-        cmd.extend(["--image", str(path)])
+        if path.exists():
+            cmd.extend(["--image", str(path)])
     cmd.extend(
         [
             f"--prompt={prompts['video']}",
@@ -1773,6 +1940,7 @@ def summarize_reusable_fields(brief: dict[str, Any]) -> str:
             f"- 风格：{brief['style']}",
             f"- 比例：{brief['ratio']}",
             f"- 时长：{brief['duration']} 秒",
+            f"- 视频模式：{brief.get('video_mode', 'auto')}",
             f"- 关键帧数：{brief['storyboard_panel_count']}",
             f"- 质量档：{brief['quality_tier']}",
             f"- 身份策略：{identity_strategy}",
