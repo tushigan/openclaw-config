@@ -560,6 +560,11 @@ def default_validation_stage(brief: dict[str, Any]) -> str:
     return "reference_system" if brief.get("video_mode") == "shot_clip" else "storyboard"
 
 
+def split_identity_anchor_rule(rule: str) -> list[str]:
+    parts = [part.strip() for part in re.split(r"[;；\n]+", str(rule)) if part.strip()]
+    return parts or [str(rule).strip()]
+
+
 def normalize_brief(raw: dict[str, Any], project_defaults: dict[str, Any] | None = None) -> dict[str, Any]:
     """
     归一化 brief，支持从项目配置继承默认值
@@ -598,10 +603,11 @@ def normalize_brief(raw: dict[str, Any], project_defaults: dict[str, Any] | None
     # 向后兼容：自动迁移 identity_anchor_rules 到新字段
     if brief["identity_anchor_rules"] and not (brief["identity_structure"] or brief["identity_forbidden"]):
         for rule in brief["identity_anchor_rules"]:
-            if any(keyword in rule for keyword in ("禁止", "不要", "不能", "不可", "避免")):
-                brief["identity_forbidden"].append(rule)
-            else:
-                brief["identity_structure"].append(rule)
+            for part in split_identity_anchor_rule(rule):
+                if any(keyword in part for keyword in ("禁止", "不要", "不能", "不可", "避免", "严禁")):
+                    brief["identity_forbidden"].append(part)
+                else:
+                    brief["identity_structure"].append(part)
 
     brief["storyboard_beats_override"] = parse_list_value(brief.get("storyboard_beats_override"))
     brief["storyboard_strategy"] = str(brief.get("storyboard_strategy") or "auto_beats").strip().lower() or "auto_beats"

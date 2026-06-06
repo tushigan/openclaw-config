@@ -67,6 +67,7 @@ class WorkflowTests(unittest.TestCase):
                 "scene": "麦田小路",
                 "style": "治愈系3D广告海报",
                 "duration": 7,
+                "video_mode": "ip_poster",
             }
         )
 
@@ -82,6 +83,7 @@ class WorkflowTests(unittest.TestCase):
                 "scene": "1960年代原子朋克核废土公路",
                 "style": "电影级真实感，孤独公路片气质",
                 "anchor_elements": ["锈蚀复古汽车", "Skyline Diner", "Nuka Cola 广告牌"],
+                "video_mode": "ip_poster",
             }
         )
 
@@ -124,6 +126,7 @@ class WorkflowTests(unittest.TestCase):
                 "scene": "麦田小路",
                 "style": "治愈系3D广告海报",
                 "ratio": "9:16",
+                "video_mode": "ip_poster",
             }
         )
         prompts = build_prompts(brief)
@@ -314,6 +317,7 @@ class WorkflowTests(unittest.TestCase):
                     "scene": "广场",
                     "style": "电影感",
                     "existing_references": {"storyboard": str(existing_storyboard)},
+                    "video_mode": "ip_poster",
                 }
             )
             prompts = build_prompts(brief)
@@ -382,6 +386,7 @@ class WorkflowTests(unittest.TestCase):
                 "action": "沿小路轻快走来后转向镜头定格",
                 "scene": "麦田小路",
                 "style": "治愈系3D广告海报",
+                "video_mode": "ip_poster",
             }
         )
         prompts = build_prompts(brief)
@@ -412,6 +417,7 @@ class WorkflowTests(unittest.TestCase):
                     "scene": "广场",
                     "style": "电影感",
                     "quality_tier": "final",
+                    "video_mode": "ip_poster",
                 }
             )
             prompts = build_prompts(brief)
@@ -486,6 +492,25 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("禁止双翅膀", brief["identity_forbidden"])
         self.assertIn("不要人类手指", brief["identity_forbidden"])
 
+    def test_normalize_brief_splits_compound_identity_anchor_rules(self):
+        """测试复合身份约束先拆句再迁移，避免把正向规则归入禁止项"""
+        brief = normalize_brief(
+            {
+                "subject": "黄小咕",
+                "action": "划桨",
+                "scene": "端午龙舟水面",
+                "style": "3D卡通",
+                "identity_anchor_rules": [
+                    "整体读成黄小咕 IP；禁止普通圆鸡化；严禁角色结构漂移"
+                ],
+            }
+        )
+
+        self.assertIn("整体读成黄小咕 IP", brief["identity_structure"])
+        self.assertIn("禁止普通圆鸡化", brief["identity_forbidden"])
+        self.assertIn("严禁角色结构漂移", brief["identity_forbidden"])
+        self.assertNotIn("整体读成黄小咕 IP", brief["identity_forbidden"])
+
     def test_build_prompts_uses_new_identity_fields(self):
         """测试新的 identity_structure 和 identity_forbidden 字段在 prompt 中生效"""
         brief = normalize_brief(
@@ -522,6 +547,7 @@ class WorkflowTests(unittest.TestCase):
                 "scene": "广场",
                 "style": "3D卡通",
                 "ratio": "9:16",
+                "video_mode": "ip_poster",
             }
         )
 
@@ -704,6 +730,7 @@ class CliSmokeTests(unittest.TestCase):
                     "scene": "秋日林间",
                     "style": "3D卡通",
                     "ratio": "9:16",
+                    "video_mode": "ip_poster",
                 },
             )
             self._write_refs(run_dir, "original", "identity-board", "storyboard")
@@ -771,6 +798,7 @@ class CliSmokeTests(unittest.TestCase):
                     "scene": "秋日林间",
                     "style": "3D卡通",
                     "ratio": "9:16",
+                    "video_mode": "ip_poster",
                 },
             )
             self._write_refs(run_dir, "storyboard")
@@ -830,6 +858,7 @@ class CliSmokeTests(unittest.TestCase):
                     "scene": "秋日林间",
                     "style": "3D卡通",
                     "ratio": "9:16",
+                    "video_mode": "ip_poster",
                 },
             )
             self._write_refs(run_dir, "original", "identity-board")
@@ -864,6 +893,7 @@ class CliSmokeTests(unittest.TestCase):
                     "scene": "秋日林间",
                     "style": "3D卡通",
                     "ratio": "9:16",
+                    "video_mode": "ip_poster",
                 },
             )
             self._write_refs(run_dir, "original", "identity-source", "storyboard")
