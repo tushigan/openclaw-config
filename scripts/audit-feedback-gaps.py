@@ -298,13 +298,18 @@ def session_chat_context(records: list[dict[str, Any]], session_path: Path | Non
             account_match = re.search(r'Feishu\[([^\]]+)\]', content)
             sender_open_match = re.search(r'"sender_id"\s*:\s*"([^"]+)"', content)
             sender_name_match = re.search(r'"sender"\s*:\s*"([^"]+)"', content)
+            group_match = re.search(r'"is_group_chat"\s*:\s*(true|false)', content)
             if chat_match:
+                sender_open_id = sender_open_match.group(1) if sender_open_match else ''
+                is_group_chat = group_match.group(1) == 'true' if group_match else False
                 target = normalize_feishu_target(chat_match.group(1))
+                if not is_group_chat and sender_open_id:
+                    target = normalize_feishu_target(sender_open_id)
                 candidate = {
                     'target': target,
                     'chat_id': target,
                     'account_id': account_match.group(1) if account_match else '',
-                    'source_sender_open_id': sender_open_match.group(1) if sender_open_match else '',
+                    'source_sender_open_id': sender_open_id,
                     'source_sender_name': sender_name_match.group(1) if sender_name_match else '',
                     'target_source': 'session_runtime_context',
                     'session_peer_target': peer_from_session_key.get('target', ''),
@@ -448,6 +453,13 @@ def finalize_target_context(context: dict[str, Any]) -> dict[str, Any]:
     normalized['target_conflict_reason'] = conflict_reason
     normalized['target_resolved'] = bool(normalized.get('target')) and not conflict_reason
     normalized['target_confidence'] = _target_confidence(normalized)
+    normalized['auto_send_allowed'] = bool(
+        normalized['target_resolved']
+        and normalized['target_confidence'] in ('high', 'medium')
+    )
+    normalized['auto_send_block_reason'] = '' if normalized['auto_send_allowed'] else (
+        conflict_reason or 'target_missing_or_low_confidence'
+    )
     return normalized
 
 
@@ -595,6 +607,7 @@ def audit_stalled_commitments(
             if any(find_message_delivery_evidence(path, ts_ms) for path in delivery_paths):
                 continue
 
+            safe_context = finalize_target_context(chat_context)
             finding = {
                 'kind': 'stalled_commitment',
                 'session_file': str(session_path),
@@ -602,7 +615,7 @@ def audit_stalled_commitments(
                 'timestamp': record.get('timestamp') or '',
                 'text': short(text, 260),
                 'required_user_chase': required_user_chase,
-                **chat_context,
+                **safe_context,
             }
             if resolved_delivery:
                 finding['resolved_by_later_message'] = resolved_delivery
@@ -671,6 +684,7 @@ def audit_background_execs(cutoff: int | None, grace_minutes: int) -> list[dict[
             if any(find_message_delivery_evidence(path, started_at_ms) for path in delivery_paths):
                 continue
 
+            safe_context = finalize_target_context(session_chat_context(records, session_path))
             findings.append({
                 'kind': 'background_exec',
                 'session_file': str(session_path),
@@ -681,7 +695,7 @@ def audit_background_execs(cutoff: int | None, grace_minutes: int) -> list[dict[
                 'started_at': started_at,
                 'workdir': details.get('cwd') or args.get('workdir') or '',
                 'command': short(args.get('command'), 260),
-                    **session_chat_context(records, session_path),
+                **safe_context,
             })
     return findings
 
@@ -762,6 +776,14 @@ def audit_subagents(cutoff: int | None) -> list[dict[str, Any]]:
         ]
         if cutoff is not None and not any(is_recent_ms(value, cutoff) for value in recency_markers):
             continue
+        requester = str(run.get('requesterSessionKey') or '').strip()
+        requester_context = _extract_peer_from_session_key(requester)
+        if requester_context.get('target'):
+            requester_context.update({
+                'chat_id': requester_context['target'],
+                'target_source': 'source_session_key',
+            })
+        requester_context = finalize_target_context(requester_context)
         findings.append({
             'kind': 'subagent',
             'run_id': run_id,
@@ -769,10 +791,11 @@ def audit_subagents(cutoff: int | None) -> list[dict[str, Any]]:
             'status': status or '',
             'ended_reason': run.get('endedReason') or '',
             'pending_final_delivery': pending,
-            'requester': run.get('requesterSessionKey') or '',
+            'requester': requester,
             'child': run.get('childSessionKey') or '',
             'error': short(announce_error or (run.get('outcome') or {}).get('error')),
             'result': short(run.get('frozenResultText')),
+            **requester_context,
         })
     return findings
 
