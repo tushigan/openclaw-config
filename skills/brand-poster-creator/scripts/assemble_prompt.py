@@ -425,7 +425,7 @@ def product_hero_requested(brief):
 def distill_has_product_region(distill):
     if not distill:
         return False
-    elements = (distill.get("layout_analysis", {}) or {}).get("elements", []) or []
+    elements = fixed_layout_elements(distill)
     product_terms = ("product", "商品", "产品", "主视觉", "主体")
     for el in elements:
         raw_type = str(el.get("type", "") or "")
@@ -440,6 +440,13 @@ def distill_has_product_region(distill):
     return False
 
 
+def fixed_layout_elements(distill):
+    if not distill:
+        return []
+    elements = (distill.get("layout_analysis", {}) or {}).get("elements", []) or []
+    return [el for el in elements if isinstance(el, dict)]
+
+
 def build_product_hero_layout_guard(brief, distill, refs, image_paths):
     product = refs.get("产品图") or {}
     product_path = str(product.get("路径", "") or "").strip()
@@ -450,8 +457,9 @@ def build_product_hero_layout_guard(brief, distill, refs, image_paths):
     img_ref = f"参考图[{ref_num}]" if ref_num >= 0 else "产品参考图"
     product_name = product.get("产品名", brief.get("product_name", "产品"))
     low_res = is_low_resolution_product_ref(brief, refs)
+    has_fixed_layout = bool(fixed_layout_elements(distill))
 
-    if distill:
+    if has_fixed_layout:
         region = "x:24% y:38% 宽:52% 高:32% z:3" if low_res else "x:14% y:31% 宽:72% 高:46% z:3"
         framing = (
             "采用完整产品中景肖像：产品仍是主视觉，但必须完整入画，能看见整体圆顶、外皮、侧面和底部，"
@@ -1115,7 +1123,7 @@ def assemble_prompt(brief, distill, copywriting, refs, style_profile=None, creat
     if hero_block:
         blocks.append(hero_block)
 
-    elements = distill.get("layout_analysis", {}).get("elements", []) if distill else []
+    elements = fixed_layout_elements(distill)
     if elements:
         blocks.append(assemble_fixed_layout(elements, copywriting, refs, image_paths, brief=brief, style_profile=style_profile))
     else:

@@ -112,6 +112,52 @@ class PromptLayoutModeTests(unittest.TestCase):
         self.assertNotIn('== 画面布局（自由构图与阅读动线） ==', prompt)
         self.assertNotIn('无固定版式', prompt)
 
+    def test_fixed_layout_without_product_region_adds_coordinate_product_guard(self):
+        assemble = load_assemble_module()
+        brief = {
+            'brand_name': '测试品牌',
+            'product_name': '云朵软吐司',
+            'ratio': '9:16',
+            'type': '产品上新',
+            'hero_priority': {'hero_1': '产品主视觉'},
+        }
+        distill = {
+            'layout_analysis': {
+                'elements': [
+                    {
+                        'id': 'title-main',
+                        'type': 'title',
+                        'name_zh': '主标题区',
+                        'x': 12,
+                        'y': 8,
+                        'width': 76,
+                        'height': 12,
+                        'z_index': 3,
+                    },
+                ],
+                'negative_constraints': [],
+            },
+        }
+        refs = {
+            '产品图': {
+                '路径': '/tmp/product.png',
+                '产品名': '云朵软吐司',
+            }
+        }
+
+        prompt, _, _ = assemble.assemble_prompt(
+            brief,
+            distill=distill,
+            copywriting={'title-main': {'文案': '云朵软吐司'}},
+            refs=refs,
+        )
+
+        self.assertIn('== 画面布局（固定版式坐标） ==', prompt)
+        self.assertIn('== 产品主视觉区域 ==', prompt)
+        self.assertIn('固定版式中缺少独立产品主图区', prompt)
+        self.assertIn('x:14% y:31% 宽:72% 高:46% z:3', prompt)
+        self.assertNotIn('== 画面布局（自由构图与阅读动线） ==', prompt)
+
     def test_free_layout_product_guard_uses_relative_region_not_coordinates(self):
         assemble = load_assemble_module()
         brief = {
@@ -137,6 +183,44 @@ class PromptLayoutModeTests(unittest.TestCase):
 
         self.assertIn('== 产品主视觉区域 ==', prompt)
         self.assertIn('中部主视觉区', prompt)
+        self.assertNotIn('x:', prompt)
+        self.assertNotIn('宽:', prompt)
+        self.assertNotIn('高:', prompt)
+
+    def test_distill_without_elements_still_uses_free_product_guard(self):
+        assemble = load_assemble_module()
+        brief = {
+            'brand_name': '测试品牌',
+            'product_name': '云朵软吐司',
+            'ratio': '9:16',
+            'type': '产品上新',
+            'hero_priority': {'hero_1': '产品主视觉'},
+        }
+        distill = {
+            'layout_analysis': {
+                'elements': [],
+                'negative_constraints': ['不要空白占位框'],
+            },
+        }
+        refs = {
+            '产品图': {
+                '路径': '/tmp/product.png',
+                '产品名': '云朵软吐司',
+            }
+        }
+
+        prompt, _, _ = assemble.assemble_prompt(
+            brief,
+            distill=distill,
+            copywriting={'headline': {'文案': '云朵软吐司'}},
+            refs=refs,
+        )
+
+        self.assertIn('== 画面布局（自由构图与阅读动线） ==', prompt)
+        self.assertIn('== 产品主视觉区域 ==', prompt)
+        self.assertIn('中部主视觉区', prompt)
+        self.assertIn('不要空白占位框', prompt)
+        self.assertNotIn('== 画面布局（固定版式坐标） ==', prompt)
         self.assertNotIn('x:', prompt)
         self.assertNotIn('宽:', prompt)
         self.assertNotIn('高:', prompt)
