@@ -305,6 +305,11 @@ python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/process_distil
    - 将骨架图复制到 `images/skeleton.png`：优先使用 `skeleton_png` 字段（PNG），若为空则回退 `skeleton_image` 字段（SVG）
    - 写入 `distill_manifest.json`、`project_state.json`、`audit_log.jsonl`
 
+3. 版式有效性分支：
+   - 若 `layout_analysis.elements` 存在且至少包含 1 个有效区域，后续 prompt 进入固定版式坐标模式
+   - 若蒸馏卡存在但 `layout_analysis.elements` 为空、缺失或全是无效元素，必须在 `distill_manifest.json` 记录 `layout_status="empty_elements"`，并在 `brief.json` 标记 `"distill_mode": "fallback"`；后续进入自由构图与阅读动线模式，不得伪造坐标
+   - 若蒸馏卡 JSON 无法读取，停止当前阶段并展示错误；不得用手写坐标继续
+
 ### 无蒸馏卡 ID
 
 在 `brief.json` 中标记 `"distill_mode": "fallback"`，后续进入降级组装流程（见 prompt-assembler.md 第六节）。

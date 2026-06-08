@@ -13,5 +13,10 @@
     "id": 3,
     "prompt": "做一张高考9:16品牌海报，我上传了风格参考图、品牌LOGO、品牌IP三视图。必须露出官方LOGO，画面主角必须是品牌IP，风格参考图里的人物不能被继承。",
     "expected": "区分风格参考/Logo/IP资产角色；生成style_profile时排除参考图人物；prompt/ref_order必须包含logo和ip角色；未挂载则阻断生图"
+  },
+  {
+    "id": 4,
+    "prompt": "我有一张带蒸馏卡的9:16产品海报，要严格按卡片区域排标题、产品和底部说明；如果蒸馏卡里没有有效版式区域，就不要编坐标，改用自由构图。",
+    "expected": "有有效layout_analysis.elements时走固定版式坐标；elements为空/缺失/无效时记录fallback并走自由构图与阅读动线；两种模式不能混用"
   }
 ]
