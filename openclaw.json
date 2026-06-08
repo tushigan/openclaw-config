@@ -282,7 +282,6 @@
         "lark-workflow-meeting-summary",
         "lark-workflow-standup-report",
         "multi-search-engine",
-        "nanobanana-ppt",
         "node-connect",
         "pdf-smart-tool-cn",
         "quote-skill",
@@ -505,10 +504,12 @@
           "RunningHub",
           "brand-poster-creator",
           "brand-poster-distiller",
+          "xiangqingye-desigen",
           "dreamina-cli",
-          "product-photography-workflow",
           "psd-layered-rebuilder",
-          "xiangqingye-desigen"
+          "product-photography-workflow",
+          "video-expert-analyzer",
+          "video-frames"
         ],
         "subagents": {
           "allowAgents": [
@@ -665,13 +666,7 @@
             "web_fetch",
             "write"
           ]
-        },
-        "skills": [
-          "dreamina-reference-video",
-          "tvc-director",
-          "video-expert-analyzer",
-          "video-frames"
-        ]
+        }
       },
       {
         "id": "research",
@@ -1246,10 +1241,12 @@
           "RunningHub",
           "brand-poster-creator",
           "brand-poster-distiller",
+          "xiangqingye-desigen",
           "dreamina-cli",
-          "product-photography-workflow",
           "psd-layered-rebuilder",
-          "xiangqingye-desigen"
+          "product-photography-workflow",
+          "video-expert-analyzer",
+          "video-frames"
         ],
         "subagents": {
           "allowAgents": [
@@ -1431,13 +1428,7 @@
           "fs": {
             "workspaceOnly": false
           }
-        },
-        "skills": [
-          "dreamina-reference-video",
-          "tvc-director",
-          "video-expert-analyzer",
-          "video-frames"
-        ]
+        }
       },
       {
         "id": "research-shared",

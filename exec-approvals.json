@@ -312,8 +312,8 @@
           "id": "shared-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1780907929923,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/run_sable_storyboard_6frames_9x16_ultrashort.sh",
+          "lastUsedAt": 1780910913250,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/medal-waffle-20260608/run_generate.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -343,8 +343,8 @@
           "id": "shared-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1780906861043,
-          "lastUsedCommand": "mkdir -p outputs/ppt-projects/20260608_xiaodudu_template/analysis/pages && pdfinfo outputs/ppt-projects/20260608_xiaodudu_template/references/source_latest.pdf | head -30 && pdftoppm -png -r 120 outputs/ppt-projects/20260608_xiaodudu_template/references/source_latest.pdf outputs/ppt-projects/20260608_xiaodudu_template/analysis/pages/page",
+          "lastUsedAt": 1780910843801,
+          "lastUsedCommand": "mkdir -p images/medal-waffle-20260608 outputs/medal-waffle-20260608",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -1100,8 +1100,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1780909836333,
-          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\nimport json, os\nbase=Path('/Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260608_1658')\nfor rel in ['layered-output.psd','layered-output.psd.zip','scene.json','preview.png','parallel-state.json']:\n    p=base/rel\n    print(rel, p.exists(), p.stat().st_size if p.exists() else 0)\nif (base/'parallel-state.json').exists():\n    d=json.loads((base/'parallel-state.json').read_text())\n    print('TASKS:')\n    for k,v in d.get('tasks',{}).items():\n        print(k, v.get('status'))\nPY",
+          "lastUsedAt": 1780910692439,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/_temp_storyboard/storyboard_prompt_short.txt --ref-layout /Users/a123/.openclaw/workspace/.openclaw-inbound-media/3070249d-3ad1-4cdd-abbf-979025ff654a.png --ref-ip /Users/a123/.openclaw/workspace/.openclaw-inbound-media/f8a823a2-415d-4e03-b2aa-990ac5f1a562.jpg -s 1088x1936 -o /Users/a123/.openclaw/workspace/feishu-deliver/sable_dragon_boat_6frame_storyboard_9x16_design.png",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1160,9 +1160,9 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1780908971463,
-          "lastUsedCommand": "pwd && ls -la /Users/a123/.openclaw/.agents/skills/shared/cloudinary_uploader.py && ls -la /Users/a123/.openclaw/.agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py && ls -la /Users/a123/.openclaw/.agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md",
-          "lastResolvedPath": "/bin/pwd"
+          "lastUsedAt": 1780910657208,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,120p' && echo '---' && find /Users/a123/.openclaw/workspace/feishu-deliver -maxdepth 1 \\( -name '*.json' -o -name '*.png' -o -name '*.log' \\) | sed -n '1,120p' && echo '---' && for f in /Users/a123/.openclaw/workspace/feishu-deliver/*.json; do echo FILE:$f; cat \"$f\"; echo '---'; done",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-design-cat",
@@ -1226,9 +1226,9 @@
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1780909346959,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260608_1658 -maxdepth 3 | sed 's#^#/ #'; echo '---'; find /Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260608_1658 -type f | xargs -I{} sh -c 'printf \"%s | \" \"{}\"; stat -f \"%z bytes\" \"{}\"' | tail -n 40",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1780910657209,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,120p' && echo '---' && find /Users/a123/.openclaw/workspace/feishu-deliver -maxdepth 1 \\( -name '*.json' -o -name '*.png' -o -name '*.log' \\) | sed -n '1,120p' && echo '---' && for f in /Users/a123/.openclaw/workspace/feishu-deliver/*.json; do echo FILE:$f; cat \"$f\"; echo '---'; done",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
@@ -1279,9 +1279,9 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1780909346957,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260608_1658 -maxdepth 3 | sed 's#^#/ #'; echo '---'; find /Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260608_1658 -type f | xargs -I{} sh -c 'printf \"%s | \" \"{}\"; stat -f \"%z bytes\" \"{}\"' | tail -n 40",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1780910657212,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,120p' && echo '---' && find /Users/a123/.openclaw/workspace/feishu-deliver -maxdepth 1 \\( -name '*.json' -o -name '*.png' -o -name '*.log' \\) | sed -n '1,120p' && echo '---' && for f in /Users/a123/.openclaw/workspace/feishu-deliver/*.json; do echo FILE:$f; cat \"$f\"; echo '---'; done",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "34352226-bed6-4857-b096-abe0169a1f0d",
@@ -1322,9 +1322,9 @@
           "id": "shared-echo",
           "pattern": "/bin/echo",
           "description": "允许输出文本",
-          "lastUsedAt": 1780910035626,
-          "lastUsedCommand": "sips -g pixelWidth -g pixelHeight /Users/a123/.openclaw/workspace/.openclaw-inbound-media/3070249d-3ad1-4cdd-abbf-979025ff654a.png && echo '---' && sips -g pixelWidth -g pixelHeight /Users/a123/.openclaw/workspace/.openclaw-inbound-media/f8a823a2-415d-4e03-b2aa-990ac5f1a562.jpg",
-          "lastResolvedPath": "/usr/bin/sips"
+          "lastUsedAt": 1780910657211,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,120p' && echo '---' && find /Users/a123/.openclaw/workspace/feishu-deliver -maxdepth 1 \\( -name '*.json' -o -name '*.png' -o -name '*.log' \\) | sed -n '1,120p' && echo '---' && for f in /Users/a123/.openclaw/workspace/feishu-deliver/*.json; do echo FILE:$f; cat \"$f\"; echo '---'; done",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "design-curl",
