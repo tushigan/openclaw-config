@@ -19,7 +19,7 @@
 - “详情页” → **必须先读** `xiangqingye-desigen/SKILL.md`
 
 **执行顺序（不可跳过）：**
-1. 列出 `skills/` 目录下所有可用 skills
+1. 扫描当前会话注入的 `available_skills` 列表
 2. 根据任务关键词匹配对应的 skill
 3. 读取匹配 skill 的完整 `SKILL.md`
 4. 按照 SKILL.md 定义的流程执行
@@ -147,6 +147,7 @@ message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feish
 - **生成成功不等于交付成功；文件真实发送成功才算交付完成。**
 - 图片 `<=10MB` 优先按图片发送；更大文件按文件或 ZIP 发送；超过限制时分卷。
 - 发送副本放入 `/Users/a123/.openclaw/workspace/feishu-deliver/`，不得覆盖原始产物。
+- 直接调用脚本或 `lark-cli` 发送本地图片/文件前，必须先执行 `/Users/a123/.openclaw/scripts/feishu-route-guard.py check --media <文件路径> --target <目标>`；校验失败不得发送。
 - 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”。
 - 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续。
 
@@ -159,12 +160,12 @@ message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feish
 
 ## 4. 生图配置
 
-- **主通道**：`https://cn.aixor.org`（快速48秒，gpt-image-2 原生支持 4K）
+- **主通道**：`https://direct.aixor.org`（稳定100%，平均42秒，gpt-image-2 原生支持 4K）
 - **备用通道**：`https://n.lconai.com`（稳定81秒，>2K 自动切换 gpt-image-2-pro）
 - **默认模型**：`gpt-image-2`
 - **默认分辨率**：`1920x1080`（快速生成，用户明确要求时才用更高分辨率）
 - **智能模型路由**：
-  - cn.aixor.org：始终用 gpt-image-2（原生支持 4K）
+  - direct.aixor.org：始终用 gpt-image-2（原生支持 4K）
   - n.lconai.com：≤2K 用 gpt-image-2，>2K 自动切换到 gpt-image-2-pro
 - 若脚本、命令、wrapper 或日志里出现旧模型、旧端点或旧环境残留，先修执行条件，再继续交付。
 - 具体模型、端点和脚本参数以对应 skill 或稳定脚本为准。

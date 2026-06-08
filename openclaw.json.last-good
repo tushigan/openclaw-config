@@ -250,28 +250,19 @@
         "brand-poster-distiller",
         "browser-automation",
         "business-project-intake",
-        "creative-director",
         "diagnose",
         "dreamina-cli",
         "dreamina-reference-video",
-        "feishu-bitable",
-        "feishu-calendar",
         "feishu-channel-rules",
-        "feishu-create-doc",
-        "feishu-fetch-doc",
-        "feishu-im-read",
-        "feishu-task",
         "feishu-troubleshoot",
-        "feishu-update-doc",
         "gpt-image2-gen",
+        "huashu-design",
         "grill-me",
         "grill-with-docs",
         "handoff",
         "healthcheck",
-        "image-task-router",
         "improve-codebase-architecture",
         "internal-interview-research",
-        "klingai",
         "lark-approval",
         "lark-attendance",
         "lark-base",
@@ -282,7 +273,6 @@
         "lark-event",
         "lark-im",
         "lark-mail",
-        "lark-markdown",
         "lark-minutes",
         "lark-okr",
         "lark-openapi-explorer",
@@ -299,19 +289,18 @@
         "multi-search-engine",
         "nanobanana-ppt",
         "node-connect",
-        "outline-architect",
         "pdf-smart-tool-cn",
         "psd-layered-rebuilder",
         "quote-skill",
         "research-analyst",
         "session-logs",
+        "session-debug-export",
         "skill-creator",
         "taskflow",
         "taskflow-inbox-triage",
         "tvc-director",
         "video-expert-analyzer",
         "video-frames",
-        "visual-production",
         "weather",
         "web-browse-capture",
         "wechat-article-reader",
@@ -442,10 +431,10 @@
           "alsoAllow": [
             "agents_list",
             "gpt-image2-gen",
+            "huashu-design",
             "brand-poster-creator",
             "browser",
             "canvas",
-            "creative-director",
             "data-intelligence",
             "dify-rag",
             "exec",
@@ -484,7 +473,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "outline-architect",
             "network_memory_detail",
             "network_skill_pull",
             "network_team_info",
@@ -530,25 +518,17 @@
           "brand-poster-distiller",
           "browser-automation",
           "business-project-intake",
-          "creative-director",
           "diagnose",
           "dreamina-cli",
           "dreamina-reference-video",
-          "feishu-bitable",
-          "feishu-calendar",
           "feishu-channel-rules",
-          "feishu-create-doc",
-          "feishu-fetch-doc",
-          "feishu-im-read",
-          "feishu-task",
           "feishu-troubleshoot",
-          "feishu-update-doc",
           "gpt-image2-gen",
+          "image-deglaze",
           "grill-me",
           "grill-with-docs",
           "handoff",
           "healthcheck",
-          "image-task-router",
           "improve-codebase-architecture",
           "internal-interview-research",
           "lark-approval",
@@ -561,7 +541,6 @@
           "lark-event",
           "lark-im",
           "lark-mail",
-          "lark-markdown",
           "lark-minutes",
           "lark-okr",
           "lark-openapi-explorer",
@@ -577,6 +556,7 @@
           "lark-workflow-standup-report",
           "multi-search-engine",
           "nanobanana-ppt",
+          "omni-vision-psd-extractor",
           "node-connect",
           "outline-architect",
           "pdf-smart-tool-cn",
@@ -585,12 +565,12 @@
           "quote-skill",
           "research-analyst",
           "session-logs",
+          "session-debug-export",
           "skill-creator",
           "taskflow",
           "taskflow-inbox-triage",
           "video-expert-analyzer",
           "video-frames",
-          "visual-production",
           "weather",
           "web-browse-capture",
           "wechat-article-reader",
@@ -641,7 +621,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "visual-production",
             "network_memory_detail",
             "network_skill_pull",
             "network_team_info",
@@ -858,7 +837,7 @@
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         }
       },
@@ -888,7 +867,6 @@
             "agents_list",
             "browser",
             "canvas",
-            "creative-director",
             "data-intelligence",
             "dify-rag",
             "exec",
@@ -927,7 +905,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "outline-architect",
             "network_memory_detail",
             "network_skill_pull",
             "network_team_info",
@@ -964,7 +941,7 @@
         "name": "会议记录分析员",
         "workspace": "/Users/a123/.openclaw/workspace-meeting",
         "model": {
-          "primary": "aixor-g/gpt-5.2"
+          "primary": "aixor-g/gpt-5.4"
         },
         "subagents": {
           "allowAgents": [
@@ -1032,7 +1009,6 @@
             "agents_list",
             "browser",
             "canvas",
-            "creative-director",
             "data-intelligence",
             "dify-rag",
             "exec",
@@ -1071,7 +1047,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "outline-architect",
             "network_memory_detail",
             "network_skill_pull",
             "network_team_info",
@@ -1106,7 +1081,7 @@
         "name": "龙虾总指挥（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace",
         "model": {
-          "primary": "aixor-g/gpt-5.4",
+          "primary": "aixor-g/gpt-5.5",
           "fallbacks": [
             "aixor-g/gpt-5.4"
           ]
@@ -1205,7 +1180,7 @@
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         }
       },
@@ -1235,10 +1210,10 @@
           "alsoAllow": [
             "agents_list",
             "gpt-image2-gen",
+            "huashu-design",
             "brand-poster-creator",
             "browser",
             "canvas",
-            "creative-director",
             "data-intelligence",
             "dify-rag",
             "exec",
@@ -1276,7 +1251,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "outline-architect",
             "packaging-design",
             "pdf-smart-tool-cn",
             "product-dev-phase",
@@ -1335,25 +1309,17 @@
           "brand-poster-distiller",
           "browser-automation",
           "business-project-intake",
-          "creative-director",
           "diagnose",
           "dreamina-cli",
           "dreamina-reference-video",
-          "feishu-bitable",
-          "feishu-calendar",
           "feishu-channel-rules",
-          "feishu-create-doc",
-          "feishu-fetch-doc",
-          "feishu-im-read",
-          "feishu-task",
           "feishu-troubleshoot",
-          "feishu-update-doc",
           "gpt-image2-gen",
+          "image-deglaze",
           "grill-me",
           "grill-with-docs",
           "handoff",
           "healthcheck",
-          "image-task-router",
           "improve-codebase-architecture",
           "internal-interview-research",
           "lark-approval",
@@ -1366,7 +1332,6 @@
           "lark-event",
           "lark-im",
           "lark-mail",
-          "lark-markdown",
           "lark-minutes",
           "lark-okr",
           "lark-openapi-explorer",
@@ -1382,6 +1347,7 @@
           "lark-workflow-standup-report",
           "multi-search-engine",
           "nanobanana-ppt",
+          "omni-vision-psd-extractor",
           "node-connect",
           "outline-architect",
           "pdf-smart-tool-cn",
@@ -1390,12 +1356,12 @@
           "quote-skill",
           "research-analyst",
           "session-logs",
+          "session-debug-export",
           "skill-creator",
           "taskflow",
           "taskflow-inbox-triage",
           "video-expert-analyzer",
           "video-frames",
-          "visual-production",
           "weather",
           "web-browse-capture",
           "wechat-article-reader",
@@ -1445,7 +1411,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "visual-production",
             "packaging-design",
             "pdf-smart-tool-cn",
             "product-dev-phase",
@@ -1482,12 +1447,12 @@
             "apply_patch"
           ],
           "exec": {
-            "host": "gateway",
+            "host": "auto",
             "security": "full",
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         }
       },
@@ -1583,7 +1548,7 @@
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         }
       },
@@ -1694,7 +1659,7 @@
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         }
       },
@@ -1724,7 +1689,6 @@
             "agents_list",
             "browser",
             "canvas",
-            "creative-director",
             "data-intelligence",
             "dify-rag",
             "exec",
@@ -1762,7 +1726,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "outline-architect",
             "pdf-smart-tool-cn",
             "product-dev-phase",
             "read",
@@ -1802,7 +1765,7 @@
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         }
       },
@@ -1869,7 +1832,7 @@
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         }
       },
@@ -1901,7 +1864,6 @@
             "agents_list",
             "browser",
             "canvas",
-            "creative-director",
             "data-intelligence",
             "dify-rag",
             "exec",
@@ -1939,7 +1901,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "outline-architect",
             "pdf-smart-tool-cn",
             "product-dev-phase",
             "read",
@@ -1979,7 +1940,7 @@
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         }
       }
@@ -1993,7 +1954,6 @@
       "brand-poster-workflow",
       "browser",
       "canvas",
-      "creative-director",
       "data-intelligence",
       "dify-rag",
       "exec",
@@ -2043,7 +2003,6 @@
       "tavily_extract",
       "tavily_search",
       "transition-video",
-      "visual-production",
       "web_fetch",
       "write"
     ],
@@ -2658,6 +2617,9 @@
       },
       "songsee": {
         "enabled": false
+      },
+      "session-debug-export": {
+        "enabled": true
       },
       "sonoscli": {
         "enabled": false

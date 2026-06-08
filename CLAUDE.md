@@ -106,7 +106,7 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 ├── workspace-ppt         # Symlink → workspace-video
 │
 ├── memory/               # Agent memory SQLite DBs (main.sqlite, design.sqlite, etc.)
-├── skills/               # Local skills (brand-poster-creator, klingai, tvc-director, etc.)
+├── skills/               # Local skills (brand-poster-creator, tvc-director, etc.)
 ├── skills-store*/        # Inactive/archived skill templates
 ├── subagents/            # Subagent run registry (runs.json)
 ├── credentials/          # Feishu/Lark secrets, admin users
@@ -229,11 +229,10 @@ Provider selection is automatic based on model availability and load balancing.
 - **Never use `~/` or relative paths** in subagent tasks
 
 ### Image task routing
-Before handling any image-related task:
-1. Read `image-task-router` skill first to classify the task
-2. For complex local edits (red box annotations, selective deletion, partial replacement, "keep other parts unchanged"), **must dispatch to `design` or `design-shared` agent**
-3. `main` agent can only: coordinate/route image tasks, or directly call approved image generation skills
-4. Never attempt final image composition locally in `main` for complex edit tasks
+Image task routing rules are defined in `workspace/AGENTS.md` (section 1.1 - 1.1.2):
+- For complex local edits (red box annotations, selective deletion, partial replacement, "keep other parts unchanged"), **must dispatch to `design` or `design-shared` agent**
+- `main` agent can only: coordinate/route image tasks, or directly call approved image generation skills
+- Never attempt final image composition locally in `main` for complex edit tasks
 
 ### Feishu image delivery
 When sending images to user via Feishu:
@@ -353,7 +352,6 @@ Local skills in `skills/` directory:
 - `dreamina-cli`: Dreamina AI image generation CLI wrapper
 - `dreamina-reference-video`: Reference video processing for Dreamina
 - `feishu-create-doc`: Feishu document creation automation
-- `klingai`: Kling AI video/image generation
 - `memos-memory-guide`: Memory management with Memos integration
 - `multi-search-engine`: Multi-engine search aggregation
 - `nanobanana-ppt`: AI-powered PPT generation with image slides

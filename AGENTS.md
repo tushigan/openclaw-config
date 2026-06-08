@@ -126,7 +126,7 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 ├── workspace-ppt         # Symlink → workspace-video
 │
 ├── memory/               # Agent memory SQLite DBs (main.sqlite, design.sqlite, etc.)
-├── skills/               # Local skills (brand-poster-creator, klingai, tvc-director, etc.)
+├── skills/               # Local skills (brand-poster-creator, tvc-director, etc.)
 ├── skills-store*/        # Inactive/archived skill templates
 ├── subagents/            # Subagent run registry (runs.json)
 ├── credentials/          # Feishu/Lark secrets, admin users
@@ -299,7 +299,6 @@ Job properties:
 
 Local skills in `skills/` directory:
 - `brand-poster-creator`: Brand poster design workflow
-- `klingai`: Kling AI video/image generation
 - `tvc-director`: TVC commercial direction
 - `wechat-article-reader`: WeChat article reading
 - `xiangqingye-desigen`: Product detail page design
