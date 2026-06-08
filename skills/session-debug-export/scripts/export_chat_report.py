@@ -22,6 +22,14 @@ from pathlib import Path
 from typing import Any
 
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+SESSION_KEY_ENV_VARS = (
+    "OPENCLAW_MCP_SESSION_KEY",
+    "OPENCLAW_SOURCE_SESSION_KEY",
+    "OPENCLAW_SESSION_KEY",
+    "CLAUDE_AI_SESSION_KEY",
+    "CLAUDE_WEB_SESSION_KEY",
+)
+DEFAULT_REPORT_SUBDIR = Path("Downloads") / "openclaw 问题汇总"
 
 
 def filename_part(text: str, fallback: str = "session") -> str:
@@ -29,6 +37,26 @@ def filename_part(text: str, fallback: str = "session") -> str:
     text = re.sub(r"[\\/:*?\"<>|\s]+", "-", text.strip())
     text = re.sub(r"-+", "-", text).strip("-.")
     return text or fallback
+
+
+def default_report_dir() -> Path:
+    return Path.home() / DEFAULT_REPORT_SUBDIR
+
+
+def short_issue_part(text: str, max_chars: int = 8) -> str:
+    """Prefer a concise Chinese issue label for human-scannable filenames."""
+    chinese = "".join(re.findall(r"[\u4e00-\u9fff]", text or ""))
+    if chinese:
+        return chinese[:max_chars]
+    return filename_part(text, "问题")[:max_chars] or "问题"
+
+
+def conversation_id_part(session_key: str) -> str:
+    return filename_part(session_peer_id(session_key) or session_key.split(":")[-1], "conversation")
+
+
+def build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:
+    return f"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md"
 
 
 def slugify(text: str, fallback: str = "session") -> str:
@@ -49,21 +77,183 @@ def run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[
     )
 
 
-def resolve_current_session_key() -> str | None:
-    """Resolve an active session, falling back to the most recently updated session."""
+def clean_string(value: Any) -> str:
+    return str(value or "").strip()
+
+
+def looks_like_session_key(value: str) -> bool:
+    return bool(value and value != "current" and value.startswith("agent:") and value.count(":") >= 2)
+
+
+def session_agent_id(session_key: str) -> str:
+    parts = session_key.split(":")
+    return parts[1] if len(parts) > 1 and parts[0] == "agent" else ""
+
+
+def session_chat_type(session_key: str) -> str:
+    parts = session_key.split(":")
+    return parts[3] if len(parts) > 3 and parts[0] == "agent" else ""
+
+
+def session_peer_id(session_key: str) -> str:
+    parts = session_key.split(":")
+    return ":".join(parts[4:]) if len(parts) > 4 and parts[0] == "agent" else ""
+
+
+def runtime_session_key(env: dict[str, str] | None = None) -> str | None:
+    source = env if env is not None else os.environ
+    for name in SESSION_KEY_ENV_VARS:
+        value = clean_string(source.get(name))
+        if looks_like_session_key(value):
+            return value
+    return None
+
+
+def read_config_agents(workspace: Path) -> list[dict[str, Any]]:
+    config_path = workspace / "openclaw.json"
+    try:
+        data = json.loads(config_path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    agents = data.get("agents", {})
+    if isinstance(agents, dict) and isinstance(agents.get("list"), list):
+        return [agent for agent in agents["list"] if isinstance(agent, dict)]
+    return []
+
+
+def infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:
+    try:
+        resolved_cwd = cwd.expanduser().resolve()
+    except Exception:
+        return set()
+
+    ids: set[str] = set()
+    for agent in read_config_agents(workspace):
+        agent_id = clean_string(agent.get("id"))
+        agent_workspace = clean_string(agent.get("workspace"))
+        if not agent_id or not agent_workspace:
+            continue
+        try:
+            resolved_workspace = Path(agent_workspace).expanduser().resolve()
+        except Exception:
+            continue
+        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:
+            ids.add(agent_id)
+    return ids
+
+
+def load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:
+    res = run(cmd, cwd=cwd)
+    if res.returncode != 0:
+        return []
+    try:
+        sessions = json.loads(res.stdout).get("sessions") or []
+    except Exception:
+        return []
+    return [session for session in sessions if isinstance(session, dict)]
+
+
+def session_matches(
+    session: dict[str, Any],
+    *,
+    agent_ids: set[str] | None = None,
+    chat_type: str | None = None,
+    peer_id: str | None = None,
+) -> bool:
+    key = clean_string(session.get("key"))
+    if not looks_like_session_key(key):
+        return False
+
+    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}
+    if normalized_agent_ids:
+        agent = clean_string(session.get("agentId")) or session_agent_id(key)
+        if agent not in normalized_agent_ids:
+            return False
+
+    normalized_chat_type = clean_string(chat_type)
+    if normalized_chat_type:
+        kind = clean_string(session.get("kind")) or clean_string(session.get("chatType")) or session_chat_type(key)
+        if kind != normalized_chat_type:
+            return False
+
+    normalized_peer_id = clean_string(peer_id)
+    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:
+        return False
+
+    return True
+
+
+def newest_session_key(sessions: list[dict[str, Any]]) -> str | None:
+    if not sessions:
+        return None
+    sessions = sorted(sessions, key=lambda session: int(session.get("updatedAt") or 0), reverse=True)
+    return clean_string(sessions[0].get("key")) or None
+
+
+def resolve_current_session_key(
+    *,
+    workspace: Path | None = None,
+    cwd: Path | None = None,
+    env: dict[str, str] | None = None,
+    agent_id: str | None = None,
+    chat_type: str | None = None,
+    peer_id: str | None = None,
+) -> str | None:
+    """Resolve the current OpenClaw session with channel/agent context when available."""
+    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()
+    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()
+    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()
+    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))
+    env_key = runtime_session_key(env)
+    if env_key and (
+        not has_explicit_filters
+        or session_matches(
+            {"key": env_key, "agentId": session_agent_id(env_key), "kind": session_chat_type(env_key)},
+            agent_ids=explicit_agent_ids,
+            chat_type=chat_type,
+            peer_id=peer_id,
+        )
+    ):
+        return env_key
+
+    agent_ids = set(explicit_agent_ids)
+    env_source = env if env is not None else os.environ
+    env_agent_id = clean_string(env_source.get("OPENCLAW_MCP_AGENT_ID"))
+    if env_agent_id and not agent_ids:
+        agent_ids.add(env_agent_id)
+    if not agent_ids:
+        agent_ids = infer_workspace_agent_ids(workspace, cwd)
+
+    for active_minutes in ("180", None):
+        cmd = ["openclaw", "sessions", "--all-agents", "--limit", "50", "--json"]
+        if active_minutes:
+            cmd[2:2] = ["--active", active_minutes]
+        sessions = load_sessions(cmd, cwd=workspace)
+        filtered = [
+            session
+            for session in sessions
+            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)
+        ]
+        if filtered:
+            return newest_session_key(filtered)
+        if not agent_ids and not chat_type and not peer_id and sessions:
+            return newest_session_key([session for session in sessions if session_matches(session)])
+
+    # Last-resort compatibility for old installs without --all-agents.
     for cmd in (
         ["openclaw", "sessions", "--active", "180", "--limit", "10", "--json"],
         ["openclaw", "sessions", "--limit", "10", "--json"],
     ):
-        res = run(cmd)
-        if res.returncode != 0:
-            continue
-        try:
-            sessions = (json.loads(res.stdout).get("sessions") or [])
-        except Exception:
-            sessions = []
-        if sessions:
-            return sessions[0].get("key")
+        sessions = load_sessions(cmd, cwd=workspace)
+        filtered = [
+            session
+            for session in sessions
+            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)
+        ]
+        if filtered:
+            return newest_session_key(filtered)
+        if not agent_ids and not chat_type and not peer_id and sessions:
+            return newest_session_key([session for session in sessions if session_matches(session)])
     return None
 
 
@@ -412,18 +602,27 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Export OpenClaw session as a chat-style markdown debug report")
     ap.add_argument("--workspace", default=os.getcwd(), help="Workspace/state root used by openclaw sessions export-trajectory")
     ap.add_argument("--session-key", default="current", help="Session key to export; use 'current' to auto-resolve")
+    ap.add_argument("--agent", "--agent-id", dest="agent_id", default=None, help="Agent id to prefer when resolving --session-key current")
+    ap.add_argument("--chat-type", choices=["direct", "group", "channel"], default=None, help="Chat type to prefer when resolving --session-key current")
+    ap.add_argument("--peer-id", default=None, help="Peer/chat id to prefer when resolving --session-key current, such as ou_xxx or oc_xxx")
     ap.add_argument("--issue", required=True, help="Short issue title, used in report and filename")
     ap.add_argument("--agent-name", default="小爪", help="Agent display name in chat headings")
-    ap.add_argument("--output-dir", default=None, help="Report output directory; default: ~/Downloads")
+    ap.add_argument("--output-dir", default=None, help=f"Report output directory; default: {default_report_dir()}")
     ap.add_argument("--log-lines", type=int, default=300, help="How many gateway log lines to capture")
     ap.add_argument("--max-bytes", type=int, default=400000, help="Max bytes when capturing gateway logs")
     ap.add_argument("--no-logs", action="store_true", help="Skip backend log capture")
     args = ap.parse_args()
 
     workspace = Path(args.workspace).expanduser().resolve()
-    session_key = args.session_key
+    session_key = clean_string(args.session_key) or "current"
     if session_key == "current":
-        session_key = resolve_current_session_key()
+        session_key = resolve_current_session_key(
+            workspace=workspace,
+            cwd=Path.cwd(),
+            agent_id=args.agent_id,
+            chat_type=args.chat_type,
+            peer_id=args.peer_id,
+        )
         if not session_key:
             sys.stderr.write("Failed to auto-resolve current session key. Pass --session-key explicitly.\n")
             return 2
@@ -477,9 +676,9 @@ def main() -> int:
         export_dir=output_dir,
     )
 
-    report_dir = Path(args.output_dir or Path.home() / "Downloads").expanduser()
+    report_dir = Path(args.output_dir).expanduser() if args.output_dir else default_report_dir()
     report_dir.mkdir(parents=True, exist_ok=True)
-    report_name = f"chat-export-{filename_part(args.agent_name, 'agent')}-{issue_slug}-{generated_ts}.md"
+    report_name = build_report_filename(generated_ts, session_key, args.issue)
     report_path = report_dir / report_name
     report_path.write_text(report, encoding="utf-8")
 

@@ -15,7 +15,7 @@ triggers:
 
 # Session Debug Export - 会话调试导出
 
-导出当前 OpenClaw 会话的完整对话记录和后台网关日志，生成一个自包含的 Markdown 文件，方便用户分享给其他 AI 进行问题分析和定位。
+导出当前 OpenClaw agent 会话的完整对话记录和后台网关日志，生成一个自包含的 Markdown 文件，方便用户分享给其他 AI 进行问题分析和定位。它导出的是 OpenClaw agent session，不是飞书平台历史消息接口里的群聊全量记录。
 
 ## 何时使用
 
@@ -47,18 +47,27 @@ triggers:
 
 ### 3. 输出格式
 - 单一 Markdown 文件，易于分享
-- 类似参考格式 `chat-export-小爪-{timestamp}.md`
-- 自动命名：`chat-export-{agent-name}-{issue-slug}-YYYYMMDD-HHMMSS.md`
-- 保存到 `~/Downloads` 目录
+- 自动命名：`YYYYMMDD-HHMMSS-对话ID-问题短名.md`
+- 问题短名优先取 `--issue` 中的中文，最多 8 个汉字
+- 默认保存到 `/Users/a123/Downloads/openclaw 问题汇总`
 
 ## 使用方法
 
 ### 基本用法 - 导出当前会话
 
+优先使用 `--session-key current`。脚本会按以下顺序解析当前会话：
+
+1. 运行环境里的当前 session（如 `OPENCLAW_MCP_SESSION_KEY` / `OPENCLAW_SOURCE_SESSION_KEY`）
+2. `--agent`、`--chat-type`、`--peer-id` 过滤到的最近 session
+3. 当前工作目录对应的 agent / shared-agent 最近 session
+4. 全 agent 最近 session 兜底
+
+不要自己用 `openclaw sessions --limit 1` 代替 `current`，管理员私聊、共享 agent、群聊并发时会拿错会话。
+
 ```bash
 python3 "<skill-dir>/scripts/export_chat_report.py" \
-  --workspace "/Users/carl/.openclaw" \
-  --session-key "agent:main:dashboard:f1a82941-fac6-4036-a6ef-bb2f1da7a034" \
+  --workspace "/Users/a123/.openclaw" \
+  --session-key current \
   --issue "问题简短描述" \
   --agent-name "小爪"
 ```
@@ -69,9 +78,12 @@ python3 "<skill-dir>/scripts/export_chat_report.py" \
 |------|------|--------|------|
 | `--workspace` | 否 | 当前目录 | OpenClaw 工作区路径 |
 | `--session-key` | 否 | `current` | 会话标识，`current` 会自动查找活跃会话 |
+| `--agent` / `--agent-id` | 否 | 环境或工作目录推断 | 解析 `current` 时限定 agent，如 `design-shared` |
+| `--chat-type` | 否 | 不限定 | 解析 `current` 时限定 `direct` / `group` / `channel` |
+| `--peer-id` | 否 | 不限定 | 解析 `current` 时限定 `ou_xxx` 或 `oc_xxx` |
 | `--issue` | 是 | 无 | 问题简短描述，用于文件命名 |
 | `--agent-name` | 否 | `小爪` | AI 助手显示名称 |
-| `--output-dir` | 否 | `~/Downloads` | 输出目录 |
+| `--output-dir` | 否 | `/Users/a123/Downloads/openclaw 问题汇总` | 输出目录 |
 | `--log-lines` | 否 | `300` | 捕获日志行数 |
 | `--max-bytes` | 否 | `400000` | 日志最大字节数 |
 | `--no-logs` | 否 | `false` | 跳过日志捕获 |
@@ -82,7 +94,7 @@ python3 "<skill-dir>/scripts/export_chat_report.py" \
 
 ```bash
 python3 "<skill-dir>/scripts/export_chat_report.py" \
-  --workspace "/Users/carl/.openclaw" \
+  --workspace "/Users/a123/.openclaw" \
   --session-key current \
   --issue "工具超时问题"
 ```
@@ -91,27 +103,39 @@ python3 "<skill-dir>/scripts/export_chat_report.py" \
 
 ```bash
 python3 "<skill-dir>/scripts/export_chat_report.py" \
-  --workspace "/Users/carl/.openclaw" \
+  --workspace "/Users/a123/.openclaw" \
   --session-key "agent:main:dashboard:abc123..." \
   --issue "飞书消息发送失败" \
   --agent-name "Kiro"
 ```
 
-#### 3. 只导出对话，不包含日志
+#### 3. 在群聊/共享 agent 中强制限定目标
 
 ```bash
 python3 "<skill-dir>/scripts/export_chat_report.py" \
-  --workspace "/Users/carl/.openclaw" \
+  --workspace "/Users/a123/.openclaw" \
+  --session-key current \
+  --agent design-shared \
+  --chat-type group \
+  --peer-id "oc_xxx" \
+  --issue "群聊导出"
+```
+
+#### 4. 只导出对话，不包含日志
+
+```bash
+python3 "<skill-dir>/scripts/export_chat_report.py" \
+  --workspace "/Users/a123/.openclaw" \
   --session-key current \
   --issue "正常对话导出" \
   --no-logs
 ```
 
-#### 4. 增加日志捕获量
+#### 5. 增加日志捕获量
 
 ```bash
 python3 "<skill-dir>/scripts/export_chat_report.py" \
-  --workspace "/Users/carl/.openclaw" \
+  --workspace "/Users/a123/.openclaw" \
   --session-key current \
   --issue "复杂问题排查" \
   --log-lines 500 \
@@ -124,10 +148,10 @@ python3 "<skill-dir>/scripts/export_chat_report.py" \
 
 ```bash
 # 查看最近的活跃会话
-openclaw sessions --active 60 --limit 10 --json
+openclaw sessions --all-agents --active 60 --limit 10 --json
 
-# 查看所有会话
-openclaw sessions --limit 20 --json
+# 查看某个 agent 的会话
+openclaw sessions --agent design-shared --active 60 --limit 20 --json
 ```
 
 从输出的 JSON 中找到 `"key"` 字段的值。
@@ -249,7 +273,7 @@ AI 的回复内容...
 ```
 Failed to auto-resolve current session key.
 ```
-解决方法：使用 `openclaw sessions --limit 10 --json` 查找会话 key，然后明确指定 `--session-key`。
+解决方法：使用 `openclaw sessions --all-agents --limit 20 --json` 查找会话 key，然后明确指定 `--session-key`。如果知道当前通道，优先加 `--agent`、`--chat-type`、`--peer-id`。
 
 ### 日志为空
 如果后台日志部分为空，可能是：
@@ -264,10 +288,10 @@ Failed to auto-resolve current session key.
 
 ```bash
 # 列出所有会话
-openclaw sessions --limit 20
+openclaw sessions --all-agents --limit 20
 
 # 查看活跃会话
-openclaw sessions --active 60
+openclaw sessions --all-agents --active 60
 
 # 查看日志
 openclaw logs --limit 100

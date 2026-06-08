@@ -15,6 +15,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from export_chat_report import resolve_current_session_key as resolve_chat_current_session_key
+
 
 def slugify(text: str) -> str:
     text = text.strip().lower()
@@ -27,24 +29,13 @@ def run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[
     return subprocess.run(cmd, cwd=str(cwd) if cwd else None, text=True, capture_output=True, check=False)
 
 
-def resolve_current_session_key() -> str | None:
-    res = run(["openclaw", "sessions", "--active", "30", "--limit", "10", "--json"])
-    if res.returncode != 0:
-        return None
-    try:
-        data = json.loads(res.stdout)
-        sessions = data.get("sessions") or []
-        if not sessions:
-            return None
-        return sessions[0].get("key")
-    except Exception:
-        return None
-
-
 def main() -> int:
     ap = argparse.ArgumentParser(description="Export session trajectory + logs to a markdown report")
     ap.add_argument("--workspace", default=os.getcwd(), help="Workspace root")
     ap.add_argument("--session-key", default="current", help="Session key to export; use 'current' to auto-resolve")
+    ap.add_argument("--agent", "--agent-id", dest="agent_id", default=None, help="Agent id to prefer when resolving --session-key current")
+    ap.add_argument("--chat-type", choices=["direct", "group", "channel"], default=None, help="Chat type to prefer when resolving --session-key current")
+    ap.add_argument("--peer-id", default=None, help="Peer/chat id to prefer when resolving --session-key current, such as ou_xxx or oc_xxx")
     ap.add_argument("--issue", required=True, help="Short issue title")
     ap.add_argument("--output", default=None, help="Output folder name inside .openclaw/trajectory-exports")
     ap.add_argument("--log-lines", type=int, default=200, help="How many gateway log lines to capture")
@@ -55,7 +46,13 @@ def main() -> int:
     workspace = Path(args.workspace).expanduser().resolve()
     session_key = args.session_key
     if session_key == "current":
-        resolved = resolve_current_session_key()
+        resolved = resolve_chat_current_session_key(
+            workspace=workspace,
+            cwd=Path.cwd(),
+            agent_id=args.agent_id,
+            chat_type=args.chat_type,
+            peer_id=args.peer_id,
+        )
         if not resolved:
             sys.stderr.write("Failed to auto-resolve current session key. Pass --session-key explicitly.\n")
             return 2
