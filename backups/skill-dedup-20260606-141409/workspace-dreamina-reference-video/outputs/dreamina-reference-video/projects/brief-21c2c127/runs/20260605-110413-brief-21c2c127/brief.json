@@ -1,0 +1,56 @@
+{
+  "project_name": "然利手工中考祝福品牌海报，中心为红金学习用品花形奖章装置，右下角瑞士卷蛋糕包装，底部红色祝福条幅",
+  "project_slug": "brief-21c2c127",
+  "ratio": "3:4",
+  "duration": 5,
+  "quality_tier": "fast_vip",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": null,
+  "storyboard_beats_override": [
+    "0–0.6s：白底画面里，单个瑞士卷从下方被丢上来，带一点轻弹感",
+    "0.6–1.4s：瑞士卷在画面中心持续旋转，奶油旋纹形成很强的圆形动势",
+    "1.4–2s：旋转中心顺势长出六个学习用品花瓣，开始往努力主装置过渡",
+    "2–3.2s：瑞士卷/中心装置在高速旋转里做一次利落的翻面切换，前一瞬还是旋转中的卷面，后一瞬已经顺势翻成海报中心完整主视觉；主标题努力，自然顺利同步清晰落位",
+    "3.2–4.3s：右下产品包装轻推入位，底部红色祝福条幅同步落位，金星轻闪一下",
+    "4.3–5s：全部元素稳定回到定版海报，停住收尾"
+  ],
+  "storyboard_beats": [
+    "白底起势：单个瑞士卷从画面下方被丢上来，带轻弹感",
+    "旋转动势：瑞士卷在中心持续旋转，奶油旋纹形成强圆形动势",
+    "装置生长：旋转中心顺势长出六个学习用品花瓣，过渡成努力主装置",
+    "翻面切换：瑞士卷/中心装置高速旋转中利落翻面切换，直接变成海报中心完整主视觉，标题努力，自然顺利同步落位",
+    "元素落位：右下产品包装轻推入位，底部祝福条与金星同步落位",
+    "尾帧锁版：全部元素稳定回到定版海报并停住"
+  ],
+  "storyboard_panel_count": 4,
+  "identity_strategy": "reuse_exact",
+  "identity_anchor_rules": [],
+  "identity_structure": [
+    "尾帧必须严格复用定版海报构图、文字、Logo、产品包装和底部红色条幅",
+    "中心花形学习用品奖章装置保持红金配色和六瓣结构",
+    "右下角产品包装保持瑞士卷蛋糕包装外观，不得更换口味或包装信息",
+    "品牌Logo保持然利手工字样，不得变形或改字",
+    "最终画面标题文字保持努力，自然顺利，底部文案保持落笔从容，一切都顺。"
+  ],
+  "identity_forbidden": [
+    "禁止改动定版尾帧文字内容",
+    "禁止新增无关人物、考生、学校、教室或杂乱背景",
+    "禁止把产品包装变成其他食品或其他品牌",
+    "禁止让Logo和中文文字漂移、乱码、变形",
+    "禁止尾帧与定版海报构图不一致"
+  ],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "无IP角色，以品牌海报动效逻辑为主。故事板只体现镜头与版式变化，不体现角色一致性。",
+  "normalize_references": true,
+  "subject": "然利手工中考祝福品牌海报，中心为红金学习用品花形奖章装置，右下角瑞士卷蛋糕包装，底部红色祝福条幅",
+  "action": "0-2秒先是一个瑞士卷从画面下方丢上来并持续旋转，2-3.2秒做利落的翻面切换变成海报中心主视觉，随后产品包装、底部条幅和金星依次落位，最后稳定回到定版尾帧海报",
+  "scene": "白色干净商业海报背景，红金品牌色，中考祝福氛围，画面最终必须与定版尾帧海报一致",
+  "style": "高级品牌感商业短视频，干净明亮，轻微3D质感，镜头缓慢推进，光影柔和，节奏稳，不夸张不花哨",
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/outputs/dreamina-tailframe-video-20260605/refs/final_frame_poster.jpg",
+    "identity_source": "/Users/a123/.openclaw/workspace/outputs/dreamina-tailframe-video-20260605/refs/final_frame_poster.jpg"
+  },
+  "slug": "brief-21c2c127"
+}

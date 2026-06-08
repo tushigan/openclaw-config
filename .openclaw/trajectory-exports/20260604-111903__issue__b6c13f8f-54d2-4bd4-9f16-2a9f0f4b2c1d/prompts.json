@@ -1,0 +1,333 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-04T03:19:04.722Z",
+  "traceId": "f1b2fe79-ac0e-4e78-bd55-d2d04c45ba2f",
+  "sessionId": "f1b2fe79-ac0e-4e78-bd55-d2d04c45ba2f",
+  "sessionKey": "agent:main:cron:b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d",
+  "system": "You are a personal assistant running inside OpenClaw.\n## Tooling\nTool availability (filtered by policy):\nTool names are case-sensitive. Call tools exactly as listed.\n- read: Read file contents\n- exec: Run shell commands (pty available for TTY-required CLIs)\n- message: Send messages and channel actions\nTOOLS.md does not control tool availability; it is user guidance for how to use external tools.\nFor long waits, avoid rapid poll loops: use exec with enough yieldMs or process(action=poll, timeout=<ms>).\nIf a task is more complex or takes longer, spawn a sub-agent. Completion is push-based: it will auto-announce when done.\nSub-agents start isolated by default. Use `sessions_spawn` with `context:\"fork\"` only when the child needs the current transcript context; otherwise omit `context` or use `context:\"isolated\"`.\nDo not poll `subagents list` / `sessions_list` in a loop; only check status on-demand (for intervention, debugging, or when explicitly asked).\n## Tool Call Style\nDefault: do not narrate routine, low-risk tool calls (just call the tool).\nNarrate only when it helps: multi-step work, complex/challenging problems, sensitive actions (e.g., deletions), or when the user explicitly asks.\nKeep narration brief and value-dense; avoid repeating obvious steps.\nUse plain human language for narration unless in a technical context.\nWhen a first-class tool exists for an action, use the tool directly instead of asking the user to run equivalent CLI or slash commands.\nWhen exec returns approval-pending, include the concrete /approve command from the tool output's \"Reply with:\" line as plain chat text for the user, and do not ask for a different or rotated code.\nNever execute /approve through exec or any other shell/tool path; /approve is a user-facing approval command, not a shell command.\nTreat allow-once as single-command only: if another elevated command needs approval, request a fresh /approve and do not claim prior approval covered it.\nWhen approvals are required, preserve a...<truncated>",
+  "submittedPrompts": [
+    "[cron:b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d OpenClaw交付补偿巡检-涂是淦] 你是 OpenClaw 交付补偿巡检。目标：发现最近任务完成但没有反馈、图片/视频已生成但没有真实发到飞书、或 agent 承诺执行但没有启动工具/需要用户催促才继续的问题，并主动补救。\n\n步骤：\n1. 先执行 `python3 $WORKSPACE_DIR/scripts/feishu-id-registry.py scan --since-days 14 --json`，刷新飞书群聊/私聊 ID registry。\n2. 再执行 `python3 $WORKSPACE_DIR/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5`。\n3. 如果结果里 `stalled_commitments`、`background_execs`、`subagents` 和 `undelivered_manifests` 都为空，直接结束，不要向用户发送任何消息。\n4. 发送补偿消息/媒体时，优先使用 finding 里的 `target` 作为 `target`、`account_id` 作为 `accountId`，把结果发回原群/原会话。`target` 可能是 `chat:oc_xxx`，也可能是 `user:ou_xxx`。如果 finding 没有 `target`，但有 `source_session_file`，再用 `python3 $WORKSPACE_DIR/scripts/feishu-id-registry.py resolve --session-file <session_file> --json` 查 registry。只有仍然没有可用 `target` 时，才允许考虑 fallback 给 `target=\"user:ou_88079e6b06ce40e6851c96928fe1a03b\"`、`accountId=\"main\"`，并且必须在消息里明确说明原任务属主和解析失败原因。\n5. 如果存在 `stalled_commitments`，说明某个会话说了“我先生成/开始跑/下一步发图”等承诺，但超过 5 分钟没有主动启动工具，或 finding 里 `required_user_chase=true` 表示用户追问后才继续。先根据 `session_file` 和文本判断任务；若能从上下文恢复输入，就继续启动对应生成/发送流程；若不能恢复，给原会话发一条短说明：任务没有真正启动或没有主动交付，需要重新发起或补充输入。不要装作还在处理。\n6. 如果存在 `background_execs`，逐条查看 `command`：对 Dreamina/即梦任务，先执行 `dreamina list_task`，找到最近同 prompt/同任务类型的记录；若是 `querying`，继续 `dreamina query_result --submit_id=...`；若是 `success`，下载视频/图片到 `$WORKSPACE_DIR/workspace/feishu-deliver/` 后发送真实媒体；若是 `fail`，把 `fail_reason` 短告知用户。对 Kling/其它异步命令，也按命令里的 task id 或输出路径查询结果。不能只发 URL 或本地路径文本。\n7. 如果存在 `pending_final_delivery=true`、`subagent-error`、或 `undelivered_manifests`，先判断是否有可发送文件：优先使用每条 manifest 的 `send_path`，且必须确认 `send_path_exists=true`。注意：这里包括品牌海报 manifest，也包括普通生图工具的 `images/*.delivery.json` / `outputs/*.delivery.json`。如果 finding 的 `target_resolved=false`，先看是否至少有 `fallback_owner_summary`、`source_sender_name`、`source_sender_open_id`、`source_session_file`、`target_conflict_reason` 这些属主和失败线索。\n\n7.5. 【重要】检查每条 finding 的 `target_confidence` 字段。如果 `target_confidence` 为 `low`，说明 targe...<truncated>"
+  ],
+  "latestSubmittedPrompt": "[cron:b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d OpenClaw交付补偿巡检-涂是淦] 你是 OpenClaw 交付补偿巡检。目标：发现最近任务完成但没有反馈、图片/视频已生成但没有真实发到飞书、或 agent 承诺执行但没有启动工具/需要用户催促才继续的问题，并主动补救。\n\n步骤：\n1. 先执行 `python3 $WORKSPACE_DIR/scripts/feishu-id-registry.py scan --since-days 14 --json`，刷新飞书群聊/私聊 ID registry。\n2. 再执行 `python3 $WORKSPACE_DIR/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5`。\n3. 如果结果里 `stalled_commitments`、`background_execs`、`subagents` 和 `undelivered_manifests` 都为空，直接结束，不要向用户发送任何消息。\n4. 发送补偿消息/媒体时，优先使用 finding 里的 `target` 作为 `target`、`account_id` 作为 `accountId`，把结果发回原群/原会话。`target` 可能是 `chat:oc_xxx`，也可能是 `user:ou_xxx`。如果 finding 没有 `target`，但有 `source_session_file`，再用 `python3 $WORKSPACE_DIR/scripts/feishu-id-registry.py resolve --session-file <session_file> --json` 查 registry。只有仍然没有可用 `target` 时，才允许考虑 fallback 给 `target=\"user:ou_88079e6b06ce40e6851c96928fe1a03b\"`、`accountId=\"main\"`，并且必须在消息里明确说明原任务属主和解析失败原因。\n5. 如果存在 `stalled_commitments`，说明某个会话说了“我先生成/开始跑/下一步发图”等承诺，但超过 5 分钟没有主动启动工具，或 finding 里 `required_user_chase=true` 表示用户追问后才继续。先根据 `session_file` 和文本判断任务；若能从上下文恢复输入，就继续启动对应生成/发送流程；若不能恢复，给原会话发一条短说明：任务没有真正启动或没有主动交付，需要重新发起或补充输入。不要装作还在处理。\n6. 如果存在 `background_execs`，逐条查看 `command`：对 Dreamina/即梦任务，先执行 `dreamina list_task`，找到最近同 prompt/同任务类型的记录；若是 `querying`，继续 `dreamina query_result --submit_id=...`；若是 `success`，下载视频/图片到 `$WORKSPACE_DIR/workspace/feishu-deliver/` 后发送真实媒体；若是 `fail`，把 `fail_reason` 短告知用户。对 Kling/其它异步命令，也按命令里的 task id 或输出路径查询结果。不能只发 URL 或本地路径文本。\n7. 如果存在 `pending_final_delivery=true`、`subagent-error`、或 `undelivered_manifests`，先判断是否有可发送文件：优先使用每条 manifest 的 `send_path`，且必须确认 `send_path_exists=true`。注意：这里包括品牌海报 manifest，也包括普通生图工具的 `images/*.delivery.json` / `outputs/*.delivery.json`。如果 finding 的 `target_resolved=false`，先看是否至少有 `fallback_owner_summary`、`source_sender_name`、`source_sender_open_id`、`source_session_file`、`target_conflict_reason` 这些属主和失败线索。\n\n7.5. 【重要】检查每条 finding 的 `target_confidence` 字段。如果 `target_confidence` 为 `low`，说明 targe...<truncated>",
+  "skillsPrompt": "⚠️ Skills catalog using compact format (descriptions omitted). Run `openclaw skills check` to audit.\n\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its name.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>brand-poster-creator</name>\n    <location>~/.openclaw/workspace/skills/brand-poster-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>brand-poster-distiller</name>\n    <location>~/.openclaw/workspace/skills/brand-poster-distiller/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>browser-automation</name>\n    <location>~/.openclaw/plugin-skills/browser-automation/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>business-project-intake</name>\n    <location>~/.openclaw/skills/business-project-intake/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>creative-director</name>\n    <location>~/.openclaw/workspace-strategy/skills/creative-director/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>diagnose</name>\n    <location>~/.agents/skills/diagnose/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>dreamina-cli</name>\n    <location>~/.openclaw/workspace/skills/dreamina-cli/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>dreamina-reference-video</name>\n    <location>~/.openclaw/workspace/skills/dreamina-reference-video/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-bitable</name>\n    <location>~/.openclaw/plugin-skills/feishu-bitable/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-calendar</name>\n    <location>~/.openclaw/plugin-skills/feishu-calendar/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-channel-rules</name>\n    <location>~/.openclaw/plugin-skills/feishu-channel-rules/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-create-doc</name>\n    <location>~/.openclaw/plugin-skills/feishu-create-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-fetch-doc</name>\n    <location>~/.openclaw/plugin-skills/feishu-fetch-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-im-read</name>\n    <location>~/.openclaw/plugin-skills/feishu-im-read/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-task</name>\n    <location>~/.openclaw/plugin-skills/feishu-task/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-troubleshoot</name>\n    <location>~/.openclaw/plugin-skills/feishu-troubleshoot/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-update-doc</name>\n    <location>~/.openclaw/plugin-skills/feishu-update-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>gpt-image2-gen</name>\n    <location>~/.openclaw/workspace-design/skills/gpt-image2-gen/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>grill-me</name>\n    <location>~/.agents/skills/grill-me/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>grill-with-docs</name>\n    <location>~/.agents/skills/grill-with-docs/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>handoff</name>\n    <location>~/.agents/skills/handoff/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>improve-codebase-architecture</name>\n    <location>~/.agents/skills/improve-codebase-architecture/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>internal-interview-research</name>\n    <location>~/.openclaw/workspace-research/skills/internal-interview-research/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-approval</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-approval/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-attendance</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-attendance/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-base</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-base/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-calendar</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-calendar/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-contact</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-contact/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-doc</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-drive</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-event</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-event/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-im</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-im/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-mail</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-mail/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-markdown</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-markdown/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-minutes</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-minutes/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-okr</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-okr/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-openapi-explorer</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-openapi-explorer/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-shared</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-shared/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-sheets</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-sheets/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-skill-maker</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-skill-maker/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-slides</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-slides/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-task</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-task/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-vc</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-vc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-whiteboard</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-whiteboard/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-wiki</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-workflow-meeting-summary</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-workflow-meeting-summary/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-workflow-standup-report</name>\n    <location>~/.openclaw/workspace/.agents/skills/lark-workflow-standup-report/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>multi-search-engine</name>\n    <location>~/.openclaw/skills/multi-search-engine/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>nanobanana-ppt</name>\n    <location>~/.agents/skills/nanobanana-ppt/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>node-connect</name>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/node-connect/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>outline-architect</name>\n    <location>~/.openclaw/workspace-strategy/skills/outline-architect/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>pdf-smart-tool-cn</name>\n    <location>~/.openclaw/workspace-strategy/skills/pdf-smart-tool-cn/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>psd-layered-rebuilder</name>\n    <location>~/.openclaw/workspace-design/skills/psd-layered-rebuilder/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>quote-skill</name>\n    <location>~/.openclaw/workspace/skills/quote-skill/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>research-analyst</name>\n    <location>~/.openclaw/workspace-research/skills/research-analyst/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>RunningHub</name>\n    <location>~/.openclaw/workspace-design/skills/runninghub/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>session-debug-export</name>\n    <location>~/.openclaw/skills/session-debug-export/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>session-logs</name>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/session-logs/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <location>~/.agents/skills/skill-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow</name>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/taskflow/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow-inbox-triage</name>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/taskflow-inbox-triage/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>video-expert-analyzer</name>\n    <location>~/.openclaw/workspace/skills/video-expert-analyzer/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>video-frames</name>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/video-frames/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>visual-production</name>\n    <location>~/.openclaw/workspace-design/skills/visual-production/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>web-browse-capture</name>\n    <location>~/.openclaw/workspace/skills/web-browse-capture/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>wechat-article-reader</name>\n    <location>~/.openclaw/skills/wechat-article-reader/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>xiangqingye-desigen</name>\n    <location>~/.openclaw/skills/xiangqingye-desigen/SKILL.md</location>\n  </skill>\n</available_skills>",
+  "systemPromptReport": {
+    "source": "run",
+    "generatedAt": 1780542007564,
+    "sessionId": "f1b2fe79-ac0e-4e78-bd55-d2d04c45ba2f",
+    "sessionKey": "agent:main:cron:b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d:run:f1b2fe79-ac0e-4e78-bd55-d2d04c45ba2f",
+    "provider": "cc-vibe",
+    "model": "claude-opus-4-8",
+    "workspaceDir": "$WORKSPACE_DIR/workspace",
+    "bootstrapMaxChars": 12000,
+    "bootstrapTotalMaxChars": 60000,
+    "bootstrapTruncation": {
+      "warningMode": "once",
+      "warningShown": false,
+      "truncatedFiles": 0,
+      "nearLimitFiles": 0,
+      "totalNearLimit": false
+    },
+    "sandbox": {
+      "mode": "off",
+      "sandboxed": false
+    },
+    "systemPrompt": {
+      "chars": 4554,
+      "projectContextChars": 0,
+      "nonProjectContextChars": 4554
+    },
+    "injectedWorkspaceFiles": [],
+    "skills": {
+      "promptChars": 9856,
+      "entries": [
+        {
+          "name": "brand-poster-creator",
+          "blockChars": 140
+        },
+        {
+          "name": "brand-poster-distiller",
+          "blockChars": 144
+        },
+        {
+          "name": "browser-automation",
+          "blockChars": 133
+        },
+        {
+          "name": "business-project-intake",
+          "blockChars": 136
+        },
+        {
+          "name": "creative-director",
+          "blockChars": 143
+        },
+        {
+          "name": "diagnose",
+          "blockChars": 104
+        },
+        {
+          "name": "dreamina-cli",
+          "blockChars": 124
+        },
+        {
+          "name": "dreamina-reference-video",
+          "blockChars": 148
+        },
+        {
+          "name": "feishu-bitable",
+          "blockChars": 125
+        },
+        {
+          "name": "feishu-calendar",
+          "blockChars": 127
+        },
+        {
+          "name": "feishu-channel-rules",
+          "blockChars": 137
+        },
+        {
+          "name": "feishu-create-doc",
+          "blockChars": 131
+        },
+        {
+          "name": "feishu-fetch-doc",
+          "blockChars": 129
+        },
+        {
+          "name": "feishu-im-read",
+          "blockChars": 125
+        },
+        {
+          "name": "feishu-task",
+          "blockChars": 119
+        },
+        {
+          "name": "feishu-troubleshoot",
+          "blockChars": 135
+        },
+        {
+          "name": "feishu-update-doc",
+          "blockChars": 131
+        },
+        {
+          "name": "gpt-image2-gen",
+          "blockChars": 135
+        },
+        {
+          "name": "grill-me",
+          "blockChars": 104
+        },
+        {
+          "name": "grill-with-docs",
+          "blockChars": 118
+        },
+        {
+          "name": "handoff",
+          "blockChars": 102
+        },
+        {
+          "name": "healthcheck",
+          "blockChars": 140
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "blockChars": 146
+        },
+        {
+          "name": "internal-interview-research",
+          "blockChars": 163
+        },
+        {
+          "name": "lark-approval",
+          "blockChars": 134
+        },
+        {
+          "name": "lark-attendance",
+          "blockChars": 138
+        },
+        {
+          "name": "lark-base",
+          "blockChars": 126
+        },
+        {
+          "name": "lark-calendar",
+          "blockChars": 134
+        },
+        {
+          "name": "lark-contact",
+          "blockChars": 132
+        },
+        {
+          "name": "lark-doc",
+          "blockChars": 124
+        },
+        {
+          "name": "lark-drive",
+          "blockChars": 128
+        },
+        {
+          "name": "lark-event",
+          "blockChars": 128
+        },
+        {
+          "name": "lark-im",
+          "blockChars": 122
+        },
+        {
+          "name": "lark-mail",
+          "blockChars": 126
+        },
+        {
+          "name": "lark-markdown",
+          "blockChars": 134
+        },
+        {
+          "name": "lark-minutes",
+          "blockChars": 132
+        },
+        {
+          "name": "lark-okr",
+          "blockChars": 124
+        },
+        {
+          "name": "lark-openapi-explorer",
+          "blockChars": 150
+        },
+        {
+          "name": "lark-shared",
+          "blockChars": 130
+        },
+        {
+          "name": "lark-sheets",
+          "blockChars": 130
+        },
+        {
+          "name": "lark-skill-maker",
+          "blockChars": 140
+        },
+        {
+          "name": "lark-slides",
+          "blockChars": 130
+        },
+        {
+          "name": "lark-task",
+          "blockChars": 126
+        },
+        {
+          "name": "lark-vc",
+          "blockChars": 122
+        },
+        {
+          "name": "lark-whiteboard",
+          "blockChars": 138
+        },
+        {
+          "name": "lark-wiki",
+          "blockChars": 126
+        },
+        {
+          "name": "lark-workflow-meeting-summary",
+          "blockChars": 166
+        },
+        {
+          "name": "lark-workflow-standup-report",
+          "blockChars": 164
+        },
+        {
+          "name": "multi-search-engine",
+          "blockChars": 128
+        },
+        {
+          "name": "nanobanana-ppt",
+          "blockChars": 116
+        },
+        {
+          "name": "node-connect",
+          "blockChars": 142
+        },
+        {
+          "name": "outline-architect",
+          "blockChars": 143
+        },
+        {
+          "name": "pdf-smart-tool-cn",
+          "blockChars": 143
+        },
+        {
+          "name": "psd-layered-rebuilder",
+          "blockChars": 149
+        },
+        {
+          "name": "quote-skill",
+          "blockChars": 122
+        },
+        {
+          "name": "research-analyst",
+          "blockChars": 141
+        },
+        {
+          "name": "RunningHub",
+          "blockChars": 127
+        },
+        {
+          "name": "session-debug-export",
+          "blockChars": 130
+        },
+        {
+          "name": "session-logs",
+          "blockChars": 142
+        },
+        {
+          "name": "skill-creator",
+          "blockChars": 114
+        },
+        {
+          "name": "taskflow",
+          "blockChars": 134
+        },
+        {
+          "name": "taskflow-inbox-triage",
+          "blockChars": 160
+        },
+        {
+          "name": "video-expert-analyzer",
+          "blockChars": 142
+        },
+        {
+          "name": "video-frames",
+          "blockChars": 142
+        },
+        {
+          "truncated": true,
+          "reason": "trajectory-array-size-limit",
+          "originalLength": 69,
+          "limitItems": 64
+        }
+      ]
+    },
+    "tools": {
+      "listChars": 0,
+      "schemaChars": 7647,
+      "entries": [
+        {
+          "name": "read",
+          "summaryChars": 298,
+          "schemaChars": 304,
+          "propertiesCount": 3
+        },
+        {
+          "name": "exec",
+          "summaryChars": 446,
+          "schemaChars": 1139,
+          "propertiesCount": 12
+        },
+        {
+          "name": "message",
+          "summaryChars": 123,
+          "schemaChars": 6204,
+          "propertiesCount": 108
+        }
+      ]
+    }
+  }
+}

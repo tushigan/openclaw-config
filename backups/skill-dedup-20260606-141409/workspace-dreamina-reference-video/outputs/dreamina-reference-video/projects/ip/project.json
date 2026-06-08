@@ -1,0 +1,255 @@
+{
+  "schema_version": 2,
+  "project_id": "ip",
+  "project_name": "乐麦隆品牌IP小恐龙与云朵软吐司",
+  "project_slug": "ip",
+  "project_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip",
+  "defaults": {
+    "ratio": "9:16",
+    "duration": 8,
+    "quality_tier": "draft",
+    "storyboard_strategy": "auto_beats",
+    "normalize_references": true,
+    "identity_strategy": "reuse_exact"
+  },
+  "constraints": {
+    "must_have": [
+      {
+        "id": "structure-0",
+        "type": "must_have",
+        "description": "IP是白色小恐龙/小龙，黑色粗描边，大眼睛，红围巾，橙黄色面包帽",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-1",
+        "type": "must_have",
+        "description": "身体比例圆润短胖，尾巴和背部三角刺清晰可见",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-2",
+        "type": "must_have",
+        "description": "云朵软吐司保持云朵轮廓、金黄外皮、柔软白色面包芯",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-3",
+        "type": "must_have",
+        "description": "尾帧必须回到定版海报构图：标题在上，IP抱住云朵吐司，云台承托主体",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      }
+    ],
+    "must_not_have": [
+      {
+        "id": "forbidden-0",
+        "type": "must_not_have",
+        "description": "禁止把IP变成普通恐龙、猫、熊或其他角色",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-1",
+        "type": "must_not_have",
+        "description": "禁止改变红围巾、面包帽、身体比例和黑色描边",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-2",
+        "type": "must_not_have",
+        "description": "禁止把云朵吐司变成普通方吐司、蛋糕、欧包或其他面包",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-3",
+        "type": "must_not_have",
+        "description": "禁止改标题文字、错字、让文字飘散或变形",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-4",
+        "type": "must_not_have",
+        "description": "禁止新增Logo、二维码、按钮、卖点图标或复杂装饰",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-5",
+        "type": "must_not_have",
+        "description": "禁止强烈镜头晃动、飞行大动作、MV式转场",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      }
+    ],
+    "prefer": []
+  },
+  "validation_rules": {
+    "reference_system": [],
+    "storyboard": [],
+    "video": []
+  },
+  "iteration_strategy": {
+    "max_iterations": 3,
+    "max_same_error_repeats": 2,
+    "improvement_threshold": 0.15,
+    "ask_user_on_manual_checks": true
+  },
+  "canonical_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/canonical/original.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/canonical/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/canonical/identity-board.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/canonical/final-frame-poster.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/canonical/storyboard.png"
+  },
+  "state": {
+    "status": "video_result_fetched",
+    "current_phase": "fetch_result",
+    "latest_run_id": "20260605-121053-ip",
+    "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip",
+    "updated_at": "2026-06-05T14:05:20+08:00"
+  },
+  "runs": [
+    {
+      "run_id": "20260528-222238-ip",
+      "stage": "fetch_result",
+      "status": "video_result_fetched",
+      "run_dir": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip",
+      "brief_file": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/brief.json",
+      "summary_file": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/summary.md",
+      "prompt_files": {
+        "original": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/prompts/original.txt",
+        "identity_board": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/prompts/identity-board.txt",
+        "storyboard": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/prompts/storyboard.txt",
+        "video": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/original.png",
+        "identity_source": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/identity-source.png",
+        "identity_board": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/identity-board.png",
+        "storyboard": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/storyboard.png",
+        "final_frame_poster": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/final-frame-poster.png",
+        "normalized_manifest": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-05-28T23:35:47+08:00",
+      "created_at": "2026-05-28T22:22:38+08:00",
+      "submit_id": "0709bf24-35b6-478b-b43a-bc847eccc895",
+      "result_file": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/dreamina/result.json",
+      "downloads_dir": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/dreamina/downloads"
+    },
+    {
+      "run_id": "20260605-112234-ip",
+      "stage": "submit_video",
+      "status": "video_submitted",
+      "run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip",
+      "brief_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/brief.json",
+      "summary_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/summary.md",
+      "prompt_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/prompts/original.txt",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/prompts/identity-board.txt",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/prompts/storyboard.txt",
+        "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/refs/original.png",
+        "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/refs/identity-source.png",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/refs/identity-board.png",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/refs/storyboard.png",
+        "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/refs/final-frame-poster.png",
+        "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-06-05T11:46:29+08:00",
+      "created_at": "2026-06-05T11:22:35+08:00",
+      "submit_id": "8cf1af34-13bb-4bb0-9192-e2d7c57bef8e",
+      "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-112234-ip/dreamina/result.json"
+    },
+    {
+      "run_id": "20260605-121053-ip",
+      "stage": "fetch_result",
+      "status": "video_result_fetched",
+      "run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip",
+      "brief_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/brief.json",
+      "summary_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/summary.md",
+      "prompt_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/prompts/original.txt",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/prompts/identity-board.txt",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/prompts/storyboard.txt",
+        "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/original.png",
+        "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/identity-source.png",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/identity-board.png",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/storyboard.png",
+        "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/final-frame-poster.png",
+        "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-06-05T14:05:20+08:00",
+      "created_at": "2026-06-05T12:10:53+08:00",
+      "submit_id": "4b2f9662-e9f3-441e-9bae-1b8c41676399",
+      "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/dreamina/result.json",
+      "downloads_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/dreamina/downloads"
+    }
+  ],
+  "created_at": "2026-05-28T22:22:38+08:00",
+  "updated_at": "2026-06-05T14:05:20+08:00",
+  "status": "video_result_fetched",
+  "current_phase": "fetch_result",
+  "latest_run_id": "20260605-121053-ip",
+  "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip"
+}

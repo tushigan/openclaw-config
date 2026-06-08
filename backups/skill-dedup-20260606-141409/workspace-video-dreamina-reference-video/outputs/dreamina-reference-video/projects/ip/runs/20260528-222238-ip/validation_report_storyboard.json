@@ -1,0 +1,48 @@
+{
+  "stage": "storyboard",
+  "passed": true,
+  "score": 1.0,
+  "issues": [],
+  "manual_checks": [
+    {
+      "id": "storyboard_panel_aspect",
+      "description": "故事板每一格是否都是 9:16 画幅？（不是横向长条）",
+      "checked": true
+    },
+    {
+      "id": "storyboard_panel_count",
+      "description": "故事板是否有 6 格？",
+      "checked": true
+    },
+    {
+      "id": "storyboard_continuity",
+      "description": "故事板是否保持连续空间？（不是每格重造世界）",
+      "checked": true
+    }
+  ],
+  "recovery_actions": [
+    {
+      "action": "refresh_project_canonical_manifest",
+      "target": "outputs/dreamina-reference-video/projects/ip/project.json"
+    },
+    {
+      "action": "refresh_run_state",
+      "target": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/run_state.json"
+    },
+    {
+      "action": "sync_canonical_reference",
+      "source": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/storyboard.png",
+      "target": "outputs/dreamina-reference-video/projects/ip/canonical/storyboard.png"
+    },
+    {
+      "action": "sync_canonical_reference",
+      "source": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/original.png",
+      "target": "outputs/dreamina-reference-video/projects/ip/canonical/original.png"
+    },
+    {
+      "action": "sync_canonical_reference",
+      "source": "outputs/dreamina-reference-video/projects/ip/runs/20260528-222238-ip/refs/identity-source.png",
+      "target": "outputs/dreamina-reference-video/projects/ip/canonical/identity-source.png"
+    }
+  ]
+}

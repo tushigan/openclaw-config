@@ -2,58 +2,171 @@
   "version": 1,
   "jobs": {
     "e489dfcf-dc9f-4481-b96c-58ab5b3928f4": {
-      "updatedAtMs": 1780254026779,
+      "updatedAtMs": 1780858900587,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 3 * * *\"}}",
       "state": {
-        "nextRunAtMs": 1780340400000,
-        "lastRunAtMs": 1780254000010,
+        "nextRunAtMs": 1780945200000,
+        "lastRunAtMs": 1780858800013,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 26769,
+        "lastDurationMs": 100574,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "616f4650-758f-411d-bfb3-d363fb62347f": {
-      "updatedAtMs": 1780268549122,
+      "updatedAtMs": 1780873333301,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1780354800000,
-        "lastRunAtMs": 1780268400007,
+        "nextRunAtMs": 1780959600000,
+        "lastRunAtMs": 1780873200010,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 149115,
+        "lastDurationMs": 133291,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "da698c09-e032-4186-a941-4a736674bab3": {
-      "updatedAtMs": 1780270280636,
+      "updatedAtMs": 1780875086857,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"30 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1780356600000,
-        "lastRunAtMs": 1780270200007,
+        "nextRunAtMs": 1780961400000,
+        "lastRunAtMs": 1780875000009,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 80629,
+        "lastDurationMs": 86848,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d": {
-      "updatedAtMs": 1780327901530,
+      "updatedAtMs": 1780905907667,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"*/30 9-23 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1780362000000,
-        "lastRunAtMs": 1780327800010,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 101520,
+        "nextRunAtMs": 1780907400000,
+        "lastRunAtMs": 1780905600215,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 307452,
         "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 0,
+        "consecutiveErrors": 3,
+        "consecutiveSkipped": 0,
+        "lastDiagnostics": {
+          "summary": "cron: job execution timed out",
+          "entries": [
+            {
+              "ts": 1780905907666,
+              "source": "cron-setup",
+              "severity": "error",
+              "message": "cron: job execution timed out"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "cron: job execution timed out",
+        "lastErrorReason": "timeout",
+        "lastError": "cron: job execution timed out"
+      }
+    },
+    "c28045b2-dfb5-4b99-988c-200c64ff6fdf": {
+      "updatedAtMs": 1780882138021,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"23 9 * * *\"}}",
+      "state": {
+        "nextRunAtMs": 1780968180000,
+        "lastRunAtMs": 1780881780073,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 357948,
+        "lastError": "AxiosError: Request failed with status code 400",
+        "lastDiagnostics": {
+          "summary": "AxiosError: Request failed with status code 400",
+          "entries": [
+            {
+              "ts": 1780882137743,
+              "source": "tool",
+              "severity": "error",
+              "message": "⚠️ ✉️ Message failed: Request failed with status code 400"
+            },
+            {
+              "ts": 1780882138020,
+              "source": "delivery",
+              "severity": "error",
+              "message": "AxiosError: Request failed with status code 400"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "AxiosError: Request failed with status code 400",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "consecutiveSkipped": 0
+      }
+    },
+    "aa61bc74-0014-4482-93f7-b504e9e9f07e": {
+      "updatedAtMs": 1780836686729,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"47 20 * * *\"}}",
+      "state": {
+        "nextRunAtMs": 1780922820000,
+        "lastRunAtMs": 1780836420073,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 266656,
+        "lastError": "AxiosError: Request failed with status code 400",
+        "lastDiagnostics": {
+          "summary": "AxiosError: Request failed with status code 400",
+          "entries": [
+            {
+              "ts": 1780836686292,
+              "source": "tool",
+              "severity": "error",
+              "message": "⚠️ ✉️ Message failed: Request failed with status code 400"
+            },
+            {
+              "ts": 1780836686728,
+              "source": "delivery",
+              "severity": "error",
+              "message": "AxiosError: Request failed with status code 400"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "AxiosError: Request failed with status code 400",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "consecutiveSkipped": 0
+      }
+    },
+    "c9b9656e-dbfb-4e81-a370-1c7dbd663720": {
+      "updatedAtMs": 1780884454768,
+      "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 10 * * *\",\"tz\":\"Asia/Shanghai\"}}",
+      "state": {
+        "nextRunAtMs": 1780970400000,
+        "lastRunAtMs": 1780884130572,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 324196,
+        "lastError": "AxiosError: Request failed with status code 400",
+        "lastDiagnostics": {
+          "summary": "AxiosError: Request failed with status code 400",
+          "entries": [
+            {
+              "ts": 1780884454217,
+              "source": "tool",
+              "severity": "error",
+              "message": "⚠️ ✉️ Message failed: Request failed with status code 400"
+            },
+            {
+              "ts": 1780884454757,
+              "source": "delivery",
+              "severity": "error",
+              "message": "AxiosError: Request failed with status code 400"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "AxiosError: Request failed with status code 400",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
         "consecutiveSkipped": 0
       }
     }

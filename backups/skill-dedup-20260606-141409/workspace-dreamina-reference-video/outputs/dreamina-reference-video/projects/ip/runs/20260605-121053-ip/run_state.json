@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "run_id": "20260605-121053-ip",
+  "project_id": "ip",
+  "stage": "fetch_result",
+  "status": "video_result_fetched",
+  "created_at": "2026-06-05T12:10:53+08:00",
+  "updated_at": "2026-06-05T14:05:20+08:00",
+  "config_snapshot": {
+    "project_name": "乐麦隆品牌IP小恐龙与云朵软吐司",
+    "project_slug": "ip",
+    "ratio": "9:16",
+    "duration": 5,
+    "quality_tier": "draft",
+    "language": "zh-CN",
+    "storyboard_strategy": "auto_beats",
+    "storyboard_panel_count_override": null,
+    "storyboard_beats_override": [],
+    "identity_strategy": "reuse_exact",
+    "identity_anchor_rules": [],
+    "identity_structure": [
+      "IP是白色小恐龙/小龙，黑色粗描边，大眼睛，红围巾，橙黄色面包帽",
+      "身体比例圆润短胖，尾巴和背部三角刺清晰可见",
+      "云朵软吐司保持云朵轮廓、金黄外皮、柔软白色面包芯",
+      "尾帧必须回到定版海报构图：标题在上，IP抱住云朵吐司，云台承托主体"
+    ],
+    "identity_forbidden": [
+      "禁止把IP变成普通恐龙、猫、熊或其他角色",
+      "禁止改变红围巾、面包帽、身体比例和黑色描边",
+      "禁止把云朵吐司变成普通方吐司、蛋糕、欧包或其他面包",
+      "禁止改标题文字、错字、让文字飘散或变形",
+      "禁止新增Logo、二维码、按钮、卖点图标或复杂装饰",
+      "禁止强烈镜头晃动、飞行大动作、MV式转场"
+    ],
+    "has_existing_references": true,
+    "anchor_elements": [],
+    "notes": "",
+    "normalize_references": true,
+    "subject": "乐麦隆品牌IP小恐龙与云朵软吐司",
+    "action": "云朵从蓝天里轻轻聚拢，托起云朵软吐司；IP轻柔靠近并抱住吐司，最后精准落到定版海报",
+    "scene": "清新蓝天白云世界，柔软云台，空气感强，适合产品上新微视频",
+    "style": "蓝白清新、简洁大气、柔软治愈、商业海报微动效，不做复杂剧情动画",
+    "existing_references": {
+      "final_frame_poster": "/Users/a123/.openclaw/workspace/outputs/dreamina-cloud-toast-video/assets/final_frame_poster.jpg",
+      "identity_source": "/Users/a123/.openclaw/workspace/outputs/dreamina-cloud-toast-video/assets/ip_front.png"
+    },
+    "confirmed_creative": {
+      "name": "云朵托起新品",
+      "beats": [
+        "0-1s：蓝天白云开场，云朵轻轻聚拢形成云台",
+        "1-2.5s：云朵软吐司从云台中轻轻浮现，保持云朵形状",
+        "2.5-4s：IP从右侧轻柔靠近并抱住吐司，轻微眨眼/呼吸/围巾轻摆",
+        "4-5s：标题稳定出现，画面精准落到尾帧定版海报，最后0.5秒停住"
+      ]
+    },
+    "storyboard_beats": [
+      "建立空间：清新蓝天白云世界，柔软云台，空气感强，适合产品上新微视频",
+      "动作推进：云朵从蓝天里轻轻聚拢",
+      "动作推进：托起云朵软吐司",
+      "动作推进：IP轻柔靠近并抱住吐司",
+      "收束定格：精准落到定版海报"
+    ],
+    "storyboard_panel_count": 5,
+    "slug": "ip"
+  },
+  "prompt_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/prompts/original.txt",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/prompts/identity-board.txt",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/prompts/storyboard.txt",
+    "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/prompts/video.txt"
+  },
+  "reference_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/original.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/identity-board.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/storyboard.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/final-frame-poster.png",
+    "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/normalized/manifest.json"
+  },
+  "artifacts": {
+    "downloads_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/dreamina/downloads",
+    "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/dreamina/result.json",
+    "submit_id_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/dreamina/submit_id.txt"
+  },
+  "prompt_risk_report": {
+    "original": {
+      "prompt_name": "original",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 9 处否定词",
+          "original_text": "否定词位置: [275, 283, 292, 179, 14]...",
+          "reason": "prompt 中有 9 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "原图任务：只负责风格与世界，不负责镜头顺序。\n主体：乐麦隆品牌IP小恐龙与云朵软吐司\n主体行为：云朵从蓝天里轻轻聚拢，托起云朵软吐司；IP轻柔靠近并抱住吐司，最后精准落到定版海报\n场景 / 世界观：清新蓝天白云世界，柔软云台，空气感强，适合产品上新微视频\n风格 / 气质：蓝白清新、简洁大气、柔软治愈、商业海报微动效，不做复杂剧情动画\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 先建立完整世界观和主画面气质。\n2. 让主体与环境关系清晰，能作为后续身份板和故事板的世界基准。\n3. 保持电影感、真实感、可继续扩展成视频的空间信息。\n4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。"
+      }
+    },
+    "identity_board": {
+      "prompt_name": "identity_board",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 18 处否定词",
+          "original_text": "否定词位置: [523, 530, 961, 19, 775]...",
+          "reason": "prompt 中有 18 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n严格禁止：\n- 严禁把IP变成普通恐龙、猫、熊或其他角色\n- 严禁改变红围巾、面包帽、身体比例和黑色描边\n- 严禁把云朵吐司变成普通方吐司、蛋糕、欧包或其他面包\n- 严禁改标题文字、错字、让文字飘散或变形\n- 严禁新增Logo、二维码、按钮、卖点图标或复杂装饰\n- 严禁强烈镜头晃动、飞行大动作、MV式转场\n\n**结构真相**：\n- IP是白色小恐龙/小龙，黑色粗描边，大眼睛，红围巾，橙黄色面包帽\n- 身体比例圆润短胖，尾巴和背部三角刺清晰可见\n- 云朵软吐司保持云朵轮廓、金黄外皮、柔软白色面包芯\n- 尾帧必须回到定版海报构图：标题在上，IP抱住云朵吐司，云台承托主体\n身份板任务：只负责角色一致性，不负责背景叙事。\n主体：乐麦隆品牌IP小恐龙与云朵软吐司\n主体行为线索：云朵从蓝天里轻轻聚拢，托起云朵软吐司；IP轻柔靠近并抱住吐司，最后精准落到定版海报\n目标：生成一张适合 9:16 项目的角色身份板 / 角色设定板。\n这次模式：已有准确三视图 / 定稿图，身份板主要作为复用说明，不允许改动角色结构真相。\n要求：\n1. 严格锁定主体的脸、发型、服装、身体比例、手部、表情和姿态语言。\n2. 使用纯净浅底，不要复杂背景，不要重新讲故事。\n3. 版式偏高端工作室设定板：大主视角 + 多个辅助角度 + 局部细节。\n4. 只负责角色一致性，不出现 12 格分镜，不重新定义世界观。\n5. 如果主体是动物或非人角色，也要把毛发、肢体比例、表情范围和关键特征锁住。\n6. 结构真相：IP是白色小恐龙/小龙，黑色粗描边，大眼睛，红围巾，橙黄色面包帽；身体比例圆润短胖，尾巴和背部三角刺清晰可见；云朵软吐司保持云朵轮廓、金黄外皮、柔软白色面包芯；尾帧必须回到定版海报构图：标题在上，IP抱住云朵吐司，云台承托主体。\n7. 禁止变形：禁止把IP变成普通恐龙、猫、熊或其他角色；禁止改变红围巾、面包帽、身体比例和黑色描边；禁止把云朵吐司变成普通方吐司、蛋糕、欧包或其他面包；禁止改标题文字、错字、让文字飘散或变形；禁止新增Logo、二维码、按钮、卖点图标或复杂装饰；禁止强烈镜头晃动、飞行大动作、MV式转场。\n7. 用户提供的 identity-source 是角色结构最高依据，任何延展版身份板都不能推翻它。"
+      }
+    },
+    "storyboard": {
+      "prompt_name": "storyboard",
+      "risks": [
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 841",
+          "original_text": "：保留能稳定识别空间关系的地标。\n9. 故事板里的角色首先要读成身份板里的核心轮廓，不能被画成一个新的普通角色。\n10. 如",
+          "reason": "使用了概念型描述词 '读成'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 27 处否定词",
+          "original_text": "否定词位置: [519, 529, 724, 752, 1235]...",
+          "reason": "prompt 中有 27 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n严格禁止：\n- 严禁把IP变成普通恐龙、猫、熊或其他角色\n- 严禁改变红围巾、面包帽、身体比例和黑色描边\n- 严禁把云朵吐司变成普通方吐司、蛋糕、欧包或其他面包\n- 严禁改标题文字、错字、让文字飘散或变形\n- 严禁新增Logo、二维码、按钮、卖点图标或复杂装饰\n- 严禁强烈镜头晃动、飞行大动作、MV式转场\n\n**结构真相**：\n- IP是白色小恐龙/小龙，黑色粗描边，大眼睛，红围巾，橙黄色面包帽\n- 身体比例圆润短胖，尾巴和背部三角刺清晰可见\n- 云朵软吐司保持云朵轮廓、金黄外皮、柔软白色面包芯\n- 尾帧必须回到定版海报构图：标题在上，IP抱住云朵吐司，云台承托主体\n故事板任务：只负责镜头与动作节奏，不负责重新定义角色。\n主体：乐麦隆品牌IP小恐龙与云朵软吐司\n主体行为主线：云朵从蓝天里轻轻聚拢，托起云朵软吐司；IP轻柔靠近并抱住吐司，最后精准落到定版海报\n场景 / 世界观：清新蓝天白云世界，柔软云台，空气感强，适合产品上新微视频\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 根据本次关键帧规划，做成 5 格黑白导演分镜稿。\n2. **每一格都必须是独立的 9:16 成片画幅**。不要做横向长条单格，不要把多格画成电影条带。整张看板怎么排版都可以，但每格内部画幅必须服从 9:16 成片比例。\n3. **每格必须包含文字标注**：用文字标注景别（特写/中景/全景）、运镜方向（推/拉/摇/跟）、关键动作描述。这是专业导演分镜板的标准要求。\n4. **使用箭头指示运镜方向和动作路径**：让分镜板的镜头语言和动作意图一目了然，提高可读性和执行性。\n5. 强调连续空间，同一世界内完成镜头推进，不要每格重造世界。\n6. 主体身份必须保持和身份板一致，不要变脸、变衣服、变体型。\n7. 让故事从建立空间，到动作推进，到结尾收束，形成清晰视频节奏。\n8. 默认保留关键锚点：保留能稳定识别空间关系的地标。\n9. 故事板里的角色首先要外轮廓是身份板里的核心轮廓，不能被画成一个新的普通角色。\n10. 如果存在 identity-source，角色首先服从 identity-source，不服从任何漂移版身份板。\n10. 禁止变形：禁止把IP变成普通恐龙、猫、熊或其他角色；禁止改变红围巾、面包帽、身体比例和黑色描边；禁止把云朵吐司变成普通方吐司、蛋糕、欧包或其他面包；禁止改标题文字、错字、让文字飘散或变形；禁止新增Logo、二维码、按钮、卖点图标或复杂装饰；禁止强烈镜头晃动、飞行大动作、MV式转场。\n12. 结构真相：IP是白色小恐龙/小龙，黑色粗描边，大眼睛，红围巾，橙黄色面包帽；身体比例圆润短胖，尾巴和背部三角刺清晰可见；云朵软吐司保持云朵轮廓、金黄外皮、柔软白色面包芯；尾帧必须回到定版海报构图：标题在上，IP抱住云朵吐司，云台承托主体。\n13. 如果动作设计和角色结构发生冲突，优先保住角色结构，宁可简化动作，不要改形。\n14. 分镜允许用简化线稿表达动作，但外轮廓、体块关系和关键识别点必须忠于身份板。\n15. 格数服务于关键帧，不追求平均切段。关键帧规划如下：\n1. 建立空间：清新蓝天白云世界，柔软云台，空气感强，适合产品上新微视频\n2. 动作推进：云朵从蓝天里轻轻聚拢\n3. 动作推进：托起云朵软吐司\n4. 动作推进：IP轻柔靠近并抱住吐司\n5. 收束定格：精准落到定版海报"
+      }
+    },
+    "video": {
+      "prompt_name": "video",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 18 处否定词",
+          "original_text": "否定词位置: [602, 672, 753, 324, 19]...",
+          "reason": "prompt 中有 18 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n严格禁止：\n- 严禁把IP变成普通恐龙、猫、熊或其他角色\n- 严禁改变红围巾、面包帽、身体比例和黑色描边\n- 严禁把云朵吐司变成普通方吐司、蛋糕、欧包或其他面包\n- 严禁改标题文字、错字、让文字飘散或变形\n- 严禁新增Logo、二维码、按钮、卖点图标或复杂装饰\n- 严禁强烈镜头晃动、飞行大动作、MV式转场\n\n**结构真相**：\n- IP是白色小恐龙/小龙，黑色粗描边，大眼睛，红围巾，橙黄色面包帽\n- 身体比例圆润短胖，尾巴和背部三角刺清晰可见\n- 云朵软吐司保持云朵轮廓、金黄外皮、柔软白色面包芯\n- 尾帧必须回到定版海报构图：标题在上，IP抱住云朵吐司，云台承托主体\n视频提示词任务：必须引用前三张图的职责，不能重新发明一个冲突的新世界。\n使用三张参考图：\n- 原图：负责风格与世界\n- 身份板：负责角色一致性\n- 故事板：负责镜头与动作节奏\n\n视频目标：\n主体：乐麦隆品牌IP小恐龙与云朵软吐司\n主体行为：云朵从蓝天里轻轻聚拢，托起云朵软吐司；IP轻柔靠近并抱住吐司，最后精准落到定版海报\n场景 / 世界观：清新蓝天白云世界，柔软云台，空气感强，适合产品上新微视频\n风格 / 气质：蓝白清新、简洁大气、柔软治愈、商业海报微动效，不做复杂剧情动画\n比例：9:16\n时长：5 秒\n\n要求：\n1. 严格沿用故事板的镜头顺序和动作推进。\n2. 严格沿用身份板的主体身份，不要漂角色。\n3. 如果存在 identity-source，角色身份以原始三视图 / 定稿图为最高依据。\n4. 严格沿用原图的世界与色调，不要把背景改成另一套体系。\n5. 用自然流畅的镜头连接，按本次 5 格关键帧顺序压成连贯短视频。\n6. 保留明确的空间锚点：保留能稳定识别空间关系的地标。\n7. 不要重新发明新的世界观、角色设定或冲突风格。\n8. 本次关键帧规划如下：\n1. 建立空间：清新蓝天白云世界，柔软云台，空气感强，适合产品上新微视频\n2. 动作推进：云朵从蓝天里轻轻聚拢\n3. 动作推进：托起云朵软吐司\n4. 动作推进：IP轻柔靠近并抱住吐司\n5. 收束定格：精准落到定版海报\n9. 结构真相：IP是白色小恐龙/小龙，黑色粗描边，大眼睛，红围巾，橙黄色面包帽；身体比例圆润短胖，尾巴和背部三角刺清晰可见；云朵软吐司保持云朵轮廓、金黄外皮、柔软白色面包芯；尾帧必须回到定版海报构图：标题在上，IP抱住云朵吐司，云台承托主体。\n10. 禁止变形：禁止把IP变成普通恐龙、猫、熊或其他角色；禁止改变红围巾、面包帽、身体比例和黑色描边；禁止把云朵吐司变成普通方吐司、蛋糕、欧包或其他面包；禁止改标题文字、错字、让文字飘散或变形；禁止新增Logo、二维码、按钮、卖点图标或复杂装饰；禁止强烈镜头晃动、飞行大动作、MV式转场。"
+      }
+    }
+  },
+  "validation_report": {
+    "stage": "storyboard",
+    "passed": true,
+    "score": 1.0,
+    "issues": [],
+    "manual_checks": [
+      {
+        "id": "storyboard_panel_aspect",
+        "description": "故事板每一格是否都是 9:16 画幅？（不是横向长条）",
+        "checked": true
+      },
+      {
+        "id": "storyboard_panel_count",
+        "description": "故事板是否有 5 格？",
+        "checked": true
+      },
+      {
+        "id": "storyboard_continuity",
+        "description": "故事板是否保持连续空间？（不是每格重造世界）",
+        "checked": true
+      }
+    ],
+    "recovery_actions": [
+      {
+        "action": "refresh_run_state",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/run_state.json"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/storyboard.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/canonical/storyboard.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/original.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/canonical/original.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/identity-source.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/canonical/identity-source.png"
+      }
+    ]
+  },
+  "next_action": {
+    "decision": "proceed",
+    "reason": "验证通过",
+    "suggested_action": "可以继续下一阶段",
+    "reviewed_at": "2026-06-05T12:19:06+08:00",
+    "validation_stage": "storyboard"
+  },
+  "iterations": [
+    {
+      "version": 1,
+      "artifact_type": "storyboard",
+      "prompt_hash": "5eff25eb50c520af",
+      "issues": [],
+      "validation_score": 1.0,
+      "cost": null,
+      "created_at": "2026-06-05T12:19:06+08:00"
+    }
+  ]
+}

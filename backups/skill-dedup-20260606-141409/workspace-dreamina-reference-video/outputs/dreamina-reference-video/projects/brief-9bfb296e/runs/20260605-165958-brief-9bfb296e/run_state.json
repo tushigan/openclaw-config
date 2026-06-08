@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "run_id": "20260605-165958-brief-9bfb296e",
+  "project_id": "brief-9bfb296e",
+  "stage": "fetch_result",
+  "status": "video_result_fetched",
+  "created_at": "2026-06-05T17:00:01+08:00",
+  "updated_at": "2026-06-05T17:18:06+08:00",
+  "config_snapshot": {
+    "project_name": "一杯芒果牛奶甜品饮产品海报",
+    "project_slug": "brief-9bfb296e",
+    "ratio": "9:16",
+    "duration": 7,
+    "quality_tier": "draft",
+    "language": "zh-CN",
+    "storyboard_strategy": "auto_beats",
+    "storyboard_panel_count_override": null,
+    "storyboard_beats_override": [],
+    "identity_strategy": "reuse_exact",
+    "identity_anchor_rules": [],
+    "identity_structure": [
+      "参考图是最终尾帧，最后 1 秒必须准确定格回参考图构图",
+      "主杯位于画面中心偏右，透明塑料杯，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满芒果丁",
+      "左下角保留切花芒果，桌面保留冰块、芒果丁、小碗芒果，右侧保留牛奶杯，背景保留白色花瓶和黄色背景",
+      "杯身 logo 和包装视觉必须保持清晰、稳定、不变形",
+      "整体只做光影、冰块反光、果肉光泽、杯中层次流动和轻微镜头推进"
+    ],
+    "identity_forbidden": [
+      "禁止改变尾帧构图",
+      "禁止改变杯子形状或位置",
+      "禁止改变、扭曲或消失 logo",
+      "禁止新增人物、手、吸管、勺子、新文字或新品牌信息",
+      "禁止让芒果变成其他水果",
+      "禁止芒果大幅飞溅、液体喷溅、爆炸特效",
+      "禁止杯子旋转、大幅变焦、快速摇镜",
+      "禁止桌面道具或背景花瓶消失",
+      "禁止塑料感、CG 感、低清晰度、严重畸变、画面抖动"
+    ],
+    "has_existing_references": true,
+    "anchor_elements": [],
+    "notes": "",
+    "normalize_references": true,
+    "subject": "一杯芒果牛奶甜品饮产品海报",
+    "action": "基于定版尾帧，让海报中的阳光、冰块、芒果果肉、杯中奶白与芒果泥层次轻柔动起来，最后自然定格回参考尾帧",
+    "scene": "明亮温暖的夏日室内桌面场景，黄色背景，阳光从左上方洒入，桌面摆放芒果、冰块、小碗芒果、右侧牛奶杯和背景白色花瓶",
+    "style": "清新明亮、高级产品广告、真实摄影质感、夏日感、冰爽感、芒果鲜甜、奶香绵密，动效轻柔克制，不做夸张特效",
+    "existing_references": {
+      "final_frame_poster": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/97c8de60-adc8-4ae2-8f6b-915c0b11e5c0.png",
+      "identity_source": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/97c8de60-adc8-4ae2-8f6b-915c0b11e5c0.png"
+    },
+    "video_prompt_override": "使用参考图作为最终尾帧和构图依据，生成一支 7 秒竖版芒果甜品饮产品广告视频。画面是明亮温暖的夏日桌面场景，中心偏右是一杯透明塑料杯装芒果牛奶甜品饮，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满新鲜芒果丁。左下角有切花芒果，桌面上有冰块、芒果丁、小碗芒果，右侧有牛奶杯，背景有白色花瓶和柔和黄色背景。视频开始时保持参考图构图，柔和阳光从左上方慢慢洒入，棕榈叶影轻轻摆动，背景黄色光晕缓慢流动。随后桌面冰块出现晶莹闪光和轻微折射，桌面高光缓慢移动。左下角切花芒果和杯顶芒果丁变得更加鲜亮，果肉表面出现新鲜汁水光泽，少量芒果丁轻轻颤动但不飞散。接着主杯内部奶白色饮品与黄色芒果泥缓慢自然流动，形成柔和的芒果奶纹理，杯底果肉轻微浮动，杯壁出现细小冷凝水珠。镜头做非常轻微的慢推，突出杯身、杯顶芒果丁和清爽质感。最后 1 秒所有动态自然收束，阳光、叶影、冰块、果肉、杯中流动全部稳定，准确回到参考图的最终尾帧构图。保持杯子造型、logo、芒果位置、桌面道具、背景花瓶、整体构图完全一致。整体风格清新明亮、高级产品广告、夏日感、冰爽感、芒果鲜甜、奶香绵密、真实摄影质感。",
+    "negative_prompt": "不要改变尾帧构图，不要改变杯子形状，不要改变杯子位置，不要改变 logo，不要让 logo 变形或消失，不要新增文字，不要新增人物，不要新增品牌信息，不要让芒果变成其他水果，不要让芒果飞溅过度，不要出现夸张爆炸特效，不要出现液体大面积喷溅，不要让杯子旋转，不要大幅推拉镜头，不要快速摇镜，不要让桌面道具消失，不要让背景花瓶消失，不要让右侧牛奶杯变形，不要让冰块融化成水滩，不要出现脏污、灰暗、过曝、塑料感、CG 感、低清晰度、画面抖动、严重畸变、手部、人物、吸管、勺子。",
+    "storyboard_beats": [
+      "建立空间：明亮温暖的夏日室内桌面场景，黄色背景，阳光从左上方洒入，桌面摆放芒果、冰块、小碗芒果、右侧牛奶杯和背景白色花瓶",
+      "收束定格：基于定版尾帧",
+      "收束定格：让海报中的阳光、冰块、芒果果肉、杯中奶白与芒果泥层次轻柔动起来",
+      "收束定格：自然定格回参考尾帧"
+    ],
+    "storyboard_panel_count": 4,
+    "slug": "brief-9bfb296e"
+  },
+  "prompt_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/prompts/original.txt",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/prompts/identity-board.txt",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/prompts/storyboard.txt",
+    "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/prompts/video.txt"
+  },
+  "reference_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/original.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/identity-board.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/storyboard.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/final-frame-poster.png",
+    "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/normalized/manifest.json"
+  },
+  "artifacts": {
+    "downloads_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/dreamina/downloads",
+    "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/dreamina/result.json",
+    "submit_id_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/dreamina/submit_id.txt"
+  },
+  "prompt_risk_report": {
+    "original": {
+      "prompt_name": "original",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 9 处否定词",
+          "original_text": "否定词位置: [327, 335, 344, 231, 14]...",
+          "reason": "prompt 中有 9 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "原图任务：只负责风格与世界，不负责镜头顺序。\n主体：一杯芒果牛奶甜品饮产品海报\n主体行为：基于定版尾帧，让海报中的阳光、冰块、芒果果肉、杯中奶白与芒果泥层次轻柔动起来，最后自然定格回参考尾帧\n场景 / 世界观：明亮温暖的夏日室内桌面场景，黄色背景，阳光从左上方洒入，桌面摆放芒果、冰块、小碗芒果、右侧牛奶杯和背景白色花瓶\n风格 / 气质：清新明亮、高级产品广告、真实摄影质感、夏日感、冰爽感、芒果鲜甜、奶香绵密，动效轻柔克制，不做夸张特效\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 先建立完整世界观和主画面气质。\n2. 让主体与环境关系清晰，能作为后续身份板和故事板的世界基准。\n3. 保持电影感、真实感、可继续扩展成视频的空间信息。\n4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。"
+      }
+    },
+    "identity_board": {
+      "prompt_name": "identity_board",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 24 处否定词",
+          "original_text": "否定词位置: [672, 679, 1191, 46, 991]...",
+          "reason": "prompt 中有 24 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n正确理解：\n- 只有脚部作为肢体，身体是完整造型体块\n严格禁止：\n- 严禁改变尾帧构图\n- 严禁改变杯子形状或位置\n- 严禁改变、扭曲或消失 logo\n- 严禁添加任何手臂、手掌、手指或上肢结构\n- 严禁让芒果变成其他水果\n- 严禁芒果大幅飞溅、液体喷溅、爆炸特效\n- 严禁杯子旋转、大幅变焦、快速摇镜\n- 严禁桌面道具或背景花瓶消失\n- 严禁塑料感、CG 感、低清晰度、严重畸变、画面抖动\n对比说明：\n- 不是：身体 + 手臂；而是：造型本身就是完整体\n\n**结构真相**：\n- 参考图是最终尾帧，最后 1 秒必须准确定格回参考图构图\n- 主杯位于画面中心偏右，透明塑料杯，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满芒果丁\n- 左下角保留切花芒果，桌面保留冰块、芒果丁、小碗芒果，右侧保留牛奶杯，背景保留白色花瓶和黄色背景\n- 杯身 logo 和包装视觉必须保持清晰、稳定、不变形\n- 整体只做光影、冰块反光、果肉光泽、杯中层次流动和轻微镜头推进\n身份板任务：只负责角色一致性，不负责背景叙事。\n主体：一杯芒果牛奶甜品饮产品海报\n主体行为线索：基于定版尾帧，让海报中的阳光、冰块、芒果果肉、杯中奶白与芒果泥层次轻柔动起来，最后自然定格回参考尾帧\n目标：生成一张适合 9:16 项目的角色身份板 / 角色设定板。\n这次模式：已有准确三视图 / 定稿图，身份板主要作为复用说明，不允许改动角色结构真相。\n要求：\n1. 严格锁定主体的脸、发型、服装、身体比例、手部、表情和姿态语言。\n2. 使用纯净浅底，不要复杂背景，不要重新讲故事。\n3. 版式偏高端工作室设定板：大主视角 + 多个辅助角度 + 局部细节。\n4. 只负责角色一致性，不出现 12 格分镜，不重新定义世界观。\n5. 如果主体是动物或非人角色，也要把毛发、肢体比例、表情范围和关键特征锁住。\n6. 结构真相：参考图是最终尾帧，最后 1 秒必须准确定格回参考图构图；主杯位于画面中心偏右，透明塑料杯，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满芒果丁；左下角保留切花芒果，桌面保留冰块、芒果丁、小碗芒果，右侧保留牛奶杯，背景保留白色花瓶和黄色背景；杯身 logo 和包装视觉必须保持清晰、稳定、不变形；整体只做光影、冰块反光、果肉光泽、杯中层次流动和轻微镜头推进。\n7. 禁止变形：禁止改变尾帧构图；禁止改变杯子形状或位置；禁止改变、扭曲或消失 logo；禁止新增人物、手、吸管、勺子、新文字或新品牌信息；禁止让芒果变成其他水果；禁止芒果大幅飞溅、液体喷溅、爆炸特效；禁止杯子旋转、大幅变焦、快速摇镜；禁止桌面道具或背景花瓶消失；禁止塑料感、CG 感、低清晰度、严重畸变、画面抖动。\n7. 用户提供的 identity-source 是角色结构最高依据，任何延展版身份板都不能推翻它。"
+      }
+    },
+    "storyboard": {
+      "prompt_name": "storyboard",
+      "risks": [
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 1017",
+          "original_text": "：保留能稳定识别空间关系的地标。\n9. 故事板里的角色首先要读成身份板里的核心轮廓，不能被画成一个新的普通角色。\n10. 如",
+          "reason": "使用了概念型描述词 '读成'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 33 处否定词",
+          "original_text": "否定词位置: [695, 705, 900, 928, 1492]...",
+          "reason": "prompt 中有 33 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n正确理解：\n- 只有脚部作为肢体，身体是完整造型体块\n严格禁止：\n- 严禁改变尾帧构图\n- 严禁改变杯子形状或位置\n- 严禁改变、扭曲或消失 logo\n- 严禁添加任何手臂、手掌、手指或上肢结构\n- 严禁让芒果变成其他水果\n- 严禁芒果大幅飞溅、液体喷溅、爆炸特效\n- 严禁杯子旋转、大幅变焦、快速摇镜\n- 严禁桌面道具或背景花瓶消失\n- 严禁塑料感、CG 感、低清晰度、严重畸变、画面抖动\n对比说明：\n- 不是：身体 + 手臂；而是：造型本身就是完整体\n\n**结构真相**：\n- 参考图是最终尾帧，最后 1 秒必须准确定格回参考图构图\n- 主杯位于画面中心偏右，透明塑料杯，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满芒果丁\n- 左下角保留切花芒果，桌面保留冰块、芒果丁、小碗芒果，右侧保留牛奶杯，背景保留白色花瓶和黄色背景\n- 杯身 logo 和包装视觉必须保持清晰、稳定、不变形\n- 整体只做光影、冰块反光、果肉光泽、杯中层次流动和轻微镜头推进\n故事板任务：只负责镜头与动作节奏，不负责重新定义角色。\n主体：一杯芒果牛奶甜品饮产品海报\n主体行为主线：基于定版尾帧，让海报中的阳光、冰块、芒果果肉、杯中奶白与芒果泥层次轻柔动起来，最后自然定格回参考尾帧\n场景 / 世界观：明亮温暖的夏日室内桌面场景，黄色背景，阳光从左上方洒入，桌面摆放芒果、冰块、小碗芒果、右侧牛奶杯和背景白色花瓶\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 根据本次关键帧规划，做成 4 格黑白导演分镜稿。\n2. **每一格都必须是独立的 9:16 成片画幅**。不要做横向长条单格，不要把多格画成电影条带。整张看板怎么排版都可以，但每格内部画幅必须服从 9:16 成片比例。\n3. **每格必须包含文字标注**：用文字标注景别（特写/中景/全景）、运镜方向（推/拉/摇/跟）、关键动作描述。这是专业导演分镜板的标准要求。\n4. **使用箭头指示运镜方向和动作路径**：让分镜板的镜头语言和动作意图一目了然，提高可读性和执行性。\n5. 强调连续空间，同一世界内完成镜头推进，不要每格重造世界。\n6. 主体身份必须保持和身份板一致，不要变脸、变衣服、变体型。\n7. 让故事从建立空间，到动作推进，到结尾收束，形成清晰视频节奏。\n8. 默认保留关键锚点：保留能稳定识别空间关系的地标。\n9. 故事板里的角色首先要外轮廓是身份板里的核心轮廓，不能被画成一个新的普通角色。\n10. 如果存在 identity-source，角色首先服从 identity-source，不服从任何漂移版身份板。\n10. 禁止变形：禁止改变尾帧构图；禁止改变杯子形状或位置；禁止改变、扭曲或消失 logo；禁止新增人物、手、吸管、勺子、新文字或新品牌信息；禁止让芒果变成其他水果；禁止芒果大幅飞溅、液体喷溅、爆炸特效；禁止杯子旋转、大幅变焦、快速摇镜；禁止桌面道具或背景花瓶消失；禁止塑料感、CG 感、低清晰度、严重畸变、画面抖动。\n12. 结构真相：参考图是最终尾帧，最后 1 秒必须准确定格回参考图构图；主杯位于画面中心偏右，透明塑料杯，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满芒果丁；左下角保留切花芒果，桌面保留冰块、芒果丁、小碗芒果，右侧保留牛奶杯，背景保留白色花瓶和黄色背景；杯身 logo 和包装视觉必须保持清晰、稳定、不变形；整体只做光影、冰块反光、果肉光泽、杯中层次流动和轻微镜头推进。\n13. 如果动作设计和角色结构发生冲突，优先保住角色结构，宁可简化动作，不要改形。\n14. 分镜允许用简化线稿表达动作，但外轮廓、体块关系和关键识别点必须忠于身份板。\n15. 格数服务于关键帧，不追求平均切段。关键帧规划如下：\n1. 建立空间：明亮温暖的夏日室内桌面场景，黄色背景，阳光从左上方洒入，桌面摆放芒果、冰块、小碗芒果、右侧牛奶杯和背景白色花瓶\n2. 收束定格：基于定版尾帧\n3. 收束定格：让海报中的阳光、冰块、芒果果肉、杯中奶白与芒果泥层次轻柔动起来\n4. 收束定格：自然定格回参考尾帧"
+      }
+    },
+    "video": {
+      "prompt_name": "video",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 24 处否定词",
+          "original_text": "否定词位置: [797, 867, 948, 467, 46]...",
+          "reason": "prompt 中有 24 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n正确理解：\n- 只有脚部作为肢体，身体是完整造型体块\n严格禁止：\n- 严禁改变尾帧构图\n- 严禁改变杯子形状或位置\n- 严禁改变、扭曲或消失 logo\n- 严禁添加任何手臂、手掌、手指或上肢结构\n- 严禁让芒果变成其他水果\n- 严禁芒果大幅飞溅、液体喷溅、爆炸特效\n- 严禁杯子旋转、大幅变焦、快速摇镜\n- 严禁桌面道具或背景花瓶消失\n- 严禁塑料感、CG 感、低清晰度、严重畸变、画面抖动\n对比说明：\n- 不是：身体 + 手臂；而是：造型本身就是完整体\n\n**结构真相**：\n- 参考图是最终尾帧，最后 1 秒必须准确定格回参考图构图\n- 主杯位于画面中心偏右，透明塑料杯，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满芒果丁\n- 左下角保留切花芒果，桌面保留冰块、芒果丁、小碗芒果，右侧保留牛奶杯，背景保留白色花瓶和黄色背景\n- 杯身 logo 和包装视觉必须保持清晰、稳定、不变形\n- 整体只做光影、冰块反光、果肉光泽、杯中层次流动和轻微镜头推进\n视频提示词任务：必须引用前三张图的职责，不能重新发明一个冲突的新世界。\n使用三张参考图：\n- 原图：负责风格与世界\n- 身份板：负责角色一致性\n- 故事板：负责镜头与动作节奏\n\n视频目标：\n主体：一杯芒果牛奶甜品饮产品海报\n主体行为：基于定版尾帧，让海报中的阳光、冰块、芒果果肉、杯中奶白与芒果泥层次轻柔动起来，最后自然定格回参考尾帧\n场景 / 世界观：明亮温暖的夏日室内桌面场景，黄色背景，阳光从左上方洒入，桌面摆放芒果、冰块、小碗芒果、右侧牛奶杯和背景白色花瓶\n风格 / 气质：清新明亮、高级产品广告、真实摄影质感、夏日感、冰爽感、芒果鲜甜、奶香绵密，动效轻柔克制，不做夸张特效\n比例：9:16\n时长：7 秒\n\n要求：\n1. 严格沿用故事板的镜头顺序和动作推进。\n2. 严格沿用身份板的主体身份，不要漂角色。\n3. 如果存在 identity-source，角色身份以原始三视图 / 定稿图为最高依据。\n4. 严格沿用原图的世界与色调，不要把背景改成另一套体系。\n5. 用自然流畅的镜头连接，按本次 4 格关键帧顺序压成连贯短视频。\n6. 保留明确的空间锚点：保留能稳定识别空间关系的地标。\n7. 不要重新发明新的世界观、角色设定或冲突风格。\n8. 本次关键帧规划如下：\n1. 建立空间：明亮温暖的夏日室内桌面场景，黄色背景，阳光从左上方洒入，桌面摆放芒果、冰块、小碗芒果、右侧牛奶杯和背景白色花瓶\n2. 收束定格：基于定版尾帧\n3. 收束定格：让海报中的阳光、冰块、芒果果肉、杯中奶白与芒果泥层次轻柔动起来\n4. 收束定格：自然定格回参考尾帧\n9. 结构真相：参考图是最终尾帧，最后 1 秒必须准确定格回参考图构图；主杯位于画面中心偏右，透明塑料杯，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满芒果丁；左下角保留切花芒果，桌面保留冰块、芒果丁、小碗芒果，右侧保留牛奶杯，背景保留白色花瓶和黄色背景；杯身 logo 和包装视觉必须保持清晰、稳定、不变形；整体只做光影、冰块反光、果肉光泽、杯中层次流动和轻微镜头推进。\n10. 禁止变形：禁止改变尾帧构图；禁止改变杯子形状或位置；禁止改变、扭曲或消失 logo；禁止新增人物、手、吸管、勺子、新文字或新品牌信息；禁止让芒果变成其他水果；禁止芒果大幅飞溅、液体喷溅、爆炸特效；禁止杯子旋转、大幅变焦、快速摇镜；禁止桌面道具或背景花瓶消失；禁止塑料感、CG 感、低清晰度、严重畸变、画面抖动。"
+      }
+    }
+  },
+  "validation_report": {
+    "stage": "storyboard",
+    "passed": true,
+    "score": 1.0,
+    "issues": [],
+    "manual_checks": [
+      {
+        "id": "storyboard_panel_aspect",
+        "description": "故事板每一格是否都是 9:16 画幅？（不是横向长条）",
+        "checked": true
+      },
+      {
+        "id": "storyboard_panel_count",
+        "description": "故事板是否有 4 格？",
+        "checked": true
+      },
+      {
+        "id": "storyboard_continuity",
+        "description": "故事板是否保持连续空间？（不是每格重造世界）",
+        "checked": true
+      }
+    ],
+    "recovery_actions": [
+      {
+        "action": "refresh_run_state",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/run_state.json"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/storyboard.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/canonical/storyboard.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/original.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/canonical/original.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/identity-source.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/canonical/identity-source.png"
+      }
+    ]
+  },
+  "next_action": {
+    "decision": "proceed",
+    "reason": "验证通过",
+    "suggested_action": "可以继续下一阶段",
+    "reviewed_at": "2026-06-05T17:06:45+08:00",
+    "validation_stage": "storyboard"
+  },
+  "iterations": [
+    {
+      "version": 1,
+      "artifact_type": "storyboard",
+      "prompt_hash": "c53742794c927f13",
+      "issues": [],
+      "validation_score": 1.0,
+      "cost": null,
+      "created_at": "2026-06-05T17:06:34+08:00"
+    }
+  ]
+}

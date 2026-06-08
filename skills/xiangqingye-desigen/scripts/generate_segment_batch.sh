@@ -2,7 +2,7 @@
 # 详情页分段批量生成脚本
 #
 # 用法：
-#   bash scripts/generate_segment_batch.sh --project-dir /path/to/project [--version v1] [--size 1152x3456]
+#   bash scripts/generate_segment_batch.sh --project-dir /path/to/project [--version v1] [--size 768x1920]
 #
 # 输出：
 #   {项目目录}/设计/{版本}/segment_A.png
@@ -13,7 +13,7 @@ set -euo pipefail
 
 PROJECT_DIR=""
 VERSION="v1"
-SIZE="1152x3456"
+SIZE="768x1920"
 
 while [[ $# -gt 0 ]]; do
     case "$1" in

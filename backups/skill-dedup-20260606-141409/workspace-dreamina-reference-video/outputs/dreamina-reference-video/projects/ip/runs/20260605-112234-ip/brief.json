@@ -1,0 +1,50 @@
+{
+  "project_name": "端午竹林水面中的卡通龙舟与黑色杯状IP，龙舟载着粽子，最终画面严格落到定版海报",
+  "project_slug": "ip",
+  "ratio": "9:16",
+  "duration": 7,
+  "quality_tier": "fast_vip",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": null,
+  "storyboard_beats_override": [],
+  "identity_strategy": "reuse_exact",
+  "identity_anchor_rules": [],
+  "identity_structure": [
+    "最后一帧必须几乎等于定版尾帧海报：竖版9:16，龙舟位置、龙头朝向、IP位置、粽子位置、竹林、水面、阳光都保持一致",
+    "IP是黑色杯状小人，波浪口沿，金色圆环在正面，短腿支架结构，不能变成普通人或动物",
+    "龙头是绿色与橙红色卡通龙，鹿角、胡须、张嘴表情明显",
+    "龙舟是橙金色龙舟，船内有绿色粽子，右侧有木桨，水面有倒影",
+    "动作只允许轻量海报活化：竹叶摆动、水波涟漪、龙舟微微起伏、IP轻划桨、金色圆环高光闪动"
+  ],
+  "identity_forbidden": [
+    "禁止改变尾帧海报主体构图",
+    "禁止新增人物、文字、logo、额外产品",
+    "禁止让IP跳舞、奔跑、变成人形演员或改变杯状结构",
+    "禁止龙舟冲刺、翻转、大幅移动或变成真实船",
+    "禁止最后一帧和定版海报不一致",
+    "禁止大幅改动天空、竹林、水面和荷花布局"
+  ],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "创意已确认：端午竹林水面唤醒海报。7秒节奏：0-1.5秒竹林阳光与水面，1.5-3秒龙舟生命感，3-5秒IP轻划桨，5-6.2秒粽子与金色圆环高光，6.2-7秒回到尾帧定格。",
+  "normalize_references": true,
+  "subject": "端午竹林水面中的卡通龙舟与黑色杯状IP，龙舟载着粽子，最终画面严格落到定版海报",
+  "action": "7秒海报活化：阳光穿过竹林，水面泛起涟漪，龙舟轻轻驶来，黑色杯状IP轻划一桨，粽子和船身轻微摇晃，金色圆环高光闪过，最后稳定回到定版尾帧海报构图",
+  "scene": "夏日端午竹林水面，蓝天白云，右上角强阳光，竹叶环绕，荷花点缀，清澈水面有倒影和涟漪",
+  "style": "高质感3D卡通商业广告，清爽明亮，温暖阳光，海报级构图，轻动效，不夸张表演",
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/outputs/video-tailframe-20260605-v2/refs/final_frame_poster.jpg",
+    "identity_source": "/Users/a123/.openclaw/workspace/outputs/video-tailframe-20260605-v2/refs/ip_three_view.jpg"
+  },
+  "storyboard_beats": [
+    "建立空间：夏日端午竹林水面，蓝天白云，右上角强阳光，竹叶环绕，荷花点缀，清澈水面有倒影和涟漪",
+    "收束定格：7秒海报活化：阳光穿过竹林",
+    "动作推进：龙舟轻轻驶来",
+    "动作推进：黑色杯状IP轻划一桨",
+    "动作推进：金色圆环高光闪过",
+    "收束定格：稳定回到定版尾帧海报构图"
+  ],
+  "storyboard_panel_count": 6,
+  "slug": "ip"
+}

@@ -61,7 +61,7 @@ class DetailPageWorkflowCliTests(unittest.TestCase):
 
         square = run_cmd(str(SCRIPTS_DIR / "validate_dimensions.py"), "--canvas", "square")
         self.assertEqual(square.returncode, 0, square.stderr)
-        self.assertIn("2880x2880", square.stdout)
+        self.assertIn("1920x1920", square.stdout)
 
     def test_build_prompt_package_accepts_documented_confirmed_knowledge_schema(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -355,7 +355,7 @@ class DetailPageWorkflowCliTests(unittest.TestCase):
                 "--version",
                 "v1",
                 "--size",
-                "1152x3456",
+                "768x1920",
                 env=env,
             )
             self.assertEqual(generate_segments.returncode, 0, generate_segments.stderr)
@@ -369,7 +369,7 @@ class DetailPageWorkflowCliTests(unittest.TestCase):
             self.assertEqual(generate_heads.returncode, 0, generate_heads.stderr)
 
             write_json(project_dir / "设计" / "v1" / "boundary_check_report.json", {"passed": True})
-            write_png(project_dir / "设计" / "v1" / "merged_final.png", (1152, 3456))
+            write_png(project_dir / "设计" / "v1" / "merged_final.png", (768, 1920))
 
             validate = run_cmd(str(SCRIPTS_DIR / "validate_delivery.py"), "--project-dir", str(project_dir))
             self.assertEqual(validate.returncode, 0, validate.stderr)

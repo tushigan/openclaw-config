@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "run_id": "20260606-142238-brief-00e49fc2",
+  "project_id": "final-shot",
+  "stage": "prepare",
+  "status": "ready_for_ref_generation",
+  "created_at": "2026-06-06T14:22:38+08:00",
+  "updated_at": "2026-06-06T14:22:38+08:00",
+  "config_snapshot": {
+    "project_name": "final-shot",
+    "project_slug": "final-shot",
+    "video_mode": "shot_clip",
+    "ratio": "16:9",
+    "duration": 5,
+    "quality_tier": "standard",
+    "language": "zh-CN",
+    "storyboard_strategy": "auto_beats",
+    "storyboard_panel_count_override": null,
+    "storyboard_beats_override": [],
+    "identity_strategy": null,
+    "identity_anchor_rules": [],
+    "identity_structure": [],
+    "identity_forbidden": [],
+    "has_existing_references": false,
+    "anchor_elements": [],
+    "notes": "",
+    "normalize_references": true,
+    "subject": "芒果表面真实微距特写",
+    "action": "镜头从表面特写开始，水珠轻微颤动后缓慢滑落，暖橙光影轻微偏移，结尾停在可剪辑稳定特写",
+    "scene": "食品广告微距镜头",
+    "style": "真实微距食品广告",
+    "existing_references": {},
+    "storyboard_beats": [
+      "0-1秒：建立当前镜头画面，主体和环境进入稳定可识别状态，延续参考图的色调与质感",
+      "1-4秒：执行核心运镜和主体动作：镜头从表面特写开始，水珠轻微颤动后缓慢滑落，暖橙光影轻微偏移，结尾停在可剪辑稳定特写",
+      "4-5秒：光影、景深或局部动效自然收束，停在便于后期剪辑衔接的稳定画面"
+    ],
+    "storyboard_panel_count": 3,
+    "slug": "brief-00e49fc2"
+  },
+  "prompt_files": {
+    "original": "/Users/a123/.openclaw/tmp/darwin-dreamina-final2-20260606-142237/outputs/dreamina-reference-video/projects/final-shot/runs/20260606-142238-brief-00e49fc2/prompts/original.txt",
+    "identity_board": "/Users/a123/.openclaw/tmp/darwin-dreamina-final2-20260606-142237/outputs/dreamina-reference-video/projects/final-shot/runs/20260606-142238-brief-00e49fc2/prompts/identity-board.txt",
+    "storyboard": "/Users/a123/.openclaw/tmp/darwin-dreamina-final2-20260606-142237/outputs/dreamina-reference-video/projects/final-shot/runs/20260606-142238-brief-00e49fc2/prompts/storyboard.txt",
+    "video": "/Users/a123/.openclaw/tmp/darwin-dreamina-final2-20260606-142237/outputs/dreamina-reference-video/projects/final-shot/runs/20260606-142238-brief-00e49fc2/prompts/video.txt"
+  },
+  "reference_files": {},
+  "artifacts": {},
+  "prompt_risk_report": {
+    "original": {
+      "prompt_name": "original",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 8 处否定词",
+          "original_text": "否定词位置: [227, 235, 244, 131, 14]...",
+          "reason": "prompt 中有 8 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "原图任务：只负责风格与世界，不负责镜头顺序。\n主体：芒果表面真实微距特写\n主体行为：镜头从表面特写开始，水珠轻微颤动后缓慢滑落，暖橙光影轻微偏移，结尾停在可剪辑稳定特写\n场景 / 世界观：食品广告微距镜头\n风格 / 气质：真实微距食品广告\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 先建立完整世界观和主画面气质。\n2. 让主体与环境关系清晰，能作为后续身份板和故事板的世界基准。\n3. 保持电影感、真实感、可继续扩展成视频的空间信息。\n4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。"
+      }
+    },
+    "identity_board": {
+      "prompt_name": "identity_board",
+      "risks": [],
+      "rewrite_suggestions": {}
+    },
+    "storyboard": {
+      "prompt_name": "storyboard",
+      "risks": [],
+      "rewrite_suggestions": {}
+    },
+    "video": {
+      "prompt_name": "video",
+      "risks": [],
+      "rewrite_suggestions": {}
+    }
+  },
+  "validation_report": {},
+  "next_action": {
+    "decision": "continue",
+    "reason": ""
+  },
+  "iterations": []
+}

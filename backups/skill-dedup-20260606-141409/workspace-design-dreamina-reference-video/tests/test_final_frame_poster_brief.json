@@ -1,0 +1,15 @@
+{
+  "subject": "测试角色",
+  "action": "测试动作",
+  "scene": "测试场景",
+  "style": "测试风格",
+  "ratio": "9:16",
+  "duration": 5,
+  "quality_tier": "draft",
+  "existing_references": {
+    "identity_source": "/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/2d3626ef-f958-43d3-ab03-d7b32ee0e743.jpg",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/c894e0e6-ad7d-4e29-90a3-e7b7b74371e3.png"
+  },
+  "identity_strategy": "reuse_exact",
+  "notes": "测试 final_frame_poster 自动复用为 original"
+}

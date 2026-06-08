@@ -1,0 +1,44 @@
+{
+  "original": {
+    "prompt_name": "original",
+    "risks": [
+      {
+        "risk_type": "excessive_negation",
+        "severity": "medium",
+        "location": "共 8 处否定词",
+        "original_text": "否定词位置: [223, 231, 240, 127, 14]...",
+        "reason": "prompt 中有 8 个否定词，过多的否定描述可能降低模型理解准确度",
+        "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+      }
+    ],
+    "rewrite_suggestions": {
+      "auto_rewrite": "原图任务：只负责风格与世界，不负责镜头顺序。\n主体：芒果产品海报尾帧\n主体行为：镜头缓慢小幅环绕推进，水珠顺着果皮滑落，果肉高光更水润，最后稳定回到海报构图\n场景 / 世界观：清爽芒果产品广告场景\n风格 / 气质：真实食品广告质感\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 先建立完整世界观和主画面气质。\n2. 让主体与环境关系清晰，能作为后续身份板和故事板的世界基准。\n3. 保持电影感、真实感、可继续扩展成视频的空间信息。\n4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。"
+    }
+  },
+  "identity_board": {
+    "prompt_name": "identity_board",
+    "risks": [],
+    "rewrite_suggestions": {}
+  },
+  "storyboard": {
+    "prompt_name": "storyboard",
+    "risks": [],
+    "rewrite_suggestions": {}
+  },
+  "video": {
+    "prompt_name": "video",
+    "risks": [
+      {
+        "risk_type": "excessive_negation",
+        "severity": "medium",
+        "location": "共 5 处否定词",
+        "original_text": "否定词位置: [249, 258, 249, 258, 253]...",
+        "reason": "prompt 中有 5 个否定词，过多的否定描述可能降低模型理解准确度",
+        "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+      }
+    ],
+    "rewrite_suggestions": {
+      "auto_rewrite": "基于参考尾帧海报生成5秒产品/场景广告动效，9:16。\n主体：芒果产品海报尾帧。\n动效：镜头缓慢小幅环绕推进，水珠顺着果皮滑落，果肉高光更水润，最后稳定回到海报构图。\n场景与气质：清爽芒果产品广告场景；真实食品广告质感。\n镜头节奏：\n1. 建立空间：清爽芒果产品广告场景\n2. 动作推进：镜头缓慢小幅环绕推进\n3. 动作推进：水珠顺着果皮滑落\n4. 动作推进：果肉高光更水润\n5. 收束定格：稳定回到海报构图\n要求：保持参考图的产品/主体数量、构图、色调和核心质感，最后稳定回到或贴近尾帧海报画面；不要新增无关主体，不要大幅改变产品结构。"
+    }
+  }
+}

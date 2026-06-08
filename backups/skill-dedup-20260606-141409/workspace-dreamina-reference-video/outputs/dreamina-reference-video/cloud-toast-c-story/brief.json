@@ -1,0 +1,34 @@
+{
+  "project_name": "云朵软吐司5s微视频-方案C",
+  "project_slug": "cloud-toast-c-story",
+  "subject": "白色可爱小恐龙IP，戴橙色面包帽、红围巾，抱住云朵形软吐司",
+  "action": "白云聚拢并慢慢变成云朵形软吐司，小恐龙惊喜出现并抱住吐司，最终定格到已定版尾帧海报构图",
+  "scene": "蓝天白云的柔软云端世界，云朵托住角色和吐司，上方保留云朵质感中文标题文案空间",
+  "style": "治愈系可爱广告小动效，柔软蓬松，明亮蓝天，轻盈慢动作，2D卡通IP结合真实柔软吐司质感，整体贴近定版海报",
+  "ratio": "9:16",
+  "duration": 5,
+  "quality_tier": "draft",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": 5,
+  "identity_strategy": "reuse_exact",
+  "identity_structure": [
+    "角色必须是白色小恐龙/小龙IP，黑色粗描边，大眼睛，微笑，脸颊粉色腮红",
+    "头顶必须戴橙黄色面包帽，脖子必须有红色围巾，背部与尾巴有白色三角背刺",
+    "最终动作必须是小恐龙从右侧抱住大号云朵形吐司，构图贴近定版尾帧海报",
+    "吐司必须是云朵轮廓，金黄烤边、柔软白芯，表现蓬松回弹"
+  ],
+  "identity_forbidden": [
+    "禁止把小恐龙变成人、熊、猫、狗或普通龙",
+    "禁止改变面包帽、红围巾、白色身体、黑色粗线条这些核心识别",
+    "禁止新增其他角色、手持道具、包装袋、桌面、厨房场景",
+    "禁止吐司变成普通方形吐司、蛋糕、棉花糖或真实云团",
+    "禁止大幅跑跳、夸张飞行、爆炸式变形，动作必须轻柔治愈",
+    "禁止尾帧与定版海报构图差异过大"
+  ],
+  "notes": "用户已确认采用方案C：云朵变吐司。5秒故事节奏：0-1s蓝天白云聚拢；1-2.5s白云逐渐显现金黄边缘并变成云朵形吐司；2.5-4s小恐龙从右侧云后惊喜探出并靠近，伸手抱住；4-5s稳定到定版尾帧海报，小恐龙抱着云朵吐司，云朵托底，上方文案空间保留。当前是微视频故事版确认，优先保角色和尾帧一致性。",
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/6e3b7db2-19b9-4bd8-835e-64d95f17517c.jpg",
+    "identity_source": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/735e8810-48ed-4a1f-b317-dc21f19fe297.png",
+    "product_reference": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/d3f5ded4-ec52-4486-91ef-dde92f0ea5f0.jpg"
+  }
+}

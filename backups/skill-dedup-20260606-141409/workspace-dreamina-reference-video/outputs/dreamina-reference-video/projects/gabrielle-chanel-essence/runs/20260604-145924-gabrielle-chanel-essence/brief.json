@@ -1,0 +1,35 @@
+{
+  "project_name": "Gabrielle Chanel Essence 香水瓶",
+  "project_slug": "gabrielle-chanel-essence",
+  "ratio": "9:16",
+  "duration": 5,
+  "quality_tier": "final",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": null,
+  "storyboard_beats_override": [],
+  "identity_strategy": "reuse_exact",
+  "identity_anchor_rules": [],
+  "identity_structure": [],
+  "identity_forbidden": [],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "首帧严格参考图1。视频过程里向日葵与绿叶在微风中缓慢摆动并自然退场，过渡为金色麦浪；背景逐步展开为图2的蓝色远山、旋涡云层和高耸柏树。香水瓶始终稳定居中，瓶身比例准确，玻璃通透发光，标签完整干净，不变形、不漂移、不模糊。转场丝滑自然，不跳切。",
+  "normalize_references": true,
+  "subject": "Gabrielle Chanel Essence 香水瓶",
+  "action": "从向日葵花海中的静置状态，自然演变到梵高式麦田场景",
+  "scene": "图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观",
+  "style": "高级香水广告片，厚涂油画质感，后印象派，温暖金黄色主调，诗意奢华",
+  "existing_references": {
+    "identity_source": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/54730880-8fe2-4953-97b7-c64192c308b2.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/1234eafa-1ee7-4b41-97d4-3429832acb97.jpg"
+  },
+  "storyboard_beats": [
+    "建立空间：图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观",
+    "动作推进：从向日葵花海中的静置状态",
+    "动作推进：自然演变到梵高式麦田场景",
+    "收束定格：主体收束到定版海报构图，文案元素逐渐出现"
+  ],
+  "storyboard_panel_count": 4,
+  "slug": "gabrielle-chanel-essence"
+}

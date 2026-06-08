@@ -81,6 +81,58 @@ def append_jsonl(path: Path, payload: dict[str, Any]) -> None:
         f.write(json.dumps(payload, ensure_ascii=False) + '\n')
 
 
+def normalize_stage_status(raw: Any, current_stage: str, defaults: dict[str, str]) -> dict[str, str]:
+    normalized = dict(defaults)
+    if isinstance(raw, dict):
+        for stage, status in raw.items():
+            if stage in normalized:
+                normalized[stage] = str(status or normalized[stage])
+        return normalized
+
+    if isinstance(raw, str) and current_stage in normalized:
+        status_map = {
+            'complete': 'done',
+            'completed': 'done',
+            'success': 'done',
+            'succeeded': 'done',
+        }
+        normalized[current_stage] = status_map.get(raw.strip().lower(), raw.strip() or normalized[current_stage])
+    return normalized
+
+
+def normalize_attempts(raw: Any, defaults: dict[str, int]) -> dict[str, int]:
+    normalized = dict(defaults)
+    if not isinstance(raw, dict):
+        return normalized
+    for stage, value in raw.items():
+        if stage not in normalized:
+            continue
+        try:
+            normalized[stage] = int(value or 0)
+        except (TypeError, ValueError):
+            normalized[stage] = 0
+    return normalized
+
+
+def normalize_artifacts(raw: Any) -> dict[str, str]:
+    if isinstance(raw, dict):
+        return {str(key): str(value) for key, value in raw.items() if value}
+    if not isinstance(raw, list):
+        return {}
+
+    normalized: dict[str, str] = {}
+    for item in raw:
+        value = str(item or '').strip()
+        if not value:
+            continue
+        name = Path(value).name
+        for key, filename in ARTIFACT_FILES.items():
+            if name == filename:
+                normalized[key] = value
+                break
+    return normalized
+
+
 class ProjectManager:
     def __init__(self, project_dir: str | Path):
         self.project_dir = Path(project_dir).resolve()
@@ -172,19 +224,32 @@ class ProjectManager:
         state.setdefault('created_at', now_iso())
         state.setdefault('updated_at', now_iso())
         state.setdefault('current_stage', 'intake')
-        stage_status = state.setdefault('stage_status', {})
-        for stage, status in self._default_stage_status().items():
-            stage_status.setdefault(stage, status)
-        workflow_flags = state.setdefault('workflow_flags', {})
+        state['stage_status'] = normalize_stage_status(
+            state.get('stage_status'),
+            str(state.get('current_stage', '') or ''),
+            self._default_stage_status(),
+        )
+
+        workflow_flags = state.get('workflow_flags')
+        if not isinstance(workflow_flags, dict):
+            workflow_flags = {}
+        state['workflow_flags'] = workflow_flags
         for key, value in self._default_workflow_flags().items():
             workflow_flags.setdefault(key, value)
-        attempts = state.setdefault('attempts', {})
-        for key, value in self._default_attempts().items():
-            attempts.setdefault(key, value)
-        resume = state.setdefault('resume', {})
+
+        state['attempts'] = normalize_attempts(state.get('attempts'), self._default_attempts())
+
+        resume = state.get('resume')
+        if not isinstance(resume, dict):
+            resume = {}
+        state['resume'] = resume
         for key, value in self._default_resume().items():
             resume.setdefault(key, value)
-        role_contacts = state.setdefault('role_contacts', {})
+
+        role_contacts = state.get('role_contacts')
+        if not isinstance(role_contacts, dict):
+            role_contacts = {}
+        state['role_contacts'] = role_contacts
         for key, value in self._default_role_contacts().items():
             role_contacts.setdefault(key, value)
             if not isinstance(role_contacts[key], dict):
@@ -192,12 +257,16 @@ class ProjectManager:
             else:
                 for field, default_value in value.items():
                     role_contacts[key].setdefault(field, default_value)
-        stage_confirmation_map = state.setdefault('stage_confirmation_map', {})
+
+        stage_confirmation_map = state.get('stage_confirmation_map')
+        if not isinstance(stage_confirmation_map, dict):
+            stage_confirmation_map = {}
+        state['stage_confirmation_map'] = stage_confirmation_map
         for stage, role in self._default_stage_confirmation_map().items():
             stage_confirmation_map.setdefault(stage, role)
         state.setdefault('last_error_stage', '')
         state.setdefault('last_error', '')
-        state.setdefault('artifacts', {})
+        state['artifacts'] = normalize_artifacts(state.get('artifacts'))
         write_json(self.state_path, state)
         return state
 

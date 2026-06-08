@@ -1,0 +1,14 @@
+{
+  "id": "img_014",
+  "name": "gemini-3.1-flash-image-preview",
+  "requestModel": "gemini-3.1-flash-image-preview",
+  "protocol": "openai",
+  "baseUrl": "https://s.lconai.com/",
+  "apiKey": "sk-ldeV7GIgtTHIvcG4UbKhRo8zN7lFVNgEhOtzgrTHdE1THBzD",
+  "aspectRatio": "",
+  "resolution": "",
+  "defaultPrompt": "",
+  "negativePrompt": "",
+  "requestModelI2I": "",
+  "protocolI2I": "openai-multipart"
+}

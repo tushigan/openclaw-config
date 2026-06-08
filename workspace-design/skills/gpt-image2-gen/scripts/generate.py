@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import time
 import re
+import hashlib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
@@ -54,22 +55,29 @@ def load_openclaw_env() -> None:
 load_openclaw_env()
 
 # Dual-supplier key mapping (independent keys per endpoint)
-# 主通道：n.lconai.com 使用 BANANA_API_KEY
-# 备用通道：cn.aixor.org 使用 BANANA_API_KEY_AIXOR
+# 主通道：direct.aixor.org 使用 BANANA_API_KEY（gpt-image-2 原生支持 4K）
+# 备用通道：n.lconai.com 使用 BANANA_API_KEY_AIXOR（>2K 需切换到 gpt-image-2-pro）
 ENDPOINT_KEYS = {
-    'n.lconai.com': os.getenv('BANANA_API_KEY', ''),
-    'cn.aixor.org': os.getenv('BANANA_API_KEY_AIXOR', os.getenv('BANANA_API_KEY_N', '')),
+    'direct.aixor.org': os.getenv('BANANA_API_KEY', ''),
+    'n.lconai.com': os.getenv('BANANA_API_KEY_AIXOR', os.getenv('BANANA_API_KEY_N', '')),
 }
 
-HOST_MODEL_ALIASES = {
-    'cn.aixor.org': {
-        'gpt-image-2-pro': os.getenv('BANANA_DEFAULT_MODEL_AIXOR', 'gpt-image-2').strip() or 'gpt-image-2',
+# n.lconai.com 的模型限制：gpt-image-2 最高支持 2K，超过需用 gpt-image-2-pro
+HOST_MODEL_RESOLUTION_LIMITS = {
+    'n.lconai.com': {
+        'gpt-image-2': 2048,  # gpt-image-2 最高 2048x2048
+        'gpt-image-2-pro': 4096,  # gpt-image-2-pro 最高 4096x4096
+    },
+    'direct.aixor.org': {
+        'gpt-image-2': 4096,  # direct.aixor.org 的 gpt-image-2 原生支持 4K
     },
 }
 
 DELIVERY_DIR = Path('/Users/a123/.openclaw/workspace/feishu-deliver')
 PROVIDER_STATE_FILE = Path('/Users/a123/.openclaw/.gpt_image_provider_state.json')
 AGENTS_DIR = Path('/Users/a123/.openclaw/agents')
+ROUTE_GUARD_SCRIPT = Path('/Users/a123/.openclaw/scripts/feishu-route-guard.py')
+TASK_MANIFEST_NAME = 'task_manifest.json'
 
 
 def utc_now() -> str:
@@ -103,6 +111,150 @@ def resolve_result_paths(output_path: Path) -> tuple[Path, Path]:
         output_path.with_name(f'{output_path.stem}.result.json'),
         output_path.with_name(f'{output_path.stem}.delivery.json'),
     )
+
+
+def _slug(value: Any, *, limit: int = 48) -> str:
+    text = str(value or '').strip().lower().replace('_', '-')
+    text = re.sub(r'[^a-z0-9\u4e00-\u9fff]+', '-', text)
+    text = re.sub(r'-+', '-', text).strip('-')
+    return (text[:limit].strip('-') or 'task')
+
+
+def _target_slug(delivery_target: dict[str, Any]) -> str:
+    target = normalize_feishu_target(delivery_target.get('target') or '')
+    if not target:
+        return 'target-unknown'
+    return _slug(target.split(':', 1)[-1], limit=36)
+
+
+def _is_shared_output_dir(path: Path) -> bool:
+    try:
+        parent = path.parent.resolve()
+        return parent in {
+            (WORKSPACE / 'images').resolve(),
+            (WORKSPACE / 'outputs').resolve(),
+        }
+    except OSError:
+        return False
+
+
+def resolve_task_output_path(
+    requested_output_path: Path,
+    *,
+    delivery_target: dict[str, Any],
+    prompt: str,
+    started_at: datetime,
+) -> Path:
+    if not _is_shared_output_dir(requested_output_path):
+        return requested_output_path
+    started = started_at if started_at.tzinfo else started_at.replace(tzinfo=timezone.utc)
+    timestamp = started.astimezone(timezone.utc).strftime('%Y%m%d-%H%M%S')
+    digest_input = '|'.join([
+        str(requested_output_path),
+        normalize_feishu_target(delivery_target.get('target') or ''),
+        str(prompt or ''),
+        timestamp,
+    ])
+    digest = hashlib.sha256(digest_input.encode('utf-8')).hexdigest()[:8]
+    folder = '-'.join([
+        timestamp,
+        _target_slug(delivery_target),
+        _slug(requested_output_path.stem),
+        digest,
+    ])
+    return requested_output_path.parent / folder / requested_output_path.name
+
+
+def write_task_manifest(
+    *,
+    output_path: Path,
+    requested_output_path: Path,
+    prompt: str,
+    size: str,
+    aspect: str,
+    model: str,
+    count: int,
+    references: list[str],
+    delivery_target: dict[str, Any],
+    started_at: datetime,
+) -> Path:
+    manifest_path = output_path.parent / TASK_MANIFEST_NAME
+    write_json(
+        manifest_path,
+        {
+            'schema': 'openclaw.gpt-image2.task.v1',
+            'created_at': started_at.isoformat().replace('+00:00', 'Z'),
+            'target_locked': bool(delivery_target.get('target')),
+            'requested_output': str(requested_output_path),
+            'output': str(output_path),
+            'result_path': str(resolve_result_paths(output_path)[0]),
+            'delivery_manifest': str(resolve_result_paths(output_path)[1]),
+            'prompt': prompt,
+            'size': size,
+            'aspect': aspect,
+            'model': model,
+            'count': count,
+            'references': references,
+            'delivery_target': delivery_target,
+        },
+    )
+    return manifest_path
+
+
+def stamp_feishu_route(
+    media_path: Path,
+    *,
+    delivery_target: dict[str, Any],
+    source_manifest: Any = '',
+) -> None:
+    target = normalize_feishu_target(delivery_target.get('target') or '')
+    if not target or not ROUTE_GUARD_SCRIPT.exists():
+        return
+    cmd = [
+        sys.executable,
+        str(ROUTE_GUARD_SCRIPT),
+        'stamp',
+        '--media',
+        str(media_path),
+        '--target',
+        target,
+        '--account-id',
+        str(delivery_target.get('account_id') or ''),
+        '--source',
+        str(delivery_target.get('target_source') or 'gpt-image2-gen'),
+        '--source-manifest',
+        str(source_manifest or ''),
+        '--json',
+    ]
+    subprocess.run(cmd, text=True, capture_output=True, check=False, timeout=30)
+
+
+def validate_feishu_route_before_send(media_path: Path, target: str) -> dict[str, Any]:
+    normalized_target = normalize_feishu_target(target)
+    if not normalized_target or not ROUTE_GUARD_SCRIPT.exists():
+        return {'ok': bool(normalized_target), 'status': 'route_guard_unavailable'}
+    cmd = [
+        sys.executable,
+        str(ROUTE_GUARD_SCRIPT),
+        'check',
+        '--media',
+        str(media_path),
+        '--target',
+        normalized_target,
+        '--json',
+    ]
+    result = subprocess.run(cmd, text=True, capture_output=True, check=False, timeout=30)
+    try:
+        payload = json.loads(result.stdout) if result.stdout.strip() else {}
+    except json.JSONDecodeError:
+        payload = {}
+    if payload:
+        return payload
+    return {
+        'ok': result.returncode == 0,
+        'status': 'route_guard_failed' if result.returncode else 'route_guard_ok',
+        'stderr': result.stderr.strip(),
+    }
 
 
 def build_result_base(*, output_path: Path, prompt: str, size: str, aspect: str, model: str, count: int, references: list[str]) -> dict:
@@ -222,11 +374,16 @@ def parse_runtime_context(content: str) -> dict[str, str]:
     account_match = re.search(r'Feishu\[([^\]]+)\]', text)
     sender_open_match = re.search(r'"sender_id"\s*:\s*"([^"]+)"', text)
     sender_name_match = re.search(r'"sender"\s*:\s*"([^"]+)"', text)
+    group_match = re.search(r'"is_group_chat"\s*:\s*(true|false)', text)
     target = normalize_feishu_target(target_match.group(1) if target_match else '')
+    sender_open_id = sender_open_match.group(1) if sender_open_match else ''
+    is_group_chat = group_match.group(1) == 'true' if group_match else False
+    if not is_group_chat and sender_open_id:
+        target = normalize_feishu_target(sender_open_id)
     return {
         'target': target,
         'account_id': account_match.group(1) if account_match else '',
-        'source_sender_open_id': sender_open_match.group(1) if sender_open_match else '',
+        'source_sender_open_id': sender_open_id,
         'source_sender_name': sender_name_match.group(1) if sender_name_match else '',
     }
 
@@ -292,7 +449,9 @@ def _dedupe_target_candidates(candidates: list[dict[str, str]]) -> list[dict[str
 def _collect_sibling_manifest_candidates(output_path: Path) -> list[dict[str, str]]:
     candidates: list[dict[str, str]] = []
     _result_path, manifest_path = resolve_result_paths(output_path)
-    trusted_sources = {'explicit_target', 'source_session_key', 'sibling_manifest', 'manifest_delivery_target'}
+    if output_path.parent.resolve() == (WORKSPACE / 'images').resolve():
+        return []
+    trusted_sources = {'explicit_target', 'source_session_key', 'manifest_delivery_target'}
     for sibling_manifest in sorted(output_path.parent.glob('*.delivery.json')):
         if sibling_manifest == manifest_path:
             continue
@@ -391,21 +550,9 @@ def _collect_recent_session_candidates(output_path: Path, references: list[str])
 def infer_delivery_target_from_recent_sessions(output_path: Path, references: list[str]) -> dict[str, str]:
     sibling_candidates = _collect_sibling_manifest_candidates(output_path)
     if sibling_candidates:
-        unique_targets = {item['target'] for item in sibling_candidates}
-        if len(unique_targets) == 1:
-            winner = sibling_candidates[0]
-            return resolve_delivery_target(
-                feishu_target=winner['target'],
-                feishu_account_id=winner.get('account_id', ''),
-                source_session_key=winner.get('source_session_key', ''),
-            ) | {
-                'target_source': 'sibling_manifest',
-                'target_candidates': sibling_candidates,
-                'target_conflict_reason': '',
-            }
         return _empty_inferred_target(
             target_source='sibling_manifest',
-            reason='conflict_across_sibling_manifests',
+            reason='sibling_manifest_not_trusted_for_auto_delivery',
             candidates=sibling_candidates,
         )
 
@@ -501,13 +648,13 @@ def resolve_key(base_url: str) -> str:
     return os.getenv('BANANA_API_KEY', '')
 
 
-API_URL = os.getenv('BANANA_API_URL', 'https://n.lconai.com')
+API_URL = os.getenv('BANANA_API_URL', 'https://direct.aixor.org')
 DEFAULT_MODEL = 'gpt-image-2'
 ENV_MODEL = os.getenv('BANANA_DEFAULT_MODEL', '')
 AIXOR_API_URL = os.getenv('BANANA_API_URL_AIXOR', '')
 PROVIDER_MODE = (os.getenv('BANANA_PROVIDER_MODE', 'auto') or 'auto').strip().lower()
 PRIMARY_COOLDOWN_SECONDS = max(0, int(os.getenv('BANANA_PRIMARY_COOLDOWN_SECONDS', '900') or '900'))
-DEFAULT_SIZE = '2880x2880'
+DEFAULT_SIZE = '1920x1080'
 WORKSPACE = Path('/Users/a123/.openclaw/workspace')
 DISTILL_ROOT = WORKSPACE / 'skills' / 'brand-poster-distiller'
 DISTILL_INDEX = DISTILL_ROOT / 'library-index.json'
@@ -515,15 +662,15 @@ RENDER_LAYOUT_SCRIPT = DISTILL_ROOT / 'scripts' / 'render_layout.py'
 SKELETON_DIR = DISTILL_ROOT / 'site' / 'assets' / 'skeletons'
 
 RATIO_TO_PIXELS = {
-    '1:1': (2880, 2880),
-    '5:4': (3200, 2560),
-    '4:5': (2560, 3200),
-    '4:3': (3264, 2448),
-    '3:4': (2448, 3264),
-    '16:9': (3840, 2160),
-    '9:16': (2160, 3840),
-    '3:2': (3504, 2336),
-    '2:3': (2336, 3504),
+    '1:1': (1920, 1920),   # 降级到1080p级别
+    '5:4': (1920, 1536),   # 降级
+    '4:5': (1536, 1920),   # 降级
+    '4:3': (1920, 1440),   # 降级
+    '3:4': (1440, 1920),   # 降级
+    '16:9': (1920, 1080),  # 标准1080p
+    '9:16': (1080, 1920),  # 竖版1080p
+    '3:2': (1920, 1280),   # 降级
+    '2:3': (1280, 1920),   # 降级
 }
 
 
@@ -550,26 +697,51 @@ def normalize_base_url(base_url: str) -> str:
 
 def preferred_response_format(base_url: str) -> str:
     host = (base_url or '').lower()
-    if 'cn.aixor.org' in host:
+    if 'direct.aixor.org' in host:
         return 'b64_json'
     return 'url'
 
 
 def provider_name(base_url: str) -> str:
     host = (urlparse(base_url).netloc or '').lower()
-    if 'cn.aixor.org' in host:
+    if 'direct.aixor.org' in host:
         return 'aixor'
     if 'n.lconai.com' in host:
         return 'n.lconai'
     return host or 'custom'
 
 
-def normalize_model_for_provider(model: Optional[str], base_url: str) -> str:
+def normalize_model_for_provider(model: Optional[str], base_url: str, width: int = 0, height: int = 0) -> str:
+    """
+    智能模型路由：根据端点和分辨率选择合适的模型
+
+    规则：
+    - direct.aixor.org: gpt-image-2 原生支持 4K，无需切换（强制降级 pro 到基础版）
+    - n.lconai.com:
+      - ≤2048: 强制使用 gpt-image-2（降级 pro）
+      - >2048: 强制使用 gpt-image-2-pro（升级基础版）
+    """
     requested = (model or '').strip() or DEFAULT_MODEL
     host = (base_url or '').lower()
-    for host_key, aliases in HOST_MODEL_ALIASES.items():
-        if host_key in host:
-            return aliases.get(requested, requested)
+    max_dim = max(width, height)
+
+    # direct.aixor.org：强制使用 gpt-image-2（原生支持 4K）
+    if 'direct.aixor.org' in host:
+        if 'pro' in requested.lower():
+            return 'gpt-image-2'  # 降级 pro 到基础版
+        return requested or 'gpt-image-2'
+
+    # n.lconai.com：根据分辨率智能切换
+    if 'n.lconai.com' in host:
+        if max_dim > 2048:
+            # >2K：必须用 pro
+            return 'gpt-image-2-pro'
+        else:
+            # ≤2K：必须用基础版
+            if 'pro' in requested.lower():
+                return 'gpt-image-2'  # 降级 pro 到基础版
+            return requested or 'gpt-image-2'
+
     return requested
 
 
@@ -1384,8 +1556,19 @@ def call_images_api_on_provider(
         raise ValueError(f'No API key configured for provider {provider_name(base_url)} ({base_url})')
 
     requested_model = (model or DEFAULT_MODEL).strip() or DEFAULT_MODEL
-    effective_model = normalize_model_for_provider(requested_model, base_url)
     size = normalize_size(image_size)
+
+    # 解析分辨率以便智能路由
+    width, height = 0, 0
+    if 'x' in str(size):
+        try:
+            w_str, h_str = str(size).split('x')
+            width, height = int(w_str), int(h_str)
+        except (ValueError, TypeError):
+            pass
+
+    effective_model = normalize_model_for_provider(requested_model, base_url, width, height)
+
     if effective_model.startswith('gpt-image') and not any(sep in str(size) for sep in ('x', '*')):
         print(
             f'[warn] gpt-image-2 requires pixel sizes (e.g. 1024x1024, 1536x1152, 2048x1536). Ratio/tier values like "{size}" are rejected by the gateway (HTTP 400 "不合法的size").',
@@ -1393,7 +1576,7 @@ def call_images_api_on_provider(
         )
     if effective_model != requested_model:
         print(
-            f'[note] provider {provider_name(base_url)} remapped requested model {requested_model} -> {effective_model}',
+            f'[note] provider {provider_name(base_url)} auto-switched model: {requested_model} -> {effective_model} (resolution: {width}x{height})',
             file=sys.stderr,
         )
     headers = {'Authorization': f'Bearer {resolve_key(base_url)}'}
@@ -1438,6 +1621,27 @@ def call_images_api_on_provider(
                 )
                 time.sleep(backoff)
                 attempt += 1
+
+    if count > 1:
+        print(
+            f'[info] generating {count} image(s) as parallel single-image request(s) on provider {provider_name(base_url)}.',
+            file=sys.stderr,
+        )
+        collected = []
+        errors = []
+        with ThreadPoolExecutor(max_workers=min(count, 5)) as ex:
+            futures = [ex.submit(_single_with_retry, 1) for _ in range(count)]
+            for fut in as_completed(futures):
+                try:
+                    collected.extend(fut.result())
+                except Exception as e:
+                    errors.append(e)
+                    print(f'[warn] parallel request failed: {e}', file=sys.stderr)
+        if len(collected) >= count:
+            return collected[:count]
+        if errors:
+            raise errors[-1]
+        raise ValueError(f'Provider {provider_name(base_url)} returned {len(collected)} item(s) for count={count}')
 
     first_items = _single_with_retry(count)
     if len(first_items) >= count:
@@ -1494,11 +1698,21 @@ def call_images_api(prompt: str, image_size: str, reference_images=None, model: 
         except Exception as exc:
             last_exc = exc
             if invocation_meta is not None:
+                requested = (model or DEFAULT_MODEL).strip() or DEFAULT_MODEL
+                # 解析分辨率用于智能路由
+                width, height = 0, 0
+                size_normalized = normalize_size(image_size)
+                if 'x' in str(size_normalized):
+                    try:
+                        w_str, h_str = str(size_normalized).split('x')
+                        width, height = int(w_str), int(h_str)
+                    except (ValueError, TypeError):
+                        pass
                 invocation_meta.update({
                     'api_base_url': base_url,
                     'api_provider': provider_name(base_url),
-                    'requested_model': (model or DEFAULT_MODEL).strip() or DEFAULT_MODEL,
-                    'effective_model': normalize_model_for_provider(model, base_url),
+                    'requested_model': requested,
+                    'effective_model': normalize_model_for_provider(requested, base_url, width, height),
                 })
             if not has_next or not is_provider_switchable_error(exc):
                 raise
@@ -1576,6 +1790,20 @@ def send_feishu_images(deliver_paths: list[Path], *, target: str = '', user_id: 
     ok = True
     results = []
     for path in deliver_paths:
+        route_check = validate_feishu_route_before_send(path, normalized_target)
+        if not route_check.get('ok'):
+            ok = False
+            item = {
+                'path': str(path),
+                'returncode': 2,
+                'stdout': json.dumps(route_check, ensure_ascii=False),
+                'stderr': f'route guard blocked send: {route_check.get("status", "unknown")}',
+                'sent': False,
+                'route_check': route_check,
+            }
+            results.append(item)
+            print(f'[deliver:block] route guard blocked {path}: {route_check.get("status", "unknown")}', file=sys.stderr)
+            continue
         cmd = ['npx', 'lark-cli', 'im', '+messages-send', '--as', 'bot', *target_args, '--image', str(path)]
         print(f'[deliver] sending {path} to Feishu {target_label}')
         result = subprocess.run(cmd, text=True, capture_output=True, timeout=180)
@@ -1587,6 +1815,7 @@ def send_feishu_images(deliver_paths: list[Path], *, target: str = '', user_id: 
             'stdout': result.stdout.strip(),
             'stderr': result.stderr.strip(),
             'sent': result.returncode == 0,
+            'route_check': route_check,
         }
         results.append(item)
         if result.returncode != 0:
@@ -1619,7 +1848,7 @@ def main():
     parser.add_argument('--ref-typography', action='append', default=[], help='Reference image as typography sample')
     parser.add_argument('--ref-element', action='append', default=[], help='Reference image as a locked element that must appear')
     parser.add_argument('-a', '--aspect', default='1:1', help='Compatibility arg only; not sent to API')
-    parser.add_argument('-s', '--size', default=DEFAULT_SIZE, help='Image size (pixel form like 1024x1024, 1536x1152, 2048x1536). Ratio values like 4:3 are rejected by the gateway.')
+    parser.add_argument('-s', '--size', default=DEFAULT_SIZE, help='Image size. Use ratio form (9:16, 16:9, 1:1, 4:3, 3:4, etc.) for auto-mapped resolutions, or pixel form (1024x1024, 1920x1080, 2048x1536) for exact sizes.')
     parser.add_argument('-o', '--output', default='output.png', help='Output file path. When --count>1 extra images are saved as <stem>_2.png, <stem>_3.png, ...')
     parser.add_argument('-n', '--count', type=int, default=1, help='How many images to generate for the same prompt (1-10). Default 1. Values >1 fan out in parallel if the upstream ignores n.')
     parser.add_argument('-m', '--model', default=DEFAULT_MODEL, help='Model name')
@@ -1646,8 +1875,7 @@ def main():
         raise SystemExit('Need prompt: pass positional prompt, --prompt, or --prompt-file')
 
     count = max(1, min(10, int(args.count or 1)))
-    output_path = Path(args.output)
-    result_path, manifest_path = resolve_result_paths(output_path)
+    requested_output_path = Path(args.output)
     start_dt = datetime.now(timezone.utc)
 
     ordered_typed = collect_ordered_typed_references(args, sys.argv[1:])
@@ -1661,6 +1889,42 @@ def main():
     elif typed_for_prompt:
         prompt = '\n\n'.join([prompt, describe_reference_roles(typed_for_prompt)]).strip()
 
+    delivery_target = resolve_delivery_target(
+        feishu_target=args.feishu_target.strip(),
+        feishu_user_id=args.feishu_user_id.strip(),
+        feishu_chat_id=args.feishu_chat_id.strip(),
+        feishu_account_id=args.feishu_account_id.strip(),
+        source_session_key=args.source_session_key.strip(),
+    )
+    if not delivery_target.get('target'):
+        inferred_target = infer_delivery_target_from_recent_sessions(requested_output_path, references)
+        if inferred_target:
+            delivery_target = {
+                **delivery_target,
+                **{k: v for k, v in inferred_target.items() if v},
+            }
+    delivery_target['channel'] = 'feishu'
+
+    output_path = resolve_task_output_path(
+        requested_output_path,
+        delivery_target=delivery_target,
+        prompt=prompt,
+        started_at=start_dt,
+    )
+    result_path, manifest_path = resolve_result_paths(output_path)
+    task_manifest_path = write_task_manifest(
+        output_path=output_path,
+        requested_output_path=requested_output_path,
+        prompt=prompt,
+        size=args.size,
+        aspect=args.aspect,
+        model=args.model,
+        count=count,
+        references=references,
+        delivery_target=delivery_target,
+        started_at=start_dt,
+    )
+
     endpoint = '/v1/images/edits' if references else '/v1/images/generations'
     print('Generating image...')
     print(f'Endpoint: {endpoint}')
@@ -1671,6 +1935,10 @@ def main():
         print(f'[note] ignoring BANANA_DEFAULT_MODEL={ENV_MODEL}; this skill is locked to default model {DEFAULT_MODEL} unless --model is explicitly passed.')
     print(f'Requested size: {args.size}  (normalised: {normalize_size(args.size)})')
     print(f'References: {len(references)}')
+    print(f'Requested output: {requested_output_path}')
+    if output_path != requested_output_path:
+        print(f'Isolated task output: {output_path}')
+    print(f'Task manifest: {task_manifest_path}')
     if references:
         print('Reference list:')
         for ref in references:
@@ -1731,29 +1999,24 @@ def main():
             for p in out_paths:
                 print(f'- {p}')
 
+        requested_alias_paths = []
+        if requested_output_path != output_path:
+            for idx, p in enumerate(out_paths, start=1):
+                alias = requested_output_path if idx == 1 else requested_output_path.with_name(f'{requested_output_path.stem}_{idx}{requested_output_path.suffix}')
+                alias.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(str(p), str(alias))
+                requested_alias_paths.append(alias)
+                print(f'[alias] copied isolated output to requested path: {alias}')
+
         DELIVERY_DIR.mkdir(parents=True, exist_ok=True)
         deliver_paths = []
         for p in out_paths:
             dest = DELIVERY_DIR / p.name
             shutil.copy2(str(p), str(dest))
+            stamp_feishu_route(dest, delivery_target=delivery_target, source_manifest=task_manifest_path)
             deliver_paths.append(dest)
             print(f'[deliver] copied to {dest}')
 
-        delivery_target = resolve_delivery_target(
-            feishu_target=args.feishu_target.strip(),
-            feishu_user_id=args.feishu_user_id.strip(),
-            feishu_chat_id=args.feishu_chat_id.strip(),
-            feishu_account_id=args.feishu_account_id.strip(),
-            source_session_key=args.source_session_key.strip(),
-        )
-        if not delivery_target.get('target'):
-            inferred_target = infer_delivery_target_from_recent_sessions(output_path, references)
-            if inferred_target:
-                delivery_target = {
-                    **delivery_target,
-                    **{k: v for k, v in inferred_target.items() if v},
-                }
-        delivery_target['channel'] = 'feishu'
         result_payload.update({
             'status': 'succeeded',
             'phase': 'generated',
@@ -1767,6 +2030,9 @@ def main():
             'delivery_status': 'verified',
             'delivery_target': delivery_target,
             'delivered_paths': [str(p) for p in deliver_paths],
+            'requested_output': str(requested_output_path),
+            'requested_alias_paths': [str(p) for p in requested_alias_paths],
+            'task_manifest': str(task_manifest_path),
         })
         update_result(result_path, result_payload)
 

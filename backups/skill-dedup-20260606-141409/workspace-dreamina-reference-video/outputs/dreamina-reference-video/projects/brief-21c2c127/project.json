@@ -1,0 +1,202 @@
+{
+  "schema_version": 2,
+  "project_id": "brief-21c2c127",
+  "project_name": "然利手工中考祝福品牌海报，中心为红金学习用品花形奖章装置，右下角瑞士卷蛋糕包装，底部红色祝福条幅",
+  "project_slug": "brief-21c2c127",
+  "project_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127",
+  "defaults": {
+    "ratio": "3:4",
+    "duration": 5,
+    "quality_tier": "draft",
+    "storyboard_strategy": "auto_beats",
+    "normalize_references": true,
+    "identity_strategy": "reuse_exact"
+  },
+  "constraints": {
+    "must_have": [
+      {
+        "id": "structure-0",
+        "type": "must_have",
+        "description": "尾帧必须严格复用定版海报构图、文字、Logo、产品包装和底部红色条幅",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-1",
+        "type": "must_have",
+        "description": "中心花形学习用品奖章装置保持红金配色和六瓣结构",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-2",
+        "type": "must_have",
+        "description": "右下角产品包装保持瑞士卷蛋糕包装外观，不得更换口味或包装信息",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-3",
+        "type": "must_have",
+        "description": "品牌Logo保持然利手工字样，不得变形或改字",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-4",
+        "type": "must_have",
+        "description": "最终画面标题文字保持努力，自然顺利，底部文案保持落笔从容，一切都顺。",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      }
+    ],
+    "must_not_have": [
+      {
+        "id": "forbidden-0",
+        "type": "must_not_have",
+        "description": "禁止改动定版尾帧文字内容",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-1",
+        "type": "must_not_have",
+        "description": "禁止新增无关人物、考生、学校、教室或杂乱背景",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-2",
+        "type": "must_not_have",
+        "description": "禁止把产品包装变成其他食品或其他品牌",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-3",
+        "type": "must_not_have",
+        "description": "禁止让Logo和中文文字漂移、乱码、变形",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-4",
+        "type": "must_not_have",
+        "description": "禁止尾帧与定版海报构图不一致",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      }
+    ],
+    "prefer": []
+  },
+  "validation_rules": {
+    "reference_system": [],
+    "storyboard": [],
+    "video": []
+  },
+  "iteration_strategy": {
+    "max_iterations": 3,
+    "max_same_error_repeats": 2,
+    "improvement_threshold": 0.15,
+    "ask_user_on_manual_checks": true
+  },
+  "canonical_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/canonical/original.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/canonical/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/canonical/identity-board.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/canonical/final-frame-poster.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/canonical/storyboard.png"
+  },
+  "state": {
+    "status": "video_result_fetched",
+    "current_phase": "fetch_result",
+    "latest_run_id": "20260605-110413-brief-21c2c127",
+    "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127",
+    "updated_at": "2026-06-05T11:57:42+08:00"
+  },
+  "runs": [
+    {
+      "run_id": "20260605-110413-brief-21c2c127",
+      "stage": "fetch_result",
+      "status": "video_result_fetched",
+      "run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127",
+      "brief_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/brief.json",
+      "summary_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/summary.md",
+      "prompt_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/prompts/original.txt",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/prompts/identity-board.txt",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/prompts/storyboard.txt",
+        "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/refs/original.png",
+        "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/refs/identity-source.png",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/refs/identity-board.png",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/refs/storyboard.png",
+        "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/refs/final-frame-poster.png",
+        "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-06-05T11:57:42+08:00",
+      "created_at": "2026-06-05T11:04:13+08:00",
+      "submit_id": "e29ea99f-f581-4b96-bb85-27575897bfb0",
+      "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/dreamina/result.json",
+      "downloads_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/dreamina/downloads"
+    }
+  ],
+  "created_at": "2026-06-05T11:04:13+08:00",
+  "updated_at": "2026-06-05T11:57:42+08:00",
+  "status": "video_result_fetched",
+  "current_phase": "fetch_result",
+  "latest_run_id": "20260605-110413-brief-21c2c127",
+  "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127"
+}

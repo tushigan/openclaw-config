@@ -15,6 +15,10 @@ workspace-design/skills/*
 !workspace-design/skills/product-photography-workflow/**
 !workspace-design/skills/gpt-image2-gen/
 !workspace-design/skills/gpt-image2-gen/**
+!workspace-design/skills/omni-vision-psd-extractor/
+!workspace-design/skills/omni-vision-psd-extractor/**
+workspace-design/skills/omni-vision-psd-extractor/scripts/node_modules/
+workspace-design/skills/omni-vision-psd-extractor/**/__pycache__/
 
 workspace-video/*
 !workspace-video/AGENTS.md

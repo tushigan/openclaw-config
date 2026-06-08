@@ -1,0 +1,4 @@
+interface:
+  display_name: "即梦参考视频"
+  short_description: "先出原图、身份板、故事板，再调用即梦生成视频完整流程"
+  default_prompt: "使用 $dreamina-reference-video 帮我按原图、身份板、故事板的流程生成一个即梦视频。"

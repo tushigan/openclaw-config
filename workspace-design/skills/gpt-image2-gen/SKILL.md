@@ -44,24 +44,23 @@ metadata:
 设置以下环境变量：
 
 ```bash
-export BANANA_API_URL="https://n.lconai.com"
-export BANANA_API_KEY="你的 gpt-image-2-pro key"
-export BANANA_DEFAULT_MODEL="gpt-image-2-pro"
-export BANANA_API_URL_AIXOR="https://cn.aixor.org"
-export BANANA_API_KEY_AIXOR="你的 aixor key"
-# 可选：primary / auto / aixor。默认 auto，会先走主通道，再在可切换错误时尝试 AIXOR。
+export BANANA_API_URL="https://direct.aixor.org"
+export BANANA_API_KEY="你的 direct.aixor.org key"
+export BANANA_DEFAULT_MODEL="gpt-image-2"
+export BANANA_API_URL_AIXOR="https://n.lconai.com"
+export BANANA_API_KEY_AIXOR="你的 n.lconai.com 备用通道 key"
+# 可选：primary / auto / aixor。默认 auto，会先走 direct.aixor.org，再在可切换错误时尝试备用通道。
 export BANANA_PROVIDER_MODE="auto"
 # 尺寸一律用像素，不要用比例字符串
 ```
 
 ### Provider 说明
 
-- `n.lconai.com` 当前常见模型名：`gpt-image-2-pro`
-- `cn.aixor.org` 当前实测模型名：`gpt-image-2`
+- `direct.aixor.org` 当前默认模型名：`gpt-image-2`
+- `n.lconai.com` ≤2K 使用 `gpt-image-2`，>2K 自动切换到 `gpt-image-2-pro`
 - 脚本已内置 provider-aware 映射：
-  - 当你命中 `n.lconai.com` 时，请求模型名固定为 `gpt-image-2-pro`
-  - 当你逻辑上仍传 `gpt-image-2-pro`，但实际命中 `cn.aixor.org`
-  - 会自动改写为 `gpt-image-2`
+  - 命中 `direct.aixor.org` 时，`gpt-image-2-pro` 会自动改写为 `gpt-image-2`
+  - 命中 `n.lconai.com` 时，≤2K 自动用 `gpt-image-2`，>2K 自动用 `gpt-image-2-pro`
 
 这意味着上层 workflow 不需要因为供应商模型别名差异而单独改 prompt 或改任务脚本。
 
@@ -69,7 +68,7 @@ export BANANA_PROVIDER_MODE="auto"
 
 - 默认 `BANANA_PROVIDER_MODE="auto"`
 - `auto` 模式下仍然主通道优先
-- 但当主通道返回以下可切换错误时，会**直接切到 AIXOR**，不再先做多轮无意义等待：
+- 但当主通道返回以下可切换错误时，会**直接切到备用通道**，不再先做多轮无意义等待：
   - `model_not_found`
   - `No available channel for model`
   - `正在加号请稍等`
@@ -77,9 +76,9 @@ export BANANA_PROVIDER_MODE="auto"
 
 这条策略适合你现在这种“主通道偶发封禁 / 排队，但后面可能恢复”的场景。
 
-- 若主通道刚刚触发过上述可切换错误，脚本会在一个短冷却窗口内优先走 `AIXOR`，避免批量出图时每一张都先撞一次主通道。
+- 若主通道刚刚触发过上述可切换错误，脚本会在一个短冷却窗口内优先走备用通道，避免批量出图时每一张都先撞一次主通道。
 
-### AIXOR 已验证尺寸（2026-05-15）
+### 已验证尺寸（2026-05-15）
 
 以下尺寸已用真实请求验证，返回图尺寸与请求一致：
 
@@ -161,27 +160,28 @@ export BANANA_PROVIDER_MODE="auto"
 - **宽高必须都能被 16 整除**，否则返回 `HTTP 400 “Width and height must both be divisible by 16.”`
   - 脚本已自动处理：不能被 16 整除的尺寸会自动向上取整并打印 `[warn]`
 
-### 各比例最大可用尺寸（实测验证）
+### 默认快速尺寸（低于 2K）
 
-| 比例 | 横版最大 | 总像素 | 竖版最大 | 总像素 |
-|------|----------|--------|----------|--------|
-| 1:1  | `2880x2880` | 8,294,400 | （同左） | — |
-| 16:9 | `3840x2160` | 8,294,400 | `2160x3840` | 8,294,400 |
-| 3:2  | `3504x2336` | 8,185,344 | `2336x3504` | 8,185,344 |
-| 4:3  | `3264x2448` | 7,990,272 | `2448x3264` | 7,990,272 |
-| 9:16 | `2160x3840` | 8,294,400 | `3840x2160` | 8,294,400 |
+| 比例 | 默认像素 |
+|------|----------|
+| 1:1  | `1920x1920` |
+| 16:9 | `1920x1080` |
+| 9:16 | `1080x1920` |
+| 4:3  | `1920x1440` |
+| 3:4  | `1440x1920` |
+| 4:5  | `1536x1920` |
 
-> 上一版记录的 `3840x3840`、`2880x3840`、`3840x2880` 均已实测确认超像素预算，不可用。
+默认优先效率。只有用户明确要求高清、4K、打印或大图时，才手动传更高像素。
 
 ### 常用像素推荐
 
 #### 常规出图（稳定、快速）
-- 方图：`1024x1024` / `1536x1536` / `2048x2048`
-- 竖版海报（2:3 / 3:4）：`1152x1728` / `1536x2048` / `1728x2304`
-- 横版 KV（3:2 / 4:3 / 16:9）：`1728x1152` / `2048x1536` / `2304x1728` / `2560x1440`
-- 短视频封面 / 手机屏（9:16）：`1440x2560` / `1152x2048`
+- 方图：`1024x1024` / `1536x1536` / `1920x1920`
+- 竖版海报（2:3 / 3:4）：`1280x1920` / `1440x1920`
+- 横版 KV（3:2 / 4:3 / 16:9）：`1920x1080` / `1920x1280` / `1920x1440`
+- 短视频封面 / 手机屏（9:16）：`1080x1920`
 
-#### 高分出图（拉满像素预算）
+#### 高分出图（用户明确要求时）
 - 方图：`2880x2880`
 - 竖版（16:9→9:16）：`2160x3840`
 - 竖版（3:2→2:3）：`2336x3504`
@@ -195,7 +195,7 @@ export BANANA_PROVIDER_MODE="auto"
 - **不要用单张超长图直接出详情页** — 长图极易比例被改写、分辨率缩水、结构失真
 - 正确做法：**分段生成，再拼接成长页**
 
-> 现在凡是走 ratio-to-size 映射的 workflow，默认会使用**该比例下的最高安全分辨率**。如果你直接手写调用又不确定具体像素，优先用 `2880x2880` 方图或对应比例的“高分出图”尺寸，不要传比例字符串。
+> 现在凡是走 ratio-to-size 映射的 workflow，默认会使用上面的快速尺寸。不要默认拉满像素预算；只有用户明确要求高分辨率时才使用“高分出图”尺寸。
 
 ## 输出路径规范（强制）
 
@@ -249,8 +249,8 @@ python skills/gpt-image2-gen/scripts/generate.py \
 ```
 
 实现细节（不影响使用）：
-- 先按 `n=N` 发一次上游请求。
-- 实测当前网关对 gpt-image-2 **会忽略 `n` 只返 1 张**，脚本会自动把剩下的 `N-1` 张并发补发，直到凑够 N 张。
+- 当 `count > 1` 时，脚本会把同一个端点上的多图请求拆成 `N` 个并行的单图请求，避免一张一张串行生成。
+- 如果主端点这一批没有拿满 `N` 张，脚本会把该端点视为失败并切到备用端点重试同样的并行策略。
 - 多张文件名规则：第 1 张落在 `-o` 指定路径；第 2 张起追加 `_2/_3/...`。
 
 ## 使用示例

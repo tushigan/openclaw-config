@@ -46,7 +46,7 @@ def main():
     ap.add_argument('--prompt', required=True)
     ap.add_argument('--size', required=True)
     ap.add_argument('--output', required=True)
-    ap.add_argument('--model', default='gpt-image-2-pro')
+    ap.add_argument('--model', default='gpt-image-2')
     ap.add_argument('--base-url', default='https://n.lconai.com')
     args = ap.parse_args()
 

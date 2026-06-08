@@ -110,6 +110,35 @@ def recommended_action_for_error(category: str) -> str:
     return '查看日志并修复正式生图链路后重试。'
 
 
+def _text_values(value) -> str:
+    if isinstance(value, list):
+        return ' '.join(str(item or '') for item in value)
+    if isinstance(value, dict):
+        return ' '.join(_text_values(item) for item in value.values())
+    return str(value or '')
+
+
+def _asset_path(project_dir: Path, raw_path: str) -> str:
+    raw = str(raw_path or '').strip()
+    if not raw:
+        return ''
+    path = Path(raw)
+    if not path.is_absolute():
+        path = project_dir / path
+    return str(path.resolve())
+
+
+def _has_required_ref(resolved_refs: list[dict], role: str, expected_path: str) -> bool:
+    for ref in resolved_refs:
+        if ref.get('role') != role:
+            continue
+        if not expected_path:
+            return True
+        if str(Path(ref.get('path', '')).resolve()) == expected_path:
+            return True
+    return False
+
+
 def validate_preflight(project_dir: Path, brief: dict, ref_order_data: dict) -> tuple[list[str], list[dict], list[str], list[str]]:
     errors: list[str] = []
     resolved_refs: list[dict] = []
@@ -175,6 +204,30 @@ def validate_preflight(project_dir: Path, brief: dict, ref_order_data: dict) -> 
     if product_ref and ip_ref and product_ref['path'] == ip_ref['path']:
         errors.append('ref_order.json 中的 product 与 ip 指向同一路径。')
 
+    must_include_text = _text_values(brief.get('must_include', '')).lower()
+    hero_text = _text_values(hero).lower()
+    logo_required = any(token in must_include_text for token in ('logo', '品牌logo', '标志', '商标'))
+    ip_required = (
+        'ip' in must_include_text
+        or '品牌ip' in must_include_text
+        or '角色' in must_include_text
+        or 'ip' in hero_text
+        or '品牌ip' in hero_text
+    )
+
+    logo_expected = _asset_path(project_dir, assets.get('logo', ''))
+    ip_expected = _asset_path(project_dir, assets.get('ip', ''))
+    if logo_required:
+        if not logo_expected:
+            errors.append('brief.must_include 要求 Logo，但 brief.assets.logo 为空。')
+        elif not _has_required_ref(resolved_refs, 'logo', logo_expected):
+            errors.append('brief.must_include 要求 Logo，但 ref_order.json 中缺少匹配的 logo 参考图。')
+    if ip_required:
+        if not ip_expected:
+            errors.append('brief.must_include/hero_priority 要求 IP，但 brief.assets.ip 为空。')
+        elif not _has_required_ref(resolved_refs, 'ip', ip_expected):
+            errors.append('brief.must_include/hero_priority 要求 IP，但 ref_order.json 中缺少匹配的 ip 参考图。')
+
     workflow_options = brief.get('workflow_options', {}) or {}
     allow_generated_style_refs = bool(brief.get('allow_generated_style_refs')) or bool(workflow_options.get('allow_generated_style_refs'))
     if not allow_generated_style_refs:
@@ -190,7 +243,7 @@ def validate_preflight(project_dir: Path, brief: dict, ref_order_data: dict) -> 
     return errors, resolved_refs, missing_refs, [str(p) for p in required_files]
 
 
-def build_command(prompt_path: Path, output_path: Path, refs: list[dict], size: str, aspect: str, model: str) -> list[str]:
+def build_command(prompt_path: Path, output_path: Path, refs: list[dict], size: str, aspect: str, model: str, count: int = 1) -> list[str]:
     cmd = [
         'python3',
         str(TARGET_SCRIPT),
@@ -208,6 +261,8 @@ def build_command(prompt_path: Path, output_path: Path, refs: list[dict], size: 
         aspect,
         '--model',
         model,
+        '--count',
+        str(max(1, min(int(count or 1), 10))),
     ])
     return cmd
 
@@ -253,7 +308,8 @@ def main() -> int:
     parser.add_argument('--project-dir', required=True, help='Brand poster project directory')
     parser.add_argument('--size', required=True, help='Output size')
     parser.add_argument('--aspect', required=True, help='Output aspect ratio')
-    parser.add_argument('--model', default='gpt-image-2-pro', help='Image model')
+    parser.add_argument('--model', default='gpt-image-2', help='Image model')
+    parser.add_argument('--count', type=int, default=1, help='Number of poster variants to generate in parallel via gpt-image2-gen (1-10)')
     args = parser.parse_args()
 
     project_dir = Path(args.project_dir).resolve()
@@ -303,7 +359,8 @@ def main() -> int:
     brief = load_json(brief_path)
     ref_order_data = load_json(ref_order_path)
     errors, resolved_refs, missing_refs, required_files = validate_preflight(project_dir, brief, ref_order_data)
-    cmd = build_command(prompt_path, output_path, resolved_refs, args.size, args.aspect, args.model) if not errors else []
+    count = max(1, min(int(args.count or 1), 10))
+    cmd = build_command(prompt_path, output_path, resolved_refs, args.size, args.aspect, args.model, count=count) if not errors else []
     command_summary = summarize_command(cmd) if cmd else ''
     generation_env = build_generation_env(brief)
 
@@ -321,6 +378,7 @@ def main() -> int:
         'required_files': required_files,
         'error': '',
         'provider_mode_requested': generation_env.get('BANANA_PROVIDER_MODE', ''),
+        'count': count,
     })
     write_json(result_path, started_payload)
 
@@ -355,8 +413,14 @@ def main() -> int:
     with stdout_log.open('w', encoding='utf-8') as stdout_f, stderr_log.open('w', encoding='utf-8') as stderr_f:
         proc = subprocess.run(cmd, cwd=str(project_dir), stdout=stdout_f, stderr=stderr_f, env=generation_env)
 
+    output_paths = [output_path] + [
+        output_path.with_name(f'{output_path.stem}_{idx}{output_path.suffix}')
+        for idx in range(2, count + 1)
+    ]
+    existing_outputs = [path for path in output_paths if path.exists() and path.stat().st_size > 0]
+    existing_output_paths = [str(path) for path in existing_outputs]
     exists = output_path.exists()
-    size = output_path.stat().st_size if exists else 0
+    size = sum(path.stat().st_size for path in existing_outputs)
     stderr_tail = tail_text(stderr_log)
     finished_at = utc_now()
     payload = dict(started_payload)
@@ -366,6 +430,7 @@ def main() -> int:
         'exit_code': proc.returncode,
         'exists': exists,
         'size': size,
+        'output_paths': existing_output_paths,
         'error': stderr_tail,
     })
 
@@ -389,12 +454,13 @@ def main() -> int:
         )
         return proc.returncode or 1
 
-    if not exists or size <= 0:
+    if not exists or size <= 0 or len(existing_output_paths) < count:
+        missing_outputs = [str(path) for path in output_paths if not path.exists() or path.stat().st_size <= 0]
         payload.update({
             'status': 'failed',
             'phase': 'postcheck_failed',
             'ok': False,
-            'error': stderr_tail or f'输出文件缺失或为空: {output_path}',
+            'error': stderr_tail or f'输出文件缺失或为空: {", ".join(missing_outputs)}',
             'error_category': 'postcheck_failed',
             'recommended_action': '确认正式生图输出文件已生成且非空后再继续交付，不要改走本地拼图。',
         })
@@ -414,6 +480,7 @@ def main() -> int:
         'generation_status': 'generated',
         'delivery_status': 'not_attempted',
         'ok': True,
+        'output_paths': existing_output_paths,
     })
     write_json(result_path, payload)
     manager.complete_stage(
@@ -423,8 +490,8 @@ def main() -> int:
         manifest_payload=payload,
         flags={'generation_ready': True},
         artifacts={'generation': str(result_path)},
-        files=[manager._relative(result_path), manager._relative(stdout_log), manager._relative(stderr_log), manager._relative(output_path)],
-        extra={'output_size': size, 'exit_code': proc.returncode},
+        files=[manager._relative(result_path), manager._relative(stdout_log), manager._relative(stderr_log)] + [manager._relative(path) for path in existing_outputs],
+        extra={'output_size': size, 'exit_code': proc.returncode, 'count': count},
     )
     return 0
 

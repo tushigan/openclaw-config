@@ -1,0 +1,32 @@
+[
+  {
+    "role": "identity_source",
+    "source_path": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/54730880-8fe2-4953-97b7-c64192c308b2.png",
+    "source_format": "PNG",
+    "source_width": 1440,
+    "source_height": 2560,
+    "source_bytes": 7275870,
+    "normalized_path": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/normalized/identity-source.png",
+    "normalized_format": "JPEG",
+    "normalized_width": 1080,
+    "normalized_height": 1920,
+    "normalized_bytes": 692585,
+    "alpha_flattened": false,
+    "changed": true
+  },
+  {
+    "role": "final_frame_poster",
+    "source_path": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/1234eafa-1ee7-4b41-97d4-3429832acb97.jpg",
+    "source_format": "JPEG",
+    "source_width": 1440,
+    "source_height": 2560,
+    "source_bytes": 3402717,
+    "normalized_path": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/normalized/final-frame-poster.png",
+    "normalized_format": "JPEG",
+    "normalized_width": 1080,
+    "normalized_height": 1920,
+    "normalized_bytes": 743258,
+    "alpha_flattened": false,
+    "changed": true
+  }
+]

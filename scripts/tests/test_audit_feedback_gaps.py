@@ -431,6 +431,20 @@ class AuditFeedbackGapsTargetTests(unittest.TestCase):
         self.assertEqual(context["target_confidence"], "low")
         self.assertIn("conflict", context["target_conflict_reason"])
 
+    def test_sibling_manifest_target_is_not_auto_sendable(self) -> None:
+        context = self.module.finalize_target_context(
+            {
+                "target": "chat:oc_old_group",
+                "account_id": "main",
+                "target_source": "sibling_manifest",
+            }
+        )
+
+        self.assertEqual(context["target"], "chat:oc_old_group")
+        self.assertEqual(context["target_confidence"], "low")
+        self.assertFalse(context["auto_send_allowed"])
+        self.assertEqual(context["auto_send_block_reason"], "target_missing_or_low_confidence")
+
     def test_audit_delivery_manifest_includes_fallback_owner_summary(self) -> None:
         images_dir = self.root / "workspace" / "images"
         images_dir.mkdir(parents=True)
@@ -481,6 +495,57 @@ class AuditFeedbackGapsTargetTests(unittest.TestCase):
         self.assertEqual(findings[0]["source_sender_name"], "林翀")
         self.assertEqual(findings[0]["target_resolved"], False)
         self.assertFalse(findings[0]["fallback_blocked"])
+
+    def test_audit_delivery_manifest_blocks_auto_send_when_media_route_conflicts(self) -> None:
+        images_dir = self.root / "workspace" / "images" / "task"
+        images_dir.mkdir(parents=True)
+        image_path = images_dir / "result.png"
+        image_path.write_bytes(b"png")
+        (images_dir / "result.png.route.json").write_text(
+            json.dumps(
+                {
+                    "delivery_target": {
+                        "target": "user:ou_owner",
+                        "account_id": "main",
+                    }
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        manifest_path = images_dir / "result.delivery.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "project_id": "route_conflict",
+                    "original_image": str(image_path),
+                    "delivery_status": "failed",
+                    "delivery_attempted": True,
+                    "delivery_target": {
+                        "target": "chat:oc_group",
+                        "account_id": "main",
+                        "target_source": "manifest_delivery_target",
+                    },
+                    "deliverables": {
+                        "images": [str(image_path)],
+                    },
+                    "fallback_reason": "send failed",
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+
+        self.module.GENERIC_DELIVERY_DIRS = [self.root / "workspace" / "images"]
+        self.module.PROJECTS_DIR = self.root / "workspace" / "brand-poster-projects"
+        with mock.patch.object(self.module, "find_message_delivery_evidence", return_value=None):
+            findings = self.module.audit_delivery_manifests(limit=10, cutoff=None)
+
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0]["target"], "chat:oc_group")
+        self.assertFalse(findings[0]["auto_send_allowed"])
+        self.assertEqual(findings[0]["auto_send_block_reason"], "media_route_route_record_target_conflict")
+        self.assertEqual(findings[0]["media_route_guard"]["recorded_targets"], ["chat:oc_group", "user:ou_owner"])
 
 
 if __name__ == "__main__":

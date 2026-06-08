@@ -19,7 +19,7 @@ import sys
 # Model hard limits
 MAX_LONG_EDGE = 3840
 MAX_PIXELS = 8_294_400
-MAX_SQUARE_EDGE = 2880
+MAX_SQUARE_EDGE = 1920
 MAX_RATIO = 3.0  # max(w/h, h/w) <= 3:1
 DIVISOR = 16
 
@@ -102,7 +102,7 @@ def calculate_vertical_canvas(total_height: int, preferred_width: int = 1152):
 def calculate_square_canvas(total_height: int, preferred_width: int = 1152):
     """Calculate using square canvas strategy.
 
-    Use 2880x2880 square, arrange content in vertical columns.
+    Use a default 1920x1920 square, arrange content in vertical columns.
     This maximizes content per image.
     """
     square_size = round_up_16(MAX_SQUARE_EDGE)

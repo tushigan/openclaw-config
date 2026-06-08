@@ -1,0 +1,70 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-08T01:21:18.486Z",
+  "traceId": "89cd01e1-bc9f-4907-b527-c5a8d11b38c9",
+  "sessionId": "89cd01e1-bc9f-4907-b527-c5a8d11b38c9",
+  "sessionKey": "agent:strategy:feishu:direct:ou_442533093a478558484ef6461b4d4a56",
+  "finalStatus": "error",
+  "aborted": true,
+  "externalAbort": false,
+  "timedOut": true,
+  "idleTimedOut": true,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptError": "LLM idle timeout (120s): no response from model | LLM idle timeout (120s): no response from model",
+  "promptErrorSource": "prompt",
+  "usage": {
+    "input": 70869,
+    "output": 2908,
+    "cacheRead": 180878,
+    "cacheWrite": 18597,
+    "total": 273252
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 23631,
+      "output": 1028,
+      "cacheRead": 62248,
+      "cacheWrite": 5417,
+      "total": 92324
+    },
+    "lastCacheTouchAt": 1780881503022
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "..."
+  ],
+  "finalPromptText": "导出聊天记录",
+  "itemLifecycle": {
+    "startedCount": 5,
+    "completedCount": 5,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "read",
+      "meta": "from ~/.openclaw/skills/session-debug-export/SKILL.md"
+    },
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/skills/session-debug-export/scripts/export_chat_report.py"
+    },
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/skills/session-debug-export/scripts/export_chat_report.py"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": [],
+  "lastToolError": {
+    "toolName": "exec",
+    "meta": "run python3 ~/.openclaw/skills/session-debug-export/scripts/export_chat_report.py",
+    "error": "exec blocked: python3 cannot target protected path ~/.openclaw/skills/ directly.",
+    "mutatingAction": true,
+    "actionFingerprint": "tool=exec|meta=run python3 ~/.openclaw/skills/session-debug-export/scripts/export_chat_report.py"
+  }
+}

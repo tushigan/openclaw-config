@@ -52,7 +52,7 @@ Activate this skill when the user asks for any of the following:
 7. Do not call raw image APIs directly. Delegate final generation to the locally installed `gpt-image2-gen` script.
 8. Use pixel sizes only when calling `gpt-image2-gen`.
 9. If project recall confidence is low, stop and ask for one more clue instead of guessing.
-10. Unless the user explicitly asks for a smaller draft, default to the highest safe resolution allowed by the requested ratio.
+10. Default to the fast sub-2K resolution mapped from the requested ratio; only use higher resolutions when the user explicitly asks for 2K+, 4K, print, or high-res output.
 
 ## Workflow
 
@@ -328,13 +328,14 @@ python3 "$SKILL_DIR/scripts/run_generation.py" \
 
 Default resolution policy for task ratios:
 
-- `1:1` → `2880x2880`
-- `4:5` → `2560x3200`
-- `3:4` → `2448x3264`
-- `9:16` → `2160x3840`
-- `16:9` → `3840x2160`
+- `1:1` → `1920x1920`
+- `4:5` → `1536x1920`
+- `3:4` → `1440x1920`
+- `9:16` → `1080x1920`
+- `16:9` → `1920x1080`
 
-If the user only says a ratio and does not specify pixels, use the mapped highest safe resolution above.
+If the user only says a ratio and does not specify pixels, use the mapped resolution above.
+For higher resolution needs (2K+), user should explicitly request it.
 
 ## Step 6: Register Task References
 

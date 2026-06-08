@@ -529,7 +529,7 @@ def main() -> None:
     parser.add_argument("--ratio", default="", help="覆盖比例")
     parser.add_argument("--size", default="", help="覆盖像素尺寸")
     parser.add_argument("--count", type=int, default=0, help="覆盖首轮张数")
-    parser.add_argument("--model", default="gpt-image-2-pro", help="逻辑模型名；命中 AIXOR 时会由底层脚本自动映射为其可用模型")
+    parser.add_argument("--model", default='gpt-image-2', help="逻辑模型名；命中 AIXOR 时会由底层脚本自动映射为其可用模型")
     parser.add_argument("--max-product-refs", type=int, default=6, help="最多产品参考图数量")
     parser.add_argument("--max-style-refs", type=int, default=3, help="最多风格参考图数量")
     parser.add_argument("--dry-run", action="store_true", help="只生成命令和 manifest，不真正调用模型")

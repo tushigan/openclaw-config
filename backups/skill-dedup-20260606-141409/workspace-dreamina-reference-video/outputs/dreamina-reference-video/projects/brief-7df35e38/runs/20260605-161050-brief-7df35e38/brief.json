@@ -1,0 +1,44 @@
+{
+  "project_name": "鲜切芒果与带水珠的成熟芒果特写",
+  "project_slug": "brief-7df35e38",
+  "ratio": "3:4",
+  "duration": 5,
+  "quality_tier": "fast_vip",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": null,
+  "storyboard_beats_override": [],
+  "identity_strategy": null,
+  "identity_anchor_rules": [],
+  "identity_structure": [
+    "必须保持尾帧海报中的芒果品类、橙黄色调、水珠质感和鲜切芒果块结构",
+    "最终画面必须回到/贴近定版尾帧构图：前景完整芒果、左上鲜切芒果块、背景成熟芒果",
+    "整体保持真实食品摄影，不做卡通化或过度CG化"
+  ],
+  "identity_forbidden": [
+    "禁止新增无关水果、叶子、文字、logo、包装或人物",
+    "禁止把芒果变形为橙子、桃子、柿子等其他水果",
+    "禁止结尾构图偏离已确认尾帧海报",
+    "禁止夸张爆汁、飞溅过多或脏乱水渍"
+  ],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "用户明确要基于已确认尾帧定版海报做小视频，先做参考图和故事板，确认后再提交即梦。",
+  "normalize_references": true,
+  "subject": "鲜切芒果与带水珠的成熟芒果特写",
+  "action": "镜头从更近的芒果水珠和果肉细节缓慢推进/轻微滑动，水珠闪光，果肉饱满多汁，最后稳定落到已确认的尾帧海报构图",
+  "scene": "明亮橙黄色热带水果棚拍场景，背景干净温暖，突出新鲜、清甜、饱满、多汁",
+  "style": "高质感食品广告短片，微距摄影，鲜亮热带色彩，干净商业棚拍，真实水珠与果肉质感",
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/de467a84-337e-40d4-ae63-39b4f6ea41fb.png"
+  },
+  "storyboard_beats": [
+    "建立空间：明亮橙黄色热带水果棚拍场景，背景干净温暖，突出新鲜、清甜、饱满、多汁",
+    "动作推进：镜头从更近的芒果水珠和果肉细节缓慢推进/轻微滑动",
+    "动作推进：水珠闪光",
+    "动作推进：果肉饱满多汁",
+    "收束定格：稳定落到已确认的尾帧海报构图"
+  ],
+  "storyboard_panel_count": 5,
+  "slug": "brief-7df35e38"
+}

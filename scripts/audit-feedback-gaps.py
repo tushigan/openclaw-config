@@ -6,6 +6,8 @@ from datetime import datetime
 import json
 import os
 import re
+import subprocess
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -18,6 +20,7 @@ PROJECTS_DIR = ROOT / 'workspace' / 'brand-poster-projects'
 DELIVER_DIR = ROOT / 'workspace' / 'feishu-deliver'
 FEISHU_ID_REGISTRY = ROOT / 'feishu' / 'conversation-ids.json'
 CRON_RUNS_DIR = ROOT / 'cron' / 'runs'
+ROUTE_GUARD_SCRIPT = ROOT / 'scripts' / 'feishu-route-guard.py'
 GENERIC_DELIVERY_DIRS = [
     ROOT / 'workspace' / 'images',
     ROOT / 'workspace' / 'outputs',
@@ -434,13 +437,13 @@ def _target_confidence(context: dict[str, str]) -> str:
     if context.get('target_conflict_reason'):
         return 'low'
     source = context.get('target_source', '')
-    if source in ('session_key_peer', 'matched_record_target', 'manifest_delivery_target', 'explicit_target', 'source_session_key', 'sibling_manifest'):
+    if source in ('session_key_peer', 'matched_record_target', 'manifest_delivery_target', 'explicit_target', 'source_session_key', 'task_manifest'):
         return 'high'
     if source == 'feishu_id_registry':
         return 'medium'
     if source == 'session_runtime_context':
         return 'medium'
-    # recent_session_scan or unknown = low confidence
+    # sibling_manifest, recent_session_scan, or unknown = low confidence
     return 'low'
 
 
@@ -461,6 +464,51 @@ def finalize_target_context(context: dict[str, Any]) -> dict[str, Any]:
         conflict_reason or 'target_missing_or_low_confidence'
     )
     return normalized
+
+
+def media_route_guard_check(media_path: str, target: str) -> dict[str, Any]:
+    if not media_path or not target or not ROUTE_GUARD_SCRIPT.exists():
+        return {}
+    cmd = [
+        sys.executable,
+        str(ROUTE_GUARD_SCRIPT),
+        'check',
+        '--media',
+        str(media_path),
+        '--target',
+        normalize_feishu_target(target),
+        '--json',
+    ]
+    try:
+        result = subprocess.run(cmd, text=True, capture_output=True, check=False, timeout=30)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return {'ok': True, 'status': 'route_guard_unavailable', 'error': str(exc)}
+    try:
+        payload = json.loads(result.stdout) if result.stdout.strip() else {}
+    except json.JSONDecodeError:
+        payload = {}
+    if payload:
+        return payload
+    return {
+        'ok': result.returncode == 0,
+        'status': 'route_guard_failed' if result.returncode else 'route_guard_ok',
+        'stderr': result.stderr.strip(),
+    }
+
+
+def apply_media_route_guard(context: dict[str, Any], send_path: str, send_path_exists: bool) -> dict[str, Any]:
+    checked = dict(context)
+    if not send_path_exists or not checked.get('target'):
+        return checked
+    route_guard = media_route_guard_check(send_path, checked['target'])
+    if not route_guard:
+        return checked
+    checked['media_route_guard'] = route_guard
+    if route_guard.get('ok'):
+        return checked
+    checked['auto_send_allowed'] = False
+    checked['auto_send_block_reason'] = f'media_route_{route_guard.get("status", "blocked")}'
+    return checked
 
 
 def infer_chat_for_paths(paths: list[str], cutoff: int | None = None) -> dict[str, str]:
@@ -877,6 +925,7 @@ def audit_delivery_manifests(limit: int, cutoff: int | None) -> list[dict[str, A
                 **inferred_context,
             }
         chat_context = finalize_target_context(chat_context)
+        chat_context = apply_media_route_guard(chat_context, send_path, send_path_exists)
         owner_summary = fallback_owner_summary(
             chat_context.get('source_sender_name', ''),
             chat_context.get('source_sender_open_id', ''),

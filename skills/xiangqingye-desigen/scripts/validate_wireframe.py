@@ -42,7 +42,7 @@ def run_ocr_text_check(image_path: Path) -> tuple[list[str], str]:
 def main():
     parser = argparse.ArgumentParser(description="校验详情页手稿")
     parser.add_argument("image", help="手稿图片路径")
-    parser.add_argument("--expected-size", default="2880x2880", help="期望尺寸，默认 2880x2880")
+    parser.add_argument("--expected-size", default="1920x1920", help="期望尺寸，默认 1920x1920")
     parser.add_argument("--report", default="", help="报告输出路径")
     args = parser.parse_args()
 

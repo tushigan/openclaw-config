@@ -1,0 +1,7 @@
+{
+  "primary_down_until": 0,
+  "last_failure_at": 1780902127.385536,
+  "last_failure_reason": "primary timeout",
+  "last_failed_provider": "aixor",
+  "last_primary_recovered_at": 1780903655.7185678
+}

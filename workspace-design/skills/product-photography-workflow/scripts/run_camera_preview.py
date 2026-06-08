@@ -54,7 +54,7 @@ def main() -> None:
     parser.add_argument("--ratio", default="", help="覆盖比例")
     parser.add_argument("--size", default="", help="覆盖像素尺寸")
     parser.add_argument("--count", type=int, default=1, help="机位定稿图输出数量")
-    parser.add_argument("--model", default="gpt-image-2-pro", help="逻辑模型名")
+    parser.add_argument("--model", default='gpt-image-2', help="逻辑模型名")
     parser.add_argument("--max-product-refs", type=int, default=4, help="最多产品参考图数量")
     parser.add_argument("--max-style-refs", type=int, default=2, help="最多光影参考图数量")
     parser.add_argument("--dry-run", action="store_true", help="只生成命令和 manifest，不真正调用模型")

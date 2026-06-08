@@ -128,7 +128,7 @@ def build(project_dir: Path):
     ])
 
     packages = {
-        "wireframe_base.txt": base + "\n【阶段任务】生成黑白详情页手稿：单张 2880x2880 方形画板，4 列纵向排列全部屏，专业 UI/UX wireframe 质感。\n",
+        "wireframe_base.txt": base + "\n【阶段任务】默认生成黑白详情页手稿：单张 1920x1920 方形画板，4 列纵向排列全部屏，专业 UI/UX wireframe 质感；用户明确要求高分辨率时才升高画板尺寸。\n",
         "design_segment_base.txt": base + "\n" + boundary_block() + "\n【阶段任务】生成最终详情页分段设计稿，必须高清、完整收边、可硬拼接。\n",
         "head_image_base.txt": base + "\n【阶段任务】生成电商头图/KV，遵循平台和品类的头图数量、角色和信息密度要求。\n",
         "delivery_checklist.txt": """【最终交付检核】

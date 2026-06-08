@@ -1,0 +1,40 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-03T09:39:41.112Z",
+  "traceId": "af46752d-9b38-432c-89b8-be54e3ddf0e9",
+  "sessionId": "af46752d-9b38-432c-89b8-be54e3ddf0e9",
+  "sessionKey": "agent:main-shared:feishu:direct:ou_40ef7abb5d30fe9d6c3f8fdced3074e2",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+    },
+    "lastCacheTouchAt": 1780479178425
+  },
+  "compactionCount": 0,
+  "assistantTexts": [],
+  "finalPromptText": "[Wed 2026-06-03 17:31 GMT+8] 导出聊天记录",
+  "itemLifecycle": {
+    "startedCount": 0,
+    "completedCount": 0,
+    "activeCount": 0
+  },
+  "toolMetas": [],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

@@ -1,6 +1,6 @@
 ---
 name: xiangqingye-desigen
-description: 从 0 开始规划电商详情页工作流：3 阶段紧凑流程（策略 → 手稿 → 成稿），单张方形画板 2880x2880 4 列纵向排列全部屏，全局风格指南确保风格统一，项目化文件管理避免混乱。适用于详情页策划、详情页手稿、长图详情页、移动端详情页、PC详情页、详情页生成与拼接。重点服务食品/烘焙/快消品，也可泛化到其他消费品。触发词包括：详情页、详情页手稿、电商长图、移动端详情页、PC详情页、详情页策划、详情页生成、详情页拼接。
+description: 从 0 开始规划电商详情页工作流：3 阶段紧凑流程（策略 → 手稿 → 成稿），默认单张方形画板 1920x1920 4 列纵向排列全部屏，全局风格指南确保风格统一，项目化文件管理避免混乱。适用于详情页策划、详情页手稿、电商长图、移动端详情页、PC详情页、详情页生成与拼接。重点服务食品/烘焙/快消品，也可泛化到其他消费品。触发词包括：详情页、详情页手稿、电商长图、移动端详情页、PC详情页、详情页策划、详情页生成、详情页拼接。
 ---
 
 # xiangqingye-desigen
@@ -226,8 +226,8 @@ python scripts/calculate_layout.py --screens 6 --screen-height 1280 --carrier mo
 ```
 
 推荐策略：
-- **方形画板**（2880x2880）：单张画板 4 列纵向排列，一次装全部屏（11+ 屏）
-- **竖版画板**（1152x3840）：一次装 2-3 屏，适合内容少
+- **方形画板**（默认 1920x1920）：单张画板 4 列纵向排列，一次装全部屏（11+ 屏）
+- **竖版画板**（默认 768x1920）：一次装 2-3 屏，适合内容少
 
 ---
 
@@ -442,7 +442,7 @@ openclaw subagents spawn design "{品牌名} {产品名} 详情页黑白手稿" 
 
 main 的职责：
 - 提供完整的项目文件路径（`facts.json`、`策划/copywriting_v1.md`、`策划/strategy_v1.md`、`prompt_package/wireframe_base.txt`、`asset_registry.json`）
-- 明确画板尺寸（2880x2880）、4 列纵向排列、屏数分配
+- 明确画板尺寸（默认 1920x1920；用户明确要求高分辨率时才升高）、4 列纵向排列、屏数分配
 - 等待 subagent 返回后，做读回 QA（不得因为"子代理已返回"就视为合格）
 
 只有当 subagent 长时间无返回 / 被中断 / 用户明确要求"你直接出"时，main 才允许降级直接调用生图脚本。
@@ -450,7 +450,7 @@ main 的职责：
 ### 2.1 手稿生成规则
 
 #### 方形画板策略（单张 4 列纵向）
-用 **1 张方形画板**（2880x2880）**4 列纵向排列**展示全部屏幕，而非 6 段分开生成。
+用 **1 张方形画板**（默认 1920x1920）**4 列纵向排列**展示全部屏幕，而非 6 段分开生成。
 
 - **每列是一个完整的纵向滚动长页面片段**（3-4 屏/列）
 - **屏与屏之间没有边框线、分隔线**，内容自然连贯过渡
@@ -472,7 +472,7 @@ main 的职责：
 #### 尺寸验证（强制执行）
 每次生图前必须调用：
 ```bash
-python scripts/validate_dimensions.py --preset 4k_1_1
+python scripts/validate_dimensions.py --canvas square
 ```
 
 #### 手稿精度要求
@@ -507,11 +507,11 @@ python scripts/validate_dimensions.py --preset 4k_1_1
 手稿生成后，必须先做基础 QA，不能直接进入成稿：
 
 ```bash
-python scripts/validate_wireframe.py {项目目录}/手稿/v1/wireframe_all.png --expected-size 2880x2880 --report {项目目录}/手稿/v1/wireframe_qa_report.json
+python scripts/validate_wireframe.py {项目目录}/手稿/v1/wireframe_all.png --expected-size 1920x1920 --report {项目目录}/手稿/v1/wireframe_qa_report.json
 ```
 
 检查重点：
-- 尺寸和比例是否符合 2880x2880 方形 4 列画板
+- 尺寸和比例是否符合默认 1920x1920 方形 4 列画板
 - 是否出现手机外框、刘海、状态栏、底部横条
 - 是否出现“第1屏”“Screen 1”“1/11”“Column 1”等标注
 - 是否出现“标题占位”“卖点条”“XXX”“Lorem”等占位内容
@@ -579,7 +579,7 @@ wait
 - 该段的 prompt 文件路径（`设计/v1/prompt_{段}.txt`）
 - 对应手稿切段图路径（`手稿/v1/cut_preview/segment_{段}_confirmed.png`）
 - 全局风格指南路径（`style_guide.png`）
-- 目标尺寸（如 `1152x3456`）
+- 目标尺寸（默认 `768x1920`；用户明确要求高分辨率时可升高）
 - 封闭边界规则
 
 main 的职责：
@@ -596,7 +596,7 @@ main 的职责：
 
 ```bash
 python3 scripts/create_design_segment_prompts.py --project-dir {项目目录} --version v1
-bash scripts/generate_segment_batch.sh --project-dir {项目目录} --version v1 --size 1152x3456
+bash scripts/generate_segment_batch.sh --project-dir {项目目录} --version v1 --size 768x1920
 ```
 
 统一入口必须承担以下门禁职责：
@@ -659,7 +659,7 @@ This segment should look like a complete standalone card/module, ready for hard 
 
 #### 生成命令
 ```bash
-python {gpt-image2-gen}/scripts/generate.py --prompt-file {项目目录}/设计/v1/prompt_A.txt --ref-wireframe {项目目录}/手稿/v1/cut_preview/segment_A_confirmed.png --size 1152x3456 --ref-style {项目目录}/style_guide.png --ref-product {项目目录}/参考/product_main.jpg --output {项目目录}/设计/v1/segment_A.png
+python {gpt-image2-gen}/scripts/generate.py --prompt-file {项目目录}/设计/v1/prompt_A.txt --ref-wireframe {项目目录}/手稿/v1/cut_preview/segment_A_confirmed.png --size 768x1920 --ref-style {项目目录}/style_guide.png --ref-product {项目目录}/参考/product_main.jpg --output {项目目录}/设计/v1/segment_A.png
 ```
 
 ### 3.2 拼接交付
@@ -895,7 +895,7 @@ python scripts/probe_gpt_image2_capabilities.py --output-dir {项目目录}/能�
 
 调用建议：
 1. 头图/KV 不再默认 800x800，应使用 1440x1440；如平台要求 800x800，先生成 1440x1440 高清图，再按需另行导出。
-2. 详情页分段优先使用 `1440x2560`、`1280x3840`、`1152x3456` 这类可被 16 整除且比例 ≤ 3:1 的尺寸。
+2. 详情页分段默认使用 `768x1920` 这类低于 2K、可被 16 整除且比例 ≤ 3:1 的尺寸；用户明确要求高分辨率时才升高。
 3. 不要使用 720x720、800x800 直接调用 gpt-image-2-pro。
 4. prompt 超过 1000 字必须写入 `--prompt-file`，不要内联。
 5. 参考图数量越多越慢；默认稳定档保留 `style_guide + product`，增强档用 3 张，4-6 张只在复杂商品、规格确认、包装/套装、需要 logo 锁定时使用，并必须标明每张图角色。
@@ -1018,6 +1018,7 @@ gpt-image-2-pro 支持的官方分辨率（长边 ≤ 3840，宽高比 ≤ 3:1�
 | `4k_1_1` | 2880x2880 | 最大方形（手稿画板） |
 | `4k_16_9` | 3840x2160 | 最大横向 |
 | `4k_9_16` | 2160x3840 | 最大纵向 |
+| `fast_1_1` | 1920x1920 | 默认快速方形画板 |
 | `2k_1_1` | 1440x1440 | 2K 方形（头图默认最小安全档） |
 | `1k_1_1` | 720x720 | **当前 endpoint 实测不可用**，低于最小像素预算，请勿使用 |
 

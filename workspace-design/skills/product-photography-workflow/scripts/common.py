@@ -38,11 +38,11 @@ TASK_CAMERA_PREVIEW_FILE = "camera_preview_manifest.json"
 TASK_CONFIRMATION_LOG = "confirmation_log.jsonl"
 
 RATIO_TO_SIZE = {
-    "1:1": "2880x2880",
-    "4:5": "2560x3200",
-    "3:4": "2448x3264",
-    "9:16": "2160x3840",
-    "16:9": "3840x2160",
+    "1:1": "1920x1920",
+    "4:5": "1536x1920",
+    "3:4": "1440x1920",
+    "9:16": "1080x1920",
+    "16:9": "1920x1080",
 }
 
 PRODUCT_ROLE_ORDER = [
@@ -407,7 +407,7 @@ def summarize_task_assets(task_assets: dict[str, Any]) -> dict[str, Any]:
 
 
 def size_for_ratio(ratio: str) -> str:
-    return RATIO_TO_SIZE.get((ratio or "").strip(), "2880x2880")
+    return RATIO_TO_SIZE.get((ratio or "").strip(), "1920x1080")
 
 
 def asset_entries_by_role(assets_manifest: dict[str, Any], roles: list[str]) -> list[dict[str, Any]]:

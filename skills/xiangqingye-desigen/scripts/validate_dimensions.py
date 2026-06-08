@@ -27,6 +27,7 @@ PRESETS = {
     "4k_1_1": (2880, 2880, "最大方形（手稿画板）"),
     "4k_16_9": (3840, 2160, "最大横向"),
     "4k_9_16": (2160, 3840, "最大纵向"),
+    "fast_1_1": (1920, 1920, "默认快速方形画板"),
     "2k_1_1": (1440, 1440, "头图默认最小安全档"),
     "1k_1_1": (720, 720, "理论预设，当前 endpoint 实测不可用"),
 }
@@ -146,7 +147,7 @@ def main():
     ap.add_argument('--width', type=int, default=0, help='Validate existing width')
     ap.add_argument('--height', type=int, default=0, help='Validate existing height')
     ap.add_argument('--canvas', default='', choices=['square'],
-                    help='Canvas mode: square for the highest valid square canvas')
+                    help='Canvas mode: square for the default fast square canvas')
 
     args = ap.parse_args()
 
@@ -172,9 +173,7 @@ def main():
 
     # Mode 0: Square canvas
     if args.canvas == 'square':
-        size = round_down(int(MAX_PIXELS ** 0.5))
-        w = round_up(size)
-        h = round_up(size)
+        w, h, _ = PRESETS["fast_1_1"]
         errors = validate_dimensions(w, h)
         if errors:
             for e in errors:

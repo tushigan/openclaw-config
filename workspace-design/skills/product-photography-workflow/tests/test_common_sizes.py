@@ -30,16 +30,16 @@ class ProductPhotographySizeDefaultsTests(unittest.TestCase):
         self.module = load_module()
         self.run_generation_module = load_run_generation_module()
 
-    def test_known_ratios_use_highest_safe_resolution(self) -> None:
-        self.assertEqual(self.module.size_for_ratio("1:1"), "2880x2880")
-        self.assertEqual(self.module.size_for_ratio("4:5"), "2560x3200")
-        self.assertEqual(self.module.size_for_ratio("3:4"), "2448x3264")
-        self.assertEqual(self.module.size_for_ratio("9:16"), "2160x3840")
-        self.assertEqual(self.module.size_for_ratio("16:9"), "3840x2160")
+    def test_known_ratios_use_fast_sub_2k_resolution(self) -> None:
+        self.assertEqual(self.module.size_for_ratio("1:1"), "1920x1920")
+        self.assertEqual(self.module.size_for_ratio("4:5"), "1536x1920")
+        self.assertEqual(self.module.size_for_ratio("3:4"), "1440x1920")
+        self.assertEqual(self.module.size_for_ratio("9:16"), "1080x1920")
+        self.assertEqual(self.module.size_for_ratio("16:9"), "1920x1080")
 
-    def test_unknown_ratio_defaults_to_highest_safe_square(self) -> None:
-        self.assertEqual(self.module.size_for_ratio(""), "2880x2880")
-        self.assertEqual(self.module.size_for_ratio("weird"), "2880x2880")
+    def test_unknown_ratio_defaults_to_fast_landscape(self) -> None:
+        self.assertEqual(self.module.size_for_ratio(""), "1920x1080")
+        self.assertEqual(self.module.size_for_ratio("weird"), "1920x1080")
 
     def test_default_output_root_uses_local_machine_home(self) -> None:
         output_root = self.module.DEFAULT_OUTPUT_ROOT
