@@ -54,12 +54,11 @@ openclaw subagents spawn design "生成产品效果图" --timeout 600
 | `main` | Coordinator, task orchestration, user delivery | `workspace/` | GPT-5.4 (fallback: Kimi K2.6) |
 | `strategy` | Product strategy, positioning, narrative | `workspace-strategy/` | GPT-5.5 |
 | `research` | Market research, competitor analysis | `workspace-research/` | Kimi K2.5 |
-| `design` | Visual/image generation, product renders | `workspace-design/` | Kimi K2.5 |
-| `video` | HTML PPT, video, motion graphics | `workspace-video/` | Kimi K2.5 |
+| `design` | Visual creation (images, video analysis), product renders | `workspace-design/` | Kimi K2.5 |
 | `meeting-analyst` | Meeting minutes analysis, evidence extraction | `workspace-meeting/` | Kimi K2.5 |
 | `copywriter` | Copywriting, content creation | `workspace-copywriter/` | Claude Opus 4.6 |
 
-Each agent also has a `*-shared` variant (e.g. `main-shared`, `strategy-shared`) for multi-user access with 虾权 isolation. Shared variants use the same model and workspace as their base agent. `workspace-ppt` is a symlink to `workspace-video`.
+Each agent also has a `*-shared` variant (e.g. `main-shared`, `strategy-shared`) for multi-user access with 虾权 isolation. Shared variants use the same model and workspace as their base agent.
 
 ### Workflow Rules
 
@@ -69,7 +68,7 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 2. **Runtime facts must be verified**: Never claim completion without evidence (file paths, return values)
 3. **Memory doesn't override current state**: If memory conflicts with actual environment, trust the environment
 4. **Main orchestrates by default**: `main` handles understanding, routing, progress tracking, unified delivery
-5. **Expert domains require handoff**: Research, strategy, design, video, meeting, copywriting tasks → spawn corresponding expert
+5. **Expert domains require handoff**: Research, strategy, design (visual + video analysis), meeting, copywriting tasks → spawn corresponding expert
 6. **Output organization**: `images/` for images, `outputs/` for other files (Markdown/JSON/CSV)
 
 **Meeting-analyst specific**:

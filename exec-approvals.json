@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1780909231820,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastUsedAt": 1780911138136,
+          "lastUsedCommand": "python3 << 'EOPYTHON'\nimport subprocess\nimport json\nimport time\n\n# Try to run the audit script with a timeout\ntry:\n    result = subprocess.run(\n        ['python3', '/Users/a123/.openclaw/scripts/audit-feedback-gaps.py', '--json', '--since-minutes', '90', '--max-manifests', '10', '--recent-files', '5'],\n        capture_output=True,\n        text=True,\n        timeout=30\n    )\n    print(result.stdout)\n    if result.stderr:\n        print(f\"STDERR: {result.stderr}\", file=sys.stderr)\nexcept subprocess.TimeoutExpired:\n    print(json.dumps({\"error\": \"timeout\"}))\nexcept Exception as e:\n    print(json.dumps({\"error\": str(e)}))\nEOPYTHON",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -52,8 +52,8 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1780907506905,
-          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/sessions/ | tail -20",
+          "lastUsedAt": 1780911621002,
+          "lastUsedCommand": "ls -la ~/.openclaw/skills/ | grep -i brief",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -68,8 +68,8 @@
           "id": "main-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1780904097913,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastUsedAt": 1780911681515,
+          "lastUsedCommand": "cd /Users/a123/.openclaw && git add openclaw.json && git commit -m \"启用 design-brief-builder skill\" && git push",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -312,8 +312,8 @@
           "id": "shared-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1780910913250,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/medal-waffle-20260608/run_generate.sh",
+          "lastUsedAt": 1780911537798,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/medal-waffle-20260608/run_generate_remaining.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -368,8 +368,8 @@
           "id": "shared-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1780907559347,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace/images -maxdepth 2 -name 'huangxiaogu_duanwu_newposter_fast_v1*' | sort && ls -l /Users/a123/.openclaw/workspace/images/huangxiaogu_duanwu_newposter_fast_v1.png",
+          "lastUsedAt": 1780911514019,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace/images/medal-waffle-20260608 -maxdepth 1 -type f -name '*.png' -print && ls -la /Users/a123/.openclaw/workspace/images/medal-waffle-20260608 && find /Users/a123/.openclaw/workspace/images/medal-waffle-20260608 -maxdepth 1 -type f \\( -name '*.result.json' -o -name '*.delivery.json' \\) -print",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -489,8 +489,8 @@
           "id": "shared-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1780907559342,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace/images -maxdepth 2 -name 'huangxiaogu_duanwu_newposter_fast_v1*' | sort && ls -l /Users/a123/.openclaw/workspace/images/huangxiaogu_duanwu_newposter_fast_v1.png",
+          "lastUsedAt": 1780911514017,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace/images/medal-waffle-20260608 -maxdepth 1 -type f -name '*.png' -print && ls -la /Users/a123/.openclaw/workspace/images/medal-waffle-20260608 && find /Users/a123/.openclaw/workspace/images/medal-waffle-20260608 -maxdepth 1 -type f \\( -name '*.result.json' -o -name '*.delivery.json' \\) -print",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1100,8 +1100,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1780910692439,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/_temp_storyboard/storyboard_prompt_short.txt --ref-layout /Users/a123/.openclaw/workspace/.openclaw-inbound-media/3070249d-3ad1-4cdd-abbf-979025ff654a.png --ref-ip /Users/a123/.openclaw/workspace/.openclaw-inbound-media/f8a823a2-415d-4e03-b2aa-990ac5f1a562.jpg -s 1088x1936 -o /Users/a123/.openclaw/workspace/feishu-deliver/sable_dragon_boat_6frame_storyboard_9x16_design.png",
+          "lastUsedAt": 1780912052651,
+          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\nimport json\nbase=Path('/Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260608_1658')\nfor rel in ['layered-output.psd','layered-output.psd.zip','scene.json','manifest.json','parallel-state.json']:\n    p=base/rel\n    print(rel, p.exists(), p.stat().st_size if p.exists() else 0)\nif (base/'parallel-state.json').exists():\n    state=json.loads((base/'parallel-state.json').read_text())\n    print('TASKS:')\n    for k,v in state.get('tasks',{}).items():\n        print(k, v.get('status'), v.get('error',''))\nprint('LAYER_FILES:')\nlayer_dir=base/'layers'\nif layer_dir.exists():\n    for p in sorted(layer_dir.glob('*.png')):\n        print(p.name, p.stat().st_size)\nPY",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1160,9 +1160,9 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1780910657208,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,120p' && echo '---' && find /Users/a123/.openclaw/workspace/feishu-deliver -maxdepth 1 \\( -name '*.json' -o -name '*.png' -o -name '*.log' \\) | sed -n '1,120p' && echo '---' && for f in /Users/a123/.openclaw/workspace/feishu-deliver/*.json; do echo FILE:$f; cat \"$f\"; echo '---'; done",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1780911580088,
+          "lastUsedCommand": "pwd && ls -la && find . -maxdepth 3 \\( -iname '*generate*.py' -o -iname '*gpt-image*' -o -iname '*storyboard*' -o -iname '*image2*' \\) | sed 's#^./##' | sort | head -200",
+          "lastResolvedPath": "/bin/pwd"
         },
         {
           "id": "shared-design-cat",
@@ -1176,8 +1176,8 @@
           "id": "shared-pwd",
           "pattern": "/bin/pwd",
           "description": "允许输出当前目录",
-          "lastUsedAt": 1780908971462,
-          "lastUsedCommand": "pwd && ls -la /Users/a123/.openclaw/.agents/skills/shared/cloudinary_uploader.py && ls -la /Users/a123/.openclaw/.agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py && ls -la /Users/a123/.openclaw/.agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md",
+          "lastUsedAt": 1780911580086,
+          "lastUsedCommand": "pwd && ls -la && find . -maxdepth 3 \\( -iname '*generate*.py' -o -iname '*gpt-image*' -o -iname '*storyboard*' -o -iname '*image2*' \\) | sed 's#^./##' | sort | head -200",
           "lastResolvedPath": "/bin/pwd"
         },
         {
@@ -1210,25 +1210,25 @@
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1780910015856,
-          "lastUsedCommand": "rg -n \"references|camera_storyboard_reference|storyboard|add_argument\\(|-r,|--reference|reference\" /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py -S | head -120",
-          "lastResolvedPath": "/opt/homebrew/bin/rg"
+          "lastUsedAt": 1780911625591,
+          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\np=Path('skills/gpt-image2-gen/scripts/generate.py')\ntext=p.read_text(encoding='utf-8')\nfor key in ['--prompt-file','--reference','add_argument','images/generations']:\n    if key in text:\n        print('FOUND', key)\nPY\nrg -n \"add_argument\\(|reference|prompt-file|size|output\" skills/gpt-image2-gen/scripts/generate.py | head -120",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-tail",
           "pattern": "/usr/bin/tail",
           "description": "允许读取后几行内容",
-          "lastUsedAt": 1780909346967,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260608_1658 -maxdepth 3 | sed 's#^#/ #'; echo '---'; find /Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260608_1658 -type f | xargs -I{} sh -c 'printf \"%s | \" \"{}\"; stat -f \"%z bytes\" \"{}\"' | tail -n 40",
+          "lastUsedAt": 1780911607384,
+          "lastUsedCommand": "find images outputs -maxdepth 2 \\( -iname '*huangxiaogu*' -o -iname '*storyboard*' \\) | sort | tail -120",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1780910657209,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,120p' && echo '---' && find /Users/a123/.openclaw/workspace/feishu-deliver -maxdepth 1 \\( -name '*.json' -o -name '*.png' -o -name '*.log' \\) | sed -n '1,120p' && echo '---' && for f in /Users/a123/.openclaw/workspace/feishu-deliver/*.json; do echo FILE:$f; cat \"$f\"; echo '---'; done",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1780911631915,
+          "lastUsedCommand": "python3 skills/gpt-image2-gen/scripts/generate.py --help | sed -n '1,220p'",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
@@ -1256,9 +1256,9 @@
           "id": "design-sort",
           "pattern": "/usr/bin/sort",
           "description": "允许排序文本结果",
-          "lastUsedAt": 1780906700135,
-          "lastUsedCommand": "ls -lah /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260608-001 && echo '---' && find /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260608-001 -maxdepth 2 -type f | sed 's#^#/##' | sort",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1780911607384,
+          "lastUsedCommand": "find images outputs -maxdepth 2 \\( -iname '*huangxiaogu*' -o -iname '*storyboard*' \\) | sort | tail -120",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "design-uniq",
@@ -1279,9 +1279,9 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1780910657212,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,120p' && echo '---' && find /Users/a123/.openclaw/workspace/feishu-deliver -maxdepth 1 \\( -name '*.json' -o -name '*.png' -o -name '*.log' \\) | sed -n '1,120p' && echo '---' && for f in /Users/a123/.openclaw/workspace/feishu-deliver/*.json; do echo FILE:$f; cat \"$f\"; echo '---'; done",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1780911607383,
+          "lastUsedCommand": "find images outputs -maxdepth 2 \\( -iname '*huangxiaogu*' -o -iname '*storyboard*' \\) | sort | tail -120",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "34352226-bed6-4857-b096-abe0169a1f0d",
@@ -1373,8 +1373,8 @@
           "id": "shared-ps",
           "pattern": "/bin/ps",
           "description": "允许查看进程列表",
-          "lastUsedAt": 1780643769302,
-          "lastUsedCommand": "ps -axo pid,pcpu,pmem,etime,command | egrep '90046|92525|95066|82565|82566|82630' | egrep -v 'egrep'",
+          "lastUsedAt": 1780911864610,
+          "lastUsedCommand": "ps -o pid,ppid,etime,stat,command -p 5240 || true; pgrep -fl \"generate.py|curl.*images/edits|direct.aixor.org\" || true",
           "lastResolvedPath": "/bin/ps"
         },
         {
@@ -1486,9 +1486,9 @@
           "id": "shared-true",
           "pattern": "/usr/bin/true",
           "description": "允许返回成功状态",
-          "lastUsedAt": 1780907207278,
-          "lastUsedCommand": "curl -I -m 20 https://direct.aixor.org/v1/images/edits || true",
-          "lastResolvedPath": "/usr/bin/curl"
+          "lastUsedAt": 1780911864611,
+          "lastUsedCommand": "ps -o pid,ppid,etime,stat,command -p 5240 || true; pgrep -fl \"generate.py|curl.*images/edits|direct.aixor.org\" || true",
+          "lastResolvedPath": "/bin/ps"
         },
         {
           "id": "shared-false",

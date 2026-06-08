@@ -239,7 +239,6 @@
         "allowAgents": [
           "strategy",
           "design",
-          "video",
           "research",
           "business"
         ]
@@ -314,7 +313,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "video",
             "research",
             "meeting-analyst",
             "copywriter",
@@ -407,7 +405,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "video",
             "research",
             "meeting-analyst",
             "copywriter"
@@ -516,7 +513,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "video",
             "research",
             "copywriter"
           ],
@@ -589,87 +585,6 @@
         }
       },
       {
-        "id": "video",
-        "name": "视频专家",
-        "workspace": "/Users/a123/.openclaw/workspace-video",
-        "model": {
-          "primary": "aixor-g/gpt-5.4"
-        },
-        "subagents": {
-          "allowAgents": [
-            "strategy",
-            "design",
-            "video",
-            "research"
-          ],
-          "thinking": "off"
-        },
-        "tools": {
-          "profile": "full",
-          "alsoAllow": [
-            "agents_list",
-            "gpt-image2-gen",
-            "browser",
-            "canvas",
-            "data-intelligence",
-            "dify-rag",
-            "exec",
-            "feishu-send-image",
-            "feishu_app_scopes",
-            "feishu_bitable_create_app",
-            "feishu_bitable_create_field",
-            "feishu_bitable_create_record",
-            "feishu_bitable_get_meta",
-            "feishu_bitable_get_record",
-            "feishu_bitable_list_fields",
-            "feishu_bitable_list_records",
-            "feishu_bitable_update_record",
-            "feishu_chat",
-            "feishu_doc",
-            "feishu_drive",
-            "feishu_wiki",
-            "file-guardian",
-            "gateway",
-            "memory_share",
-            "memory_timeline",
-            "memory_unshare",
-            "memory_viewer",
-            "memory_write_public",
-            "message",
-            "multi_search",
-            "multi_search_engine",
-            "transition-video",
-            "network_memory_detail",
-            "network_skill_pull",
-            "network_team_info",
-            "nodes",
-            "nanobanana-ppt",
-            "pdf-smart-tool-cn",
-            "product-dev-phase",
-            "read",
-            "sessions_history",
-            "sessions_list",
-            "sessions_spawn",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_install",
-            "skill_publish",
-            "skill_search",
-            "skill_unpublish",
-            "task_share",
-            "task_summary",
-            "task_unshare",
-            "tavily_extract",
-            "tavily_search",
-            "tts",
-            "web_fetch",
-            "write"
-          ]
-        }
-      },
-      {
         "id": "research",
         "name": "调研专家",
         "workspace": "/Users/a123/.openclaw/workspace-research",
@@ -680,7 +595,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "video",
             "research",
             "research-shared",
             "meeting-analyst"
@@ -790,7 +704,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "video",
             "research"
           ],
           "thinking": "adaptive"
@@ -881,7 +794,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "video",
             "research",
             "meeting-analyst"
           ],
@@ -930,7 +842,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "video",
             "research",
             "meeting-analyst",
             "copywriter"
@@ -1329,100 +1240,6 @@
           ],
           "exec": {
             "host": "auto",
-            "security": "full",
-            "ask": "off"
-          },
-          "fs": {
-            "workspaceOnly": false
-          }
-        }
-      },
-      {
-        "id": "video-shared",
-        "name": "视频专家（共享版）",
-        "workspace": "/Users/a123/.openclaw/workspace-video",
-        "model": {
-          "primary": "aixor-g/gpt-5.4"
-        },
-        "subagents": {
-          "allowAgents": [
-            "strategy-shared",
-            "design-shared",
-            "video-shared",
-            "research-shared"
-          ],
-          "thinking": "off"
-        },
-        "tools": {
-          "profile": "full",
-          "alsoAllow": [
-            "agents_list",
-            "gpt-image2-gen",
-            "browser",
-            "canvas",
-            "data-intelligence",
-            "dify-rag",
-            "exec",
-            "process",
-            "feishu-send-image",
-            "feishu_app_scopes",
-            "feishu_bitable_create_app",
-            "feishu_bitable_create_field",
-            "feishu_bitable_create_record",
-            "feishu_bitable_get_meta",
-            "feishu_bitable_get_record",
-            "feishu_bitable_list_fields",
-            "feishu_bitable_list_records",
-            "feishu_bitable_update_record",
-            "feishu_chat",
-            "feishu_doc",
-            "feishu_drive",
-            "feishu_wiki",
-            "file-guardian",
-            "memory_share",
-            "memory_timeline",
-            "memory_unshare",
-            "memory_viewer",
-            "message",
-            "multi_search",
-            "multi_search_engine",
-            "transition-video",
-            "nanobanana-ppt",
-            "pdf-smart-tool-cn",
-            "product-dev-phase",
-            "read",
-            "sessions_history",
-            "sessions_list",
-            "sessions_spawn",
-            "skill-vetter",
-            "skill_file_get",
-            "skill_files",
-            "skill_get",
-            "skill_search",
-            "task_share",
-            "task_summary",
-            "task_unshare",
-            "tavily_extract",
-            "tavily_search",
-            "tts",
-            "web_fetch",
-            "write"
-          ],
-          "deny": [
-            "gateway",
-            "cron",
-            "nodes",
-            "skill_install",
-            "skill_publish",
-            "skill_unpublish",
-            "memory_write_public",
-            "network_skill_pull",
-            "network_memory_detail",
-            "network_team_info",
-            "edit",
-            "apply_patch"
-          ],
-          "exec": {
             "security": "full",
             "ask": "off"
           },
