@@ -291,7 +291,8 @@
         "taskflow-inbox-triage",
         "weather",
         "web-browse-capture",
-        "wechat-article-reader"
+        "wechat-article-reader",
+        "design-brief-builder"
       ],
       "maxConcurrent": 32
     },
