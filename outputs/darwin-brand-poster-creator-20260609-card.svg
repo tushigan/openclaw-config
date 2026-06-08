@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#111827"/>
+  <rect x="54" y="54" width="1092" height="567" rx="28" fill="#f8fafc"/>
+  <text x="96" y="128" font-family="Arial, 'PingFang SC', sans-serif" font-size="34" font-weight="700" fill="#0f172a">Darwin 闭环完成</text>
+  <text x="96" y="174" font-family="Arial, 'PingFang SC', sans-serif" font-size="23" fill="#475569">brand-poster-creator · full_test · no_image_render</text>
+
+  <rect x="96" y="220" width="288" height="150" rx="18" fill="#e0f2fe"/>
+  <text x="124" y="272" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#075985">Before</text>
+  <text x="124" y="332" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="#0c4a6e">84.5</text>
+
+  <rect x="456" y="220" width="288" height="150" rx="18" fill="#dcfce7"/>
+  <text x="484" y="272" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#166534">After</text>
+  <text x="484" y="332" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="#14532d">88.7</text>
+
+  <rect x="816" y="220" width="288" height="150" rx="18" fill="#fef3c7"/>
+  <text x="844" y="272" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#92400e">Delta</text>
+  <text x="844" y="332" font-family="Arial, sans-serif" font-size="58" font-weight="800" fill="#78350f">+4.2</text>
+
+  <text x="96" y="438" font-family="Arial, 'PingFang SC', sans-serif" font-size="25" font-weight="700" fill="#0f172a">Keep 决策依据</text>
+  <text x="96" y="484" font-family="Arial, 'PingFang SC', sans-serif" font-size="22" fill="#334155">1. Step 2 明确 empty / invalid / missing elements 降级自由构图，不伪造坐标。</text>
+  <text x="96" y="526" font-family="Arial, 'PingFang SC', sans-serif" font-size="22" fill="#334155">2. 新增 Prompt 4 覆盖固定版式坐标与 fallback 模式不可混用。</text>
+  <text x="96" y="568" font-family="Arial, 'PingFang SC', sans-serif" font-size="22" fill="#334155">3. Baseline 5/10，with-skill 8/10，独立 judge 判定 keep。</text>
+
+  <text x="884" y="594" font-family="Arial, sans-serif" font-size="18" fill="#64748b">commit d6835de2</text>
+</svg>
