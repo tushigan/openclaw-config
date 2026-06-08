@@ -507,7 +507,8 @@
           "psd-layered-rebuilder",
           "product-photography-workflow",
           "video-expert-analyzer",
-          "video-frames"
+          "video-frames",
+          "session-debug-export"
         ],
         "subagents": {
           "allowAgents": [
@@ -781,7 +782,10 @@
             "web_fetch",
             "write"
           ]
-        }
+        },
+        "skills": [
+          "openclaw-changelog-writer"
+        ]
       },
       {
         "id": "meeting-analyst",
@@ -1158,7 +1162,8 @@
           "psd-layered-rebuilder",
           "product-photography-workflow",
           "video-expert-analyzer",
-          "video-frames"
+          "video-frames",
+          "session-debug-export"
         ],
         "subagents": {
           "allowAgents": [
