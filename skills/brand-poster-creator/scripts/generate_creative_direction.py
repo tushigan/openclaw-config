@@ -121,7 +121,7 @@ def build_creative_direction(brief: dict, copywriting: dict | None, distill: dic
     titles, body_texts = summarize_copy(copywriting)
     lead_copy = titles[0] if titles else f"围绕{brand_name}本次传播主题展开"
 
-    layout_mode = "用蒸馏卡锁定的区域关系组织主体、文案和装饰层级" if distill else "在无蒸馏卡情况下，以主体优先、文案清晰、装饰辅助的方式组织画面"
+    layout_mode = "按既定区域关系组织主体、文案和装饰层级" if distill else "以主体优先、文案清晰、装饰辅助的方式组织画面"
     style_translation = build_style_translation(style_profile, brief)
     supporting = build_supporting_elements(brief, style_profile)
 
