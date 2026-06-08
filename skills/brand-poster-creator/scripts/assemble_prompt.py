@@ -451,21 +451,30 @@ def build_product_hero_layout_guard(brief, distill, refs, image_paths):
     product_name = product.get("产品名", brief.get("product_name", "产品"))
     low_res = is_low_resolution_product_ref(brief, refs)
 
-    if low_res:
-        region = "x:24% y:38% 宽:52% 高:32% z:3"
+    if distill:
+        region = "x:24% y:38% 宽:52% 高:32% z:3" if low_res else "x:14% y:31% 宽:72% 高:46% z:3"
         framing = (
             "采用完整产品中景肖像：产品仍是主视觉，但必须完整入画，能看见整体圆顶、外皮、侧面和底部，"
             "不允许从底部截断、只露出半个产品或裁成超近景切面；切面可见面积要克制，不能成为画面主纹理。"
             "轮廓、色彩和整体质感清楚，微观组织只保持轻微、柔和、可信。"
-        )
+        ) if low_res else "产品可以作为大主视觉，但仍需避免切面微距化和过度锐化。"
+        placement = f"将{img_ref}（{product_name}）作为第一视觉产品，放在标题/副标题下方、底部信息区上方的中部区域：{region}。"
+        reason = "固定版式中缺少独立产品主图区，因此必须显式补足产品主视觉锚点，不能让模型自行猜测产品位置。"
     else:
-        region = "x:14% y:31% 宽:72% 高:46% z:3"
-        framing = "产品可以作为大主视觉，但仍需避免切面微距化和过度锐化。"
+        framing = (
+            "采用完整产品中景肖像：产品仍是主视觉，但必须完整入画，能看见整体轮廓、外皮、侧面和底部；"
+            "切面可见面积要克制，不能裁成超近景微距。"
+        ) if low_res else "产品可以作为中部大主视觉，但仍需避免切面微距化和过度锐化。"
+        placement = (
+            f"将{img_ref}（{product_name}）作为第一视觉产品，置于中部主视觉区："
+            "位于标题/副标题下方、底部信息区上方，体量最大，四周保留呼吸空间。"
+        )
+        reason = "自由构图中必须显式建立产品主视觉锚点，不能让模型把产品挪成边角陪衬。"
 
     return "\n".join([
         "== 产品主视觉区域 ==",
-        "当前版式骨架没有单独标出产品主图区，因此必须显式建立产品主视觉锚点，不能让模型自行猜测产品位置。",
-        f"将{img_ref}（{product_name}）作为第一视觉产品，放在标题/副标题下方、底部信息区上方的中部区域：{region}。",
+        reason,
+        placement,
         framing,
         "产品可以与满版背景自然融合并有柔和落影，但不要压住顶部文字、不要侵入底部说明文字，不要生成额外透明框、占位框或二维码框。",
         "如果产品参考、风格参考或创意描述与本区域冲突，以本产品主视觉区域为准；不要把产品挪到画面底部当作被裁切的巨大近景。",
@@ -590,6 +599,14 @@ def build_main_visual_action_hint(brief):
 
     if style_note and any(word in style_note for word in ["动作", "互动", "场景", "姿态", "庆祝", "玩耍"]):
         return f"主角动作和场景互动优先遵循用户要求：{style_note}"
+
+    if product_hero_requested(brief):
+        if festival_profile:
+            return (
+                f"{hero_name}应围绕「{festival or '当前主题'}」建立明确陈列关系和场景互动，"
+                f"{festival_profile['scene']}，但产品形体、包装和真实质感保持可信。"
+            )
+        return f"{hero_name}需要有清楚的陈列姿态、光影承托和场景关系；可以是静物主角，不要被要求成人物动作或站姿。"
 
     if festival_profile:
         return f"{hero_name}应围绕「{festival or '当前主题'}」展开明确互动，{festival_profile['action']}。"
@@ -883,7 +900,7 @@ def describe_element(el, copywriting, refs, image_paths, brief=None, style_profi
     text = cw.get("文案", "")
     font_style = cw.get("字体风格", "")
 
-    header = f"【区域 {el_id} - {el_name}】x:{x:.0f}% y:{y:.0f}% 宽:{w:.0f}% 高:{h:.0f}% z:{z}"
+    header = f"【固定区域 {el_id} - {el_name}】x:{x:.0f}% y:{y:.0f}% 宽:{w:.0f}% 高:{h:.0f}% z:{z}"
 
     if resolved_type == "background":
         if style_profile and style_profile.get("background"):
@@ -1098,19 +1115,11 @@ def assemble_prompt(brief, distill, copywriting, refs, style_profile=None, creat
     if hero_block:
         blocks.append(hero_block)
 
-    if distill:
-        elements = distill.get("layout_analysis", {}).get("elements", [])
-        if elements:
-            blocks.append("== 画面布局（严格按以下坐标）==")
-            blocks.append("")
-            for el in elements:
-                desc = describe_element(el, copywriting, refs, image_paths, brief=brief, style_profile=style_profile)
-                blocks.append(desc)
-                blocks.append("")
-        else:
-            blocks.append(assemble_fallback_layout(brief, copywriting))
+    elements = distill.get("layout_analysis", {}).get("elements", []) if distill else []
+    if elements:
+        blocks.append(assemble_fixed_layout(elements, copywriting, refs, image_paths, brief=brief, style_profile=style_profile))
     else:
-        blocks.append(assemble_fallback_layout(brief, copywriting))
+        blocks.append(assemble_free_layout(brief, copywriting))
 
     constraints = []
     if distill:
@@ -1173,20 +1182,79 @@ def assemble_prompt(brief, distill, copywriting, refs, style_profile=None, creat
     ), image_paths, ref_roles
 
 
-def assemble_fallback_layout(brief, copywriting):
-    """无蒸馏卡时的降级布局描述。"""
-    lines = ["== 画面布局（无固定版式，以风格参考和文案描述为主） =="]
-    lines.append("")
-    lines.append("画面主体居中放置，占画面主导地位。")
+def assemble_fixed_layout(elements, copywriting, refs, image_paths, brief=None, style_profile=None):
+    """有固定版式数据时，按坐标区域输出硬约束布局。"""
+    lines = ["== 画面布局（固定版式坐标） =="]
+    lines.append("所有主体、文案、Logo、装饰和留白必须服从以下区域关系；不要自行重排成另一套构图。")
+    for el in elements:
+        desc = describe_element(el, copywriting, refs, image_paths, brief=brief, style_profile=style_profile)
+        lines.append("")
+        lines.append(desc)
+    return "\n".join(lines)
+
+
+def copywriting_texts(copywriting):
+    if not copywriting:
+        return []
+    texts = []
+    for _, cw in copywriting.items():
+        text = str(cw.get("文案", "") or "").strip()
+        if text:
+            texts.append(text)
+    return texts
+
+
+def assemble_free_layout(brief, copywriting):
+    """无固定版式数据时，用相对区域和阅读动线约束构图。"""
+    hero = brief.get("hero_priority", {}) or {}
+    hero_1 = str(hero.get("hero_1", "") or brief.get("product_name", "") or brief.get("hero_name", "") or "第一视觉主体").strip()
+    hero_2 = str(hero.get("hero_2", "") or "").strip()
+    forbidden = str(hero.get("forbidden_hero", "") or "").strip()
+    texts = copywriting_texts(copywriting)
+    main_text = texts[0] if texts else ""
+    sub_text = texts[1] if len(texts) > 1 else ""
+    bottom_texts = texts[2:] if len(texts) > 2 else []
+
+    lines = ["== 画面布局（自由构图与阅读动线） =="]
+    lines.append("本轮没有固定坐标区域；使用相对构图组织画面，不生成坐标框、占位框或临时参考线。")
+    lines.append("阅读动线：顶部信息区 → 中部主视觉区 → 底部信息区，三段之间保持清晰留白和层级。")
+
+    top_parts = []
+    if main_text:
+        top_parts.append(f"主文案「{main_text}」")
+    if sub_text:
+        top_parts.append(f"副文案「{sub_text}」")
+    if top_parts:
+        lines.append("顶部信息区：" + "；".join(top_parts) + "，优先安排在顶部或中上部，保持高对比、易读和稳定对齐。")
+    else:
+        lines.append("顶部信息区：预留品牌名、Logo 或主标题阅读位置，背景保持干净，不被复杂纹理穿插。")
+
+    lines.append(
+        f"中部主视觉区：以「{hero_1}」作为最大体量和最高注意力主体，"
+        "位于画面中部或中下部，和顶部文字保持距离，形成明确前中后景层次。"
+    )
     lines.append(build_main_visual_action_hint(brief))
 
-    if copywriting:
-        for el_id, cw in copywriting.items():
-            text = cw.get("文案", "")
-            if text:
-                lines.append(f"文案：「{text}」，放置在画面适当位置。")
+    if hero_2:
+        lines.append(f"辅助视觉：{hero_2}围绕主视觉展开，只增强氛围和叙事，不抢第一视觉。")
+    if forbidden:
+        if forbidden.startswith(("不要", "不得", "禁止", "不能")):
+            lines.append(f"主视觉禁忌：{forbidden}。")
+        else:
+            lines.append(f"避免把「{forbidden}」画成主角或高注意力元素。")
 
+    if bottom_texts:
+        lines.append("底部信息区：" + "；".join(f"卖点文案「{text}」" for text in bottom_texts) + "，用更小字号或标签化信息承接主视觉。")
+    else:
+        lines.append("底部信息区：保留必要留白或少量辅助信息，不堆满装饰，不压迫主体。")
+
+    lines.append("背景与前景：背景服务主题氛围，中景承载主视觉，前景只做少量空间层次；不要让装饰形成新的视觉中心。")
     return "\n".join(lines)
+
+
+def assemble_fallback_layout(brief, copywriting):
+    """兼容旧调用名；无固定版式时统一使用自由构图 adapter。"""
+    return assemble_free_layout(brief, copywriting)
 
 
 def main():
