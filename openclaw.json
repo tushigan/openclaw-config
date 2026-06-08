@@ -258,7 +258,6 @@
         "healthcheck",
         "image-deglaze",
         "improve-codebase-architecture",
-        "internal-interview-research",
         "lark-approval",
         "lark-attendance",
         "lark-base",
@@ -287,7 +286,6 @@
         "node-connect",
         "pdf-smart-tool-cn",
         "quote-skill",
-        "research-analyst",
         "session-debug-export",
         "session-logs",
         "taskflow",
@@ -776,7 +774,10 @@
           "fs": {
             "workspaceOnly": false
           }
-        }
+        },
+        "skills": [
+          "research-analyst"
+        ]
       },
       {
         "id": "copywriter",
@@ -1545,7 +1546,10 @@
           "fs": {
             "workspaceOnly": false
           }
-        }
+        },
+        "skills": [
+          "research-analyst"
+        ]
       },
       {
         "id": "copywriter-shared",

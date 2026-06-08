@@ -9,12 +9,19 @@ import time
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+def get_openclaw_root():
+    curr = Path(__file__).resolve()
+    while curr.parent != curr:
+        if (curr / ".agents").exists():
+            return curr
+        curr = curr.parent
+    return Path(__file__).resolve().parent.parent.parent.parent.parent.parent
+
 # 全局互斥锁与全局进度计数器定义
 state_lock = threading.Lock()
 print_lock = threading.Lock()
 completed_count = 0
 total_parallel_tasks = 0
-ROUTE_GUARD_SCRIPT = Path('/Users/a123/.openclaw/scripts/feishu-route-guard.py')
 
 if sys.platform.startswith('win'):
     try:
@@ -129,10 +136,11 @@ def parse_args():
 
 
 def detect_generator():
+    root = get_openclaw_root()
     paths = [
-        Path("h:/openclaw/workspace/PSD-SKILL/gpt-image2-gen/gpt-image2-gen/scripts/generate_failover.py"),
-        Path("h:/openclaw/workspace/PSD-SKILL/gpt-image2-gen/gpt-image2-gen/scripts/generate.py"),
-        Path("h:/openclaw/.agents/skills/gpt-image2-gen/scripts/generate.py"),
+        root / "workspace/PSD-SKILL/gpt-image2-gen/gpt-image2-gen/scripts/generate_failover.py",
+        root / "workspace/PSD-SKILL/gpt-image2-gen/gpt-image2-gen/scripts/generate.py",
+        root / ".agents/skills/gpt-image2-gen/scripts/generate.py",
     ]
     for p in paths:
         if p.exists(): return p
@@ -146,6 +154,17 @@ def guess_aspect_ratio(size_str):
         return min(candidates, key=lambda x: abs(x[1] - ratio))[0]
     except Exception: return "1:1"
 
+def is_valid_image(path):
+    if not path.exists() or path.stat().st_size < 100:
+        return False
+    try:
+        from PIL import Image
+        with Image.open(path) as img:
+            img.verify()
+        return True
+    except Exception:
+        return False
+
 def guess_banana_size(size_str):
     try:
         w, h = map(int, size_str.lower().split('x'))
@@ -157,43 +176,10 @@ def guess_banana_size(size_str):
         else: return "5K"
     except Exception: return "2K"
 
-def normalize_feishu_target(value):
-    raw = str(value or '').strip()
-    if not raw:
-        return ''
-    if raw.startswith(('chat:', 'user:')):
-        return raw
-    if raw.startswith('oc_'):
-        return 'chat:' + raw
-    if raw.startswith('ou_'):
-        return 'user:' + raw
-    return raw
-
-def check_feishu_media_route(path: Path, user_id: str, chat_id: str):
-    target = normalize_feishu_target(chat_id or user_id)
-    if not target or not ROUTE_GUARD_SCRIPT.exists():
-        return {'ok': bool(target), 'status': 'route_guard_unavailable'}
-    cmd = [sys.executable, str(ROUTE_GUARD_SCRIPT), 'check', '--media', str(path), '--target', target, '--json']
-    try:
-        result = subprocess.run(cmd, text=True, capture_output=True, timeout=30, stdin=subprocess.DEVNULL)
-    except Exception as e:
-        return {'ok': True, 'status': 'route_guard_unavailable', 'error': str(e)}
-    try:
-        payload = json.loads(result.stdout) if result.stdout.strip() else {}
-    except json.JSONDecodeError:
-        payload = {}
-    return payload or {'ok': result.returncode == 0, 'status': 'route_guard_failed' if result.returncode else 'route_guard_ok'}
-
 def send_feishu_image(path: Path, user_id: str, chat_id: str, key: str, name: str, progress: str):
     if not (user_id or chat_id): return
     target_args = ['--chat-id', chat_id] if chat_id else ['--user-id', user_id]
     target_label = f'chat_id={chat_id}' if chat_id else f'user_id={user_id}'
-    route_check = check_feishu_media_route(path, user_id, chat_id)
-    if not route_check.get('ok'):
-        with print_lock:
-            print(f"[{key}][deliver:block] route guard blocked {path.name}: {route_check.get('status', 'unknown')}", file=sys.stderr)
-            sys.stdout.flush()
-        return
 
     npx_cmd = 'npx.cmd' if sys.platform.startswith('win') else 'npx'
     cmd = [npx_cmd, '-y', 'lark-cli', 'im', '+messages-send', '--as', 'bot', *target_args, '--image', str(path)]
@@ -259,7 +245,8 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
 
     if force_gemini:
         safe_log(f"⚡ [Gemini Direct] Force Gemini active. Bypassing gpt-image2-gen...")
-        banana_script = Path("h:/openclaw/.agents/skills/nano-banana-image-gen/scripts/generate.mjs")
+        root = get_openclaw_root()
+        banana_script = root / ".agents/skills/nano-banana-image-gen/scripts/generate.mjs"
         if banana_script.exists():
             banana_ratio = guess_aspect_ratio(suggested_size)
             banana_size = guess_banana_size(suggested_size)
@@ -294,16 +281,16 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
         safe_log(f"Running generator command for '{key}'...")
         res = run_with_spinner(gen_args, env=env, message=f"[API: edits] Extracting layer '{key}'", show_spinner=not is_parallel)
         
-        if (res.returncode != 0 or not raw_out.exists()) and task["kind"] != "background" and env.get("BANANA_DISABLE_EDITS") != "1":
+        if (res.returncode != 0 or not is_valid_image(raw_out)) and task["kind"] != "background" and env.get("BANANA_DISABLE_EDITS") != "1":
             safe_log(f"⚠️  [Chroma Failover] edits generation failed. Retrying with BANANA_DISABLE_EDITS=1 (generations fallback)...")
             fallback_env = env.copy()
             fallback_env["BANANA_DISABLE_EDITS"] = "1"
             res_fallback = run_with_spinner(gen_args, env=fallback_env, message=f"[Chroma Failover] Retrying '{key}' via fallback", show_spinner=not is_parallel)
-            if res_fallback.returncode == 0 and raw_out.exists():
+            if res_fallback.returncode == 0 and is_valid_image(raw_out):
                 res, fallback_success, is_generation_fallback_triggered = res_fallback, True, True
                 safe_log(f"✅ [Chroma Failover] generations fallback retry succeeded! Image saved to {raw_out}")
 
-        if not fallback_success and (res.returncode != 0 or not raw_out.exists()):
+        if not fallback_success and (res.returncode != 0 or not is_valid_image(raw_out)):
             safe_log(f"⚠️  [Progressive Fallback] Primary APIs failed. Activating V4.0 Progressive Fallback Mesh (Stripping complex Prompt)...")
             simple_prompt = prompt.split("\n\n[附加高级指令法典]:")[0].split("\n\n")[0].strip()
             if task["kind"] != "background" and "绿幕" not in simple_prompt:
@@ -315,13 +302,14 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
             fallback_args = [sys.executable, str(generator_path), "--prompt-file", str(simple_prompt_file), "-s", suggested_size, "-o", str(raw_out), "--ref-base", source_path]
             res_mesh = run_with_spinner(fallback_args, env=env, message=f"[Fallback Mesh] Retrying '{key}' with simple prompt", show_spinner=not is_parallel)
             
-            if res_mesh.returncode == 0 and raw_out.exists():
+            if res_mesh.returncode == 0 and is_valid_image(raw_out):
                 res, fallback_success, is_generation_fallback_triggered = res_mesh, True, True
                 safe_log(f"✅ [Fallback Mesh] Simplified prompt succeeded! Image saved to {raw_out}")
 
-        if not fallback_success and (res.returncode != 0 or not raw_out.exists()):
+        if not fallback_success and (res.returncode != 0 or not is_valid_image(raw_out)):
             safe_log(f"⚠️  [Chroma Failover] gpt-image-2-pro failed for '{key}'. Switching to NanoBanana fallback...")
-            banana_script = Path("h:/openclaw/.agents/skills/nano-banana-image-gen/scripts/generate.mjs")
+            root = get_openclaw_root()
+            banana_script = root / ".agents/skills/nano-banana-image-gen/scripts/generate.mjs"
             if banana_script.exists():
                 banana_ratio = guess_aspect_ratio(suggested_size)
                 banana_size = guess_banana_size(suggested_size)
@@ -340,7 +328,7 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
                         fallback_success = True
                         safe_log(f"✅ [Chroma Failover] Fallback succeeded! Copied image to {raw_out}")
 
-    if not fallback_success and (res is None or res.returncode != 0 or not raw_out.exists()):
+    if not fallback_success and (res is None or res.returncode != 0 or not is_valid_image(raw_out)):
         safe_log(f"⚠️  [Chroma Failover] ALL APIs failed. Activating Trinary Offline Auto-Recovery...")
         ref_path = task.get("ref_path")
         if ref_path and Path(ref_path).exists():
@@ -356,7 +344,7 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
             except Exception as recovery_err:
                 pass
 
-    if not fallback_success and (res is None or res.returncode != 0 or not raw_out.exists()):
+    if not fallback_success and (res is None or res.returncode != 0 or not is_valid_image(raw_out)):
         error_msg = res.stderr if (res and res.returncode != 0) else "Output file not found"
         safe_log(f"Generation failed for '{key}': {error_msg}")
         with state_lock:
@@ -417,31 +405,7 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
     except Exception as e:
         safe_log(f"⚠️ [Resize Warning] Failed to resize layer {key}: {e}")
 
-    if task["kind"] != "background":
-        try:
-            safe_log(f"Generating lossless high-res fallback for {key} from reference slice...")
-            from PIL import Image
-            ref_img = Image.open(task["ref_path"]).convert("RGBA")
-            w_target, h_target = map(int, suggested_size.lower().split('x'))
-            ref_resized = ref_img.resize((w_target, h_target), Image.Resampling.LANCZOS)
-            
-            lossless_raw = raw_out.parent / f"{key}_lossless_raw.png"
-            lossless_layer = layer_out.parent / f"{key}_lossless.png"
-            ref_resized.save(lossless_raw)
-            
-            safe_log(f"Removing white background from lossless fallback to {lossless_layer}...")
-            chroma_cmd = [
-                sys.executable,
-                str(remove_chroma_script),
-                "--input", str(lossless_raw),
-                "--output", str(lossless_layer),
-                "--mode", "white",
-                "--tolerance", "30"
-            ]
-            run_with_spinner(chroma_cmd, env=env, message=f"[Chroma Key] Removing white background for lossless fallback of '{key}'", show_spinner=not is_parallel)
-            safe_log(f"✅ Lossless high-res fallback created at {lossless_layer}")
-        except Exception as e:
-            safe_log(f"⚠️ Failed to generate lossless fallback for {key}: {e}")
+    # 删除了无损还原容错切片的生成机制（Lossless Fallback），保持交付物极简纯净
 
     feishu_user, feishu_chat = args.feishu_user_id.strip(), args.feishu_chat_id.strip()
     if feishu_user or feishu_chat:

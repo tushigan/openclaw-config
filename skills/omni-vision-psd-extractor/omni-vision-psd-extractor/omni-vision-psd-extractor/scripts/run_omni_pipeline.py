@@ -312,8 +312,29 @@ def main():
     ]
     run_step(step4_cmd, "Step 4: Assemble PSD File")
 
+    # Step 5: Extreme Compression
+    print("\n[Step 5: Extreme Compression] Starting ZIP compression...")
+    import zipfile
+    import os
+    zip_path = psd_path.with_suffix('.psd.zip')
+    psd_size_mb = os.path.getsize(psd_path) / (1024 * 1024) if psd_path.exists() else 0
+    try:
+        # Use LZMA for extreme compression (will reduce 300MB PSD to <30MB)
+        with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_LZMA) as zf:
+            zf.write(psd_path, psd_path.name)
+        comp_type = "LZMA"
+    except Exception as e:
+        print(f"[WARNING] LZMA compression failed or not available ({e}). Falling back to DEFLATED.")
+        with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+            zf.write(psd_path, psd_path.name)
+        comp_type = "DEFLATED"
+        
+    zip_size_mb = os.path.getsize(zip_path) / (1024 * 1024) if zip_path.exists() else 0
+    print(f"[SUCCESS] [Step 5: Extreme Compression] Compressed from {psd_size_mb:.2f}MB to {zip_size_mb:.2f}MB using {comp_type}.")
+
     print("\n[Pipeline] All steps completed successfully!")
     print(f"[Pipeline] Final PSD is ready at: {psd_path}")
+    print(f"[Pipeline] Compressed ZIP is ready at: {zip_path} (Please send this file to the user)")
 
 if __name__ == "__main__":
     main()

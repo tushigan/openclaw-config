@@ -245,7 +245,6 @@
         ]
       },
       "skills": [
-        "RunningHub",
         "browser-automation",
         "business-project-intake",
         "diagnose",
@@ -253,13 +252,12 @@
         "feishu-channel-rules",
         "feishu-troubleshoot",
         "gpt-image2-gen",
-        "image-deglaze",
         "grill-me",
         "grill-with-docs",
         "handoff",
         "healthcheck",
+        "image-deglaze",
         "improve-codebase-architecture",
-        "internal-interview-research",
         "lark-approval",
         "lark-attendance",
         "lark-base",
@@ -288,15 +286,10 @@
         "node-connect",
         "pdf-smart-tool-cn",
         "quote-skill",
-        "research-analyst",
-        "session-logs",
         "session-debug-export",
-        "skill-creator",
+        "session-logs",
         "taskflow",
         "taskflow-inbox-triage",
-        "tvc-director",
-        "video-expert-analyzer",
-        "video-frames",
         "weather",
         "web-browse-capture",
         "wechat-article-reader"
@@ -496,7 +489,10 @@
             "web_fetch",
             "write"
           ]
-        }
+        },
+        "skills": [
+          "huashu-design"
+        ]
       },
       {
         "id": "design",
@@ -509,64 +505,9 @@
           "RunningHub",
           "brand-poster-creator",
           "brand-poster-distiller",
-          "browser-automation",
-          "business-project-intake",
-          "diagnose",
           "dreamina-cli",
-          "dreamina-reference-video",
-          "feishu-channel-rules",
-          "feishu-troubleshoot",
-          "gpt-image2-gen",
-          "image-deglaze",
-          "grill-me",
-          "grill-with-docs",
-          "handoff",
-          "healthcheck",
-          "improve-codebase-architecture",
-          "internal-interview-research",
-          "lark-approval",
-          "lark-attendance",
-          "lark-base",
-          "lark-calendar",
-          "lark-contact",
-          "lark-doc",
-          "lark-drive",
-          "lark-event",
-          "lark-im",
-          "lark-mail",
-          "lark-minutes",
-          "lark-okr",
-          "lark-openapi-explorer",
-          "lark-shared",
-          "lark-sheets",
-          "lark-skill-maker",
-          "lark-slides",
-          "lark-task",
-          "lark-vc",
-          "lark-whiteboard",
-          "lark-wiki",
-          "lark-workflow-meeting-summary",
-          "lark-workflow-standup-report",
-          "multi-search-engine",
-          "nanobanana-ppt",
-          "omni-vision-psd-extractor",
-          "node-connect",
-          "outline-architect",
-          "pdf-smart-tool-cn",
           "product-photography-workflow",
           "psd-layered-rebuilder",
-          "quote-skill",
-          "research-analyst",
-          "session-logs",
-          "session-debug-export",
-          "skill-creator",
-          "taskflow",
-          "taskflow-inbox-triage",
-          "video-expert-analyzer",
-          "video-frames",
-          "weather",
-          "web-browse-capture",
-          "wechat-article-reader",
           "xiangqingye-desigen"
         ],
         "subagents": {
@@ -724,7 +665,13 @@
             "web_fetch",
             "write"
           ]
-        }
+        },
+        "skills": [
+          "dreamina-reference-video",
+          "tvc-director",
+          "video-expert-analyzer",
+          "video-frames"
+        ]
       },
       {
         "id": "research",
@@ -827,7 +774,10 @@
           "fs": {
             "workspaceOnly": false
           }
-        }
+        },
+        "skills": [
+          "research-analyst"
+        ]
       },
       {
         "id": "copywriter",
@@ -1280,7 +1230,10 @@
           "fs": {
             "workspaceOnly": true
           }
-        }
+        },
+        "skills": [
+          "huashu-design"
+        ]
       },
       {
         "id": "design-shared",
@@ -1293,64 +1246,9 @@
           "RunningHub",
           "brand-poster-creator",
           "brand-poster-distiller",
-          "browser-automation",
-          "business-project-intake",
-          "diagnose",
           "dreamina-cli",
-          "dreamina-reference-video",
-          "feishu-channel-rules",
-          "feishu-troubleshoot",
-          "gpt-image2-gen",
-          "image-deglaze",
-          "grill-me",
-          "grill-with-docs",
-          "handoff",
-          "healthcheck",
-          "improve-codebase-architecture",
-          "internal-interview-research",
-          "lark-approval",
-          "lark-attendance",
-          "lark-base",
-          "lark-calendar",
-          "lark-contact",
-          "lark-doc",
-          "lark-drive",
-          "lark-event",
-          "lark-im",
-          "lark-mail",
-          "lark-minutes",
-          "lark-okr",
-          "lark-openapi-explorer",
-          "lark-shared",
-          "lark-sheets",
-          "lark-skill-maker",
-          "lark-slides",
-          "lark-task",
-          "lark-vc",
-          "lark-whiteboard",
-          "lark-wiki",
-          "lark-workflow-meeting-summary",
-          "lark-workflow-standup-report",
-          "multi-search-engine",
-          "nanobanana-ppt",
-          "omni-vision-psd-extractor",
-          "node-connect",
-          "outline-architect",
-          "pdf-smart-tool-cn",
           "product-photography-workflow",
           "psd-layered-rebuilder",
-          "quote-skill",
-          "research-analyst",
-          "session-logs",
-          "session-debug-export",
-          "skill-creator",
-          "taskflow",
-          "taskflow-inbox-triage",
-          "video-expert-analyzer",
-          "video-frames",
-          "weather",
-          "web-browse-capture",
-          "wechat-article-reader",
           "xiangqingye-desigen"
         ],
         "subagents": {
@@ -1533,7 +1431,13 @@
           "fs": {
             "workspaceOnly": false
           }
-        }
+        },
+        "skills": [
+          "dreamina-reference-video",
+          "tvc-director",
+          "video-expert-analyzer",
+          "video-frames"
+        ]
       },
       {
         "id": "research-shared",
@@ -1642,7 +1546,10 @@
           "fs": {
             "workspaceOnly": false
           }
-        }
+        },
+        "skills": [
+          "research-analyst"
+        ]
       },
       {
         "id": "copywriter-shared",

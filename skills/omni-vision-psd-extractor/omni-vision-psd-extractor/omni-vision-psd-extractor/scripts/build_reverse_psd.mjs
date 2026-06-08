@@ -13,7 +13,8 @@ async function loadDependency(moduleName) {
   } catch (err) {
     console.warn(`[自愈] 缺失必要依赖模块: ${moduleName}，正在静默安装...`);
     try {
-      execSync('npm install pngjs ag-psd --no-save --no-audit --no-fund', { cwd: __dirname, stdio: 'inherit' });
+      const env = { ...process.env, PATH: `${process.env.PATH || ''}:/opt/homebrew/bin:/usr/local/bin` };
+      execSync('npm install pngjs ag-psd --no-save --no-audit --no-fund', { cwd: __dirname, stdio: 'inherit', env });
       return await import(moduleName);
     } catch (installErr) {
       console.error(`[自愈:错误] 依赖模块 ${moduleName} 自动安装失败:`, installErr);
