@@ -2353,6 +2353,7 @@
     "load": {
       "extraDirs": [
         "/Users/a123/.openclaw/workspace/skills",
+        "/Users/a123/.openclaw/workspace/.agents/skills",
         "/Users/a123/.openclaw/skills",
         "/Users/a123/.openclaw/workspace-strategy/skills",
         "/Users/a123/.openclaw/workspace-design/skills",
