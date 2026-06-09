@@ -12,7 +12,7 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1780992026833,
+          "lastUsedAt": 1780993814811,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -52,8 +52,8 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1780972378816,
-          "lastUsedCommand": "ls -lth /tmp/ | grep audit-feedback",
+          "lastUsedAt": 1780993923943,
+          "lastUsedCommand": "ls -lah ~/.openclaw/workspace/.sessions/ | tail -5",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -1103,8 +1103,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1780993593792,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260609-001/prompt_v3.txt --ref-style /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260609-001/images/style_ref_1.jpg --ref-product /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260609-001/images/product.jpg --ref-ip /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260609-001/images/ip.png --ref-logo /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260609-001/images/logo.jpg --output /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260609-001/images/final_poster_v3.png --size 1536x2048",
+          "lastUsedAt": 1780994562895,
+          "lastUsedCommand": "python3 --version && which python3 && python3.11 --version && which python3.11 || true && python3.12 --version && which python3.12 || true",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1134,16 +1134,16 @@
           "id": "shared-design-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1780973658848,
-          "lastUsedCommand": "file outputs/duanwu-poster-edit-20260609/duanwu_poster_edit_v1.png && cp outputs/duanwu-poster-edit-20260609/duanwu_poster_edit_v1.png feishu-deliver/duanwu_poster_edit_v1.png && file feishu-deliver/duanwu_poster_edit_v1.png",
-          "lastResolvedPath": "/usr/bin/file"
+          "lastUsedAt": 1780994512243,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/images/commercial_retouch_hhf_v1.jpg /Users/a123/.openclaw/workspace/feishu-deliver/commercial_retouch_hhf_v1.jpg",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-design-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1780981748059,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/images/storyboard && python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt '六格竖版故事板，5秒一镜到底感。镜头在端午绿叶螺旋通道中连续推进、轻微绕行、前景叶片遮挡转移，无硬切。01空镜建立空间，02 IP自然进入，03继续向前轻快奔跑，04镜头侧移带出产品与IP互动，动作自然克制不谄媚，05产品近景主导突出抹茶流心，06严格回到尾帧定版海报构图。IP必须严格参考多角度视图，头身比例、眼睛、四肢长度、表情结构保持一致，禁止变形。整体明亮童话商业质感。' --ref-layout /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/58215966-e13a-41c5-9b4c-e59a172181c2.png --ref-style /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/58215966-e13a-41c5-9b4c-e59a172181c2.png --ref-ip /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/d9dc1189-4ac2-413d-8b0e-41384a4be259.jpg --size 1536x2048 --output /Users/a123/.openclaw/workspace-design/images/storyboard/storyboard_tailframe_motion_v1.png",
+          "lastUsedAt": 1780994512242,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/images/commercial_retouch_hhf_v1.jpg /Users/a123/.openclaw/workspace/feishu-deliver/commercial_retouch_hhf_v1.jpg",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -1163,9 +1163,9 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1780992871014,
-          "lastUsedCommand": "ls -l /Users/a123/.openclaw/venv-psd/bin/python3.12 && /Users/a123/.openclaw/venv-psd/bin/python3.12 --version",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1780994549984,
+          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#- #' | sort",
+          "lastResolvedPath": "/bin/pwd"
         },
         {
           "id": "shared-design-cat",
@@ -1179,8 +1179,8 @@
           "id": "shared-pwd",
           "pattern": "/bin/pwd",
           "description": "允许输出当前目录",
-          "lastUsedAt": 1780992834328,
-          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && echo '---' && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#FILE #'",
+          "lastUsedAt": 1780994549984,
+          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#- #' | sort",
           "lastResolvedPath": "/bin/pwd"
         },
         {
@@ -1216,9 +1216,9 @@
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1780992866589,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design/skills/psd-layered-rebuilder && grep -R \"numpy\\|psd_tools\\|PIL\\|requirements\\|venv\\|python3.11\" -n . | head -80",
-          "lastResolvedPath": "/usr/bin/cd"
+          "lastUsedAt": 1780994222051,
+          "lastUsedCommand": "pwd && ls -la && find . -path '*gpt-image2-gen/scripts/generate.py' -o -path '*gpt-image2*generate.py' | head -20",
+          "lastResolvedPath": "/bin/pwd"
         },
         {
           "id": "shared-tail",
@@ -1232,8 +1232,8 @@
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1780992834331,
-          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && echo '---' && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#FILE #'",
+          "lastUsedAt": 1780994549986,
+          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#- #' | sort",
           "lastResolvedPath": "/bin/pwd"
         },
         {
@@ -1262,8 +1262,8 @@
           "id": "design-sort",
           "pattern": "/usr/bin/sort",
           "description": "允许排序文本结果",
-          "lastUsedAt": 1780979739386,
-          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/dreamina-reference-video && echo '---' && find ~/.openclaw/workspace-design/skills/dreamina-reference-video -maxdepth 2 -type f | sed 's#^#FILE #g' | sort | head -200",
+          "lastUsedAt": 1780994549987,
+          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#- #' | sort",
           "lastResolvedPath": "/bin/pwd"
         },
         {
@@ -1285,8 +1285,8 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1780992834330,
-          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && echo '---' && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#FILE #'",
+          "lastUsedAt": 1780994549985,
+          "lastUsedCommand": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#- #' | sort",
           "lastResolvedPath": "/bin/pwd"
         },
         {
@@ -1359,8 +1359,8 @@
           "id": "shared-design-which",
           "pattern": "/usr/bin/which",
           "description": "允许定位命令路径",
-          "lastUsedAt": 1780992853330,
-          "lastUsedCommand": "python3 --version && which python3 && command -v python3.11 && python3.11 --version && command -v python3.10 && python3.10 --version || true",
+          "lastUsedAt": 1780994562896,
+          "lastUsedCommand": "python3 --version && which python3 && python3.11 --version && which python3.11 || true && python3.12 --version && which python3.12 || true",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1958,8 +1958,8 @@
           "id": "shared-research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1780993369597,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/outputs/_temp_export_chat_report.py --workspace /Users/a123/.openclaw --session-key current --agent research-shared --chat-type group --peer-id oc_937bbb0342e11f009c5654cc38b9551c --issue 聊天记录导出 --agent-name research",
+          "lastUsedAt": 1780994377197,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/outputs/_temp_export_chat_report.py --workspace /Users/a123/.openclaw --session-key current --agent research-shared --chat-type group --peer-id oc_83b7895cba825fef7e65c7542622889d --issue '聊天记录导出' --agent-name 'research'",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -2012,8 +2012,8 @@
           "id": "shared-research-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1780993382535,
-          "lastUsedCommand": "ls -lh '/Users/a123/Downloads/openclaw 问题汇总/20260609-162253-oc_937bbb0342e11f009c5654cc38b9551c-聊天记录导出.md'",
+          "lastUsedAt": 1780994391652,
+          "lastUsedCommand": "ls -lh '/Users/a123/Downloads/openclaw 问题汇总/20260609-163940-oc_83b7895cba825fef7e65c7542622889d-聊天记录导出.md'",
           "lastResolvedPath": "/bin/ls",
           "source": "allow-always"
         },

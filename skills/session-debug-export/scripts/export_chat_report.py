@@ -667,11 +667,11 @@ def main() -> int:
         all_logs = (logs_res.stdout or logs_res.stderr or "").strip()
 
         # Filter logs to only include lines related to this session
-        # Include lines that contain the session_key, peer_id, or session_id from manifest
-        peer_id = session_peer_id(session_key)
+        # Use session_key (most specific) and session_id from manifest
+        # Do NOT use peer_id alone as it would include other agents' activities in the same group
         session_id = manifest.get("sessionId", "")
 
-        filter_patterns = [session_key, peer_id, session_id]
+        filter_patterns = [session_key, session_id]
         filter_patterns = [p for p in filter_patterns if p]  # Remove empty strings
 
         if filter_patterns:
