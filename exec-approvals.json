@@ -12,17 +12,17 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1780967183740,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastUsedAt": 1780969019767,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && python3 /tmp/build_dump.py",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "main-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 命令",
-          "lastUsedAt": 1779880092171,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/create_whiteboard.sh",
-          "lastResolvedPath": "/bin/bash"
+          "lastUsedAt": 1780968676229,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && bash scripts/daily-report.sh 2026-06-08",
+          "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "main-sh",
@@ -52,24 +52,24 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1780968261434,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/meyo/",
+          "lastUsedAt": 1780968932339,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/outputs/feishu_daily/2026-06-08/",
           "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "main-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1780922937904,
-          "lastUsedCommand": "cat ~/.openclaw/meyo/credentials.json",
+          "lastUsedAt": 1780968947448,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace/outputs/feishu_daily/2026-06-08/yesterday_p2p.json",
           "lastResolvedPath": "/bin/cat"
         },
         {
           "id": "main-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1780968540136,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && lark-cli auth login --domain im",
+          "lastUsedAt": 1780969019764,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && python3 /tmp/build_dump.py",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -88,8 +88,8 @@
           "id": "cdbfd055-830c-42c2-b08e-7a93653a775f",
           "pattern": "/opt/homebrew/bin/lark-cli",
           "source": "allow-always",
-          "lastUsedAt": 1780968540137,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && lark-cli auth login --domain im",
+          "lastUsedAt": 1780968762796,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && lark-cli im chats list --format json --page-size 5",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -2323,8 +2323,8 @@
           "id": "research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（research 调研与验收）",
-          "lastUsedAt": 1780968561771,
-          "lastUsedCommand": "python3 - <<'PY'\nimport requests,re\njs=requests.get('https://g.alicdn.com/main-search/h5search-webapp/0.0.46/home.js',headers={'User-Agent':'Mozilla/5.0'},timeout=20).text\n# find request function around api call\nfor api in ['mtop.relationrecommend.WirelessRecommend.recommend','mtop.relationrecommend.wirelessrecommend.recommend']:\n    idx=js.find(api)\n    print('API',api,'IDX',idx)\n    if idx!=-1:\n        print(js[idx-2500:idx+3500])\n        break\nPY",
+          "lastUsedAt": 1780968852314,
+          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\nimport re\nbase=Path('/Users/a123/.openclaw/workspace-research/outputs/platform_search')\ntext=(base/'xiaohongshu.html').read_text(encoding='utf-8',errors='ignore')\nfor kw in ['登录','验证码','请登录','小红书','search_result','鸭爪','笔记','商品','探索','App','打开APP']:\n    print(kw, kw in text, text.find(kw))\nfor pat in [r'https://www\\.xiaohongshu\\.com/explore/[^\"\\']+', r'https://www\\.xiaohongshu\\.com/search_result[^\"\\']+', r'/explore/[A-Za-z0-9]+']:\n    ms=re.findall(pat, text)\n    print('PAT',pat,'count',len(ms),'sample',ms[:10])\nPY",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {

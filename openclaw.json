@@ -504,8 +504,7 @@
           "image-deglaze",
           "psd-layered-rebuilder",
           "product-photography-workflow",
-          "video-expert-analyzer",
-          "session-debug-export"
+          "video-expert-analyzer"
         ],
         "subagents": {
           "allowAgents": [
@@ -684,8 +683,7 @@
           }
         },
         "skills": [
-          "research-analyst",
-          "session-debug-export"
+          "research-analyst"
         ]
       },
       {
@@ -944,7 +942,6 @@
           "allowAgents": [
             "strategy-shared",
             "design-shared",
-            "video-shared",
             "research-shared",
             "meeting-analyst-shared",
             "copywriter-shared",
@@ -1049,7 +1046,6 @@
           "allowAgents": [
             "strategy-shared",
             "design-shared",
-            "video-shared",
             "research-shared",
             "meeting-analyst-shared",
             "copywriter-shared"
@@ -1166,14 +1162,12 @@
           "image-deglaze",
           "psd-layered-rebuilder",
           "product-photography-workflow",
-          "video-expert-analyzer",
-          "session-debug-export"
+          "video-expert-analyzer"
         ],
         "subagents": {
           "allowAgents": [
             "strategy-shared",
             "design-shared",
-            "video-shared",
             "research-shared",
             "copywriter-shared"
           ],
@@ -1268,7 +1262,6 @@
           "allowAgents": [
             "strategy-shared",
             "design-shared",
-            "video-shared",
             "research-shared",
             "meeting-analyst-shared"
           ],
@@ -1366,8 +1359,7 @@
           }
         },
         "skills": [
-          "research-analyst",
-          "session-debug-export"
+          "research-analyst"
         ]
       },
       {
@@ -1385,7 +1377,6 @@
           "allowAgents": [
             "strategy-shared",
             "design-shared",
-            "video-shared",
             "research-shared"
           ],
           "thinking": "adaptive"
@@ -1487,7 +1478,6 @@
           "allowAgents": [
             "strategy-shared",
             "design-shared",
-            "video-shared",
             "research-shared",
             "meeting-analyst-shared"
           ],
@@ -1558,7 +1548,6 @@
           "allowAgents": [
             "strategy-shared",
             "design-shared",
-            "video-shared",
             "research-shared",
             "meeting-analyst-shared",
             "copywriter-shared"
