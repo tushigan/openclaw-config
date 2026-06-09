@@ -1,7 +1,7 @@
 ---
 name: omni-vision-psd-extractor
-version: 4.0.0 (McKinsey N-Layer Explosion Engine — 元素原子化并发爆破版)
-description: 【全息万物提取PSD构建器】麦肯锡N层爆破引擎。AI视觉前置解析→元素清单JSON→每元素独立API请求并发执行→PS文件夹级多图层PSD组装。支持断点续跑，气球/小图标等小元素全画幅安全模式。
+version: 4.0.0-mac-openclaw (111omni original logic)
+description: 【全息万物提取PSD构建器】基于 111omni Windows 原版逻辑的 Mac/OpenClaw 适配版。保留 N 层元素拆分、4K 画布、全画幅小元素安全提取、万物提取法典和无损还原隐藏层。
 triggers:
   - "原图提取分层"
   - "物理拆解PSD"
@@ -15,90 +15,65 @@ metadata:
         - python3
         - node
         - npm
+        - zip
     emoji: "🔪"
 ---
 
-# 全息万物提取 PSD (Omni-Vision PSD Extractor) V4.0 (麦肯锡N层爆破引擎)
+# 全息万物提取 PSD (Omni-Vision PSD Extractor)
 
-本技能已经历“麦肯锡深度思考引擎”重构，从原本的“零提示词盲跑黑盒”正式跃迁为**“当前多模态模型前置解析 + 动态提示词编排 + 强外挂《万物抠图法典》 + 底层精准绘图”**的复合引擎。大模型自身将作为视觉前沿哨所，彻底掌控提取语义。
+这是基于 `111omni` 原始 Windows 版本的 Mac/OpenClaw 适配版。核心分层效果逻辑保持原版：视觉前置解析、`fg_elements` N 层拆分、原图 4K 尺寸策略、小元素全画幅安全提取、`万物提取.md` 注入、`lossless fallback` 隐藏还原层、PSD 文件夹级组装。
 
-## ⚠️ 绝对红线 1：图片图床 URL 强制前置 (CRITICAL: URL-Based Image Pipeline)
-本技能已全面升级为云端 URL 工作流。大模型在执行本技能前，**必须先获取原图的图床 URL**：
-1. **强制执行上传探针**：在运行提取主程序前，必须**首先独立运行全局图床探针**，该探针会自动抓取最新用户发送的图片并上传到 Cloudinary 免费图床。Agent 必须在**当前项目工作区根目录**下使用**相对路径**执行以下命令，严禁使用绝对路径或猜测目录：
-   ```bash
-   python .agents/skills/shared/cloudinary_uploader.py
-   ```
-   > **[🚨 关键警告 - 禁止填错 conv_id]**: 只有在 Antigravity（系统消息中含有 `<user_information>` 块且明确提供了 `Conversation ID` 字段）的环境中，才应该加 `--conv-id` 参数。在 **小爪（OpenClaw）** 环境中运行时，**绝对不允许猜测、伪造或复用任何 UUID 作为 conv_id**。小爪没有标准的 conv_id，请直接不加 `--conv-id` 参数，让脚本自动取全局最新图片。
-2. **捕获 URL 并交互确认**：执行上述脚本后，在标准输出中提取出 `https://...` 开头的图片图床链接。
-   - **交互中断**：拿到 URL 后，大模型必须立刻结束当前回合，向用户汇报“URL已获取，链接为：[URL]”，并告知用户即将开始前景背景提取。
-   - **自动唤醒**：在本次回复的同时，大模型必须调用 `schedule` 工具，设置 1 秒后的一次性计时器，通过该定时器在下一轮中被唤醒并自动执行后续的提取及 PSD 组装。
+## OpenClaw 执行规则
 
-## ⚠️ 绝对红线 2：麦肯锡多模态闭环与动态 Prompt 生成 (The Cognitive Override)
-你绝对不能再直接盲调用底层的提取脚本！你必须使用**当前聊天正在使用的多模态模型（即你自己）**预先对图片进行深度解析，并组装极致的提示词。
+1. 默认使用用户上传图片的本地绝对路径或 HTTPS URL 作为 `--source`，不要强制 Cloudinary 前置上传。
+2. 如果用户没有提供明确路径，才使用 `--source auto` 兜底。
+3. 必须实际运行命令行脚本，不能只分析或复用历史产物。
+4. 默认走轻包装入口 `scripts/run_omni_delivery.py`，它会调用原始 pipeline，生成摘要和 25MB 分卷包。
+5. 不要使用 `schedule` 中断式二阶段流程；在当前回合里直接执行并交付结果。
+6. 成功后优先读取 `result-summary.json`，只交付 PSD、预览图、摘要和分卷包路径。
 
-### 强制执行步骤 (The Executive Workflow)
-
-**Step 1: 视觉语义前置解析 (Visual Autopsy)**
-你必须用你自身的视觉能力，对用户的图片进行极端的“背景与前景拆解”，以及**“摄影质感解析”**。明确回答：
-- 什么是必须提取的背景？什么是必须被剔除的杂质？
-- 什么是必须保留的前景元素（IP角色、特效、文字、特定图标）？
-- **[摄影级参数 (Cinematic Parameters)]**：原图的光影质感如何？例如：胶片噪点(Film Grain)、浅景深/焦外虚化(Depth of Field)、光源方向(Lighting Direction)、色温(Color Temperature)。
-- **[🆕 强制输出元素清单 JSON]**：解析完毕后，必须以如下格式输出前景元素列表（供Step3直接消费）：
-  ```json
-  {"fg_elements": "品牌Logo,主标题文字,IP卡通角色,气球,纸飞机,风车,积木"}
-  ```
-  元素之间用英文逗号分隔，每个元素名称简洁精确（不超过10个汉字）。此 JSON 是下游 pipeline 的唯一元素拆分数据源，**绝对不允许省略**。
-
-**Step 2: 组装终极提示词 (Prompt Assembling)**
-根据你的解析，浓缩提炼出两个高纯度的字符串：
-- **`BgPrompt` (背景指令)**: "【极其重要：绝对禁止凭空生成完全不同的风景！必须严格保持原图中的背景结构、光影和色彩不变，仅仅智能脑补被移除的前景区域。强制锁定以下摄影质感：[填入解析出的噪点、景深、光源等参数]！】将图片中的背景提取出来，背景是[详细描述]，需要将[具体前景/杂质]全部剔除，只保留背景。"
-- **`FgPrompt` (前景总体指令，仅在 Step 1 未产出 fg_elements 时使用)**: "除了背景之外，看图片中的前景有什么元素（IP角色、文字、图标等），将它们全部提取出来。【极其重要：强制将它们的背景全部填充为纯正的绿幕（纯绿色，Hex: #00FF00）！绝对不要生成那种假透明的像素方格背景！】"
-
-**Step 3: 启动底层绘图引擎 (带万物抠图法典强注入)**
-在定时器自动唤醒后，调用 `run_omni_pipeline.py`。为了避免 Windows 命令行超长报错，你不需要手动读取并拼接 32KB 的《万物抠图.md》！底层 Python 引擎已升级原生支持。
-你只需通过 `--prompt-append-file` 参数指向它，引擎会自动在后台完成基因融合！
-
-> **[🚨 跨平台相对路径铁律]**: Agent 必须确保工作目录位于项目根目录。严禁使用 `[OPENCLAW_ROOT]` 或猜测物理绝对路径！这会导致在 Mac/Linux 云端环境出现路径漂移幻觉（进而错误调用 `psd-layered-rebuilder` 等废弃脚本）。必须完全使用相对于当前工作区的路径参数。
-
-> **[🚨 conv-id 使用规则]**: 在小爪（OpenClaw）环境中，**绝对不要加 `--conv-id` 参数**（小爪无法提供该值，猜测会导致拿到错误图片！）。只有在 Antigravity 环境（系统消息含 `<user_information>` 块）时，才可加 `--conv-id "<实际会话ID>"`。
-
-> **[🆕 N层元素拆分模式 — 麦肯锡闭环核心]**：如果 Step 1 已输出 `fg_elements` 清单，**必须将其作为 `--fg-elements` 参数传入**（此时无需传 `--fg-prompt`），pipeline 会自动为每个元素独立生成一个图层并在 PSD 中放入 `05_FOREGROUND` 文件夹，PS 里可单独拖动每一个元素。
-
-> **[⚡ 并发提取 — 时间降维]**：加入 `--concurrency 4` 可让4个元素同时并行API请求，8元素时间从 ~80分钟 压缩至 ~15分钟。
-
-> **[🔄 断点续跑 — 零重跑成本]**：如果某元素提取失败，**无需重新跑整个pipeline**！直接用相同命令重新执行，`parallel-state.json` 会自动跳过所有已完成的图层，只重试失败的那个。
+## 推荐命令
 
 ```bash
-# 🎯 N层元素拆分模式（推荐）- 基于工作区根目录执行
-python .agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py \
-  --source "https://res.cloudinary.com/..." \
-  --out-dir workspace/omni-out \
+python3 {baseDir}/scripts/run_omni_delivery.py \
+  --source "/absolute/path/to/source.png"
+```
+
+如果已经通过视觉解析得到了前景元素清单，使用 N 层模式：
+
+```bash
+python3 {baseDir}/scripts/run_omni_delivery.py \
+  --source "/absolute/path/to/source.png" \
+  --bg-prompt "背景提取说明" \
+  --fg-elements "品牌Logo,主标题文字,IP角色,气球,纸飞机,风车,积木"
+```
+
+如果没有元素清单，退回原版兼容模式：
+
+```bash
+python3 {baseDir}/scripts/run_omni_delivery.py \
+  --source "/absolute/path/to/source.png" \
+  --bg-prompt "背景提取说明" \
+  --fg-prompt "前景总体提取说明"
+```
+
+## 底层兼容入口
+
+如需直接运行原始 pipeline：
+
+```bash
+python3 {baseDir}/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py \
+  --source "/absolute/path/to/source.png" \
+  --out-dir "/Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_xxx" \
   --auto-extract \
-  --bg-prompt "你的BgPrompt内容" \
-  --fg-elements "品牌Logo,主标题文字,IP卡通角色,气球,纸飞机,风车,积木" \
-  --prompt-append-file .agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md
+  --bg-prompt "背景提取说明" \
+  --fg-elements "品牌Logo,主标题文字,IP角色,气球,纸飞机,风车,积木" \
+  --prompt-append-file "{baseDir}/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md"
 ```
 
-```bash
-# 🔙 兼容模式（无元素清单时，退回传统2层）- 基于工作区根目录执行
-python .agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py \
-  --source "https://res.cloudinary.com/..." \
-  --out-dir workspace/omni-out \
-  --auto-2-layer \
-  --bg-prompt "你的BgPrompt内容" \
-  --fg-prompt "你的FgPrompt内容" \
-  --prompt-append-file .agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md
-```
+## 交付说明
 
-执行完毕后，脚本会直接输出最终极高保真、且包含 100% 像素级高保真无损图层的 `layered-output.psd` 路径，请将其提供给用户，并汇报麦肯锡闭环的思考结果！
-
-<!-- openclaw-models-binding:start -->
-### 📍 绑定的模型配置 (Bound Model Config)
-| 配置项 | 当前设定值 |
-| :--- | :--- |
-| **模型名称 (Name)** | `gemini-3.1-flash-image-preview` |
-| **模型ID (Model ID)** | `gemini-3.1-flash-image-preview` |
-| **接口协议 (Protocol)** | `openai` |
-| **基础网址 (Base URL)** | `https://s.lconai.com/` |
-| **接口密钥 (API Key)** | `sk-ldeV7GIgtTHIvcG4UbKhRo8zN7lFVNgEhOtzgrTHdE1THBzD` |
-<!-- openclaw-models-binding:end -->
+- 输出目录包含 `layered-output.psd`、`reverse-preview.png`、`manifest.json`、`scene.json`、`result-summary.json`。
+- 默认会生成 `layered-output-delivery.zip` 和可能的 `.z01`、`.z02` 分卷。
+- 分卷压缩只影响传输，不改变 PSD 内容和图层。
+- 解压时把 `.zip` 和所有 `.z*` 分卷放在同一目录，从 `.zip` 主文件解压。

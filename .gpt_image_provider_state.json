@@ -1,7 +1,7 @@
 {
-  "primary_down_until": 0,
-  "last_failure_at": 1780926372.560512,
+  "primary_down_until": 1780993488.763229,
+  "last_failure_at": 1780992588.763229,
   "last_failure_reason": "HTTPSConnectionPool(host='direct.aixor.org', port=443): Read timed out. (read timeout=600)",
   "last_failed_provider": "aixor",
-  "last_primary_recovered_at": 1780926408.724986
+  "last_primary_recovered_at": 1780991855.4806368
 }

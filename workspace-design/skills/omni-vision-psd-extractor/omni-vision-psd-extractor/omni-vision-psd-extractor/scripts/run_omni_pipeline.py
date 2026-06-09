@@ -6,6 +6,8 @@ import json
 import shutil
 from pathlib import Path
 
+from runtime_config import WORKSPACE_DESIGN, WORKSPACE_MAIN, load_runtime_env
+
 try:
     from PIL import Image
 except ImportError:
@@ -16,12 +18,8 @@ def run_step(cmd, step_name):
     print(f"\n[{step_name}] Starting...")
     print(f"Command: {' '.join(cmd)}")
     
-    # 强制让子进程继承当前进程的 stdout 和 stderr，并将编码强制设定为 UTF-8
-    env = None
-    if sys.platform.startswith('win'):
-        import os
-        env = os.environ.copy()
-        env["PYTHONIOENCODING"] = "utf-8"
+    # Keep subprocesses on the same API keys and PATH as the OpenClaw runtime.
+    env = load_runtime_env()
 
     result = subprocess.run(cmd, env=env)
     
@@ -69,14 +67,10 @@ def detect_auto_source(conv_id=None):
 
     # 2. 全局降级扫描（Downloads 和 Workspace）- 取最新文件
     scan_dirs = [
-        Path.home() / "Downloads"
+        Path.home() / "Downloads",
+        WORKSPACE_DESIGN,
+        WORKSPACE_MAIN,
     ]
-    curr_dir = Path(__file__).resolve()
-    while curr_dir.parent != curr_dir:
-        if (curr_dir / ".agents").exists():
-            scan_dirs.append(curr_dir / "workspace")
-            break
-        curr_dir = curr_dir.parent
     
     for d in scan_dirs:
         if not d.exists():
@@ -312,29 +306,8 @@ def main():
     ]
     run_step(step4_cmd, "Step 4: Assemble PSD File")
 
-    # Step 5: Extreme Compression
-    print("\n[Step 5: Extreme Compression] Starting ZIP compression...")
-    import zipfile
-    import os
-    zip_path = psd_path.with_suffix('.psd.zip')
-    psd_size_mb = os.path.getsize(psd_path) / (1024 * 1024) if psd_path.exists() else 0
-    try:
-        # Use LZMA for extreme compression (will reduce 300MB PSD to <30MB)
-        with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_LZMA) as zf:
-            zf.write(psd_path, psd_path.name)
-        comp_type = "LZMA"
-    except Exception as e:
-        print(f"[WARNING] LZMA compression failed or not available ({e}). Falling back to DEFLATED.")
-        with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
-            zf.write(psd_path, psd_path.name)
-        comp_type = "DEFLATED"
-        
-    zip_size_mb = os.path.getsize(zip_path) / (1024 * 1024) if zip_path.exists() else 0
-    print(f"[SUCCESS] [Step 5: Extreme Compression] Compressed from {psd_size_mb:.2f}MB to {zip_size_mb:.2f}MB using {comp_type}.")
-
     print("\n[Pipeline] All steps completed successfully!")
     print(f"[Pipeline] Final PSD is ready at: {psd_path}")
-    print(f"[Pipeline] Compressed ZIP is ready at: {zip_path} (Please send this file to the user)")
 
 if __name__ == "__main__":
     main()

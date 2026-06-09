@@ -1,0 +1,53 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T07:55:11.534Z",
+  "traceId": "2a2b995d-97d4-4dc0-8c1d-5315e866525f",
+  "sessionId": "2a2b995d-97d4-4dc0-8c1d-5315e866525f",
+  "sessionKey": "agent:research-shared:feishu:group:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 19635,
+    "output": 368,
+    "cacheRead": 50176,
+    "total": 70179
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 3002,
+      "output": 265,
+      "cacheRead": 33280,
+      "cacheWrite": 0,
+      "total": 36547
+    },
+    "lastCacheTouchAt": 1780991368533
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "[[reply_to_current]] 进度更新：\n\n这单还没开始实际抓取，当前卡在平台登录态实例没起来。\n\n现在状态：\n- 淘宝：队列第 1，但 profile 状态是 `profile_not_running_attach_only_cdp_unreachable`\n- 京东：队列第 1，同样没连上\n- 抖音：队列第 1，同样没连上\n\n也就是说，不是我排在后面，而是这 3 个平台的登录浏览器当前都没接通，所以队列不会往前走。\n\n我这边不会拿公开页假装补结果。\n如果你要我继续正式版，需要先把这 3 个平台对应的登录态浏览器拉起后，我再进去抓并整理成飞书云文档表格。"
+  ],
+  "finalPromptText": "检查进度",
+  "itemLifecycle": {
+    "startedCount": 2,
+    "completedCount": 2,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/workspace/skills/web-browse-capture/scripts/research_pool.py (in ~/.openclaw/workspace-research)"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

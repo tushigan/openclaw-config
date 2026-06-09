@@ -47,22 +47,7 @@ def main() -> None:
         background = background.resize((width, height), Image.Resampling.LANCZOS)
     preview.alpha_composite(background, (0, 0))
 
-    group_order = []
-    
-    # Elements (Foreground) will be placed first in group_order so they appear at the TOP of the PSD
-    for layer in manifest["layers"]:
-        layer_path = Path(layer["layer_path"])
-        layer_image = Image.open(layer_path).convert("RGBA")
-        preview.alpha_composite(layer_image, (layer["left"], layer["top"]))
-
-        if layer["group"] not in group_order:
-            group_order.append(layer["group"])
-
-    # Then Background
-    group_order.append("01_BG")
-    # Finally Source Ref (at the bottom)
-    group_order.append("00_SOURCE_REF")
-
+    group_order = ["00_SOURCE_REF", "01_BG"]
     image_layers = [
         {
             "group": "00_SOURCE_REF",
@@ -88,6 +73,15 @@ def main() -> None:
 
     for layer in manifest["layers"]:
         layer_path = Path(layer["layer_path"])
+        layer_image = Image.open(layer_path).convert("RGBA")
+        preview.alpha_composite(layer_image, (layer["left"], layer["top"]))
+
+        if layer["group"] not in group_order:
+            group_order.append(layer["group"])
+
+        lossless_path = layer_path.parent / f"{layer['key']}_lossless.png"
+        has_lossless = lossless_path.exists()
+
         image_layers.append(
             {
                 "group": layer["group"],
@@ -97,10 +91,25 @@ def main() -> None:
                 "top": layer["top"],
                 "crop_to_alpha": True,
                 "opacity": 255,
-                "hidden": layer.get("hidden", False),
+                "hidden": True if has_lossless else layer.get("hidden", False),
                 "alpha_box": alpha_bbox(layer_path),
             }
         )
+
+        if has_lossless:
+            image_layers.append(
+                {
+                    "group": layer["group"],
+                    "name": f"[无损还原] {layer['name']}",
+                    "path": str(lossless_path),
+                    "left": layer["left"],
+                    "top": layer["top"],
+                    "crop_to_alpha": True,
+                    "opacity": 255,
+                    "hidden": layer.get("hidden", False),
+                    "alpha_box": alpha_bbox(lossless_path),
+                }
+            )
 
     preview.save(preview_path)
 

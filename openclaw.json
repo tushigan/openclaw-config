@@ -683,7 +683,9 @@
           }
         },
         "skills": [
-          "research-analyst"
+          "research-analyst",
+          "browser-automation",
+          "web-browse-capture"
         ]
       },
       {
@@ -1359,7 +1361,9 @@
           }
         },
         "skills": [
-          "research-analyst"
+          "research-analyst",
+          "browser-automation",
+          "web-browse-capture"
         ]
       },
       {
@@ -2367,6 +2371,60 @@
   },
   "cron": {
     "enabled": true
+  },
+  "browser": {
+    "profiles": {
+      "research-login": {
+        "cdpPort": 18801,
+        "attachOnly": true,
+        "color": "#0066CC"
+      },
+      "research-login-xhs": {
+        "cdpPort": 18811,
+        "attachOnly": true,
+        "color": "#D94A64"
+      },
+      "research-login-quandashi": {
+        "cdpPort": 18812,
+        "attachOnly": true,
+        "color": "#7A5AF8"
+      },
+      "research-login-zhenbiao": {
+        "cdpPort": 18813,
+        "attachOnly": true,
+        "color": "#00A676"
+      },
+      "research-login-86sb": {
+        "cdpPort": 18814,
+        "attachOnly": true,
+        "color": "#F08C00"
+      },
+      "research-login-huaban": {
+        "cdpPort": 18815,
+        "attachOnly": true,
+        "color": "#C2255C"
+      },
+      "research-login-biaoyuan": {
+        "cdpPort": 18816,
+        "attachOnly": true,
+        "color": "#1971C2"
+      },
+      "research-login-taobao": {
+        "cdpPort": 18817,
+        "attachOnly": true,
+        "color": "#E8590C"
+      },
+      "research-login-jd": {
+        "cdpPort": 18818,
+        "attachOnly": true,
+        "color": "#C92A2A"
+      },
+      "research-login-douyin": {
+        "cdpPort": 18819,
+        "attachOnly": true,
+        "color": "#0B7285"
+      }
+    }
   },
   "plugins": {
     "enabled": true,

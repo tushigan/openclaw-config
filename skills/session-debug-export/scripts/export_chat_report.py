@@ -656,14 +656,35 @@ def main() -> int:
 
     logs = ""
     if not args.no_logs:
+        # Fetch more logs than requested to account for filtering
         logs_res = run([
             "openclaw", "logs",
-            "--limit", str(args.log_lines),
-            "--max-bytes", str(args.max_bytes),
+            "--limit", str(args.log_lines * 3),  # 3x to ensure we get enough after filtering
+            "--max-bytes", str(args.max_bytes * 3),
             "--plain",
             "--local-time",
         ], cwd=workspace)
-        logs = (logs_res.stdout or logs_res.stderr or "").strip()
+        all_logs = (logs_res.stdout or logs_res.stderr or "").strip()
+
+        # Filter logs to only include lines related to this session
+        # Include lines that contain the session_key, peer_id, or session_id from manifest
+        peer_id = session_peer_id(session_key)
+        session_id = manifest.get("sessionId", "")
+
+        filter_patterns = [session_key, peer_id, session_id]
+        filter_patterns = [p for p in filter_patterns if p]  # Remove empty strings
+
+        if filter_patterns:
+            filtered_lines = []
+            for line in all_logs.splitlines():
+                if any(pattern in line for pattern in filter_patterns):
+                    filtered_lines.append(line)
+                    if len("\n".join(filtered_lines)) > args.max_bytes:
+                        break
+            logs = "\n".join(filtered_lines[:args.log_lines])
+        else:
+            # Fallback: if no patterns to filter by, use original logic
+            logs = all_logs[:args.max_bytes]
 
     analysis = generate_analysis(args.issue, session_key, stats, logs, messages)
     report = generate_markdown_report(
