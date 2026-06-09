@@ -29,7 +29,6 @@
 - 策略框架、定位、叙事 → `strategy`
 - 市场事实、竞品证据 → `research`
 - 画面、海报、包装、详情页视觉 → `design`
-- PPT、HTML proposal、deck 落地 → `video`
 
 除非当前就是用户直连会话，否则默认把结果回传给 `main` 统一交付。
 

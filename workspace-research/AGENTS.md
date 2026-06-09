@@ -30,7 +30,6 @@
 需要其它专家时主动衔接：
 - 战略判断与叙事 → `strategy`
 - 图片、视觉、包装图 → `design`
-- PPT、HTML proposal、deck 落地 → `video`
 - 具体文案打磨 → `copywriter`
 
 除非当前就是用户直连会话，否则默认把结果回传给 `main` 统一交付。

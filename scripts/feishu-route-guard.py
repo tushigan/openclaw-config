@@ -81,12 +81,19 @@ def _target_from_payload(payload: dict[str, Any]) -> str:
 
 
 def _record_paths_for_media(media_path: Path) -> list[Path]:
+    shared_media_dirs = {'images', 'outputs', 'feishu-deliver'}
+    parent = media_path.parent
+    use_parent_task_manifest = not (
+        parent.name in shared_media_dirs
+        and parent.parent.name.startswith('workspace')
+    )
     paths = [
         route_sidecar_path(media_path),
-        media_path.parent / 'task_manifest.json',
         media_path.with_name(f'{media_path.stem}.delivery.json'),
         media_path.with_name(f'{media_path.stem}.result.json'),
     ]
+    if use_parent_task_manifest:
+        paths.insert(1, parent / 'task_manifest.json')
     for parent in media_path.parents:
         manifest = parent / 'delivery_manifest.json'
         if manifest not in paths:
@@ -141,8 +148,8 @@ def check_media_route(media_path: Path, requested_target: str, *, strict: bool =
     targets = sorted({record['target'] for record in records if record.get('target')})
     if not targets:
         return {
-            'ok': False,
-            'status': 'route_record_without_target',
+            'ok': not strict,
+            'status': 'no_actionable_route_record' if not strict else 'route_record_without_target',
             'media': str(media_path),
             'requested_target': normalized_target,
             'recorded_targets': [],

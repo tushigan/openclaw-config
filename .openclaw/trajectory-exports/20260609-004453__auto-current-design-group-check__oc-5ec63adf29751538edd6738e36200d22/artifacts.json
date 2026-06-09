@@ -1,0 +1,72 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-08T16:44:55.986Z",
+  "traceId": "1ed2553e-a528-4411-a364-bc4a0f21b6f3",
+  "sessionId": "1ed2553e-a528-4411-a364-bc4a0f21b6f3",
+  "sessionKey": "agent:design-shared:feishu:group:oc_5ec63adf29751538edd6738e36200d22",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 190024,
+    "output": 1043,
+    "cacheRead": 429056,
+    "total": 620123
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 891,
+      "output": 6,
+      "cacheRead": 103424,
+      "cacheWrite": 0,
+      "total": 104321
+    },
+    "lastCacheTouchAt": 1780935987257
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "我直接按“当前会话记录导出”处理，并把文件发群里。",
+    "NO_REPLY"
+  ],
+  "finalPromptText": "导出聊天记录",
+  "itemLifecycle": {
+    "startedCount": 6,
+    "completedCount": 6,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "read",
+      "meta": "lines 1-300 from ~/.openclaw/skills/session-debug-export/SKILL.md"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace-design/_temp_session_export_run.py (450 chars)"
+    },
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/workspace-design/_temp_session_export_run.py (in ~/.openclaw/workspace-design)"
+    },
+    {
+      "toolName": "process",
+      "meta": "sharp-slug"
+    },
+    {
+      "toolName": "message",
+      "meta": "om_x100b6d5a832154a0b4caf50dc0905a6"
+    }
+  ],
+  "didSendViaMessagingTool": true,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [
+    "$WORKSPACE_DIR/workspace-design/outputs/chat-export-design-group-chat-export-20260609-002549.md"
+  ],
+  "messagingToolSentTargets": []
+}

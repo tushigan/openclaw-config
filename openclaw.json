@@ -245,9 +245,7 @@
       },
       "skills": [
         "browser-automation",
-        "business-project-intake",
         "diagnose",
-        "dreamina-reference-video",
         "feishu-channel-rules",
         "feishu-troubleshoot",
         "gpt-image2-gen",
@@ -255,7 +253,6 @@
         "grill-with-docs",
         "handoff",
         "healthcheck",
-        "image-deglaze",
         "improve-codebase-architecture",
         "lark-approval",
         "lark-attendance",
@@ -283,7 +280,6 @@
         "multi-search-engine",
         "node-connect",
         "pdf-smart-tool-cn",
-        "quote-skill",
         "session-debug-export",
         "session-logs",
         "taskflow",
@@ -363,7 +359,6 @@
             "multi_search",
             "multi_search_engine",
             "gpt-image2-gen",
-            "nanobanana-ppt",
             "brand-poster-workflow",
             "network_memory_detail",
             "network_skill_pull",
@@ -505,10 +500,11 @@
           "brand-poster-distiller",
           "xiangqingye-desigen",
           "dreamina-cli",
+          "dreamina-reference-video",
+          "image-deglaze",
           "psd-layered-rebuilder",
           "product-photography-workflow",
           "video-expert-analyzer",
-          "video-frames",
           "session-debug-export"
         ],
         "subagents": {
@@ -926,7 +922,11 @@
             "web_fetch",
             "write"
           ]
-        }
+        },
+        "skills": [
+          "quote-skill",
+          "business-project-intake"
+        ]
       },
       {
         "id": "main-shared",
@@ -993,7 +993,6 @@
             "message",
             "multi_search",
             "multi_search_engine",
-            "nanobanana-ppt",
             "brand-poster-workflow",
             "read",
             "sessions_history",
@@ -1163,10 +1162,11 @@
           "brand-poster-distiller",
           "xiangqingye-desigen",
           "dreamina-cli",
+          "dreamina-reference-video",
+          "image-deglaze",
           "psd-layered-rebuilder",
           "product-photography-workflow",
           "video-expert-analyzer",
-          "video-frames",
           "session-debug-export"
         ],
         "subagents": {
@@ -1649,7 +1649,11 @@
           "fs": {
             "workspaceOnly": false
           }
-        }
+        },
+        "skills": [
+          "quote-skill",
+          "business-project-intake"
+        ]
       }
     ]
   },
@@ -1691,7 +1695,6 @@
       "multi_search",
       "multi_search_engine",
       "outline-architect",
-      "nanobanana-ppt",
       "packaging-design",
       "pdf-smart-tool-cn",
       "research-analyst",
@@ -2140,7 +2143,6 @@
         "/Users/a123/.openclaw/workspace",
         "/Users/a123/.openclaw/workspace-design",
         "/Users/a123/.openclaw/workspace-strategy",
-        "/Users/a123/.openclaw/workspace-video",
         "/Users/a123/.openclaw/workspace-research",
         "/Users/a123/.openclaw/workspace-meeting",
         "/Users/a123/.openclaw/workspace-copywriter",
@@ -2197,9 +2199,6 @@
       },
       "pptx": {
         "enabled": false
-      },
-      "nanobanana-ppt": {
-        "enabled": true
       },
       "memos-memory-guide": {
         "enabled": false
@@ -2369,7 +2368,6 @@
         "/Users/a123/.openclaw/workspace-strategy/skills",
         "/Users/a123/.openclaw/workspace-design/skills",
         "/Users/a123/.openclaw/workspace-research/skills",
-        "/Users/a123/.openclaw/workspace-video/skills",
         "/Users/a123/.openclaw/workspace-copywriter/skills",
         "/Users/a123/.openclaw/workspace-business/skills"
       ],

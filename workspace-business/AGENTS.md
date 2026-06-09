@@ -28,7 +28,7 @@
 - 会议提纯 → `meeting-analyst`
 - 报价结构或商业判断 → 对应报价 skill / `strategy`
 - 市场事实与竞品证据 → `research`
-- 视觉或提案落地 → `design` / `video`
+- 视觉或提案落地 → `design`
 
 ## 1. 输出要求
 

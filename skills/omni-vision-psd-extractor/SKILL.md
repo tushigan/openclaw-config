@@ -24,10 +24,9 @@ metadata:
 
 ## ⚠️ 绝对红线 1：图片图床 URL 强制前置 (CRITICAL: URL-Based Image Pipeline)
 本技能已全面升级为云端 URL 工作流。大模型在执行本技能前，**必须先获取原图的图床 URL**：
-1. **强制执行上传探针**：在运行提取主程序前，必须**首先独立运行全局图床探针**，该探针会自动抓取最新用户发送的图片并上传到 Cloudinary 免费图床：
+1. **强制执行上传探针**：在运行提取主程序前，必须**首先独立运行全局图床探针**，该探针会自动抓取最新用户发送的图片并上传到 Cloudinary 免费图床。Agent 必须在**当前项目工作区根目录**下使用**相对路径**执行以下命令，严禁使用绝对路径或猜测目录：
    ```bash
-   # 请将 [OPENCLAW_ROOT] 替换为您本地的 OpenClaw 项目根目录的绝对路径（Windows通常为H:\openclaw，Mac通常为/Users/用户名/openclaw 等）
-   python "[OPENCLAW_ROOT]/.agents/skills/shared/cloudinary_uploader.py"
+   python .agents/skills/shared/cloudinary_uploader.py
    ```
    > **[🚨 关键警告 - 禁止填错 conv_id]**: 只有在 Antigravity（系统消息中含有 `<user_information>` 块且明确提供了 `Conversation ID` 字段）的环境中，才应该加 `--conv-id` 参数。在 **小爪（OpenClaw）** 环境中运行时，**绝对不允许猜测、伪造或复用任何 UUID 作为 conv_id**。小爪没有标准的 conv_id，请直接不加 `--conv-id` 参数，让脚本自动取全局最新图片。
 2. **捕获 URL 并交互确认**：执行上述脚本后，在标准输出中提取出 `https://...` 开头的图片图床链接。
@@ -59,6 +58,8 @@ metadata:
 在定时器自动唤醒后，调用 `run_omni_pipeline.py`。为了避免 Windows 命令行超长报错，你不需要手动读取并拼接 32KB 的《万物抠图.md》！底层 Python 引擎已升级原生支持。
 你只需通过 `--prompt-append-file` 参数指向它，引擎会自动在后台完成基因融合！
 
+> **[🚨 跨平台相对路径铁律]**: Agent 必须确保工作目录位于项目根目录。严禁使用 `[OPENCLAW_ROOT]` 或猜测物理绝对路径！这会导致在 Mac/Linux 云端环境出现路径漂移幻觉（进而错误调用 `psd-layered-rebuilder` 等废弃脚本）。必须完全使用相对于当前工作区的路径参数。
+
 > **[🚨 conv-id 使用规则]**: 在小爪（OpenClaw）环境中，**绝对不要加 `--conv-id` 参数**（小爪无法提供该值，猜测会导致拿到错误图片！）。只有在 Antigravity 环境（系统消息含 `<user_information>` 块）时，才可加 `--conv-id "<实际会话ID>"`。
 
 > **[🆕 N层元素拆分模式 — 麦肯锡闭环核心]**：如果 Step 1 已输出 `fg_elements` 清单，**必须将其作为 `--fg-elements` 参数传入**（此时无需传 `--fg-prompt`），pipeline 会自动为每个元素独立生成一个图层并在 PSD 中放入 `05_FOREGROUND` 文件夹，PS 里可单独拖动每一个元素。
@@ -68,27 +69,25 @@ metadata:
 > **[🔄 断点续跑 — 零重跑成本]**：如果某元素提取失败，**无需重新跑整个pipeline**！直接用相同命令重新执行，`parallel-state.json` 会自动跳过所有已完成的图层，只重试失败的那个。
 
 ```bash
-# 🎯 N层元素拆分模式（推荐）
-# 请将 [OPENCLAW_ROOT] 替换为您本地的实际 OpenClaw 项目绝对路径
-python "[OPENCLAW_ROOT]/.agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py" \
+# 🎯 N层元素拆分模式（推荐）- 基于工作区根目录执行
+python .agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py \
   --source "https://res.cloudinary.com/..." \
-  --out-dir "[OPENCLAW_ROOT]/workspace/omni-out" \
+  --out-dir workspace/omni-out \
   --auto-extract \
   --bg-prompt "你的BgPrompt内容" \
   --fg-elements "品牌Logo,主标题文字,IP卡通角色,气球,纸飞机,风车,积木" \
-  --prompt-append-file "[OPENCLAW_ROOT]/.agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md"
+  --prompt-append-file .agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md
 ```
 
 ```bash
-# 🔙 兼容模式（无元素清单时，退回传统2层）
-# 请将 [OPENCLAW_ROOT] 替换为您本地的实际 OpenClaw 项目绝对路径
-python "[OPENCLAW_ROOT]/.agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py" \
+# 🔙 兼容模式（无元素清单时，退回传统2层）- 基于工作区根目录执行
+python .agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/run_omni_pipeline.py \
   --source "https://res.cloudinary.com/..." \
-  --out-dir "[OPENCLAW_ROOT]/workspace/omni-out" \
+  --out-dir workspace/omni-out \
   --auto-2-layer \
   --bg-prompt "你的BgPrompt内容" \
   --fg-prompt "你的FgPrompt内容" \
-  --prompt-append-file "[OPENCLAW_ROOT]/.agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md"
+  --prompt-append-file .agents/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/references/万物提取.md
 ```
 
 执行完毕后，脚本会直接输出最终极高保真、且包含 100% 像素级高保真无损图层的 `layered-output.psd` 路径，请将其提供给用户，并汇报麦肯锡闭环的思考结果！

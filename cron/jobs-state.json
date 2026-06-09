@@ -2,82 +2,81 @@
   "version": 1,
   "jobs": {
     "e489dfcf-dc9f-4481-b96c-58ab5b3928f4": {
-      "updatedAtMs": 1780858900587,
+      "updatedAtMs": 1780945271217,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 3 * * *\"}}",
       "state": {
-        "nextRunAtMs": 1780945200000,
-        "lastRunAtMs": 1780858800013,
+        "nextRunAtMs": 1781031600000,
+        "lastRunAtMs": 1780945200010,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 100574,
+        "lastDurationMs": 71207,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "616f4650-758f-411d-bfb3-d363fb62347f": {
-      "updatedAtMs": 1780873333301,
+      "updatedAtMs": 1780959715002,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1780959600000,
-        "lastRunAtMs": 1780873200010,
+        "nextRunAtMs": 1781046000000,
+        "lastRunAtMs": 1780959600009,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 133291,
+        "lastDurationMs": 114993,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "da698c09-e032-4186-a941-4a736674bab3": {
-      "updatedAtMs": 1780875086857,
+      "updatedAtMs": 1780961443640,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"30 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1780961400000,
-        "lastRunAtMs": 1780875000009,
+        "nextRunAtMs": 1781047800000,
+        "lastRunAtMs": 1780961400010,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 86848,
+        "lastDurationMs": 43630,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d": {
-      "updatedAtMs": 1780911201238,
+      "updatedAtMs": 1780967211314,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"*/30 9-23 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1780912800000,
-        "lastRunAtMs": 1780911000281,
+        "nextRunAtMs": 1780968600000,
+        "lastRunAtMs": 1780967141795,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 200957,
+        "lastDurationMs": 69519,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "c28045b2-dfb5-4b99-988c-200c64ff6fdf": {
-      "updatedAtMs": 1780882138021,
+      "updatedAtMs": 1780968420806,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"23 9 * * *\"}}",
       "state": {
-        "nextRunAtMs": 1780968180000,
-        "lastRunAtMs": 1780881780073,
+        "nextRunAtMs": 1781054580000,
+        "lastRunAtMs": 1780968180009,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 357948,
-        "lastError": "AxiosError: Request failed with status code 400",
+        "lastDurationMs": 240797,
         "lastDiagnostics": {
           "summary": "AxiosError: Request failed with status code 400",
           "entries": [
             {
-              "ts": 1780882137743,
+              "ts": 1780968420503,
               "source": "tool",
               "severity": "error",
               "message": "⚠️ ✉️ Message failed: Request failed with status code 400"
             },
             {
-              "ts": 1780882138020,
+              "ts": 1780968420805,
               "source": "delivery",
               "severity": "error",
               "message": "AxiosError: Request failed with status code 400"
@@ -86,31 +85,31 @@
         },
         "lastDiagnosticSummary": "AxiosError: Request failed with status code 400",
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "consecutiveSkipped": 0
+        "consecutiveErrors": 2,
+        "consecutiveSkipped": 0,
+        "lastError": "AxiosError: Request failed with status code 400"
       }
     },
     "aa61bc74-0014-4482-93f7-b504e9e9f07e": {
-      "updatedAtMs": 1780836686729,
+      "updatedAtMs": 1780923187111,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"47 20 * * *\"}}",
       "state": {
-        "nextRunAtMs": 1780922820000,
-        "lastRunAtMs": 1780836420073,
+        "nextRunAtMs": 1781009220000,
+        "lastRunAtMs": 1780922820011,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 266656,
-        "lastError": "AxiosError: Request failed with status code 400",
+        "lastDurationMs": 367100,
         "lastDiagnostics": {
           "summary": "AxiosError: Request failed with status code 400",
           "entries": [
             {
-              "ts": 1780836686292,
+              "ts": 1780923186756,
               "source": "tool",
               "severity": "error",
               "message": "⚠️ ✉️ Message failed: Request failed with status code 400"
             },
             {
-              "ts": 1780836686728,
+              "ts": 1780923187109,
               "source": "delivery",
               "severity": "error",
               "message": "AxiosError: Request failed with status code 400"
@@ -119,8 +118,9 @@
         },
         "lastDiagnosticSummary": "AxiosError: Request failed with status code 400",
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "consecutiveSkipped": 0
+        "consecutiveErrors": 2,
+        "consecutiveSkipped": 0,
+        "lastError": "AxiosError: Request failed with status code 400"
       }
     },
     "c9b9656e-dbfb-4e81-a370-1c7dbd663720": {

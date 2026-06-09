@@ -10,14 +10,14 @@ This is the **OpenClaw user configuration directory** (`~/.openclaw`), not sourc
 
 In this repository, Claude's default role is to act as the user's **programming assistant and engineering expert for maintaining OpenClaw**, not to optimize Claude Code for its own sake.
 
-Default task framing should be anchored to OpenClaw maintenance and improvement, including but not limited to:
+**Default context**: Treat all tasks as OpenClaw maintenance work unless user explicitly asks about Claude Code itself.
+
+Focus areas include:
 - OpenClaw architecture optimization
 - skill development, debugging, and refinement
 - agent workflow and routing improvements
 - configuration cleanup and maintainability upgrades
 - stability, observability, and delivery-chain reliability
-
-Unless the user explicitly asks about Claude Code itself, treat Claude Code as a tool used to help maintain OpenClaw, not as the primary subject of work.
 
 Key configuration file: [openclaw.json](openclaw.json) contains models, channels, agents, plugins, and all runtime settings.
 
@@ -59,6 +59,16 @@ openclaw subagents spawn design "生成产品效果图" --timeout 600
 | `copywriter` | Copywriting, content creation | `workspace-copywriter/` | Claude Opus 4.6 |
 
 Each agent also has a `*-shared` variant (e.g. `main-shared`, `strategy-shared`) for multi-user access with 虾权 isolation. Shared variants use the same model and workspace as their base agent.
+
+### Available Workspaces
+
+- `workspace/` — Main agent (independent git repo)
+- `workspace-strategy/` — Strategy agent
+- `workspace-research/` — Research agent
+- `workspace-design/` — Design agent (visual creation, PSD extraction, video analysis)
+- `workspace-meeting/` — Meeting analyst agent
+- `workspace-copywriter/` — Copywriting agent
+- `workspace-business/` — Business project intake agent
 
 ### Workflow Rules
 
@@ -102,7 +112,6 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 │
 ├── agents/               # Agent runtime dirs (models.json, auth-profiles.json, sessions/)
 ├── workspace*/           # Per-agent workspaces (AGENTS.md, SOUL.md, IDENTITY.md, etc.)
-├── workspace-ppt         # Symlink → workspace-video
 │
 ├── memory/               # Agent memory SQLite DBs (main.sqlite, design.sqlite, etc.)
 ├── skills/               # Local skills (brand-poster-creator, tvc-director, etc.)
@@ -134,10 +143,17 @@ Key scripts in `scripts/` directory:
 - `deploy-openclaw.sh`: Deploy OpenClaw config to new machine from GitHub
 - `setup-sensitive.sh`: Restore sensitive config from templates
 - `cleanup-ghost-group-sessions.sh`: Clean up orphaned group chat sessions
+- `delivery-queue-patrol.py`: Monitor and manage delivery queue
+- `delivery-queue-patrol-readonly.py`: Read-only delivery queue inspection
+- `detect-fake-delivery.sh`: Detect fake/failed delivery events
 - `audit-feedback-gaps.py`: Audit feedback coverage gaps
 - `feishu-id-registry.py`: Manage Feishu user/group ID registry
 - `record_feishu_delivery.py`: Record Feishu message delivery events
+- `optimize-shared-agent-permissions.py`: Optimize exec-approvals for shared agents
 - `ensure-openclaw-image-deps.sh`: Ensure image processing dependencies are installed
+- `test-aixor-anthropic.js`: Test Anthropic API endpoints via Aixor provider
+- `test-aixor-endpoints.js`: Test Aixor provider endpoints
+- `test-api-endpoints.js`: General API endpoint testing
 
 ## Git Version Management
 
@@ -171,7 +187,7 @@ This saves to BOTH local git AND GitHub.
 **NOT saved** (excluded by .gitignore):
 - ❌ Sensitive data: API keys, OAuth tokens, `credentials/` (except admin-users.json)
 - ❌ Runtime data: `memory/*.sqlite`, `logs/`, `flows/`, `tasks/`, `feishu/`
-- ❌ Generated files: `workspace/images/`, `workspace/outputs/`, `workspace/videos/`
+- ❌ Generated files: `workspace/images/`, `workspace/outputs/`
 - ❌ Agent sessions: `agents/*/sessions/`
 - ❌ Main workspace: `workspace/` (has its own separate git repo)
 
@@ -331,6 +347,40 @@ When debugging image generation failures:
 2. Distinguish between generation failure (no output file) and delivery failure (file exists but delivery failed)
 3. Never report generation failure if output file exists
 
+## Debugging and Development
+
+### Viewing agent execution logs
+```bash
+# View gateway logs
+tail -f ~/.openclaw/logs/gateway.log
+
+# View specific agent session logs
+ls ~/.openclaw/agents/main/sessions/
+cat ~/.openclaw/agents/main/sessions/<session-id>.json
+```
+
+### Testing configuration changes
+```bash
+# Dry-run config validation
+openclaw config validate
+
+# Test specific agent spawn
+openclaw subagents spawn <agent> "test task" --timeout 60
+
+# Run endpoint tests
+node ~/.openclaw/scripts/test-api-endpoints.js
+node ~/.openclaw/scripts/test-aixor-anthropic.js
+```
+
+### Monitoring delivery queue
+```bash
+# Check delivery queue status (read-only)
+python ~/.openclaw/scripts/delivery-queue-patrol-readonly.py
+
+# Detect delivery issues
+bash ~/.openclaw/scripts/detect-fake-delivery.sh
+```
+
 ## Scheduled Tasks (Cron Jobs)
 
 Jobs are defined in `cron/jobs.json`. Examples:
@@ -345,25 +395,43 @@ Job properties:
 
 ## Skills
 
-Local skills in `skills/` directory:
-- `brand-poster-creator`: Brand poster design workflow
-- `business-project-intake`: Business project intake and requirements gathering
-- `dreamina-cli`: Dreamina AI image generation CLI wrapper
-- `dreamina-reference-video`: Reference video processing for Dreamina
+Skills are organized in three layers with specific lookup priority (see skill lookup hierarchy below).
+
+### Global skills (in `~/.openclaw/skills/`)
+Available to all agents via `agents.defaults.skills`:
+- `multi-search-engine`: Multi-engine search aggregation
+- `wechat-article-reader`: WeChat article reading
 - `feishu-create-doc`: Feishu document creation automation
 - `memos-memory-guide`: Memory management with Memos integration
-- `multi-search-engine`: Multi-engine search aggregation
-- `nanobanana-ppt`: AI-powered PPT generation with image slides
-- `quote-skill`: Quote generation and formatting
-- `tvc-director`: TVC commercial direction
-- `wechat-article-reader`: WeChat article reading
+- `tvc-director`: TVC commercial direction (disabled)
+- Plus 39 other global skills
+
+### Workspace-specific skills
+
+**workspace-design/skills/** (design agent exclusive):
+- `brand-poster-creator`: Brand poster design workflow
+- `brand-poster-distiller`: Brand poster requirement extraction
 - `xiangqingye-desigen`: Product detail page design
+- `dreamina-cli`: Dreamina AI video generation CLI wrapper
+- `dreamina-reference-video`: Reference video processing for Dreamina
+- `image-deglaze`: Image deglaze and style transfer
+- `psd-layered-rebuilder`: PSD layered file rebuilding
+- `product-photography-workflow`: Product photography generation workflow
+- `video-expert-analyzer`: Video analysis and scoring tool
+- Plus other design tools
+
+**workspace-business/skills/** (business agent exclusive):
+- `quote-skill`: Quote generation and formatting
+- `business-project-intake`: Business project intake and requirements gathering
+
+**workspace-research/skills/** (research agent exclusive):
+- `research-analyst`: Research analysis methodology tool
 
 Each skill has a `SKILL.md` defining the workflow. AGENTS.md rule 0.1 mandates checking skills before any task.
 
 ### Skill lookup hierarchy
 Skills are searched in three layers:
-1. **Workspace-local skills**: `workspace/skills/` (highest priority)
+1. **Workspace-local skills**: `workspace-*/skills/` (highest priority)
 2. **Global skills**: `~/.openclaw/skills/`
 3. **Built-in skills**: Bundled with OpenClaw package
 

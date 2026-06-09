@@ -29,7 +29,6 @@
 需要其它专家时主动衔接：
 - 外部事实、市场数据、竞品证据 → `research`
 - 图片、海报、包装视觉、效果图 → `design`
-- PPT、HTML proposal、deck 落地 → `video`
 - 具体文案打磨 → `copywriter`
 
 除非当前就是用户直连会话，否则默认把结果回传给 `main` 统一交付。

@@ -76,7 +76,7 @@ class FeishuRouteGuardTests(unittest.TestCase):
         self.assertEqual(result["requested_target"], "chat:oc_group")
         self.assertEqual(result["recorded_targets"], ["user:ou_owner"])
 
-    def test_blocks_manifest_that_exists_without_target(self) -> None:
+    def test_allows_manifest_that_exists_without_target(self) -> None:
         task_dir = self.root / "task"
         task_dir.mkdir()
         media = task_dir / "image.png"
@@ -88,8 +88,8 @@ class FeishuRouteGuardTests(unittest.TestCase):
 
         result = self.module.check_media_route(media, "user:ou_owner")
 
-        self.assertFalse(result["ok"])
-        self.assertEqual(result["status"], "route_record_without_target")
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["status"], "no_actionable_route_record")
 
     def test_blocks_conflicting_targets_across_route_records(self) -> None:
         task_dir = self.root / "task"
@@ -113,6 +113,21 @@ class FeishuRouteGuardTests(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertEqual(result["status"], "route_record_target_conflict")
         self.assertEqual(result["recorded_targets"], ["chat:oc_group", "user:ou_owner"])
+
+    def test_ignores_shared_feishu_deliver_task_manifest_for_loose_media(self) -> None:
+        deliver_dir = self.root / "workspace" / "feishu-deliver"
+        deliver_dir.mkdir(parents=True)
+        media = deliver_dir / "image.png"
+        media.write_bytes(b"png")
+        (deliver_dir / "task_manifest.json").write_text(
+            json.dumps({"delivery_target": {"target": "chat:oc_old_group"}}, ensure_ascii=False),
+            encoding="utf-8",
+        )
+
+        result = self.module.check_media_route(media, "user:ou_owner")
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["status"], "no_route_record")
 
 
 if __name__ == "__main__":
