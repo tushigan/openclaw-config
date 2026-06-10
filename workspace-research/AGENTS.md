@@ -8,6 +8,34 @@
 - 执行任务前先扫描可用 skills。
 - 搜索、查找、新闻、资料、来源、报告、竞品任务，默认先读并使用 `multi-search-engine`。
 - 涉及真实网页操作、平台站内搜索、登录态、翻页、点击、动态页面、抖音/小红书/淘宝/天猫/京东等平台抓取时，必须先读并使用 `browser-automation`；需要 browser-use 采集时再读 `web-browse-capture`。如果任务涉及小红书、权大师、甄标网、尚标网、花瓣网、标源、淘宝/天猫、京东、抖音这 9 个登录态平台，必须先通过 `/Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/research_pool.py` 做平台识别、申请锁和状态记录；拿到对应平台锁后只能使用该平台 `research-login-*` profile，并先执行 `openclaw browser --browser-profile <profile> start` 自动拉起 managed profile。不得让多个任务直接共用 `research-login` 抢抓；该 profile 只作为母版/人工补登参考。profile 启动失败、CDP/snapshot 不可用、未登录或遇到验证码/二次验证时，记录具体平台阻塞并释放锁，不得退化为匿名 headless 抓取后声称完成。多平台调研中，每个平台一旦写出该平台结果文件，必须立刻 `complete <job_id> <platform> <result_path>` 释放平台锁，不得等最终汇总报告才统一释放。`queued` 不是完成状态；排队任务必须用 `wait-acquire <job_id> <platform> --timeout 1800 --interval 10` 自动等待或稍后重新 `acquire`，只有返回 `acquired=true` 才能继续抓取，不能让 queued subagent 直接结束后等待被动唤醒。
+  
+  **NEW: 获取锁后的强制规则**：
+  1. **Profile 健康检查与重置**（强制执行）：
+     ```bash
+     # 获取锁后立即执行健康检查
+     python3 /Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/profile_manager.py health <profile>
+     
+     # 如果 health != "healthy"，执行重置
+     python3 /Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/profile_manager.py reset <profile>
+     ```
+  
+  2. **页面状态验证**（强制执行）：
+     打开目标搜索页前，验证当前页面不是旧任务遗留状态。如果当前页面 URL 或内容显示错误的搜索关键词（如任务是"玫瑰吐司"但页面还在"土豆空气脆"），必须先导航到 `about:blank` 清空状态，再打开目标页。
+  
+  3. **心跳机制**（任务超过 5 分钟必须执行）：
+     ```bash
+     # 每 3-4 分钟发送一次心跳
+     python3 /Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/research_pool.py heartbeat <job_id> <platform>
+     ```
+     未发送心跳的任务，调度器会在 5 分钟后自动标记为 `heartbeat_timeout` 并强制释放锁。
+  
+  4. **抖音商城搜索专项规则**（强制执行）：
+     - 必须使用商城搜索 URL：`https://www.douyin.com/search/{keyword}?type=goods`
+     - 打开后验证 URL 包含 `type=goods`，且页面包含"价格"、"销量"等商品特征
+     - 如果 URL 是 `type=general` 或页面主要是视频/图文，立即调用 `block` 说明 `"douyin_search_cannot_enter_goods_page"`
+     - 绝对不允许用综合搜索（视频）结果冒充商品数据
+     - 详见：`/Users/a123/.openclaw/workspace/skills/web-browse-capture/references/douyin-goods-search.md`
+
 - 内部员工访谈调研、发起人立项访谈、调研问题设计、飞书 1 对 1 访谈、截止时间驱动的调研收口，默认先读并使用 `internal-interview-research`。
 - 需要创建飞书文档时，使用飞书文档类 skill 或工具，不把普通消息发送当作云文档交付。
 - **"导出聊天记录"、"导出当前聊天"、"导出对话记录"、"聊天记录导出"、"生成聊天日志"、"打包聊天记录"、"导出后台日志"、"生成调试报告"** → **⚠️ 强制要求：必须先用 `read` 工具读取** `session-debug-export/SKILL.md` **并按其中的"AGENT 必读：执行流程"章节操作。禁止自行拼接简化导出（如用 heredoc 手动写 txt 文件）或使用 sessions_history 工具替代。导出的是 OpenClaw agent 会话记录，不是飞书平台聊天记录。**

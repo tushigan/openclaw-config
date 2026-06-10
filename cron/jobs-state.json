@@ -58,23 +58,22 @@
       }
     },
     "b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d": {
-      "updatedAtMs": 1781084105815,
+      "updatedAtMs": 1781085906541,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"*/30 9-23 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1781085600000,
-        "lastRunAtMs": 1781083800013,
+        "nextRunAtMs": 1781087400000,
+        "lastRunAtMs": 1781085600014,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 305802,
+        "lastDurationMs": 306527,
         "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 1,
+        "consecutiveErrors": 2,
         "consecutiveSkipped": 0,
-        "lastError": "cron: job execution timed out",
         "lastDiagnostics": {
           "summary": "cron: job execution timed out",
           "entries": [
             {
-              "ts": 1781084105815,
+              "ts": 1781085906541,
               "source": "cron-setup",
               "severity": "error",
               "message": "cron: job execution timed out"
@@ -82,7 +81,8 @@
           ]
         },
         "lastDiagnosticSummary": "cron: job execution timed out",
-        "lastErrorReason": "timeout"
+        "lastErrorReason": "timeout",
+        "lastError": "cron: job execution timed out"
       }
     }
   }

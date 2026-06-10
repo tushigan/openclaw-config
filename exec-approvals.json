@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781083935017,
-          "lastUsedCommand": "python3 -c \"import time; time.sleep(30)\"",
+          "lastUsedAt": 1781085618789,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -52,8 +52,8 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781084020289,
-          "lastUsedCommand": "ls -la ~/.openclaw/sessions/ | grep -E \"(wild-sable|amber-coral)\" | tail -5",
+          "lastUsedAt": 1781085643892,
+          "lastUsedCommand": "ls -la ~/.openclaw/logs/exec/ | tail -20",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -1115,8 +1115,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781085045344,
-          "lastUsedCommand": "python3 ~/.openclaw/workspace-design/skills/brand-poster-creator/scripts/project_manager.py init --project-dir /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260610-002 --reason '用户发起新海报需求'",
+          "lastUsedAt": 1781085559912,
+          "lastUsedCommand": "python3 - <<'PY'\nimport os\nfor k in ['BANANA_API_URL','BANANA_API_KEY','BANANA_DEFAULT_MODEL','BANANA_API_URL_AIXOR','BANANA_API_KEY_AIXOR']:\n    v=os.getenv(k)\n    print(k, 'set' if v else 'missing', (v[:20]+'...') if v else '')\nPY",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1146,17 +1146,17 @@
           "id": "shared-design-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1781083488261,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/refs/foreground_ref.png /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/raw/foreground.png && mkdir -p /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/layers && cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/raw/background.png /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/layers/background.png && cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/raw/foreground.png /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/layers/foreground.png && python3 ~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/build_reverse_psd_preview.py --manifest /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/manifest.json && node ~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/build_reverse_psd.mjs --scene /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/scene.json --output /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/layered-output.psd",
-          "lastResolvedPath": "/bin/cp"
+          "lastUsedAt": 1781085567877,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610 && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/60853a4e-ba7a-4b32-bdba-270b80153f4f.jpg /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/source.jpg && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/0b686d10-b49c-4dda-924b-52d636737d1a.png /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/reference.png && echo done",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-design-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1781083488262,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/refs/foreground_ref.png /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/raw/foreground.png && mkdir -p /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/layers && cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/raw/background.png /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/layers/background.png && cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/raw/foreground.png /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/layers/foreground.png && python3 ~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/build_reverse_psd_preview.py --manifest /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/manifest.json && node ~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/build_reverse_psd.mjs --scene /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/scene.json --output /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691/layered-output.psd",
-          "lastResolvedPath": "/bin/cp"
+          "lastUsedAt": 1781085567875,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610 && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/60853a4e-ba7a-4b32-bdba-270b80153f4f.jpg /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/source.jpg && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/0b686d10-b49c-4dda-924b-52d636737d1a.png /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/reference.png && echo done",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-touch",
@@ -1244,9 +1244,9 @@
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1781085015875,
-          "lastUsedCommand": "ls -la ~/.openclaw/workspace-design/skills/brand-poster-creator && find ~/.openclaw/workspace-design/skills/brand-poster-creator -maxdepth 2 -type f | sed -n '1,120p'",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1781085522115,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design -maxdepth 4 \\( -iname '*edit*' -o -iname '*gpt-image*' -o -iname '*generate.py' -o -iname '*mask*' \\) | sed -n '1,200p'",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
@@ -1277,8 +1277,8 @@
           "id": "design-sort",
           "pattern": "/usr/bin/sort",
           "description": "允许排序文本结果",
-          "lastUsedAt": 1781084051369,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082918 -maxdepth 1 -type f | sort",
+          "lastUsedAt": 1781085598917,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/BP-20260610-ubau-dad-001 -maxdepth 3 -type f | sort",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1303,9 +1303,9 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1781085015874,
-          "lastUsedCommand": "ls -la ~/.openclaw/workspace-design/skills/brand-poster-creator && find ~/.openclaw/workspace-design/skills/brand-poster-creator -maxdepth 2 -type f | sed -n '1,120p'",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1781085598915,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/BP-20260610-ubau-dad-001 -maxdepth 3 -type f | sort",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "34352226-bed6-4857-b096-abe0169a1f0d",
@@ -1346,9 +1346,9 @@
           "id": "shared-echo",
           "pattern": "/bin/echo",
           "description": "允许输出文本",
-          "lastUsedAt": 1781083038538,
-          "lastUsedCommand": "ls -lah /Users/a123/.openclaw/agents/design-shared/sessions && echo '---' && python3 - <<'PY'\nfrom pathlib import Path\np=Path('/Users/a123/.openclaw/agents/design-shared/sessions/sessions.json')\nprint(p.exists(), p.stat().st_size)\nprint(p.read_text(encoding='utf-8')[:1200])\nPY",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1781085567878,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610 && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/60853a4e-ba7a-4b32-bdba-270b80153f4f.jpg /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/source.jpg && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/0b686d10-b49c-4dda-924b-52d636737d1a.png /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/reference.png && echo done",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "design-curl",
