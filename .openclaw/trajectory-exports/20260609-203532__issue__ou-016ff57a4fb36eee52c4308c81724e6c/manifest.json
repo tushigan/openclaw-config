@@ -1,0 +1,48 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T12:35:35.072Z",
+  "traceId": "e7a862f9-3198-4ad4-bd0b-c67d6464d6d2",
+  "sessionId": "e7a862f9-3198-4ad4-bd0b-c67d6464d6d2",
+  "sessionKey": "agent:main-shared:feishu:direct:ou_016ff57a4fb36eee52c4308c81724e6c",
+  "workspaceDir": "$WORKSPACE_DIR",
+  "leafId": "67754b75",
+  "eventCount": 21,
+  "runtimeEventCount": 4,
+  "transcriptEventCount": 17,
+  "sourceFiles": {
+    "session": "$WORKSPACE_DIR/agents/main-shared/sessions/e7a862f9-3198-4ad4-bd0b-c67d6464d6d2.jsonl",
+    "runtime": "$WORKSPACE_DIR/agents/main-shared/sessions/e7a862f9-3198-4ad4-bd0b-c67d6464d6d2.trajectory.jsonl"
+  },
+  "supplementalFiles": [
+    "metadata.json",
+    "prompts.json"
+  ],
+  "contents": [
+    {
+      "path": "metadata.json",
+      "mediaType": "application/json",
+      "bytes": 128808
+    },
+    {
+      "path": "prompts.json",
+      "mediaType": "application/json",
+      "bytes": 37576
+    },
+    {
+      "path": "events.jsonl",
+      "mediaType": "application/x-ndjson",
+      "bytes": 263684
+    },
+    {
+      "path": "session-branch.json",
+      "mediaType": "application/json",
+      "bytes": 58288
+    },
+    {
+      "path": "tools.json",
+      "mediaType": "application/json",
+      "bytes": 107836
+    }
+  ]
+}

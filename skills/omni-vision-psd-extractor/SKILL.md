@@ -28,15 +28,18 @@ metadata:
 1. 默认使用用户上传图片的本地绝对路径或 HTTPS URL 作为 `--source`，不要强制 Cloudinary 前置上传。
 2. 如果用户没有提供明确路径，才使用 `--source auto` 兜底。
 3. 必须实际运行命令行脚本，不能只分析或复用历史产物。
-4. 默认走轻包装入口 `scripts/run_omni_delivery.py`，它会调用原始 pipeline，生成摘要和 25MB 分卷包。
+4. 默认走轻包装入口 `scripts/run_omni_delivery.py`，它会调用原始 pipeline，生成摘要、25MB 分卷包，并校验分卷可恢复。
 5. 不要使用 `schedule` 中断式二阶段流程；在当前回合里直接执行并交付结果。
-6. 成功后优先读取 `result-summary.json`，只交付 PSD、预览图、摘要和分卷包路径。
+6. Feishu 会话里运行时，必须把当前会话目标传给入口：私聊传 `--feishu-user-id ou_xxx`，群聊传 `--feishu-chat-id oc_xxx`；如果有 `agent:...:feishu:...` 会话 key，也可以传 `--source-session-key`。
+7. 成功后必须读取 `result-summary.json`。如果 `delivery.sendResult.status=sent`，才算已真实发送；如果不是 `sent`，必须按 `deliveryPackage.deliveryFiles` 里的完整文件清单逐个发送，不能只发 `.zip`。
+8. 中间图层的 `raw/*.result.json` 里出现 `missing_delivery_target` 不等于 PSD 失败；最终交付以 `result-summary.json` 为准。
 
 ## 推荐命令
 
 ```bash
 python3 {baseDir}/scripts/run_omni_delivery.py \
-  --source "/absolute/path/to/source.png"
+  --source "/absolute/path/to/source.png" \
+  --source-session-key "agent:design:feishu:direct:ou_xxx"
 ```
 
 如果已经通过视觉解析得到了前景元素清单，使用 N 层模式：
@@ -44,6 +47,7 @@ python3 {baseDir}/scripts/run_omni_delivery.py \
 ```bash
 python3 {baseDir}/scripts/run_omni_delivery.py \
   --source "/absolute/path/to/source.png" \
+  --feishu-user-id "ou_xxx" \
   --bg-prompt "背景提取说明" \
   --fg-elements "品牌Logo,主标题文字,IP角色,气球,纸飞机,风车,积木"
 ```
@@ -77,3 +81,6 @@ python3 {baseDir}/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/ru
 - 默认会生成 `layered-output-delivery.zip` 和可能的 `.z01`、`.z02` 分卷。
 - 分卷压缩只影响传输，不改变 PSD 内容和图层。
 - 解压时把 `.zip` 和所有 `.z*` 分卷放在同一目录，从 `.zip` 主文件解压。
+- 绝对不要只发送 `layered-output-delivery.zip`。必须发送 `result-summary.json` 中 `deliveryPackage.deliveryFiles` 列出的每一个文件；缺任意一个 `.z*` 分卷，用户都无法解压。
+- 如果入口拿到了明确 Feishu 目标，脚本会发送预览图和所有分卷文件，并把发送结果写入 `delivery.sendResult`。
+- 如果入口没有拿到明确 Feishu 目标，脚本只生成文件并写 `pending_target_resolution`；此时当前会话 agent 必须使用真实飞书发送工具补发完整 `deliveryFiles`，不能只回复本地路径。

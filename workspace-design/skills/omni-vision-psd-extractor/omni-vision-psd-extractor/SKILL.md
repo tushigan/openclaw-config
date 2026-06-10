@@ -26,7 +26,10 @@ This nested skill file is intentionally minimal. The OpenClaw entrypoint and exe
 Use:
 
 ```bash
-python3 {baseDir}/../scripts/run_omni_delivery.py --source "/absolute/path/to/source.png"
+python3 {baseDir}/../scripts/run_omni_delivery.py \
+  --source "/absolute/path/to/source.png" \
+  --source-session-key "agent:design:feishu:direct:ou_xxx"
 ```
 
 The original 111omni extraction logic is preserved in `omni-vision-psd-extractor/scripts/`.
+Read the parent `SKILL.md` for the Feishu target and split-package delivery rules.

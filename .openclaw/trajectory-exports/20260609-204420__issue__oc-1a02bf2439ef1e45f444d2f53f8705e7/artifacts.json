@@ -1,0 +1,53 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T12:44:31.012Z",
+  "traceId": "fd954aa1-cbc5-490a-8f59-8905b9b8842a",
+  "sessionId": "fd954aa1-cbc5-490a-8f59-8905b9b8842a",
+  "sessionKey": "agent:design-shared:feishu:group:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 26701,
+    "output": 299,
+    "cacheRead": 190976,
+    "total": 217976
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 376,
+      "output": 95,
+      "cacheRead": 108544,
+      "cacheWrite": 0,
+      "total": 109015
+    },
+    "lastCacheTouchAt": 1781008937700
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "[[reply_to_current]] 还没恢复。\n\n我刚又测了一次，还是同样的报错：\n`fork failed: resource temporarily unavailable`\n\n也就是说现在这个运行环境里，我还是没法启动新的改图任务。\n不是图没法改，是机器当前还不能正常拉起新进程。\n\n你这单我已经记住了，环境一恢复我就直接继续跑这 4 个文字改动。"
+  ],
+  "finalPromptText": "恢复运行了没有",
+  "itemLifecycle": {
+    "startedCount": 2,
+    "completedCount": 2,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "exec",
+      "meta": "run python3 inline script (heredoc) -> print lines 1-20 (+3 steps) (in ~/.openclaw/workspace-design)"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

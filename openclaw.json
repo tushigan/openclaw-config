@@ -303,7 +303,7 @@
             "aixor/claude-opus-4-8"
           ]
         },
-        "thinkingDefault": "adaptive",
+        "thinkingDefault": "high",
         "reasoningDefault": "on",
         "subagents": {
           "allowAgents": [
@@ -396,6 +396,7 @@
             "aixor/claude-opus-4-8"
           ]
         },
+        "thinkingDefault": "high",
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -494,6 +495,7 @@
         "model": {
           "primary": "aixor-g/gpt-5.4"
         },
+        "thinkingDefault": "medium",
         "skills": [
           "RunningHub",
           "brand-poster-creator",
@@ -502,7 +504,7 @@
           "dreamina-cli",
           "dreamina-reference-video",
           "image-deglaze",
-          "psd-layered-rebuilder",
+          "omni-vision-psd-extractor",
           "product-photography-workflow",
           "video-expert-analyzer"
         ],
@@ -588,6 +590,7 @@
         "model": {
           "primary": "aixor-g/gpt-5.4"
         },
+        "thinkingDefault": "high",
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -698,7 +701,7 @@
             "aixor/claude-opus-4-8"
           ]
         },
-        "thinkingDefault": "adaptive",
+        "thinkingDefault": "high",
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -793,6 +796,7 @@
         "model": {
           "primary": "aixor-g/gpt-5.4"
         },
+        "thinkingDefault": "medium",
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -840,7 +844,7 @@
             "cc-vibe/claude-opus-4-7"
           ]
         },
-        "thinkingDefault": "adaptive",
+        "thinkingDefault": "medium",
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -938,7 +942,7 @@
             "aixor-g/gpt-5.4"
           ]
         },
-        "thinkingDefault": "adaptive",
+        "thinkingDefault": "high",
         "reasoningDefault": "on",
         "subagents": {
           "allowAgents": [
@@ -1044,6 +1048,7 @@
             "aixor/claude-opus-4-7"
           ]
         },
+        "thinkingDefault": "high",
         "subagents": {
           "allowAgents": [
             "strategy-shared",
@@ -1139,7 +1144,7 @@
             "ask": "off"
           },
           "fs": {
-            "workspaceOnly": true
+            "workspaceOnly": false
           }
         },
         "skills": [
@@ -1154,6 +1159,7 @@
         "model": {
           "primary": "aixor-g/gpt-5.4"
         },
+        "thinkingDefault": "medium",
         "skills": [
           "RunningHub",
           "brand-poster-creator",
@@ -1162,7 +1168,7 @@
           "dreamina-cli",
           "dreamina-reference-video",
           "image-deglaze",
-          "psd-layered-rebuilder",
+          "omni-vision-psd-extractor",
           "product-photography-workflow",
           "video-expert-analyzer"
         ],
@@ -1260,6 +1266,7 @@
         "model": {
           "primary": "aixor-g/gpt-5.4"
         },
+        "thinkingDefault": "high",
         "subagents": {
           "allowAgents": [
             "strategy-shared",
@@ -1376,7 +1383,7 @@
             "aixor/claude-opus-4-7"
           ]
         },
-        "thinkingDefault": "adaptive",
+        "thinkingDefault": "high",
         "subagents": {
           "allowAgents": [
             "strategy-shared",
@@ -1478,6 +1485,7 @@
         "model": {
           "primary": "aixor-g/gpt-5.4"
         },
+        "thinkingDefault": "medium",
         "subagents": {
           "allowAgents": [
             "strategy-shared",
@@ -1547,7 +1555,7 @@
             "cc-vibe/claude-opus-4-7"
           ]
         },
-        "thinkingDefault": "adaptive",
+        "thinkingDefault": "medium",
         "subagents": {
           "allowAgents": [
             "strategy-shared",
@@ -2381,47 +2389,47 @@
       },
       "research-login-xhs": {
         "cdpPort": 18811,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#D94A64"
       },
       "research-login-quandashi": {
         "cdpPort": 18812,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#7A5AF8"
       },
       "research-login-zhenbiao": {
         "cdpPort": 18813,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#00A676"
       },
       "research-login-86sb": {
         "cdpPort": 18814,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#F08C00"
       },
       "research-login-huaban": {
         "cdpPort": 18815,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#C2255C"
       },
       "research-login-biaoyuan": {
         "cdpPort": 18816,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#1971C2"
       },
       "research-login-taobao": {
         "cdpPort": 18817,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#E8590C"
       },
       "research-login-jd": {
         "cdpPort": 18818,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#C92A2A"
       },
       "research-login-douyin": {
         "cdpPort": 18819,
-        "attachOnly": true,
+        "attachOnly": false,
         "color": "#0B7285"
       }
     }

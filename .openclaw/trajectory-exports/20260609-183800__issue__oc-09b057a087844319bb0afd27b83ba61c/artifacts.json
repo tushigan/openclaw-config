@@ -1,0 +1,52 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T10:38:02.578Z",
+  "traceId": "3dd3d410-7387-4a51-85c8-65b0dcf63c3f",
+  "sessionId": "3dd3d410-7387-4a51-85c8-65b0dcf63c3f",
+  "sessionKey": "agent:research-shared:feishu:group:oc_09b057a087844319bb0afd27b83ba61c",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 30406,
+    "output": 222,
+    "cacheRead": 50176,
+    "total": 80804
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 8054,
+      "output": 24,
+      "cacheRead": 31232,
+      "cacheWrite": 0,
+      "total": 39310
+    },
+    "lastCacheTouchAt": 1781001032803
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "[[reply_to_current]]没解绑成功。这个群当前看起来没有绑定记录可删。"
+  ],
+  "finalPromptText": "解绑",
+  "itemLifecycle": {
+    "startedCount": 1,
+    "completedCount": 1,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "feishu_conversation_binding"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

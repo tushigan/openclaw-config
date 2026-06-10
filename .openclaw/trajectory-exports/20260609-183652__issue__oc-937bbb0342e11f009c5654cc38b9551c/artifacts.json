@@ -1,0 +1,53 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T10:36:54.327Z",
+  "traceId": "8bfe1ec5-9940-4119-bb89-b554cacb7cbf",
+  "sessionId": "8bfe1ec5-9940-4119-bb89-b554cacb7cbf",
+  "sessionKey": "agent:research-shared:feishu:group:oc_937bbb0342e11f009c5654cc38b9551c",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 43762,
+    "output": 317,
+    "cacheRead": 165376,
+    "total": 209455
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 5983,
+      "output": 193,
+      "cacheRead": 101376,
+      "cacheWrite": 0,
+      "total": 107552
+    },
+    "lastCacheTouchAt": 1781001107874
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "刚查了，还是没松开。\n\n当前状态：\n- 4 个平台都被 `rose-toast-20260609-1742` 占着，状态是 running\n- 我们这一轮重跑都在队列第 1：\n  - 淘宝：第 1\n  - 京东：第 1\n  - 抖音：第 1\n  - 小红书：第 1\n\n补充一点：\n- 旧的那批错任务已经都释放/结束了\n- 现在唯一的阻塞，就是这个 `rose-toast-20260609-1742`\n\n所以进度上没有实质推进，还是卡在前序占锁。  \n如果你要，我下一步就不只是“查进度”了，我直接去处理这个占锁任务。"
+  ],
+  "finalPromptText": "检查进度",
+  "itemLifecycle": {
+    "startedCount": 2,
+    "completedCount": 2,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/workspace/skills/web-browse-capture/scripts/research_pool.py (in ~/.openclaw/workspace-research)"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

@@ -1,0 +1,80 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T08:44:33.605Z",
+  "traceId": "2a2b995d-97d4-4dc0-8c1d-5315e866525f",
+  "sessionId": "2a2b995d-97d4-4dc0-8c1d-5315e866525f",
+  "sessionKey": "agent:research-shared:feishu:group:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 44443,
+    "output": 920,
+    "cacheRead": 249344,
+    "total": 294707
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 869,
+      "output": 6,
+      "cacheRead": 58880,
+      "cacheWrite": 0,
+      "total": 59755
+    },
+    "lastCacheTouchAt": 1780994251105
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "NO_REPLY"
+  ],
+  "finalPromptText": "导出聊天记录",
+  "itemLifecycle": {
+    "startedCount": 6,
+    "completedCount": 6,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "read",
+      "meta": "lines 1-120 from ~/.openclaw/skills/session-debug-export/SKILL.md"
+    },
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/workspace-research/outputs/_temp_export_chat_report.py (in ~/.openclaw/workspace-research)"
+    },
+    {
+      "toolName": "exec",
+      "meta": "list files in ~/Downloads/openclaw 问题汇总/20260609-163658-oc_5a9fd50315aca8001f3ee15a28c74e7a-聊天记录导出.md (in ~/.openclaw/workspace-research)"
+    },
+    {
+      "toolName": "message",
+      "meta": "om_x100b6d4946a1f4ecc231c14e3a865a9"
+    }
+  ],
+  "didSendViaMessagingTool": true,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [
+    "OpenClaw 聊天记录导出"
+  ],
+  "messagingToolSentMediaUrls": [
+    "~/Downloads/openclaw 问题汇总/20260609-163658-oc_5a9fd50315aca8001f3ee15a28c74e7a-聊天记录导出.md"
+  ],
+  "messagingToolSentTargets": [
+    {
+      "tool": "message",
+      "provider": "feishu",
+      "accountId": "research",
+      "to": "oc_5a9fd50315aca8001f3ee15a28c74e7a",
+      "text": "OpenClaw 聊天记录导出",
+      "mediaUrls": [
+        "~/Downloads/openclaw 问题汇总/20260609-163658-oc_5a9fd50315aca8001f3ee15a28c74e7a-聊天记录导出.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,467 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-10T02:55:56.359Z",
+  "traceId": "084aea66-3588-4faf-a95e-d86e5f707dfa",
+  "sessionId": "084aea66-3588-4faf-a95e-d86e5f707dfa",
+  "sessionKey": "agent:research-shared:feishu:group:oc_83b7895cba825fef7e65c7542622889d",
+  "system": "You are a personal assistant running inside OpenClaw.\n## Tooling\nTool availability (filtered by policy):\nTool names are case-sensitive. Call tools exactly as listed.\n- read: Read file contents\n- write: Create or overwrite files\n- exec: Run shell commands (pty available for TTY-required CLIs)\n- process: Manage background exec sessions\n- web_fetch: Fetch and extract readable content from a URL\n- browser: Control web browser\n- canvas: Present/eval/snapshot the Canvas\n- message: Send messages and channel actions\n- sessions_list: List other sessions (incl. sub-agents) with filters/last\n- sessions_history: Fetch history for another session/sub-agent\n- sessions_send: Send a message to another session/sub-agent\n- subagents: List, steer, or kill sub-agent runs for this requester session\n- session_status: Show a /status-equivalent status card (usage + time + Reasoning/Verbose/Elevated); use for model-use questions (📊 session_status); optional per-session model override\n- feishu_ask_user_question\n- feishu_bitable_app\n- feishu_bitable_app_table\n- feishu_bitable_app_table_field\n- feishu_bitable_app_table_record\n- feishu_bitable_app_table_view\n- feishu_calendar_calendar\n- feishu_calendar_event\n- feishu_calendar_event_attendee\n- feishu_calendar_freebusy\n- feishu_chat\n- feishu_chat_members\n- feishu_conversation_binding\n- feishu_create_doc\n- feishu_doc_comments\n- feishu_doc_media\n- feishu_drive_file\n- feishu_fetch_doc\n- feishu_get_user\n- feishu_im_bot_image\n- feishu_im_user_fetch_resource\n- feishu_im_user_get_messages\n- feishu_im_user_get_thread_messages\n- feishu_im_user_message\n- feishu_im_user_search_messages\n- feishu_oauth\n- feishu_oauth_batch_auth\n- feishu_search_doc_wiki\n- feishu_search_user\n- feishu_sheet\n- feishu_task_comment\n- feishu_task_section\n- feishu_task_subtask\n- feishu_task_task\n- feishu_task_tasklist\n- feishu_update_doc\n- feishu_wiki_space\n- feishu_wiki_space_node\n- memory_get\n- memory_search\n- sessions_spawn: Spawn an isolated sub-agent session; use context=\"fork\"...<truncated>",
+  "submittedPrompts": [
+    "帮我去淘宝、京东和抖音商城查找一下这个产品：儿童面包 这个品类，卖得比较好的一些品牌，他们主打产品的卖点是什么？用飞书表格记录收集的结论，需包含：\n1. URL链接\n2. 品牌\n3. 产品规格\n4. 主打卖点维度\n\n形成结构化表格给我\n\n另外希望你上小红书充分搜索，提取用户对该产品的正面评论关键词\n\n结合前面淘宝、京东和抖音商城的正面提示词，形成一份词云给我\n\n另外再找负面评论的关键词，也形成一份词云给我",
+    "检查进度",
+    "检查进度",
+    "检查进度",
+    "那你执行",
+    "检查进度",
+    "整理",
+    "导出聊天记录"
+  ],
+  "latestSubmittedPrompt": "导出聊天记录",
+  "skillsPrompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>browser-automation</name>\n    <description>Use when controlling web pages with the OpenClaw browser tool, especially multi-step flows, login checks, tab management, or recovery from stale refs/timeouts.</description>\n    <location>~/.openclaw/plugin-skills/browser-automation/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>research-analyst</name>\n    <description>通用调研执行技能。将输入主题或资料转为证据包、洞察图谱和风险假设，可复用于 PPT/报告/方案类流程。</description>\n    <location>~/.openclaw/workspace-research/skills/research-analyst/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>web-browse-capture</name>\n    <description>Use OpenClaw browser profiles to browse, click, paginate, expand, and extract data from real webpages through a live browser. Trigger when a task needs true browser interaction rather than plain search or static fetch, such as JS-rendered pages, login-gated views, button clicks, pagination, dropdowns, tab switching, dynamic tables, or step-by-step website operations. Also trigger when the user wants to visit a specific website and collect/extract images, text, or data from it. Typical requests include: 去某个网站抓数据, 从网页抓图片, 去Pinterest抓图, 爬取网页内容, 点进这个网站抓数据, 翻页把列表都扒下来, 进后台网页操作并提取字段, 动态网页读取, 真实浏览器访问网页, browser-use 网页采集, 用浏览器进去看, 帮我去XX上抓/爬/采集, or 打开网页提取信息.</description>\n    <location>~/.openclaw/workspace/skills/web-browse-capture/SKILL.md</location>\n  </skill>\n</available_skills>",
+  "systemPromptReport": {
+    "source": "run",
+    "generatedAt": 1781059928441,
+    "sessionId": "084aea66-3588-4faf-a95e-d86e5f707dfa",
+    "sessionKey": "agent:research-shared:feishu:group:oc_83b7895cba825fef7e65c7542622889d",
+    "provider": "aixor-g",
+    "model": "gpt-5.4",
+    "workspaceDir": "$WORKSPACE_DIR/workspace-research",
+    "bootstrapMaxChars": 12000,
+    "bootstrapTotalMaxChars": 60000,
+    "bootstrapTruncation": {
+      "warningMode": "once",
+      "warningShown": false,
+      "truncatedFiles": 0,
+      "nearLimitFiles": 0,
+      "totalNearLimit": false
+    },
+    "sandbox": {
+      "mode": "off",
+      "sandboxed": false
+    },
+    "systemPrompt": {
+      "chars": 28526,
+      "projectContextChars": 6692,
+      "nonProjectContextChars": 21834
+    },
+    "injectedWorkspaceFiles": [
+      {
+        "name": "AGENTS.md",
+        "path": "$WORKSPACE_DIR/workspace-research/AGENTS.md",
+        "missing": false,
+        "rawChars": 3647,
+        "injectedChars": 3647,
+        "truncated": false
+      },
+      {
+        "name": "SOUL.md",
+        "path": "$WORKSPACE_DIR/workspace-research/SOUL.md",
+        "missing": false,
+        "rawChars": 608,
+        "injectedChars": 608,
+        "truncated": false
+      },
+      {
+        "name": "TOOLS.md",
+        "path": "$WORKSPACE_DIR/workspace-research/TOOLS.md",
+        "missing": false,
+        "rawChars": 1122,
+        "injectedChars": 1122,
+        "truncated": false
+      },
+      {
+        "name": "IDENTITY.md",
+        "path": "$WORKSPACE_DIR/workspace-research/IDENTITY.md",
+        "missing": false,
+        "rawChars": 289,
+        "injectedChars": 289,
+        "truncated": false
+      },
+      {
+        "name": "USER.md",
+        "path": "$WORKSPACE_DIR/workspace-research/USER.md",
+        "missing": false,
+        "rawChars": 218,
+        "injectedChars": 218,
+        "truncated": false
+      },
+      {
+        "name": "HEARTBEAT.md",
+        "path": "$WORKSPACE_DIR/workspace-research/HEARTBEAT.md",
+        "missing": false,
+        "rawChars": 192,
+        "injectedChars": 192,
+        "truncated": false
+      },
+      {
+        "name": "BOOTSTRAP.md",
+        "path": "$WORKSPACE_DIR/workspace-research/BOOTSTRAP.md",
+        "missing": true,
+        "rawChars": 0,
+        "injectedChars": 0,
+        "truncated": false
+      },
+      {
+        "name": "MEMORY.md",
+        "path": "$WORKSPACE_DIR/workspace-research/MEMORY.md",
+        "missing": false,
+        "rawChars": 258,
+        "injectedChars": 258,
+        "truncated": false
+      }
+    ],
+    "skills": {
+      "promptChars": 1747,
+      "entries": [
+        {
+          "name": "browser-automation",
+          "blockChars": 324
+        },
+        {
+          "name": "research-analyst",
+          "blockChars": 224
+        },
+        {
+          "name": "web-browse-capture",
+          "blockChars": 824
+        }
+      ]
+    },
+    "tools": {
+      "listChars": 0,
+      "schemaChars": 51668,
+      "entries": [
+        {
+          "name": "read",
+          "summaryChars": 298,
+          "schemaChars": 304,
+          "propertiesCount": 3
+        },
+        {
+          "name": "write",
+          "summaryChars": 127,
+          "schemaChars": 225,
+          "propertiesCount": 2
+        },
+        {
+          "name": "exec",
+          "summaryChars": 446,
+          "schemaChars": 1139,
+          "propertiesCount": 12
+        },
+        {
+          "name": "process",
+          "summaryChars": 322,
+          "schemaChars": 1011,
+          "propertiesCount": 12
+        },
+        {
+          "name": "canvas",
+          "summaryChars": 106,
+          "schemaChars": 661,
+          "propertiesCount": 18
+        },
+        {
+          "name": "message",
+          "summaryChars": 112,
+          "schemaChars": 6192,
+          "propertiesCount": 108
+        },
+        {
+          "name": "sessions_list",
+          "summaryChars": 225,
+          "schemaChars": 432,
+          "propertiesCount": 9
+        },
+        {
+          "name": "sessions_history",
+          "summaryChars": 180,
+          "schemaChars": 161,
+          "propertiesCount": 3
+        },
+        {
+          "name": "sessions_send",
+          "summaryChars": 314,
+          "schemaChars": 274,
+          "propertiesCount": 5
+        },
+        {
+          "name": "sessions_spawn",
+          "summaryChars": 419,
+          "schemaChars": 1211,
+          "propertiesCount": 16
+        },
+        {
+          "name": "sessions_yield",
+          "summaryChars": 97,
+          "schemaChars": 60,
+          "propertiesCount": 1
+        },
+        {
+          "name": "subagents",
+          "summaryChars": 105,
+          "schemaChars": 191,
+          "propertiesCount": 4
+        },
+        {
+          "name": "session_status",
+          "summaryChars": 456,
+          "schemaChars": 89,
+          "propertiesCount": 2
+        },
+        {
+          "name": "web_fetch",
+          "summaryChars": 129,
+          "schemaChars": 374,
+          "propertiesCount": 3
+        },
+        {
+          "name": "browser",
+          "summaryChars": 1537,
+          "schemaChars": 2976,
+          "propertiesCount": 52
+        },
+        {
+          "name": "memory_search",
+          "summaryChars": 605,
+          "schemaChars": 237,
+          "propertiesCount": 4
+        },
+        {
+          "name": "memory_get",
+          "summaryChars": 239,
+          "schemaChars": 215,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_get_user",
+          "summaryChars": 75,
+          "schemaChars": 185,
+          "propertiesCount": 2
+        },
+        {
+          "name": "feishu_search_user",
+          "summaryChars": 55,
+          "schemaChars": 311,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_chat",
+          "summaryChars": 92,
+          "schemaChars": 519,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_chat_members",
+          "summaryChars": 54,
+          "schemaChars": 353,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_im_user_message",
+          "summaryChars": 456,
+          "schemaChars": 1149,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_im_user_fetch_resource",
+          "summaryChars": 456,
+          "schemaChars": 371,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_im_user_get_messages",
+          "summaryChars": 526,
+          "schemaChars": 912,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_im_user_get_thread_messages",
+          "summaryChars": 166,
+          "schemaChars": 395,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_im_user_search_messages",
+          "summaryChars": 522,
+          "schemaChars": 1364,
+          "propertiesCount": 12
+        },
+        {
+          "name": "feishu_calendar_calendar",
+          "summaryChars": 93,
+          "schemaChars": 389,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_calendar_event",
+          "summaryChars": 455,
+          "schemaChars": 3200,
+          "propertiesCount": 21
+        },
+        {
+          "name": "feishu_calendar_event_attendee",
+          "summaryChars": 75,
+          "schemaChars": 981,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_calendar_freebusy",
+          "summaryChars": 80,
+          "schemaChars": 504,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_task_task",
+          "summaryChars": 167,
+          "schemaChars": 1868,
+          "propertiesCount": 15
+        },
+        {
+          "name": "feishu_task_tasklist",
+          "summaryChars": 163,
+          "schemaChars": 769,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_task_section",
+          "summaryChars": 127,
+          "schemaChars": 1061,
+          "propertiesCount": 13
+        },
+        {
+          "name": "feishu_task_comment",
+          "summaryChars": 95,
+          "schemaChars": 671,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_task_subtask",
+          "summaryChars": 86,
+          "schemaChars": 1128,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_bitable_app",
+          "summaryChars": 139,
+          "schemaChars": 511,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_bitable_app_table",
+          "summaryChars": 285,
+          "schemaChars": 1152,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_bitable_app_table_record",
+          "summaryChars": 292,
+          "schemaChars": 2381,
+          "propertiesCount": 14
+        },
+        {
+          "name": "feishu_bitable_app_table_field",
+          "summaryChars": 134,
+          "schemaChars": 824,
+          "propertiesCount": 10
+        },
+        {
+          "name": "feishu_bitable_app_table_view",
+          "summaryChars": 108,
+          "schemaChars": 692,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_search_doc_wiki",
+          "summaryChars": 212,
+          "schemaChars": 1806,
+          "propertiesCount": 5
+        },
+        {
+          "name": "feishu_drive_file",
+          "summaryChars": 703,
+          "schemaChars": 2278,
+          "propertiesCount": 16
+        },
+        {
+          "name": "feishu_doc_comments",
+          "summaryChars": 166,
+          "schemaChars": 1353,
+          "propertiesCount": 11
+        },
+        {
+          "name": "feishu_doc_media",
+          "summaryChars": 200,
+          "schemaChars": 963,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_wiki_space",
+          "summaryChars": 179,
+          "schemaChars": 451,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_wiki_space_node",
+          "summaryChars": 205,
+          "schemaChars": 995,
+          "propertiesCount": 13
+        },
+        {
+          "name": "feishu_sheet",
+          "summaryChars": 474,
+          "schemaChars": 1905,
+          "propertiesCount": 18
+        },
+        {
+          "name": "feishu_im_bot_image",
+          "summaryChars": 241,
+          "schemaChars": 384,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_fetch_doc",
+          "summaryChars": 42,
+          "schemaChars": 281,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_create_doc",
+          "summaryChars": 33,
+          "schemaChars": 427,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_update_doc",
+          "summaryChars": 105,
+          "schemaChars": 811,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_oauth",
+          "summaryChars": 168,
+          "schemaChars": 290,
+          "propertiesCount": 1
+        },
+        {
+          "name": "feishu_oauth_batch_auth",
+          "summaryChars": 55,
+          "schemaChars": 162,
+          "propertiesCount": 0
+        },
+        {
+          "name": "feishu_ask_user_question",
+          "summaryChars": 389,
+          "schemaChars": 1309,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_conversation_binding",
+          "summaryChars": 72,
+          "schemaChars": 811,
+          "propertiesCount": 7
+        }
+      ]
+    }
+  }
+}
