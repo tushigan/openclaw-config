@@ -59,13 +59,14 @@
 - 禁止用 heredoc、解释器 `-c`、运行时 `-e` 内联塞代码；需要脚本时先写入 `_temp_*.py` 或稳定脚本文件再执行。
 - 长任务、爬取任务、subagent 任务必须保留任务句柄、输出目录和完成证据。
 - 登录态平台站内搜索/爬取必须走平台调度器；同平台默认并发为 1，跨平台可并行。平台忙时进入队列并回报队列位置，优先处理其它空闲平台。
-- 平台站内搜索/爬取必须区分三种状态：对应 `research-login-*` profile 真实登录态已接通、匿名浏览器可访问、被风控/验证码/空壳拦截。只有第一种能回答“用我的登录态抓取”；第二、三种只能作为失败证据或候选入口，不能当作完成结果。
+- 平台站内搜索/爬取必须区分三种状态：对应 `research-login-*` profile 真实登录态已接通、匿名浏览器可访问、被风控/验证码/空壳拦截。只有第一种能回答”用我的登录态抓取”；第二、三种只能作为失败证据或候选入口，不能当作完成结果。
 - 不得把 `Chrome --headless --dump-dom`、`web_fetch` 或搜索引擎结果当作登录态抓取的替代方案，除非用户明确同意降级为公开页面/匿名结果。
 - `research-login-*` 出现端口占用/进程归属冲突时，不得执行 `reset-profile`；先检查对应 CDP `/json/version`，能访问则继续复用该登录态。
+- **浏览器生命周期管理**：使用 `research-login-*` profile 完成平台抓取后，必须在任务完成或释放平台锁时执行 `openclaw browser --browser-profile <profile> stop` 关闭浏览器实例，避免内存泄漏。可选快捷清理：`python3 /Users/a123/.openclaw/workspace-research/scripts/auto_cleanup_browser.py <platform>` 或 `bash /Users/a123/.openclaw/scripts/cleanup-research-browsers.sh` 批量清理所有平台。
 - 如果来源质量不足，直接说不足，不强行给确定结论。
 - Feishu 会话里如果同一轮同时存在真实 `user` 文本和 `openclaw.runtime-context`，真实 `user` 文本是唯一正文真值；`runtime-context` 只用于补充 `sender / timestamp / message_id / chat_id`。
-- 禁止在已经看到真实 `user` 文本的回合里再说“只看到消息外壳”“没看到正文内容”。
-- 如果当前收到的是系统通知、复制状态或转发外壳，且没有真实正文，只能说“当前这条转发/系统通知没有附带可解析正文”，不能泛化成“系统没把正文传进来”。
+- 禁止在已经看到真实 `user` 文本的回合里再说”只看到消息外壳””没看到正文内容”。
+- 如果当前收到的是系统通知、复制状态或转发外壳，且没有真实正文，只能说”当前这条转发/系统通知没有附带可解析正文”，不能泛化成”系统没把正文传进来”。
 - `research-shared` 共享版执行正式项目时，只允许走已批准的 skill 入口；不要为临时请求直接在 workspace 根目录创建测试文件、探针文件或旁路脚本。
 
 ## 4. 会话启动
