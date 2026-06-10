@@ -16,7 +16,7 @@
   - 如果要求完全保持内容（IP、文字、排版） → 推荐 Real-ESRGAN、Magnific AI、Clipdrop 等超分辨率工具
   - 如果允许内容优化 → 读取 `image-deglaze/SKILL.md`
 - “产品摄影”、”白底产品图”、”台面摆拍” → **必须先读** `product-photography-workflow/SKILL.md`
-- “分层 PSD”、”拆 PSD”、”真分层” → **必须先读** `psd-layered-rebuilder/SKILL.md`
+- “分层 PSD”、”拆 PSD”、”真分层”、”无损提取PSD” → **必须先读** `omni-vision-psd-extractor/SKILL.md`
 - “海报”、”品牌海报” → **必须先读** `brand-poster-creator/SKILL.md`
 - “详情页” → **必须先读** `xiangqingye-desigen/SKILL.md`
 

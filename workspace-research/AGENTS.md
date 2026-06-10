@@ -7,7 +7,7 @@
 ### 0.1 先查 Skill
 - 执行任务前先扫描可用 skills。
 - 搜索、查找、新闻、资料、来源、报告、竞品任务，默认先读并使用 `multi-search-engine`。
-- 涉及真实网页操作、平台站内搜索、登录态、翻页、点击、动态页面、抖音/小红书/淘宝/天猫/京东等平台抓取时，必须先读并使用 `browser-automation`；需要 browser-use 采集时再读 `web-browse-capture`。如果任务涉及小红书、权大师、甄标网、尚标网、花瓣网、标源、淘宝/天猫、京东、抖音这 9 个登录态平台，必须先通过 `/Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/research_pool.py` 做平台识别、申请锁和状态记录；拿到对应平台锁后只能使用该平台 `research-login-*` profile。不得让多个任务直接共用 `research-login` 抢抓；该 profile 只作为母版/人工补登参考。profile 不可用、未登录或遇到验证码/二次验证时，记录具体平台阻塞并释放锁，不得退化为匿名 headless 抓取后声称完成。
+- 涉及真实网页操作、平台站内搜索、登录态、翻页、点击、动态页面、抖音/小红书/淘宝/天猫/京东等平台抓取时，必须先读并使用 `browser-automation`；需要 browser-use 采集时再读 `web-browse-capture`。如果任务涉及小红书、权大师、甄标网、尚标网、花瓣网、标源、淘宝/天猫、京东、抖音这 9 个登录态平台，必须先通过 `/Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/research_pool.py` 做平台识别、申请锁和状态记录；拿到对应平台锁后只能使用该平台 `research-login-*` profile，并先执行 `openclaw browser --browser-profile <profile> start` 自动拉起 managed profile。不得让多个任务直接共用 `research-login` 抢抓；该 profile 只作为母版/人工补登参考。profile 启动失败、CDP/snapshot 不可用、未登录或遇到验证码/二次验证时，记录具体平台阻塞并释放锁，不得退化为匿名 headless 抓取后声称完成。多平台调研中，每个平台一旦写出该平台结果文件，必须立刻 `complete <job_id> <platform> <result_path>` 释放平台锁，不得等最终汇总报告才统一释放。`queued` 不是完成状态；排队任务必须用 `wait-acquire <job_id> <platform> --timeout 1800 --interval 10` 自动等待或稍后重新 `acquire`，只有返回 `acquired=true` 才能继续抓取，不能让 queued subagent 直接结束后等待被动唤醒。
 - 内部员工访谈调研、发起人立项访谈、调研问题设计、飞书 1 对 1 访谈、截止时间驱动的调研收口，默认先读并使用 `internal-interview-research`。
 - 需要创建飞书文档时，使用飞书文档类 skill 或工具，不把普通消息发送当作云文档交付。
 - **"导出聊天记录"、"导出当前聊天"、"导出对话记录"、"聊天记录导出"、"生成聊天日志"、"打包聊天记录"、"导出后台日志"、"生成调试报告"** → **⚠️ 强制要求：必须先用 `read` 工具读取** `session-debug-export/SKILL.md` **并按其中的"AGENT 必读：执行流程"章节操作。禁止自行拼接简化导出（如用 heredoc 手动写 txt 文件）或使用 sessions_history 工具替代。导出的是 OpenClaw agent 会话记录，不是飞书平台聊天记录。**
