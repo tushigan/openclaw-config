@@ -41,6 +41,10 @@ workspace-strategy/*
 !workspace-strategy/SOUL.md
 !workspace-strategy/IDENTITY.md
 !workspace-strategy/USER.md
+!workspace-strategy/skills/
+workspace-strategy/skills/*
+!workspace-strategy/skills/huashu-design/
+!workspace-strategy/skills/huashu-design/**
 
 workspace-meeting/*
 !workspace-meeting/AGENTS.md
