@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781082049740,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastUsedAt": 1781083935017,
+          "lastUsedCommand": "python3 -c \"import time; time.sleep(30)\"",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -52,8 +52,8 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781082074812,
-          "lastUsedCommand": "ls -lh \"$HOME/.openclaw/workspace-design/outputs/brand-poster-projects/BP-20260610-002-white-v2/images/\"",
+          "lastUsedAt": 1781084020289,
+          "lastUsedCommand": "ls -la ~/.openclaw/sessions/ | grep -E \"(wild-sable|amber-coral)\" | tail -5",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -88,7 +88,7 @@
           "id": "cdbfd055-830c-42c2-b08e-7a93653a775f",
           "pattern": "/opt/homebrew/bin/lark-cli",
           "source": "allow-always",
-          "lastUsedAt": 1781083440063,
+          "lastUsedAt": 1781084607004,
           "lastUsedCommand": "lark-cli profile list",
           "lastResolvedPath": "/opt/homebrew/bin/lark-cli"
         },
@@ -1115,8 +1115,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781083642887,
-          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\nimport subprocess, sys\nroot = Path('/Users/a123/.openclaw/workspace/brand-poster-projects')\nscript_creative = Path('/Users/a123/.openclaw/workspace-design/skills/brand-poster-creator/scripts/generate_creative_direction.py')\nscript_assemble = Path('/Users/a123/.openclaw/workspace-design/skills/brand-poster-creator/scripts/assemble_prompt.py')\nscript_exec = Path('/Users/a123/.openclaw/workspace-design/skills/brand-poster-creator/scripts/execute_generation.py')\nfor suf in ['F','G','H','I','J']:\n    p = root / f'BP-20260610-001-{suf}'\n    print(f'=== RESUME {suf} {p.name} ===', flush=True)\n    cmds = [\n        ['python3', str(script_creative), '--brief', str(p/'brief.json'), '--copywriting', str(p/'copywriting.json'), '--output', str(p/'creative_direction.json')],\n        ['python3', str(script_assemble), '--brief', str(p/'brief.json'), '--copywriting', str(p/'copywriting.json'), '--creative-direction', str(p/'creative_direction.json'), '--output', str(p/'prompt_draft.md')],\n        ['python3', str(script_exec), '--project-dir', str(p), '--size', '1536x2732', '--aspect', '9:16', '--model', 'gpt-image-2', '--count', '1'],\n    ]\n    for cmd in cmds:\n        res = subprocess.run(cmd, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)\n        print(res.stdout[-3500:], flush=True)\n        if res.returncode != 0:\n            print(f'FAILED {suf} code={res.returncode}', flush=True)\n            sys.exit(res.returncode)\n    print(f'=== DONE {suf} ===', flush=True)\nprint('ALL_DONE', flush=True)\nPY",
+          "lastUsedAt": 1781085045344,
+          "lastUsedCommand": "python3 ~/.openclaw/workspace-design/skills/brand-poster-creator/scripts/project_manager.py init --project-dir /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260610-002 --reason '用户发起新海报需求'",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1175,8 +1175,8 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781083127650,
-          "lastUsedCommand": "ls -R /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691",
+          "lastUsedAt": 1781085015873,
+          "lastUsedCommand": "ls -la ~/.openclaw/workspace-design/skills/brand-poster-creator && find ~/.openclaw/workspace-design/skills/brand-poster-creator -maxdepth 2 -type f | sed -n '1,120p'",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -1228,9 +1228,9 @@
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1781082859939,
-          "lastUsedCommand": "find /Users/a123/.openclaw -path '*/session-debug-export/SKILL.md' -print | head -20",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781084992938,
+          "lastUsedCommand": "rg -n \"project_manager|立项|brief.json|BP-\" ~/.openclaw/workspace-design/skills/brand-poster-creator/SKILL.md | head -n 40",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
           "id": "shared-tail",
@@ -1244,9 +1244,9 @@
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1781083625375,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design && sed -n '1280,1310p' skills/brand-poster-creator/scripts/assemble_prompt.py",
-          "lastResolvedPath": "/usr/bin/cd"
+          "lastUsedAt": 1781085015875,
+          "lastUsedCommand": "ls -la ~/.openclaw/workspace-design/skills/brand-poster-creator && find ~/.openclaw/workspace-design/skills/brand-poster-creator -maxdepth 2 -type f | sed -n '1,120p'",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
@@ -1277,8 +1277,8 @@
           "id": "design-sort",
           "pattern": "/usr/bin/sort",
           "description": "允许排序文本结果",
-          "lastUsedAt": 1781083347226,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082691 -maxdepth 2 -type f | sort",
+          "lastUsedAt": 1781084051369,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781082918 -maxdepth 1 -type f | sort",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1303,17 +1303,17 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1781083557473,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design && find skills/brand-poster-distiller -name 'layout_analyzer.py' -o -name '*layout*analyzer*'",
-          "lastResolvedPath": "/usr/bin/cd"
+          "lastUsedAt": 1781085015874,
+          "lastUsedCommand": "ls -la ~/.openclaw/workspace-design/skills/brand-poster-creator && find ~/.openclaw/workspace-design/skills/brand-poster-creator -maxdepth 2 -type f | sed -n '1,120p'",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "34352226-bed6-4857-b096-abe0169a1f0d",
           "pattern": "/opt/homebrew/bin/rg",
           "source": "allow-always",
-          "lastUsedAt": 1781082742754,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design/skills/brand-poster-creator/scripts && python3 assemble_prompt.py --brief /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001-FIX-LOGO-01/brief.json --copywriting /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001-FIX-LOGO-01/copywriting.json --style-profile /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001-FIX-LOGO-01/style_profile.json --creative-direction /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001-FIX-LOGO-01/creative_direction.json --output /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001-FIX-LOGO-01/prompt_draft.md && rg -n \"不变形|顶部正中|额外文字|副文案|logo|Logo|FATHER|父亲节\" /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001-FIX-LOGO-01/prompt_draft.md | sed -n '1,200p'",
-          "lastResolvedPath": "/usr/bin/cd",
+          "lastUsedAt": 1781084992937,
+          "lastUsedCommand": "rg -n \"project_manager|立项|brief.json|BP-\" ~/.openclaw/workspace-design/skills/brand-poster-creator/SKILL.md | head -n 40",
+          "lastResolvedPath": "/opt/homebrew/bin/rg",
           "description": "允许 ripgrep 搜索"
         },
         {
@@ -1982,8 +1982,8 @@
           "id": "shared-research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781083627980,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-research/outputs/_temp_finalize_rose_toast.py",
+          "lastUsedAt": 1781084164891,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/research_pool.py complete hxg_reviews_20260610 taobao /Users/a123/.openclaw/workspace-research/outputs/hxg_reviews_taobao_20260610.md",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {

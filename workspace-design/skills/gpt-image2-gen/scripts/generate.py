@@ -73,11 +73,42 @@ HOST_MODEL_RESOLUTION_LIMITS = {
     },
 }
 
-DELIVERY_DIR = Path('/Users/a123/.openclaw/workspace/feishu-deliver')
+DEFAULT_DELIVERY_DIR = Path('/Users/a123/.openclaw/workspace/feishu-deliver')
 PROVIDER_STATE_FILE = Path('/Users/a123/.openclaw/.gpt_image_provider_state.json')
 AGENTS_DIR = Path('/Users/a123/.openclaw/agents')
 ROUTE_GUARD_SCRIPT = Path('/Users/a123/.openclaw/scripts/feishu-route-guard.py')
 TASK_MANIFEST_NAME = 'task_manifest.json'
+
+
+def infer_delivery_dir(requested_output_path: Path) -> Path:
+    """
+    根据请求的输出路径推断正确的 feishu-deliver 目录。
+
+    Args:
+        requested_output_path: 用户请求的输出文件路径
+
+    Returns:
+        对应 workspace 的 feishu-deliver 目录（带时间戳子目录）
+    """
+    from datetime import datetime
+
+    # 查找路径中的 workspace 部分
+    parts = requested_output_path.parts
+    workspace = 'workspace'  # 默认
+
+    for part in parts:
+        if part.startswith('workspace'):
+            workspace = part
+            break
+
+    # 基础 delivery 目录
+    base_delivery_dir = Path(f'/Users/a123/.openclaw/{workspace}/feishu-deliver')
+
+    # 使用时间戳创建子目录，避免并发冲突
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    delivery_dir = base_delivery_dir / f"gpt-image2-gen_{timestamp}"
+
+    return delivery_dir
 
 
 def utc_now() -> str:
@@ -2008,10 +2039,12 @@ def main():
                 requested_alias_paths.append(alias)
                 print(f'[alias] copied isolated output to requested path: {alias}')
 
-        DELIVERY_DIR.mkdir(parents=True, exist_ok=True)
+        # 动态推断 delivery 目录，避免跨 workspace 冲突
+        delivery_dir = infer_delivery_dir(requested_output_path)
+        delivery_dir.mkdir(parents=True, exist_ok=True)
         deliver_paths = []
         for p in out_paths:
-            dest = DELIVERY_DIR / p.name
+            dest = delivery_dir / p.name
             shutil.copy2(str(p), str(dest))
             stamp_feishu_route(dest, delivery_target=delivery_target, source_manifest=task_manifest_path)
             deliver_paths.append(dest)
