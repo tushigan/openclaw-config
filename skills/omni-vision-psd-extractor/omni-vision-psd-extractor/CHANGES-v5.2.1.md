@@ -63,39 +63,71 @@ models_to_try = [
     {
         "name": "gpt-image-2-pro",
         "timeout": 600,  # 10分钟
-        "description": "首选模型"
+        "description": "首选模型",
+        "api_type": "openai"  # ✨ 使用 OpenAI 格式
     },
     {
         "name": "gemini-3.1-flash-image-preview",
         "timeout": 240,  # 4分钟
-        "description": "兜底模型"
+        "description": "兜底模型",
+        "api_type": "gemini"  # ✨ 使用 Gemini Native 格式
     }
 ]
 ```
 
+**API 格式区分** ⭐:
+- **gpt-image-2-pro**: 使用 `/v1/images/generations` (OpenAI 兼容接口)
+  ```json
+  {
+    "model": "gpt-image-2-pro",
+    "prompt": "提示词",
+    "image": "base64...",
+    "response_format": "b64_json"
+  }
+  ```
+
+- **gemini-3.1-flash-image-preview**: 使用 `/v1beta/models/{model}:generateContent` (Gemini Native 接口)
+  ```json
+  {
+    "contents": [{
+      "parts": [
+        {"text": "提示词"},
+        {"inlineData": {"mimeType": "image/png", "data": "base64..."}}
+      ]
+    }],
+    "generationConfig": {...}
+  }
+  ```
+
 **工作流程**:
-1. ✅ 首先尝试 `gpt-image-2-pro`，超时设置为 **10分钟**
-2. ✅ 如果 GPT 失败（超时、HTTP 错误、异常），自动切换到 `gemini-3.1-flash-image-preview`
+1. ✅ 首先尝试 `gpt-image-2-pro`（OpenAI 格式），超时设置为 **10分钟**
+2. ✅ 如果 GPT 失败（超时、HTTP 错误、异常），自动切换到 `gemini-3.1-flash-image-preview`（Gemini Native 格式）
 3. ✅ Gemini 作为兜底模型，超时 4分钟
-4. ✅ 两个模型使用相同的提示词
-5. ✅ 在 result.json 中记录使用的模型和是否触发兜底（`is_fallback` 字段）
+4. ✅ 两个模型使用相同的提示词，但不同的 API 格式
+5. ✅ 在 result.json 中记录使用的模型、API 类型和是否触发兜底（`is_fallback` 字段）
 
 **日志输出示例**:
 ```
-[API] 尝试使用 首选模型: gpt-image-2-pro (超时: 600秒)
-[API] 正在调用 gpt-image-2-pro (style=camel, timeout=600s)...
+[API] 尝试使用 首选模型: gpt-image-2-pro (超时: 600秒, 格式: openai)
+[API] 正在调用 gpt-image-2-pro (OpenAI 格式, timeout=600s)...
 [API] ✅ gpt-image-2-pro 生成成功！
 ```
 
 或触发兜底时：
 ```
-[API] 尝试使用 首选模型: gpt-image-2-pro (超时: 600秒)
-[API] ❌ gpt-image-2-pro 失败: timeout
+[API] 尝试使用 首选模型: gpt-image-2-pro (超时: 600秒, 格式: openai)
+[API] ❌ gpt-image-2-pro HTTP错误: 400
 [API] ⚠️ gpt-image-2-pro 失败，切换到下一个模型...
-[API] 尝试使用 兜底模型: gemini-3.1-flash-image-preview (超时: 240秒)
+[API] 尝试使用 兜底模型: gemini-3.1-flash-image-preview (超时: 240秒, 格式: gemini)
+[API] 正在调用 gemini-3.1-flash-image-preview (Gemini 格式, style=camel, timeout=240s)...
 [API] ✅ gemini-3.1-flash-image-preview 生成成功！
 [API] 💡 使用了兜底模型
 ```
+
+**重要修复** 🔧:
+- 修复了"请求未发送到服务器"的问题
+- 原因：gpt-image-2-pro 不支持 Gemini Native API 格式
+- 解决：为不同模型使用正确的 API 格式
 
 ---
 

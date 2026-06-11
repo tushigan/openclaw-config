@@ -105,7 +105,7 @@ def resolve_nano_banana_generator() -> Path | None:
 
 def resolve_bound_gemini_config(env: dict[str, str] | None = None) -> dict[str, str]:
     runtime_env = env or load_runtime_env()
-    base_url = runtime_env.get("OPENCLAW_BOUND_BASE_URL", "https://s.lconai.com/").rstrip("/")
+    base_url = runtime_env.get("OPENCLAW_BOUND_BASE_URL", "https://n.lconai.com/").rstrip("/")
     model = (
         runtime_env.get("OPENCLAW_BOUND_MODEL_ID")
         or runtime_env.get("OPENCLAW_BOUND_MODEL")

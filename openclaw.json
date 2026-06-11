@@ -244,6 +244,12 @@
         ]
       },
       "skills": [
+        "kefu-ae",
+        "boss",
+        "celue-zj",
+        "chuangyi-zj",
+        "wenan",
+        "sheji",
         "browser-automation",
         "diagnose",
         "feishu-channel-rules",
@@ -2294,6 +2300,24 @@
       },
       "ordercli": {
         "enabled": false
+      },
+      "kefu-ae": {
+        "enabled": true
+      },
+      "boss": {
+        "enabled": true
+      },
+      "celue-zj": {
+        "enabled": true
+      },
+      "chuangyi-zj": {
+        "enabled": true
+      },
+      "wenan": {
+        "enabled": true
+      },
+      "sheji": {
+        "enabled": true
       },
       "runninghub": {
         "enabled": true,

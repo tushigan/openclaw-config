@@ -33,23 +33,28 @@ def create_no_proxy_session():
 
 
 def load_openclaw_env() -> None:
-    env_path = Path('/Users/a123/.openclaw/.env')
-    if not env_path.exists():
-        return
-    try:
-        lines = env_path.read_text(encoding='utf-8').splitlines()
-    except Exception:
-        return
-    for raw in lines:
-        line = raw.strip()
-        if not line or line.startswith('#') or '=' not in line:
+    # 优先加载 skill 目录下的 .env（如果存在）
+    skill_env_path = Path(__file__).parent.parent / '.env'
+    global_env_path = Path('/Users/a123/.openclaw/.env')
+
+    # 先加载全局配置（作为默认值）
+    for env_path in [global_env_path, skill_env_path]:
+        if not env_path.exists():
             continue
-        key, value = line.split('=', 1)
-        key = key.strip()
-        value = value.strip().strip('"').strip("'")
-        if key:
-            # 强制覆盖环境变量，确保使用最新的 .env 配置
-            os.environ[key] = value
+        try:
+            lines = env_path.read_text(encoding='utf-8').splitlines()
+        except Exception:
+            continue
+        for raw in lines:
+            line = raw.strip()
+            if not line or line.startswith('#') or '=' not in line:
+                continue
+            key, value = line.split('=', 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key:
+                # 强制覆盖环境变量，确保使用最新的 .env 配置
+                os.environ[key] = value
 
 
 load_openclaw_env()
@@ -1468,7 +1473,7 @@ def call_images_edits(prompt, size, references, model, base_url, headers, n=1, c
     return _normalise_response_items(response.json())
 
 
-def call_images_generations(prompt, size, model, base_url, headers, n=1):
+def call_images_generations(prompt, size, model, base_url, headers, n=1, image_url=None):
     url = f'{base_url}/v1/images/generations'
     body = {
         'model': model,
@@ -1477,6 +1482,10 @@ def call_images_generations(prompt, size, model, base_url, headers, n=1):
         'size': size,
         'response_format': preferred_response_format(base_url),
     }
+    # 如果提供了图片 URL，添加到请求体中（支持图生图）
+    if image_url:
+        body['image_url'] = image_url
+
     session = requests.Session()
     session.trust_env = False
     response = session.post(
@@ -1630,9 +1639,32 @@ def call_images_api_on_provider(
     if not retry_backoffs:
         retry_backoffs = [8, 20]
 
+    # 🔥 新增：支持强制使用 /v1/images/generations 端点（URL 传图）
+    force_generations_endpoint = os.getenv('BANANA_FORCE_GENERATIONS_ENDPOINT', '0') == '1'
+
     def _single(n_req):
         if refs:
-            return call_images_edits(prompt, size, refs, effective_model, base_url, headers, n=n_req, compress_refs=compress_refs)
+            if force_generations_endpoint:
+                # 使用 /v1/images/generations + URL 传图
+                # 如果是本地文件，先上传到 Cloudinary
+                ref_url = refs[0]  # 目前只支持单个参考图
+                if not is_http_url(ref_url):
+                    # 本地文件，需要上传到图床
+                    print(f'[info] Uploading reference image to Cloudinary: {ref_url}', file=sys.stderr)
+                    try:
+                        from runtime_config import upload_to_cloudinary
+                        ref_url = upload_to_cloudinary(ref_url)
+                        print(f'[info] Reference image uploaded: {ref_url}', file=sys.stderr)
+                    except Exception as e:
+                        print(f'[warn] Failed to upload to Cloudinary: {e}, falling back to /v1/images/edits', file=sys.stderr)
+                        return call_images_edits(prompt, size, refs, effective_model, base_url, headers, n=n_req, compress_refs=compress_refs)
+
+                # 将 URL 附加到 prompt 中（类似 Gemini API）
+                prompt_with_url = f"{ref_url} {prompt}"
+                return call_images_generations(prompt_with_url, size, effective_model, base_url, headers, n=n_req, image_url=ref_url)
+            else:
+                # 默认行为：使用 /v1/images/edits + multipart 上传
+                return call_images_edits(prompt, size, refs, effective_model, base_url, headers, n=n_req, compress_refs=compress_refs)
         return call_images_generations(prompt, size, effective_model, base_url, headers, n=n_req)
 
     def _single_with_retry(n_req):

@@ -171,6 +171,18 @@ def _image_part_from_response(data):
                 return inline_data["data"]
     return None
 
+def _image_from_openai_response(data):
+    """从 OpenAI /v1/images/generations 响应中提取图片"""
+    if "data" in data and len(data["data"]) > 0:
+        item = data["data"][0]
+        # 优先使用 b64_json
+        if "b64_json" in item:
+            return item["b64_json"]
+        # 或者 url（需要额外下载）
+        if "url" in item:
+            return item["url"]
+    return None
+
 def _build_gemini_payload(prompt, image_b64, mime_type, suggested_size, style):
     inline_key = "inlineData" if style == "camel" else "inline_data"
     mime_key = "mimeType" if style == "camel" else "mime_type"
@@ -191,11 +203,28 @@ def _build_gemini_payload(prompt, image_b64, mime_type, suggested_size, style):
         },
     }
 
+def _build_openai_images_payload(prompt, image_b64, suggested_size):
+    """
+    构建 OpenAI /v1/images/generations 格式的 payload
+
+    注意：OpenAI images API 使用不同的格式
+    """
+    return {
+        "model": "gpt-image-2-pro",  # 会被外部覆盖
+        "prompt": prompt,
+        "image": image_b64,  # base64 编码的输入图片
+        "n": 1,
+        "size": suggested_size or "1024x1024",
+        "response_format": "b64_json"
+    }
+
 def run_bound_gemini(prompt, source_path, raw_out, env, suggested_size):
     """
     带故障转移的 API 调用
 
-    v5.2.1: 首选 gpt-image-2-pro (10分钟超时)，失败则自动切换到 gemini-3.1-flash-image-preview
+    v5.2.1:
+    - gpt-image-2-pro: 使用 /v1/images/generations (OpenAI 格式)
+    - gemini-3.1-flash-image-preview: 使用 /v1beta/models/{model}:generateContent (Gemini Native 格式)
     """
     result_path = raw_out.with_suffix(".result.json")
     raw_out.parent.mkdir(parents=True, exist_ok=True)
@@ -219,12 +248,14 @@ def run_bound_gemini(prompt, source_path, raw_out, env, suggested_size):
         {
             "name": "gpt-image-2-pro",
             "timeout": 600,  # 10分钟
-            "description": "首选模型"
+            "description": "首选模型",
+            "api_type": "openai"  # 使用 OpenAI 格式
         },
         {
             "name": "gemini-3.1-flash-image-preview",
             "timeout": 240,  # 4分钟
-            "description": "兜底模型"
+            "description": "兜底模型",
+            "api_type": "gemini"  # 使用 Gemini Native 格式
         }
     ]
 
@@ -232,13 +263,19 @@ def run_bound_gemini(prompt, source_path, raw_out, env, suggested_size):
         model_name = model_config["name"]
         timeout = model_config["timeout"]
         description = model_config["description"]
+        api_type = model_config["api_type"]
 
-        print(f"\n[API] 尝试使用 {description}: {model_name} (超时: {timeout}秒)")
+        print(f"\n[API] 尝试使用 {description}: {model_name} (超时: {timeout}秒, 格式: {api_type})")
 
-        # 获取配置（强制使用当前模型）
+        # 获取配置
         config = resolve_bound_gemini_config(env)
         config["model"] = model_name
-        config["endpoint"] = f"{config['base_url']}/v1beta/models/{model_name}:generateContent"
+
+        # 根据 API 类型设置端点
+        if api_type == "openai":
+            config["endpoint"] = f"{config['base_url']}/v1/images/generations"
+        else:  # gemini
+            config["endpoint"] = f"{config['base_url']}/v1beta/models/{model_name}:generateContent"
 
         if not config["api_key"]:
             error = "OPENCLAW_BOUND_API_KEY is missing"
@@ -257,10 +294,13 @@ def run_bound_gemini(prompt, source_path, raw_out, env, suggested_size):
             "Authorization": f"Bearer {config['api_key']}",
         }
 
-        # 尝试两种参数风格
         last_error = ""
-        for style in ["camel", "snake"]:
-            payload = _build_gemini_payload(prompt, image_b64, mime_type, suggested_size, style)
+
+        # OpenAI 格式：直接调用
+        if api_type == "openai":
+            payload = _build_openai_images_payload(prompt, image_b64, suggested_size)
+            payload["model"] = model_name  # 覆盖模型名称
+
             request = urllib.request.Request(
                 config["endpoint"],
                 data=json.dumps(payload).encode("utf-8"),
@@ -269,53 +309,114 @@ def run_bound_gemini(prompt, source_path, raw_out, env, suggested_size):
             )
 
             try:
-                print(f"[API] 正在调用 {model_name} (style={style}, timeout={timeout}s)...")
+                print(f"[API] 正在调用 {model_name} (OpenAI 格式, timeout={timeout}s)...")
                 with urllib.request.urlopen(request, timeout=timeout) as response:
                     response_text = response.read().decode("utf-8", errors="replace")
                     data = json.loads(response_text)
 
                 # 提取图片数据
-                image_data = _image_part_from_response(data)
+                image_data = _image_from_openai_response(data)
                 if not image_data:
-                    last_error = f"{model_name} response did not contain inline image data"
+                    last_error = f"{model_name} response did not contain image data"
                     print(f"[API] ⚠️ {last_error}")
-                    if style == "camel":
-                        continue  # 尝试 snake 风格
-                    break  # 两种风格都失败，切换模型
+                else:
+                    # 如果是 URL，需要下载
+                    if image_data.startswith("http"):
+                        print(f"[API] 下载图片: {image_data[:80]}...")
+                        img_request = urllib.request.Request(image_data)
+                        with urllib.request.urlopen(img_request, timeout=60) as img_response:
+                            image_bytes_result = img_response.read()
+                            raw_out.write_bytes(image_bytes_result)
+                    else:
+                        # base64 数据
+                        raw_out.write_bytes(base64.b64decode(image_data))
 
-                # 成功！保存结果
-                raw_out.write_bytes(base64.b64decode(image_data))
-                result_path.write_text(json.dumps({
-                    "status": "success",
-                    "api_provider": config["provider"],
-                    "api_base_url": config["base_url"],
-                    "model": model_name,
-                    "effective_model": data.get("modelVersion", model_name),
-                    "endpoint": config["endpoint"],
-                    "output_path": str(raw_out),
-                    "request_field_style": style,
-                    "model_attempt": model_idx + 1,
-                    "is_fallback": model_idx > 0,
-                }, ensure_ascii=False, indent=2), encoding="utf-8")
+                    result_path.write_text(json.dumps({
+                        "status": "success",
+                        "api_provider": config["provider"],
+                        "api_base_url": config["base_url"],
+                        "model": model_name,
+                        "api_type": api_type,
+                        "endpoint": config["endpoint"],
+                        "output_path": str(raw_out),
+                        "model_attempt": model_idx + 1,
+                        "is_fallback": model_idx > 0,
+                    }, ensure_ascii=False, indent=2), encoding="utf-8")
 
-                print(f"[API] ✅ {model_name} 生成成功！")
-                if model_idx > 0:
-                    print(f"[API] 💡 使用了兜底模型")
+                    print(f"[API] ✅ {model_name} 生成成功！")
+                    if model_idx > 0:
+                        print(f"[API] 💡 使用了兜底模型")
 
-                return FinishedProcess(0, str(raw_out), "")
+                    return FinishedProcess(0, str(raw_out), "")
 
             except urllib.error.HTTPError as exc:
                 body = exc.read().decode("utf-8", errors="replace")
                 last_error = f"HTTP {exc.code}: {body[:500]}"
                 print(f"[API] ❌ {model_name} HTTP错误: {exc.code}")
-                if style == "camel" and exc.code in (400, 422):
-                    continue  # 尝试 snake 风格
-                break  # HTTP 错误，切换模型
-
             except Exception as exc:
                 last_error = str(exc)
                 print(f"[API] ❌ {model_name} 失败: {last_error[:200]}")
-                break  # 异常，切换模型
+
+        # Gemini 格式：尝试两种参数风格
+        else:
+            for style in ["camel", "snake"]:
+                payload = _build_gemini_payload(prompt, image_b64, mime_type, suggested_size, style)
+                request = urllib.request.Request(
+                    config["endpoint"],
+                    data=json.dumps(payload).encode("utf-8"),
+                    headers=headers,
+                    method="POST",
+                )
+
+                try:
+                    print(f"[API] 正在调用 {model_name} (Gemini 格式, style={style}, timeout={timeout}s)...")
+                    with urllib.request.urlopen(request, timeout=timeout) as response:
+                        response_text = response.read().decode("utf-8", errors="replace")
+                        data = json.loads(response_text)
+
+                    # 提取图片数据
+                    image_data = _image_part_from_response(data)
+                    if not image_data:
+                        last_error = f"{model_name} response did not contain inline image data"
+                        print(f"[API] ⚠️ {last_error}")
+                        if style == "camel":
+                            continue  # 尝试 snake 风格
+                        break  # 两种风格都失败，切换模型
+
+                    # 成功！保存结果
+                    raw_out.write_bytes(base64.b64decode(image_data))
+                    result_path.write_text(json.dumps({
+                        "status": "success",
+                        "api_provider": config["provider"],
+                        "api_base_url": config["base_url"],
+                        "model": model_name,
+                        "effective_model": data.get("modelVersion", model_name),
+                        "api_type": api_type,
+                        "endpoint": config["endpoint"],
+                        "output_path": str(raw_out),
+                        "request_field_style": style,
+                        "model_attempt": model_idx + 1,
+                        "is_fallback": model_idx > 0,
+                    }, ensure_ascii=False, indent=2), encoding="utf-8")
+
+                    print(f"[API] ✅ {model_name} 生成成功！")
+                    if model_idx > 0:
+                        print(f"[API] 💡 使用了兜底模型")
+
+                    return FinishedProcess(0, str(raw_out), "")
+
+                except urllib.error.HTTPError as exc:
+                    body = exc.read().decode("utf-8", errors="replace")
+                    last_error = f"HTTP {exc.code}: {body[:500]}"
+                    print(f"[API] ❌ {model_name} HTTP错误: {exc.code}")
+                    if style == "camel" and exc.code in (400, 422):
+                        continue  # 尝试 snake 风格
+                    break  # HTTP 错误，切换模型
+
+                except Exception as exc:
+                    last_error = str(exc)
+                    print(f"[API] ❌ {model_name} 失败: {last_error[:200]}")
+                    break  # 异常，切换模型
 
         # 如果是最后一个模型也失败了，返回错误
         if model_idx == len(models_to_try) - 1:

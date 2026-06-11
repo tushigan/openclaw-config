@@ -1,0 +1,74 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-11T08:08:07.136Z",
+  "traceId": "9a984cad-89d2-4d91-bf3b-50edfcc1a84b",
+  "sessionId": "9a984cad-89d2-4d91-bf3b-50edfcc1a84b",
+  "sessionKey": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194faeeb794e1b95",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 54495,
+    "output": 1347,
+    "cacheRead": 260096,
+    "total": 315938
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 840,
+      "output": 36,
+      "cacheRead": 78848,
+      "cacheWrite": 0,
+      "total": 79724
+    },
+    "lastCacheTouchAt": 1781164511519
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "已发视频。  \nfast_vip 打样版，720p / 9:16 / 7 秒，文件约 5.7MB。"
+  ],
+  "finalPromptText": "发\nReply target of current user message (untrusted, for context):\n```json\n{\n  \"body\": \"[message_id=om_x100b6d962ce878b0c39f7e70e743365] 涂是淦: @吴佳滢 嗨山姆先森端午节海报生成\"\n}\n```",
+  "itemLifecycle": {
+    "startedCount": 4,
+    "completedCount": 4,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "process",
+      "meta": "salty-cedar"
+    },
+    {
+      "toolName": "exec",
+      "meta": "list files in ~/.openclaw/workspace-design/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/hi-sam-ip-3d-hi-sam/runs/20260611-153459-hi-sam-ip-3d-hi-sam/dreamina/downloads/5dd1b119-d018-42f6-a840-9c52ff3110de_video_1.mp4 → create folder ~/.openclaw/workspace/feishu-deliver → copy ~/.openclaw/workspace-design/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/hi-sam-ip-3d-hi-sam/runs/20260611-153459-hi-sam-ip-3d-hi-sam/dreamina/downloads/5dd1b119-d018-42f6-a840-9c52ff3110de_video_1.mp4 to ~/.openclaw/workspace/feishu-deliver/hisam_duanwu_fastvip_720p_7s.mp4 → list files in ~/.openclaw/workspace/feishu-deliver/hisam_duanwu_fastvip_720p_7s.mp4 (in ~/.openclaw/workspace-design)"
+    },
+    {
+      "toolName": "message",
+      "meta": "media ~/.openclaw/workspace/feishu-deliver/hisam_duanwu_fastvip_720p_7s.mp4, reply to om_x100b6d92d726d8b0c3fcab593b7b1d6, thread omt_194faeeb794e1b95"
+    }
+  ],
+  "didSendViaMessagingTool": true,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [
+    "$WORKSPACE_DIR/workspace/feishu-deliver/hisam_duanwu_fastvip_720p_7s.mp4"
+  ],
+  "messagingToolSentTargets": [
+    {
+      "tool": "message",
+      "provider": "feishu",
+      "accountId": "design",
+      "to": "oc_deb2956a37fa31823df419ab084a073f",
+      "threadId": "omt_194faeeb794e1b95",
+      "mediaUrls": [
+        "$WORKSPACE_DIR/workspace/feishu-deliver/hisam_duanwu_fastvip_720p_7s.mp4"
+      ]
+    }
+  ]
+}

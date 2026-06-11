@@ -312,11 +312,20 @@ def main():
             "--rearranged", str(foreground_raw_path),
             "--output", str(position_map_path)
         ]
-        # 读取 API Key
+        # 从 OpenClaw 环境读取 VLM API 配置
         env = load_runtime_env()
-        openai_key = env.get("OPENAI_API_KEY")
-        if openai_key:
-            step25_cmd.extend(["--api-key", openai_key])
+
+        # 优先使用 OPENCLAW_VLM_* 配置，如果没有则尝试 OPENAI_API_KEY
+        vlm_api_key = env.get("OPENCLAW_VLM_API_KEY") or env.get("OPENAI_API_KEY")
+        vlm_base_url = env.get("OPENCLAW_VLM_BASE_URL", "https://aixor.org/v1")
+        vlm_model = env.get("OPENCLAW_VLM_MODEL", "gpt-5.4")
+
+        if vlm_api_key:
+            step25_cmd.extend(["--api-key", vlm_api_key])
+        if vlm_base_url:
+            step25_cmd.extend(["--api-base", vlm_base_url])
+        if vlm_model:
+            step25_cmd.extend(["--model", vlm_model])
 
         run_step(step25_cmd, "Step 2.5: GPT-5.4 Element Position Matching")
 
@@ -361,6 +370,133 @@ def main():
         "--output", str(psd_path)
     ]
     run_step(step4_cmd, "Step 4: Assemble PSD File")
+
+    # Step 5: 分卷压缩 PSD
+    volume_size_mb = 30  # 每个分卷 30MB
+    if psd_path.exists():
+        psd_size_mb = psd_path.stat().st_size / (1024 * 1024)
+        print(f"\n[Pipeline] PSD 文件大小: {psd_size_mb:.2f} MB")
+
+        if psd_size_mb > volume_size_mb:
+            print(f"[Pipeline] 文件超过 {volume_size_mb}MB，开始分卷压缩...")
+
+            # 使用 zip 命令进行分卷压缩
+            zip_base = out_dir / "layered-output.psd"
+            step5_cmd = [
+                "zip",
+                "-s", f"{volume_size_mb}m",  # 分卷大小
+                "-r",
+                str(zip_base) + ".zip",
+                psd_path.name
+            ]
+
+            # 切换到输出目录执行（zip 相对路径）
+            import os
+            original_cwd = os.getcwd()
+            os.chdir(str(out_dir))
+
+            try:
+                run_step(step5_cmd, "Step 5: Split Archive Compression")
+
+                # Step 6: 生成解压脚本
+                # 查找所有分卷文件
+                volume_files = sorted(out_dir.glob("layered-output.psd.zip*"))
+
+                if volume_files:
+                    print(f"\n[Pipeline] 生成了 {len(volume_files)} 个分卷文件")
+
+                    # 生成 Windows BAT 脚本
+                    bat_content = f"""@echo off
+chcp 65001 > nul
+echo ========================================
+echo PSD 分卷解压工具
+echo ========================================
+echo.
+echo 正在合并分卷并解压...
+echo.
+
+REM 检查是否有 7-Zip
+where 7z >nul 2>nul
+if %ERRORLEVEL% EQU 0 (
+    echo 使用 7-Zip 解压...
+    7z x layered-output.psd.zip.001 -o.
+    goto :done
+)
+
+REM 检查是否有 WinRAR
+where unrar >nul 2>nul
+if %ERRORLEVEL% EQU 0 (
+    echo 使用 WinRAR 解压...
+    unrar x layered-output.psd.zip.001
+    goto :done
+)
+
+REM 尝试使用 PowerShell + .NET
+echo 使用 PowerShell 合并分卷...
+powershell -Command "$files = Get-ChildItem 'layered-output.psd.zip.*' | Sort-Object Name; $output = [System.IO.File]::Create('layered-output.psd.zip'); foreach($f in $files) {{ $input = [System.IO.File]::OpenRead($f.FullName); $input.CopyTo($output); $input.Close() }}; $output.Close(); Expand-Archive -Path 'layered-output.psd.zip' -DestinationPath '.' -Force"
+
+:done
+echo.
+echo ========================================
+echo 解压完成！
+echo 输出文件: layered-output.psd
+echo ========================================
+pause
+"""
+
+                    bat_path = out_dir / "解压PSD.bat"
+                    bat_path.write_text(bat_content, encoding="utf-8")
+                    print(f"[Pipeline] ✅ 已生成 Windows 解压脚本: {bat_path}")
+
+                    # 生成 Mac/Linux SH 脚本
+                    sh_content = f"""#!/bin/bash
+echo "========================================"
+echo "PSD 分卷解压工具"
+echo "========================================"
+echo ""
+echo "正在合并分卷并解压..."
+echo ""
+
+# 检查是否有 zip 命令
+if command -v zip &> /dev/null; then
+    echo "使用 zip 合并分卷..."
+    zip -F layered-output.psd.zip --out layered-output-merged.psd.zip
+    unzip layered-output-merged.psd.zip
+    rm layered-output-merged.psd.zip
+elif command -v 7z &> /dev/null; then
+    echo "使用 7-Zip 解压..."
+    7z x layered-output.psd.zip.001
+else
+    echo "手动合并分卷..."
+    cat layered-output.psd.zip.* > layered-output.psd.zip
+    unzip layered-output.psd.zip
+fi
+
+echo ""
+echo "========================================"
+echo "解压完成！"
+echo "输出文件: layered-output.psd"
+echo "========================================"
+"""
+
+                    sh_path = out_dir / "解压PSD.sh"
+                    sh_path.write_text(sh_content, encoding="utf-8")
+                    sh_path.chmod(0o755)  # 添加执行权限
+                    print(f"[Pipeline] ✅ 已生成 Mac/Linux 解压脚本: {sh_path}")
+
+                    print(f"\n[Pipeline] 📦 分卷文件列表:")
+                    for vf in volume_files:
+                        size_mb = vf.stat().st_size / (1024 * 1024)
+                        print(f"  - {vf.name} ({size_mb:.2f} MB)")
+
+                    print(f"\n[Pipeline] 💡 使用说明:")
+                    print(f"  Windows 用户: 双击 '解压PSD.bat'")
+                    print(f"  Mac/Linux 用户: 双击 '解压PSD.sh' 或运行 'bash 解压PSD.sh'")
+
+            finally:
+                os.chdir(original_cwd)
+        else:
+            print(f"[Pipeline] 文件小于 {volume_size_mb}MB，无需分卷压缩")
 
     print("\n[Pipeline] All steps completed successfully!")
     print(f"[Pipeline] Final PSD is ready at: {psd_path}")

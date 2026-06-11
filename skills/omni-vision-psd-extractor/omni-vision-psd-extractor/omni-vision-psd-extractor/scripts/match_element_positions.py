@@ -37,9 +37,9 @@ def parse_args():
     parser.add_argument("--source", required=True, help="原图路径")
     parser.add_argument("--rearranged", required=True, help="元素整理后的绿幕图路径")
     parser.add_argument("--output", required=True, help="输出位置映射 JSON 路径")
-    parser.add_argument("--api-key", help="OpenAI API Key（可从环境变量读取）")
-    parser.add_argument("--api-base", default="https://api.openai.com/v1", help="API Base URL")
-    parser.add_argument("--model", default="gpt-5.4", help="模型名称")
+    parser.add_argument("--api-key", help="API Key（可从环境变量 OPENCLAW_VLM_API_KEY 读取）")
+    parser.add_argument("--api-base", help="API Base URL（可从环境变量 OPENCLAW_VLM_BASE_URL 读取）")
+    parser.add_argument("--model", help="模型名称（可从环境变量 OPENCLAW_VLM_MODEL 读取）")
     return parser.parse_args()
 
 
@@ -151,7 +151,7 @@ def call_gpt5_4_vision(
         f"{api_base}/chat/completions",
         headers=headers,
         json=payload,
-        timeout=120
+        timeout=600  # 改为10分钟，与 gpt-image-2-pro 超时一致
     )
 
     if response.status_code != 200:
@@ -188,17 +188,24 @@ def main():
         print(f"❌ 错误：元素整理图不存在: {rearranged_path}")
         return 1
 
-    # 获取 API Key
-    api_key = args.api_key or os.getenv("OPENAI_API_KEY")
+    # 从 OpenClaw 环境变量读取配置（优先级：命令行参数 > 环境变量 > 默认值）
+    api_key = args.api_key or os.getenv("OPENCLAW_VLM_API_KEY") or os.getenv("OPENAI_API_KEY")
+    api_base = args.api_base or os.getenv("OPENCLAW_VLM_BASE_URL") or "https://aixor.org/v1"
+    model = args.model or os.getenv("OPENCLAW_VLM_MODEL") or "gpt-5.4"
+
     if not api_key:
-        print("❌ 错误：未提供 OpenAI API Key")
-        print("   请通过 --api-key 参数或 OPENAI_API_KEY 环境变量提供")
+        print("❌ 错误：未提供 API Key")
+        print("   请通过以下方式之一提供：")
+        print("   1. --api-key 参数")
+        print("   2. OPENCLAW_VLM_API_KEY 环境变量")
+        print("   3. OPENAI_API_KEY 环境变量")
         return 1
 
     print(f"[位置匹配] 开始分析...")
     print(f"[位置匹配] 原图: {source_path}")
     print(f"[位置匹配] 元素整理图: {rearranged_path}")
-    print(f"[位置匹配] 模型: {args.model}")
+    print(f"[位置匹配] API Base: {api_base}")
+    print(f"[位置匹配] 模型: {model}")
 
     # 编码图片
     print(f"[位置匹配] 正在编码图片...")
@@ -206,14 +213,14 @@ def main():
     rearranged_base64 = encode_image_to_base64(str(rearranged_path))
 
     # 调用 GPT-5.4
-    print(f"[位置匹配] 正在调用 {args.model} 进行位置匹配...")
+    print(f"[位置匹配] 正在调用 {model} 进行位置匹配...")
     try:
         position_map = call_gpt5_4_vision(
             source_base64,
             rearranged_base64,
             api_key,
-            args.api_base,
-            args.model
+            api_base,
+            model
         )
     except Exception as e:
         print(f"❌ API 调用失败: {e}")

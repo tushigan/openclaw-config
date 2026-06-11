@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781161500930,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/record_feishu_delivery.py --session-file /Users/a123/.openclaw/agents/main/sessions/0ec7024e-4a48-4230-850b-f2ae78bf1254.jsonl --message-id om_x100b6d91ae2da888b1640096a802d8c --chat-id oc_11fcc6f96fd2681855d065c7c94ee4be --file-path /Users/a123/.openclaw/workspace/feishu-deliver/facialues_psd_preview_compressed.jpg --note \"PSD layer rebuild preview compensation delivery\"",
+          "lastUsedAt": 1781173827043,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -52,9 +52,9 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781161452718,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/outputs/facialues_psd_20260609_1807/layer_boxes_preview.png /Users/a123/.openclaw/workspace/feishu-deliver/facialues_psd_preview.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/facialues_psd_preview.png",
-          "lastResolvedPath": "/bin/cp"
+          "lastUsedAt": 1781174023262,
+          "lastUsedCommand": "ls ~/.openclaw/agents/design/sessions/ | wc -l",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "main-cat",
@@ -68,8 +68,8 @@
           "id": "main-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1781001132215,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastUsedAt": 1781168525968,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/scripts && python3 audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -108,8 +108,8 @@
           "id": "design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本进行生图",
-          "lastUsedAt": 1781062988870,
-          "lastUsedCommand": "python3 ~/.openclaw/workspace-design/skills/brand-poster-creator/scripts/execute_generation.py --project-dir /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260610-001 --size 1536x2732 --aspect 9:16 --count 5",
+          "lastUsedAt": 1781174411221,
+          "lastUsedCommand": "python3 _temp_generate_dog.py",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -197,25 +197,25 @@
           "id": "design-grep",
           "pattern": "/usr/bin/grep",
           "description": "允许做只读文本筛选（design 后台检索）",
-          "lastUsedAt": 1781061487930,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/brand-poster-projects && ls -1 /Users/a123/.openclaw/workspace/brand-poster-projects | grep '^BP-20260610-' | sort",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1781173591093,
+          "lastUsedCommand": "grep -n \"url.*models\\|/v1/images\\|requests\\.get\\|models\" -n skills/gpt-image2-gen/scripts/generate.py | head -80",
+          "lastResolvedPath": "/usr/bin/grep"
         },
         {
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容（design 后台检索）",
-          "lastUsedAt": 1780820134030,
-          "lastUsedCommand": "grep -n \"dotenv\\|load_dotenv\\|BANANA_PROVIDER_MODE\\|API_URL =\" -n skills/gpt-image2-gen/scripts/generate.py | head -30",
-          "lastResolvedPath": "/usr/bin/grep"
+          "lastUsedAt": 1781174380801,
+          "lastUsedCommand": "find . -maxdepth 4 -type f \\( -name 'generate.py' -o -name '*image*gen*.py' -o -name '*gpt*image*.py' \\) | head -50",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本裁剪（design 后台检索）",
-          "lastUsedAt": 1781061450948,
-          "lastUsedCommand": "grep -n \"def cmd_confirm\\|confirm\" -n ~/.openclaw/workspace-design/skills/brand-poster-creator/scripts/project_manager.py | sed -n '1,80p' && sed -n '420,620p' ~/.openclaw/workspace-design/skills/brand-poster-creator/scripts/project_manager.py",
-          "lastResolvedPath": "/usr/bin/grep"
+          "lastUsedAt": 1781173586566,
+          "lastUsedCommand": "find skills/gpt-image2-gen -maxdepth 3 -type f | sort | sed -n '1,120p' && sed -n '1,220p' skills/gpt-image2-gen/scripts/generate.py",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "design-wc",
@@ -226,9 +226,9 @@
           "id": "design-sort",
           "pattern": "/usr/bin/sort",
           "description": "允许排序文本结果（design 后台检索）",
-          "lastUsedAt": 1781061487932,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/brand-poster-projects && ls -1 /Users/a123/.openclaw/workspace/brand-poster-projects | grep '^BP-20260610-' | sort",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1781173586565,
+          "lastUsedCommand": "find skills/gpt-image2-gen -maxdepth 3 -type f | sort | sed -n '1,120p' && sed -n '1,220p' skills/gpt-image2-gen/scripts/generate.py",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "design-uniq",
@@ -249,8 +249,8 @@
           "id": "design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件（design 后台只读检索）",
-          "lastUsedAt": 1780821034892,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/BP-20260607-001/images -maxdepth 1 -type f | sort | sed -n '1,80p'",
+          "lastUsedAt": 1781174380799,
+          "lastUsedCommand": "find . -maxdepth 4 -type f \\( -name 'generate.py' -o -name '*image*gen*.py' -o -name '*gpt*image*.py' \\) | head -50",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -304,16 +304,16 @@
           "id": "shared-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781161968046,
-          "lastUsedCommand": "python3 - <<'PY'\nfrom PIL import Image\nfrom pathlib import Path\npaths = [\n'/Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/hi-sam-dragonboat-ip-video-20260611-1455/runs/20260611-150047-hi-sam-ip-hi-sam-ip/refs/original.png',\n'/Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/hi-sam-dragonboat-ip-video-20260611-1455/runs/20260611-150047-hi-sam-ip-hi-sam-ip/refs/identity-source.png',\n'/Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/hi-sam-dragonboat-ip-video-20260611-1455/runs/20260611-150047-hi-sam-ip-hi-sam-ip/refs/storyboard.png',\n]\nout = Path('/Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611/refs')\nout.mkdir(parents=True, exist_ok=True)\nfor p in paths:\n    im=Image.open(p)\n    dst=out/Path(p).name\n    if Path(p).resolve()!=dst.resolve():\n        dst.write_bytes(Path(p).read_bytes())\n    print(dst, im.size, dst.stat().st_size)\nPY",
+          "lastUsedAt": 1781174680374,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace/outputs/container_ip_prompt_v2_clear.txt --ref-product /Users/a123/.openclaw/workspace/images/container_ip_brown_yellow_v1.png --ref-product /Users/a123/.openclaw/workspace/.openclaw-inbound-media/cab6ab7b-4bf3-4170-a889-9f8688690c04.png --ref-ip /Users/a123/.openclaw/workspace/.openclaw-inbound-media/8345ee83-5b3f-49c9-99e2-4120576f2ab4.png --ref-ip /Users/a123/.openclaw/workspace/.openclaw-inbound-media/16ca985e-fc20-47ca-99e9-b67907012b82.png --ref-ip /Users/a123/.openclaw/workspace/.openclaw-inbound-media/76798762-b50a-4689-8313-25929b7a889c.png --ref-ip /Users/a123/.openclaw/workspace/.openclaw-inbound-media/870511cb-23b8-47f0-8ed4-b389e10d82c7.png --ref-ip /Users/a123/.openclaw/workspace/.openclaw-inbound-media/4d93c3c2-0185-4a94-89ab-f5aaadf2da5b.png --ref-element /Users/a123/.openclaw/workspace/.openclaw-inbound-media/87ab0e8c-8f16-4a54-9e9c-6b908f39629f.png -s 1536x1152 -o /Users/a123/.openclaw/workspace/images/container_ip_brown_yellow_v2_clear.png",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1781161992319,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/run_upower_acrylic_magnet.sh",
+          "lastUsedAt": 1781170403831,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/acrylic-magnet/run_generate_v2.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -335,16 +335,16 @@
           "id": "shared-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1781161006885,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611 && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/d0b2cc4a-f0f9-4a01-b6f5-cea9e3a2082c.jpg /Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611/final_poster.jpg && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/ba90d1e2-c38a-4852-9ba7-d303e356ea18.jpg /Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611/ip_three_views.jpg && ls -lh /Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611",
+          "lastUsedAt": 1781168753258,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/inputs/ip_expression_swap_20260611_1704 && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/25466812-79f2-4eba-ad6c-40244bb4857c.png /Users/a123/.openclaw/workspace-design/inputs/ip_expression_swap_20260611_1704/source_ip.png && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/35edec99-759b-44b2-b1f0-289ab9132569.png /Users/a123/.openclaw/workspace-design/inputs/ip_expression_swap_20260611_1704/expression_ref.png && ls -lh /Users/a123/.openclaw/workspace-design/inputs/ip_expression_swap_20260611_1704",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1781161020062,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images /Users/a123/.openclaw/workspace/outputs /Users/a123/.openclaw/workspace/feishu-deliver",
+          "lastUsedAt": 1781169964109,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images /Users/a123/.openclaw/workspace/outputs/acrylic-magnet /Users/a123/.openclaw/workspace/feishu-deliver",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -368,17 +368,17 @@
           "id": "shared-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781161006886,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611 && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/d0b2cc4a-f0f9-4a01-b6f5-cea9e3a2082c.jpg /Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611/final_poster.jpg && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/ba90d1e2-c38a-4852-9ba7-d303e356ea18.jpg /Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611/ip_three_views.jpg && ls -lh /Users/a123/.openclaw/workspace/outputs/hisam-ip-video-20260611",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1781174278841,
+          "lastUsedCommand": "ls -l /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py && python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -80",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1780977725997,
-          "lastUsedCommand": "pwd; ls -l /Users/a123/.openclaw/skills/klingai/SKILL.md; cat /Users/a123/.openclaw/skills/klingai/SKILL.md | sed -n '1,220p'",
-          "lastResolvedPath": "/bin/pwd"
+          "lastUsedAt": 1781169083881,
+          "lastUsedCommand": "ls -lah /Users/a123/.openclaw/workspace-design/images/ip_expression_swap_20260611_1704 && cat /Users/a123/.openclaw/workspace-design/images/ip_expression_swap_20260611_1704/final.result.json",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-pwd",
@@ -413,25 +413,25 @@
           "id": "shared-file",
           "pattern": "/usr/bin/file",
           "description": "允许检测文件类型",
-          "lastUsedAt": 1780985714855,
-          "lastUsedCommand": "file /Users/a123/.openclaw/workspace/.openclaw-inbound-media/38d94de3-065c-4d77-a33e-50431d318298.png",
+          "lastUsedAt": 1781169210725,
+          "lastUsedCommand": "file /Users/a123/.openclaw/workspace/feishu-deliver/ip_expression_swap_20260611_1704_final.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/ip_expression_swap_20260611_1704_final.png",
           "lastResolvedPath": "/usr/bin/file"
         },
         {
           "id": "shared-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1781161274754,
-          "lastUsedCommand": "grep -R \"只有脚部作为肢体\\|严禁添加任何手臂\\|手臂、手掌\" -n scripts /Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video | head -50",
-          "lastResolvedPath": "/usr/bin/grep"
+          "lastUsedAt": 1781174278842,
+          "lastUsedCommand": "ls -l /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py && python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -80",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-tail",
           "pattern": "/usr/bin/tail",
           "description": "允许读取后几行内容",
-          "lastUsedAt": 1780973069945,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace -maxdepth 4 \\( -iname '*故事板*' -o -iname '*storyboard*' -o -iname '*zongzi*' -o -iname '*端午*' -o -iname '*粽*' \\) -print | tail -50",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781173286719,
+          "lastUsedCommand": "ls -lah /Users/a123/.openclaw/workspace/images/dragon-boat-greeting-20260611 | tail -n 30",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-sed",
@@ -489,8 +489,8 @@
           "id": "shared-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1781161568291,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/hi-sam-dragonboat-ip-video-20260611-1455/runs/20260611-150047-hi-sam-ip-hi-sam-ip/refs -maxdepth 2 -type f -print -exec ls -lh {} \\;",
+          "lastUsedAt": 1781172743704,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace /Users/a123/.openclaw/workspace-design -iname '*中考*' -o -iname '*游世佳族*' -o -iname '*duanwu*' -o -iname '*dragon*boat*' | head -100",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1115,16 +1115,16 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781162114956,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/images/danco-building-white-red-20260611-v3b && python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py \"基于参考图，只删除建筑上方红色线条；保留底部红色腰线、白墙、招牌、门窗和环境不变，真实摄影。\" --ref-base /Users/a123/.openclaw/workspace-design/images/danco-building-white-red-20260611-v2b/danco_building_bottom_red_band.png -s 4:3 -o /Users/a123/.openclaw/workspace-design/images/danco-building-white-red-20260611-v3b/danco_building_no_upper_red_line.png",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1781173925104,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -80",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-design-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1781161406180,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace-design/outputs/hisam_ip_video_20260611_1459/generate_frames.sh",
+          "lastUsedAt": 1781171767236,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace-design/_temp_generate_building_5dirs_main.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -1146,16 +1146,16 @@
           "id": "shared-design-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1781085567877,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610 && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/60853a4e-ba7a-4b32-bdba-270b80153f4f.jpg /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/source.jpg && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/0b686d10-b49c-4dda-924b-52d636737d1a.png /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/reference.png && echo done",
+          "lastUsedAt": 1781172111704,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_175801/seven_cats_one_dog.png /Users/a123/.openclaw/workspace/feishu-deliver/seven_cats_one_dog.png && file /Users/a123/.openclaw/workspace/feishu-deliver/seven_cats_one_dog.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/seven_cats_one_dog.png",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-design-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1781162114955,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/images/danco-building-white-red-20260611-v3b && python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py \"基于参考图，只删除建筑上方红色线条；保留底部红色腰线、白墙、招牌、门窗和环境不变，真实摄影。\" --ref-base /Users/a123/.openclaw/workspace-design/images/danco-building-white-red-20260611-v2b/danco_building_bottom_red_band.png -s 4:3 -o /Users/a123/.openclaw/workspace-design/images/danco-building-white-red-20260611-v3b/danco_building_no_upper_red_line.png",
+          "lastUsedAt": 1781174345742,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/images/cat_dogs_20260611_main && BANANA_PROVIDER_MODE=primary python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py \"Exactly one cute fluffy cat with seven friendly dogs, all fully visible and countable, cozy sunny garden, warm playful pet photography, soft natural light, no text, no extra animals.\" -s 1536x1024 -o /Users/a123/.openclaw/workspace-design/images/cat_dogs_20260611_main/cat_1_dogs_7_main.png",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -1175,16 +1175,16 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781161561369,
-          "lastUsedCommand": "file /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_150549/cream_puff_lineart.png && ls -lh /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_150549/cream_puff_lineart.png",
-          "lastResolvedPath": "/usr/bin/file"
+          "lastUsedAt": 1781174443095,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_184037/cat_1_dogs_7_main.png && file /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_184037/cat_1_dogs_7_main.png",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-design-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1781082937981,
-          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001-FIX-LOGO-01/generation_result.json && echo '---' && ls -lh /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001-FIX-LOGO-01/images/final_poster.png",
+          "lastUsedAt": 1781172708225,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/project_state.json && echo '\\n--- intake ---' && cat /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/intake_manifest.json && echo '\\n--- latest notes ---' && for f in /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/v11_material_style_unified.md /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/v10_rope_series_diff.md /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/v8_style_recalibration.md; do echo '###' $f; cat $f; done",
           "lastResolvedPath": "/bin/cat"
         },
         {
@@ -1199,8 +1199,8 @@
           "id": "shared-design-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1781083625374,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design && sed -n '1280,1310p' skills/brand-poster-creator/scripts/assemble_prompt.py",
+          "lastUsedAt": 1781170321046,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace/feishu-deliver/omni_job_1781169958 && zip -T layered-output-delivery.zip",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -1220,40 +1220,40 @@
           "id": "shared-design-file",
           "pattern": "/usr/bin/file",
           "description": "允许检测文件类型",
-          "lastUsedAt": 1781161561368,
-          "lastUsedCommand": "file /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_150549/cream_puff_lineart.png && ls -lh /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_150549/cream_puff_lineart.png",
-          "lastResolvedPath": "/usr/bin/file"
+          "lastUsedAt": 1781174443096,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_184037/cat_1_dogs_7_main.png && file /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_184037/cat_1_dogs_7_main.png",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1781161500951,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design -maxdepth 6 \\( -name 'project_state.json' -o -name 'generation_manifest.json' -o -name 'generation_result.json' -o -name '*.done' -o -name '*.failed' -o -name '*.error' \\) -print | head -200",
+          "lastUsedAt": 1781175358540,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611 -maxdepth 3 -type f \\( -name '*.png' -o -name '*.json' -o -name '*.md' \\) -print0 | xargs -0 ls -lt | head -30",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "shared-tail",
           "pattern": "/usr/bin/tail",
           "description": "允许读取后几行内容",
-          "lastUsedAt": 1781160307700,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/dreamina-reference-video/projects/hi-sam-dragonboat-video-20260611/runs/20260611-144157-ip -maxdepth 4 -type f | tail -80",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781173549741,
+          "lastUsedCommand": "printf '== dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/images | head -20; printf '\\n== deliver dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/feishu-deliver | head -20; printf '\\n== running ==\\n'; ps -ef | grep -E 'gpt-image2|generate.py|building_white_red_gold' | grep -v grep || true; printf '\\n== outputs ==\\n'; find /Users/a123/.openclaw/workspace-design/images -path '*building_white_red_gold_5dirs*' -maxdepth 3 -type f \\( -name '*.png' -o -name '*.jpg' -o -name '*.log' -o -name '*.json' \\) -print | sort | tail -80",
+          "lastResolvedPath": "/usr/bin/printf"
         },
         {
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1781161490308,
-          "lastUsedCommand": "find /Users/a123/.openclaw -path '*brand-poster-creator*' -maxdepth 6 -type f | sed -n '1,120p' && find /Users/a123/.openclaw/workspace-design -maxdepth 4 -iname '*generate*.py' -o -iname '*gpt*' | sed -n '1,80p'",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781173653543,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | sed -n '1,180p'",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
           "pattern": "/usr/bin/grep",
           "source": "allow-always",
-          "lastUsedAt": 1781161425725,
-          "lastUsedCommand": "grep -R \"Bound Gemini\\|s.lconai\\|gemini-3.1-flash-image-preview\\|result.json\\|request_field_style\" -n /Users/a123/.openclaw/workspace-design/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts /Users/a123/.openclaw/workspace-design/skills/omni-vision-psd-extractor/scripts | head -200",
+          "lastUsedAt": 1781173667912,
+          "lastUsedCommand": "grep -n \"fallback\\|direct.aixor\\|Provider\" /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py | head -120",
           "lastResolvedPath": "/usr/bin/grep",
           "description": "允许做只读文本搜索"
         },
@@ -1269,17 +1269,17 @@
           "id": "design-wc",
           "pattern": "/usr/bin/wc",
           "description": "允许统计文本行数",
-          "lastUsedAt": 1781083095868,
-          "lastUsedCommand": "ls -lh '/Users/a123/Downloads/openclaw 问题汇总/20260610-171806-oc_169e152332c3c147546ac9e622aafcdb-聊天记录导出.md' && wc -c '/Users/a123/Downloads/openclaw 问题汇总/20260610-171806-oc_169e152332c3c147546ac9e622aafcdb-聊天记录导出.md'",
+          "lastUsedAt": 1781170419561,
+          "lastUsedCommand": "ls -lah /Users/a123/.openclaw/workspace/feishu-deliver/omni_job_1781169958 | sed -n '1,80p' && wc -c /Users/a123/.openclaw/workspace/feishu-deliver/omni_job_1781169958/layered-output.psd",
           "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "design-sort",
           "pattern": "/usr/bin/sort",
           "description": "允许排序文本结果",
-          "lastUsedAt": 1781085598917,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/BP-20260610-ubau-dad-001 -maxdepth 3 -type f | sort",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781173549740,
+          "lastUsedCommand": "printf '== dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/images | head -20; printf '\\n== deliver dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/feishu-deliver | head -20; printf '\\n== running ==\\n'; ps -ef | grep -E 'gpt-image2|generate.py|building_white_red_gold' | grep -v grep || true; printf '\\n== outputs ==\\n'; find /Users/a123/.openclaw/workspace-design/images -path '*building_white_red_gold_5dirs*' -maxdepth 3 -type f \\( -name '*.png' -o -name '*.jpg' -o -name '*.log' -o -name '*.json' \\) -print | sort | tail -80",
+          "lastResolvedPath": "/usr/bin/printf"
         },
         {
           "id": "design-uniq",
@@ -1303,8 +1303,8 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1781161500950,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design -maxdepth 6 \\( -name 'project_state.json' -o -name 'generation_manifest.json' -o -name 'generation_result.json' -o -name '*.done' -o -name '*.failed' -o -name '*.error' \\) -print | head -200",
+          "lastUsedAt": 1781175358537,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611 -maxdepth 3 -type f \\( -name '*.png' -o -name '*.json' -o -name '*.md' \\) -print0 | xargs -0 ls -lt | head -30",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1325,8 +1325,8 @@
           "id": "design-xargs",
           "pattern": "/usr/bin/xargs",
           "description": "允许拼接命令管道",
-          "lastUsedAt": 1780996346997,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/skills/psd-layered-rebuilder/scripts -maxdepth 1 -type f | sort | xargs -I{} basename {}",
+          "lastUsedAt": 1781175358539,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611 -maxdepth 3 -type f \\( -name '*.png' -o -name '*.json' -o -name '*.md' \\) -print0 | xargs -0 ls -lt | head -30",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1338,17 +1338,17 @@
           "id": "shared-printf",
           "pattern": "/usr/bin/printf",
           "description": "允许格式化输出",
-          "lastUsedAt": 1781081539605,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design && sed -n '1,260p' skills/brand-poster-creator/scripts/split_direction_projects.py && printf '\\n---SPLIT---\\n' && sed -n '1,220p' skills/brand-poster-creator/tests/test_split_direction_projects.py",
-          "lastResolvedPath": "/usr/bin/cd"
+          "lastUsedAt": 1781173549730,
+          "lastUsedCommand": "printf '== dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/images | head -20; printf '\\n== deliver dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/feishu-deliver | head -20; printf '\\n== running ==\\n'; ps -ef | grep -E 'gpt-image2|generate.py|building_white_red_gold' | grep -v grep || true; printf '\\n== outputs ==\\n'; find /Users/a123/.openclaw/workspace-design/images -path '*building_white_red_gold_5dirs*' -maxdepth 3 -type f \\( -name '*.png' -o -name '*.jpg' -o -name '*.log' -o -name '*.json' \\) -print | sort | tail -80",
+          "lastResolvedPath": "/usr/bin/printf"
         },
         {
           "id": "shared-echo",
           "pattern": "/bin/echo",
           "description": "允许输出文本",
-          "lastUsedAt": 1781085567878,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610 && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/60853a4e-ba7a-4b32-bdba-270b80153f4f.jpg /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/source.jpg && cp /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/0b686d10-b49c-4dda-924b-52d636737d1a.png /Users/a123/.openclaw/workspace-design/outputs/meat-strip-arrange-20260610/reference.png && echo done",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1781172708227,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/project_state.json && echo '\\n--- intake ---' && cat /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/intake_manifest.json && echo '\\n--- latest notes ---' && for f in /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/v11_material_style_unified.md /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/v10_rope_series_diff.md /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611/v8_style_recalibration.md; do echo '###' $f; cat $f; done",
+          "lastResolvedPath": "/bin/cat"
         },
         {
           "id": "design-curl",
@@ -1377,9 +1377,9 @@
           "id": "shared-design-which",
           "pattern": "/usr/bin/which",
           "description": "允许定位命令路径",
-          "lastUsedAt": 1780997526555,
-          "lastUsedCommand": "python3 --version && which python3 && python3.11 --version && which python3.11 || true && python3.10 --version && which python3.10 || true && python3.12 --version && which python3.12 || true",
-          "lastResolvedPath": "/usr/bin/python3"
+          "lastUsedAt": 1781166884539,
+          "lastUsedCommand": "which realesrgan-ncnn-vulkan || which realesrgan || which waifu2x-ncnn-vulkan || which magick || python3 - <<'PY'\nimport PIL\nprint('PIL', PIL.__version__)\nPY",
+          "lastResolvedPath": "/usr/bin/which"
         },
         {
           "id": "shared-whereis",
@@ -1403,9 +1403,9 @@
           "id": "shared-ps",
           "pattern": "/bin/ps",
           "description": "允许查看进程列表",
-          "lastUsedAt": 1781161483597,
-          "lastUsedCommand": "ps aux | egrep -i 'gpt-image|execute_generation|brand-poster|generate.py|嗨山姆|端午|poster' | egrep -v 'egrep'",
-          "lastResolvedPath": "/bin/ps"
+          "lastUsedAt": 1781173549734,
+          "lastUsedCommand": "printf '== dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/images | head -20; printf '\\n== deliver dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/feishu-deliver | head -20; printf '\\n== running ==\\n'; ps -ef | grep -E 'gpt-image2|generate.py|building_white_red_gold' | grep -v grep || true; printf '\\n== outputs ==\\n'; find /Users/a123/.openclaw/workspace-design/images -path '*building_white_red_gold_5dirs*' -maxdepth 3 -type f \\( -name '*.png' -o -name '*.jpg' -o -name '*.log' -o -name '*.json' \\) -print | sort | tail -80",
+          "lastResolvedPath": "/usr/bin/printf"
         },
         {
           "id": "shared-top",
@@ -1426,9 +1426,9 @@
           "id": "shared-design-sips",
           "pattern": "/usr/bin/sips",
           "description": "允许读取图片尺寸与格式信息",
-          "lastUsedAt": 1781161283535,
-          "lastUsedCommand": "mkdir -p outputs/ranli_store_display_20260611 images/ranli_store_display_20260611 && sips -g pixelWidth -g pixelHeight .openclaw-inbound-media/0a19d0ab-d80c-407a-9e0c-f0de4997a1f1.jpg .openclaw-inbound-media/873225b1-defc-4968-bec9-ce80d57603e7.jpg",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1781172553143,
+          "lastUsedCommand": "sips -g pixelWidth -g pixelHeight /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_173850/youshijiazu_zhongkao_poster_v2.png /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260611_175351/01_modern_minimal.png /Users/a123/.openclaw/workspace-design/outputs/youyejiazu-zhongkao-20260528/youyejiazu_zhongkao_poster_v1.png /Users/a123/.openclaw/workspace-design/outputs/youyejiazu-zhongkao-20260528/youyejiazu_zhongkao_poster_v2.png /Users/a123/.openclaw/workspace-design/outputs/youyejiazu-zhongkao-20260528/youyejiazu_zhongkao_poster_v3.png /Users/a123/.openclaw/workspace-design/outputs/youyejiazu-zhongkao-1538/youyejiazu_zhongkao_poster_1538_v1.png",
+          "lastResolvedPath": "/usr/bin/sips"
         },
         {
           "id": "shared-identify",
@@ -1444,16 +1444,16 @@
           "id": "shared-zip",
           "pattern": "/usr/bin/zip",
           "description": "允许压缩文件",
-          "lastUsedAt": 1781079030441,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781077281 && zip -q -s 0 layered-output-delivery.zip --out _merged_check_2.zip && unzip -t _merged_check_2.zip && ls -lh layered-output-delivery.z01 layered-output-delivery.z02 layered-output-delivery.z03 layered-output-delivery.z04 layered-output-delivery.zip delivery-package.README.txt _merged_check_2.zip",
+          "lastUsedAt": 1781170321047,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace/feishu-deliver/omni_job_1781169958 && zip -T layered-output-delivery.zip",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "shared-unzip",
           "pattern": "/usr/bin/unzip",
           "description": "允许解压文件",
-          "lastUsedAt": 1781079030442,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781077281 && zip -q -s 0 layered-output-delivery.zip --out _merged_check_2.zip && unzip -t _merged_check_2.zip && ls -lh layered-output-delivery.z01 layered-output-delivery.z02 layered-output-delivery.z03 layered-output-delivery.z04 layered-output-delivery.zip delivery-package.README.txt _merged_check_2.zip",
+          "lastUsedAt": 1781167915932,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781167569 && zip -q -s 18m layered-output-store.zip --out layered-output-store-split.zip && zip -q -s 0 layered-output-store-split.zip --out /tmp/omni_store_combined.zip && unzip -t /tmp/omni_store_combined.zip",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -1522,9 +1522,9 @@
           "id": "shared-true",
           "pattern": "/usr/bin/true",
           "description": "允许返回成功状态",
-          "lastUsedAt": 1780999010375,
-          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace-design/images/bread_side_smoother_v1.png ; file /Users/a123/.openclaw/workspace-design/images/bread_side_smoother_v1.png || true",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1781173549737,
+          "lastUsedCommand": "printf '== dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/images | head -20; printf '\\n== deliver dirs ==\\n'; ls -lt /Users/a123/.openclaw/workspace-design/feishu-deliver | head -20; printf '\\n== running ==\\n'; ps -ef | grep -E 'gpt-image2|generate.py|building_white_red_gold' | grep -v grep || true; printf '\\n== outputs ==\\n'; find /Users/a123/.openclaw/workspace-design/images -path '*building_white_red_gold_5dirs*' -maxdepth 3 -type f \\( -name '*.png' -o -name '*.jpg' -o -name '*.log' -o -name '*.json' \\) -print | sort | tail -80",
+          "lastResolvedPath": "/usr/bin/printf"
         },
         {
           "id": "shared-false",
@@ -1629,8 +1629,8 @@
           "id": "shared-research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781084164891,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/research_pool.py complete hxg_reviews_20260610 taobao /Users/a123/.openclaw/workspace-research/outputs/hxg_reviews_taobao_20260610.md",
+          "lastUsedAt": 1781175347185,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/profile_manager.py reset research-login-taobao",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1665,8 +1665,8 @@
           "id": "shared-research-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1781056619453,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-research/outputs /Users/a123/.openclaw/workspace-research/images",
+          "lastUsedAt": 1781165953727,
+          "lastUsedCommand": "mkdir -p /tmp/dyjs && python3 - <<'PY'\nimport requests,os\nbase='https://lf-douyin-pc-search.douyinstatic.com/obj/douyin-pc-search/ies/douyin/search/'\nfiles=['async/routes-Search-keyword-route~0.f58c4920.js','async/routes-Search-keyword-route~1.ba572a27.js','async/routes-Search-keyword-route~2.5b687962.js','async/routes-Search-keyword-route~3.59075ccf.js','async/routes-Search-keyword-route~4.f96b6250.js','async/routes-Search-keyword-route~5.87d09439.js','async/routes-Search-keyword-route~6.c8868198.js','async/routes-Search-keyword-route~7.a7353713.js','async/routes-Search-keyword-route~8.4fc2b34b.js','async/routes-Search-keyword-route~9.7561758c.js','async/routes-Search-keyword-route~10.acf9cec3.js','async/routes-Search-keyword-route~11.49e8e775.js','async/6292.20ae7da8.js','async/800.1b2e5f19.js','async/8408.c72c4189.js','async/9776.48fe32a6.js','async/2964.1da53102.js','async/301.81894378.js','async/4772.fdc7bb7d.js']\nfor f in files:\n    p='/tmp/dyjs/'+os.path.basename(f)\n    txt=requests.get(base+f,timeout=20).text\n    open(p,'w').write(txt)\nprint('done',len(files))\nPY\nrg -n \"type=goods|search_channel|aweme_general|goods|commodity|product|promotion_id|haohuo|jinritemai|ecom|shop|store|mall|评价|销量|已售|价格|价格\" /tmp/dyjs | sed -n '1,260p'",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -1744,9 +1744,9 @@
           "id": "research-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1780967168029,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-research/outputs -maxdepth 3 -type f | sed 's#^#/##' | head -200",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781166137455,
+          "lastUsedCommand": "rg -n \"type=goods|search_channel|aweme_general|goods|commodity|product|promotion_id|haohuo|jinritemai|ecom|shop|store|mall|评价|销量|已售|价格\" /tmp/dyjs | sed -n '1,260p'",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
           "id": "shared-grep",
@@ -1801,8 +1801,8 @@
           "id": "research-rg",
           "pattern": "/opt/homebrew/bin/rg",
           "description": "允许 ripgrep 搜索",
-          "lastUsedAt": 1781055931304,
-          "lastUsedCommand": "rg -n \"chrome-remote-interface|playwright|puppeteer|websocket\" /Users/a123/.openclaw/workspace-research -g 'package.json' -g '*.js' -g '*.ts' -g '*.py'",
+          "lastUsedAt": 1781166137454,
+          "lastUsedCommand": "rg -n \"type=goods|search_channel|aweme_general|goods|commodity|product|promotion_id|haohuo|jinritemai|ecom|shop|store|mall|评价|销量|已售|价格\" /tmp/dyjs | sed -n '1,260p'",
           "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
@@ -1837,8 +1837,8 @@
           "id": "research-curl",
           "pattern": "/usr/bin/curl",
           "description": "允许拉取网页或接口内容",
-          "lastUsedAt": 1781083482356,
-          "lastUsedCommand": "curl -s http://127.0.0.1:18826/json/version",
+          "lastUsedAt": 1781165295437,
+          "lastUsedCommand": "curl -s http://127.0.0.1:18818/json/version",
           "lastResolvedPath": "/usr/bin/curl"
         },
         {
@@ -1977,7 +1977,10 @@
         {
           "id": "shared-sleep",
           "pattern": "/bin/sleep",
-          "description": "允许延时等待"
+          "description": "允许延时等待",
+          "lastUsedAt": 1781166511570,
+          "lastUsedCommand": "sleep 8; openclaw browser --browser-profile research-login-douyin focus F9AB187BC2AE3BBC90AE13A3A46A4D88 && openclaw browser --browser-profile research-login-douyin screenshot /Users/a123/.openclaw/workspace-research/outputs/bread-persona/douyin_goods_attempt.jpg && echo 'done'",
+          "lastResolvedPath": "/bin/sleep"
         },
         {
           "id": "shared-true",
@@ -2015,6 +2018,12 @@
           "pattern": "=command:97fafce6fdb41708",
           "source": "allow-always",
           "lastUsedAt": 1780975252166
+        },
+        {
+          "id": "24b87094-1552-492b-b5a7-0075fa21ec5b",
+          "pattern": "=command:a50f30caf2c41a5f",
+          "source": "allow-always",
+          "lastUsedAt": 1781165822540
         }
       ]
     },
