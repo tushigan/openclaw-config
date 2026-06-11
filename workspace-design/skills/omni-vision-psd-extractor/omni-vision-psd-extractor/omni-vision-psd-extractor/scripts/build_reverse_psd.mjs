@@ -179,7 +179,11 @@ function main() {
   mkdirSync(dirname(outputPath), { recursive: true });
 
   const psd = buildPsd(scene);
-  const buffer = writePsdBuffer(psd, { noBackground: true, invalidateTextLayers: false });
+  const buffer = writePsdBuffer(psd, {
+    noBackground: true,
+    invalidateTextLayers: false,
+    trimImageData: true,
+  });
   writeFileSync(outputPath, buffer);
   console.log(`PSD written to ${outputPath}`);
 }

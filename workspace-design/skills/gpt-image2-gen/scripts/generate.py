@@ -55,11 +55,11 @@ def load_openclaw_env() -> None:
 load_openclaw_env()
 
 # Dual-supplier key mapping (independent keys per endpoint)
-# 主通道：direct.aixor.org 使用 BANANA_API_KEY（gpt-image-2 原生支持 4K）
-# 备用通道：n.lconai.com 使用 BANANA_API_KEY_AIXOR（>2K 需切换到 gpt-image-2-pro）
+# 主通道：n.lconai.com 使用 BANANA_API_KEY（>2K 需用 gpt-image-2-pro）
+# 备用通道：direct.aixor.org 使用 BANANA_API_KEY_AIXOR（gpt-image-2 原生支持 4K）
 ENDPOINT_KEYS = {
-    'direct.aixor.org': os.getenv('BANANA_API_KEY', ''),
-    'n.lconai.com': os.getenv('BANANA_API_KEY_AIXOR', os.getenv('BANANA_API_KEY_N', '')),
+    'n.lconai.com': os.getenv('BANANA_API_KEY', ''),
+    'direct.aixor.org': os.getenv('BANANA_API_KEY_AIXOR', ''),
 }
 
 # n.lconai.com 的模型限制：gpt-image-2 最高支持 2K，超过需用 gpt-image-2-pro
@@ -679,8 +679,8 @@ def resolve_key(base_url: str) -> str:
     return os.getenv('BANANA_API_KEY', '')
 
 
-API_URL = os.getenv('BANANA_API_URL', 'https://direct.aixor.org')
-DEFAULT_MODEL = 'gpt-image-2'
+API_URL = os.getenv('BANANA_API_URL', 'https://n.lconai.com')
+DEFAULT_MODEL = 'gpt-image-2-pro'
 ENV_MODEL = os.getenv('BANANA_DEFAULT_MODEL', '')
 AIXOR_API_URL = os.getenv('BANANA_API_URL_AIXOR', '')
 PROVIDER_MODE = (os.getenv('BANANA_PROVIDER_MODE', 'auto') or 'auto').strip().lower()

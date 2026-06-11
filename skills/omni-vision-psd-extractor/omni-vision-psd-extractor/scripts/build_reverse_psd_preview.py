@@ -39,7 +39,7 @@ def main() -> None:
 
     background_path = Path(manifest["background_raw_path"])
     background = Image.open(background_path).convert("RGBA")
-    
+
     # 彻底解决画幅缩小 Bug：画布尺寸必须严格锁定为 manifest 指定的尺寸（即 4K）。
     # 如果 background_raw 还没有被正确 resize，它会在这里被再次保护性拉伸。
     preview = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -47,11 +47,12 @@ def main() -> None:
         background = background.resize((width, height), Image.Resampling.LANCZOS)
     preview.alpha_composite(background, (0, 0))
 
-    group_order = ["00_SOURCE_REF", "01_BG"]
+    # v5.1: 新的图层结构 - 原图 + 背景 + 前景组
+    group_order = ["00_SOURCE_REF", "01_BG", "05_FOREGROUND_GROUP"]
     image_layers = [
         {
             "group": "00_SOURCE_REF",
-            "name": "Source Reference",
+            "name": "原图参考",
             "path": manifest["layout_ref"],
             "left": 0,
             "top": 0,
@@ -61,7 +62,7 @@ def main() -> None:
         },
         {
             "group": "01_BG",
-            "name": "Rebuilt Background",
+            "name": "背景层",
             "path": str(background_path),
             "left": 0,
             "top": 0,
@@ -71,41 +72,61 @@ def main() -> None:
         },
     ]
 
-    for layer in manifest["layers"]:
-        layer_path = Path(layer["layer_path"])
-        layer_image = Image.open(layer_path).convert("RGBA")
-        preview.alpha_composite(layer_image, (layer["left"], layer["top"]))
+    # v5.1: 检查是否有前景元素切割结果
+    foreground_elements = manifest.get("foreground_elements", [])
 
-        if layer["group"] not in group_order:
-            group_order.append(layer["group"])
+    if foreground_elements:
+        # 有切割后的元素 - 添加到前景组
+        print(f"[PSD Preview] 检测到 {len(foreground_elements)} 个前景元素，将添加到前景组")
 
-        image_layers.append(
-            {
-                "group": layer["group"],
-                "name": layer["name"],
-                "path": str(layer_path),
-                "left": layer["left"],
-                "top": layer["top"],
+        for elem in foreground_elements:
+            elem_path = Path(elem["path"])
+            if not elem_path.exists():
+                print(f"[PSD Preview] ⚠️ 元素文件不存在，跳过: {elem_path}")
+                continue
+
+            elem_image = Image.open(elem_path).convert("RGBA")
+            preview.alpha_composite(elem_image, (0, 0))
+
+            image_layers.append({
+                "group": "05_FOREGROUND_GROUP",
+                "name": elem["name"],
+                "path": str(elem_path),
+                "left": 0,
+                "top": 0,
                 "crop_to_alpha": True,
                 "opacity": 255,
-                "hidden": layer.get("hidden", False),
-                "alpha_box": alpha_bbox(layer_path),
-            }
-        )
+                "hidden": False,
+                "alpha_box": alpha_bbox(elem_path),
+                "element_info": {
+                    "bbox": elem["bbox"],
+                    "area": elem["area"],
+                    "centroid": elem["centroid"],
+                }
+            })
+    else:
+        # 没有切割结果 - 使用原始的前景合并层
+        print("[PSD Preview] 未检测到前景元素切割，使用合并的前景层")
 
-        lossless_path = layer_path.parent / f"{layer['key']}_lossless.png"
-        if lossless_path.exists():
+        for layer in manifest["layers"]:
+            layer_path = Path(layer["layer_path"])
+            layer_image = Image.open(layer_path).convert("RGBA")
+            preview.alpha_composite(layer_image, (layer["left"], layer["top"]))
+
+            if layer["group"] not in group_order:
+                group_order.append(layer["group"])
+
             image_layers.append(
                 {
                     "group": layer["group"],
-                    "name": f"[无损还原] {layer['name']}",
-                    "path": str(lossless_path),
+                    "name": layer["name"],
+                    "path": str(layer_path),
                     "left": layer["left"],
                     "top": layer["top"],
                     "crop_to_alpha": True,
                     "opacity": 255,
-                    "hidden": True,
-                    "alpha_box": alpha_bbox(lossless_path),
+                    "hidden": layer.get("hidden", False),
+                    "alpha_box": alpha_bbox(layer_path),
                 }
             )
 

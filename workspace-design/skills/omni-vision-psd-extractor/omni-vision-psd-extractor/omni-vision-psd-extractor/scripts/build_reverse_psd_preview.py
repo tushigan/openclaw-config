@@ -79,9 +79,6 @@ def main() -> None:
         if layer["group"] not in group_order:
             group_order.append(layer["group"])
 
-        lossless_path = layer_path.parent / f"{layer['key']}_lossless.png"
-        has_lossless = lossless_path.exists()
-
         image_layers.append(
             {
                 "group": layer["group"],
@@ -91,25 +88,10 @@ def main() -> None:
                 "top": layer["top"],
                 "crop_to_alpha": True,
                 "opacity": 255,
-                "hidden": True if has_lossless else layer.get("hidden", False),
+                "hidden": layer.get("hidden", False),
                 "alpha_box": alpha_bbox(layer_path),
             }
         )
-
-        if has_lossless:
-            image_layers.append(
-                {
-                    "group": layer["group"],
-                    "name": f"[无损还原] {layer['name']}",
-                    "path": str(lossless_path),
-                    "left": layer["left"],
-                    "top": layer["top"],
-                    "crop_to_alpha": True,
-                    "opacity": 255,
-                    "hidden": layer.get("hidden", False),
-                    "alpha_box": alpha_bbox(lossless_path),
-                }
-            )
 
     preview.save(preview_path)
 

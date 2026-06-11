@@ -282,12 +282,59 @@ def main():
     run_step(step1_cmd, "Step 1: Init Job & Crop References")
 
     # Step 2: Extract Layers (It automatically runs build_parallel_layer_plan.py)
+    # 第1次请求：提取背景层（使用万物提取.md）
+    # 第2次请求：元素整理（使用元素整理.md，输出绿幕排列图）
     step2_cmd = [
         sys.executable,
         str(script_dir / "extract_layers.py"),
         "--manifest", str(manifest_path)
     ]
-    run_step(step2_cmd, "Step 2: Semantic Layer Extraction")
+    run_step(step2_cmd, "Step 2: Semantic Layer Extraction (Background + Element Rearrangement)")
+
+    # Step 2.5: GPT-5.4 元素位置匹配
+    # 对比原图和元素整理图，生成位置映射
+    foreground_raw_path = out_dir / "raw" / "foreground.png"
+    if foreground_raw_path.exists():
+        position_map_path = out_dir / "position_map.json"
+        step25_cmd = [
+            sys.executable,
+            str(script_dir / "match_element_positions.py"),
+            "--source", str(source_path),
+            "--rearranged", str(foreground_raw_path),
+            "--output", str(position_map_path)
+        ]
+        # 读取 API Key
+        env = load_runtime_env()
+        openai_key = env.get("OPENAI_API_KEY")
+        if openai_key:
+            step25_cmd.extend(["--api-key", openai_key])
+
+        run_step(step25_cmd, "Step 2.5: GPT-5.4 Element Position Matching")
+
+        # Step 2.6: 元素精准重组
+        # 根据位置映射，将元素整理图中的元素精准放回原位
+        elements_dir = out_dir / "elements"
+        elements_manifest_path = out_dir / "elements_manifest.json"
+
+        # 读取画布尺寸
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest_data = json.load(f)
+            canvas_width = manifest_data["canvas"]["width"]
+            canvas_height = manifest_data["canvas"]["height"]
+
+        step26_cmd = [
+            sys.executable,
+            str(script_dir / "reassemble_elements.py"),
+            "--rearranged", str(foreground_raw_path),
+            "--position-map", str(position_map_path),
+            "--canvas-width", str(canvas_width),
+            "--canvas-height", str(canvas_height),
+            "--output-dir", str(elements_dir),
+            "--output-manifest", str(elements_manifest_path)
+        ]
+        run_step(step26_cmd, "Step 2.6: Element Reassembly to Original Positions")
+    else:
+        print(f"\n[WARNING] Foreground layer not found at {foreground_raw_path}, skipping position matching")
 
     # Step 3: Build Preview and Scene Map
     step3_cmd = [

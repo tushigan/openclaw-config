@@ -1,0 +1,53 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-10T12:38:28.291Z",
+  "traceId": "ac6f6194-74e3-4b73-8626-f895253adea1",
+  "sessionId": "ac6f6194-74e3-4b73-8626-f895253adea1",
+  "sessionKey": "agent:design:feishu:direct:ou_ade9d49cd1dff5315774a6cae2479938",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 40903,
+    "output": 149,
+    "cacheRead": 16896,
+    "total": 57948
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 40903,
+      "output": 149,
+      "cacheRead": 16896,
+      "cacheWrite": 0,
+      "total": 57948
+    },
+    "observation": {
+      "broke": true,
+      "previousCacheRead": 645120,
+      "cacheRead": 16896
+    },
+    "lastCacheTouchAt": 1781094945157
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "用了。\n\n这次我按规则先调用了 **`omni-vision-psd-extractor`** 这个 skill。  \n它就是专门做 **图片拆层、生成可编辑 PSD** 的。\n\n我实际读取的是这个文件：\n`~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/SKILL.md`\n\n然后按它的流程去跑了拆层 pipeline、生成 PSD、预览图和分卷交付文件。  \n如果你要，我也可以把这次拆出来的大致图层结构给你列一下。"
+  ],
+  "finalPromptText": "做这个任务你调用了什么 skill 吗",
+  "itemLifecycle": {
+    "startedCount": 0,
+    "completedCount": 0,
+    "activeCount": 0
+  },
+  "toolMetas": [],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

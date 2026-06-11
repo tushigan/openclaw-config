@@ -93,22 +93,6 @@ def main() -> None:
             }
         )
 
-        lossless_path = layer_path.parent / f"{layer['key']}_lossless.png"
-        if lossless_path.exists():
-            image_layers.append(
-                {
-                    "group": layer["group"],
-                    "name": f"[无损还原] {layer['name']}",
-                    "path": str(lossless_path),
-                    "left": layer["left"],
-                    "top": layer["top"],
-                    "crop_to_alpha": True,
-                    "opacity": 255,
-                    "hidden": True,
-                    "alpha_box": alpha_bbox(lossless_path),
-                }
-            )
-
     preview.save(preview_path)
 
     # Generate true text layer guides automatically for Title Block

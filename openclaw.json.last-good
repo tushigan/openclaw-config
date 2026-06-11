@@ -381,8 +381,7 @@
             "tavily_extract",
             "tavily_search",
             "tts",
-            "write",
-            "deep-research"
+            "write"
           ]
         }
       },
@@ -402,6 +401,7 @@
             "strategy",
             "design",
             "research",
+            "research-shared",
             "meeting-analyst",
             "copywriter"
           ],
@@ -493,7 +493,7 @@
         "name": "生图高手",
         "workspace": "/Users/a123/.openclaw/workspace-design",
         "model": {
-          "primary": "aixor-g/gpt-5.4"
+          "primary": "aixor-g/gpt-5.5"
         },
         "thinkingDefault": "medium",
         "skills": [
@@ -513,6 +513,7 @@
             "strategy",
             "design",
             "research",
+            "research-shared",
             "copywriter"
           ],
           "thinking": "off"
@@ -706,7 +707,8 @@
           "allowAgents": [
             "strategy",
             "design",
-            "research"
+            "research",
+            "research-shared"
           ],
           "thinking": "adaptive"
         },
@@ -802,6 +804,7 @@
             "strategy",
             "design",
             "research",
+            "research-shared",
             "meeting-analyst"
           ],
           "thinking": "adaptive"
@@ -850,6 +853,7 @@
             "strategy",
             "design",
             "research",
+            "research-shared",
             "meeting-analyst",
             "copywriter"
           ],
@@ -1011,8 +1015,7 @@
             "tavily_extract",
             "tavily_search",
             "tts",
-            "write",
-            "deep-research"
+            "write"
           ],
           "deny": [
             "gateway",
@@ -1157,7 +1160,7 @@
         "name": "生图高手（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-design",
         "model": {
-          "primary": "aixor-g/gpt-5.4"
+          "primary": "aixor-g/gpt-5.5"
         },
         "thinkingDefault": "medium",
         "skills": [
@@ -1917,24 +1920,6 @@
       "match": {
         "channel": "feishu",
         "accountId": "design"
-      }
-    },
-    {
-      "agentId": "video",
-      "match": {
-        "channel": "feishu",
-        "accountId": "video",
-        "peer": {
-          "kind": "direct",
-          "id": "ou_88079e6b06ce40e6851c96928fe1a03b"
-        }
-      }
-    },
-    {
-      "agentId": "video-shared",
-      "match": {
-        "channel": "feishu",
-        "accountId": "video"
       }
     },
     {

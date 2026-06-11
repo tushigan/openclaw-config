@@ -21,7 +21,7 @@ sys.path.insert(0, str(PIPELINE_SCRIPTS))
 from runtime_config import default_output_base, load_runtime_env  # noqa: E402
 
 
-DEFAULT_PACKAGE_SPLIT_MB = 25
+DEFAULT_PACKAGE_SPLIT_MB = 18
 DEFAULT_PACKAGE_NAME = "layered-output-delivery.zip"
 DEFAULT_PROMPT_APPEND_FILE = PIPELINE_SCRIPTS.parent / "references" / "万物提取.md"
 DEFAULT_BG_PROMPT = (
@@ -42,6 +42,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--bg-prompt", default=DEFAULT_BG_PROMPT)
     parser.add_argument("--fg-prompt", default=DEFAULT_FG_PROMPT)
     parser.add_argument("--fg-elements", default=None, help="Comma-separated foreground element list for N-layer mode")
+    parser.add_argument("--allow-2-layer", action="store_true", help="Explicitly allow coarse 2-layer fallback when no fg-elements are available")
     parser.add_argument("--prompt-append-file", default=str(DEFAULT_PROMPT_APPEND_FILE))
     parser.add_argument("--no-prompt-append", action="store_true")
     parser.add_argument("--package-split-mb", type=int, default=DEFAULT_PACKAGE_SPLIT_MB)
@@ -142,6 +143,22 @@ def build_out_dir(requested: str | None) -> Path:
     return (default_output_base() / f"job_{int(time.time())}").resolve()
 
 
+def normalized_fg_elements(value: str | None) -> str:
+    return ",".join(part.strip() for part in (value or "").split(",") if part.strip())
+
+
+def validate_extraction_mode(args: argparse.Namespace) -> None:
+    args.fg_elements = normalized_fg_elements(args.fg_elements)
+    if args.fg_elements or args.allow_2_layer:
+        return
+    raise SystemExit(
+        "[Delivery] Refusing coarse 2-layer extraction. "
+        "Omni precision mode requires --fg-elements. "
+        "Run visual analysis first and pass a comma-separated element list, "
+        "or add --allow-2-layer only when the user explicitly accepts coarse output."
+    )
+
+
 def build_pipeline_command(args: argparse.Namespace, out_dir: Path) -> list[str]:
     cmd = [
         sys.executable,
@@ -222,6 +239,13 @@ def make_delivery_package(out_dir: Path, split_mb: int) -> dict[str, object]:
         for path in archive_path.parent.iterdir()
         if path.name == archive_path.name or path.name.startswith(f"{archive_path.stem}.z")
     )
+    part_sizes = {path: Path(path).stat().st_size for path in parts}
+    oversize_parts = [path for path, size in part_sizes.items() if size > split_bytes]
+    if oversize_parts:
+        raise RuntimeError(
+            "Delivery package part exceeds split limit: "
+            + ", ".join(f"{Path(path).name}={part_sizes[path]} bytes" for path in oversize_parts)
+        )
     validation = validate_delivery_package(out_dir, archive_path, split_enabled)
     if not validation["ok"]:
         raise RuntimeError(f"Delivery package validation failed: {validation['error']}")
@@ -245,8 +269,11 @@ def make_delivery_package(out_dir: Path, split_mb: int) -> dict[str, object]:
         "enabled": True,
         "split": split_enabled,
         "splitSizeMb": split_mb,
+        "splitSizeBytes": split_bytes,
         "archive": str(archive_path),
         "parts": parts,
+        "partSizes": part_sizes,
+        "oversizeParts": oversize_parts,
         "deliveryFiles": parts,
         "requiredForExtraction": parts,
         "mustSendAllParts": split_enabled,
@@ -279,7 +306,7 @@ def lark_target_args(delivery_target: dict[str, str]) -> list[str]:
 def send_file_to_feishu(path: Path, delivery_target: dict[str, str], *, kind: str) -> dict[str, object]:
     target_args = lark_target_args(delivery_target)
     if not target_args:
-        return {"ok": False, "path": str(path), "kind": kind, "error": "missing_delivery_target"}
+        return {"ok": False, "path": str(path), "kind": kind, "sizeBytes": path.stat().st_size if path.exists() else 0, "error": "missing_delivery_target"}
 
     npx_cmd = "npx.cmd" if sys.platform.startswith("win") else "npx"
     media_flag = "--image" if kind == "image" else "--file"
@@ -302,6 +329,7 @@ def send_file_to_feishu(path: Path, delivery_target: dict[str, str], *, kind: st
         "ok": result.returncode == 0,
         "path": str(path),
         "kind": kind,
+        "sizeBytes": path.stat().st_size if path.exists() else 0,
         "returncode": result.returncode,
         "stdout": result.stdout,
         "stderr": result.stderr,
@@ -327,13 +355,26 @@ def send_delivery_outputs(out_dir: Path, package_info: dict[str, object] | None,
         for item in package_info.get("deliveryFiles", []):
             send_items.append((Path(str(item)), "file"))
 
+    expected_files = [str(path) for path, _kind in send_items]
+    required_package_files = [str(item) for item in (package_info or {}).get("deliveryFiles", [])]
     sent = [send_file_to_feishu(path, delivery_target, kind=kind) for path, kind in send_items]
-    ok = bool(sent) and all(item.get("ok") for item in sent)
+    ok_by_path = {str(item.get("path")): bool(item.get("ok")) for item in sent}
+    failed_files = [str(item.get("path")) for item in sent if not item.get("ok")]
+    missing_files = [path for path in expected_files if path not in ok_by_path]
+    all_expected_sent = bool(expected_files) and not missing_files and all(ok_by_path.get(path) for path in expected_files)
+    all_parts_sent = bool(required_package_files) and all(ok_by_path.get(path) for path in required_package_files)
+    ok = all_expected_sent and (not required_package_files or all_parts_sent)
     return {
         "attempted": True,
         "status": "sent" if ok else "failed",
-        "error": "" if ok else "send_failed",
+        "error": "" if ok else "send_incomplete_or_failed",
         "target": delivery_target,
+        "expectedFiles": expected_files,
+        "requiredPackageFiles": required_package_files,
+        "missingFiles": missing_files,
+        "failedFiles": failed_files,
+        "allExpectedSent": all_expected_sent,
+        "allPartsSent": all_parts_sent,
         "sent": sent,
     }
 
@@ -378,6 +419,7 @@ def write_summary(
 
 def main() -> int:
     args = parse_args()
+    validate_extraction_mode(args)
     out_dir = build_out_dir(args.out_dir)
     out_dir.parent.mkdir(parents=True, exist_ok=True)
     delivery_target = resolve_delivery_target(
@@ -389,6 +431,10 @@ def main() -> int:
     )
 
     env = load_runtime_env()
+    # Local exception for this skill only: PSD layer extraction must use the
+    # omni-bound Gemini endpoint, not the shared gpt-image2-gen route.
+    env["OMNI_FORCE_BOUND_GEMINI"] = "1"
+    env.setdefault("BANANA_FORCE_GEMINI", "1")
     cmd = build_pipeline_command(args, out_dir)
     print("[Delivery] Starting 111omni pipeline...")
     print(f"[Delivery] Output directory: {out_dir}")

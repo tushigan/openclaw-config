@@ -43,10 +43,22 @@ def load_runtime_env() -> dict[str, str]:
     for dotenv in [
         OPENCLAW_ROOT / ".env",
         WORKSPACE_DESIGN / ".env",
-        Path(__file__).resolve().parents[2] / ".env",
+        Path(__file__).resolve().parents[1] / ".env",
     ]:
         for key, value in _read_dotenv(dotenv).items():
             env.setdefault(key, value)
+
+    # This skill has its own model binding. Keep it local to omni and let it
+    # override generic OpenClaw env values without touching global config.
+    for dotenv in [
+        Path(__file__).resolve().parents[2] / ".env",
+        Path(__file__).resolve().parents[1] / ".env",
+    ]:
+        for key, value in _read_dotenv(dotenv).items():
+            if key.startswith("OPENCLAW_BOUND_"):
+                env[key] = value
+
+    env.setdefault("OMNI_FORCE_BOUND_GEMINI", "1")
 
     extra_path = [
         "/opt/homebrew/bin",
@@ -91,18 +103,23 @@ def resolve_nano_banana_generator() -> Path | None:
     return None
 
 
-def resolve_cloudinary_uploader() -> Path | None:
-    relative_candidates = [
-        "skills/shared/cloudinary_uploader.py",
-        ".agents/skills/shared/cloudinary_uploader.py",
-        "workspace-design/skills/shared/cloudinary_uploader.py",
-    ]
-    for root in [OPENCLAW_ROOT, WORKSPACE_DESIGN, WORKSPACE_MAIN]:
-        for rel in relative_candidates:
-            candidate = root / rel
-            if candidate.exists():
-                return candidate
-    return None
+def resolve_bound_gemini_config(env: dict[str, str] | None = None) -> dict[str, str]:
+    runtime_env = env or load_runtime_env()
+    base_url = runtime_env.get("OPENCLAW_BOUND_BASE_URL", "https://s.lconai.com/").rstrip("/")
+    model = (
+        runtime_env.get("OPENCLAW_BOUND_MODEL_ID")
+        or runtime_env.get("OPENCLAW_BOUND_MODEL")
+        or runtime_env.get("OPENCLAW_BOUND_MODEL_NAME")
+        or "gemini-3.1-flash-image-preview"
+    )
+    api_key = runtime_env.get("OPENCLAW_BOUND_API_KEY", "")
+    return {
+        "base_url": base_url,
+        "model": model,
+        "api_key": api_key,
+        "endpoint": f"{base_url}/v1beta/models/{model}:generateContent",
+        "provider": "s.lconai",
+    }
 
 
 def default_output_base() -> Path:

@@ -108,17 +108,23 @@ def detect_auto_source(conv_id=None):
 def main():
     parser = argparse.ArgumentParser(description="Omni-Vision PSD Extractor Pipeline Orchestrator")
     parser.add_argument("--source", default="auto", help="Path to original source image, or 'auto' to auto-detect the most recent image")
-    parser.add_argument("--job-spec", required=False, help="Path to generated job-spec.json (optional if --auto-2-layer is used)")
+    parser.add_argument("--job-spec", required=False, help="Path to generated job-spec.json (optional, used for advanced N-layer mode)")
     parser.add_argument("--out-dir", required=True, help="Path to output directory")
-    parser.add_argument("--auto-2-layer", action="store_true", help="Auto-generate a 2-layer config and bypass manual job-spec")
-    parser.add_argument("--bg-prompt", type=str, default="提取纯净背景", help="Prompt for background layer")
-    parser.add_argument("--fg-prompt", type=str, default="将图片中除了背景之外的所有东西都提取出来，其他保持不变。", help="Prompt for foreground layer")
+    parser.add_argument("--auto-2-layer", action="store_true", default=True, help="Auto-generate a 2-layer config (background + foreground). This is now the DEFAULT mode.")
+    parser.add_argument("--disable-2-layer", action="store_true", help="Disable 2-layer mode and require --job-spec for N-layer mode")
+    parser.add_argument("--bg-prompt", type=str, default="【极其重要：绝对禁止凭空生成完全不同的风景！必须严格保持原图中的背景结构、光影和色彩不变，仅仅智能脑补被移除的前景区域。】将图片中的背景提取出来，需要将前景所有元素全部剔除，只保留背景。", help="Prompt for background layer")
+    parser.add_argument("--fg-prompt", type=str, default="将图片中除了背景之外的所有前景元素全部提取出来。【极其重要：强制将背景全部填充为纯正的绿幕（纯绿色，Hex: #00FF00）！绝对不要生成假透明像素方格背景！】", help="Prompt for foreground layer")
     parser.add_argument("--prompt-append-file", type=str, default=None, help="File whose content will be appended to both bg and fg prompts")
     parser.add_argument("--conv-id", default=None, help="The current conversation ID to isolate and locate the original uploaded image")
     args = parser.parse_args()
 
+    # 如果用户明确禁用 2-layer 模式，则需要提供 job-spec
+    if args.disable_2_layer:
+        args.auto_2_layer = False
+
     if not args.auto_2_layer and not args.job_spec:
-        print("\n[ERROR] You must provide either --job-spec or --auto-2-layer")
+        print("\n[ERROR] You must provide either --job-spec or use the default 2-layer mode")
+        print("[HINT] Remove --disable-2-layer to use the default 2-layer mode (background + foreground)")
         sys.exit(1)
 
     script_dir = Path(__file__).resolve().parent

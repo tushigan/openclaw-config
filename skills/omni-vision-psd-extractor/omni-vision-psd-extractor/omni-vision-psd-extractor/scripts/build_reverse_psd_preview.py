@@ -71,43 +71,67 @@ def main() -> None:
         },
     ]
 
-    for layer in manifest["layers"]:
-        layer_path = Path(layer["layer_path"])
-        layer_image = Image.open(layer_path).convert("RGBA")
-        preview.alpha_composite(layer_image, (layer["left"], layer["top"]))
+    # v5.2: 检查是否有元素重组结果（新流程）
+    elements_manifest_path = manifest_path.parent / "elements_manifest.json"
+    if elements_manifest_path.exists():
+        # 新流程：使用重组后的元素
+        print(f"[PSD Preview] 检测到元素重组结果，使用重组元素构建 PSD")
+        elements_manifest = json.loads(elements_manifest_path.read_text(encoding="utf-8"))
+        elements = elements_manifest.get("elements", [])
 
-        if layer["group"] not in group_order:
-            group_order.append(layer["group"])
+        print(f"[PSD Preview] 检测到 {len(elements)} 个重组元素")
 
-        lossless_path = layer_path.parent / f"{layer['key']}_lossless.png"
-        has_lossless = lossless_path.exists()
+        # 添加前景组
+        if "05_FOREGROUND" not in group_order:
+            group_order.append("05_FOREGROUND")
 
-        image_layers.append(
-            {
-                "group": layer["group"],
-                "name": layer["name"],
-                "path": str(layer_path),
-                "left": layer["left"],
-                "top": layer["top"],
+        for elem in elements:
+            elem_path = Path(elem["path"])
+            if not elem_path.exists():
+                print(f"[PSD Preview] ⚠️ 元素文件不存在，跳过: {elem_path}")
+                continue
+
+            elem_image = Image.open(elem_path).convert("RGBA")
+            preview.alpha_composite(elem_image, (0, 0))
+
+            image_layers.append({
+                "group": "05_FOREGROUND",
+                "name": elem["name"],
+                "path": str(elem_path),
+                "left": 0,
+                "top": 0,
                 "crop_to_alpha": True,
                 "opacity": 255,
-                "hidden": True if has_lossless else layer.get("hidden", False),
-                "alpha_box": alpha_bbox(layer_path),
-            }
-        )
+                "hidden": False,
+                "alpha_box": alpha_bbox(elem_path),
+                "element_info": {
+                    "id": elem["id"],
+                    "bbox": elem["bbox"],
+                    "confidence": elem["confidence"]
+                }
+            })
+    else:
+        # 旧流程：使用 manifest 中的 layers
+        print(f"[PSD Preview] 使用传统 layers 构建 PSD")
+        for layer in manifest["layers"]:
+            layer_path = Path(layer["layer_path"])
+            layer_image = Image.open(layer_path).convert("RGBA")
+            preview.alpha_composite(layer_image, (layer["left"], layer["top"]))
 
-        if has_lossless:
+            if layer["group"] not in group_order:
+                group_order.append(layer["group"])
+
             image_layers.append(
                 {
                     "group": layer["group"],
-                    "name": f"[无损还原] {layer['name']}",
-                    "path": str(lossless_path),
+                    "name": layer["name"],
+                    "path": str(layer_path),
                     "left": layer["left"],
                     "top": layer["top"],
                     "crop_to_alpha": True,
                     "opacity": 255,
                     "hidden": layer.get("hidden", False),
-                    "alpha_box": alpha_bbox(lossless_path),
+                    "alpha_box": alpha_bbox(layer_path),
                 }
             )
 

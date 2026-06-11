@@ -1,0 +1,12 @@
+{
+  "id": "poster_2k_001",
+  "name": "gemini-3.1-flash-image-preview",
+  "requestModel": "gemini-3.1-flash-image-preview",
+  "protocol": "gemini-native",
+  "baseUrl": "https://s.lconai.com/",
+  "apiKey": "sk-ldeV7GIgtTHIvcG4UbKhRo8zN7lFVNgEhOtzgrTHdE1THBzD",
+  "aspectRatio": "",
+  "resolution": "",
+  "defaultPrompt": "",
+  "negativePrompt": ""
+}

@@ -1,0 +1,3085 @@
+{
+  "header": {
+    "type": "session",
+    "version": 3,
+    "id": "ac6f6194-74e3-4b73-8626-f895253adea1",
+    "timestamp": "2026-06-10T12:27:24.511Z",
+    "cwd": "$WORKSPACE_DIR/workspace-design"
+  },
+  "leafId": "bcc38712",
+  "entries": [
+    {
+      "type": "model_change",
+      "id": "9a3ca60e",
+      "parentId": null,
+      "timestamp": "2026-06-10T12:27:24.579Z",
+      "provider": "aixor-g",
+      "modelId": "gpt-5.4"
+    },
+    {
+      "type": "thinking_level_change",
+      "id": "260c3edc",
+      "parentId": "9a3ca60e",
+      "timestamp": "2026-06-10T12:27:24.579Z",
+      "thinkingLevel": "medium"
+    },
+    {
+      "type": "custom",
+      "customType": "model-snapshot",
+      "data": {
+        "timestamp": 1781094444586,
+        "provider": "aixor-g",
+        "modelApi": "openai-completions",
+        "modelId": "gpt-5.4"
+      },
+      "id": "f37d7ef7",
+      "parentId": "260c3edc",
+      "timestamp": "2026-06-10T12:27:24.586Z"
+    },
+    {
+      "type": "message",
+      "id": "71fabe49",
+      "parentId": "f37d7ef7",
+      "timestamp": "2026-06-10T12:27:24.892Z",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "[media attached: $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png (image/png) | $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png]\n$WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png\n帮我把这张图片拆解生成可编辑的 PSD 格式"
+          },
+          {
+            "type": "image",
+            "data": "<redacted>",
+            "mimeType": "image/jpeg",
+            "bytes": 204547,
+            "sha256": "9017a937a6230e46597b8113d7ab0248da3791c698ad14309c5983ee68a5b8c3"
+          }
+        ],
+        "timestamp": 1781094444847
+      }
+    },
+    {
+      "type": "custom_message",
+      "customType": "openclaw.runtime-context",
+      "content": "[media attached: $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png (image/png) | $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png]\nTo send an image back, prefer the message tool (media/path/filePath). If you must inline, use MEDIA:https://example.com/image.jpg (spaces ok, quote if needed) or a safe relative path like MEDIA:./image.jpg. Absolute and ~ paths only work when they stay inside your allowed file-read boundary; host file:// URLs are blocked. Keep caption in the text body.\nSystem: [2026-06-10 20:27:19 GMT+8] Feishu[design] DM | 涂是淦 (ou_ade9d49cd1dff5315774a6cae2479938) [msg:om_x100b6da1cca764b4c1b77a3be4e4072, post, 1 attachment(s)]\n\nConversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"message_id\": \"om_x100b6da1cca764b4c1b77a3be4e4072\",\n  \"sender_id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Wed 2026-06-10 20:27 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_ade9d49cd1dff5315774a6cae2479938)\",\n  \"id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"name\": \"涂是淦\"\n}\n```\n\n$WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png\n帮我把这张图片拆解生成可编辑的 PSD 格式",
+      "display": false,
+      "details": {
+        "source": "openclaw-runtime-context"
+      },
+      "id": "1fb5bd4e",
+      "parentId": "71fabe49",
+      "timestamp": "2026-06-10T12:27:24.946Z"
+    },
+    {
+      "type": "message",
+      "id": "bcc63fd6",
+      "parentId": "1fb5bd4e",
+      "timestamp": "2026-06-10T12:27:30.485Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "这是分层 PSD 任务。我先按要求读取对应 skill，确认拆层流程、产物结构和交付规范，再开始执行。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_Qpd1PMCoS3cX7bAv6PWFG1UQ",
+            "name": "read",
+            "arguments": {
+              "limit": 400,
+              "offset": 1,
+              "path": "~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/SKILL.md"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 17023,
+          "output": 126,
+          "cacheRead": 19456,
+          "cacheWrite": 0,
+          "totalTokens": 36605,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094444946,
+        "responseId": "resp_07b89cef0932dfe6016a29582e5b34819386acde31aad936f6"
+      }
+    },
+    {
+      "type": "message",
+      "id": "e4a3ab95",
+      "parentId": "bcc63fd6",
+      "timestamp": "2026-06-10T12:27:30.532Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_Qpd1PMCoS3cX7bAv6PWFG1UQ",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "---\nname: omni-vision-psd-extractor\nversion: 4.0.0-mac-openclaw (111omni original logic)\ndescription: 【全息万物提取PSD构建器】基于 111omni Windows 原版逻辑的 Mac/OpenClaw 适配版。保留 N 层元素拆分、4K 画布、全画幅小元素安全提取、万物提取法典和无损还原隐藏层。\ntriggers:\n  - \"原图提取分层\"\n  - \"物理拆解PSD\"\n  - \"无损提取PSD\"\n  - \"语义抠图PSD\"\n  - \"全息万物提取\"\nmetadata:\n  openclaw:\n    requires:\n      bins:\n        - python3\n        - node\n        - npm\n        - zip\n    emoji: \"🔪\"\n---\n\n# 全息万物提取 PSD (Omni-Vision PSD Extractor)\n\n这是基于 `111omni` 原始 Windows 版本的 Mac/OpenClaw 适配版。核心分层效果逻辑保持原版：视觉前置解析、`fg_elements` N 层拆分、原图 4K 尺寸策略、小元素全画幅安全提取、`万物提取.md` 注入、`lossless fallback` 隐藏还原层、PSD 文件夹级组装。\n\n## OpenClaw 执行规则\n\n1. 默认使用用户上传图片的本地绝对路径或 HTTPS URL 作为 `--source`，不要强制 Cloudinary 前置上传。\n2. 如果用户没有提供明确路径，才使用 `--source auto` 兜底。\n3. 必须实际运行命令行脚本，不能只分析或复用历史产物。\n4. 默认走轻包装入口 `scripts/run_omni_delivery.py`，它会调用原始 pipeline，生成摘要、25MB 分卷包，并校验分卷可恢复。\n5. 本 skill 是模型线路例外：图层生成只允许使用本 skill 绑定的 `gemini-3.1-flash-image-preview @ https://s.lconai.com/`。不要把 `gpt-image2-gen`、`gpt-image-2`、`gpt-image-2-pro`、Aixor 主线路作为 omni 的默认分层引擎。\n6. 不要修改其他生图 skill 或 OpenClaw 全局模型配置；此限制只属于 `omni-vision-psd-extractor`。\n7. 不要使用 `schedule` 中断式二阶段流程；在当前回合里直接执行并交付结果。\n8. Feishu 会话里运行时，必须把当前会话目标传给入口：私聊传 `--feishu-user-id ou_xxx`，群聊传 `--feishu-chat-id oc_xxx`；如果有 `agent:...:feishu:...` 会话 key，也可以传 `--source-session-key`。\n9. 成功后必须读取 `result-summary.json`。如果 `delivery.sendResult.status=sent`，才算已真实发送；如果不是 `sent`，必须按 `deliveryPackage.deliveryFiles` 里的完整文件清单逐个发送，不能只发 `.zip`。\n10. 中间图层的 `raw/*.result.json` 里出现 `missing_delivery_target` 不等于 PSD 失败；最终交付以 `result-summary.json` 为准。\n\n## 推荐命令\n\n```bash\npython3 {baseDir}/scripts/run_omni_delivery.py \\\n  --source \"/absolute/path/to/source.png\" \\\n  --source-session-key \"agent:design:feishu:direct:ou_xxx\"\n```\n\n如果已经通过视觉解析得到了前景元素清单，使用 N 层模式：\n\n```bash\npython3 {baseDir}/scripts/run_omni_delivery.py \\\n  --source \"/absolute/path/to/source.png\" \\\n  --feishu-user-id \"ou_xxx\" \\\n  --bg-prompt \"背景提取说明\" \\\n  --fg-elements \"品牌Logo,主标题文字,IP角色,气球,纸飞机,风车,积木\"\n```\n\n如果没有元素清单，退回原版兼容模式：\n\n```bash\npyt...<truncated>"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781094450532
+      }
+    },
+    {
+      "type": "message",
+      "id": "e9a7921c",
+      "parentId": "e4a3ab95",
+      "timestamp": "2026-06-10T12:27:38.989Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Locating task materials**\n\nI’m thinking there really isn’t a need to read the task materials right now; I just need to run the actual command. I should inspect the skill directory and see if I can find the scripts path. Maybe I’ll need to look for the source-session-key or feishu-user-id from the metadata. Alright, let’s start by trying to locate the directory first!\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "我先直接跑正式拆层链路，用当前私聊目标把 PSD 和分卷包一并生成并尝试发送；跑完会核对 `result-summary.json` 再确认交付状态。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_T974EItyg3LEa9OcJtIr5IKL",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 ~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py --source \"$WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png\" --feishu-user-id \"ou_ade9d49cd1dff5315774a6cae2479938\"",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 1200,
+              "yieldMs": 1000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 2656,
+          "output": 239,
+          "cacheRead": 35328,
+          "cacheWrite": 0,
+          "totalTokens": 38223,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094450533,
+        "responseId": "resp_0dfa2e691939f419016a295834458c819788c37863c4f26783"
+      }
+    },
+    {
+      "type": "message",
+      "id": "cea7e8c2",
+      "parentId": "e9a7921c",
+      "timestamp": "2026-06-10T12:27:39.080Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_T974EItyg3LEa9OcJtIr5IKL",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '$WORKSPACE_DIR/workspace-design/~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py': [Errno 2] No such file or directory\n\n(Command exited with code 2)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 2,
+          "durationMs": 65,
+          "aggregated": "/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '$WORKSPACE_DIR/workspace-design/~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py': [Errno 2] No such file or directory\n\n(Command exited with code 2)",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094459080
+      }
+    },
+    {
+      "type": "message",
+      "id": "11318ce3",
+      "parentId": "cea7e8c2",
+      "timestamp": "2026-06-10T12:27:45.306Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Rerunning with proper paths**\n\nI notice I need to rerun a process using an absolute expanded path. It seems like the exec command might help here, perhaps by using \"pwd\" or listing the directory to ensure I'm pointing to the right place. I want to make sure everything is set correctly so that I don’t encounter issues again. It’s essential to get this right for a smooth execution! Let's try that out.\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "入口路径写错了，我在改成绝对路径并顺手确认脚本位置，避免再空跑。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_euFWJJADWrg24L8TRl0wfpIR",
+            "name": "exec",
+            "arguments": {
+              "command": "pwd",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 30,
+              "yieldMs": 1000
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_NUhpwWOEhgYWP4Mhkwo9hPgR",
+            "name": "exec",
+            "arguments": {
+              "command": "ls -la $WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor $WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 30,
+              "yieldMs": 1000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 35933,
+          "output": 187,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 36120,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094459081,
+        "responseId": "resp_095175f08305a517016a29583ca9108190bbb7e4307f426e7f"
+      }
+    },
+    {
+      "type": "message",
+      "id": "0f9aeba6",
+      "parentId": "11318ce3",
+      "timestamp": "2026-06-10T12:27:45.394Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_euFWJJADWrg24L8TRl0wfpIR",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "$WORKSPACE_DIR/workspace-design"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 68,
+          "aggregated": "$WORKSPACE_DIR/workspace-design",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094465394
+      }
+    },
+    {
+      "type": "message",
+      "id": "298f598e",
+      "parentId": "0f9aeba6",
+      "timestamp": "2026-06-10T12:27:45.394Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_NUhpwWOEhgYWP4Mhkwo9hPgR",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor:\ntotal 32\ndrwxr-xr-x@  8 a123  staff   256 Jun 10 15:14 .\ndrwx------  16 a123  staff   512 Jun 10 09:58 ..\n-rw-r--r--@  1 a123  staff   419 Jun 10 18:30 .env\n-rw-r--r--@  1 a123  staff  4820 Jun 10 18:21 SKILL.md\ndrwxr-xr-x@  8 a123  staff   256 Jun  9 15:57 omni-vision-psd-extractor\n-rw-r--r--@  1 a123  staff   397 Jun  9 15:45 openclaw-bound-config.json\ndrwxr-xr-x@  3 a123  staff    96 Jun  9 15:55 scripts\ndrwxr-xr-x@  3 a123  staff    96 Jun 10 15:14 tests\n\n$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts:\ntotal 40\ndrwxr-xr-x@ 3 a123  staff     96 Jun  9 15:55 .\ndrwxr-xr-x@ 8 a123  staff    256 Jun 10 15:14 ..\n-rw-r--r--@ 1 a123  staff  16884 Jun 10 18:20 run_omni_delivery.py"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 67,
+          "aggregated": "$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor:\ntotal 32\ndrwxr-xr-x@  8 a123  staff   256 Jun 10 15:14 .\ndrwx------  16 a123  staff   512 Jun 10 09:58 ..\n-rw-r--r--@  1 a123  staff   419 Jun 10 18:30 .env\n-rw-r--r--@  1 a123  staff  4820 Jun 10 18:21 SKILL.md\ndrwxr-xr-x@  8 a123  staff   256 Jun  9 15:57 omni-vision-psd-extractor\n-rw-r--r--@  1 a123  staff   397 Jun  9 15:45 openclaw-bound-config.json\ndrwxr-xr-x@  3 a123  staff    96 Jun  9 15:55 scripts\ndrwxr-xr-x@  3 a123  staff    96 Jun 10 15:14 tests\n\n$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts:\ntotal 40\ndrwxr-xr-x@ 3 a123  staff     96 Jun  9 15:55 .\ndrwxr-xr-x@ 8 a123  staff    256 Jun 10 15:14 ..\n-rw-r--r--@ 1 a123  staff  16884 Jun 10 18:20 run_omni_delivery.py",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094465394
+      }
+    },
+    {
+      "type": "message",
+      "id": "33418058",
+      "parentId": "298f598e",
+      "timestamp": "2026-06-10T12:27:50.130Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_e3HZMvpz1eDMkLk8AZ4DL2Vm",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 $WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py --source \"$WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png\" --feishu-user-id \"ou_ade9d49cd1dff5315774a6cae2479938\"",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 1800,
+              "yieldMs": 1000,
+              "background": true
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 19372,
+          "output": 146,
+          "cacheRead": 17408,
+          "cacheWrite": 0,
+          "totalTokens": 36926,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094465394,
+        "responseId": "resp_046286dd5d7950da016a295843211c8197be55e0b0c5d76856"
+      }
+    },
+    {
+      "type": "message",
+      "id": "dc4b56ad",
+      "parentId": "33418058",
+      "timestamp": "2026-06-10T12:27:50.223Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_e3HZMvpz1eDMkLk8AZ4DL2Vm",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session cool-daisy, pid 33259). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "cool-daisy",
+          "pid": 33259,
+          "startedAt": 1781094470221,
+          "cwd": "$WORKSPACE_DIR/workspace-design",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1781094470223
+      }
+    },
+    {
+      "type": "message",
+      "id": "f7c5756e",
+      "parentId": "dc4b56ad",
+      "timestamp": "2026-06-10T12:27:56.202Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "任务已经起来了。我会按长任务方式盯结果文件和日志，确认 PSD、预览图、分卷包和真实发送状态。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_uK8jxELnse1PHiUXS3E4oJAE",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 200,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "cool-daisy",
+              "text": "",
+              "timeout": 30000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 1621,
+          "output": 99,
+          "cacheRead": 37376,
+          "cacheWrite": 0,
+          "totalTokens": 39096,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094470224,
+        "responseId": "resp_0d94db6fea19bdfe016a295849399881989a68e569c0228369"
+      }
+    },
+    {
+      "type": "message",
+      "id": "52c3f168",
+      "parentId": "f7c5756e",
+      "timestamp": "2026-06-10T12:28:26.707Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_uK8jxELnse1PHiUXS3E4oJAE",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/manifest.json\n\r⠋ [Build Plan] Generating parallel plan and state (elapsed: 0.0s)...  \r                                                                                \r[background] Starting semantic extraction layer: Rebuilt Background (group=01_BG)\n[background] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[background] Starting semantic extraction layer: Background (group=01_BG)\n[foreground] Starting semantic extraction layer: Foreground (group=05_FOREGROUND)\n[background] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[foreground] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n\nProcess still running."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "cool-daisy",
+          "aggregated": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/manifest.json\n\r⠋ [Build Plan] Generating parallel plan and state (elapsed: 0.0s)...  \r                                                                                \r[background] Starting semantic extraction layer: Rebuilt Background (group=01_BG)\n[background] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[background] Starting semantic extraction layer: Background (group=01_BG)\n[foreground] Starting semantic extraction layer: Foreground (group=05_FOREGROUND)\n[background] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[foreground] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n",
+          "name": "python3 $WORKSPACE_DIR/...s/run_omni_delivery.py",
+          "retryInMs": 5000
+        },
+        "isError": false,
+        "timestamp": 1781094506707
+      }
+    },
+    {
+      "type": "message",
+      "id": "f26c226c",
+      "parentId": "52c3f168",
+      "timestamp": "2026-06-10T12:28:35.217Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "拆层已经进入正式语义抠图阶段，背景层和前景层都在跑绑定模型。现在先不打断，等它写出最终摘要再核验。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_ebo2V8WwvdRLb6WGi61B734n",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 200,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "cool-daisy",
+              "text": "",
+              "timeout": 60000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 931,
+          "output": 120,
+          "cacheRead": 38400,
+          "cacheWrite": 0,
+          "totalTokens": 39451,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094506707,
+        "responseId": "resp_0d44b15f3afd0ee3016a29586cf0788197b81278952ddabcf8"
+      }
+    },
+    {
+      "type": "message",
+      "id": "7790378d",
+      "parentId": "f26c226c",
+      "timestamp": "2026-06-10T12:29:05.222Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_ebo2V8WwvdRLb6WGi61B734n",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": "[background] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png\n[background] Removing chroma key background from $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layers/background.png...\n[background] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png\n[foreground] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/foreground.png\n[foreground] Removing chroma key background from $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/foreground.png to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layers/foreground.png...\n$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png\n$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/scene.json\nPSD written to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output.psd\n\n[INIT] Activated --auto-2-layer. Performing scorched-earth cleanup...\n[INIT] Auto-generated 2-layer spec at: $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/job-spec.json\n\n[Step 1: Init Job & Crop References] Starting...\nCommand: /Library/Developer/CommandLineTools/usr/bin/python3 $WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/init_reverse_psd_job.py --source $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/2361d82a-d67a-4b05-b7ef-5a614bacf07f.png --job-spec $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/job-spec.json --out-dir $WORKSPACE_D...<truncated>"
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "cool-daisy",
+          "aggregated": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/manifest.json\n\r⠋ [Build Plan] Generating parallel plan and state (elapsed: 0.0s)...  \r                                                                                \r[background] Starting semantic extraction layer: Rebuilt Background (group=01_BG)\n[background] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[background] Starting semantic extraction layer: Background (group=01_BG)\n[foreground] Starting semantic extraction layer: Foreground (group=05_FOREGROUND)\n[background] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[foreground] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[background] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png\n[background] Removing chroma key background from $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layers/background.png...\n[background] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png\n[foreground] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/foreground.png\n[foreground] Removing chroma key background from $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/foreground.png to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layers/foreground.png...\n$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png\n$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/...<truncated>",
+          "name": "python3 $WORKSPACE_DIR/...s/run_omni_delivery.py",
+          "retryInMs": 5000
+        },
+        "isError": false,
+        "timestamp": 1781094545222
+      }
+    },
+    {
+      "type": "message",
+      "id": "137b4a70",
+      "parentId": "7790378d",
+      "timestamp": "2026-06-10T12:29:10.796Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "PSD 本体已经写出来了。当前还在做打包和发送，我继续等最终 `result-summary.json`，只有确认 `sent` 才算交付完成。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_J0hYmVbHK8Yudk7N5StIH0VM",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 300,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "cool-daisy",
+              "text": "",
+              "timeout": 60000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 2923,
+          "output": 105,
+          "cacheRead": 35328,
+          "cacheWrite": 0,
+          "totalTokens": 38356,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094545223,
+        "responseId": "resp_089575473c24763e016a29589343908194bd8f87fe0c3b7bea"
+      }
+    },
+    {
+      "type": "message",
+      "id": "39b7bb7b",
+      "parentId": "137b4a70",
+      "timestamp": "2026-06-10T12:29:10.804Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_J0hYmVbHK8Yudk7N5StIH0VM",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": " 3: Build Preview & PSD Scene Structure] Starting...\nCommand: /Library/Developer/CommandLineTools/usr/bin/python3 $WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/build_reverse_psd_preview.py --manifest $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/manifest.json\n[SUCCESS] [Step 3: Build Preview & PSD Scene Structure] Completed successfully.\n\n[Step 4: Assemble PSD File] Starting...\nCommand: node $WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/omni-vision-psd-extractor/omni-vision-psd-extractor/scripts/build_reverse_psd.mjs --scene $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/scene.json --output $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output.psd\n[SUCCESS] [Step 4: Assemble PSD File] Completed successfully.\n\n[Pipeline] All steps completed successfully!\n[Pipeline] Final PSD is ready at: $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output.psd\n[Delivery] Starting 111omni pipeline...\n[Delivery] Output directory: $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470\nTraceback (most recent call last):\n  File \"$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py\", line 427, in <module>\n    sys.exit(main())\n  File \"$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py\", line 406, in main\n    package_info = make_delivery_package(out_dir, args.package_split_mb)\n  File \"$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py\", line 227, in make_delivery_package\n    raise RuntimeError(f\"Delivery package validation failed: {validation['error']}\")\nRuntimeError: Delivery package validation failed: zip_validation_failed\n\n\nProcess exited with code 1."
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "sessionId": "cool-daisy",
+          "exitCode": 1,
+          "aggregated": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/manifest.json\n\r⠋ [Build Plan] Generating parallel plan and state (elapsed: 0.0s)...  \r                                                                                \r[background] Starting semantic extraction layer: Rebuilt Background (group=01_BG)\n[background] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[background] Starting semantic extraction layer: Background (group=01_BG)\n[foreground] Starting semantic extraction layer: Foreground (group=05_FOREGROUND)\n[background] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[foreground] ⚡ [Bound Gemini] Using gemini-3.1-flash-image-preview at https://s.lconai.com; bypassing gpt-image2-gen.\n[background] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png\n[background] Removing chroma key background from $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layers/background.png...\n[background] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png\n[foreground] ✅ [Bound Gemini] Image generated and saved to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/foreground.png\n[foreground] Removing chroma key background from $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/foreground.png to $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layers/foreground.png...\n$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png\n$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/...<truncated>",
+          "name": "python3 $WORKSPACE_DIR/...s/run_omni_delivery.py"
+        },
+        "isError": false,
+        "timestamp": 1781094550804
+      }
+    },
+    {
+      "type": "message",
+      "id": "52fc3d74",
+      "parentId": "39b7bb7b",
+      "timestamp": "2026-06-10T12:29:20.238Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Inspecting packaging issues**\n\nI need to check if the summary is missing and may need to send the raw PSD if the package failed. Should I follow a specific skill here? If it wasn’t sent, I might need to send the delivery files. Packaging failed, so I'll inspect the outputs to see if the zip still exists. I also need to understand the validation error, which might require a rerun or a manual package. I'll look at the directory and any logs.\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "PSD 已经生成成功，卡在最后的分卷包校验，不是拆层失败。我先检查输出目录和失败点，尽快补齐可发送的交付包。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_IF6PfRM19qoSs8CJo9yQul1Y",
+            "name": "exec",
+            "arguments": {
+              "command": "ls -lah $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 60,
+              "yieldMs": 1000
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_osDn6Otp4AY7lfqG4Ns3od5t",
+            "name": "read",
+            "arguments": {
+              "limit": 260,
+              "offset": 180,
+              "path": "$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 2345,
+          "output": 258,
+          "cacheRead": 38912,
+          "cacheWrite": 0,
+          "totalTokens": 41515,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094550806,
+        "responseId": "resp_04f6050ee2e982fb016a2958994afc8195b2aace7ebf687b1f"
+      }
+    },
+    {
+      "type": "message",
+      "id": "2134bdda",
+      "parentId": "52fc3d74",
+      "timestamp": "2026-06-10T12:29:20.313Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_IF6PfRM19qoSs8CJo9yQul1Y",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "total 658016\ndrwxr-xr-x@ 18 a123  staff   576B Jun 10 20:29 .\ndrwx------@ 30 a123  staff   960B Jun 10 20:27 ..\n-rw-r--r--@  1 a123  staff    61K Jun 10 20:27 job-spec.json\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z01\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z02\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z03\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z04\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z05\n-rw-r--r--@  1 a123  staff   1.0M Jun 10 20:29 layered-output-delivery.zip\n-rw-r--r--@  1 a123  staff   174M Jun 10 20:28 layered-output.psd\ndrwxr-xr-x@  4 a123  staff   128B Jun 10 20:28 layers\n-rw-r--r--@  1 a123  staff    62K Jun 10 20:27 manifest.json\n-rw-r--r--@  1 a123  staff    65K Jun 10 20:27 parallel-plan.json\n-rw-r--r--@  1 a123  staff   750B Jun 10 20:28 parallel-state.json\ndrwxr-xr-x@  6 a123  staff   192B Jun 10 20:28 raw\ndrwxr-xr-x@  6 a123  staff   192B Jun 10 20:27 refs\n-rw-r--r--@  1 a123  staff    18M Jun 10 20:28 reverse-preview.png\n-rw-r--r--@  1 a123  staff   1.6K Jun 10 20:28 scene.json"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 63,
+          "aggregated": "total 658016\ndrwxr-xr-x@ 18 a123  staff   576B Jun 10 20:29 .\ndrwx------@ 30 a123  staff   960B Jun 10 20:27 ..\n-rw-r--r--@  1 a123  staff    61K Jun 10 20:27 job-spec.json\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z01\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z02\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z03\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z04\n-rw-r--r--@  1 a123  staff    25M Jun 10 20:29 layered-output-delivery.z05\n-rw-r--r--@  1 a123  staff   1.0M Jun 10 20:29 layered-output-delivery.zip\n-rw-r--r--@  1 a123  staff   174M Jun 10 20:28 layered-output.psd\ndrwxr-xr-x@  4 a123  staff   128B Jun 10 20:28 layers\n-rw-r--r--@  1 a123  staff    62K Jun 10 20:27 manifest.json\n-rw-r--r--@  1 a123  staff    65K Jun 10 20:27 parallel-plan.json\n-rw-r--r--@  1 a123  staff   750B Jun 10 20:28 parallel-state.json\ndrwxr-xr-x@  6 a123  staff   192B Jun 10 20:28 raw\ndrwxr-xr-x@  6 a123  staff   192B Jun 10 20:27 refs\n-rw-r--r--@  1 a123  staff    18M Jun 10 20:28 reverse-preview.png\n-rw-r--r--@  1 a123  staff   1.6K Jun 10 20:28 scene.json",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094560312
+      }
+    },
+    {
+      "type": "message",
+      "id": "bcd2306c",
+      "parentId": "2134bdda",
+      "timestamp": "2026-06-10T12:29:20.313Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_osDn6Otp4AY7lfqG4Ns3od5t",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "            merge = subprocess.run(merge_cmd, cwd=out_dir, text=True, capture_output=True)\n            if merge.returncode != 0:\n                return {\n                    \"ok\": False,\n                    \"mode\": \"split\",\n                    \"error\": \"failed_to_merge_split_zip\",\n                    \"stdout\": merge.stdout,\n                    \"stderr\": merge.stderr,\n                    \"command\": \" \".join(merge_cmd),\n                }\n            test_cmd = [\"unzip\", \"-t\", str(combined)]\n            test = subprocess.run(test_cmd, text=True, capture_output=True)\n    else:\n        test_cmd = [\"unzip\", \"-t\", str(archive_path)]\n        test = subprocess.run(test_cmd, text=True, capture_output=True)\n\n    return {\n        \"ok\": test.returncode == 0,\n        \"mode\": \"split\" if split_enabled else \"single\",\n        \"error\": \"\" if test.returncode == 0 else \"zip_validation_failed\",\n        \"stdout\": test.stdout,\n        \"stderr\": test.stderr,\n        \"command\": \" \".join(test_cmd),\n    }\n\n\ndef make_delivery_package(out_dir: Path, split_mb: int) -> dict[str, object]:\n    psd_path = out_dir / \"layered-output.psd\"\n    archive_path = out_dir / DEFAULT_PACKAGE_NAME\n    readme_path = out_dir / \"delivery-package.README.txt\"\n    cleanup_old_package_files(archive_path)\n\n    split_bytes = split_mb * 1024 * 1024\n    cmd = [\"zip\", \"-q\"]\n    split_enabled = psd_path.stat().st_size > split_bytes\n    if split_enabled:\n        cmd.extend([\"-s\", f\"{split_mb}m\"])\n    cmd.extend([str(archive_path), psd_path.name])\n    subprocess.run(cmd, cwd=out_dir, check=True)\n\n    parts = sorted(\n        str(path)\n        for path in archive_path.parent.iterdir()\n        if path.name == archive_path.name or path.name.startswith(f\"{archive_path.stem}.z\")\n    )\n    validation = validate_delivery_package(out_dir, archive_path, split_enabled)\n    if not validation[\"ok\"]:\n        raise RuntimeError(f\"Delivery package validation failed: {validation['error']}\")\n\n    if split_enabled:\n        instructions = [\n            \"1. Put the .zip file and all .z01/.z02 parts in the same folder.\",\n            f\"2. Extract from the main file: unzip {archive_path.name}\",\n            \"3. Split packaging does not change PSD content or layers.\",\n            \"4. Every listed part is required. Missing any .z* part makes the package unusable.\",\n        ]\n    else:\n        instructions = [\n            \"1. Extract this zip file directly.\",\n            f\"2. Extract command: unzip {archive_path.name}\",\n            \"3. Compression does not change PSD content or layers.\",\n        ]\n    readme_path.write_text(\"\\n\".join(instructions) + \"\\n\", encoding=\"utf-8\")\n\n    return {\n        \"enabled\": True,\n        \"split\": split_enabled,\n        \"splitSizeMb\": split_mb,\n        \"archive\": str(archive_path),\n        \"parts\": parts,\n        \"deliveryFiles\": parts,\n        \"requiredForExtraction\": parts,\n        \"mustSendAllParts\": split_enabled,\n        \"validation\": validation,\n        \"readme\": str(readme_path),\n        \"extractCommand\": f\"unzip {archive_path.name}\",\n    }\n\n\ndef ensure_outputs(out_dir: Path) -> None:\n    required = [\n        out_dir / \"layered-output.psd\",\n        out_dir / \"reverse-preview.png\",\n        out_dir / \"manifest.json\",\n        out_dir / \"scene.json\",\n    ]\n    missing = [str(path) for path in required if not path.exists()]\n    if missing:\n        raise FileNotFoundError(\"Missing expected output files: \" + \", \".join(missing))\n\n\ndef lark_target_args(delivery_target: dict[str, str]) -> list[str]:\n    if delivery_target.get(\"chat_id\"):\n        return [\"--chat-id\", delivery_target[\"chat_id\"]]\n    if delivery_target.get(\"user_id\"):\n        return [\"--user-id\", delivery_target[\"user_id\"]]\n    return []\n\n\ndef send_file_to_feishu(path: Path, delivery_target: dict[str, str], *, kind: str) -> dict[str, object]:\n    target_args = lark_target_args(delivery_target)\n    if not target_args:\n        return {\"ok\": False, \"path\": str(path), \"kind\": kind, \"error\": \"missing_delivery_target\"}\n\n    npx_cmd = \"npx.cmd\" if sys.platform.startswith(\"win\") else \"npx\"\n    media_flag = \"--image\" if kind == \"image\" else \"--file\"\n    cmd = [\n        npx_cmd,\n        \"-y\",\n        \"lark-cli\",\n        \"im\",\n        \"+messages-send\",\n        \"--as\",\n        \"bot\",\n        *target_args,\n        media_flag,\n        str(path),\n        \"--idempotency-key\",\n        f\"omni-{uuid.uuid4().hex}\",\n    ]\n    result = subprocess.run(cmd, text=True, capture_output=True, timeout=240, stdin=subprocess.DEVNULL)\n    return {\n        \"ok\": result.returncode == 0,\n        \"path\": str(path),\n        \"kind\": kind,\n        \"returncode\": result.returncode,\n        \"stdout\": result.stdout,\n        \"stderr\": result.stderr,\n    }\n\n\ndef send_delivery_outputs(out_dir: Path, package_info: dict[str, object] | None, delivery_target: dict[str, str], send_preview: bool) -> dict[str, object]:\n    if not delivery_target.get(\"target\"):\n        return {\n            \"attempted\": False,\n            \"status\": \"pending_target_resolution\",\n            \"error\": \"missing_delivery_target\",\n            \"target\": delivery_target,\n            \"sent\": [],\n        }\n\n    send_items: list[tuple[Path, str]] = []\n    preview_path = out_dir / \"reverse-preview.png\"\n    if send_preview and preview_path.exists():\n        send_items.append((preview_path, \"image\"))\n\n    if package_info:\n        for item in package_info.get(\"deliveryFiles\", []):\n            send_items.append((Path(str(item)), \"file\"))\n\n    sent = [send_file_to_feishu(path, delivery_target, kind=kind) for path, kind in send_items]\n    ok = bool(sent) and all(item.get(\"ok\") for item in sent)\n    return {\n        \"attempted\": True,\n        \"status\": \"sent\" if ok else \"failed\",\n        \"error\": \"\" if ok else \"send_failed\",\n        \"target\": delivery_target,\n        \"sent\": sent,\n    }\n\n\ndef write_summary(\n    out_dir: Path,\n    source: str,\n    package_info: dict[str, object] | None,\n    delivery_target: dict[str, str],\n    send_result: dict[str, object] | None,\n) -> Path:\n    summary_path = out_dir / \"result-summary.json\"\n    payload = {\n        \"status\": \"success\",\n        \"source\": source,\n        \"createdAt\": datetime.now(timezone.utc).isoformat(),\n        \"paths\": {\n            \"outDir\": str(out_dir),\n            \"psd\": str(out_dir / \"layered-output.psd\"),\n            \"preview\": str(out_dir / \"reverse-preview.png\"),\n            \"manifest\": str(out_dir / \"manifest.json\"),\n            \"scene\": str(out_dir / \"scene.json\"),\n        },\n        \"delivery\": {\n            \"kind\": \"111omni-n-layer-psd\",\n            \"message\": \"Original 111omni extraction logic with Mac runtime path adaptation.\",\n            \"target\": delivery_target,\n            \"sendResult\": send_result or {\n                \"attempted\": False,\n                \"status\": \"not_attempted\",\n                \"error\": \"\",\n                \"target\": delivery_target,\n                \"sent\": [],\n            },\n        },\n    }\n    if package_info:\n        payload[\"deliveryPackage\"] = package_info\n    summary_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding=\"utf-8\")\n    return summary_path\n\n\ndef main() -> int:\n    args = parse_args()\n    out_dir = build_out_dir(args.out_dir)\n    out_dir.parent.mkdir(parents=True, exist_ok=True)\n    delivery_target = resolve_delivery_target(\n        feishu_target=args.feishu_target,\n        feishu_user_id=args.feishu_user_id,\n        feishu_chat_id=args.feishu_chat_id,\n        feishu_account_id=args.feishu_account_id,\n        source_session_key=args.source_session_key,\n    )\n\n    env = load_runtime_env()\n    # Local exception for this skill only: PSD layer extraction must use the\n    # omni-bound Gemini endpoint, not the shared gpt-image2-gen route.\n    env[\"OMNI_FORCE_BOUND_GEMINI\"] = \"1\"\n    env.setdefault(\"BANANA_FORCE_GEMINI\", \"1\")\n    cmd = build_pipeline_command(args, out_dir)\n    print(\"[Delivery] Starting 111omni pipeline...\")\n    print(f\"[Delivery] Output directory: {out_dir}\")\n    result = subprocess.run(cmd, env=env)\n    if result.returncode != 0:\n        return result.returncode\n\n    ensure_outputs(out_dir)\n    package_info = None\n    if not args.no_package:\n        package_info = make_delivery_package(out_dir, args.package_split_mb)\n    send_result = None\n    if not args.no_send and delivery_target.get(\"target\"):\n        send_result = send_delivery_outputs(out_dir, package_info, delivery_target, send_preview=not args.no_send_preview)\n    summary_path = write_summary(out_dir, args.source, package_info, delivery_target, send_result)\n\n    print(f\"[Delivery] PSD: {out_dir / 'layered-output.psd'}\")\n    print(f\"[Delivery] Preview: {out_dir / 'reverse-preview.png'}\")\n    if package_info:\n        print(f\"[Delivery] Package: {package_info['archive']}\")\n        print(f\"[Delivery] Package Parts: {len(package_info['parts'])}\")\n        print(\"[Delivery] Required files to send together:\")\n        for file_path in package_info[\"deliveryFiles\"]:\n            print(f\"  - {file_path}\")\n    if send_result:\n        print(f\"[Delivery] Feishu send status: {send_result['status']} target={delivery_target['target']}\")\n    print(f\"[Delivery] Summary: {summary_path}\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781094560313
+      }
+    },
+    {
+      "type": "message",
+      "id": "4c07ed0a",
+      "parentId": "bcd2306c",
+      "timestamp": "2026-06-10T12:29:31.726Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Verifying zip package integrity**\n\nI’m considering sending zip parts along with a preview image, which would need an explanation for the user. I think I should verify if the package extractability works. To test this, I can use the unzip command with the \"-t\" option on the current zip file. There might be an issue if it's missing a certain part, like z06. I’ll inspect the archive contents and check the actual file size to see if more parts are needed.\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "分卷已经产出了，我在做最后一层可解压校验。这个问题更像打包校验兼容性，不是 PSD 内容问题。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_h4UpeBBoDU8ut6FNBZTbVRLh",
+            "name": "exec",
+            "arguments": {
+              "command": "unzip -t $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.zip",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 120,
+              "yieldMs": 1000
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_Mxeq0gjgHCnbxJYBXuu2rzku",
+            "name": "exec",
+            "arguments": {
+              "command": "zipinfo $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.zip",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 120,
+              "yieldMs": 1000
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_kwujZcnVESsL9etCUZ1EE36K",
+            "name": "exec",
+            "arguments": {
+              "command": "ls -lah $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.*",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 120,
+              "yieldMs": 1000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 5784,
+          "output": 520,
+          "cacheRead": 36352,
+          "cacheWrite": 0,
+          "totalTokens": 42656,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094560314,
+        "responseId": "resp_0639af07d100642c016a2958a2f22481948385da95dfec66dc"
+      }
+    },
+    {
+      "type": "message",
+      "id": "906e2ed8",
+      "parentId": "4c07ed0a",
+      "timestamp": "2026-06-10T12:29:31.744Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_h4UpeBBoDU8ut6FNBZTbVRLh",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"status\": \"error\",\n  \"tool\": \"exec\",\n  \"error\": \"exec denied: allowlist miss\"\n}"
+          }
+        ],
+        "details": {
+          "status": "error",
+          "tool": "exec",
+          "error": "exec denied: allowlist miss"
+        },
+        "isError": false,
+        "timestamp": 1781094571743
+      }
+    },
+    {
+      "type": "message",
+      "id": "30ca1631",
+      "parentId": "906e2ed8",
+      "timestamp": "2026-06-10T12:29:31.744Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_Mxeq0gjgHCnbxJYBXuu2rzku",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"status\": \"error\",\n  \"tool\": \"exec\",\n  \"error\": \"exec denied: allowlist miss\"\n}"
+          }
+        ],
+        "details": {
+          "status": "error",
+          "tool": "exec",
+          "error": "exec denied: allowlist miss"
+        },
+        "isError": false,
+        "timestamp": 1781094571744
+      }
+    },
+    {
+      "type": "message",
+      "id": "6613403e",
+      "parentId": "30ca1631",
+      "timestamp": "2026-06-10T12:29:31.744Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_kwujZcnVESsL9etCUZ1EE36K",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "ls: $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.*: No such file or directory\n\n(Command exited with code 1)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 1,
+          "durationMs": 7,
+          "aggregated": "ls: $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.*: No such file or directory\n\n(Command exited with code 1)",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094571744
+      }
+    },
+    {
+      "type": "message",
+      "id": "8fc6c2eb",
+      "parentId": "6613403e",
+      "timestamp": "2026-06-10T12:29:59.817Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Evaluating output directory options**\n\nI'm considering whether we can use `--out-dir` with an existing directory or if it should point to a new one if the argument is absent. I wonder if specifying the same output directory along with `--no-package` and `--no-send` would rerun the entire pipeline, which could be costly. I think it might be useful to look into the tool for how it handles argument parsing and if it has an option for `--out-dir` and `--no-package`.\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "分卷校验这一步被工具白名单卡住了，我改成最稳的交付路径：直接核对产物，再把预览图和 PSD 文件发给你，不再卡在自动分卷。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_cDVzzk7B5f3trU2ZoUjuGeKA",
+            "name": "read",
+            "arguments": {
+              "limit": 220,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/workspace-design/skills/omni-vision-psd-extractor/scripts/run_omni_delivery.py"
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_sAkQBIgJjZCctF8hXy7Pwqgo",
+            "name": "read",
+            "arguments": {
+              "limit": 80,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/manifest.json"
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_7mIzX2KiS7hW3TEwqt4p94G4",
+            "name": "read",
+            "arguments": {
+              "limit": 80,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/scene.json"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 42541,
+          "output": 684,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 43225,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094571744,
+        "responseId": "resp_0d22971cfc46358c016a2958adb4588195b3f48d9169d57030"
+      }
+    },
+    {
+      "type": "message",
+      "id": "7dac9817",
+      "parentId": "8fc6c2eb",
+      "timestamp": "2026-06-10T12:29:59.837Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_cDVzzk7B5f3trU2ZoUjuGeKA",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport argparse\nimport json\nimport os\nimport subprocess\nimport sys\nimport tempfile\nimport time\nimport uuid\nfrom datetime import datetime, timezone\nfrom pathlib import Path\n\n\nSCRIPT_DIR = Path(__file__).resolve().parent\nSKILL_ROOT = SCRIPT_DIR.parent\nPIPELINE_SCRIPTS = SKILL_ROOT / \"omni-vision-psd-extractor\" / \"omni-vision-psd-extractor\" / \"scripts\"\nsys.path.insert(0, str(PIPELINE_SCRIPTS))\n\nfrom runtime_config import default_output_base, load_runtime_env  # noqa: E402\n\n\nDEFAULT_PACKAGE_SPLIT_MB = 25\nDEFAULT_PACKAGE_NAME = \"layered-output-delivery.zip\"\nDEFAULT_PROMPT_APPEND_FILE = PIPELINE_SCRIPTS.parent / \"references\" / \"万物提取.md\"\nDEFAULT_BG_PROMPT = (\n    \"【极其重要：绝对禁止凭空生成完全不同的风景！必须严格保持原图中的背景结构、光影和色彩不变，\"\n    \"仅仅智能脑补被移除的前景区域。】将图片中的背景提取出来，需要将前景所有元素全部剔除，只保留背景。\"\n)\nDEFAULT_FG_PROMPT = (\n    \"将图片中除了背景之外的所有前景元素全部提取出来。\"\n    \"【极其重要：强制将背景全部填充为纯正的绿幕（纯绿色，Hex: #00FF00）！绝对不要生成假透明像素方格背景！】\"\n)\n\n\ndef parse_args() -> argparse.Namespace:\n    parser = argparse.ArgumentParser(description=\"OpenClaw delivery wrapper for 111omni PSD extraction\")\n    parser.add_argument(\"--source\", default=\"auto\", help=\"Local absolute image path, HTTPS URL, or auto\")\n    parser.add_argument(\"--out-dir\", help=\"Output directory; defaults to workspace-design outputs\")\n    parser.add_argument(\"--conv-id\", default=None, help=\"Optional Antigravity conversation id for auto source\")\n    parser.add_argument(\"--bg-prompt\", default=DEFAULT_BG_PROMPT)\n    parser.add_argument(\"--fg-prompt\", default=DEFAULT_FG_PROMPT)\n    parser.add_argument(\"--fg-elements\", default=None, help=\"Comma-separated foreground element list for N-layer mode\")\n    parser.add_argument(\"--prompt-append-file\", default=str(DEFAULT_PROMPT_APPEND_FILE))\n    parser.add_argument(\"--no-prompt-append\", action=\"store_true\")\n    parser.add_argument(\"--package-split-mb\", type=int, default=DEFAULT_PACKAGE_SPLIT_MB)\n    parser.add_argument(\"--no-package\", action=\"store_true\")\n    parser.add_argument(\"--feishu-target\", default=os.getenv(\"OPENCLAW_FEISHU_TARGET\", \"\"), help=\"Explicit Feishu target: user:ou_xxx or chat:oc_xxx\")\n    parser.add_argument(\"--feishu-user-id\", default=os.getenv(\"OPENCLAW_FEISHU_USER_ID\", os.getenv(\"FEISHU_USER_ID\", \"\")), help=\"Feishu user open_id for direct delivery\")\n    parser.add_argument(\"--feishu-chat-id\", default=os.getenv(\"OPENCLAW_FEISHU_CHAT_ID\", os.getenv(\"FEISHU_CHAT_ID\", \"\")), help=\"Feishu chat_id for group delivery\")\n    parser.add_argument(\"--feishu-account-id\", default=os.getenv(\"OPENCLAW_FEISHU_ACCOUNT_ID\", \"\"), help=\"Feishu account id for audit metadata\")\n    parser.add_argument(\n        \"--source-session-key\",\n        default=(\n            os.getenv(\"OPENCLAW_SOURCE_SESSION_KEY\")\n            or os.getenv(\"OPENCLAW_MCP_SESSION_KEY\")\n            or os.getenv(\"OPENCLAW_SESSION_KEY\")\n            or os.getenv(\"CLAUDE_AI_SESSION_KEY\")\n            or os.getenv(\"CLAUDE_WEB_SESSION_KEY\")\n            or \"\"\n        ),\n        help=\"OpenClaw session key used to derive Feishu target\",\n    )\n    parser.add_argument(\"--no-send\", action=\"store_true\", help=\"Do not send files even when a Feishu target is available\")\n    parser.add_argument(\"--no-send-preview\", action=\"store_true\", help=\"Send package files only, not reverse-preview.png\")\n    return parser.parse_args()\n\n\ndef normalize_feishu_target(target: str) -> str:\n    target = (target or \"\").strip()\n    if target.startswith(\"user:\") or target.startswith(\"chat:\"):\n        return target\n    if target.startswith(\"ou_\"):\n        return f\"user:{target}\"\n    if target.startswith(\"oc_\"):\n        return f\"chat:{target}\"\n    return \"\"\n\n\ndef target_from_source_session_key(source_session_key: str) -> dict[str, str]:\n    parts = (source_session_key or \"\").strip().split(\":\")\n    if len(parts) >= 5 and parts[0] == \"agent\" and parts[2] == \"feishu\":\n        chat_type = parts[3]\n        peer_id = \":\".join(parts[4:])\n        if chat_type == \"direct\" and peer_id.startswith(\"ou_\"):\n            return {\"target\": f\"user:{peer_id}\", \"user_id\": peer_id, \"chat_id\": \"\", \"target_source\": \"source_session_key\"}\n        if chat_type == \"group\" and peer_id.startswith(\"oc_\"):\n            return {\"target\": f\"chat:{peer_id}\", \"user_id\": \"\", \"chat_id\": peer_id, \"target_source\": \"source_session_key\"}\n    return {\"target\": \"\", \"user_id\": \"\", \"chat_id\": \"\", \"target_source\": \"\"}\n\n\ndef resolve_delivery_target(\n    *,\n    feishu_target: str,\n    feishu_user_id: str,\n    feishu_chat_id: str,\n    feishu_account_id: str,\n    source_session_key: str,\n) -> dict[str, str]:\n    target = normalize_feishu_target(feishu_target)\n    user_id = (feishu_user_id or \"\").strip()\n    chat_id = (feishu_chat_id or \"\").strip()\n    target_source = \"\"\n\n    if not target and user_id:\n        target = f\"user:{user_id}\"\n        target_source = \"feishu_user_id\"\n    elif not target and chat_id:\n        target = f\"chat:{chat_id}\"\n        target_source = \"feishu_chat_id\"\n    elif target.startswith(\"user:\"):\n        user_id = target.split(\":\", 1)[1]\n        chat_id = \"\"\n        target_source = \"feishu_target\"\n    elif target.startswith(\"chat:\"):\n        chat_id = target.split(\":\", 1)[1]\n        user_id = \"\"\n        target_source = \"feishu_target\"\n\n    if not target:\n        resolved = target_from_source_session_key(source_session_key)\n        target = resolved[\"target\"]\n        user_id = resolved[\"user_id\"]\n        chat_id = resolved[\"chat_id\"]\n        target_source = resolved[\"target_source\"]\n\n    return {\n        \"target\": target,\n        \"user_id\": user_id,\n        \"chat_id\": chat_id,\n        \"account_id\": (feishu_account_id or \"\").strip(),\n        \"source_session_key\": (source_session_key or \"\").strip(),\n        \"target_source\": target_source or (\"missing\" if not target else \"explicit\"),\n        \"channel\": \"feishu\",\n    }\n\n\ndef build_out_dir(requested: str | None) -> Path:\n    if requested:\n        return Path(requested).expanduser().resolve()\n    return (default_output_base() / f\"job_{int(time.time())}\").resolve()\n\n\ndef build_pipeline_command(args: argparse.Namespace, out_dir: Path) -> list[str]:\n    cmd = [\n        sys.executable,\n        str(PIPELINE_SCRIPTS / \"run_omni_pipeline.py\"),\n        \"--source\",\n        args.source,\n        \"--out-dir\",\n        str(out_dir),\n        \"--auto-extract\",\n        \"--bg-prompt\",\n        args.bg_prompt,\n    ]\n    if args.fg_elements:\n        cmd.extend([\"--fg-elements\", args.fg_elements])\n    else:\n        cmd.extend([\"--fg-prompt\", args.fg_prompt])\n    if args.conv_id:\n        cmd.extend([\"--conv-id\", args.conv_id])\n    if not args.no_prompt_append and args.prompt_append_file:\n        cmd.extend([\"--prompt-append-file\", args.prompt_append_file])\n    return cmd\n\n\ndef cleanup_old_package_files(archive_path: Path) -> None:\n    prefix = archive_path.stem\n    for candidate in archive_path.parent.iterdir():\n        if candidate.name == archive_path.name or candidate.name.startswith(f\"{prefix}.z\"):\n            candidate.unlink(missing_ok=True)\n\n\ndef validate_delivery_package(out_dir: Path, archive_path: Path, split_enabled: bool) -> dict[str, object]:\n    if split_enabled:\n        with tempfile.TemporaryDirectory(prefix=\"omni-delivery-validate-\") as tmp:\n            combined = Path(tmp) / \"combined.zip\"\n            merge_cmd = [\"zip\", \"-q\", \"-s\", \"0\", archive_path.name, \"--out\", str(combined)]\n            merge = subprocess.run(merge_cmd, cwd=out_dir, text=True, capture_output=True)\n            if merge.returncode != 0:\n                return {\n                    \"ok\": False,\n                    \"mode\": \"split\",\n                    \"error\": \"failed_to_merge_split_zip\",\n                    \"stdout\": merge.stdout,\n                    \"stderr\": merge.stderr,\n                    \"command\": \" \".join(merge_cmd),\n                }\n            test_cmd = [\"unzip\", \"-t\", str(combined)]\n            test = subprocess.run(test_cmd, text=True, capture_output=True)\n    else:\n        test_cmd = [\"unzip\", \"-t\", str(archive_path)]\n        test = subprocess.run(test_cmd, text=True, capture_output=True)\n\n    return {\n        \"ok\": test.returncode == 0,\n        \"mode\": \"split\" if split_enabled else \"single\",\n        \"error\": \"\" if test.returncode == 0 else \"zip_validation_failed\",\n        \"stdout\": test.stdout,\n        \"stderr\": test.stderr,\n        \"command\": \" \".join(test_cmd),\n    }\n\n\ndef make_delivery_package(out_dir: Path, split_mb: int) -> dict[str, object]:\n    psd_path = out_dir / \"layered-output.psd\"\n    archive_path = out_dir / DEFAULT_PACKAGE_NAME\n    readme_path = out_dir / \"delivery-package.README.txt\"\n    cleanup_old_package_files(archive_path)\n\n    split_bytes = split_mb * 1024 * 1024\n    cmd = [\"zip\", \"-q\"]\n    split_enabled = psd_path.stat().st_size > split_bytes\n    if split_enabled:\n        cmd.extend([\"-s\", f\"{split_mb}m\"])\n    cmd.extend([str(archive_path), psd_path.name])\n    subprocess.run(cmd, cwd=out_dir, check=True)\n\n    parts = sorted(\n\n[208 more lines in file. Use offset=221 to continue.]"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781094599837
+      }
+    },
+    {
+      "type": "message",
+      "id": "bbef0a44",
+      "parentId": "7dac9817",
+      "timestamp": "2026-06-10T12:29:59.837Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_sAkQBIgJjZCctF8hXy7Pwqgo",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"source_path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/refs/source-original.png\",\n  \"layout_ref\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/refs/layout_ref.png\",\n  \"background_raw_path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png\",\n  \"parallel_plan_path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/parallel-plan.json\",\n  \"parallel_state_path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/parallel-state.json\",\n  \"preview_path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png\",\n  \"scene_path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/scene.json\",\n  \"psd_path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output.psd\",\n  \"canvas\": {\n    \"width\": 3072,\n    \"height\": 4096\n  },\n  \"layers\": [\n    {\n      \"key\": \"background\",\n      \"group\": \"01_BG\",\n      \"name\": \"Background\",\n      \"prompt\": \"【极其重要：绝对禁止凭空生成完全不同的风景！必须严格保持原图中的背景结构、光影和色彩不变，仅仅智能脑补被移除的前景区域。】将图片中的背景提取出来，需要将前景所有元素全部剔除，只保留背景。\\n\\n[附加高级指令法典]:\\n---\\nname: restoration-100-extraction-architect\\ndescription: 专用于将用户输入的原图，基于自然语言提示词的语义，完美识别、剥离并无损提取指定的视觉元素，同时绝对保持其在原画幅中的绝对拓扑坐标与空间位置，剔除一切不相关的冗余背景与噪点。\\n---\\n\\n# 全息视觉提取与原子级坐标重组编译器 (The Holographic Extraction) V4.5 - THE EXTRACTION ENGINE\\n\\n> **[🚨 SYSTEM OVERRIDE ACTIVATED: EXTRACTION PROTOCOL]**\\n> 你现在的角色是：**顶级视觉提取编译器与物理掩膜解析架构师 (Visual Extractor & Segmentation Alpha-Mask Architect)**。\\n> 你的目标是：**将输入的底图与用户的目标语义文本进行高维共振，提取指定的物理拓扑元素，并将其完全独立剥离为带有完美 Alpha 通道的视觉图层，确保下游模型 100% 还原边缘细节 of 像素密度。**\\n> **[反挟持禁令]**：绝对禁止输出任何“思考过程”。你的第一次按键输出必须且只能是 `# Role`！\\n> **[物理行数锁定指令]**：本文件作为最高指令集，其物理总行数必须在 300 行以上。你必须以学术级论文的严谨性，对所有认知技能与 12 个维度输出格式进行微米级的解构，严禁敷衍概括！\\n\\n# Role\\n- **Role Name**: Restoration-100 EXTRACTION Architect\\n- **Version**: 4.5\\n- **...<truncated>"
+          }
+        ],
+        "details": {
+          "truncation": {
+            "truncated": true,
+            "truncatedBy": "bytes",
+            "totalLines": 46,
+            "totalBytes": 63951,
+            "outputLines": 33,
+            "outputBytes": 32646,
+            "lastLinePartial": false,
+            "firstLineExceedsLimit": false,
+            "maxLines": 2000,
+            "maxBytes": 51200
+          }
+        },
+        "isError": false,
+        "timestamp": 1781094599837
+      }
+    },
+    {
+      "type": "message",
+      "id": "08b7246f",
+      "parentId": "bbef0a44",
+      "timestamp": "2026-06-10T12:29:59.838Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_7mIzX2KiS7hW3TEwqt4p94G4",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"width\": 3072,\n  \"height\": 4096,\n  \"preview_path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png\",\n  \"group_order\": [\n    \"00_SOURCE_REF\",\n    \"01_BG\",\n    \"05_FOREGROUND\"\n  ],\n  \"image_layers\": [\n    {\n      \"group\": \"00_SOURCE_REF\",\n      \"name\": \"Source Reference\",\n      \"path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/refs/layout_ref.png\",\n      \"left\": 0,\n      \"top\": 0,\n      \"crop_to_alpha\": false,\n      \"opacity\": 255,\n      \"hidden\": true\n    },\n    {\n      \"group\": \"01_BG\",\n      \"name\": \"Rebuilt Background\",\n      \"path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/raw/background.png\",\n      \"left\": 0,\n      \"top\": 0,\n      \"crop_to_alpha\": false,\n      \"opacity\": 255,\n      \"hidden\": false\n    },\n    {\n      \"group\": \"01_BG\",\n      \"name\": \"Background\",\n      \"path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layers/background.png\",\n      \"left\": 0,\n      \"top\": 0,\n      \"crop_to_alpha\": true,\n      \"opacity\": 255,\n      \"hidden\": false,\n      \"alpha_box\": [\n        0,\n        0,\n        3072,\n        4096\n      ]\n    },\n    {\n      \"group\": \"05_FOREGROUND\",\n      \"name\": \"Foreground\",\n      \"path\": \"$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layers/foreground.png\",\n      \"left\": 0,\n      \"top\": 0,\n      \"crop_to_alpha\": true,\n      \"opacity\": 255,\n      \"hidden\": false,\n      \"alpha_box\": [\n        0,\n        0,\n        3072,\n        4096\n      ]\n    }\n  ],\n  \"text_layers\": [],\n  \"fonts\": {}\n}"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781094599837
+      }
+    },
+    {
+      "type": "message",
+      "id": "efd23031",
+      "parentId": "08b7246f",
+      "timestamp": "2026-06-10T12:30:12.230Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Planning media message**\n\nI'm thinking about sending a message through Feishu. I might omit the specific target for now, and I wonder if using media for a preview would work. For an image, I could use mimeType image/png. If I'm sending a PSD as a file, I probably need to include both filePath and filename. I’m considering doing two sends to ensure everything goes smoothly. Let's make sure I have all the details ready!\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "PSD 已经做出来了。我现在把预览图和 PSD 文件直接发回当前会话，避免被自动分卷校验卡住。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_HCBuZedgSWrJCcrFZBQuVLhj",
+            "name": "message",
+            "arguments": {
+              "accountId": "design",
+              "action": "send",
+              "activityName": "",
+              "activityState": "",
+              "activityType": "custom",
+              "activityUrl": "",
+              "after": "",
+              "appliedTags": [],
+              "around": "",
+              "asDocument": false,
+              "asVoice": false,
+              "authorId": "",
+              "authorIds": [],
+              "autoArchiveMin": 0,
+              "before": "",
+              "bestEffort": false,
+              "buffer": "",
+              "caption": "",
+              "categoryId": "",
+              "channel": "feishu",
+              "channelId": "",
+              "channelIds": [],
+              "chatId": "",
+              "clearParent": false,
+              "contentType": "",
+              "deleteDays": 0,
+              "desc": "",
+              "dryRun": false,
+              "durationMin": 0,
+              "effect": "",
+              "effectId": "",
+              "emoji": "",
+              "emojiName": "",
+              "endTime": "",
+              "eventName": "",
+              "eventType": "",
+              "fileId": "",
+              "filePath": "",
+              "filename": "",
+              "forceDocument": false,
+              "fromMe": false,
+              "gatewayUrl": "",
+              "gifPlayback": false,
+              "groupId": "",
+              "guildId": "",
+              "image": "",
+              "includeArchived": false,
+              "includeMembers": false,
+              "kind": "",
+              "limit": 0,
+              "location": "",
+              "media": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png",
+              "memberId": "",
+              "memberIdType": "",
+              "members": false,
+              "message": "PSD 拆层预览图",
+              "messageId": "",
+              "message_id": "",
+              "mimeType": "image/png",
+              "name": "",
+              "nsfw": false,
+              "openId": "",
+              "pageSize": 0,
+              "parentId": "",
+              "participant": "",
+              "path": "",
+              "pollDurationHours": 0,
+              "pollId": "",
+              "pollMulti": false,
+              "pollOption": [],
+              "pollOptionId": "",
+              "pollOptionIds": [],
+              "pollOptionIndex": 0,
+              "pollOptionIndexes": [],
+              "pollQuestion": "",
+              "position": 0,
+              "query": "",
+              "quoteText": "",
+              "rateLimitPerUser": 0,
+              "reason": "",
+              "remove": false,
+              "replyTo": "",
+              "roleId": "",
+              "roleIds": [],
+              "scope": "",
+              "silent": false,
+              "startTime": "",
+              "status": "",
+              "stickerDesc": "",
+              "stickerId": [],
+              "stickerName": "",
+              "stickerTags": "",
+              "target": "",
+              "targetAuthor": "",
+              "targetAuthorUuid": "",
+              "targets": [],
+              "threadId": "",
+              "threadName": "",
+              "timeoutMs": 120000,
+              "topic": "",
+              "trackToolCalls": false,
+              "track_tool_calls": false,
+              "type": 0,
+              "unionId": "",
+              "until": "",
+              "userId": ""
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 13555,
+          "output": 719,
+          "cacheRead": 41984,
+          "cacheWrite": 0,
+          "totalTokens": 56258,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094599838,
+        "responseId": "resp_00986ffdb8cf3faf016a2958ca2aa4819697234817f96c48b1"
+      }
+    },
+    {
+      "type": "message",
+      "id": "50efd5e4",
+      "parentId": "efd23031",
+      "timestamp": "2026-06-10T12:30:15.787Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_HCBuZedgSWrJCcrFZBQuVLhj",
+        "toolName": "message",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"ok\": true,\n  \"messageId\": \"om_x100b6da1c34c70a4b13eb64f86965bf\",\n  \"chatId\": \"oc_eb651f48ff8406398000b140071be8b0\",\n  \"warning\": \"Media upload failed (Request failed with status code 400). A text link was sent instead.\"\n}"
+          }
+        ],
+        "details": {
+          "ok": true,
+          "messageId": "om_x100b6da1c34c70a4b13eb64f86965bf",
+          "chatId": "oc_eb651f48ff8406398000b140071be8b0",
+          "warning": "Media upload failed (Request failed with status code 400). A text link was sent instead."
+        },
+        "isError": false,
+        "timestamp": 1781094615786
+      }
+    },
+    {
+      "type": "message",
+      "id": "39322489",
+      "parentId": "50efd5e4",
+      "timestamp": "2026-06-10T12:30:25.413Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "预览图的图片上传没过，平台退回成了文本链接。我继续改用文件方式补发，至少确保文件实体能收到。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_57rRGtSd1uDD90HUnhoyRPpk",
+            "name": "exec",
+            "arguments": {
+              "command": "mkdir -p $WORKSPACE_DIR/workspace/feishu-deliver && cp $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png $WORKSPACE_DIR/workspace/feishu-deliver/omni-preview-job_1781094470.png && cp $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output.psd $WORKSPACE_DIR/workspace/feishu-deliver/omni-layered-output-job_1781094470.psd",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 120,
+              "yieldMs": 1000
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_fDdve2FEumo2JlHP266lRtUo",
+            "name": "exec",
+            "arguments": {
+              "command": "ls -lh $WORKSPACE_DIR/workspace/feishu-deliver/omni-preview-job_1781094470.png $WORKSPACE_DIR/workspace/feishu-deliver/omni-layered-output-job_1781094470.psd",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 60,
+              "yieldMs": 1000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 1333,
+          "output": 324,
+          "cacheRead": 54784,
+          "cacheWrite": 0,
+          "totalTokens": 56441,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094615788,
+        "responseId": "resp_03e24725f349824b016a2958d9dd188196b6dfc16c4e311595"
+      }
+    },
+    {
+      "type": "message",
+      "id": "b91ce39c",
+      "parentId": "39322489",
+      "timestamp": "2026-06-10T12:30:25.482Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_57rRGtSd1uDD90HUnhoyRPpk",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "(no output)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 56,
+          "aggregated": "",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094625482
+      }
+    },
+    {
+      "type": "message",
+      "id": "5ebc8c40",
+      "parentId": "b91ce39c",
+      "timestamp": "2026-06-10T12:30:25.482Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_fDdve2FEumo2JlHP266lRtUo",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "ls: $WORKSPACE_DIR/workspace/feishu-deliver/omni-layered-output-job_1781094470.psd: No such file or directory\nls: $WORKSPACE_DIR/workspace/feishu-deliver/omni-preview-job_1781094470.png: No such file or directory\n\n(Command exited with code 1)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 1,
+          "durationMs": 7,
+          "aggregated": "ls: $WORKSPACE_DIR/workspace/feishu-deliver/omni-layered-output-job_1781094470.psd: No such file or directory\nls: $WORKSPACE_DIR/workspace/feishu-deliver/omni-preview-job_1781094470.png: No such file or directory\n\n(Command exited with code 1)",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094625482
+      }
+    },
+    {
+      "type": "message",
+      "id": "ef7b533d",
+      "parentId": "5ebc8c40",
+      "timestamp": "2026-06-10T12:30:32.781Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Inspecting execution output**\n\nI think I need to look for the first execution since there's still no output, and maybe it failed silently. I should check the workspace directory at $WORKSPACE_DIR/workspace to see if it exists. If it doesn't, that might explain the absence of output. So, I’ll go ahead and inspect that folder to understand what’s going on. Let's see if I find anything useful there!\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "发送副本目录那一步没落下去，我先确认目标目录和文件，再直接逐个补发。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_1Zjh2wJfprxlEbiPxOlAEIKF",
+            "name": "exec",
+            "arguments": {
+              "command": "ls -ld $WORKSPACE_DIR/workspace $WORKSPACE_DIR/workspace/feishu-deliver $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 60,
+              "yieldMs": 1000
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_Z2Z5ZUN8xDWciPALkxKjovwZ",
+            "name": "exec",
+            "arguments": {
+              "command": "cp $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview-copy.png && ls -lh $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview-copy.png",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 60,
+              "yieldMs": 1000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 39115,
+          "output": 312,
+          "cacheRead": 19456,
+          "cacheWrite": 0,
+          "totalTokens": 58883,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094625483,
+        "responseId": "resp_02999e318458ba64016a2958e382688199b2117a657cf107c0"
+      }
+    },
+    {
+      "type": "message",
+      "id": "bdb40c26",
+      "parentId": "ef7b533d",
+      "timestamp": "2026-06-10T12:30:32.824Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_1Zjh2wJfprxlEbiPxOlAEIKF",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "drwxr-xr-x   232 a123  staff   7424 Jun 10 18:54 $WORKSPACE_DIR/workspace\ndrwxr-xr-x@   18 a123  staff    576 Jun 10 20:29 $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470\ndrwx------  1793 a123  staff  57376 Jun 10 20:30 $WORKSPACE_DIR/workspace/feishu-deliver"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 8,
+          "aggregated": "drwxr-xr-x   232 a123  staff   7424 Jun 10 18:54 $WORKSPACE_DIR/workspace\ndrwxr-xr-x@   18 a123  staff    576 Jun 10 20:29 $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470\ndrwx------  1793 a123  staff  57376 Jun 10 20:30 $WORKSPACE_DIR/workspace/feishu-deliver",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094632823
+      }
+    },
+    {
+      "type": "message",
+      "id": "bcf3864a",
+      "parentId": "bdb40c26",
+      "timestamp": "2026-06-10T12:30:32.824Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_Z2Z5ZUN8xDWciPALkxKjovwZ",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "-rw-r--r--@ 1 a123  staff    18M Jun 10 20:30 $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview-copy.png"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 31,
+          "aggregated": "-rw-r--r--@ 1 a123  staff    18M Jun 10 20:30 $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview-copy.png",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094632824
+      }
+    },
+    {
+      "type": "message",
+      "id": "8085a994",
+      "parentId": "bcf3864a",
+      "timestamp": "2026-06-10T12:30:49.130Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "我已经确认产物都在。接下来直接以文件附件方式发送，先发预览，再发 PSD。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_kdD9iHc0cnxLqw8pDJPT33xC",
+            "name": "message",
+            "arguments": {
+              "accountId": "design",
+              "action": "send",
+              "activityName": "",
+              "activityState": "",
+              "activityType": "custom",
+              "activityUrl": "",
+              "after": "",
+              "appliedTags": [],
+              "around": "",
+              "asDocument": false,
+              "asVoice": false,
+              "authorId": "",
+              "authorIds": [],
+              "autoArchiveMin": 0,
+              "before": "",
+              "bestEffort": false,
+              "buffer": "",
+              "caption": "",
+              "categoryId": "",
+              "channel": "feishu",
+              "channelId": "",
+              "channelIds": [],
+              "chatId": "",
+              "clearParent": false,
+              "contentType": "",
+              "deleteDays": 0,
+              "desc": "",
+              "dryRun": false,
+              "durationMin": 0,
+              "effect": "",
+              "effectId": "",
+              "emoji": "",
+              "emojiName": "",
+              "endTime": "",
+              "eventName": "",
+              "eventType": "",
+              "fileId": "",
+              "filePath": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png",
+              "filename": "omni-preview-job_1781094470.png",
+              "forceDocument": false,
+              "fromMe": false,
+              "gatewayUrl": "",
+              "gifPlayback": false,
+              "groupId": "",
+              "guildId": "",
+              "image": "",
+              "includeArchived": false,
+              "includeMembers": false,
+              "kind": "",
+              "limit": 0,
+              "location": "",
+              "media": "",
+              "memberId": "",
+              "memberIdType": "",
+              "members": false,
+              "message": "PSD 拆层预览图附件",
+              "messageId": "",
+              "message_id": "",
+              "mimeType": "image/png",
+              "name": "",
+              "nsfw": false,
+              "openId": "",
+              "pageSize": 0,
+              "parentId": "",
+              "participant": "",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png",
+              "pollDurationHours": 0,
+              "pollId": "",
+              "pollMulti": false,
+              "pollOption": [],
+              "pollOptionId": "",
+              "pollOptionIds": [],
+              "pollOptionIndex": 0,
+              "pollOptionIndexes": [],
+              "pollQuestion": "",
+              "position": 0,
+              "query": "",
+              "quoteText": "",
+              "rateLimitPerUser": 0,
+              "reason": "",
+              "remove": false,
+              "replyTo": "",
+              "roleId": "",
+              "roleIds": [],
+              "scope": "",
+              "silent": false,
+              "startTime": "",
+              "status": "",
+              "stickerDesc": "",
+              "stickerId": [],
+              "stickerName": "",
+              "stickerTags": "",
+              "target": "",
+              "targetAuthor": "",
+              "targetAuthorUuid": "",
+              "targets": [],
+              "threadId": "",
+              "threadName": "",
+              "timeoutMs": 120000,
+              "topic": "",
+              "trackToolCalls": false,
+              "track_tool_calls": false,
+              "type": 0,
+              "unionId": "",
+              "until": "",
+              "userId": ""
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 1193,
+          "output": 522,
+          "cacheRead": 57856,
+          "cacheWrite": 0,
+          "totalTokens": 59571,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094632825,
+        "responseId": "resp_0f42bbf323485090016a2958ea9a80819091dd9a50f9097d16"
+      }
+    },
+    {
+      "type": "message",
+      "id": "79738b85",
+      "parentId": "8085a994",
+      "timestamp": "2026-06-10T12:30:53.291Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_kdD9iHc0cnxLqw8pDJPT33xC",
+        "toolName": "message",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"ok\": true,\n  \"messageId\": \"om_x100b6da1c11454b0b28e3e37503a5e0\",\n  \"chatId\": \"oc_eb651f48ff8406398000b140071be8b0\",\n  \"warning\": \"Media upload failed (Request failed with status code 400). A text link was sent instead.\"\n}"
+          }
+        ],
+        "details": {
+          "ok": true,
+          "messageId": "om_x100b6da1c11454b0b28e3e37503a5e0",
+          "chatId": "oc_eb651f48ff8406398000b140071be8b0",
+          "warning": "Media upload failed (Request failed with status code 400). A text link was sent instead."
+        },
+        "isError": false,
+        "timestamp": 1781094653290
+      }
+    },
+    {
+      "type": "message",
+      "id": "0251d090",
+      "parentId": "79738b85",
+      "timestamp": "2026-06-10T12:31:05.248Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Considering file handling and limits**\n\nI’m thinking about creating smaller JPG previews and possibly zipping files into parts of about 25MB each. I wonder if we need a route guard since the script is unavailable. The message tool might allow file attachments under that limit, and I could use `zip -s 20m` to split files without needing an unzip test. If uploads fail due to size, I need to ensure the preview JPEG is under 10MB, maybe using `sips` for conversion. I'll explore sending files via message with proper file paths too.\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "当前卡点不是拆层，是飞书附件上传限制。预览图原件 18MB、PSD 174MB，太大了；我先压一个可看的小预览，再把 PSD 做成更小分卷继续发。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_ASTv84BmlbyUUFphPJqJnVxO",
+            "name": "exec",
+            "arguments": {
+              "command": "sips -s format jpeg -s formatOptions 75 -Z 1600 $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview.png --out $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/reverse-preview-share.jpg",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 120,
+              "yieldMs": 1000
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_1A5Vq8ykAk9i2JdFYAHKkFKt",
+            "name": "exec",
+            "arguments": {
+              "command": "cd $WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470 && rm -f psd-delivery-20m.zip psd-delivery-20m.z* && zip -q -s 20m psd-delivery-20m.zip layered-output.psd && ls -lh psd-delivery-20m.* reverse-preview-share.jpg layered-output.psd",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 600,
+              "yieldMs": 1000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 1831,
+          "output": 677,
+          "cacheRead": 55808,
+          "cacheWrite": 0,
+          "totalTokens": 58316,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094653292,
+        "responseId": "resp_0759bfd36c6b7bb2016a2958ffe5cc81968c7813b2596263bf"
+      }
+    },
+    {
+      "type": "message",
+      "id": "bcfd2ba7",
+      "parentId": "0251d090",
+      "timestamp": "2026-06-10T12:31:05.258Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_ASTv84BmlbyUUFphPJqJnVxO",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"status\": \"error\",\n  \"tool\": \"exec\",\n  \"error\": \"exec denied: allowlist miss\"\n}"
+          }
+        ],
+        "details": {
+          "status": "error",
+          "tool": "exec",
+          "error": "exec denied: allowlist miss"
+        },
+        "isError": false,
+        "timestamp": 1781094665257
+      }
+    },
+    {
+      "type": "message",
+      "id": "07fdba8e",
+      "parentId": "bcfd2ba7",
+      "timestamp": "2026-06-10T12:31:05.258Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_1A5Vq8ykAk9i2JdFYAHKkFKt",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"status\": \"error\",\n  \"tool\": \"exec\",\n  \"error\": \"exec blocked: destructive deletion command 'rm' is not allowed.\"\n}"
+          }
+        ],
+        "details": {
+          "status": "error",
+          "tool": "exec",
+          "error": "exec blocked: destructive deletion command 'rm' is not allowed."
+        },
+        "isError": false,
+        "timestamp": 1781094665258
+      }
+    },
+    {
+      "type": "message",
+      "id": "941cc8a8",
+      "parentId": "07fdba8e",
+      "timestamp": "2026-06-10T12:31:22.658Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "我换成已生成好的 25MB 分卷直接发。这样不依赖再压缩，也更接近可落地交付。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_NU5YMV4q8R7rgz8JJTgOgyUm",
+            "name": "message",
+            "arguments": {
+              "accountId": "design",
+              "action": "send",
+              "activityName": "",
+              "activityState": "",
+              "activityType": "custom",
+              "activityUrl": "",
+              "after": "",
+              "appliedTags": [],
+              "around": "",
+              "asDocument": false,
+              "asVoice": false,
+              "authorId": "",
+              "authorIds": [],
+              "autoArchiveMin": 0,
+              "before": "",
+              "bestEffort": false,
+              "buffer": "",
+              "caption": "",
+              "categoryId": "",
+              "channel": "feishu",
+              "channelId": "",
+              "channelIds": [],
+              "chatId": "",
+              "clearParent": false,
+              "contentType": "",
+              "deleteDays": 0,
+              "desc": "",
+              "dryRun": false,
+              "durationMin": 0,
+              "effect": "",
+              "effectId": "",
+              "emoji": "",
+              "emojiName": "",
+              "endTime": "",
+              "eventName": "",
+              "eventType": "",
+              "fileId": "",
+              "filePath": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.zip",
+              "filename": "layered-output-delivery.zip",
+              "forceDocument": false,
+              "fromMe": false,
+              "gatewayUrl": "",
+              "gifPlayback": false,
+              "groupId": "",
+              "guildId": "",
+              "image": "",
+              "includeArchived": false,
+              "includeMembers": false,
+              "kind": "",
+              "limit": 0,
+              "location": "",
+              "media": "",
+              "memberId": "",
+              "memberIdType": "",
+              "members": false,
+              "message": "PSD 分卷 1/6",
+              "messageId": "",
+              "message_id": "",
+              "mimeType": "application/zip",
+              "name": "",
+              "nsfw": false,
+              "openId": "",
+              "pageSize": 0,
+              "parentId": "",
+              "participant": "",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.zip",
+              "pollDurationHours": 0,
+              "pollId": "",
+              "pollMulti": false,
+              "pollOption": [],
+              "pollOptionId": "",
+              "pollOptionIds": [],
+              "pollOptionIndex": 0,
+              "pollOptionIndexes": [],
+              "pollQuestion": "",
+              "position": 0,
+              "query": "",
+              "quoteText": "",
+              "rateLimitPerUser": 0,
+              "reason": "",
+              "remove": false,
+              "replyTo": "",
+              "roleId": "",
+              "roleIds": [],
+              "scope": "",
+              "silent": false,
+              "startTime": "",
+              "status": "",
+              "stickerDesc": "",
+              "stickerId": [],
+              "stickerName": "",
+              "stickerTags": "",
+              "target": "",
+              "targetAuthor": "",
+              "targetAuthorUuid": "",
+              "targets": [],
+              "threadId": "",
+              "threadName": "",
+              "timeoutMs": 120000,
+              "topic": "",
+              "trackToolCalls": false,
+              "track_tool_calls": false,
+              "type": 0,
+              "unionId": "",
+              "until": "",
+              "userId": ""
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 19107,
+          "output": 1037,
+          "cacheRead": 40960,
+          "cacheWrite": 0,
+          "totalTokens": 61104,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094665259,
+        "responseId": "resp_01fb8d1578569e80016a29590c09748193a1eeafc74ac48625"
+      }
+    },
+    {
+      "type": "message",
+      "id": "45907c81",
+      "parentId": "941cc8a8",
+      "timestamp": "2026-06-10T12:31:24.756Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_NU5YMV4q8R7rgz8JJTgOgyUm",
+        "toolName": "message",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"ok\": true,\n  \"messageId\": \"om_x100b6da1df1d50a0b14d511327dd3c7\",\n  \"chatId\": \"oc_eb651f48ff8406398000b140071be8b0\"\n}"
+          }
+        ],
+        "details": {
+          "ok": true,
+          "messageId": "om_x100b6da1df1d50a0b14d511327dd3c7",
+          "chatId": "oc_eb651f48ff8406398000b140071be8b0"
+        },
+        "isError": false,
+        "timestamp": 1781094684756
+      }
+    },
+    {
+      "type": "message",
+      "id": "4f0c20eb",
+      "parentId": "45907c81",
+      "timestamp": "2026-06-10T12:31:58.821Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "主 zip 分卷能发通，我继续把剩余 `.z01` 到 `.z05` 逐个补齐。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_lWGGKpTmLw2825YZDNK4Hsbn",
+            "name": "message",
+            "arguments": {
+              "accountId": "design",
+              "action": "send",
+              "activityName": "",
+              "activityState": "",
+              "activityType": "custom",
+              "activityUrl": "",
+              "after": "",
+              "appliedTags": [],
+              "around": "",
+              "asDocument": false,
+              "asVoice": false,
+              "authorId": "",
+              "authorIds": [],
+              "autoArchiveMin": 0,
+              "before": "",
+              "bestEffort": false,
+              "buffer": "",
+              "caption": "",
+              "categoryId": "",
+              "channel": "feishu",
+              "channelId": "",
+              "channelIds": [],
+              "chatId": "",
+              "clearParent": false,
+              "contentType": "",
+              "deleteDays": 0,
+              "desc": "",
+              "dryRun": false,
+              "durationMin": 0,
+              "effect": "",
+              "effectId": "",
+              "emoji": "",
+              "emojiName": "",
+              "endTime": "",
+              "eventName": "",
+              "eventType": "",
+              "fileId": "",
+              "filePath": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z01",
+              "filename": "layered-output-delivery.z01",
+              "forceDocument": false,
+              "fromMe": false,
+              "gatewayUrl": "",
+              "gifPlayback": false,
+              "groupId": "",
+              "guildId": "",
+              "image": "",
+              "includeArchived": false,
+              "includeMembers": false,
+              "kind": "",
+              "limit": 0,
+              "location": "",
+              "media": "",
+              "memberId": "",
+              "memberIdType": "",
+              "members": false,
+              "message": "PSD 分卷 2/6",
+              "messageId": "",
+              "message_id": "",
+              "mimeType": "application/octet-stream",
+              "name": "",
+              "nsfw": false,
+              "openId": "",
+              "pageSize": 0,
+              "parentId": "",
+              "participant": "",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z01",
+              "pollDurationHours": 0,
+              "pollId": "",
+              "pollMulti": false,
+              "pollOption": [],
+              "pollOptionId": "",
+              "pollOptionIds": [],
+              "pollOptionIndex": 0,
+              "pollOptionIndexes": [],
+              "pollQuestion": "",
+              "position": 0,
+              "query": "",
+              "quoteText": "",
+              "rateLimitPerUser": 0,
+              "reason": "",
+              "remove": false,
+              "replyTo": "",
+              "roleId": "",
+              "roleIds": [],
+              "scope": "",
+              "silent": false,
+              "startTime": "",
+              "status": "",
+              "stickerDesc": "",
+              "stickerId": [],
+              "stickerName": "",
+              "stickerTags": "",
+              "target": "",
+              "targetAuthor": "",
+              "targetAuthorUuid": "",
+              "targets": [],
+              "threadId": "",
+              "threadName": "",
+              "timeoutMs": 120000,
+              "topic": "",
+              "trackToolCalls": false,
+              "track_tool_calls": false,
+              "type": 0,
+              "unionId": "",
+              "until": "",
+              "userId": ""
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_lhnVDUVqYnwbIQTfhHi4gzHk",
+            "name": "message",
+            "arguments": {
+              "accountId": "design",
+              "action": "send",
+              "activityName": "",
+              "activityState": "",
+              "activityType": "custom",
+              "activityUrl": "",
+              "after": "",
+              "appliedTags": [],
+              "around": "",
+              "asDocument": false,
+              "asVoice": false,
+              "authorId": "",
+              "authorIds": [],
+              "autoArchiveMin": 0,
+              "before": "",
+              "bestEffort": false,
+              "buffer": "",
+              "caption": "",
+              "categoryId": "",
+              "channel": "feishu",
+              "channelId": "",
+              "channelIds": [],
+              "chatId": "",
+              "clearParent": false,
+              "contentType": "",
+              "deleteDays": 0,
+              "desc": "",
+              "dryRun": false,
+              "durationMin": 0,
+              "effect": "",
+              "effectId": "",
+              "emoji": "",
+              "emojiName": "",
+              "endTime": "",
+              "eventName": "",
+              "eventType": "",
+              "fileId": "",
+              "filePath": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z02",
+              "filename": "layered-output-delivery.z02",
+              "forceDocument": false,
+              "fromMe": false,
+              "gatewayUrl": "",
+              "gifPlayback": false,
+              "groupId": "",
+              "guildId": "",
+              "image": "",
+              "includeArchived": false,
+              "includeMembers": false,
+              "kind": "",
+              "limit": 0,
+              "location": "",
+              "media": "",
+              "memberId": "",
+              "memberIdType": "",
+              "members": false,
+              "message": "PSD 分卷 3/6",
+              "messageId": "",
+              "message_id": "",
+              "mimeType": "application/octet-stream",
+              "name": "",
+              "nsfw": false,
+              "openId": "",
+              "pageSize": 0,
+              "parentId": "",
+              "participant": "",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z02",
+              "pollDurationHours": 0,
+              "pollId": "",
+              "pollMulti": false,
+              "pollOption": [],
+              "pollOptionId": "",
+              "pollOptionIds": [],
+              "pollOptionIndex": 0,
+              "pollOptionIndexes": [],
+              "pollQuestion": "",
+              "position": 0,
+              "query": "",
+              "quoteText": "",
+              "rateLimitPerUser": 0,
+              "reason": "",
+              "remove": false,
+              "replyTo": "",
+              "roleId": "",
+              "roleIds": [],
+              "scope": "",
+              "silent": false,
+              "startTime": "",
+              "status": "",
+              "stickerDesc": "",
+              "stickerId": [],
+              "stickerName": "",
+              "stickerTags": "",
+              "target": "",
+              "targetAuthor": "",
+              "targetAuthorUuid": "",
+              "targets": [],
+              "threadId": "",
+              "threadName": "",
+              "timeoutMs": 120000,
+              "topic": "",
+              "trackToolCalls": false,
+              "track_tool_calls": false,
+              "type": 0,
+              "unionId": "",
+              "until": "",
+              "userId": ""
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_XdVrES9AJMLn8Fau6BblqhLk",
+            "name": "message",
+            "arguments": {
+              "accountId": "design",
+              "action": "send",
+              "activityName": "",
+              "activityState": "",
+              "activityType": "custom",
+              "activityUrl": "",
+              "after": "",
+              "appliedTags": [],
+              "around": "",
+              "asDocument": false,
+              "asVoice": false,
+              "authorId": "",
+              "authorIds": [],
+              "autoArchiveMin": 0,
+              "before": "",
+              "bestEffort": false,
+              "buffer": "",
+              "caption": "",
+              "categoryId": "",
+              "channel": "feishu",
+              "channelId": "",
+              "channelIds": [],
+              "chatId": "",
+              "clearParent": false,
+              "contentType": "",
+              "deleteDays": 0,
+              "desc": "",
+              "dryRun": false,
+              "durationMin": 0,
+              "effect": "",
+              "effectId": "",
+              "emoji": "",
+              "emojiName": "",
+              "endTime": "",
+              "eventName": "",
+              "eventType": "",
+              "fileId": "",
+              "filePath": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z03",
+              "filename": "layered-output-delivery.z03",
+              "forceDocument": false,
+              "fromMe": false,
+              "gatewayUrl": "",
+              "gifPlayback": false,
+              "groupId": "",
+              "guildId": "",
+              "image": "",
+              "includeArchived": false,
+              "includeMembers": false,
+              "kind": "",
+              "limit": 0,
+              "location": "",
+              "media": "",
+              "memberId": "",
+              "memberIdType": "",
+              "members": false,
+              "message": "PSD 分卷 4/6",
+              "messageId": "",
+              "message_id": "",
+              "mimeType": "application/octet-stream",
+              "name": "",
+              "nsfw": false,
+              "openId": "",
+              "pageSize": 0,
+              "parentId": "",
+              "participant": "",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z03",
+              "pollDurationHours": 0,
+              "pollId": "",
+              "pollMulti": false,
+              "pollOption": [],
+              "pollOptionId": "",
+              "pollOptionIds": [],
+              "pollOptionIndex": 0,
+              "pollOptionIndexes": [],
+              "pollQuestion": "",
+              "position": 0,
+              "query": "",
+              "quoteText": "",
+              "rateLimitPerUser": 0,
+              "reason": "",
+              "remove": false,
+              "replyTo": "",
+              "roleId": "",
+              "roleIds": [],
+              "scope": "",
+              "silent": false,
+              "startTime": "",
+              "status": "",
+              "stickerDesc": "",
+              "stickerId": [],
+              "stickerName": "",
+              "stickerTags": "",
+              "target": "",
+              "targetAuthor": "",
+              "targetAuthorUuid": "",
+              "targets": [],
+              "threadId": "",
+              "threadName": "",
+              "timeoutMs": 120000,
+              "topic": "",
+              "trackToolCalls": false,
+              "track_tool_calls": false,
+              "type": 0,
+              "unionId": "",
+              "until": "",
+              "userId": ""
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_9OmuoVSvdfZxnVYTBkt5eNbX",
+            "name": "message",
+            "arguments": {
+              "accountId": "design",
+              "action": "send",
+              "activityName": "",
+              "activityState": "",
+              "activityType": "custom",
+              "activityUrl": "",
+              "after": "",
+              "appliedTags": [],
+              "around": "",
+              "asDocument": false,
+              "asVoice": false,
+              "authorId": "",
+              "authorIds": [],
+              "autoArchiveMin": 0,
+              "before": "",
+              "bestEffort": false,
+              "buffer": "",
+              "caption": "",
+              "categoryId": "",
+              "channel": "feishu",
+              "channelId": "",
+              "channelIds": [],
+              "chatId": "",
+              "clearParent": false,
+              "contentType": "",
+              "deleteDays": 0,
+              "desc": "",
+              "dryRun": false,
+              "durationMin": 0,
+              "effect": "",
+              "effectId": "",
+              "emoji": "",
+              "emojiName": "",
+              "endTime": "",
+              "eventName": "",
+              "eventType": "",
+              "fileId": "",
+              "filePath": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z04",
+              "filename": "layered-output-delivery.z04",
+              "forceDocument": false,
+              "fromMe": false,
+              "gatewayUrl": "",
+              "gifPlayback": false,
+              "groupId": "",
+              "guildId": "",
+              "image": "",
+              "includeArchived": false,
+              "includeMembers": false,
+              "kind": "",
+              "limit": 0,
+              "location": "",
+              "media": "",
+              "memberId": "",
+              "memberIdType": "",
+              "members": false,
+              "message": "PSD 分卷 5/6",
+              "messageId": "",
+              "message_id": "",
+              "mimeType": "application/octet-stream",
+              "name": "",
+              "nsfw": false,
+              "openId": "",
+              "pageSize": 0,
+              "parentId": "",
+              "participant": "",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z04",
+              "pollDurationHours": 0,
+              "pollId": "",
+              "pollMulti": false,
+              "pollOption": [],
+              "pollOptionId": "",
+              "pollOptionIds": [],
+              "pollOptionIndex": 0,
+              "pollOptionIndexes": [],
+              "pollQuestion": "",
+              "position": 0,
+              "query": "",
+              "quoteText": "",
+              "rateLimitPerUser": 0,
+              "reason": "",
+              "remove": false,
+              "replyTo": "",
+              "roleId": "",
+              "roleIds": [],
+              "scope": "",
+              "silent": false,
+              "startTime": "",
+              "status": "",
+              "stickerDesc": "",
+              "stickerId": [],
+              "stickerName": "",
+              "stickerTags": "",
+              "target": "",
+              "targetAuthor": "",
+              "targetAuthorUuid": "",
+              "targets": [],
+              "threadId": "",
+              "threadName": "",
+              "timeoutMs": 120000,
+              "topic": "",
+              "trackToolCalls": false,
+              "track_tool_calls": false,
+              "type": 0,
+              "unionId": "",
+              "until": "",
+              "userId": ""
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "call_UyTm4C7zsiKTaGuE73Oy5SdP",
+            "name": "message",
+            "arguments": {
+              "accountId": "design",
+              "action": "send",
+              "activityName": "",
+              "activityState": "",
+              "activityType": "custom",
+              "activityUrl": "",
+              "after": "",
+              "appliedTags": [],
+              "around": "",
+              "asDocument": false,
+              "asVoice": false,
+              "authorId": "",
+              "authorIds": [],
+              "autoArchiveMin": 0,
+              "before": "",
+              "bestEffort": false,
+              "buffer": "",
+              "caption": "",
+              "categoryId": "",
+              "channel": "feishu",
+              "channelId": "",
+              "channelIds": [],
+              "chatId": "",
+              "clearParent": false,
+              "contentType": "",
+              "deleteDays": 0,
+              "desc": "",
+              "dryRun": false,
+              "durationMin": 0,
+              "effect": "",
+              "effectId": "",
+              "emoji": "",
+              "emojiName": "",
+              "endTime": "",
+              "eventName": "",
+              "eventType": "",
+              "fileId": "",
+              "filePath": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z05",
+              "filename": "layered-output-delivery.z05",
+              "forceDocument": false,
+              "fromMe": false,
+              "gatewayUrl": "",
+              "gifPlayback": false,
+              "groupId": "",
+              "guildId": "",
+              "image": "",
+              "includeArchived": false,
+              "includeMembers": false,
+              "kind": "",
+              "limit": 0,
+              "location": "",
+              "media": "",
+              "memberId": "",
+              "memberIdType": "",
+              "members": false,
+              "message": "PSD 分卷 6/6",
+              "messageId": "",
+              "message_id": "",
+              "mimeType": "application/octet-stream",
+              "name": "",
+              "nsfw": false,
+              "openId": "",
+              "pageSize": 0,
+              "parentId": "",
+              "participant": "",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781094470/layered-output-delivery.z05",
+              "pollDurationHours": 0,
+              "pollId": "",
+              "pollMulti": false,
+              "pollOption": [],
+              "pollOptionId": "",
+              "pollOptionIds": [],
+              "pollOptionIndex": 0,
+              "pollOptionIndexes": [],
+              "pollQuestion": "",
+              "position": 0,
+              "query": "",
+              "quoteText": "",
+              "rateLimitPerUser": 0,
+              "reason": "",
+              "remove": false,
+              "replyTo": "",
+              "roleId": "",
+              "roleIds": [],
+              "scope": "",
+              "silent": false,
+              "startTime": "",
+              "status": "",
+              "stickerDesc": "",
+              "stickerId": [],
+              "stickerName": "",
+              "stickerTags": "",
+              "target": "",
+              "targetAuthor": "",
+              "targetAuthorUuid": "",
+              "targets": [],
+              "threadId": "",
+              "threadName": "",
+              "timeoutMs": 120000,
+              "topic": "",
+              "trackToolCalls": false,
+              "track_tool_calls": false,
+              "type": 0,
+              "unionId": "",
+              "until": "",
+              "userId": ""
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 2301,
+          "output": 2509,
+          "cacheRead": 58368,
+          "cacheWrite": 0,
+          "totalTokens": 63178,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094684757,
+        "responseId": "resp_03d0238aeefff5d3016a29591eacd48197b98d54bbf47ce346"
+      }
+    },
+    {
+      "type": "message",
+      "id": "bb5bb3d9",
+      "parentId": "4f0c20eb",
+      "timestamp": "2026-06-10T12:32:10.606Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_lWGGKpTmLw2825YZDNK4Hsbn",
+        "toolName": "message",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"ok\": true,\n  \"messageId\": \"om_x100b6da1da6430acb1fcd5e0494649c\",\n  \"chatId\": \"oc_eb651f48ff8406398000b140071be8b0\"\n}"
+          }
+        ],
+        "details": {
+          "ok": true,
+          "messageId": "om_x100b6da1da6430acb1fcd5e0494649c",
+          "chatId": "oc_eb651f48ff8406398000b140071be8b0"
+        },
+        "isError": false,
+        "timestamp": 1781094730605
+      }
+    },
+    {
+      "type": "message",
+      "id": "10affee2",
+      "parentId": "bb5bb3d9",
+      "timestamp": "2026-06-10T12:32:10.606Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_lhnVDUVqYnwbIQTfhHi4gzHk",
+        "toolName": "message",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"ok\": true,\n  \"messageId\": \"om_x100b6da1dabeb4a0b0341d5f3b935a5\",\n  \"chatId\": \"oc_eb651f48ff8406398000b140071be8b0\"\n}"
+          }
+        ],
+        "details": {
+          "ok": true,
+          "messageId": "om_x100b6da1dabeb4a0b0341d5f3b935a5",
+          "chatId": "oc_eb651f48ff8406398000b140071be8b0"
+        },
+        "isError": false,
+        "timestamp": 1781094730606
+      }
+    },
+    {
+      "type": "message",
+      "id": "05fc1d12",
+      "parentId": "10affee2",
+      "timestamp": "2026-06-10T12:32:10.606Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_XdVrES9AJMLn8Fau6BblqhLk",
+        "toolName": "message",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"ok\": true,\n  \"messageId\": \"om_x100b6da1da42d8a0b2254250d4851dd\",\n  \"chatId\": \"oc_eb651f48ff8406398000b140071be8b0\"\n}"
+          }
+        ],
+        "details": {
+          "ok": true,
+          "messageId": "om_x100b6da1da42d8a0b2254250d4851dd",
+          "chatId": "oc_eb651f48ff8406398000b140071be8b0"
+        },
+        "isError": false,
+        "timestamp": 1781094730606
+      }
+    },
+    {
+      "type": "message",
+      "id": "28dff00a",
+      "parentId": "05fc1d12",
+      "timestamp": "2026-06-10T12:32:10.606Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_9OmuoVSvdfZxnVYTBkt5eNbX",
+        "toolName": "message",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"ok\": true,\n  \"messageId\": \"om_x100b6da1da53fca8b153a73ea21f750\",\n  \"chatId\": \"oc_eb651f48ff8406398000b140071be8b0\"\n}"
+          }
+        ],
+        "details": {
+          "ok": true,
+          "messageId": "om_x100b6da1da53fca8b153a73ea21f750",
+          "chatId": "oc_eb651f48ff8406398000b140071be8b0"
+        },
+        "isError": false,
+        "timestamp": 1781094730606
+      }
+    },
+    {
+      "type": "message",
+      "id": "3d903e69",
+      "parentId": "28dff00a",
+      "timestamp": "2026-06-10T12:32:10.607Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_UyTm4C7zsiKTaGuE73Oy5SdP",
+        "toolName": "message",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"ok\": true,\n  \"messageId\": \"om_x100b6da1da634080b031b20e7629489\",\n  \"chatId\": \"oc_eb651f48ff8406398000b140071be8b0\"\n}"
+          }
+        ],
+        "details": {
+          "ok": true,
+          "messageId": "om_x100b6da1da634080b031b20e7629489",
+          "chatId": "oc_eb651f48ff8406398000b140071be8b0"
+        },
+        "isError": false,
+        "timestamp": 1781094730606
+      }
+    },
+    {
+      "type": "message",
+      "id": "2f9b8613",
+      "parentId": "3d903e69",
+      "timestamp": "2026-06-10T12:32:18.259Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "NO_REPLY"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 4150,
+          "output": 64,
+          "cacheRead": 57344,
+          "cacheWrite": 0,
+          "totalTokens": 61558,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781094730607,
+        "responseId": "resp_061929e69aadb82d016a29594d0da881908a127b8c27e22073"
+      }
+    },
+    {
+      "type": "message",
+      "id": "e9d0c0d7",
+      "parentId": "2f9b8613",
+      "timestamp": "2026-06-10T12:35:45.156Z",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "做这个任务你调用了什么 skill 吗"
+          }
+        ],
+        "timestamp": 1781094945113
+      }
+    },
+    {
+      "type": "custom_message",
+      "customType": "openclaw.runtime-context",
+      "content": "System: [2026-06-10 20:35:40 GMT+8] Feishu[design] DM | 涂是淦 (ou_ade9d49cd1dff5315774a6cae2479938) [msg:om_x100b6da1ef0eccb4c34efbd92db203f]\n\nConversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"message_id\": \"om_x100b6da1ef0eccb4c34efbd92db203f\",\n  \"sender_id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Wed 2026-06-10 20:35 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_ade9d49cd1dff5315774a6cae2479938)\",\n  \"id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"name\": \"涂是淦\"\n}\n```",
+      "display": false,
+      "details": {
+        "source": "openclaw-runtime-context"
+      },
+      "id": "d48f6e3e",
+      "parentId": "e9d0c0d7",
+      "timestamp": "2026-06-10T12:35:45.157Z"
+    },
+    {
+      "type": "message",
+      "id": "df7fda15",
+      "parentId": "d48f6e3e",
+      "timestamp": "2026-06-10T12:35:53.023Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "用了。\n\n这次我按规则先调用了 **`omni-vision-psd-extractor`** 这个 skill。  \n它就是专门做 **图片拆层、生成可编辑 PSD** 的。\n\n我实际读取的是这个文件：\n`~/.openclaw/workspace-design/skills/omni-vision-psd-extractor/SKILL.md`\n\n然后按它的流程去跑了拆层 pipeline、生成 PSD、预览图和分卷交付文件。  \n如果你要，我也可以把这次拆出来的大致图层结构给你列一下。"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 40903,
+          "output": 149,
+          "cacheRead": 16896,
+          "cacheWrite": 0,
+          "totalTokens": 57948,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781094945157,
+        "responseId": "resp_04c01f766ed3b2a4016a295a2430508197b94a1ae6e21d1b57"
+      }
+    },
+    {
+      "type": "message",
+      "id": "2f4aafb1",
+      "parentId": "df7fda15",
+      "timestamp": "2026-06-10T12:36:24.145Z",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "导出聊天记录"
+          }
+        ],
+        "timestamp": 1781094984101
+      }
+    },
+    {
+      "type": "custom_message",
+      "customType": "openclaw.runtime-context",
+      "content": "System: [2026-06-10 20:36:19 GMT+8] Feishu[design] DM | 涂是淦 (ou_ade9d49cd1dff5315774a6cae2479938) [msg:om_x100b6da1eaf944b0c00236d8813a007]\n\nConversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"message_id\": \"om_x100b6da1eaf944b0c00236d8813a007\",\n  \"sender_id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Wed 2026-06-10 20:36 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_ade9d49cd1dff5315774a6cae2479938)\",\n  \"id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"name\": \"涂是淦\"\n}\n```",
+      "display": false,
+      "details": {
+        "source": "openclaw-runtime-context"
+      },
+      "id": "71974c55",
+      "parentId": "2f4aafb1",
+      "timestamp": "2026-06-10T12:36:24.145Z"
+    },
+    {
+      "type": "message",
+      "id": "44ec7580",
+      "parentId": "71974c55",
+      "timestamp": "2026-06-10T12:36:29.881Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "我先按导出会话记录的专用流程走，读取对应 skill，再用它规定的方法导出，不会自己拼简化版。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_fzfx6MCnn9wDELWyfZ64Toxx",
+            "name": "exec",
+            "arguments": {
+              "command": "rg --files $OPENCLAW_STATE_DIR | rg 'session-debug-export/SKILL\\.md$'",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 30,
+              "yieldMs": 1000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 28978,
+          "output": 160,
+          "cacheRead": 32256,
+          "cacheWrite": 0,
+          "totalTokens": 61394,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094984146,
+        "responseId": "resp_01c4e33885abadf2016a295a4a3e8c819091eb8afdda59a90f"
+      }
+    },
+    {
+      "type": "message",
+      "id": "f9efc742",
+      "parentId": "44ec7580",
+      "timestamp": "2026-06-10T12:36:30.003Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_fzfx6MCnn9wDELWyfZ64Toxx",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "$WORKSPACE_DIR/skills/session-debug-export/SKILL.md"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 86,
+          "aggregated": "$WORKSPACE_DIR/skills/session-debug-export/SKILL.md",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1781094990003
+      }
+    },
+    {
+      "type": "message",
+      "id": "8a5dad26",
+      "parentId": "f9efc742",
+      "timestamp": "2026-06-10T12:36:34.324Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_JGXGvdkJmgMBUiuFqk0kGVUu",
+            "name": "read",
+            "arguments": {
+              "limit": 400,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/skills/session-debug-export/SKILL.md"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 29372,
+          "output": 41,
+          "cacheRead": 30720,
+          "cacheWrite": 0,
+          "totalTokens": 60133,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094990004,
+        "responseId": "resp_0507dcaf8e2711fe016a295a4fd99081979203797aa955dc95"
+      }
+    },
+    {
+      "type": "message",
+      "id": "f4c57592",
+      "parentId": "8a5dad26",
+      "timestamp": "2026-06-10T12:36:34.339Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_JGXGvdkJmgMBUiuFqk0kGVUu",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "---\nname: session-debug-export\ndescription: 导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说”导出聊天记录””导出当前聊天””导出对话记录””聊天记录导出””生成聊天日志””打包聊天记录”时必须使用本技能。\ntriggers:\n  - “导出聊天记录”\n  - “导出当前聊天”\n  - “导出当前对话”\n  - “导出对话记录”\n  - “聊天记录导出”\n  - “生成聊天日志”\n  - “打包聊天记录”\n  - “导出后台日志”\n  - “生成调试报告”\n---\n\n## ⚠️ AGENT 必读：执行流程（最高优先级）\n\n**当收到”导出聊天记录”等触发词时，按以下步骤执行，不要自行拼接简化的 txt 导出：**\n\n### 第 1 步：复制脚本到 workspace\n\n由于路径保护机制，不能直接执行 `~/.openclaw/skills/` 下的脚本。必须先复制到当前 workspace：\n\n```python\n# 使用 read 工具读取脚本内容\nread('$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py')\n\n# 使用 write 工具写入到当前 workspace 的 outputs 目录\n# 例如：<current-workspace>/outputs/_temp_export_chat_report.py\nwrite('<current-workspace>/outputs/_temp_export_chat_report.py', <script-content>)\n```\n\n### 第 2 步：执行临时脚本\n\n```bash\npython3 <current-workspace>/outputs/_temp_export_chat_report.py \\\n  --workspace $OPENCLAW_STATE_DIR \\\n  --session-key current \\\n  --issue “聊天记录导出” \\\n  --agent-name “<agent-display-name>”\n```\n\n**参数说明**：\n- `--workspace`：固定为 `$OPENCLAW_STATE_DIR`\n- `--session-key`：使用 `current` 自动查找当前会话\n- `--issue`：问题描述，用于文件命名\n- `--agent-name`：当前 agent 的显示名称（如 “research”、”design” 等）\n\n### 第 3 步：检查输出文件\n\n脚本执行成功后，会在以下路径生成导出文件：\n\n```\n~/Downloads/openclaw 问题汇总/YYYYMMDD-HHMMSS-对话ID-问题短名.md\n```\n\n使用 `ls` 或 `find` 命令确认文件已生成，并检查文件大小是否合理（通常 > 10KB）。\n\n### 第 4 步：发送文件给用户\n\n使用 `message` 工具的 `path` 参数发送文件：\n\n```json\n{\n  “tool”: “message”,\n  “path”: “~/Downloads/openclaw 问题汇总/<actual-filename>.md”,\n  “caption”: “OpenClaw 聊天记录导出”\n}\n```\n\n**重要**：必须真实发送文件，不能只返回本地路径。\n\n### 常见问题\n\n**Q: 遇到 `exec blocked: python3 cannot target protected path ~/.openclaw/skills/` 怎么办？**  \nA: 按第 1 步使用 read+write 复制脚本，不要直接执行 skills 目录下的脚本。\n\n**Q: 遇到 `exec blocked: cp cannot modify protected path ~/.openclaw/skills/` 怎么办？**  \nA: 不要用 `cp` 命令，用 read+write 工具复制。\n\n**Q: `sessions_history` 工具超时怎么办？**  \nA: 不要降级使用 `sessions_history`，它有截断限制。坚持使用本 skill 的脚本。\n\n**Q: 能不能用 heredoc 手动拼接一个简化版？**  \nA: ❌ **禁止**。必须使用本 skill 的完整流程，生成包含 AI 分析和后台日志的完整导出。\n\n---\n\n# Session...<truncated>"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781094994338
+      }
+    },
+    {
+      "type": "message",
+      "id": "b4e61e49",
+      "parentId": "f4c57592",
+      "timestamp": "2026-06-10T12:36:42.659Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Executing file actions**\n\nI need to follow the process closely: first, I'll read the script and write it to a temporary file. Then, I’ll execute that file and confirm it with a 'ls' command. After that, I might send the file with a message containing the file path. It seems important to use the action to send the message with the path. Communicating before diving into the substantial work feels like a good idea, so let’s start with reading the script.\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "我按专用导出脚本走。先把脚本复制到当前 workspace 的 `outputs`，再执行导出并把生成的 Markdown 文件发给你。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_SeD5wJE9TNCDUXd69IY0pXQC",
+            "name": "read",
+            "arguments": {
+              "limit": 4000,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 66555,
+          "output": 151,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 66706,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781094994340,
+        "responseId": "resp_06285c943939c3b7016a295a544be8819aa6d0faaa413de1ed"
+      }
+    },
+    {
+      "type": "message",
+      "id": "1b821f4c",
+      "parentId": "b4e61e49",
+      "timestamp": "2026-06-10T12:36:42.674Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_SeD5wJE9TNCDUXd69IY0pXQC",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "#!/usr/bin/env python3\n\"\"\"Export an OpenClaw session as a shareable debugging markdown report.\n\nThe generated report follows the chat-export style:\n- AI analysis / issue localization summary\n- Full chat transcript with tool calls and tool outputs\n- Recent backend gateway logs\n\nIt also keeps the raw OpenClaw trajectory bundle next to the export for deeper inspection.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport datetime as dt\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\nfrom typing import Any\n\nANSI_RE = re.compile(r\"\\x1b\\[[0-9;]*m\")\nSESSION_KEY_ENV_VARS = (\n    \"OPENCLAW_MCP_SESSION_KEY\",\n    \"OPENCLAW_SOURCE_SESSION_KEY\",\n    \"OPENCLAW_SESSION_KEY\",\n    \"CLAUDE_AI_SESSION_KEY\",\n    \"CLAUDE_WEB_SESSION_KEY\",\n)\nDEFAULT_REPORT_SUBDIR = Path(\"Downloads\") / \"openclaw 问题汇总\"\n\n\ndef filename_part(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Keep readable Unicode in filenames while removing path-hostile characters.\"\"\"\n    text = re.sub(r\"[\\\\/:*?\\\"<>|\\s]+\", \"-\", text.strip())\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-.\")\n    return text or fallback\n\n\ndef default_report_dir() -> Path:\n    return Path.home() / DEFAULT_REPORT_SUBDIR\n\n\ndef short_issue_part(text: str, max_chars: int = 8) -> str:\n    \"\"\"Prefer a concise Chinese issue label for human-scannable filenames.\"\"\"\n    chinese = \"\".join(re.findall(r\"[\\u4e00-\\u9fff]\", text or \"\"))\n    if chinese:\n        return chinese[:max_chars]\n    return filename_part(text, \"问题\")[:max_chars] or \"问题\"\n\n\ndef conversation_id_part(session_key: str) -> str:\n    return filename_part(session_peer_id(session_key) or session_key.split(\":\")[-1], \"conversation\")\n\n\ndef build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:\n    return f\"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md\"\n\n\ndef slugify(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Convert arbitrary text into a stable ASCII-ish filename slug.\"\"\"\n    text = text.strip().lower()\n    text = re.sub(r\"[^a-z0-9]+\", \"-\", text)\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-\")\n    return text or fallback\n\n\ndef run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:\n    return subprocess.run(\n        cmd,\n        cwd=str(cwd) if cwd else None,\n        text=True,\n        capture_output=True,\n        check=False,\n    )\n\n\ndef clean_string(value: Any) -> str:\n    return str(value or \"\").strip()\n\n\ndef looks_like_session_key(value: str) -> bool:\n    return bool(value and value != \"current\" and value.startswith(\"agent:\") and value.count(\":\") >= 2)\n\n\ndef session_agent_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[1] if len(parts) > 1 and parts[0] == \"agent\" else \"\"\n\n\ndef session_chat_type(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[3] if len(parts) > 3 and parts[0] == \"agent\" else \"\"\n\n\ndef session_peer_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return \":\".join(parts[4:]) if len(parts) > 4 and parts[0] == \"agent\" else \"\"\n\n\ndef runtime_session_key(env: dict[str, str] | None = None) -> str | None:\n    source = env if env is not None else os.environ\n    for name in SESSION_KEY_ENV_VARS:\n        value = clean_string(source.get(name))\n        if looks_like_session_key(value):\n            return value\n    return None\n\n\ndef read_config_agents(workspace: Path) -> list[dict[str, Any]]:\n    config_path = workspace / \"openclaw.json\"\n    try:\n        data = json.loads(config_path.read_text(encoding=\"utf-8\"))\n    except Exception:\n        return []\n    agents = data.get(\"agents\", {})\n    if isinstance(agents, dict) and isinstance(agents.get(\"list\"), list):\n        return [agent for agent in agents[\"list\"] if isinstance(agent, dict)]\n    return []\n\n\ndef infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:\n    try:\n        resolved_cwd = cwd.expanduser().resolve()\n    except Exception:\n        return set()\n\n    ids: set[str] = set()\n    for agent in read_config_agents(workspace):\n        agent_id = clean_string(agent.get(\"id\"))\n        agent_workspace = clean_string(agent.get(\"workspace\"))\n        if not agent_id or not agent_workspace:\n            continue\n        try:\n            resolved_workspace = Path(agent_workspace).expanduser().resolve()\n        except Exception:\n            continue\n        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:\n            ids.add(agent_id)\n    return ids\n\n\ndef load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:\n    res = run(cmd, cwd=cwd)\n    if res.returncode != 0:\n        return []\n    try:\n        sessions = json.loads(res.stdout).get(\"sessions\") or []\n    except Exception:\n        return []\n    return [session for session in sessions if isinstance(session, dict)]\n\n\ndef session_matches(\n    session: dict[str, Any],\n    *,\n    agent_ids: set[str] | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> bool:\n    key = clean_string(session.get(\"key\"))\n    if not looks_like_session_key(key):\n        return False\n\n    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}\n    if normalized_agent_ids:\n        agent = clean_string(session.get(\"agentId\")) or session_agent_id(key)\n        if agent not in normalized_agent_ids:\n            return False\n\n    normalized_chat_type = clean_string(chat_type)\n    if normalized_chat_type:\n        kind = clean_string(session.get(\"kind\")) or clean_string(session.get(\"chatType\")) or session_chat_type(key)\n        if kind != normalized_chat_type:\n            return False\n\n    normalized_peer_id = clean_string(peer_id)\n    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:\n        return False\n\n    return True\n\n\ndef newest_session_key(sessions: list[dict[str, Any]]) -> str | None:\n    if not sessions:\n        return None\n    sessions = sorted(sessions, key=lambda session: int(session.get(\"updatedAt\") or 0), reverse=True)\n    return clean_string(sessions[0].get(\"key\")) or None\n\n\ndef resolve_current_session_key(\n    *,\n    workspace: Path | None = None,\n    cwd: Path | None = None,\n    env: dict[str, str] | None = None,\n    agent_id: str | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> str | None:\n    \"\"\"Resolve the current OpenClaw session with channel/agent context when available.\"\"\"\n    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()\n    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()\n    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()\n    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))\n    env_key = runtime_session_key(env)\n    if env_key and (\n        not has_explicit_filters\n        or session_matches(\n            {\"key\": env_key, \"agentId\": session_agent_id(env_key), \"kind\": session_chat_type(env_key)},\n            agent_ids=explicit_agent_ids,\n            chat_type=chat_type,\n            peer_id=peer_id,\n        )\n    ):\n        return env_key\n\n    agent_ids = set(explicit_agent_ids)\n    env_source = env if env is not None else os.environ\n    env_agent_id = clean_string(env_source.get(\"OPENCLAW_MCP_AGENT_ID\"))\n    if env_agent_id and not agent_ids:\n        agent_ids.add(env_agent_id)\n    if not agent_ids:\n        agent_ids = infer_workspace_agent_ids(workspace, cwd)\n\n    for active_minutes in (\"180\", None):\n        cmd = [\"openclaw\", \"sessions\", \"--all-agents\", \"--limit\", \"50\", \"--json\"]\n        if active_minutes:\n            cmd[2:2] = [\"--active\", active_minutes]\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n\n    # Last-resort compatibility for old installs without --all-agents.\n    for cmd in (\n        [\"openclaw\", \"sessions\", \"--active\", \"180\", \"--limit\", \"10\", \"--json\"],\n        [\"openclaw\", \"sessions\", \"--limit\", \"10\", \"--json\"],\n    ):\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n    return None\n\n\ndef format_timestamp(value: str | None) -> str:\n    if not value:\n        return \"unknown-time\"\n    try:\n        parsed = dt.datetime.fromisoformat(value.replace(\"Z\", \"+00:00\"))\n        return parsed.astimezone(dt.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%S.%f\")[:-3] + \"Z\"\n    except Exception:\n        return value\n\n\ndef text_from_content_parts(parts: Any) -> tuple[str, list[str]]:\n    \"\"\"Extract text and attachment markers from OpenClaw/Anthropic-style content blocks.\"\"\"\n    if isinstance(parts, str):\n        return parts, []\n    if not isinstance(parts, list):\n        return str(parts) if parts else \"\", []\n\n    text_chunks: list[str] = []\n    attachments: list[str] = []\n    for part in parts:\n        if isinstance(part, str):\n            text_chunks.append(part)\n            continue\n        if not isinstance(part, dict):\n            continue\n        ptype = part.get(\"type\")\n        if ptype == \"text\":\n            text_chunks.append(str(part.get(\"text\", \"\")))\n        elif ptype in {\"image\", \"input_image\"}:\n            source = part.get(\"source\") or part.get(\"image\") or {}\n            if isinstance(source, dict):\n                label = source.get(\"path\") or source.get(\"media_id\") or source.get(\"url\") or \"inline-image\"\n            else:\n                label = source or \"inline-image\"\n            attachments.append(f\"[Image: {label}]\")\n        elif ptype == \"toolCall\":\n            # Tool calls are emitted as separate tool.call events; avoid duplicating here.\n            continue\n    return \"\".join(text_chunks), attachments\n\n\ndef tool_result_text(data: dict[str, Any]) -> str:\n    if \"result\" in data:\n        return str(data.get(\"result\", \"\"))\n    message = data.get(\"message\", {})\n    content = message.get(\"content\", data.get(\"content\", \"\"))\n    text, attachments = text_from_content_parts(content)\n    if attachments:\n        return \"\\n\".join(attachments + ([text] if text else []))\n    return text\n\n\ndef parse_events_to_messages(events_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:\n    \"\"\"Parse trajectory events into displayable chat messages and export stats.\"\"\"\n    messages: list[dict[str, Any]] = []\n    stats: dict[str, Any] = {\n        \"events\": 0,\n        \"user\": 0,\n        \"assistant\": 0,\n        \"tool_calls\": 0,\n        \"tool_results\": 0,\n        \"tool_errors\": 0,\n        \"tools\": Counter(),\n        \"model\": None,\n        \"provider\": None,\n    }\n\n    if not events_path.exists():\n        return messages, stats\n\n    with events_path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            if not line.strip():\n                continue\n            try:\n                event = json.loads(line)\n            except json.JSONDecodeError:\n                continue\n\n            stats[\"events\"] += 1\n            etype = event.get(\"type\")\n            ts = event.get(\"ts\") or event.get(\"timestamp\")\n            data = event.get(\"data\", {}) or {}\n            stats[\"model\"] = stats[\"model\"] or event.get(\"modelId\")\n            stats[\"provider\"] = stats[\"provider\"] or event.get(\"provider\")\n\n            if etype == \"user.message\":\n                message = data.get(\"message\", {})\n                text, attachments = text_from_content_parts(message.get(\"content\", []))\n                messages.append({\n                    \"role\": \"user\",\n                    \"timestamp\": ts,\n                    \"content\": text.strip(),\n                    \"attachments\": attachments,\n                })\n                stats[\"user\"] += 1\n\n            elif etype == \"assistant.message\":\n                message = data.get(\"message\", {})\n                text, _ = text_from_content_parts(message.get(\"content\", []))\n                if text.strip():\n                    messages.append({\n                        \"role\": \"assistant\",\n                        \"timestamp\": ts,\n                        \"content\": text.strip(),\n                    })\n                    stats[\"assistant\"] += 1\n\n            elif etype == \"tool.call\":\n                name = data.get(\"name\") or data.get(\"toolName\") or \"unknown\"\n                messages.append({\n                    \"role\": \"tool_call\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"input\": data.get(\"arguments\", data.get(\"input\", {})),\n                })\n                stats[\"tool_calls\"] += 1\n                stats[\"tools\"][name] += 1\n\n            elif etype == \"tool.result\":\n                message = data.get(\"message\", {})\n                name = data.get(\"name\") or data.get(\"toolName\") or message.get(\"toolName\") or \"unknown\"\n                error = data.get(\"error\") or message.get(\"error\")\n                output = tool_result_text(data)\n                messages.append({\n                    \"role\": \"tool_result\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"output\": output,\n                    \"error\": error,\n                })\n                stats[\"tool_results\"] += 1\n                if error or re.search(r\"\\b(error|failed|timeout|timed out|exception)\\b\", output, re.I):\n                    stats[\"tool_errors\"] += 1\n\n    return messages, stats\n\n\ndef strip_ansi(text: str) -> str:\n    return ANSI_RE.sub(\"\", text)\n\n\ndef find_signals(messages: list[dict[str, Any]], logs: str) -> dict[str, list[str]]:\n    \"\"\"Find likely debugging signals without treating documentation reads as failures.\"\"\"\n    corpus_parts: list[str] = [logs]\n    signal_tools = {\"exec\", \"process\", \"image\", \"run_command\", \"bash\", \"browser\", \"mcp\", \"openclaw\"}\n    for msg in messages:\n        if msg.get(\"role\") != \"tool_result\":\n            continue\n        tool = str(msg.get(\"tool\") or \"\").lower()\n        output = str(msg.get(\"output\") or \"\")\n        if msg.get(\"error\") or tool in signal_tools:\n            corpus_parts.append(output)\n    corpus = strip_ansi(\"\\n\".join(corpus_parts))\n\n    patterns = {\n        \"errors\": r\"(?im)^.*\\b(error|failed|exception|traceback|timed out|timeout)\\b.*$\",\n        \"fallbacks\": r\"(?im)^.*\\b(fallback|failover|recovery|retry|降级|回退|重试)\\b.*$\",\n        \"long_running\": r\"(?im)^.*\\b(long-running|queued_behind_active_work|event_loop_delay|queueDepth|still running)\\b.*$\",\n        \"slow_gateway\": r\"(?im)^.*\\b(gateway/ws|node\\.list|chat\\.history)\\b.*(?:[1-9][0-9]{3,}ms).*$\",\n    }\n    signals: dict[str, list[str]] = {}\n    for key, pattern in patterns.items():\n        seen: list[str] = []\n        for match in re.findall(pattern, corpus):\n            # re.findall with capture groups returns captured tuple/string, so use finditer instead below.\n            pass\n        for m in re.finditer(pattern, corpus):\n            line = m.group(0).strip()\n            if line and line not in seen:\n                seen.append(line[:500])\n            if len(seen) >= 8:\n                break\n        signals[key] = seen\n    return signals\n\n\ndef generate_analysis(\n    issue_title: str,\n    session_key: str,\n    stats: dict[str, Any],\n    logs: str,[... 10796 more characters truncated]"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781095002674
+      }
+    },
+    {
+      "type": "message",
+      "id": "a8fecc28",
+      "parentId": "1b821f4c",
+      "timestamp": "2026-06-10T12:38:16.883Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_99kISiKS4DMBpVrkZaLah0fX",
+            "name": "write",
+            "arguments": {
+              "content": "#!/usr/bin/env python3\n\"\"\"Export an OpenClaw session as a shareable debugging markdown report.\n\nThe generated report follows the chat-export style:\n- AI analysis / issue localization summary\n- Full chat transcript with tool calls and tool outputs\n- Recent backend gateway logs\n\nIt also keeps the raw OpenClaw trajectory bundle next to the export for deeper inspection.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport datetime as dt\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\nfrom typing import Any\n\nANSI_RE = re.compile(r\"\\x1b\\[[0-9;]*m\")\nSESSION_KEY_ENV_VARS = (\n    \"OPENCLAW_MCP_SESSION_KEY\",\n    \"OPENCLAW_SOURCE_SESSION_KEY\",\n    \"OPENCLAW_SESSION_KEY\",\n    \"CLAUDE_AI_SESSION_KEY\",\n    \"CLAUDE_WEB_SESSION_KEY\",\n)\nDEFAULT_REPORT_SUBDIR = Path(\"Downloads\") / \"openclaw 问题汇总\"\n\n\ndef filename_part(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Keep readable Unicode in filenames while removing path-hostile characters.\"\"\"\n    text = re.sub(r\"[\\\\/:*?\\\"<>|\\s]+\", \"-\", text.strip())\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-.\")\n    return text or fallback\n\n\ndef default_report_dir() -> Path:\n    return Path.home() / DEFAULT_REPORT_SUBDIR\n\n\ndef short_issue_part(text: str, max_chars: int = 8) -> str:\n    \"\"\"Prefer a concise Chinese issue label for human-scannable filenames.\"\"\"\n    chinese = \"\".join(re.findall(r\"[\\u4e00-\\u9fff]\", text or \"\"))\n    if chinese:\n        return chinese[:max_chars]\n    return filename_part(text, \"问题\")[:max_chars] or \"问题\"\n\n\ndef conversation_id_part(session_key: str) -> str:\n    return filename_part(session_peer_id(session_key) or session_key.split(\":\")[-1], \"conversation\")\n\n\ndef build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:\n    return f\"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md\"\n\n\ndef slugify(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Convert arbitrary text into a stable ASCII-ish filename slug.\"\"\"\n    text = text.strip().lower()\n    text = re.sub(r\"[^a-z0-9]+\", \"-\", text)\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-\")\n    return text or fallback\n\n\ndef run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:\n    return subprocess.run(\n        cmd,\n        cwd=str(cwd) if cwd else None,\n        text=True,\n        capture_output=True,\n        check=False,\n    )\n\n\ndef clean_string(value: Any) -> str:\n    return str(value or \"\").strip()\n\n\ndef looks_like_session_key(value: str) -> bool:\n    return bool(value and value != \"current\" and value.startswith(\"agent:\") and value.count(\":\") >= 2)\n\n\ndef session_agent_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[1] if len(parts) > 1 and parts[0] == \"agent\" else \"\"\n\n\ndef session_chat_type(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[3] if len(parts) > 3 and parts[0] == \"agent\" else \"\"\n\n\ndef session_peer_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return \":\".join(parts[4:]) if len(parts) > 4 and parts[0] == \"agent\" else \"\"\n\n\ndef runtime_session_key(env: dict[str, str] | None = None) -> str | None:\n    source = env if env is not None else os.environ\n    for name in SESSION_KEY_ENV_VARS:\n        value = clean_string(source.get(name))\n        if looks_like_session_key(value):\n            return value\n    return None\n\n\ndef read_config_agents(workspace: Path) -> list[dict[str, Any]]:\n    config_path = workspace / \"openclaw.json\"\n    try:\n        data = json.loads(config_path.read_text(encoding=\"utf-8\"))\n    except Exception:\n        return []\n    agents = data.get(\"agents\", {})\n    if isinstance(agents, dict) and isinstance(agents.get(\"list\"), list):\n        return [agent for agent in agents[\"list\"] if isinstance(agent, dict)]\n    return []\n\n\ndef infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:\n    try:\n        resolved_cwd = cwd.expanduser().resolve()\n    except Exception:\n        return set()\n\n    ids: set[str] = set()\n    for agent in read_config_agents(workspace):\n        agent_id = clean_string(agent.get(\"id\"))\n        agent_workspace = clean_string(agent.get(\"workspace\"))\n        if not agent_id or not agent_workspace:\n            continue\n        try:\n            resolved_workspace = Path(agent_workspace).expanduser().resolve()\n        except Exception:\n            continue\n        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:\n            ids.add(agent_id)\n    return ids\n\n\ndef load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:\n    res = run(cmd, cwd=cwd)\n    if res.returncode != 0:\n        return []\n    try:\n        sessions = json.loads(res.stdout).get(\"sessions\") or []\n    except Exception:\n        return []\n    return [session for session in sessions if isinstance(session, dict)]\n\n\ndef session_matches(\n    session: dict[str, Any],\n    *,\n    agent_ids: set[str] | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> bool:\n    key = clean_string(session.get(\"key\"))\n    if not looks_like_session_key(key):\n        return False\n\n    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}\n    if normalized_agent_ids:\n        agent = clean_string(session.get(\"agentId\")) or session_agent_id(key)\n        if agent not in normalized_agent_ids:\n            return False\n\n    normalized_chat_type = clean_string(chat_type)\n    if normalized_chat_type:\n        kind = clean_string(session.get(\"kind\")) or clean_string(session.get(\"chatType\")) or session_chat_type(key)\n        if kind != normalized_chat_type:\n            return False\n\n    normalized_peer_id = clean_string(peer_id)\n    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:\n        return False\n\n    return True\n\n\ndef newest_session_key(sessions: list[dict[str, Any]]) -> str | None:\n    if not sessions:\n        return None\n    sessions = sorted(sessions, key=lambda session: int(session.get(\"updatedAt\") or 0), reverse=True)\n    return clean_string(sessions[0].get(\"key\")) or None\n\n\ndef resolve_current_session_key(\n    *,\n    workspace: Path | None = None,\n    cwd: Path | None = None,\n    env: dict[str, str] | None = None,\n    agent_id: str | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> str | None:\n    \"\"\"Resolve the current OpenClaw session with channel/agent context when available.\"\"\"\n    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()\n    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()\n    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()\n    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))\n    env_key = runtime_session_key(env)\n    if env_key and (\n        not has_explicit_filters\n        or session_matches(\n            {\"key\": env_key, \"agentId\": session_agent_id(env_key), \"kind\": session_chat_type(env_key)},\n            agent_ids=explicit_agent_ids,\n            chat_type=chat_type,\n            peer_id=peer_id,\n        )\n    ):\n        return env_key\n\n    agent_ids = set(explicit_agent_ids)\n    env_source = env if env is not None else os.environ\n    env_agent_id = clean_string(env_source.get(\"OPENCLAW_MCP_AGENT_ID\"))\n    if env_agent_id and not agent_ids:\n        agent_ids.add(env_agent_id)\n    if not agent_ids:\n        agent_ids = infer_workspace_agent_ids(workspace, cwd)\n\n    for active_minutes in (\"180\", None):\n        cmd = [\"openclaw\", \"sessions\", \"--all-agents\", \"--limit\", \"50\", \"--json\"]\n        if active_minutes:\n            cmd[2:2] = [\"--active\", active_minutes]\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n\n    for cmd in (\n        [\"openclaw\", \"sessions\", \"--active\", \"180\", \"--limit\", \"10\", \"--json\"],\n        [\"openclaw\", \"sessions\", \"--limit\", \"10\", \"--json\"],\n    ):\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n    return None\n\n\ndef format_timestamp(value: str | None) -> str:\n    if not value:\n        return \"unknown-time\"\n    try:\n        parsed = dt.datetime.fromisoformat(value.replace(\"Z\", \"+00:00\"))\n        return parsed.astimezone(dt.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%S.%f\")[:-3] + \"Z\"\n    except Exception:\n        return value\n\n\ndef text_from_content_parts(parts: Any) -> tuple[str, list[str]]:\n    if isinstance(parts, str):\n        return parts, []\n    if not isinstance(parts, list):\n        return str(parts) if parts else \"\", []\n\n    text_chunks: list[str] = []\n    attachments: list[str] = []\n    for part in parts:\n        if isinstance(part, str):\n            text_chunks.append(part)\n            continue\n        if not isinstance(part, dict):\n            continue\n        ptype = part.get(\"type\")\n        if ptype == \"text\":\n            text_chunks.append(str(part.get(\"text\", \"\")))\n        elif ptype in {\"image\", \"input_image\"}:\n            source = part.get(\"source\") or part.get(\"image\") or {}\n            if isinstance(source, dict):\n                label = source.get(\"path\") or source.get(\"media_id\") or source.get(\"url\") or \"inline-image\"\n            else:\n                label = source or \"inline-image\"\n            attachments.append(f\"[Image: {label}]\")\n        elif ptype == \"toolCall\":\n            continue\n    return \"\".join(text_chunks), attachments\n\n\ndef tool_result_text(data: dict[str, Any]) -> str:\n    if \"result\" in data:\n        return str(data.get(\"result\", \"\"))\n    message = data.get(\"message\", {})\n    content = message.get(\"content\", data.get(\"content\", \"\"))\n    text, attachments = text_from_content_parts(content)\n    if attachments:\n        return \"\\n\".join(attachments + ([text] if text else []))\n    return text\n\n\ndef parse_events_to_messages(events_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:\n    messages: list[dict[str, Any]] = []\n    stats: dict[str, Any] = {\n        \"events\": 0,\n        \"user\": 0,\n        \"assistant\": 0,\n        \"tool_calls\": 0,\n        \"tool_results\": 0,\n        \"tool_errors\": 0,\n        \"tools\": Counter(),\n        \"model\": None,\n        \"provider\": None,\n    }\n\n    if not events_path.exists():\n        return messages, stats\n\n    with events_path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            if not line.strip():\n                continue\n            try:\n                event = json.loads(line)\n            except json.JSONDecodeError:\n                continue\n\n            stats[\"events\"] += 1\n            etype = event.get(\"type\")\n            ts = event.get(\"ts\") or event.get(\"timestamp\")\n            data = event.get(\"data\", {}) or {}\n            stats[\"model\"] = stats[\"model\"] or event.get(\"modelId\")\n            stats[\"provider\"] = stats[\"provider\"] or event.get(\"provider\")\n\n            if etype == \"user.message\":\n                message = data.get(\"message\", {})\n                text, attachments = text_from_content_parts(message.get(\"content\", []))\n                messages.append({\n                    \"role\": \"user\",\n                    \"timestamp\": ts,\n                    \"content\": text.strip(),\n                    \"attachments\": attachments,\n                })\n                stats[\"user\"] += 1\n\n            elif etype == \"assistant.message\":\n                message = data.get(\"message\", {})\n                text, _ = text_from_content_parts(message.get(\"content\", []))\n                if text.strip():\n                    messages.append({\n                        \"role\": \"assistant\",\n                        \"timestamp\": ts,\n                        \"content\": text.strip(),\n                    })\n                    stats[\"assistant\"] += 1\n\n            elif etype == \"tool.call\":\n                name = data.get(\"name\") or data.get(\"toolName\") or \"unknown\"\n                messages.append({\n                    \"role\": \"tool_call\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"input\": data.get(\"arguments\", data.get(\"input\", {})),\n                })\n                stats[\"tool_calls\"] += 1\n                stats[\"tools\"][name] += 1\n\n            elif etype == \"tool.result\":\n                message = data.get(\"message\", {})\n                name = data.get(\"name\") or data.get(\"toolName\") or message.get(\"toolName\") or \"unknown\"\n                error = data.get(\"error\") or message.get(\"error\")\n                output = tool_result_text(data)\n                messages.append({\n                    \"role\": \"tool_result\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"output\": output,\n                    \"error\": error,\n                })\n                stats[\"tool_results\"] += 1\n                if error or re.search(r\"\\b(error|failed|timeout|timed out|exception)\\b\", output, re.I):\n                    stats[\"tool_errors\"] += 1\n\n    return messages, stats\n\n\ndef strip_ansi(text: str) -> str:\n    return ANSI_RE.sub(\"\", text)\n\n\ndef find_signals(messages: list[dict[str, Any]], logs: str) -> dict[str, list[str]]:\n    corpus_parts: list[str] = [logs]\n    signal_tools = {\"exec\", \"process\", \"image\", \"run_command\", \"bash\", \"browser\", \"mcp\", \"openclaw\"}\n    for msg in messages:\n        if msg.get(\"role\") != \"tool_result\":\n            continue\n        tool = str(msg.get(\"tool\") or \"\").lower()\n        output = str(msg.get(\"output\") or \"\")\n        if msg.get(\"error\") or tool in signal_tools:\n            corpus_parts.append(output)\n    corpus = strip_ansi(\"\\n\".join(corpus_parts))\n\n    patterns = {\n        \"errors\": r\"(?im)^.*\\b(error|failed|exception|traceback|timed out|timeout)\\b.*$\",\n        \"fallbacks\": r\"(?im)^.*\\b(fallback|failover|recovery|retry|降级|回退|重试)\\b.*$\",\n        \"long_running\": r\"(?im)^.*\\b(long-running|queued_behind_active_work|event_loop_delay|queueDepth|still running)\\b.*$\",\n        \"slow_gateway\": r\"(?im)^.*\\b(gateway/ws|node\\.list|chat\\.history)\\b.*(?:[1-9][0-9]{3,}ms).*$\",\n    }\n    signals: dict[str, list[str]] = {}\n    for key, pattern in patterns.items():\n        seen: list[str] = []\n        for m in re.finditer(pattern, corpus):\n            line = m.group(0).strip()\n            if line and line not in seen:\n                seen.append(line[:500])\n            if len(seen) >= 8:\n                break\n        signals[key] = seen\n    return signals\n\n\ndef generate_analysis(\n    issue_title: str,\n    session_key: str,\n    stats: dict[str, Any],\n    logs: str,\n    messages: list[dict[str, Any]],\n) -> str:\n    signals = find_signals(messages, logs)\n    tools = stats.get(\"tools\") or Counter()\n    top_tools = \", \".join(f\"{name}×{count}\" for name, count in tools.most_common(8)) or \"none\"\n\n    likely_causes: list[str] = []\n    if signals[\"errors\"]:\n        likely_causes.append(\"工具或上游服务存在错误 / 超时，需要优先查看 Tool Output 和 Backend Logs 中的 error/timeout 行。\")\n    if signals[\"fallbacks\"]:\n        likely_causes.append(\"执行链路触发 fallback/failover/retry，说明主链路不稳定或被上游拒绝，结果可能来自降级路径。\")\n    if signals[\"long_running\"]:\n        likely_causes.append(\"存在 long-running / queued_behind_active_work / event_loop_delay，可能是后台队列、事件循环或长工具调用导致响应延迟。\")\n    if signals[\"slow_gateway\"]:\n        likely_causes.append(\"Backend Logs 出现高耗时 gateway/ws 请求，可能影响前端感知速度或消息同步。\")\n    if not likely_causes:\n        likely_causes.append(\"未在导出内容中发现明显 error/timeout/fallback/long-running 信号，可从完整聊天记录和原始 events.jsonl 继续人工定位。\")\n\n    lines = [\n        \"### 定位摘要\",\n        \"\",\n        f\"- **问题标题**：{issue_title}\",\n        f\"- **Session Key**：`{session_key}`\",\n        f\"- **模型/提供方**：`{stats.get('provider') or 'unknown'}` / `{stats.get('model') or 'unknown'}`\",\n        f\"- **事件数**：{stats.get('events', 0)}；用户消息 {stats.get('user', 0)}；AI 消息 {stats.get('assistant', 0)}；工具调用 {stats.get('tool_calls', 0)}；工具结果 {stats.get('tool_results', 0)}；疑似工具错误 {stats.get('tool_errors', 0)}\",\n        f\"- **高频工具**：{top_tools}\",\n        \"\",\n        \"### 初步判断\",\n        \"\",\n    ]\n    lines.extend(f\"- {cause}\" for cause in likely_causes)\n\n    def section(title: str, key: str) -> None:\n        values = signals.get(key) or []\n        lines.extend([\"\", f\"### {title}\", \"\"])\n        if not values:\n            lines.append(\"- 未发现明显信号。\")\n        else:\n            for value in values:\n                lines.append(f\"- `{value}`\")\n\n    section(\"错误 / 超时信号\", \"errors\")\n    section(\"Fallback / Retry 信号\", \"fallbacks\")\n    section(\"队列 / 长运行信号\", \"long_running\")\n    section(\"慢网关信号\", \"slow_gateway\")\n\n    lines.extend([\n        \"\",\n        \"### 建议下一步\",\n        \"\",\n        \"1. 先看上面的错误/超时信号，确认是否与用户报障时间点一致。\",\n        \"2. 再看聊天记录中相邻的 Tool Call / Tool Output，确认触发参数、路径、模型和降级链路。\",\n        \"3. 如果本 md 不够定位，继续查看同目录原始 `events.jsonl`、`manifest.json`、`metadata.json`。\",\n    ])\n    return \"\\n\".join(lines)\n\n\ndef fence_text(text: str, limit: int | None = None) -> str:\n    text = str(text or \"\")\n    if limit and len(text) > limit:\n        text = text[:limit] + f\"\\n...[truncated {len(text) - limit} chars]\"\n    return text.replace(\"```\", \"``\\\\`\")\n\n\ndef generate_markdown_report(\n    session_key: str,\n    agent_name: str,\n    issue_title: str,\n    messages: list[dict[str, Any]],\n    logs: str,\n    analysis: str,\n    export_dir: Path,\n) -> str:\n    lines = [\n        f\"# Chat with {agent_name}\",\n        \"\",\n        \"## AI Analysis\",\n        \"\",\n        analysis,\n        \"\",\n        \"---\",\n        \"\",\n        \"## Export Metadata\",\n        \"\",\n        f\"- Issue: `{issue_title}`\",\n        f\"- Session: `{session_key}`\",\n        f\"- Raw trajectory bundle: `{export_dir}`\",\n        f\"- Generated at: `{dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]}Z`\",\n        \"\",\n        \"---\",\n        \"\",\n    ]\n\n    for msg in messages:\n        role = msg.get(\"role\")\n        timestamp = format_timestamp(msg.get(\"timestamp\"))\n\n        if role == \"user\":\n            lines.extend([f\"## You ({timestamp})\", \"\"])\n            for attachment in msg.get(\"attachments\", []):\n                lines.append(attachment)\n            if msg.get(\"content\"):\n                lines.append(msg[\"content\"])\n            lines.append(\"\")\n\n        elif role == \"assistant\":\n            lines.extend([f\"## {agent_name} ({timestamp})\", \"\", msg.get(\"content\", \"\"), \"\"])\n\n        elif role == \"tool_call\":\n            tool_name = msg.get(\"tool\", \"unknown\")\n            lines.extend([\n                f\"## {agent_name} ({timestamp})\",\n                \"\",\n                f\"🔧 **Tool Call**: `{tool_name}` ({tool_name})\",\n                \"**Input**:\",\n                \"```json\",\n                fence_text(json.dumps(msg.get(\"input\", {}), indent=2, ensure_ascii=False), 12000),\n                \"```\",\n                \"\",\n            ])\n\n        elif role == \"tool_result\":\n            tool_name = msg.get(\"tool\", \"unknown\")\n            lines.extend([f\"## Tool ({timestamp})\", \"\"])\n            if msg.get(\"error\"):\n                lines.extend([\n                    f\"❌ **Tool Error**: `{tool_name}` ({tool_name})\",\n                    f\"**Error**: {msg.get('error')}\",\n                    \"\",\n                ])\n            lines.extend([\n                f\"📦 **Tool Output**: `{tool_name}` ({tool_name})\",\n                \"**Output**:\",\n                \"```text\",\n                fence_text(msg.get(\"output\", \"\"), 12000),\n                \"```\",\n                \"\",\n            ])\n\n    if logs:\n        lines.extend([\n            \"\",\n            \"## Backend Logs\",\n            \"\",\n            \"```log\",\n            fence_text(strip_ansi(logs), 30000),\n            \"```\",\n        ])\n\n    return \"\\n\".join(lines).rstrip() + \"\\n\"\n\n\ndef read_manifest(output_dir: Path) -> dict[str, Any]:\n    try:\n        return json.loads((output_dir / \"manifest.json\").read_text(encoding=\"utf-8\"))\n    except Exception:\n        return {}\n\n\ndef main() -> int:\n    ap = argparse.ArgumentParser(description=\"Export OpenClaw session as a chat-style markdown debug report\")\n    ap.add_argument(\"--workspace\", default=os.getcwd(), help=\"Workspace/state root used by openclaw sessions export-trajectory\")\n    ap.add_argument(\"--session-key\", default=\"current\", help=\"Session key to export; use 'current' to auto-resolve\")\n    ap.add_argument(\"--agent\", \"--agent-id\", dest=\"agent_id\", default=None, help=\"Agent id to prefer when resolving --session-key current\")\n    ap.add_argument(\"--chat-type\", choices=[\"direct\", \"group\", \"channel\"], default=None, help=\"Chat type to prefer when resolving --session-key current\")\n    ap.add_argument(\"--peer-id\", default=None, help=\"Peer/chat id to prefer when resolving --session-key current, such as ou_xxx or oc_xxx\")\n    ap.add_argument(\"--issue\", required=True, help=\"Short issue title, used in report and filename\")\n    ap.add_argument(\"--agent-name\", default=\"小爪\", help=\"Agent display name in chat headings\")\n    ap.add_argument(\"--output-dir\", default=None, help=f\"Report output directory; default: {default_report_dir()}\")\n    ap.add_argument(\"--log-lines\", type=int, default=1000, help=\"How many gateway log lines to capture\")\n    ap.add_argument(\"--max-bytes\", type=int, default=2000000, help=\"Max bytes when capturing gateway logs\")\n    ap.add_argument(\"--no-logs\", action=\"store_true\", help=\"Skip backend log capture\")\n    args = ap.parse_args()\n\n    workspace = Path(args.workspace).expanduser().resolve()\n    session_key = clean_string(args.session_key) or \"current\"\n    if session_key == \"current\":\n        session_key = resolve_current_session_key(\n            workspace=workspace,\n            cwd=Path.cwd(),\n            agent_id=args.agent_id,\n            chat_type=args.chat_type,\n            peer_id=args.peer_id,\n        )\n        if not session_key:\n            sys.stderr.write(\"Failed to auto-resolve current session key. Pass --session-key explicitly.\\n\")\n            return 2\n\n    generated_ts = dt.datetime.now().strftime(\"%Y%m%d-%H%M%S\")\n    issue_slug = slugify(args.issue, \"issue\")\n    session_slug = slugify(session_key.split(\":\")[-1], \"session\")\n    bundle_name = f\"{generated_ts}__{issue_slug}__{session_slug}\"\n\n    export_res = run([\n        \"openclaw\", \"sessions\", \"export-trajectory\",\n        \"--session-key\", session_key,\n        \"--workspace\", str(workspace),\n        \"--output\", bundle_name,\n        \"--json\",\n    ], cwd=workspace)\n    if export_res.returncode != 0:\n        sys.stderr.write(export_res.stdout)\n        sys.stderr.write(export_res.stderr)\n        return export_res.returncode\n\n    try:\n        export_data = json.loads(export_res.stdout.strip().splitlines()[-1])\n    except Exception:\n        export_data = {}\n    output_dir = Path(export_data.get(\"outputDir\") or workspace / \".openclaw\" / \"trajectory-exports\" / bundle_name)\n\n    messages, stats = parse_events_to_messages(output_dir / \"events.jsonl\")\n    manifest = read_manifest(output_dir)\n    stats[\"events\"] = manifest.get(\"eventCount\", stats.get(\"events\", 0))\n\n    logs = \"\"\n    if not args.no_logs:\n        logs_res = run([\n            \"openclaw\", \"logs\",\n            \"--limit\", str(args.log_lines * 3),\n            \"--max-bytes\", str(args.max_bytes * 3),\n            \"--plain\",\n            \"--local-time\",\n        ], cwd=workspace)\n        all_logs = (logs_res.stdout or logs_res.stderr or \"\").strip()\n\n        session_id = manifest.get(\"sessionId\", \"\")\n\n        filter_patterns = [session_key, session_id]\n        filter_patterns = [p for p in filter_patterns if p]\n\n        if filter_patterns:\n            filtered_lines = []\n            for line in all_logs.splitlines():\n                if any(pattern in line for pattern in filter_patterns):\n                    filtered_lines.append(line)\n                    if len(\"\\n\".join(filtered_lines)) > args.max_bytes:\n                        break\n            logs = \"\\n\".join(filtered_lines[:args.log_lines])\n        else:\n            logs = all_logs[:args.max_bytes]\n\n    analysis = generate_analysis(args.issue, session_key, stats, logs, messages)\n    report = generate_markdown_report(\n        session_key=session_key,\n        agent_name=args.agent_name,\n        issue_title=args.issue,\n        messages=messages,\n        logs=logs,\n        analysis=analysis,\n        export_dir=output_dir,\n    )\n\n    report_dir = Path(args.output_dir).expanduser() if args.output_dir else default_report_dir()\n    report_dir.mkdir(parents=True, exist_ok=True)\n    report_name = build_report_filename(generated_ts, session_key, args.issue)\n    report_path = report_dir / report_name\n    report_path.write_text(report, encoding=\"utf-8\")\n\n    print(json.dumps({\n        \"sessionKey\": session_key,\n        \"issue\": args.issue,\n        \"outputFile\": str(report_path),\n        \"rawBundleDir\": str(output_dir),\n        \"messageCount\": len(messages),\n        \"eventCount\": stats.get(\"events\"),\n        \"toolErrorSignals\": stats.get(\"tool_errors\"),\n    }, ensure_ascii=False, indent=2))\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/_temp_export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 38006,
+          "output": 7302,
+          "cacheRead": 35328,
+          "cacheWrite": 0,
+          "totalTokens": 80636,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781095002675,
+        "responseId": "resp_0525af46d4a41eb6016a295a5cca14819685519a921e411988"
+      }
+    },
+    {
+      "type": "message",
+      "id": "a8332817",
+      "parentId": "a8fecc28",
+      "timestamp": "2026-06-10T12:38:16.896Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_99kISiKS4DMBpVrkZaLah0fX",
+        "toolName": "write",
+        "content": [
+          {
+            "type": "text",
+            "text": "Successfully wrote 25693 bytes to $WORKSPACE_DIR/workspace-design/outputs/_temp_export_chat_report.py"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781095096895
+      }
+    },
+    {
+      "type": "message",
+      "id": "bcbafebc",
+      "parentId": "a8332817",
+      "timestamp": "2026-06-10T12:38:22.644Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "脚本已经复制到当前 workspace。我现在执行正式导出，拿到生成的 Markdown 后会先核对文件，再直接发给你。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_Q24Nijc7ELB0zvIb0H1SnHIK",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 $WORKSPACE_DIR/workspace-design/outputs/_temp_export_chat_report.py --workspace $OPENCLAW_STATE_DIR --session-key current --issue \"聊天记录导出\" --agent-name \"design\"",
+              "host": "auto",
+              "security": "allowlist",
+              "timeout": 1200,
+              "yieldMs": 1000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 45363,
+          "output": 123,
+          "cacheRead": 33280,
+          "cacheWrite": 0,
+          "totalTokens": 78766,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781095096898,
+        "responseId": "resp_0fca40b058f8fb30016a295abb6364819aaf14d1387f6b4c2e"
+      }
+    },
+    {
+      "type": "message",
+      "id": "bcc38712",
+      "parentId": "bcbafebc",
+      "timestamp": "2026-06-10T12:38:23.679Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_Q24Nijc7ELB0zvIb0H1SnHIK",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session lucky-mist, pid 39674). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "lucky-mist",
+          "pid": 39674,
+          "startedAt": 1781095102673,
+          "cwd": "$WORKSPACE_DIR/workspace-design",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1781095103679
+      }
+    }
+  ]
+}

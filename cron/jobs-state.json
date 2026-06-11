@@ -2,87 +2,59 @@
   "version": 1,
   "jobs": {
     "e489dfcf-dc9f-4481-b96c-58ab5b3928f4": {
-      "updatedAtMs": 1781031629258,
+      "updatedAtMs": 1781118029877,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 3 * * *\"}}",
       "state": {
-        "nextRunAtMs": 1781118000000,
-        "lastRunAtMs": 1781031600008,
+        "nextRunAtMs": 1781204400000,
+        "lastRunAtMs": 1781118000007,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 29250,
+        "lastDurationMs": 29870,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "616f4650-758f-411d-bfb3-d363fb62347f": {
-      "updatedAtMs": 1781046164128,
+      "updatedAtMs": 1781132583671,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"0 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1781132400000,
-        "lastRunAtMs": 1781046000010,
+        "nextRunAtMs": 1781218800000,
+        "lastRunAtMs": 1781132400009,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 164118,
+        "lastDurationMs": 183662,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 0,
         "consecutiveSkipped": 0
       }
     },
     "da698c09-e032-4186-a941-4a736674bab3": {
-      "updatedAtMs": 1781048400293,
+      "updatedAtMs": 1781134498629,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"30 7 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1781134200000,
-        "lastRunAtMs": 1781047800008,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 600285,
+        "nextRunAtMs": 1781220600000,
+        "lastRunAtMs": 1781134200006,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 298623,
         "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 1,
-        "consecutiveSkipped": 0,
-        "lastError": "cron: job execution timed out",
-        "lastDiagnostics": {
-          "summary": "cron: job execution timed out",
-          "entries": [
-            {
-              "ts": 1781048400293,
-              "source": "cron-setup",
-              "severity": "error",
-              "message": "cron: job execution timed out"
-            }
-          ]
-        },
-        "lastDiagnosticSummary": "cron: job execution timed out",
-        "lastErrorReason": "timeout"
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
       }
     },
     "b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d": {
-      "updatedAtMs": 1781085906541,
+      "updatedAtMs": 1781159589673,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"*/30 9-23 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1781087400000,
-        "lastRunAtMs": 1781085600014,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 306527,
+        "nextRunAtMs": 1781161200000,
+        "lastRunAtMs": 1781159400010,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 189663,
         "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 2,
-        "consecutiveSkipped": 0,
-        "lastDiagnostics": {
-          "summary": "cron: job execution timed out",
-          "entries": [
-            {
-              "ts": 1781085906541,
-              "source": "cron-setup",
-              "severity": "error",
-              "message": "cron: job execution timed out"
-            }
-          ]
-        },
-        "lastDiagnosticSummary": "cron: job execution timed out",
-        "lastErrorReason": "timeout",
-        "lastError": "cron: job execution timed out"
+        "consecutiveErrors": 0,
+        "consecutiveSkipped": 0
       }
     }
   }
