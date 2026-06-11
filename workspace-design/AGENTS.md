@@ -155,42 +155,48 @@ message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feish
 
 ### 2.1.1 图片投送参数规范（强制执行）
 
-**问题背景**：在飞书话题群（threadSession）中投送图片时，如果使用 `media` 参数会导致创建新话题，而不是回复到原话题。
+**问题背景**：在飞书话题群（threadSession）中投送图片时，明确指定 `target` 和 `threadId` 参数反而会导致创建新话题，而不是回复到原话题。
 
-**根本原因**：OpenClaw 的 `message` 工具对 `media` 和 `path` 参数的处理逻辑不同：
-- `path` 参数：正确传递 `threadId` 到飞书 API，能投送到原话题 ✅
-- `media` 参数：不传递 `threadId`，会创建新话题 ❌
+**根本原因**：OpenClaw gateway 的 bug —— 当明确传递 `target` 和 `threadId` 时会触发错误的处理逻辑；但当这些参数为空字符串或不传时，gateway 会自动从 session 的 `deliveryContext` 中读取正确的值。
 
 **强制规则**：
 
-1. **图片投送必须使用 `path` 参数**：
+1. **图片投送的正确参数组合**：
    ```python
-   # ✅ 正确：使用 path 参数
+   # ✅ 正确：使用 path 参数，不传 target 和 threadId（让 gateway 自动读取）
    message(
        channel="feishu",
        path="/Users/a123/.openclaw/workspace/feishu-deliver/result.png",
-       target="chat:oc_xxx",
-       threadId="omt_xxx",  # 话题群时必须传递
        caption="图片说明"
    )
    
-   # ❌ 错误：使用 media 参数（会创建新话题）
+   # ❌ 错误：明确传递 target 和 threadId（会创建新话题）
    message(
        channel="feishu",
-       media="/Users/a123/.openclaw/workspace/feishu-deliver/result.png",
-       target="chat:oc_xxx",
-       threadId="omt_xxx"  # 即使传了也不生效
+       path="/Users/a123/.openclaw/workspace/feishu-deliver/result.png",
+       target="chat:oc_xxx",    # 不要传这个
+       threadId="omt_xxx",      # 不要传这个
+       caption="图片说明"
+   )
+   
+   # ❌ 错误：使用 media 参数（已废弃）
+   message(
+       channel="feishu",
+       media="/Users/a123/.openclaw/workspace/feishu-deliver/result.png"
    )
    ```
 
-2. **所有图片类型都适用此规则**：
-   - PNG、JPG、JPEG、WebP 等所有图片格式
-   - 无论是话题群、普通群聊还是私聊，统一使用 `path` 参数
-   - 视频文件也使用 `path` 参数（已验证正确）
+2. **参数使用规范**：
+   - **必须使用 `path` 参数**（不是 `media`）
+   - **不要传 `target` 参数**（让 gateway 自动读取 deliveryContext）
+   - **不要传 `threadId` 参数**（让 gateway 自动读取 deliveryContext）
+   - **可以传 `caption`** 用于图片说明
+   - **必须传 `channel="feishu"`**
 
-3. **禁止使用 `media` 参数发送图片**：
-   - `media` 参数仅在旧版本中使用，现已废弃
-   - 任何图片投送场景都不得使用 `media` 参数
+3. **所有图片类型都适用此规则**：
+   - PNG、JPG、JPEG、WebP 等所有图片格式
+   - 话题群、普通群聊、私聊都使用相同参数格式
+   - 视频文件也使用 `path` 参数（已验证）
 
 **执行优先级**：此规则为最高优先级，覆盖所有其他投送规则。
 
