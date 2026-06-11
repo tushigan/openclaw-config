@@ -383,7 +383,11 @@
             "tts",
             "write"
           ]
-        }
+        },
+        "skills": [
+          "kefu-ae",
+          "boss"
+        ]
       },
       {
         "id": "strategy",
@@ -484,6 +488,8 @@
           ]
         },
         "skills": [
+          "celue-zj",
+          "chuangyi-zj",
           "huashu-design",
           "session-debug-export"
         ]
@@ -497,6 +503,7 @@
         },
         "thinkingDefault": "medium",
         "skills": [
+          "sheji",
           "RunningHub",
           "brand-poster-creator",
           "brand-poster-distiller",
@@ -785,6 +792,7 @@
           ]
         },
         "skills": [
+          "wenan",
           "openclaw-changelog-writer",
           "session-debug-export"
         ]

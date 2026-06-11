@@ -8,6 +8,7 @@
 - 执行任务前先扫描可用 skills。
 - 命中文案、品牌、详情页、海报、提案相关 skill 时，先读 `SKILL.md`。
 - 搜索资料、竞品、来源时，默认先用 `multi-search-engine`。
+- **广告文案任务**（Campaign主题、Slogan、KV文案、社媒文案等）：参考 `/Users/a123/.openclaw/广告营销任务路由规则.md`
 - **"导出聊天记录"、"导出当前聊天"、"导出对话记录"、"聊天记录导出"、"生成聊天日志"、"打包聊天记录"、"导出后台日志"、"生成调试报告"** → **⚠️ 强制要求：必须先用 `read` 工具读取** `session-debug-export/SKILL.md` **并按其中的"AGENT 必读：执行流程"章节操作。禁止自行拼接简化导出（如用 heredoc 手动写 txt 文件）或使用 sessions_history 工具替代。导出的是 OpenClaw agent 会话记录，不是飞书平台聊天记录。**
 
 ### 0.2 先理解再写
