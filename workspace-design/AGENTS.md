@@ -162,6 +162,76 @@ cp /Users/a123/.openclaw/workspace-design/images/海报_final.png \
 - 优先使用档案中的 `visual_guidelines` 和 `brand_assets_path`
 - 若档案不存在，降级到 Step 2.5 飞书云盘素材搜索
 
+#### 1.2.5 品牌档案自动增长与冲突处理
+
+执行品牌视觉任务时，若品牌档案不存在或信息冲突：
+
+**新品牌自动建档**
+
+当 `find_brand_profile.py` 返回 `found: false` 时：
+1. 从任务输入（brief、用户对话）中提取品牌信息
+2. 提示用户是否创建品牌档案（使用明确的选项）
+3. 用户选择"创建"时，调用 `init_agency_project.py` 创建档案
+
+**品牌信息冲突检测**
+
+当品牌档案存在时，检测输入信息与档案的冲突：
+
+```bash
+python3 /Users/a123/.openclaw/skills/boss/scripts/detect_brand_conflicts.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --new-info '{"vi_guidelines":{"primary_colors":["#FF0000"]}}'
+```
+
+**视觉规范冲突处理**（高严重性）
+
+视觉规范冲突（主色、字体、logo 使用规范）**必须暂停任务**，不可自行决定：
+
+```markdown
+⚠️ 品牌视觉规范冲突
+
+字段：主色
+档案记录：#FF6B6B（红色系）
+当前输入：#0000FF（蓝色系）
+
+视觉规范变更会影响所有品牌输出物，可能是品牌升级。
+
+如何处理？
+1. **使用档案记录**（红色系）- 保持品牌视觉一致性
+2. **更新档案为新信息**（蓝色系）- 确认品牌视觉升级
+3. **仅本次使用新信息，不更新档案** - 特殊项目临时偏差
+```
+
+用户选择"更新档案"时：
+```bash
+python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --field "vi_guidelines.primary_colors" \
+  --value '["#0000FF"]' \
+  --operation replace
+```
+
+**补充信息自动合并**（低严重性）
+
+补充型信息（新增竞品、扩展受众）自动合并，任务结束后通知用户：
+
+```bash
+python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --field "vi_guidelines.fonts" \
+  --value '["思源黑体"]' \
+  --operation append
+```
+
+**特殊注意事项**
+
+- 视觉规范冲突是高严重性，必须用户确认
+- 不可为了"方便"自动使用新信息，这会破坏品牌视觉一致性
+- 更新档案时记录原因，便于后续追溯
+
 ### 1.3 生图提示词撰写规范
 - **长度控制**：提示词控制在 150-200 字符以内（约 450-600 字节）
 - **核心优先**：优先描述风格 + 主体 + 氛围，细节按需添加

@@ -4,8 +4,10 @@ from .project import (
     archive_material,
     create_agency_project,
     create_or_get_brand,
+    detect_conflicts,
     find_active_project,
     find_brand_profile,
+    update_brand_profile_field,
     update_stage_checkpoint,
 )
 from .schemas import (
@@ -26,6 +28,8 @@ __all__ = [
     "find_active_project",
     "archive_material",
     "update_stage_checkpoint",
+    "detect_conflicts",
+    "update_brand_profile_field",
     "build_brand_profile",
     "build_project",
     "build_brief",

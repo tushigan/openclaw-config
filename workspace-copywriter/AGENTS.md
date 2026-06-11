@@ -71,6 +71,67 @@ cp /Users/a123/.openclaw/workspace-copywriter/outputs/copy_20260611_主题.md \
    /Users/a123/.openclaw/workspace/projects/品牌名称/项目目录/copy/文案_v1.md
 ```
 
+#### 1.0.4 品牌档案自动增长与冲突处理
+
+执行文案创作任务时，若品牌档案不存在或信息冲突：
+
+**新品牌自动建档**
+
+当 `find_brand_profile.py` 返回 `found: false` 时：
+1. 从任务输入中提取品牌信息（品牌调性、核心价值观等）
+2. 提示用户是否创建品牌档案
+3. 用户确认后调用 `init_agency_project.py` 创建档案
+
+**品牌调性冲突检测**
+
+当品牌档案存在时，检测文案输入与档案的冲突：
+
+```bash
+python3 /Users/a123/.openclaw/skills/boss/scripts/detect_brand_conflicts.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --new-info '{"brand_tone":"新调性","core_values":["新价值观"]}'
+```
+
+**调性冲突处理**（高严重性）
+
+品牌调性冲突**必须暂停任务**，不可自行决定：
+
+```markdown
+⚠️ 品牌调性冲突
+
+字段：品牌调性
+档案记录：年轻活力
+当前输入：专业严肃
+
+品牌调性变更会影响文案风格和语气。
+
+如何处理？
+1. **使用档案记录**（年轻活力）- 保持品牌文案一致性
+2. **更新档案为新信息**（专业严肃）- 品牌调性升级
+3. **仅本次使用新信息，不更新档案** - 特殊场景临时调性
+```
+
+用户选择"更新档案"时：
+```bash
+python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --field "brand_tone" \
+  --value "专业严肃" \
+  --operation replace
+```
+
+**补充信息自动合并**
+
+补充型信息（核心价值观扩展、品牌故事补充）自动合并，任务结束后通知用户。
+
+**特殊注意事项**
+
+- 品牌调性冲突是高严重性，必须用户确认
+- 调性变更可能需要回溯已确认的创意方向
+- 更新档案时记录变更原因
+
 ### 1.1 输出标准
 
 - 正式文案写入 `/Users/a123/.openclaw/workspace-copywriter/outputs/`。

@@ -33,6 +33,67 @@ cp /Users/a123/.openclaw/workspace-strategy/outputs/策略文档.md \
    /Users/a123/.openclaw/workspace/projects/品牌名称/项目目录/strategy/策略文档_v1.md
 ```
 
+#### 0.05.4 品牌档案自动增长与冲突处理
+
+执行品牌策略任务时，若品牌档案不存在或信息冲突：
+
+**新品牌自动建档**
+
+当 `find_brand_profile.py` 返回 `found: false` 时：
+1. 从任务输入中提取品牌信息（行业、定位、目标受众等）
+2. 提示用户是否创建品牌档案
+3. 用户确认后调用 `init_agency_project.py` 创建档案
+
+**品牌定位冲突检测**
+
+当品牌档案存在时，检测策略输入与档案的冲突：
+
+```bash
+python3 /Users/a123/.openclaw/skills/boss/scripts/detect_brand_conflicts.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --new-info '{"positioning":"新定位","industry":"新行业"}'
+```
+
+**定位冲突处理**（高严重性）
+
+品牌定位冲突**必须暂停任务**，不可自行决定：
+
+```markdown
+⚠️ 品牌定位冲突
+
+字段：品牌定位
+档案记录：高端烘焙连锁
+当前输入：社区亲民烘焙
+
+品牌定位变更会影响整体策略方向和传播策略。
+
+如何处理？
+1. **使用档案记录**（高端烘焙连锁）- 保持品牌策略一致性
+2. **更新档案为新信息**（社区亲民烘焙）- 品牌定位升级
+3. **仅本次使用新信息，不更新档案** - 特殊项目临时定位
+```
+
+用户选择"更新档案"时：
+```bash
+python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --field "positioning" \
+  --value "社区亲民烘焙" \
+  --operation replace
+```
+
+**补充信息自动合并**
+
+补充型信息（竞品、历史战役）自动合并，任务结束后通知用户。
+
+**特殊注意事项**
+
+- 品牌定位冲突是高严重性，必须用户确认
+- 定位变更可能需要回溯已确认的策略方向
+- 更新档案时记录变更原因
+
 ### 0.1 先查 Skill
 - 执行任务前先扫描可用 skills。
 - 命中任务型 skill 时，先读对应 `SKILL.md`，按 skill 流程执行。

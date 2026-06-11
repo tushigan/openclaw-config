@@ -276,3 +276,234 @@ def update_stage_checkpoint(
     project_payload["last_activity_at"] = project_payload["updated_at"]
 
     _write_json(project_path, project_payload)
+
+
+def detect_conflicts(
+    workspace_root: Path,
+    brand_name: str,
+    new_info: dict[str, Any],
+) -> dict[str, Any]:
+    """Detect conflicts between brand profile and new information.
+
+    Args:
+        workspace_root: Workspace root directory
+        brand_name: Brand name
+        new_info: New brand information to check
+
+    Returns:
+        {
+            "has_conflict": bool,
+            "conflicts": [{"field": str, "archived": Any, "new_input": Any, "severity": str}],
+            "supplements": [{"field": str, "archived": Any, "new_input": Any}]
+        }
+    """
+    profile_path = find_brand_profile(workspace_root, brand_name)
+
+    if not profile_path:
+        return {"has_conflict": False, "conflicts": [], "supplements": []}
+
+    profile = _read_json(profile_path)
+
+    # Define field severity
+    HIGH_SEVERITY_FIELDS = {
+        "industry",
+        "positioning",
+        "brand_tone",
+    }
+
+    # vi_guidelines is a nested object, needs special handling
+    VI_GUIDELINE_FIELDS = {
+        "primary_colors",
+        "secondary_colors",
+        "fonts",
+        "logo_usage_notes",
+    }
+
+    conflicts = []
+    supplements = []
+
+    # Check scalar fields
+    for field, new_value in new_info.items():
+        if field == "vi_guidelines":
+            # Handle nested vi_guidelines
+            archived_vi = profile.get("vi_guidelines", {})
+            new_vi = new_value if isinstance(new_value, dict) else {}
+
+            for vi_field, vi_new_value in new_vi.items():
+                if vi_field in VI_GUIDELINE_FIELDS:
+                    vi_archived_value = archived_vi.get(vi_field)
+
+                    # Skip if new value is empty or None
+                    if not vi_new_value or (isinstance(vi_new_value, list) and len(vi_new_value) == 0):
+                        continue
+
+                    # Check if archived value exists and is non-empty
+                    if vi_archived_value and (
+                        (isinstance(vi_archived_value, list) and len(vi_archived_value) > 0) or
+                        (isinstance(vi_archived_value, str) and vi_archived_value.strip())
+                    ):
+                        # Compare values
+                        if vi_archived_value != vi_new_value:
+                            conflicts.append({
+                                "field": f"vi_guidelines.{vi_field}",
+                                "archived": vi_archived_value,
+                                "new_input": vi_new_value,
+                                "severity": "high"
+                            })
+                    else:
+                        # Supplement: archived is empty, new has value
+                        supplements.append({
+                            "field": f"vi_guidelines.{vi_field}",
+                            "archived": vi_archived_value,
+                            "new_input": vi_new_value
+                        })
+            continue
+
+        # Skip if new value is empty or None
+        if not new_value or (isinstance(new_value, str) and not new_value.strip()):
+            continue
+
+        archived_value = profile.get(field)
+
+        # For list fields (core_values, competitors, etc.)
+        if isinstance(new_value, list):
+            archived_list = archived_value if isinstance(archived_value, list) else []
+
+            # Skip if new list is empty
+            if len(new_value) == 0:
+                continue
+
+            # Check if archived list is non-empty
+            if len(archived_list) > 0:
+                # Check if new items are truly new (not just reordering)
+                new_items = [item for item in new_value if item not in archived_list]
+
+                if new_items:
+                    # New items exist - supplement
+                    supplements.append({
+                        "field": field,
+                        "archived": archived_list,
+                        "new_input": new_value
+                    })
+            else:
+                # Archived is empty - supplement
+                supplements.append({
+                    "field": field,
+                    "archived": archived_list,
+                    "new_input": new_value
+                })
+        else:
+            # Scalar field (string, etc.)
+            # Check if archived value exists and is non-empty
+            if archived_value and (isinstance(archived_value, str) and archived_value.strip()):
+                # Compare values
+                if archived_value.strip() != str(new_value).strip():
+                    severity = "high" if field in HIGH_SEVERITY_FIELDS else "low"
+                    conflicts.append({
+                        "field": field,
+                        "archived": archived_value,
+                        "new_input": new_value,
+                        "severity": severity
+                    })
+            else:
+                # Archived is empty - supplement
+                supplements.append({
+                    "field": field,
+                    "archived": archived_value,
+                    "new_input": new_value
+                })
+
+    has_conflict = any(c["severity"] == "high" for c in conflicts)
+
+    return {
+        "has_conflict": has_conflict,
+        "conflicts": conflicts,
+        "supplements": supplements
+    }
+
+
+def update_brand_profile_field(
+    workspace_root: Path,
+    brand_name: str,
+    field: str,
+    value: Any,
+    operation: str = "replace",  # "replace" or "append"
+) -> dict[str, Any]:
+    """Update a field in brand profile.
+
+    Args:
+        workspace_root: Workspace root directory
+        brand_name: Brand name
+        field: Field name (supports nested fields like "vi_guidelines.primary_colors")
+        value: New value
+        operation: "replace" to replace value, "append" to append to list
+
+    Returns:
+        {"success": bool, "message": str, "updated_at": str}
+    """
+    profile_path = find_brand_profile(workspace_root, brand_name)
+
+    if not profile_path:
+        return {
+            "success": False,
+            "message": f"Brand profile not found: {brand_name}",
+            "updated_at": ""
+        }
+
+    profile = _read_json(profile_path)
+
+    # Handle nested fields (e.g., "vi_guidelines.primary_colors")
+    if "." in field:
+        parts = field.split(".", 1)
+        parent_field = parts[0]
+        child_field = parts[1]
+
+        if parent_field not in profile:
+            profile[parent_field] = {}
+
+        parent_obj = profile[parent_field]
+
+        if operation == "append" and isinstance(value, list):
+            # Append to list
+            existing = parent_obj.get(child_field, [])
+            if not isinstance(existing, list):
+                existing = []
+
+            # Merge: add new items that don't exist
+            for item in value:
+                if item not in existing:
+                    existing.append(item)
+
+            parent_obj[child_field] = existing
+        else:
+            # Replace
+            parent_obj[child_field] = value
+    else:
+        # Top-level field
+        if operation == "append" and isinstance(value, list):
+            # Append to list
+            existing = profile.get(field, [])
+            if not isinstance(existing, list):
+                existing = []
+
+            # Merge: add new items that don't exist
+            for item in value:
+                if item not in existing:
+                    existing.append(item)
+
+            profile[field] = existing
+        else:
+            # Replace
+            profile[field] = value
+
+    # Update timestamp
+    profile["updated_at"] = _timestamp()
+
+    # Write back
+    _write_json(profile_path, profile)
+
+    return {
+        "success": True,
+        "message": f"Updated field '{field}' with operation '{operation}'",
+        "updated_at": profile["updated_at"]
+    }

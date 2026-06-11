@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781191832987,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastUsedAt": 1781191955252,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5 --timeout 45",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -52,8 +52,8 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781190206711,
-          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/scripts/audit-feedback-gaps.py",
+          "lastUsedAt": 1781191951592,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/.sessions/ | grep \"gentle-crest\"",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -1175,8 +1175,8 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781190909704,
-          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/dango_upscale_8224x4096_under10m.jpg && python3 - <<'PY'\nfrom PIL import Image\nfrom pathlib import Path\np=Path('/Users/a123/.openclaw/workspace/feishu-deliver/dango_upscale_8224x4096_under10m.jpg')\nim=Image.open(p)\nprint(im.size, p.stat().st_size)\nPY",
+          "lastUsedAt": 1781192223714,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260611-003/images && find /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260611-003/images -maxdepth 1 -type f \\( -name 'final_poster*.png' -o -name '*.error' -o -name '*.json' \\) -print -exec ls -lh {} \\;",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -1303,9 +1303,9 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1781188312543,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design -maxdepth 4 -type f \\( -name '*generate*.py' -o -name '*image*.py' -o -name '*edit*.py' -o -name 'SKILL.md' \\) | head -80",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781192223716,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260611-003/images && find /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260611-003/images -maxdepth 1 -type f \\( -name 'final_poster*.png' -o -name '*.error' -o -name '*.json' \\) -print -exec ls -lh {} \\;",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "34352226-bed6-4857-b096-abe0169a1f0d",

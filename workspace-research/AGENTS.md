@@ -98,6 +98,55 @@ cp /Users/a123/.openclaw/workspace-research/outputs/调研报告.md \
    /Users/a123/.openclaw/workspace/projects/品牌名称/项目目录/research/调研报告_v1.md
 ```
 
+#### 1.0.3 品牌档案自动增长与冲突处理
+
+执行品牌调研任务时，若品牌档案不存在或信息冲突：
+
+**新品牌自动建档**
+
+当 `find_brand_profile.py` 返回 `found: false` 时：
+1. 从任务输入中提取品牌信息（行业、竞品、目标受众等）
+2. 提示用户是否创建品牌档案
+3. 用户确认后调用 `init_agency_project.py` 创建档案
+
+**品牌信息冲突检测**
+
+当品牌档案存在时，检测调研输入与档案的冲突：
+
+```bash
+python3 /Users/a123/.openclaw/skills/boss/scripts/detect_brand_conflicts.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --new-info '{"industry":"新行业","competitors":["竞品A","竞品B"]}'
+```
+
+**冲突处理规则**
+
+**高严重性冲突**（industry）：
+- 暂停任务，向用户展示冲突
+- 用户选择处理方式后继续
+
+**低严重性冲突/补充信息**（competitors、historical_campaigns、target_audience 扩展）：
+- **竞品信息补充可自动合并，无需暂停任务**
+- 自动调用 `update_brand_profile.py --operation append`
+- 任务结束后通知用户已补充的信息
+
+```bash
+# 自动合并竞品信息
+python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
+  --workspace-root /Users/a123/.openclaw/workspace \
+  --brand-name "品牌名" \
+  --field "competitors" \
+  --value '["竞品A","竞品B"]' \
+  --operation append
+```
+
+**特殊注意事项**
+
+- 竞品信息是补充型，可自动合并
+- 行业变更是高严重性，必须用户确认
+- 目标受众扩展（如从"25-35岁"扩展到"25-45岁"）视为低严重性，自动合并
+
 ### 1.1 输出标准
 
 - 正式输出落到 `outputs/`。
