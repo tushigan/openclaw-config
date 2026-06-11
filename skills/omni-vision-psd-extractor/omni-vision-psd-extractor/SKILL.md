@@ -1,13 +1,13 @@
 ---
 name: omni-vision-psd-extractor
-version: 4.0.0-mac-openclaw (111omni original logic)
-description: Mac/OpenClaw adapter for the original 111omni PSD extractor. Use the top-level scripts/run_omni_delivery.py wrapper by default.
+version: 5.1.1-feishu-drive
+description: 【全息万物提取PSD构建器】智能版：自动 2K 缩放 + 前景自动切割 + 三层 PSD 结构 + 飞书云盘大文件上传
 triggers:
-  - "原图提取分层"
-  - "物理拆解PSD"
-  - "无损提取PSD"
-  - "语义抠图PSD"
-  - "全息万物提取"
+  - “原图提取分层”
+  - “物理拆解PSD”
+  - “无损提取PSD”
+  - “语义抠图PSD”
+  - “全息万物提取”
 metadata:
   openclaw:
     requires:
@@ -16,20 +16,214 @@ metadata:
         - node
         - npm
         - zip
-    emoji: "🔪"
+    emoji: “🔪”
 ---
 
-# Omni-Vision PSD Extractor
+# 全息万物提取 PSD (Omni-Vision PSD Extractor) - v5.1.1 智能版
 
-This nested skill file is intentionally minimal. The OpenClaw entrypoint and execution rules live in the parent `SKILL.md`.
+**v5.1.1 新特性**：
+- ✅ **智能大文件处理**：根据 PSD 文件大小自动选择最佳交付方式
+  - < 30MB：直接发送到飞书
+  - 30-100MB：分卷压缩后发送（18MB/卷）
+  - > 100MB：上传到飞书云盘，发送下载链接
+- ✅ **飞书云盘集成**：大文件自动上传到飞书云盘，用户体验更好
+- ✅ **无缝交付**：自动选择最优方案，无需手动干预
 
-Use:
+**v5.1 核心特性**：
+- ✅ **自动 2K 缩放**：上传前自动缩放到 2048px（最长边），支持 512px ~ 4096px 任意尺寸输入
+- ✅ **前景自动切割**：前景透明层自动切割成多个独立元素（基于连通域分析）
+- ✅ **全新 PSD 结构**：原图（隐藏）+ 背景层 + 前景组（文件夹，包含多个元素）
+- ✅ **Cloudinary URL 传输**：原图只上传 1 次，节省 90%+ 传输流量
+- ✅ **仅 2 次 API 调用**：背景 + 前景合并，成本降低 75%
 
-```bash
-python3 {baseDir}/../scripts/run_omni_delivery.py \
-  --source "/absolute/path/to/source.png" \
-  --source-session-key "agent:design:feishu:direct:ou_xxx"
+## PSD 最终结构
+
+```
+layered-output.psd
+├── 👁️‍🗨️ [隐藏] 00_SOURCE_REF
+│   └── 原图参考
+├── 👁️ 01_BG
+│   └── 背景层
+└── 📁 05_FOREGROUND_GROUP (前景组文件夹)
+    ├── 👁️ 元素 1 (最大元素)
+    ├── 👁️ 元素 2
+    ├── 👁️ 元素 3
+    └── ...
 ```
 
-The original 111omni extraction logic is preserved in `omni-vision-psd-extractor/scripts/`.
-Read the parent `SKILL.md` for the Feishu target and split-package delivery rules.
+**优势**：
+- 每个元素独立可编辑（显示/隐藏/透明度/位置）
+- 按面积自动排序（主体元素优先）
+- 文件夹组织（结构清晰）
+- 原图保留（方便对比）
+
+## OpenClaw 执行规则
+
+1. **默认使用 2 层模式**：背景层 + 前景合并层，自动切割成多个元素
+2. **自动 2K 缩放**：如果原图超过 2048px，自动缩放到 2K，保持宽高比
+3. 默认使用用户上传图片的本地绝对路径或 HTTPS URL 作为 `--source`
+4. 必须实际运行命令行脚本，不能只分析或复用历史产物
+5. 默认走轻包装入口 `scripts/run_omni_delivery.py`
+6. **不再需要前置视觉解析**：直接提取背景和全部前景，后期自动切割
+7. 本 skill 使用绑定模型：`gemini-3.1-flash-image-preview @ https://s.lconai.com/`
+8. Feishu 会话里运行时，必须把当前会话目标传给入口
+9. 成功后必须读取 `result-summary.json`
+10. 分层必须是真 API 成功：任意图层 API 重试后仍失败，整单失败
+
+## 推荐命令
+
+**最简调用**（推荐）：
+```bash
+python3 {baseDir}/scripts/run_omni_delivery.py \
+  --source “/absolute/path/to/source.png” \
+  --feishu-user-id “ou_xxx”
+```
+
+**自定义提示词**：
+```bash
+python3 {baseDir}/scripts/run_omni_delivery.py \
+  --source “/absolute/path/to/source.png” \
+  --feishu-user-id “ou_xxx” \
+  --bg-prompt “提取背景，保持光影氛围” \
+  --fg-prompt “提取所有前景元素（人物、文字、Logo、装饰）”
+```
+
+## 工作流程
+
+```
+1. 自动检查尺寸 → 如果超过 2048px，缩放到 2K
+   ↓
+2. 上传到 Cloudinary → 获得 URL (只上传 1 次)
+   ↓
+3. API 调用 #1: 提取背景层（URL 模式）
+   ↓
+4. API 调用 #2: 提取前景层（URL 模式）
+   ↓
+5. 前景去绿幕 → 透明 PNG
+   ↓
+6. 【新】前景自动切割 → 多个独立元素
+   算法: 连通域分析 (OpenCV)
+   输出: 元素1.png, 元素2.png, ..., 元素N.png
+   排序: 按面积从大到小
+   ↓
+7. 组装 PSD → 原图 + 背景 + 前景组（文件夹）
+   ↓
+8. 生成预览 + 分卷压缩 + 交付
+```
+
+## 提示词说明
+
+每层自动注入《万物提取.md》240 行高级指令法典。
+
+**背景层**：
+```
+【极其重要：严格保持原图中的背景结构、光影和色彩不变，
+仅智能脑补被移除的前景区域。】
+将图片中的背景提取出来，需要将前景所有元素全部剔除，只保留背景。
+
+[附加高级指令法典]:
+<万物提取.md 完整内容>
+```
+
+**前景层**：
+```
+将图片中除了背景之外的所有前景元素全部提取出来。
+【极其重要：强制将背景全部填充为纯正的绿幕（纯绿色，Hex: #00FF00）！】
+
+[附加高级指令法典]:
+<万物提取.md 完整内容>
+```
+
+## 尺寸处理
+
+**输入支持**：512px ~ 4096px 任意尺寸
+
+**自动缩放规则**：
+- 如果最长边 ≤ 2048px：无需缩放
+- 如果最长边 > 2048px：缩放到 2048px（最长边），保持宽高比
+
+**示例**：
+- 4096×3072 → 2048×1536 (缩放 50%)
+- 3840×2160 → 2048×1152 (缩放 ~53%)
+- 1920×1080 → 1920×1080 (无需缩放)
+
+## 前景切割说明
+
+**算法**：OpenCV 连通域分析 (cv2.connectedComponentsWithStats)
+
+**流程**：
+1. 提取前景透明层的 Alpha 通道
+2. 二值化（透明 = 0, 不透明 > 0）
+3. 连通域标记（8-连通）
+4. 统计每个元素的边界框、面积、质心
+5. 过滤噪点（面积 < 100px）
+6. 按面积从大到小排序
+7. 每个元素保持原画布尺寸和原位置
+
+**适用场景**：
+- ✅ 元素清晰分离
+- ✅ 元素之间有空隙
+- ✅ 背景已透明
+
+**不适用场景**：
+- ❌ 元素粘连（会合并成一个）
+- ❌ 元素重叠（会分离不完全）
+
+## 交付说明
+
+**智能大文件处理**（v5.1.1 新增）：
+
+系统会根据 PSD 文件大小自动选择最佳交付方式：
+
+| 文件大小 | 交付方式 | 说明 |
+|---------|---------|------|
+| < 30MB | 直接发送 | 通过飞书直接发送 PSD 文件 |
+| 30-100MB | 分卷压缩 | 分割成 18MB/卷的压缩包（.zip + .z01 + .z02...） |
+| > 100MB | 飞书云盘 | 上传到飞书云盘，发送下载链接 |
+
+**飞书云盘交付流程**（大文件 > 100MB）：
+
+当 PSD 文件超过 100MB 时，系统会自动执行以下流程：
+
+1. ✅ 生成 PSD 文件和预览图
+2. ✅ 检测文件大小超过 100MB
+3. ✅ 调用 `feishu_drive_file` 工具上传到飞书云盘
+4. ✅ 获取 `file_token` 和下载链接
+5. ✅ 发送消息到用户：
+   - 📊 文件信息（尺寸、图层数、大小）
+   - 🖼️ 预览图（reverse-preview.png）
+   - 📥 下载链接（点击直接下载 PSD）
+
+**飞书消息示例**：
+```
+【PSD 文件已生成】
+
+📊 文件信息：
+- 尺寸：2048×1536
+- 图层：原图 + 背景 + 5个前景元素
+- 大小：125.8 MB
+
+🖼️ [预览图]
+
+📥 下载地址：
+https://bytedance.larkoffice.com/file/xxxxxxxx
+
+💡 提示：点击链接直接在飞书云盘中下载 PSD 文件
+```
+
+**常规交付**（< 100MB）：
+
+- 输出目录包含 `layered-output.psd`、`reverse-preview.png`、`manifest.json`、`scene.json`、`result-summary.json`
+- 默认会生成 `layered-output-delivery.zip` 和可能的 `.z01`、`.z02` 分卷
+- **新增**：`elements/` 目录包含所有切割后的元素 PNG
+- **新增**：`elements/elements.json` 包含元素清单（面积、位置、边界框）
+- 单个分卷默认限制为 18MB
+- 必须发送 `deliveryPackage.deliveryFiles` 列出的每一个文件
+- 只有 `delivery.sendResult.status=sent` 且 `delivery.sendResult.allPartsSent=true`，才算完整送达
+
+## 版本历史
+
+- **v5.1.1** (2026-06-11): 飞书云盘大文件上传 + 智能文件大小判断（< 30MB 直接发送，30-100MB 分卷，> 100MB 云盘）
+- **v5.1.0** (2026-06-11): 自动 2K 缩放 + 前景自动切割 + 全新 PSD 结构
+- **v5.0.0** (2026-06-11): 默认 2 层模式 + Cloudinary URL 传输
+- **v4.0.0**: 原版 N 层精细拆分 + Base64 传输（已废弃）
