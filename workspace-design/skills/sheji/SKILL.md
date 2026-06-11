@@ -1,5 +1,5 @@
 ---
-name: 设计
+name: sheji
 description: 广告公司设计。用于视觉方向、KV 概念、版式、品牌视觉系统、AI 生图 prompt、设计复核。触发词：视觉方向、KV概念、品牌视觉系统、moodboard、设计方向。
 ---
 

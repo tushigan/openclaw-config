@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.5.7",
-    "lastTouchedAt": "2026-05-27T08:23:55.253Z"
+    "lastTouchedAt": "2026-06-11T11:29:36.861Z"
   },
   "wizard": {
     "lastRunAt": "2026-05-11T03:19:25.535Z",
@@ -87,6 +87,21 @@
           {
             "id": "claude-opus-4-8",
             "name": "claude-opus-4-8",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 2.5,
+              "output": 12.5
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 20000
+          },
+          {
+            "id": "claude-fable-5",
+            "name": "claude-fable-5",
             "reasoning": true,
             "input": [
               "text",
@@ -224,6 +239,7 @@
         "aixor/claude-opus-4-6": {},
         "cc-vibe/claude-opus-4-7": {},
         "cc-vibe/claude-opus-4-8": {},
+        "cc-vibe/claude-fable-5": {},
         "cc-vibe/claude-opus-4-6": {}
       },
       "workspace": "/Users/a123/.openclaw/workspace",
@@ -304,13 +320,17 @@
         "name": "龙虾总指挥",
         "workspace": "/Users/a123/.openclaw/workspace",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-8",
+          "primary": "cc-vibe/claude-fable-5",
           "fallbacks": [
             "aixor/claude-opus-4-8"
           ]
         },
         "thinkingDefault": "high",
         "reasoningDefault": "on",
+        "skills": [
+          "kefu-ae",
+          "boss"
+        ],
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -389,23 +409,25 @@
             "tts",
             "write"
           ]
-        },
-        "skills": [
-          "kefu-ae",
-          "boss"
-        ]
+        }
       },
       {
         "id": "strategy",
         "name": "战略专家",
         "workspace": "/Users/a123/.openclaw/workspace-strategy",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-8",
+          "primary": "cc-vibe/claude-fable-5",
           "fallbacks": [
             "aixor/claude-opus-4-8"
           ]
         },
         "thinkingDefault": "high",
+        "skills": [
+          "celue-zj",
+          "chuangyi-zj",
+          "huashu-design",
+          "session-debug-export"
+        ],
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -492,13 +514,7 @@
             "web_fetch",
             "write"
           ]
-        },
-        "skills": [
-          "celue-zj",
-          "chuangyi-zj",
-          "huashu-design",
-          "session-debug-export"
-        ]
+        }
       },
       {
         "id": "design",
@@ -519,7 +535,8 @@
           "image-deglaze",
           "omni-vision-psd-extractor",
           "product-photography-workflow",
-          "video-expert-analyzer"
+          "video-expert-analyzer",
+          "gpt-image2-gen"
         ],
         "subagents": {
           "allowAgents": [
@@ -605,6 +622,11 @@
           "primary": "aixor-g/gpt-5.4"
         },
         "thinkingDefault": "high",
+        "skills": [
+          "research-analyst",
+          "browser-automation",
+          "web-browse-capture"
+        ],
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -696,24 +718,24 @@
           "fs": {
             "workspaceOnly": false
           }
-        },
-        "skills": [
-          "research-analyst",
-          "browser-automation",
-          "web-browse-capture"
-        ]
+        }
       },
       {
         "id": "copywriter",
         "name": "文案策划专家",
         "workspace": "/Users/a123/.openclaw/workspace-copywriter",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-8",
+          "primary": "cc-vibe/claude-opus-4-7",
           "fallbacks": [
-            "aixor/claude-opus-4-8"
+            "aixor/claude-opus-4-7"
           ]
         },
         "thinkingDefault": "high",
+        "skills": [
+          "wenan",
+          "openclaw-changelog-writer",
+          "session-debug-export"
+        ],
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -796,12 +818,7 @@
             "web_fetch",
             "write"
           ]
-        },
-        "skills": [
-          "wenan",
-          "openclaw-changelog-writer",
-          "session-debug-export"
-        ]
+        }
       },
       {
         "id": "meeting-analyst",
@@ -860,6 +877,10 @@
           ]
         },
         "thinkingDefault": "medium",
+        "skills": [
+          "quote-skill",
+          "business-project-intake"
+        ],
         "subagents": {
           "allowAgents": [
             "strategy",
@@ -942,11 +963,7 @@
             "web_fetch",
             "write"
           ]
-        },
-        "skills": [
-          "quote-skill",
-          "business-project-intake"
-        ]
+        }
       },
       {
         "id": "main-shared",
@@ -1060,10 +1077,14 @@
         "model": {
           "primary": "cc-vibe/claude-opus-4-8",
           "fallbacks": [
-            "aixor/claude-opus-4-7"
+            "aixor/claude-opus-4-8"
           ]
         },
         "thinkingDefault": "high",
+        "skills": [
+          "huashu-design",
+          "session-debug-export"
+        ],
         "subagents": {
           "allowAgents": [
             "strategy-shared",
@@ -1161,11 +1182,7 @@
           "fs": {
             "workspaceOnly": false
           }
-        },
-        "skills": [
-          "huashu-design",
-          "session-debug-export"
-        ]
+        }
       },
       {
         "id": "design-shared",
@@ -1282,6 +1299,11 @@
           "primary": "aixor-g/gpt-5.4"
         },
         "thinkingDefault": "high",
+        "skills": [
+          "research-analyst",
+          "browser-automation",
+          "web-browse-capture"
+        ],
         "subagents": {
           "allowAgents": [
             "strategy-shared",
@@ -1381,19 +1403,14 @@
           "fs": {
             "workspaceOnly": false
           }
-        },
-        "skills": [
-          "research-analyst",
-          "browser-automation",
-          "web-browse-capture"
-        ]
+        }
       },
       {
         "id": "copywriter-shared",
         "name": "文案策划专家（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-copywriter",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-8",
+          "primary": "cc-vibe/claude-opus-4-7",
           "fallbacks": [
             "aixor/claude-opus-4-7"
           ]
@@ -1571,6 +1588,10 @@
           ]
         },
         "thinkingDefault": "medium",
+        "skills": [
+          "quote-skill",
+          "business-project-intake"
+        ],
         "subagents": {
           "allowAgents": [
             "strategy-shared",
@@ -1665,11 +1686,7 @@
           "fs": {
             "workspaceOnly": false
           }
-        },
-        "skills": [
-          "quote-skill",
-          "business-project-intake"
-        ]
+        }
       }
     ]
   },
@@ -2301,24 +2318,6 @@
       "ordercli": {
         "enabled": false
       },
-      "kefu-ae": {
-        "enabled": true
-      },
-      "boss": {
-        "enabled": true
-      },
-      "celue-zj": {
-        "enabled": true
-      },
-      "chuangyi-zj": {
-        "enabled": true
-      },
-      "wenan": {
-        "enabled": true
-      },
-      "sheji": {
-        "enabled": true
-      },
       "runninghub": {
         "enabled": true,
         "apiKey": "442de49dcb5247a285b678a4c70e7499"
@@ -2342,6 +2341,24 @@
         "enabled": false
       },
       "session-debug-export": {
+        "enabled": true
+      },
+      "kefu-ae": {
+        "enabled": true
+      },
+      "boss": {
+        "enabled": true
+      },
+      "celue-zj": {
+        "enabled": true
+      },
+      "chuangyi-zj": {
+        "enabled": true
+      },
+      "wenan": {
+        "enabled": true
+      },
+      "sheji": {
         "enabled": true
       },
       "sonoscli": {
@@ -2376,6 +2393,96 @@
       },
       "tvc-director": {
         "enabled": false
+      },
+      "lark-approval": {
+        "enabled": true
+      },
+      "lark-apps": {
+        "enabled": true
+      },
+      "lark-attendance": {
+        "enabled": true
+      },
+      "lark-base": {
+        "enabled": true
+      },
+      "lark-calendar": {
+        "enabled": true
+      },
+      "lark-contact": {
+        "enabled": true
+      },
+      "lark-doc": {
+        "enabled": true
+      },
+      "lark-drive": {
+        "enabled": true
+      },
+      "lark-event": {
+        "enabled": true
+      },
+      "lark-im": {
+        "enabled": true
+      },
+      "lark-mail": {
+        "enabled": true
+      },
+      "lark-markdown": {
+        "enabled": true
+      },
+      "lark-minutes": {
+        "enabled": true
+      },
+      "lark-okr": {
+        "enabled": true
+      },
+      "lark-openapi-explorer": {
+        "enabled": true
+      },
+      "lark-shared": {
+        "enabled": true
+      },
+      "lark-sheets": {
+        "enabled": true
+      },
+      "lark-skill-maker": {
+        "enabled": true
+      },
+      "lark-slides": {
+        "enabled": true
+      },
+      "lark-task": {
+        "enabled": true
+      },
+      "lark-vc": {
+        "enabled": true
+      },
+      "lark-vc-agent": {
+        "enabled": true
+      },
+      "lark-whiteboard": {
+        "enabled": true
+      },
+      "lark-wiki": {
+        "enabled": true
+      },
+      "lark-workflow-meeting-summary": {
+        "enabled": true
+      },
+      "lark-workflow-standup-report": {
+        "enabled": true
+      },
+      "pdf-smart-tool-cn": {
+        "enabled": true
+      },
+      "design-brief-builder": {
+        "enabled": true
+      },
+      "gpt-image2-gen": {
+        "enabled": true
+      },
+      "brand-poster-distiller": {
+        "enabled": true
       }
     },
     "load": {

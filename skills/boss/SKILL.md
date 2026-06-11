@@ -1,5 +1,5 @@
 ---
-name: 总控BOSS
+name: boss
 description: 广告公司总控岗位。用于协调完整品牌战役和整合营销流程，从 Brief 收集到策略、创意对齐、执行和修订。触发词：品牌全案、整合营销、营销战役、Launch Campaign。
 ---
 

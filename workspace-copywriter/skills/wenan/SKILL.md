@@ -1,5 +1,5 @@
 ---
-name: 文案
+name: wenan
 description: 广告公司文案。用于 Campaign 主题、Slogan、KV 文案、社媒文案、视频脚本、命名、促销文案、提案表达。触发词：Campaign主题、品牌Slogan、KV文案、社媒文案、视频脚本、文案打磨。
 ---
 

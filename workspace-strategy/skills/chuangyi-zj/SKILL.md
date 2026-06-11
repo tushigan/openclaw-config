@@ -1,5 +1,5 @@
 ---
-name: 创意总监
+name: chuangyi-zj
 description: 广告公司创意总监。用于创意方向制定、Big Idea 判断、创意路线评估、提案逻辑、文案和设计复核。触发词：创意方向、Big Idea、概念选择、创意评审。
 ---
 

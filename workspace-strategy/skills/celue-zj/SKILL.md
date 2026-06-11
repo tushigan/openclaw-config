@@ -1,5 +1,5 @@
 ---
-name: 策略总监
+name: celue-zj
 description: 广告公司策略总监。用于定位、问题诊断、受众洞察、竞品分析、品牌战役策略、Creative Brief 开发。触发词：定位、品牌策略、受众洞察、竞品分析、Creative Brief。
 ---
 
