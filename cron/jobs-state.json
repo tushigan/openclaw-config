@@ -44,20 +44,31 @@
       }
     },
     "b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d": {
-      "updatedAtMs": 1781177513422,
+      "updatedAtMs": 1781190300380,
       "scheduleIdentity": "{\"version\":1,\"enabled\":true,\"schedule\":{\"kind\":\"cron\",\"expr\":\"*/30 9-23 * * *\",\"tz\":\"Asia/Shanghai\",\"staggerMs\":0}}",
       "state": {
-        "nextRunAtMs": 1781179200000,
-        "lastRunAtMs": 1781177400008,
+        "nextRunAtMs": 1781191800000,
+        "lastRunAtMs": 1781190000005,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 113414,
-        "lastDeliveryStatus": "unknown",
+        "lastDurationMs": 300375,
+        "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 1,
         "consecutiveSkipped": 0,
-        "lastError": "cron: job interrupted by gateway restart",
-        "lastDelivered": false,
-        "lastDeliveryError": "cron: job interrupted by gateway restart"
+        "lastDiagnostics": {
+          "summary": "cron: job execution timed out",
+          "entries": [
+            {
+              "ts": 1781190300380,
+              "source": "cron-setup",
+              "severity": "error",
+              "message": "cron: job execution timed out"
+            }
+          ]
+        },
+        "lastDiagnosticSummary": "cron: job execution timed out",
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1781191800003
       }
     },
     "4d48ba31-4dfc-40e7-b930-755d152bfa40": {

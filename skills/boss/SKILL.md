@@ -1,6 +1,11 @@
 ---
 name: boss
 description: 广告公司总控岗位。用于协调完整品牌战役和整合营销流程，从 Brief 收集到策略、创意对齐、执行和修订。触发词：品牌全案、整合营销、营销战役、Launch Campaign。
+metadata:
+  openclaw:
+    requires:
+      bins:
+        - python3
 ---
 
 # BOSS
@@ -8,6 +13,74 @@ description: 广告公司总控岗位。用于协调完整品牌战役和整合�
 ## Overview
 
 作为广告公司岗位协作总控，强制维护从客户需求到具体内容执行的岗位顺序。任何品牌全案或整合营销任务都必须先由 Account Executive 基于 brief 模版收集需求并起草问题和目标，再由 AE、Strategy Director、Creative Director 三方确认问题和目标，之后才进入资料收集、策略、创意方向确认、文案与设计执行。
+
+## Project Memory System
+
+每个品牌全案项目都必须建立项目记忆系统，包括品牌档案和项目档案。
+
+### 项目目录结构
+
+```
+workspace/projects/
+├── _registry.json              # 项目注册表（全局索引）
+├── 品牌名/
+│   ├── _brand-profile.json     # 品牌档案（跨项目复用）
+│   ├── _brand-assets/          # 品牌资产库
+│   │   ├── logos/
+│   │   ├── vi-manual/
+│   │   └── reference-images/
+│   ├── Campaign名称/
+│   │   ├── project.json        # 项目元信息
+│   │   ├── brief.json          # AE Brief
+│   │   ├── problem-alignment.json  # 问题与目标对齐
+│   │   ├── research-request.json   # 资料收集清单
+│   │   ├── strategy.json       # 策略文档
+│   │   ├── creative-direction.json # 创意方向
+│   │   ├── materials/          # 项目素材
+│   │   │   ├── research/
+│   │   │   ├── reference/
+│   │   │   └── client-assets/
+│   │   └── outputs/            # 产出文件
+│   │       ├── copy/
+│   │       ├── design/
+│   │       └── final/
+```
+
+### 项目立项流程
+
+1. 收到品牌全案任务时，首先检查是否已有该品牌的档案
+2. 如果是新品牌，运行 `scripts/init_agency_project.py` 创建品牌档案和项目
+3. 如果是老品牌，从品牌档案中读取品牌信息，创建新项目
+4. 项目创建后，按照 7 阶段工作流推进，每个阶段完成后更新对应的 JSON 文件
+
+### 常用脚本
+
+1. `scripts/init_agency_project.py`
+   - 初始化新项目，如果品牌不存在则创建品牌档案
+   - 参数：`--workspace-root`, `--brand-name`, `--campaign-name`, `--campaign-type`
+   - 可选品牌信息：`--brand-name-en`, `--industry`, `--category`, `--positioning`, `--brand-tone`, `--target-audience`, `--core-values`
+
+2. `scripts/find_brand_profile.py`
+   - 查找品牌档案（供其他 agent 使用）
+   - 参数：`--workspace-root`, `--brand-name`
+
+3. `scripts/find_active_project.py`
+   - 查找品牌的活跃项目
+   - 参数：`--workspace-root`, `--brand-name`
+
+4. `scripts/archive_material.py`
+   - 归档项目材料
+   - 参数：`--project-dir`, `--source-path`, `--material-type` (research/reference/client-assets)
+
+5. `scripts/update_stage.py`
+   - 更新项目阶段状态
+   - 参数：`--project-dir`, `--stage`, `--status`, `--user-confirmed`
+
+### 跨 agent 协作
+
+- **design agent 调用生图 skill 时**，可通过 `find_brand_profile.py` 读取品牌档案
+- **归档产出时**，使用 `archive_material.py` 将生成的图片归档到项目的 `outputs/design/` 目录
+- **main agent 协调时**，通过 `find_active_project.py` 获取当前活跃项目的上下文
 
 ## Role Routing
 
@@ -61,6 +134,67 @@ description: 广告公司总控岗位。用于协调完整品牌战役和整合�
 - 当用户只要一个单点产物时，不强行跑完整流程；直接选择相关角色。
 - 即使用户只要单点产物，也要检查是否缺少必要前置输入；缺少时先提示所需输入或基于假设输出草案。
 - 复杂项目输出先给目录和工作台，再逐步展开。
+
+## Design Execution Example
+
+When Creative Director confirms the design task includes image generation, the Designer role must:
+
+### For Brand Poster/KV Tasks
+
+Use `brand-poster-creator` skill for complete poster workflow:
+
+```bash
+# Check available skills first
+available_skills
+
+# Read the skill
+read /Users/a123/.openclaw/workspace-design/skills/brand-poster-creator/SKILL.md
+
+# Follow the skill's Step 1-9 workflow
+# The skill will handle: brief collection → copywriting → prompt assembly → generation → delivery
+```
+
+### For General Image Generation
+
+Use `gpt-image2-gen` tool directly:
+
+1. **Prepare the prompt and reference images**:
+   - Read brand profile: `find_brand_profile.py --brand-name "[brand]"`
+   - Gather reference images from brand assets
+   - Write prompt based on creative direction
+
+2. **Call the generation tool**:
+   ```bash
+   python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py \
+     "[prompt]" \
+     -s 1920x1080 \
+     -o /Users/a123/.openclaw/workspace/projects/[brand]/[campaign]/outputs/design/image_v1.png \
+     --ref-style [style_ref_path] \
+     --ref-logo [logo_path]
+   ```
+
+3. **Archive to project**:
+   ```bash
+   python3 /Users/a123/.openclaw/skills/boss/scripts/archive_material.py \
+     --project-dir "/Users/a123/.openclaw/workspace/projects/[brand]/[campaign]" \
+     --source-path "/Users/a123/.openclaw/workspace/projects/[brand]/[campaign]/outputs/design/image_v1.png" \
+     --material-type "design"
+   ```
+
+### Image Generation Checklist
+
+Before executing design:
+- [ ] Creative direction is confirmed by AE + Strategy Director + Creative Director
+- [ ] Brand assets (logo, VI) are available
+- [ ] Reference images are prepared (if needed)
+- [ ] Output directory exists: `projects/[brand]/[campaign]/outputs/design/`
+- [ ] Identified correct tool: `brand-poster-creator` or `gpt-image2-gen`
+
+After generation:
+- [ ] Image file exists and is not 0 bytes
+- [ ] Image is archived to project outputs directory
+- [ ] generation_result.json shows `ok: true` (if using brand-poster-creator)
+- [ ] User receives the generated image (not just local path)
 
 ## References
 

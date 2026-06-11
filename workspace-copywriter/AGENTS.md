@@ -35,6 +35,44 @@
 
 ## 1. 输出要求
 
+### 1.0 项目记忆系统集成
+
+#### 1.0.1 品牌档案查询
+
+在执行文案创作任务前，先查询是否存在品牌档案：
+
+```bash
+python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py "品牌名称"
+```
+
+返回格式包含：`core_values`（核心价值观）、`brand_story`（品牌故事）、`tone_of_voice`（品牌语气）、`target_audience`（目标受众）等。
+
+若 `found: true`：
+- 读取 `profile.core_values`（用于文案主题和价值传递）
+- 读取 `profile.brand_story`（用于故事化表达）
+- 读取 `profile.tone_of_voice`（用于文案风格和语气）
+- 读取 `profile.tagline` / `profile.slogan`（用于文案创意参考）
+
+若 `found: false`，继续执行，但提示用户"品牌未建档，将使用通用文案风格"。
+
+#### 1.0.2 文案创作品牌档案使用
+
+- **海报文案**：从档案读取 `core_values`、`tone_of_voice`、`tagline`
+- **详情页文案**：从档案读取 `brand_story`、`unique_value_proposition`、`target_audience`
+- **社媒文案**：从档案读取 `brand_personality`、`tone_of_voice`、`content_themes`
+- **Campaign 主题**：从档案读取 `positioning`、`core_values`、`brand_mission`
+
+#### 1.0.3 文案产出归档
+
+文案完成后归档到项目目录：
+
+```bash
+cp /Users/a123/.openclaw/workspace-copywriter/outputs/copy_20260611_主题.md \
+   /Users/a123/.openclaw/workspace/projects/品牌名称/项目目录/copy/文案_v1.md
+```
+
+### 1.1 输出标准
+
 - 正式文案写入 `/Users/a123/.openclaw/workspace-copywriter/outputs/`。
 - 文件命名：`copy_YYYYMMDD_主题.md`。
 - 默认提供 2-3 个版本；每个版本给一句适用场景或取舍理由。

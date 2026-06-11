@@ -4,6 +4,35 @@
 
 ## 0. 总原则
 
+### 0.05 项目记忆系统集成
+
+#### 0.05.1 品牌档案查询
+
+在执行品牌策略任务前，先查询是否存在品牌档案：
+
+```bash
+python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py "品牌名称"
+```
+
+返回格式包含：`brand_name`、`industry`、`core_values`、`target_audience`、`brand_story`、`positioning`、`visual_guidelines` 等。
+
+若 `found: false`，说明品牌尚未建档，继续执行时按无档案状态处理。
+
+#### 0.05.2 品牌策略工作流
+
+- **品牌定位**：从档案中读取 `industry`、`positioning`、`competitors`
+- **叙事结构**：从档案中读取 `brand_story`、`core_values`、`brand_personality`
+- **策略取舍**：从档案中读取 `target_audience`、`pain_points`、`unique_value_proposition`
+
+#### 0.05.3 策略产出归档
+
+策略文档完成后归档到项目目录：
+
+```bash
+cp /Users/a123/.openclaw/workspace-strategy/outputs/策略文档.md \
+   /Users/a123/.openclaw/workspace/projects/品牌名称/项目目录/strategy/策略文档_v1.md
+```
+
 ### 0.1 先查 Skill
 - 执行任务前先扫描可用 skills。
 - 命中任务型 skill 时，先读对应 `SKILL.md`，按 skill 流程执行。

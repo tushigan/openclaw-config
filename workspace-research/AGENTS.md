@@ -65,6 +65,41 @@
 
 ## 1. 输出要求
 
+### 1.0 项目记忆系统集成
+
+#### 1.0.1 品牌档案查询
+
+在执行品牌调研任务前，先查询是否存在品牌档案和项目目标：
+
+```bash
+# 查询品牌档案
+python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py "品牌名称"
+
+# 查询项目状态（若已立项）
+python3 /Users/a123/.openclaw/workspace/projects/scripts/get_project_status.py "品牌名称/项目目录名"
+```
+
+返回格式包含：`industry`（行业）、`competitors`（竞品）、`target_audience`（目标受众）、`market_positioning`（市场定位）等。
+
+若 `found: true`：
+- 读取 `profile.industry`（用于行业调研方向）
+- 读取 `profile.competitors`（用于竞品分析）
+- 读取 `profile.target_audience`（用于用户调研）
+- 读取项目 `research_questions`（若项目已立项）
+
+若 `found: false`，按通用市场调研流程执行。
+
+#### 1.0.2 调研产出归档
+
+调研报告完成后归档到项目目录：
+
+```bash
+cp /Users/a123/.openclaw/workspace-research/outputs/调研报告.md \
+   /Users/a123/.openclaw/workspace/projects/品牌名称/项目目录/research/调研报告_v1.md
+```
+
+### 1.1 输出标准
+
 - 正式输出落到 `outputs/`。
 - 给上游的结果核心包含：核心发现（1-3 句话）+ 文件绝对路径。可选补充：来源清单（仅当上游明确需要时）、可信度判断（仅当存在争议时）。
 - 重要结论尽量标注来源；来源不足时写清楚缺口。

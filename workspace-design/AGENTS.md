@@ -118,7 +118,51 @@
 - 给上游的结果核心包含：成品绝对路径 + 交付状态。可选补充：版本说明（仅当有多版本时）、未解决风险（仅当存在明确风险时）。
 - 正式产物必须有读回核验；PSD 任务必须包含对应 skill 要求的 manifest/report/preview。
 
-### 1.2 生图提示词撰写规范
+### 1.2 项目记忆系统集成
+
+#### 1.2.1 品牌档案查询
+
+在执行品牌视觉任务前，先查询是否存在品牌档案：
+
+```bash
+python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py "品牌名称"
+```
+
+返回格式包含：`visual_guidelines`（色彩、字体、logo 规范）、`brand_assets_path`（飞书云盘素材路径）、`logo_path` 等。
+
+若 `found: true`：
+- 读取 `profile.visual_guidelines.primary_colors`（品牌主色）
+- 读取 `profile.visual_guidelines.fonts`（品牌字体）
+- 读取 `profile.visual_guidelines.logo_usage`（logo 使用规范）
+- 读取 `profile.brand_assets_path`（飞书云盘品牌素材库路径）
+- 读取 `profile.logo_path`（品牌 logo 文件路径）
+
+若 `found: false`，继续执行，但提示用户"品牌未建档，将使用通用设计规范"。
+
+#### 1.2.2 视觉任务品牌档案使用
+
+- **海报设计**：从档案读取 `visual_guidelines`、`core_values`（用于视觉创意方向）
+- **产品摄影**：从档案读取 `visual_style`、`photography_guidelines`
+- **包装设计**：从档案读取 `visual_guidelines`、`logo_path`、`brand_colors`
+- **详情页设计**：从档案读取完整 `visual_guidelines` 和 `brand_assets_path`
+
+#### 1.2.3 视觉产出归档
+
+视觉内容完成后归档到项目目录：
+
+```bash
+cp /Users/a123/.openclaw/workspace-design/images/海报_final.png \
+   /Users/a123/.openclaw/workspace/projects/品牌名称/项目目录/outputs/海报_v1.png
+```
+
+#### 1.2.4 brand-poster-creator skill 集成
+
+`brand-poster-creator` skill 已集成品牌档案查询：
+- Step 2.4 自动查询品牌档案
+- 优先使用档案中的 `visual_guidelines` 和 `brand_assets_path`
+- 若档案不存在，降级到 Step 2.5 飞书云盘素材搜索
+
+### 1.3 生图提示词撰写规范
 - **长度控制**：提示词控制在 150-200 字符以内（约 450-600 字节）
 - **核心优先**：优先描述风格 + 主体 + 氛围，细节按需添加
 - **负面约束**：不超过 3 项，避免过度约束

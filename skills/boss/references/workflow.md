@@ -141,7 +141,46 @@ Designer creates:
 - KV brief
 - Layout and information hierarchy
 - Material adaptation
-- AI image or design prompts
+- Design execution (generate actual images)
+
+**Design Execution Rules:**
+
+When the Designer role needs to generate actual images (not just prompts), follow these steps:
+
+1. **Check if it's a brand poster task**:
+   - Keywords: "品牌海报", "海报", "KV", "主视觉", "poster"
+   - If yes → Use `brand-poster-creator` skill (full workflow from brief to delivery)
+   - If no → Continue to step 2
+
+2. **For other image generation tasks**:
+   - Simple image generation → Call `gpt-image2-gen` tool directly
+   - Product packaging → Use `packaging-design` skill
+   - Image editing/modification → Dispatch to `design` or `design-shared` agent
+
+3. **Tool calling format for gpt-image2-gen**:
+   ```bash
+   python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py \
+     "提示词内容" \
+     -s 1920x1080 \
+     -o /Users/a123/.openclaw/workspace/projects/[brand]/[campaign]/outputs/design/output.png \
+     --ref-style /path/to/style_ref.jpg \
+     --ref-logo /path/to/logo.png
+   ```
+
+4. **Archive the generated image**:
+   ```bash
+   python3 /Users/a123/.openclaw/skills/boss/scripts/archive_material.py \
+     --project-dir "[project_dir]" \
+     --source-path "[generated_image_path]" \
+     --material-type "design"
+   ```
+
+**Important Constraints:**
+
+- ❌ DO NOT assume Claude/GPT models can generate images directly
+- ❌ DO NOT dispatch design agent without specifying the tool or skill to use
+- ✅ ALWAYS use `gpt-image2-gen` tool or equivalent image generation skill
+- ✅ ALWAYS archive generated images to project outputs directory
 
 Gate: Creative Director reviews execution against the confirmed strategy and creative direction.
 User gate: submit Copywriter output and Designer output to the user for confirmation before final review, packaging, or next-step integration.
