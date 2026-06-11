@@ -62,7 +62,7 @@
         "kind": "agentTurn",
         "message": "你是涂是淦的公司日报助手。\n\n第一步：执行 `python3 /Users/a123/.openclaw/workspace/scripts/fetch_yesterday_feishu.py`，等它跑完。\n\n第二步：用 read 工具读 `/Users/a123/.openclaw/workspace/ROLE.md`（涂是淦的职责说明）。\n\n第三步：用 read 工具读 `/Users/a123/.openclaw/workspace/outputs/feishu_daily/<YYYY-MM-DD>/dump.txt`（昨天的飞书消息汇总，YYYY-MM-DD 从第一步脚本输出里取）。文件可能 100KB+，必要时分段读。\n\n第四步：基于 ROLE.md 的\"必须报\"和\"不用报\"规则，输出一份 markdown 日报，结构：\n\n# YYYY-MM-DD 公司动态摘要\n\n## 一、昨日总览（3-5句）\n## 二、各项目推进（按消息量与重要度排，每个项目：进展 / 关键决策 / 卡点 / 你需要关注）\n## 三、单聊（P2P）\n## 四、内部职能（招聘/财务/行政/商务）\n## 五、需要你关注的事（🔴 今天必处理 / 🟡 1-2天内决定 / 🟢 可观察）\n## 六、值得注意的信号\n\n要求：\n- 短句、事实先行、不说\"在持续推进中\"\n- 客户名、金额、日期保留原文\n- ROLE.md 里\"不用报\"的细节（设计稿色彩、文件流转等）只在反映客户压力/内部矛盾/节奏崩盘时以信号形式提，不要逐条罗列\n- 同事之间的情绪和矛盾不带美化点出\n- 全文不超过 2500 字\n\n完成后，必须使用 message 工具将日报发送到涂是淦的私聊（不是群聊）：调用 message(action=send, channel=feishu, accountId=main, target=user:ou_88079e6b06ce40e6851c96928fe1a03b, text=<生成的完整日报内容>)。注意：target 必须是 user:ou_88079e6b06ce40e6851c96928fe1a03b，不要使用当前会话的 target。不要解释过程。",
         "thinking": "medium",
-        "timeoutSeconds": 600,
+        "timeoutSeconds": 1200,
         "toolsAllow": [
           "exec",
           "read",
