@@ -192,91 +192,150 @@ def _build_gemini_payload(prompt, image_b64, mime_type, suggested_size, style):
     }
 
 def run_bound_gemini(prompt, source_path, raw_out, env, suggested_size):
-    config = resolve_bound_gemini_config(env)
+    """
+    带故障转移的 API 调用
+
+    v5.2.1: 首选 gpt-image-2-pro (10分钟超时)，失败则自动切换到 gemini-3.1-flash-image-preview
+    """
     result_path = raw_out.with_suffix(".result.json")
     raw_out.parent.mkdir(parents=True, exist_ok=True)
 
-    if not config["api_key"]:
-        error = "OPENCLAW_BOUND_API_KEY is missing for omni bound Gemini."
-        result_path.write_text(json.dumps({
-            "status": "error",
-            "api_provider": config["provider"],
-            "api_base_url": config["base_url"],
-            "model": config["model"],
-            "error": error,
-        }, ensure_ascii=False, indent=2), encoding="utf-8")
-        return FinishedProcess(1, "", error)
-
+    # 准备图片数据
     try:
         image_bytes = Path(source_path).read_bytes()
     except Exception as exc:
-        error = f"Failed to read source image for Gemini: {exc}"
+        error = f"Failed to read source image: {exc}"
         result_path.write_text(json.dumps({
             "status": "error",
-            "api_provider": config["provider"],
-            "api_base_url": config["base_url"],
-            "model": config["model"],
             "error": error,
         }, ensure_ascii=False, indent=2), encoding="utf-8")
         return FinishedProcess(1, "", error)
 
     mime_type = mimetypes.guess_type(str(source_path))[0] or "image/png"
     image_b64 = base64.b64encode(image_bytes).decode("ascii")
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {config['api_key']}",
-    }
 
-    last_error = ""
-    for style in ["camel", "snake"]:
-        payload = _build_gemini_payload(prompt, image_b64, mime_type, suggested_size, style)
-        request = urllib.request.Request(
-            config["endpoint"],
-            data=json.dumps(payload).encode("utf-8"),
-            headers=headers,
-            method="POST",
-        )
-        try:
-            with urllib.request.urlopen(request, timeout=240) as response:
-                response_text = response.read().decode("utf-8", errors="replace")
-                data = json.loads(response_text)
-        except urllib.error.HTTPError as exc:
-            body = exc.read().decode("utf-8", errors="replace")
-            last_error = f"HTTP {exc.code}: {body[:1000]}"
-            if style == "camel" and exc.code in (400, 422):
-                continue
-            break
-        except Exception as exc:
-            last_error = str(exc)
-            break
+    # 模型列表：首选 gpt-image-2-pro，兜底 gemini-3.1-flash-image-preview
+    models_to_try = [
+        {
+            "name": "gpt-image-2-pro",
+            "timeout": 600,  # 10分钟
+            "description": "首选模型"
+        },
+        {
+            "name": "gemini-3.1-flash-image-preview",
+            "timeout": 240,  # 4分钟
+            "description": "兜底模型"
+        }
+    ]
 
-        image_data = _image_part_from_response(data)
-        if not image_data:
-            last_error = "Gemini response did not contain inline image data."
+    for model_idx, model_config in enumerate(models_to_try):
+        model_name = model_config["name"]
+        timeout = model_config["timeout"]
+        description = model_config["description"]
+
+        print(f"\n[API] 尝试使用 {description}: {model_name} (超时: {timeout}秒)")
+
+        # 获取配置（强制使用当前模型）
+        config = resolve_bound_gemini_config(env)
+        config["model"] = model_name
+        config["endpoint"] = f"{config['base_url']}/v1beta/models/{model_name}:generateContent"
+
+        if not config["api_key"]:
+            error = "OPENCLAW_BOUND_API_KEY is missing"
+            print(f"[API] ⚠️ API Key 缺失")
+            if model_idx == len(models_to_try) - 1:
+                result_path.write_text(json.dumps({
+                    "status": "error",
+                    "model": model_name,
+                    "error": error,
+                }, ensure_ascii=False, indent=2), encoding="utf-8")
+                return FinishedProcess(1, "", error)
             continue
 
-        raw_out.write_bytes(base64.b64decode(image_data))
-        result_path.write_text(json.dumps({
-            "status": "success",
-            "api_provider": config["provider"],
-            "api_base_url": config["base_url"],
-            "model": config["model"],
-            "effective_model": data.get("modelVersion", config["model"]),
-            "endpoint": config["endpoint"],
-            "output_path": str(raw_out),
-            "request_field_style": style,
-        }, ensure_ascii=False, indent=2), encoding="utf-8")
-        return FinishedProcess(0, str(raw_out), "")
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {config['api_key']}",
+        }
 
-    result_path.write_text(json.dumps({
-        "status": "error",
-        "api_provider": config["provider"],
-        "api_base_url": config["base_url"],
-        "model": config["model"],
-        "endpoint": config["endpoint"],
-        "error": last_error,
-    }, ensure_ascii=False, indent=2), encoding="utf-8")
-    return FinishedProcess(1, "", last_error)
+        # 尝试两种参数风格
+        last_error = ""
+        for style in ["camel", "snake"]:
+            payload = _build_gemini_payload(prompt, image_b64, mime_type, suggested_size, style)
+            request = urllib.request.Request(
+                config["endpoint"],
+                data=json.dumps(payload).encode("utf-8"),
+                headers=headers,
+                method="POST",
+            )
+
+            try:
+                print(f"[API] 正在调用 {model_name} (style={style}, timeout={timeout}s)...")
+                with urllib.request.urlopen(request, timeout=timeout) as response:
+                    response_text = response.read().decode("utf-8", errors="replace")
+                    data = json.loads(response_text)
+
+                # 提取图片数据
+                image_data = _image_part_from_response(data)
+                if not image_data:
+                    last_error = f"{model_name} response did not contain inline image data"
+                    print(f"[API] ⚠️ {last_error}")
+                    if style == "camel":
+                        continue  # 尝试 snake 风格
+                    break  # 两种风格都失败，切换模型
+
+                # 成功！保存结果
+                raw_out.write_bytes(base64.b64decode(image_data))
+                result_path.write_text(json.dumps({
+                    "status": "success",
+                    "api_provider": config["provider"],
+                    "api_base_url": config["base_url"],
+                    "model": model_name,
+                    "effective_model": data.get("modelVersion", model_name),
+                    "endpoint": config["endpoint"],
+                    "output_path": str(raw_out),
+                    "request_field_style": style,
+                    "model_attempt": model_idx + 1,
+                    "is_fallback": model_idx > 0,
+                }, ensure_ascii=False, indent=2), encoding="utf-8")
+
+                print(f"[API] ✅ {model_name} 生成成功！")
+                if model_idx > 0:
+                    print(f"[API] 💡 使用了兜底模型")
+
+                return FinishedProcess(0, str(raw_out), "")
+
+            except urllib.error.HTTPError as exc:
+                body = exc.read().decode("utf-8", errors="replace")
+                last_error = f"HTTP {exc.code}: {body[:500]}"
+                print(f"[API] ❌ {model_name} HTTP错误: {exc.code}")
+                if style == "camel" and exc.code in (400, 422):
+                    continue  # 尝试 snake 风格
+                break  # HTTP 错误，切换模型
+
+            except Exception as exc:
+                last_error = str(exc)
+                print(f"[API] ❌ {model_name} 失败: {last_error[:200]}")
+                break  # 异常，切换模型
+
+        # 如果是最后一个模型也失败了，返回错误
+        if model_idx == len(models_to_try) - 1:
+            print(f"\n[API] ❌ 所有模型都失败了")
+            result_path.write_text(json.dumps({
+                "status": "error",
+                "api_provider": config["provider"],
+                "api_base_url": config["base_url"],
+                "model": model_name,
+                "endpoint": config["endpoint"],
+                "error": last_error,
+                "all_models_tried": [m["name"] for m in models_to_try],
+            }, ensure_ascii=False, indent=2), encoding="utf-8")
+            return FinishedProcess(1, "", last_error)
+
+        # 否则，继续尝试下一个模型
+        print(f"[API] ⚠️ {model_name} 失败，切换到下一个模型...")
+
+    # 理论上不应该到这里
+    return FinishedProcess(1, "", "All models failed")
 
 def send_feishu_image(path: Path, user_id: str, chat_id: str, key: str, name: str, progress: str):
     if not (user_id or chat_id): return

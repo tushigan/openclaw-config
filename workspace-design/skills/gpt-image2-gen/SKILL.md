@@ -44,20 +44,20 @@ metadata:
 设置以下环境变量：
 
 ```bash
-export BANANA_API_URL="https://n.lconai.com"
-export BANANA_API_KEY="你的 n.lconai.com key"
-export BANANA_DEFAULT_MODEL="gpt-image-2-pro"
-export BANANA_API_URL_AIXOR="https://direct.aixor.org"
-export BANANA_API_KEY_AIXOR="你的 direct.aixor.org 备用通道 key"
-# 可选：primary / auto / aixor。默认 auto，会先走 n.lconai.com，再在可切换错误时尝试备用通道。
-export BANANA_PROVIDER_MODE="auto"
+export BANANA_API_URL=”https://n.lconai.com”
+export BANANA_API_KEY=”你的 n.lconai.com 主通道 key”
+export BANANA_DEFAULT_MODEL=”gpt-image-2-pro”
+export BANANA_API_URL_AIXOR=”https://direct.aixor.org”
+export BANANA_API_KEY_AIXOR=”你的 direct.aixor.org 备用通道 key”
+# 可选：primary / auto / aixor。默认 auto，会先走 n.lconai.com（主通道），再在可切换错误时尝试备用通道。
+export BANANA_PROVIDER_MODE=”auto”
 # 尺寸一律用像素，不要用比例字符串
 ```
 
 ### Provider 说明
 
-- `n.lconai.com` 当前默认模型名：`gpt-image-2-pro`（主通道，稳定）
-- `direct.aixor.org` ≤4K 使用 `gpt-image-2`（备用通道，稳定100%，平均42秒，原生支持 4K）
+- `n.lconai.com` 当前默认模型名：`gpt-image-2-pro`（**主通道**，稳定，智能模型路由）
+- `direct.aixor.org` ≤4K 使用 `gpt-image-2`（**备用通道**，稳定100%，平均42秒，原生支持 4K）
 - 脚本已内置 provider-aware 映射：
   - 命中 `n.lconai.com` 时，≤2K 自动用 `gpt-image-2`，>2K 自动用 `gpt-image-2-pro`
   - 命中 `direct.aixor.org` 时，`gpt-image-2-pro` 会自动改写为 `gpt-image-2`
@@ -67,7 +67,7 @@ export BANANA_PROVIDER_MODE="auto"
 ### 自动切换策略
 
 - 默认 `BANANA_PROVIDER_MODE=”auto”`
-- `auto` 模式下仍然主通道（n.lconai.com）优先
+- `auto` 模式下**主通道（n.lconai.com）优先**
 - 但当主通道返回以下可切换错误时，会**直接切到备用通道（direct.aixor.org）**，不再先做多轮无意义等待：
   - `model_not_found`
   - `No available channel for model`

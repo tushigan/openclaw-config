@@ -110,7 +110,7 @@ def resolve_bound_gemini_config(env: dict[str, str] | None = None) -> dict[str, 
         runtime_env.get("OPENCLAW_BOUND_MODEL_ID")
         or runtime_env.get("OPENCLAW_BOUND_MODEL")
         or runtime_env.get("OPENCLAW_BOUND_MODEL_NAME")
-        or "gemini-3.1-flash-image-preview"
+        or "gpt-image-2-pro"  # v5.2: 默认使用 gpt-image-2-pro
     )
     api_key = runtime_env.get("OPENCLAW_BOUND_API_KEY", "")
     return {

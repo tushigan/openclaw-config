@@ -596,8 +596,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "research",
-            "research-shared",
             "meeting-analyst"
           ],
           "thinking": "adaptive"
@@ -1984,6 +1982,7 @@
       "defaultAccount": "main",
       "requireMention": true,
       "blockStreaming": true,
+      "threadSession": true,
       "accounts": {
         "main": {
           "appId": "cli_a920219cfdf81bcb",

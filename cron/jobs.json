@@ -104,6 +104,52 @@
         "mode": "none"
       },
       "state": {}
+    },
+    {
+      "id": "4d48ba31-4dfc-40e7-b930-755d152bfa40",
+      "name": "浏览器缓存定时清理",
+      "description": "每天凌晨2点清理超过15天的浏览器缓存数据（Cache、Code Cache、GPUCache、日志文件）",
+      "enabled": true,
+      "createdAtMs": 1781127000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "17 2 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "systemEvent",
+        "event": "exec",
+        "command": "bash /Users/a123/.openclaw/scripts/cleanup-browser-cache.sh"
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
+    },
+    {
+      "id": "19ef12ca-f64c-4420-9a5a-7940ba24787d",
+      "name": "临时文件定时清理",
+      "description": "每天凌晨3点清理超过7天的临时文件（/tmp目录）",
+      "enabled": true,
+      "createdAtMs": 1781127000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "23 3 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "systemEvent",
+        "event": "exec",
+        "command": "bash /Users/a123/.openclaw/scripts/cleanup-tmp-files.sh"
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
     }
   ]
 }

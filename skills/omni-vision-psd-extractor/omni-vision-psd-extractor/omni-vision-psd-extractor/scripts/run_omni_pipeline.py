@@ -180,24 +180,33 @@ def main():
             shutil.rmtree(out_dir, ignore_errors=True)
         out_dir.mkdir(parents=True, exist_ok=True)
         
-        img_w, img_h = 4096, 4096
+        img_w, img_h = 2048, 2048
         if source_path.exists():
             try:
                 from PIL import Image
                 with Image.open(source_path) as img:
                     orig_w, orig_h = img.width, img.height
-                
-                # --- FORCE 4K SCALING (McKinsey Rule) ---
-                max_edge_4k = 4096
+
+                # --- FORCE 2K SCALING (v5.2 规则：缩放到 2048px) ---
+                max_edge_2k = 2048
                 current_max = max(orig_w, orig_h)
-                scale = max_edge_4k / current_max
-                img_w = int(orig_w * scale)
-                img_h = int(orig_h * scale)
-                # align to 16
-                img_w = max(16, ((img_w + 15) // 16) * 16)
-                img_h = max(16, ((img_h + 15) // 16) * 16)
+
+                if current_max > max_edge_2k:
+                    scale = max_edge_2k / current_max
+                    img_w = int(orig_w * scale)
+                    img_h = int(orig_h * scale)
+                    # align to 16
+                    img_w = max(16, ((img_w + 15) // 16) * 16)
+                    img_h = max(16, ((img_h + 15) // 16) * 16)
+                    print(f"[INIT] 原图尺寸: {orig_w}×{orig_h}")
+                    print(f"[INIT] 缩放到 2K: {img_w}×{img_h} (缩放比例: {scale:.2%})")
+                else:
+                    img_w = orig_w
+                    img_h = orig_h
+                    print(f"[INIT] 原图尺寸: {orig_w}×{orig_h} (无需缩放)")
             except Exception as e:
-                print(f"[WARNING] Could not read image dimensions: {e}. Defaulting to 4096x4096")
+                print(f"[WARNING] Could not read image dimensions: {e}. Defaulting to 2048x2048")
+                img_w, img_h = 2048, 2048
                 
         bg_final_prompt = args.bg_prompt
         fg_final_prompt = args.fg_prompt

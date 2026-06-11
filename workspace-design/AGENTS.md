@@ -206,13 +206,13 @@ message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feish
 
 ## 4. 生图配置
 
-- **主通道**：`https://direct.aixor.org`（稳定100%，平均42秒，gpt-image-2 原生支持 4K）
-- **备用通道**：`https://n.lconai.com`（稳定81秒，>2K 自动切换 gpt-image-2-pro）
+- **主通道**：`https://n.lconai.com`（稳定，智能模型路由，>2K 自动切换 gpt-image-2-pro）
+- **备用通道**：`https://direct.aixor.org`（稳定100%，平均42秒，gpt-image-2 原生支持 4K）
 - **默认模型**：`gpt-image-2`
 - **默认分辨率**：`1920x1080`（快速生成，用户明确要求时才用更高分辨率）
 - **智能模型路由**：
-  - direct.aixor.org：始终用 gpt-image-2（原生支持 4K）
   - n.lconai.com：≤2K 用 gpt-image-2，>2K 自动切换到 gpt-image-2-pro
+  - direct.aixor.org：始终用 gpt-image-2（原生支持 4K）
 - 若脚本、命令、wrapper 或日志里出现旧模型、旧端点或旧环境残留，先修执行条件，再继续交付。
 - 具体模型、端点和脚本参数以对应 skill 或稳定脚本为准。
 

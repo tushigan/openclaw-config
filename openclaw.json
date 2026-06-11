@@ -596,8 +596,6 @@
           "allowAgents": [
             "strategy",
             "design",
-            "research",
-            "research-shared",
             "meeting-analyst"
           ],
           "thinking": "adaptive"
