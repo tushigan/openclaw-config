@@ -153,44 +153,46 @@ MEDIA:/path/to/image.png  ❌ 这只是文本，用户收不到图片
 message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feishu-deliver/result.png, mimeType=image/png)  ✅
 ```
 
-### 2.1.1 话题群投送处理（强制执行）
+### 2.1.1 图片投送参数规范（强制执行）
 
-**问题背景**：在飞书话题群（threadSession）中，直接使用 `message` 工具投送会导致消息发送到主群聊，而不是原话题，造成投送错位。
+**问题背景**：在飞书话题群（threadSession）中投送图片时，如果使用 `media` 参数会导致创建新话题，而不是回复到原话题。
 
-**根本原因**：OpenClaw 的 `message` 工具当前版本尚不支持 `threadId` 参数传递，即使 session 的 `deliveryContext` 中有正确的 `threadId`，投送时也不会使用。
+**根本原因**：OpenClaw 的 `message` 工具对 `media` 和 `path` 参数的处理逻辑不同：
+- `path` 参数：正确传递 `threadId` 到飞书 API，能投送到原话题 ✅
+- `media` 参数：不传递 `threadId`，会创建新话题 ❌
 
 **强制规则**：
 
-1. **话题环境检测**：
-   - 每次任务开始时，读取 `memory/YYYY-MM-DD-HHMM.md`（最新的记忆文件）
-   - 查找 `Session Key` 字段
-   - 如果包含 `:thread:omt_` 标识，说明当前在话题群中
-
-2. **话题群投送策略（必须遵守）**：
-   - ✅ **唯一正确做法**：图片生成完成后，回传绝对路径给 `main` agent，由 `main` 统一投送
-   - ❌ **禁止操作**：在 `design` / `design-shared` agent 中直接调用 `message` 工具投送
-
-3. **回传格式**（话题群任务）：
-   ```json
-   {
-     "status": "success",
-     "image_path": "/Users/a123/.openclaw/workspace-design/images/xxx/final.png",
-     "delivery_note": "图片已生成，请在原话题中投送",
-     "session_context": "thread",
-     "thread_id": "omt_xxx"
-   }
+1. **图片投送必须使用 `path` 参数**：
+   ```python
+   # ✅ 正确：使用 path 参数
+   message(
+       channel="feishu",
+       path="/Users/a123/.openclaw/workspace/feishu-deliver/result.png",
+       target="chat:oc_xxx",
+       threadId="omt_xxx",  # 话题群时必须传递
+       caption="图片说明"
+   )
+   
+   # ❌ 错误：使用 media 参数（会创建新话题）
+   message(
+       channel="feishu",
+       media="/Users/a123/.openclaw/workspace/feishu-deliver/result.png",
+       target="chat:oc_xxx",
+       threadId="omt_xxx"  # 即使传了也不生效
+   )
    ```
 
-4. **非话题群环境**：
-   - 私聊（`direct`）：可以直接使用 `message` 工具投送
-   - 普通群聊（`group`，不含 `:thread:`）：可以直接使用 `message` 工具投送
-   - 话题群（`group:xxx:thread:omt_xxx`）：**必须回传给 main**
+2. **所有图片类型都适用此规则**：
+   - PNG、JPG、JPEG、WebP 等所有图片格式
+   - 无论是话题群、普通群聊还是私聊，统一使用 `path` 参数
+   - 视频文件也使用 `path` 参数（已验证正确）
 
-5. **兜底检查**：
-   - 如果无法确定当前环境类型，默认回传给 `main`
-   - 宁可多一次交互，不可发错位置
+3. **禁止使用 `media` 参数发送图片**：
+   - `media` 参数仅在旧版本中使用，现已废弃
+   - 任何图片投送场景都不得使用 `media` 参数
 
-**执行优先级**：此规则优先级高于 2.1 节的"直连会话必须真实发送"规则。在话题群中，"回传给 main" 等同于"真实交付"。
+**执行优先级**：此规则为最高优先级，覆盖所有其他投送规则。
 
 ### 2.2 交付规则（最高优先级）
 
