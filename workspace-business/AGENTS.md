@@ -41,8 +41,38 @@
 
 - Feishu 直连会话中，产出文件必须真实发送；只回本地路径不算交付。
 - 报价文件必须是正式文件，不用手写摘要替代。
-- 中台回传给上游时，说明“文件已生成但尚未对最终用户发送”。
+- 中台回传给上游时，说明”文件已生成但尚未对最终用户发送”。
 - 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续。
+
+### 2.1 话题群投送参数规范（强制执行）
+
+**⚠️ 飞书话题群消息投送必须遵守以下参数规范，避免在话题群中创建新话题**：
+
+调用 `message` 工具发送图片或文件时：
+- ✅ **只传 `channel` 和 `path` 参数**
+- ❌ **不要传 `target` 参数**
+- ❌ **不要传 `threadId` 参数**
+- 📌 让 gateway 自动从 session 的 `deliveryContext` 读取正确的 target 和 threadId
+
+```python
+# ✅ 正确：使用 path 参数，不传 target 和 threadId（让 gateway 自动读取）
+message(
+    channel=”feishu”,
+    path=”/Users/a123/.openclaw/workspace-business/outputs/quote_20260612.pdf”,
+    caption=”报价单已完成”
+)
+
+# ❌ 错误：明确传递 target 和 threadId（会创建新话题）
+message(
+    channel=”feishu”,
+    path=”/Users/a123/.openclaw/workspace-business/outputs/quote_20260612.pdf”,
+    target=”chat:oc_xxx”,    # 不要传这个
+    threadId=”omt_xxx”,      # 不要传这个
+    caption=”报价单已完成”
+)
+```
+
+**原理**：OpenClaw gateway 存在一个已知 bug，明确传递 `target` 和 `threadId` 参数会触发错误的处理逻辑，导致在话题群中创建新话题而不是回复原话题。只传 `channel` 和 `path`，让 gateway 从 session context 自动读取，才能正确回复到原话题。
 
 ## 3. 执行纪律
 

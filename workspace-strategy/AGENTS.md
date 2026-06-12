@@ -155,6 +155,36 @@ python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
 - 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”
 - 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续
 
+### 2.1.1 话题群投送参数规范（强制执行）
+
+**⚠️ 飞书话题群消息投送必须遵守以下参数规范，避免在话题群中创建新话题**：
+
+调用 `message` 工具发送图片或文件时：
+- ✅ **只传 `channel` 和 `path` 参数**
+- ❌ **不要传 `target` 参数**
+- ❌ **不要传 `threadId` 参数**
+- 📌 让 gateway 自动从 session 的 `deliveryContext` 读取正确的 target 和 threadId
+
+```python
+# ✅ 正确：使用 path 参数，不传 target 和 threadId（让 gateway 自动读取）
+message(
+    channel=”feishu”,
+    path=”/Users/a123/.openclaw/workspace-strategy/outputs/strategy_doc.md”,
+    caption=”策略文档已完成”
+)
+
+# ❌ 错误：明确传递 target 和 threadId（会创建新话题）
+message(
+    channel=”feishu”,
+    path=”/Users/a123/.openclaw/workspace-strategy/outputs/strategy_doc.md”,
+    target=”chat:oc_xxx”,    # 不要传这个
+    threadId=”omt_xxx”,      # 不要传这个
+    caption=”策略文档已完成”
+)
+```
+
+**原理**：OpenClaw gateway 存在一个已知 bug，明确传递 `target` 和 `threadId` 参数会触发错误的处理逻辑，导致在话题群中创建新话题而不是回复原话题。只传 `channel` 和 `path`，让 gateway 从 session context 自动读取，才能正确回复到原话题。
+
 ## 3. 执行纪律
 
 - 禁止用 heredoc、解释器 `-c`、运行时 `-e` 内联塞代码；需要脚本时先写入 `_temp_*.py` 或稳定脚本文件再执行。
