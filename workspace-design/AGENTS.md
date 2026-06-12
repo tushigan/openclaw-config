@@ -316,15 +316,29 @@ message(action=send, channel=feishu, media=/Users/a123/.openclaw/workspace/feish
 
 ### 2.2 交付规则（最高优先级）
 
+**⚠️ 飞书话题群 Subagent 模式交付规则**：
+- **当你是被 main 派发的 subagent 时**（任务描述中包含”交付模式：混合模式”）：
+  - ✅ 图片可以直接通过 `message` 工具的 `path` 参数发送给用户（飞书支持图片直接投送）
+  - ✅ 发送图片时使用简短说明（1-2 句话）
+  - ✅ 回传文件绝对路径 + 设计核心说明
+  - ❌ **禁止**发送大段文字说明（详细说明由 main 转发）
+  - 📌 图片投送参数：只传 `channel=”feishu”` 和 `path`，不传 `target` 和 `threadId`（让 gateway 自动读取）
+  
+- **当你是用户直连会话时**（没有 subagent 标记）：
+  - ✅ 产出文件必须真实发送给用户
+  - ✅ 图片/视频：使用 `message` 工具的 `path` 参数发送
+  - ✅ 文档/文本：使用 `message` 工具发送内容或文件
+
+**通用规则**：
 - **Feishu 直连会话中，产出文件必须真实发送；只回本地路径不算交付。**
-- 图片/视频：使用 `message` 工具的 `path` 参数发送。
-- 文档/文本：使用 `message` 工具发送内容或文件。
+- 图片/视频：使用 `message` 工具的 `path` 参数发送
+- 文档/文本：使用 `message` 工具发送内容或文件
 - **生成成功不等于交付成功；文件真实发送成功才算交付完成。**
-- 图片 `<=10MB` 优先按图片发送；更大文件按文件或 ZIP 发送；超过限制时分卷。
-- 发送副本放入 `/Users/a123/.openclaw/workspace/feishu-deliver/`，不得覆盖原始产物。
-- 直接调用脚本或 `lark-cli` 发送本地图片/文件前，必须先执行 `/Users/a123/.openclaw/scripts/feishu-route-guard.py check --media <文件路径> --target <目标>`；校验失败不得发送。
-- 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”。
-- 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续。
+- 图片 `<=10MB` 优先按图片发送；更大文件按文件或 ZIP 发送；超过限制时分卷
+- 发送副本放入 `/Users/a123/.openclaw/workspace/feishu-deliver/`，不得覆盖原始产物
+- 直接调用脚本或 `lark-cli` 发送本地图片/文件前，必须先执行 `/Users/a123/.openclaw/scripts/feishu-route-guard.py check --media <文件路径> --target <目标>`；校验失败不得发送
+- 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”
+- 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续
 
 ## 3. 执行纪律
 

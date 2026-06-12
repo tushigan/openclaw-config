@@ -134,14 +134,26 @@ python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
 ## 2. 文件与交付
 
 ### 2.1 交付标准（最高优先级）
-- **Feishu 直连会话中，产出文件必须真实发送；只回本地路径不算交付。**
-- 图片/视频：使用 `message` 工具的 `path` 参数发送。
-- 文档/文本：使用 `message` 工具发送内容或文件。
+
+**⚠️ 飞书话题群 Subagent 模式交付规则**：
+- **当你是被 main 派发的 subagent 时**（任务描述中包含”交付模式：静默回传”）：
+  - ✅ 将产出写入 `outputs/` 或 `images/`
+  - ✅ 回传文件绝对路径 + 核心摘要（3-5 句话）
+  - ❌ **禁止**使用 `message` 工具直接投送大段文字内容给最终用户
+  - ❌ **禁止**发送完整策略/创意方向文档（会在飞书创建新话题，导致消息混乱）
+  - 📌 由 main agent 负责在原话题下读取你的产出并转发给用户
+  
+- **当你是用户直连会话时**（没有 subagent 标记）：
+  - ✅ 产出文件必须真实发送给用户
+  - ✅ 图片/视频：使用 `message` 工具的 `path` 参数发送
+  - ✅ 文档/文本：使用 `message` 工具发送内容或文件
+
+**通用规则**：
 - **生成成功不等于交付成功；文件真实发送成功才算交付完成。**
-- 文档类写入 `/Users/a123/.openclaw/workspace-strategy/outputs/`。
-- 图片或图示写入 `/Users/a123/.openclaw/workspace-strategy/images/`。
-- 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”。
-- 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续。
+- 文档类写入 `/Users/a123/.openclaw/workspace-strategy/outputs/`
+- 图片或图示写入 `/Users/a123/.openclaw/workspace-strategy/images/`
+- 中台回传给 `main` 时，只回绝对路径和交付状态，并说明”尚未对最终用户发送”
+- 收到上游 agent 移交的材料时，只处理本工作区内可读的路径；若引用了别的工作区绝对路径，先要求上游把材料移交到本工作区的可读目录，再继续
 
 ## 3. 执行纪律
 

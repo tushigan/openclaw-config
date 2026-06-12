@@ -105,7 +105,13 @@ workspace/projects/
 
 ## Dispatch Templates
 
-当 `main` agent 执行 boss skill 时，必须按照以下模板派发任务，确保明确指定 agent 和 skill：
+当 `main` agent 执行 boss skill 时，必须按照以下模板派发任务，确保明确指定 agent 和 skill。
+
+**⚠️ 重要：飞书话题群消息投送规则**
+- Subagent 完成后**禁止直接投送给最终用户**（会创建新话题，导致消息混乱）
+- Subagent 只回传文件路径和核心摘要给 `main`
+- 由 `main` 在原话题下读取产出并转发给用户
+- 设计类任务（图片）例外：subagent 需要直接发送图片，但文字说明由 main 转发
 
 ### 阶段 4：策略制定
 
@@ -113,7 +119,7 @@ workspace/projects/
 {
   "runtime": "subagent",
   "agentId": "strategy",
-  "task": "【策略制定任务】\n\n**必须使用 celue-zj skill**\n\n**前置信息**：\n- 品牌档案：[品牌档案路径或关键信息]\n- 已确认问题：[问题描述]\n- 已确认目标：[目标描述]\n- 已收集资料：[资料清单]\n\n**任务要求**：\n基于以上信息，使用 celue-zj skill 制定策略，包括问题诊断、洞察、核心主张、传播任务和战役架构。\n\n**输出要求**：\n策略文档写入 workspace-strategy/outputs/，完成后回传文件绝对路径。",
+  "task": "【策略制定任务】\n\n**必须使用 celue-zj skill**\n\n**交付模式：静默回传**\n你是被 main agent 派发的 subagent。完成后：\n- ✅ 将策略文档写入 workspace-strategy/outputs/\n- ✅ 回传文件绝对路径和核心摘要（3-5 句话）\n- ❌ 不要使用 message 工具直接投送给最终用户\n- ❌ 不要发送完整策略内容（会创建新话题）\n由 main 负责在原话题下转发给用户。\n\n**前置信息**：\n- 品牌档案：[品牌档案路径或关键信息]\n- 已确认问题：[问题描述]\n- 已确认目标：[目标描述]\n- 已收集资料：[资料清单]\n\n**任务要求**：\n基于以上信息，使用 celue-zj skill 制定策略，包括问题诊断、洞察、核心主张、传播任务和战役架构。\n\n**输出格式**：\n回传内容必须包含：\n1. 文件绝对路径\n2. 策略核心摘要（问题诊断/洞察/核心主张，各1句话）\n3. 完成状态确认",
   "mode": "run",
   "timeoutSeconds": 1800,
   "lightContext": true
@@ -126,7 +132,7 @@ workspace/projects/
 {
   "runtime": "subagent",
   "agentId": "strategy",
-  "task": "【创意方向制定任务】\n\n**必须使用 chuangyi-zj skill**\n\n**前置信息**：\n- 品牌档案：[品牌档案路径或关键信息]\n- 已确认策略：[策略文档路径]\n- 策略核心主张：[核心主张摘要]\n\n**任务要求**：\n基于已确认策略，使用 chuangyi-zj skill 制定创意方向，包括方向名称、核心创意、创意机制、可延展触点和风险。\n\n**输出要求**：\n创意方向文档写入 workspace-strategy/outputs/，完成后回传文件绝对路径。",
+  "task": "【创意方向制定任务】\n\n**必须使用 chuangyi-zj skill**\n\n**交付模式：静默回传**\n你是被 main agent 派发的 subagent。完成后：\n- ✅ 将创意方向文档写入 workspace-strategy/outputs/\n- ✅ 回传文件绝对路径和核心摘要（3-5 句话）\n- ❌ 不要使用 message 工具直接投送给最终用户\n- ❌ 不要发送完整创意方向内容（会创建新话题）\n由 main 负责在原话题下转发给用户。\n\n**前置信息**：\n- 品牌档案：[品牌档案路径或关键信息]\n- 已确认策略：[策略文档路径]\n- 策略核心主张：[核心主张摘要]\n\n**任务要求**：\n基于已确认策略，使用 chuangyi-zj skill 制定创意方向，包括方向名称、核心创意、创意机制、可延展触点和风险。\n\n**输出格式**：\n回传内容必须包含：\n1. 文件绝对路径\n2. 创意方向核心摘要（方向名称/核心创意/关键机制，各1句话）\n3. 完成状态确认",
   "mode": "run",
   "timeoutSeconds": 1200,
   "lightContext": true
@@ -139,7 +145,7 @@ workspace/projects/
 {
   "runtime": "subagent",
   "agentId": "copywriter",
-  "task": "【文案创作任务】\n\n**必须使用 wenan skill**\n\n**前置信息**：\n- 品牌档案：[品牌档案路径或关键信息]\n- 已确认创意方向：[创意方向文档路径]\n- 策略 brief：[策略摘要]\n- 具体需求：[文案类型、渠道、规格等]\n\n**任务要求**：\n基于已确认的创意方向和策略，使用 wenan skill 产出文案（Campaign主题/KV文案/社媒文案/脚本等）。\n\n**输出要求**：\n- 提供 2-3 个版本\n- 文案写入 workspace-copywriter/outputs/copy_YYYYMMDD_主题.md\n- 完成后回传文件绝对路径",
+  "task": "【文案创作任务】\n\n**必须使用 wenan skill**\n\n**交付模式：静默回传**\n你是被 main agent 派发的 subagent。完成后：\n- ✅ 将文案写入 workspace-copywriter/outputs/copy_YYYYMMDD_主题.md\n- ✅ 回传文件绝对路径和版本摘要\n- ❌ 不要使用 message 工具直接投送给最终用户\n- ❌ 不要发送完整文案内容（会创建新话题）\n由 main 负责在原话题下转发给用户。\n\n**前置信息**：\n- 品牌档案：[品牌档案路径或关键信息]\n- 已确认创意方向：[创意方向文档路径]\n- 策略 brief：[策略摘要]\n- 具体需求：[文案类型、渠道、规格等]\n\n**任务要求**：\n基于已确认的创意方向和策略，使用 wenan skill 产出文案（Campaign主题/KV文案/社媒文案/脚本等）。\n\n**输出格式**：\n- 提供 2-3 个版本\n- 回传内容必须包含：\n  1. 文件绝对路径\n  2. 各版本核心差异说明（每版本1句话）\n  3. 完成状态确认",
   "mode": "run",
   "timeoutSeconds": 1200,
   "lightContext": true
@@ -152,7 +158,7 @@ workspace/projects/
 {
   "runtime": "subagent",
   "agentId": "design",
-  "task": "【视觉设计任务】\n\n**必须使用 sheji skill（若需要视觉方向），然后调用执行 skills**\n\n**前置信息**：\n- 品牌档案：[品牌档案路径或关键信息]\n- 已确认创意方向：[创意方向文档路径]\n- 文案内容：[文案文档路径]\n- 具体需求：[物料类型、尺寸、渠道等]\n\n**任务要求**：\n1. 如果需要视觉方向，先使用 sheji skill 输出视觉方向\n2. 根据物料类型调用对应执行 skill：\n   - 品牌海报 → brand-poster-creator\n   - 产品摄影 → product-photography-workflow\n   - 详情页 → xiangqingye-desigen\n   - 其他 → gpt-image2-gen 或相应 skill\n\n**输出要求**：\n- 图片写入 workspace-design/images/\n- 完成后回传文件绝对路径\n- 必须真实发送给用户，不能只回本地路径",
+  "task": "【视觉设计任务】\n\n**必须使用 sheji skill（若需要视觉方向），然后调用执行 skills**\n\n**交付模式：混合模式**\n你是被 main agent 派发的 subagent。完成后：\n- ✅ 图片文件可以直接通过 message 工具的 path 参数发送给用户（飞书支持图片直接投送）\n- ✅ 将图片写入 workspace-design/images/\n- ✅ 回传文件绝对路径和设计说明摘要\n- ⚠️ 文字说明保持简短（1-2 句话），详细说明由 main 转发\n- ❌ 不要发送大段文字内容（会创建新话题）\n\n**前置信息**：\n- 品牌档案：[品牌档案路径或关键信息]\n- 已确认创意方向：[创意方向文档路径]\n- 文案内容：[文案文档路径]\n- 具体需求：[物料类型、尺寸、渠道等]\n\n**任务要求**：\n1. 如果需要视觉方向，先使用 sheji skill 输出视觉方向\n2. 根据物料类型调用对应执行 skill：\n   - 品牌海报 → brand-poster-creator\n   - 产品摄影 → product-photography-workflow\n   - 详情页 → xiangqingye-desigen\n   - 其他 → gpt-image2-gen 或相应 skill\n\n**输出格式**：\n- 图片通过 message 工具发送（带简短说明）\n- 回传内容必须包含：\n  1. 图片文件绝对路径\n  2. 设计核心说明（1-2 句话）\n  3. 完成状态确认",
   "mode": "run",
   "timeoutSeconds": 1800,
   "lightContext": true
@@ -164,6 +170,45 @@ workspace/projects/
 - `timeoutSeconds` 可根据任务复杂度调整（简单任务 600s，复杂任务 1800s）
 - 品牌档案路径可通过 `find_brand_profile.py` 获取
 - 派发前必须确认前置条件已满足（如策略已确认、资料已收集等）
+
+**Main 接收 subagent 结果后的标准流程**：
+
+1. **等待 subagent 完成**：
+   - 使用 `sessions_spawn` 派发后，等待 subagent 完成通知
+   - Subagent 会回传文件路径和核心摘要
+
+2. **读取并验证产出**：
+   ```bash
+   # 读取 subagent 产出文件
+   cat [subagent回传的文件路径]
+   ```
+   - 验证文件存在且内容完整
+   - 提取关键内容准备转发
+
+3. **在原话题下转发给用户**：
+   - 策略/创意方向：提取核心内容（问题诊断、洞察、核心主张、创意方向名称等）
+   - 文案：提取各版本文案和推荐理由
+   - 设计：图片已由 design agent 直接发送，只需补充详细说明
+   - 使用 `message` 工具在当前话题下投送内容
+
+4. **格式化交付内容**：
+   ```markdown
+   ✅ [阶段名称]已完成
+   
+   [核心内容摘要]
+   
+   📄 完整文档：[文件路径]（已保存到项目目录）
+   
+   [可选：关键结论、待确认事项、下一步建议]
+   ```
+
+5. **等待用户确认后进入下一阶段**
+
+**为什么采用这种方式**：
+- ✅ 确保所有消息都投送到原话题（不创建新话题）
+- ✅ Main 始终保持对话题上下文的控制
+- ✅ 用户体验连贯，所有消息在同一话题下
+- ✅ Subagent 产出被 main 过滤和格式化后再交付，质量更可控
 
 ## Role Constraints
 
@@ -248,6 +293,48 @@ workspace/projects/
 - 如果专家 agent 不可用，必须报告给用户："[agent] 当前不可用，无法执行 [阶段]，建议稍后重试或使用 [agent]-shared variant"
 - 如果专家 agent 返回错误，必须报告给用户并说明错误原因，不得自行重试超过 2 次
 - 禁止在专家 agent 失败后由 `main` 自己兜底执行（策略、创意、文案、设计阶段）
+
+**常见派发错误排查**：
+
+1. **Subagent 启动失败**：
+   - 检查 agent ID 是否正确（`strategy`、`strategy-shared`、`copywriter`、`design` 等）
+   - 检查 `exec-approvals.json` 中对应 agent 的权限配置
+   - 查看 gateway 日志：`openclaw logs | grep -i error`
+
+2. **Subagent 执行超时**：
+   - 检查 `timeoutSeconds` 是否合理（策略/创意：1800s，文案：1200s）
+   - 查看 subagent session 日志确认卡在哪个步骤
+   - 如果是等待外部 API，考虑增加超时时间
+
+3. **Skill 调用失败**：
+   - 确认 skill 路径是否存在：`ls /Users/a123/.openclaw/workspace-*/skills/[skill-name]/`
+   - 确认 skill 是否在对应 workspace 的 skills 目录（strategy → workspace-strategy/skills/）
+   - 检查 skill 的 `SKILL.md` 是否完整
+
+4. **文件路径访问权限问题**：
+   - 确认 subagent 可以访问指定的输入文件路径
+   - 使用绝对路径而非相对路径
+   - 确认输出目录存在且有写权限
+
+5. **消息投送到错误话题**：
+   - 确认 subagent 没有直接使用 `message` 工具投送大段内容
+   - 确认 subagent 只回传路径和简短摘要
+   - 图片投送使用 `message` 工具的 `path` 参数（不是 `image` 参数）
+
+**调试步骤**：
+```bash
+# 1. 查看最近的错误日志
+openclaw logs | grep -i "error\|fail" | tail -20
+
+# 2. 查看特定 agent 的 session
+ls -lt agents/[agent-name]/sessions/ | head -5
+
+# 3. 检查 subagent 的执行日志
+cat agents/[agent-name]/sessions/[session-id].jsonl | jq 'select(.type=="message" and .message.role=="assistant")'
+
+# 4. 验证 skill 是否可用
+available_skills | grep [skill-name]
+```
 
 ## Design Execution Example
 
