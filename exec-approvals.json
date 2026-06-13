@@ -12,7 +12,7 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781325025788,
+          "lastUsedAt": 1781335824127,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -52,8 +52,8 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781324418801,
-          "lastUsedCommand": "ls -la /Users/a123/.openclaw/skills/anysearch/",
+          "lastUsedAt": 1781329519042,
+          "lastUsedCommand": "ls -la ~/Library/LaunchAgents/ | grep -v \"^d\" | grep -v \"^total\"",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -108,8 +108,8 @@
           "id": "design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本进行生图",
-          "lastUsedAt": 1781326777480,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/outputs/ip_character_card_prompt.txt --ref-ip /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/558e25f5-521f-4d78-89bd-82ec187ff4ee.jpg -s 1536x2048 -o /Users/a123/.openclaw/workspace-design/images/ip_character_card_v1.png",
+          "lastUsedAt": 1781330060096,
+          "lastUsedCommand": "python3 ~/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py \"1.5头身Q版角色，扁平插画风格，中等粗细黑色描边。圆形黄色脸，深棕色椭圆眼外眼角微上扬，橙红色小圆鼻和横向椭圆微笑，粉色腮红。深棕色短发平刘海。深棕色高领上衣，鲜黄色下摆，橙色过渡带。高饱和暖色系，正面直视，静态站立，简单阴影平涂质感。\" -s 1536x1536 -o images/ip_character.png",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1231,9 +1231,9 @@
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1781257460195,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -120",
-          "lastResolvedPath": "/usr/bin/python3"
+          "lastUsedAt": 1781331371544,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/images /Users/a123/.openclaw/workspace-design/outputs -maxdepth 4 -type f \\( -name '*.done' -o -name '*.failed' -o -name '*.error' -o -name 'generation_result.json' -o -name 'manifest.json' -o -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.webp' \\) -print0 | xargs -0 ls -lt | head -80",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "shared-tail",
@@ -1306,8 +1306,8 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1781256819630,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design -path '*gpt-image2-gen*' -maxdepth 5 -type f | head -20",
+          "lastUsedAt": 1781331371542,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/images /Users/a123/.openclaw/workspace-design/outputs -maxdepth 4 -type f \\( -name '*.done' -o -name '*.failed' -o -name '*.error' -o -name 'generation_result.json' -o -name 'manifest.json' -o -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.webp' \\) -print0 | xargs -0 ls -lt | head -80",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1328,8 +1328,8 @@
           "id": "design-xargs",
           "pattern": "/usr/bin/xargs",
           "description": "允许拼接命令管道",
-          "lastUsedAt": 1781177835634,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/dragon_boat_brand_poster_20260611 /Users/a123/.openclaw/workspace-design/feishu-deliver -type f \\( -path '*sensory_memory_5*' -o -iname '*dragon_boat*' -o -iname '*duanwu*' -o -iname '*端午*' \\) -print0 | xargs -0 ls -lt | head -40",
+          "lastUsedAt": 1781331371543,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/images /Users/a123/.openclaw/workspace-design/outputs -maxdepth 4 -type f \\( -name '*.done' -o -name '*.failed' -o -name '*.error' -o -name 'generation_result.json' -o -name 'manifest.json' -o -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.webp' \\) -print0 | xargs -0 ls -lt | head -80",
           "lastResolvedPath": "/usr/bin/find"
         },
         {

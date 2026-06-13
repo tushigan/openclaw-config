@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.5.7",
-    "lastTouchedAt": "2026-06-11T11:29:36.861Z"
+    "lastTouchedVersion": "2026.6.6",
+    "lastTouchedAt": "2026-06-13T06:42:56.067Z"
   },
   "wizard": {
     "lastRunAt": "2026-05-11T03:19:25.535Z",
@@ -281,7 +281,43 @@
         "skills": [
           "kefu-ae",
           "boss",
-          "anysearch"
+          "anysearch",
+          "multi-search-engine",
+          "session-debug-export",
+          "wechat-article-reader",
+          "feishu-troubleshoot",
+          "gpt-image2-gen",
+          "feishu-channel-rules",
+          "pdf-smart-tool-cn",
+          "skill-creator",
+          "lark-sheets",
+          "lark-shared",
+          "lark-skill-maker",
+          "lark-slides",
+          "lark-task",
+          "lark-vc",
+          "lark-vc-agent",
+          "lark-whiteboard",
+          "lark-workflow-meeting-summary",
+          "lark-wiki",
+          "lark-workflow-standup-report",
+          "lark-okr",
+          "lark-openapi-explorer",
+          "lark-note",
+          "lark-minutes",
+          "lark-markdown",
+          "lark-event",
+          "lark-drive",
+          "lark-im",
+          "lark-mail",
+          "lark-doc",
+          "lark-calendar",
+          "lark-base",
+          "lark-contact",
+          "lark-attendance",
+          "lark-apps",
+          "lark-approval",
+          "research-analyst"
         ],
         "subagents": {
           "allowAgents": [
