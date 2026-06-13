@@ -90,8 +90,15 @@ read {baseDir}/references/step-0-project-grading.md
 
 **详细文档**：`{baseDir}/references/step-5-copywriting-approval.md`
 
+**执行前必读**：
+```bash
+read {baseDir}/references/step-5-copywriting-approval.md
+```
+
+⚠️ **重要**：审批请求必须使用脚本返回的真实飞书艾特标签，不要手写 `@用户名`。
+
 1. 展示文案给用户
-2. 请求文案审批（自动艾特文案判断者）
+2. 请求文案审批（使用脚本返回的 `.message` 字段中的艾特标签）
 3. 记录审批响应和时间
 4. 通过后进入 Step 6
 
@@ -117,8 +124,15 @@ read {baseDir}/references/step-0-project-grading.md
 
 **详细文档**：`{baseDir}/references/step-8-design-approval.md`
 
+**执行前必读**：
+```bash
+read {baseDir}/references/step-8-design-approval.md
+```
+
+⚠️ **重要**：审批请求必须使用脚本返回的真实飞书艾特标签，不要手写 `@用户名`。
+
 1. 发送成品图给用户
-2. 请求设计审批（自动艾特设计判断者）
+2. 请求设计审批（使用脚本返回的 `.message` 字段中的艾特标签）
 3. 记录审批响应和时间
 4. 根据项目等级决定下一步：
    - B级：通过后直接进入 Step 10 交付
@@ -129,6 +143,13 @@ read {baseDir}/references/step-0-project-grading.md
 ### Step 9：高级审批（仅 A/S 级项目）
 
 **详细文档**：`{baseDir}/references/step-9-advanced-approval.md`
+
+**执行前必读**：
+```bash
+read {baseDir}/references/step-9-advanced-approval.md
+```
+
+⚠️ **重要**：审批请求必须使用脚本返回的真实飞书艾特标签，不要手写 `@用户名`。
 
 - A级项目：创意总监审批
 - S级项目：创意总监审批 + 老板最终决策
