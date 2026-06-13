@@ -12,7 +12,7 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781337627221,
+          "lastUsedAt": 1781343020850,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -153,9 +153,9 @@
           "id": "design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781063246548,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260610-001 && ls -la && echo '---images---' && find images -maxdepth 2 -type f | sort && echo '---generation_result---' && [ -f generation_result.json ] && cat generation_result.json || echo 'no generation_result.json' && echo '---manifest---' && [ -f generation_manifest.json ] && cat generation_manifest.json || echo 'no generation_manifest.json'",
-          "lastResolvedPath": "/usr/bin/cd"
+          "lastUsedAt": 1781343373854,
+          "lastUsedCommand": "ls /Users/a123/.openclaw/workspace/projects/scripts && sed -n '1,220p' /Users/a123/.openclaw/workspace/projects/scripts/init_agency_project.py",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "design-cat",
@@ -205,17 +205,17 @@
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容（design 后台检索）",
-          "lastUsedAt": 1781174380801,
-          "lastUsedCommand": "find . -maxdepth 4 -type f \\( -name 'generate.py' -o -name '*image*gen*.py' -o -name '*gpt*image*.py' \\) | head -50",
+          "lastUsedAt": 1781343379602,
+          "lastUsedCommand": "find /Users/a123/.openclaw -path '*init_agency_project.py' -o -path '*find_brand_profile.py' | head -20",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本裁剪（design 后台检索）",
-          "lastUsedAt": 1781173586566,
-          "lastUsedCommand": "find skills/gpt-image2-gen -maxdepth 3 -type f | sort | sed -n '1,120p' && sed -n '1,220p' skills/gpt-image2-gen/scripts/generate.py",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781343388879,
+          "lastUsedCommand": "sed -n '1,240p' /Users/a123/.openclaw/skills/boss/scripts/init_agency_project.py && printf '\\n--- find ---\\n' && sed -n '1,220p' /Users/a123/.openclaw/skills/boss/scripts/find_brand_profile.py",
+          "lastResolvedPath": "/usr/bin/sed"
         },
         {
           "id": "design-wc",
@@ -249,8 +249,8 @@
           "id": "design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件（design 后台只读检索）",
-          "lastUsedAt": 1781174380799,
-          "lastUsedCommand": "find . -maxdepth 4 -type f \\( -name 'generate.py' -o -name '*image*gen*.py' -o -name '*gpt*image*.py' \\) | head -50",
+          "lastUsedAt": 1781343379601,
+          "lastUsedCommand": "find /Users/a123/.openclaw -path '*init_agency_project.py' -o -path '*find_brand_profile.py' | head -20",
           "lastResolvedPath": "/usr/bin/find"
         },
         {
@@ -1149,16 +1149,16 @@
           "id": "shared-design-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1781256088618,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/product_texture_refine_ref_20260612_1719/white_bg_product_left_texture_refined_2k.png /Users/a123/.openclaw/workspace/feishu-deliver/white_bg_product_left_texture_refined_2k.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/white_bg_product_left_texture_refined_2k.png",
-          "lastResolvedPath": "/bin/cp"
+          "lastUsedAt": 1781340619224,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/images/ip_character.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_20260613.png && cp /Users/a123/.openclaw/workspace-design/images/ip_character_card_v1.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_card_v1_20260613.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_20260613.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_card_v1_20260613.png",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-design-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1781256870447,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/images/texture_transfer_20260612 && python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/outputs/texture_transfer_prompt.txt --ref-layout /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/371a8419-b94b-477e-bde3-8e2179e7e900.jpg --ref-style /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/a60e23f1-d1fe-4ccd-b5e5-e9b12073a173.jpg -s 1920x1616 -o /Users/a123/.openclaw/workspace-design/images/texture_transfer_20260612/texture_transfer_v1.png",
+          "lastUsedAt": 1781340619223,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/images/ip_character.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_20260613.png && cp /Users/a123/.openclaw/workspace-design/images/ip_character_card_v1.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_card_v1_20260613.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_20260613.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_card_v1_20260613.png",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -1178,9 +1178,9 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781257620345,
-          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/dc309fa1-955d-40a3-8fc4-d669c35ce621.jpg /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/5fa336e2-7ce3-401a-9534-99d04dc4884a.png",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1781340619224,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/images/ip_character.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_20260613.png && cp /Users/a123/.openclaw/workspace-design/images/ip_character_card_v1.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_card_v1_20260613.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_20260613.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_card_v1_20260613.png",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-design-cat",
