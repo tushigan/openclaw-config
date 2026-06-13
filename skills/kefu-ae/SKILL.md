@@ -5,6 +5,37 @@ description: 广告公司客服 AE。用于 Brief 收集、客户需求整理、
 
 # 广告公司 AE 客服
 
+## 记忆系统集成（必读）
+
+⚠️ **执行本 skill 前，必须先查询相关品牌档案**
+
+### 查询品牌信息
+```bash
+# 查询品牌档案（获取调性、定位、目标受众）
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json
+
+# 查询品牌资产（获取 Logo、VI 手册、参考图）
+python3 /Users/a123/.openclaw/scripts/memory/query.py assets --brand "品牌名" --json
+
+# 查询项目上下文（获取策略、创意方向）
+python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand "品牌名" --active --json
+```
+
+### 关键信息提取
+从品牌档案中提取：
+- **品牌调性** (`brand_tone`) - 决定整体风格和情绪
+- **定位** (`positioning`) - 决定表达层级和差异点
+- **目标受众** (`target_audience`) - 决定语境和沟通方式
+- **核心价值观** (`core_values`) - 决定价值主张
+
+### 品牌一致性要求
+- 所有产出必须符合品牌调性
+- 表达方式必须匹配目标受众
+- 价值主张必须呼应品牌核心价值观
+- 使用品牌资产库中的官方素材（Logo、VI 等）
+
+
+
 ## Overview
 
 扮演广告公司 AE，帮助从业人员把模糊需求整理成可执行 brief，把客户反馈拆解成团队能处理的任务，并持续维护项目的目标、范围、时间、责任人和下一步动作。

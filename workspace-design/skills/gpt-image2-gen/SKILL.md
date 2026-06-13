@@ -17,6 +17,37 @@ metadata:
 
 # 图像生成技能（gpt-image-2 / gpt-image-2-pro，统一入口）
 
+## 记忆系统集成（必读）
+
+⚠️ **执行本 skill 前，必须先查询相关品牌档案**
+
+### 查询品牌信息
+```bash
+# 查询品牌档案（获取调性、定位、目标受众）
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json
+
+# 查询品牌资产（获取 Logo、VI 手册、参考图）
+python3 /Users/a123/.openclaw/scripts/memory/query.py assets --brand "品牌名" --json
+
+# 查询项目上下文（获取策略、创意方向）
+python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand "品牌名" --active --json
+```
+
+### 关键信息提取
+从品牌档案中提取：
+- **品牌调性** (`brand_tone`) - 决定整体风格和情绪
+- **定位** (`positioning`) - 决定表达层级和差异点
+- **目标受众** (`target_audience`) - 决定语境和沟通方式
+- **核心价值观** (`core_values`) - 决定价值主张
+
+### 品牌一致性要求
+- 所有产出必须符合品牌调性
+- 表达方式必须匹配目标受众
+- 价值主张必须呼应品牌核心价值观
+- 使用品牌资产库中的官方素材（Logo、VI 等）
+
+
+
 **✨ v2.3.0 更新：参考图自动压缩功能已启用**
 - 所有参考图自动压缩到长边 1920px，JPEG 85% 质量
 - 大幅提升上传速度，降低生成失败率
