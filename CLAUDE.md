@@ -51,12 +51,12 @@ openclaw subagents spawn design "生成产品效果图" --timeout 600
 
 | Agent | Role | Workspace | Primary Model |
 |-------|------|-----------|---------------|
-| `main` | Coordinator, task orchestration, user delivery | `workspace/` | GPT-5.4 (fallback: Kimi K2.6) |
-| `strategy` | Product strategy, positioning, narrative | `workspace-strategy/` | GPT-5.5 |
-| `research` | Market research, competitor analysis | `workspace-research/` | Kimi K2.5 |
-| `design` | Visual creation (images, video analysis), product renders | `workspace-design/` | Kimi K2.5 |
-| `meeting-analyst` | Meeting minutes analysis, evidence extraction | `workspace-meeting/` | Kimi K2.5 |
-| `copywriter` | Copywriting, content creation | `workspace-copywriter/` | Claude Opus 4.6 |
+| `main` | Coordinator, task orchestration, user delivery | `workspace/` | Claude Opus 4.8 (via cc-vibe) |
+| `strategy` | Product strategy, positioning, narrative | `workspace-strategy/` | Claude Opus 4.8 (via cc-vibe) |
+| `research` | Market research, competitor analysis | `workspace-research/` | Claude Opus 4.8 (via cc-vibe) |
+| `design` | Visual creation (images, video analysis), product renders | `workspace-design/` | Claude Opus 4.8 (via cc-vibe) |
+| `meeting-analyst` | Meeting minutes analysis, evidence extraction | `workspace-meeting/` | Claude Opus 4.8 (via cc-vibe) |
+| `copywriter` | Copywriting, content creation | `workspace-copywriter/` | Claude Opus 4.8 (via cc-vibe) |
 
 Each agent also has a `*-shared` variant (e.g. `main-shared`, `strategy-shared`) for multi-user access with 虾权 isolation. Shared variants use the same model and workspace as their base agent.
 

@@ -259,7 +259,8 @@
         "weather",
         "web-browse-capture",
         "wechat-article-reader",
-        "design-brief-builder"
+        "design-brief-builder",
+        "anysearch"
       ],
       "maxConcurrent": 32
     },
@@ -279,7 +280,8 @@
         "reasoningDefault": "on",
         "skills": [
           "kefu-ae",
-          "boss"
+          "boss",
+          "anysearch"
         ],
         "subagents": {
           "allowAgents": [
@@ -308,7 +310,6 @@
             "feishu_bitable_list_fields",
             "feishu_bitable_list_records",
             "feishu_bitable_update_record",
-            "feishu-send-image",
             "feishu_calendar_*",
             "feishu_chat",
             "feishu_chat*",
@@ -376,7 +377,8 @@
           "celue-zj",
           "chuangyi-zj",
           "huashu-design",
-          "session-debug-export"
+          "session-debug-export",
+          "anysearch"
         ],
         "subagents": {
           "allowAgents": [
@@ -400,7 +402,6 @@
             "data-intelligence",
             "dify-rag",
             "exec",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -509,7 +510,6 @@
             "data-intelligence",
             "dify-rag",
             "exec",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -575,7 +575,8 @@
         "skills": [
           "research-analyst",
           "browser-automation",
-          "web-browse-capture"
+          "web-browse-capture",
+          "anysearch"
         ],
         "subagents": {
           "allowAgents": [
@@ -595,7 +596,6 @@
             "data-intelligence",
             "dify-rag",
             "exec",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -684,7 +684,8 @@
         "skills": [
           "wenan",
           "openclaw-changelog-writer",
-          "session-debug-export"
+          "session-debug-export",
+          "anysearch"
         ],
         "subagents": {
           "allowAgents": [
@@ -704,7 +705,6 @@
             "data-intelligence",
             "dify-rag",
             "exec",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -851,7 +851,6 @@
             "data-intelligence",
             "dify-rag",
             "exec",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -955,7 +954,6 @@
             "feishu_bitable_list_fields",
             "feishu_bitable_list_records",
             "feishu_bitable_update_record",
-            "feishu-send-image",
             "feishu_calendar_*",
             "feishu_chat",
             "feishu_chat*",
@@ -1057,7 +1055,6 @@
             "dify-rag",
             "exec",
             "process",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -1175,7 +1172,6 @@
             "dify-rag",
             "exec",
             "process",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -1274,7 +1270,6 @@
             "dify-rag",
             "exec",
             "process",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -1384,7 +1379,6 @@
             "dify-rag",
             "exec",
             "process",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -1562,7 +1556,6 @@
             "dify-rag",
             "exec",
             "process",
-            "feishu-send-image",
             "feishu_app_scopes",
             "feishu_bitable_create_app",
             "feishu_bitable_create_field",
@@ -1652,7 +1645,6 @@
       "dify-rag",
       "exec",
       "process",
-      "feishu-send-image",
       "feishu_calendar_*",
       "feishu_chat",
       "feishu_chat*",

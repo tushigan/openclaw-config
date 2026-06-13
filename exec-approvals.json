@@ -12,9 +12,9 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781324442270,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/skills/anysearch && python3 scripts/anysearch_cli.py search \"hello world\" --max_results 1",
-          "lastResolvedPath": "/usr/bin/cd"
+          "lastUsedAt": 1781325025788,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "main-bash",
@@ -68,8 +68,8 @@
           "id": "main-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1781324442268,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/skills/anysearch && python3 scripts/anysearch_cli.py search \"hello world\" --max_results 1",
+          "lastUsedAt": 1781324575937,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/skills/anysearch && python3 scripts/anysearch_cli.py search \"test\" --max_results 1",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -108,8 +108,8 @@
           "id": "design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本进行生图",
-          "lastUsedAt": 1781174411221,
-          "lastUsedCommand": "python3 _temp_generate_dog.py",
+          "lastUsedAt": 1781326777480,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/outputs/ip_character_card_prompt.txt --ref-ip /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/558e25f5-521f-4d78-89bd-82ec187ff4ee.jpg -s 1536x2048 -o /Users/a123/.openclaw/workspace-design/images/ip_character_card_v1.png",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -2036,8 +2036,8 @@
           "id": "research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（research 调研与验收）",
-          "lastUsedAt": 1780968852314,
-          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\nimport re\nbase=Path('/Users/a123/.openclaw/workspace-research/outputs/platform_search')\ntext=(base/'xiaohongshu.html').read_text(encoding='utf-8',errors='ignore')\nfor kw in ['登录','验证码','请登录','小红书','search_result','鸭爪','笔记','商品','探索','App','打开APP']:\n    print(kw, kw in text, text.find(kw))\nfor pat in [r'https://www\\.xiaohongshu\\.com/explore/[^\"\\']+', r'https://www\\.xiaohongshu\\.com/search_result[^\"\\']+', r'/explore/[A-Za-z0-9]+']:\n    ms=re.findall(pat, text)\n    print('PAT',pat,'count',len(ms),'sample',ms[:10])\nPY",
+          "lastUsedAt": 1781325564160,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/skills/anysearch/scripts/anysearch_cli.py search \"2026 中国 快消食品 Z世代 消费偏好\" --max_results 8",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
