@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "brand_id": "测试品牌",
+  "brand_name": "测试品牌",
+  "brand_name_en": "Test Brand",
+  "industry": "快消品",
+  "category": "饮料",
+  "positioning": "年轻人的能量饮料",
+  "core_values": [
+    "活力",
+    "创新",
+    "分享"
+  ],
+  "brand_tone": "活力、阳光、积极",
+  "target_audience": "18-35岁年轻人",
+  "vi_guidelines": {
+    "primary_colors": [],
+    "secondary_colors": [],
+    "fonts": [],
+    "logo_usage_notes": ""
+  },
+  "brand_assets_dir": "_brand-assets/",
+  "historical_campaigns": [],
+  "key_contacts": [],
+  "notes": "",
+  "created_at": "2026-06-11T22:56:49.360289+08:00",
+  "updated_at": "2026-06-11T22:56:49.360289+08:00",
+  "client_id": "CLI-20260613161206-553b5b",
+  "_migration_source": "workspace/projects"
+}

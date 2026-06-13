@@ -1,0 +1,62 @@
+{
+  "project_id": "麦初心语-蛋糕棒产品线升级项目",
+  "brand_id": "BRD-20260613161206-42e0ba",
+  "client_id": "CLI-20260613161206-359004",
+  "campaign_name": "业务对接",
+  "campaign_type": "业务对接",
+  "start_date": "2026-05-18T19:14:56.239014+08:00",
+  "deadline_date": "",
+  "status": "active",
+  "lifecycle_stage": "待报价",
+  "milestones": [],
+  "project_summary": "围绕蛋糕棒产品线进行口味、包装、规格、渠道与成本优化，先完成现有产品线整理与视觉升级。",
+  "current_goal": "整理以单一SPU为核心、覆盖产品策略到包装与详情页的整案报价方案，婚庆纳入主包但不含独立详情页，确认后启动执行。",
+  "tags": [
+    "食品",
+    "产品升级",
+    "包装升级",
+    "渠道策略"
+  ],
+  "created_at": "2026-05-18T19:14:56.239014+08:00",
+  "updated_at": "2026-05-18T19:59:41.879485+08:00",
+  "_last_modified_by": "migration-script",
+  "brief_path": "",
+  "strategy_path": "",
+  "creative_direction_path": "",
+  "_migration_source": "workspace-business/projects",
+  "_original_data": {
+    "schema_version": "1.0",
+    "project_id": "麦初心语-蛋糕棒产品线升级项目",
+    "client_name": "麦初心语",
+    "project_name": "蛋糕棒产品线升级项目",
+    "project_slug": "蛋糕棒产品线升级项目",
+    "current_stage": "待报价",
+    "lifecycle_status": "active",
+    "current_goal": "整理以单一SPU为核心、覆盖产品策略到包装与详情页的整案报价方案，婚庆纳入主包但不含独立详情页，确认后启动执行。",
+    "project_summary": "围绕蛋糕棒产品线进行口味、包装、规格、渠道与成本优化，先完成现有产品线整理与视觉升级。",
+    "background_summary": "项目来源于 2026-05-18 飞书会议纪要，讨论了现有产品动销、成本、造型、包装和渠道问题，并明确了芝士/黑巧口味、三类SKU和重点渠道方向。",
+    "requirement_summary": "项目围绕单一SPU做完整升级，包含产品策略、产品研发建议、产品线规划、渠道策略、包装策划设计及主详情页；不限定SKU数量。婚庆市场包含在项目内，但需单独一套设计体系，且不含婚庆独立详情页。",
+    "recommended_case_type": "",
+    "quote_status": "not-ready",
+    "created_at": "2026-05-18T19:14:56.239014+08:00",
+    "updated_at": "2026-05-18T19:59:41.879485+08:00",
+    "last_activity_at": "2026-05-18T19:59:41.879485+08:00",
+    "next_action_summary": "已按新规则重建正式报价结构，待确认后生成正式报价文件。",
+    "primary_contact": "",
+    "source_channels": [
+      "feishu-group",
+      "feishu-minutes"
+    ],
+    "tags": [
+      "食品",
+      "产品升级",
+      "包装升级",
+      "渠道策略"
+    ],
+    "material_count": 9,
+    "latest_material_id": "mat-c2a2ede7fa",
+    "latest_progress_id": "prog-333adb3cb8",
+    "current_quote_version": "",
+    "quote_project_dir": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote"
+  }
+}

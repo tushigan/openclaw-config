@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "project_id": "知是-渠道营销物料报价项目",
+  "handoff_status": "final-delivered",
+  "prepared_at": "2026-05-27T18:09:57+08:00",
+  "prepared_by": "business",
+  "trigger_reason": "用户确认 v5 版为最终定稿，且已发送给客户。",
+  "client_name": "知是",
+  "project_name": "渠道营销物料报价项目",
+  "current_stage": "已报价",
+  "business_goal": "形成知是项目正式报价终稿，并保留对外发送版本以便后续商务推进。",
+  "recommended_case_type": "项目案",
+  "confirmed_scope": [
+    "板块一：渠道产品提报服务 1套，费用2万/套",
+    "板块二：包装细化执行，按SKU展开任务，费用3万/SKU",
+    "板块二：延展设计独立分栏并展开任务，礼盒类延展5万/款，常规包装类延展3万/款",
+    "板块三：渠道宣传视频 1条",
+    "板块三：渠道线上平台详情页 1.2万/条",
+    "板块三：产品宣传海报 1.5万/组"
+  ],
+  "excluded_scope": [
+    "印刷制作、打样费用及其他第三方落地费用暂不含",
+    "视频拍摄执行费用根据确认脚本另行评估"
+  ],
+  "key_requirements": [
+    "板块二需拆分左侧栏目，区分包装细化执行与延展设计",
+    "包装细化执行保留任务展开",
+    "延展设计需展开任务体现价值感知",
+    "HTML 与 PDF 均需可直接对外发送"
+  ],
+  "key_decisions": [
+    "v5 版已确认为最终正式报价版本",
+    "v5 版已由用户发送给客户",
+    "后续如有反馈，基于 v5 继续迭代"
+  ],
+  "open_questions": [
+    "客户是否会提出修改意见",
+    "是否进入后续商务谈判或执行准备"
+  ],
+  "material_refs": [
+    "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/materials/images/2026-05-25_客户沟通截图_新增营销需求.jpg",
+    "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/quote/versions/v5/未本x知是渠道产品服务明细_交付版_已修改_v5.html",
+    "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/quote/versions/v5/未本x知是渠道产品服务明细_交付版_已修改_v5_正确版.pdf"
+  ],
+  "meeting_note_refs": [],
+  "quote_project_dir": "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/quote",
+  "current_quote_version": "v5-final",
+  "quote_output_refs": [
+    "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/quote/versions/v5/未本x知是渠道产品服务明细_交付版_已修改_v5.html",
+    "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/quote/versions/v5/未本x知是渠道产品服务明细_交付版_已修改_v5_正确版.pdf"
+  ],
+  "last_quote_generated_at": "2026-05-27T15:53:25+08:00",
+  "quote_followup_summary": "v5 已定稿并已发客户，当前等待客户反馈或进入后续商务推进。"
+}

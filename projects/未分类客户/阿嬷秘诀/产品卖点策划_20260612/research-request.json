@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "request_version": "1.0",
+  "requested_by": "Account Executive",
+  "requested_at": "2026-06-12T11:02:56.193324+08:00",
+  "updated_at": "2026-06-12T11:21:11.780430+08:00",
+  "research_needs": {
+    "industry_research": {
+      "needed": true,
+      "status": "available",
+      "notes": "已归档《卤制品市场调研报告260530.pdf》，并提取文字。"
+    },
+    "competitor_analysis": {
+      "needed": true,
+      "status": "pending",
+      "notes": "重点比较王小卤、周黑鸭、绝味、紫燕、各类高蛋白肉类零食/鸡胸肉品牌的卖点与价格带。"
+    },
+    "consumer_insights": {
+      "needed": true,
+      "status": "partial",
+      "notes": "已有目标人群假设，但缺少真实消费者反馈、口味偏好和场景验证。"
+    },
+    "brand_materials": {
+      "needed": true,
+      "status": "partial",
+      "notes": "已确认阿嬷秘诀为唯一品牌名；家之宝为工厂名；仍缺视觉资产。"
+    },
+    "product_materials": {
+      "needed": true,
+      "status": "partial",
+      "notes": "已获得产品线表和实物图；仍缺配料、营养、保质期、生产资质、样品反馈。"
+    },
+    "channel_context": {
+      "needed": true,
+      "status": "partial",
+      "notes": "已有渠道方向和规格；缺少各渠道目标价格、陈列/动销要求、招商政策。"
+    },
+    "historical_campaigns": {
+      "needed": false,
+      "status": "not_applicable",
+      "notes": "新品牌，暂无历史投放。"
+    }
+  },
+  "materials_available": [
+    "飞书表格：阿嬷卤味产品线梳理（卤猪腱、鸭货产品规格/成本/渠道/包装形式）",
+    "飞书文档：家之宝品牌名策略单（项目背景、目标用户、渠道和命名原则）",
+    "PDF：卤制品市场调研报告260530.pdf（已归档并转文字）",
+    "实物图：产品实物图_陈焰_20260612.jpg"
+  ],
+  "materials_missing": [
+    "产品配料表、营养成分、保质期、储存方式。",
+    "生产资质、工厂背书、食品安全/检测证明。",
+    "真实产品样品反馈：肉质、口感、咸度、汁水、麻笋口感。",
+    "每个SPU计划规格和包装正面信息层级。",
+    "合规边界：能否使用“独家配方/高蛋白/低脂/无防腐剂/原切”等表达。"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "project_id": "麦初心语-蛋糕棒产品线升级项目",
+  "tasks": [
+    {
+      "task_id": "task-quote-001",
+      "title": "整理报价方案结构",
+      "description": "基于会议纪要与现场材料整理报价方案框架，明确服务内容、阶段与交付项。",
+      "status": "done",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-18T19:21:00.136096+08:00",
+      "updated_at": "2026-05-18T19:22:24.601783+08:00",
+      "source_progress_id": "prog-b40188f301",
+      "related_material_ids": [],
+      "related_quote_version": "",
+      "completion_note": "已输出 2026-05-18_报价方案框架_v0.md"
+    },
+    {
+      "task_id": "task-quote-002",
+      "title": "明确确认后开工的节点条件",
+      "description": "补充项目案结构、确认后开工节点、修改边界与后续价格口径。",
+      "status": "todo",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-18T19:21:00.136096+08:00",
+      "updated_at": "2026-05-18T19:24:02.272805+08:00",
+      "source_progress_id": "prog-b40188f301",
+      "related_material_ids": [],
+      "related_quote_version": "",
+      "completion_note": ""
+    },
+    {
+      "task_id": "task-001",
+      "title": "整理现有产品规格与产品线",
+      "description": "根据会议纪要梳理当前产品规格、SKU结构、渠道对应关系。",
+      "status": "todo",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-18T19:14:56.239014+08:00",
+      "updated_at": "2026-05-18T19:14:56.239014+08:00",
+      "source_progress_id": "prog-ec3083ab07",
+      "related_material_ids": [
+        "mat-53b43a5e3b"
+      ],
+      "related_quote_version": "",
+      "completion_note": ""
+    },
+    {
+      "task_id": "task-002",
+      "title": "输出包装升级方向与视觉重点",
+      "description": "围绕品质感、LOGO中文强化、卖点与产品图重整，形成包装升级方向。",
+      "status": "todo",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-18T19:14:56.239014+08:00",
+      "updated_at": "2026-05-18T19:14:56.239014+08:00",
+      "source_progress_id": "prog-ec3083ab07",
+      "related_material_ids": [
+        "mat-53b43a5e3b"
+      ],
+      "related_quote_version": "",
+      "completion_note": ""
+    },
+    {
+      "task_id": "task-003",
+      "title": "制定婚庆礼赠渠道专项方案",
+      "description": "单独梳理婚庆渠道的产品规格、包装表达与需求特征。",
+      "status": "todo",
+      "priority": "medium",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-18T19:14:56.239014+08:00",
+      "updated_at": "2026-05-18T19:14:56.239014+08:00",
+      "source_progress_id": "prog-ec3083ab07",
+      "related_material_ids": [
+        "mat-53b43a5e3b"
+      ],
+      "related_quote_version": "",
+      "completion_note": ""
+    },
+    {
+      "task_id": "task-004",
+      "title": "安排芝士味产品试吃与寄样",
+      "description": "尝试芝士味产品并准备试吃反馈与寄样。",
+      "status": "todo",
+      "priority": "medium",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-18T19:14:56.239014+08:00",
+      "updated_at": "2026-05-18T19:14:56.239014+08:00",
+      "source_progress_id": "prog-ec3083ab07",
+      "related_material_ids": [
+        "mat-53b43a5e3b"
+      ],
+      "related_quote_version": "",
+      "completion_note": ""
+    }
+  ]
+}

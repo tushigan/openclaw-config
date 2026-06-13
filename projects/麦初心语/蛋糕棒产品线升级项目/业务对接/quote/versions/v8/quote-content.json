@@ -1,0 +1,588 @@
+{
+  "title": "麦初心语蛋糕棒产品服务报价方案",
+  "subtitle": "项目案｜蛋糕棒产品1个SPU整体服务，含税费用20万",
+  "case_type": "项目案",
+  "annual_context": {},
+  "overview_paragraphs": [
+    "服务范围覆盖企业调研分析、产品盘点、产品线与规格整理、包装升级，以及配套详情页策划与设计。",
+    "本次结构按公司正式服务内容颗粒度展开，便于客户清楚理解每一项服务动作、交付逻辑与价值边界。"
+  ],
+  "pricing_summary": {
+    "label": "费用说明",
+    "details": "蛋糕棒产品1个SPU。",
+    "total": "含税费用：人民币 200,000 元"
+  },
+  "stages": [
+    {
+      "stage_name": "企业调研分析",
+      "stage_price": "含税费用已计入总价",
+      "stage_duration": "待确认",
+      "stage_deliverables": [
+        "企业访谈纪要",
+        "项目目标共识摘要"
+      ],
+      "projects": [
+        {
+          "project_name": "企业调研分析",
+          "project_deliverables": [
+            "企业访谈纪要",
+            "项目目标共识摘要"
+          ],
+          "service_catalog_refs": [
+            "品牌策略__供给侧调研分析__企业调研__企业战略目标分析",
+            "品牌策略__供给侧调研分析__企业调研__企业经营信息分析"
+          ],
+          "tasks": [
+            {
+              "task_name": "项目背景深度访谈",
+              "description_bullets": [
+                "围绕企业当前项目背景、产品现状、已有推进过程与关键问题进行深度访谈。",
+                "为后续产品方向判断与服务结构展开建立共识基础。"
+              ],
+              "service_catalog_refs": [
+                "品牌策略__供给侧调研分析__企业调研__企业战略目标分析"
+              ],
+              "catalog_status": "matched"
+            },
+            {
+              "task_name": "高层访谈",
+              "description_bullets": [
+                "围绕企业高层对项目目标、市场方向、产品判断与业务预期进行访谈。",
+                "确保项目服务方向与决策层预期保持一致。"
+              ],
+              "service_catalog_refs": [
+                "品牌策略__供给侧调研分析__企业调研__企业经营信息分析"
+              ],
+              "catalog_status": "matched"
+            },
+            {
+              "task_name": "项目目标共识",
+              "description_bullets": [
+                "结合前序访谈内容，梳理项目目标、服务边界与阶段性产出预期。",
+                "形成内部与客户可对齐的目标共识基础。"
+              ],
+              "service_catalog_refs": [
+                "品牌策略__供给侧调研分析__企业调研__企业战略目标分析"
+              ],
+              "catalog_status": "matched"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage_name": "产品盘点与产品线整理",
+      "stage_price": "含税费用已计入总价",
+      "stage_duration": "待确认",
+      "stage_deliverables": [
+        "现有产品盘点结论",
+        "现有包装卖点及视觉盘点结论",
+        "产品线整理建议",
+        "产品规格建议"
+      ],
+      "projects": [
+        {
+          "project_name": "现有产品盘点",
+          "project_deliverables": [
+            "现有产品盘点结论",
+            "现有包装卖点及视觉盘点结论"
+          ],
+          "service_catalog_refs": [
+            "品牌策略__供给侧调研分析__产品调研__产品线结构分析",
+            "品牌策略__供给侧调研分析__产品调研__现有产品力分析"
+          ],
+          "tasks": [
+            {
+              "task_name": "现有产品力分析",
+              "description_bullets": [
+                "围绕现有蛋糕棒产品、现有包装样、现场图片及会议纪要，对当前产品表现进行系统盘点。",
+                "从口感、造型、品质感、价格带与渠道适配等维度输出问题诊断结论。"
+              ],
+              "service_catalog_refs": [
+                "品牌策略__供给侧调研分析__产品调研__现有产品力分析"
+              ],
+              "catalog_status": "matched"
+            },
+            {
+              "task_name": "现有包装卖点及视觉盘点",
+              "description_bullets": [
+                "对现有包装中的卖点表达、信息层级、视觉风格、产品感知与货架识别进行专项盘点。",
+                "明确现有包装在卖点传达与视觉表现上的问题，为后续包装升级提供依据。"
+              ],
+              "service_catalog_refs": [
+                "品牌策略__供给侧调研分析__产品调研__现有产品力分析"
+              ],
+              "catalog_status": "matched"
+            },
+            {
+              "task_name": "产品线结构分析",
+              "description_bullets": [
+                "梳理现有产品规格、SKU组成、价格带分布及当前渠道对应关系。",
+                "明确现有产品在线结构与规格设置上的问题与优化空间。"
+              ],
+              "service_catalog_refs": [
+                "品牌策略__供给侧调研分析__产品调研__产品线结构分析"
+              ],
+              "catalog_status": "matched"
+            }
+          ]
+        },
+        {
+          "project_name": "产品线与规格整理",
+          "project_deliverables": [
+            "产品线整理建议",
+            "产品规格建议"
+          ],
+          "service_catalog_refs": [
+            "产品定义__产品策略及表现__产品定位__产品线梳理"
+          ],
+          "tasks": [
+            {
+              "task_name": "产品线梳理",
+              "description_bullets": [
+                "基于现有产品盘点与沟通策略结果，整理适合本次服务范围推进的产品线组合。",
+                "明确不同产品对象的角色分工、延展关系与后续表达边界。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__产品定位__产品线梳理"
+              ],
+              "catalog_status": "matched"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage_name": "包装升级服务",
+      "stage_price": "含税费用已计入总价",
+      "stage_duration": "待确认",
+      "stage_deliverables": [
+        "蛋糕棒1个SPU，包含婚庆渠道包装"
+      ],
+      "projects": [
+        {
+          "project_name": "产品设计",
+          "project_deliverables": [
+            "蛋糕棒1个SPU，包含婚庆渠道包装"
+          ],
+          "service_catalog_refs": [
+            "产品定义__产品策略及表现__产品定位__产品名产品Slogan",
+            "产品定义__产品策略及表现__产品定位__产品定位",
+            "产品定义__产品策略及表现__产品定位__产品核心价值要素提炼",
+            "产品定义__产品策略及表现__包装创意__包装创意提案",
+            "产品定义__产品策略及表现__包装创意__包装画面设计",
+            "产品定义__产品策略及表现__包装创意__包装结构造型设计",
+            "产品定义__产品策略及表现__包装创意__包装触点分析",
+            "产品定义__产品策略及表现__包装创意__包装风格定位",
+            "产品定义__产品策略及表现__包装印刷跟踪__包装印刷效果反馈及跟踪执行",
+            "产品定义__产品策略及表现__包装落地及规范__包装印前文件输出",
+            "产品定义__产品策略及表现__包装落地及规范__包装工艺及材质建议",
+            "产品定义__产品策略及表现__包装落地及规范__包装数码打样测试"
+          ],
+          "tasks": [
+            {
+              "task_name": "产品沟通策略",
+              "description_bullets": [
+                "完成产品沟通策略相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__产品定位__产品定位"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "产品价值优势深度挖掘",
+              "description_bullets": [
+                "完成产品价值优势深度挖掘相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__产品定位__产品核心价值要素提炼"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "竞品差异化分析",
+              "description_bullets": [
+                "完成竞品差异化分析相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__产品定位__产品定位"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "消费者需求匹配验证",
+              "description_bullets": [
+                "完成消费者需求匹配验证相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__产品定位__产品定位"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "产品核心卖点提炼",
+              "description_bullets": [
+                "完成产品核心卖点提炼相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__产品定位__产品核心价值要素提炼"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "产品名策划",
+              "description_bullets": [
+                "完成产品名策划相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__产品定位__产品名产品Slogan"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装信息层级梳理",
+              "description_bullets": [
+                "完成包装信息层级梳理相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装触点分析"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "产品包装创意",
+              "description_bullets": [
+                "完成产品包装创意相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装创意提案"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装触点分析",
+              "description_bullets": [
+                "完成包装触点分析相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装触点分析"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装创意发散",
+              "description_bullets": [
+                "完成包装创意发散相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装创意提案"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装风格定位",
+              "description_bullets": [
+                "完成包装风格定位相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装风格定位"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "产品包装设计",
+              "description_bullets": [
+                "完成产品包装设计相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装结构造型设计",
+              "description_bullets": [
+                "完成包装结构造型设计相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装结构造型设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装画面设计",
+              "description_bullets": [
+                "完成包装画面设计相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装工艺及材质建议",
+              "description_bullets": [
+                "完成包装工艺及材质建议相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装落地及规范__包装工艺及材质建议"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "虚拟货架测试",
+              "description_bullets": [
+                "完成虚拟货架测试相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装效果图方案提报",
+              "description_bullets": [
+                "完成包装效果图方案提报相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装延展",
+              "description_bullets": [
+                "完成包装延展相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装展开平面优化",
+              "description_bullets": [
+                "完成包装展开平面优化相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "口味延展设计",
+              "description_bullets": [
+                "完成口味延展设计相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装元素绘制",
+              "description_bullets": [
+                "完成包装元素绘制相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装元素拍摄",
+              "description_bullets": [
+                "完成包装元素拍摄相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装元素建模",
+              "description_bullets": [
+                "完成包装元素建模相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "外箱配套设计",
+              "description_bullets": [
+                "完成外箱配套设计相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装创意__包装画面设计"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "展开审核",
+              "description_bullets": [
+                "完成展开审核相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装落地及规范__包装印前文件输出"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装印刷跟踪",
+              "description_bullets": [
+                "完成包装印刷跟踪相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装印刷跟踪__包装印刷效果反馈及跟踪执行"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "数码样打样",
+              "description_bullets": [
+                "完成数码样打样相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装落地及规范__包装数码打样测试"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "制作文件输出",
+              "description_bullets": [
+                "完成制作文件输出相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装落地及规范__包装印前文件输出"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            },
+            {
+              "task_name": "包装印刷效果反馈及跟踪执行",
+              "description_bullets": [
+                "完成包装印刷效果反馈及跟踪执行相关工作，服务于蛋糕棒1个SPU包装设计，包含婚庆渠道包装。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__产品策略及表现__包装印刷跟踪__包装印刷效果反馈及跟踪执行"
+              ],
+              "catalog_status": "matched",
+              "quantity": "1套"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage_name": "详情页配套服务",
+      "stage_price": "含税费用已计入总价",
+      "stage_duration": "待确认",
+      "stage_deliverables": [
+        "详情页卖点框架",
+        "详情页转化策略",
+        "详情页设计稿",
+        "详情页主图方案"
+      ],
+      "projects": [
+        {
+          "project_name": "详情页策划与设计",
+          "project_deliverables": [
+            "详情页卖点框架",
+            "详情页转化策略",
+            "详情页设计稿",
+            "详情页主图方案"
+          ],
+          "service_catalog_refs": [
+            "产品定义__线上营销物料__电商详情框架搭建__卖点框架搭建",
+            "产品定义__线上营销物料__电商详情框架搭建__详情页转化策略",
+            "产品定义__线上营销物料__电商详情页主图策划与设计__主图核心卖点策划",
+            "产品定义__线上营销物料__电商详情页设计表现__产品详情页创意"
+          ],
+          "tasks": [
+            {
+              "task_name": "卖点框架搭建",
+              "description_bullets": [
+                "基于产品盘点、沟通策略与包装升级结果，搭建详情页的内容结构与卖点框架。",
+                "明确页面需要承载的核心信息与证据逻辑。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__线上营销物料__电商详情框架搭建__卖点框架搭建"
+              ],
+              "catalog_status": "matched"
+            },
+            {
+              "task_name": "详情页转化策略",
+              "description_bullets": [
+                "围绕用户浏览路径与转化节点，规划详情页的信息组织方式。",
+                "提升页面表达的完整度与销售承接力。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__线上营销物料__电商详情框架搭建__详情页转化策略"
+              ],
+              "catalog_status": "matched"
+            },
+            {
+              "task_name": "产品详情页创意",
+              "description_bullets": [
+                "完成详情页的整体视觉创意与设计表现。",
+                "确保详情页视觉与包装升级结果保持统一。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__线上营销物料__电商详情页设计表现__产品详情页创意"
+              ],
+              "catalog_status": "matched"
+            },
+            {
+              "task_name": "主图核心卖点策划",
+              "description_bullets": [
+                "围绕详情页首屏与平台展示场景，提炼主图核心卖点与视觉重点。",
+                "增强产品在线上展示中的点击与理解效率。"
+              ],
+              "service_catalog_refs": [
+                "产品定义__线上营销物料__电商详情页主图策划与设计__主图核心卖点策划"
+              ],
+              "catalog_status": "matched"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "closing_notes": [
+    "1. 本报价不包含第三方数据及其他第三方增量调研费用。",
+    "2. 本报价不包含注册费用、制作印刷、施工、媒介投放及其他第三方费用。",
+    "3. 以上费用不包含文字或图片素材的版权购买费用。",
+    "4. 本报价10个工作日内有效，最终解释权归属福州未本品牌策划有限公司。",
+    "5. 以上信息属于企业商业机密，不得向第三方泄露；如造成法律纠纷，必予追究。"
+  ]
+}

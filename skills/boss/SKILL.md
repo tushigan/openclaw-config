@@ -14,50 +14,117 @@ metadata:
 
 作为广告公司岗位协作总控，强制维护从客户需求到具体内容执行的岗位顺序。任何品牌全案或整合营销任务都必须先由 Account Executive 基于 brief 模版收集需求并起草问题和目标，再由 AE、Strategy Director、Creative Director 三方确认问题和目标，之后才进入资料收集、策略、创意方向确认、文案与设计执行。
 
-## Project Memory System
+## Project Memory System（OpenClaw 顶层记忆系统）
 
-每个品牌全案项目都必须建立项目记忆系统，包括品牌档案和项目档案。
+⚠️ **重要更新**：项目记忆系统已升级为 OpenClaw 顶层记忆系统，所有 agent 和 skill 共享。
 
-### 项目目录结构
+每个品牌全案项目都必须建立项目记忆系统，包括客户档案、品牌档案和项目档案。
+
+### 项目目录结构（新架构）
 
 ```
-workspace/projects/
+/Users/a123/.openclaw/projects/  # ⚠️ 根目录，不再是 workspace/projects
 ├── _registry.json              # 项目注册表（全局索引）
-├── 品牌名/
-│   ├── _brand-profile.json     # 品牌档案（跨项目复用）
-│   ├── _brand-assets/          # 品牌资产库
-│   │   ├── logos/
-│   │   ├── vi-manual/
-│   │   └── reference-images/
-│   ├── Campaign名称/
-│   │   ├── project.json        # 项目元信息
-│   │   ├── brief.json          # AE Brief
-│   │   ├── problem-alignment.json  # 问题与目标对齐
-│   │   ├── research-request.json   # 资料收集清单
-│   │   ├── strategy.json       # 策略文档
-│   │   ├── creative-direction.json # 创意方向
-│   │   ├── materials/          # 项目素材
-│   │   │   ├── research/
-│   │   │   ├── reference/
-│   │   │   └── client-assets/
-│   │   └── outputs/            # 产出文件
-│   │       ├── copy/
-│   │       ├── design/
-│   │       └── final/
+├── 客户名/                      # 第1层：客户
+│   ├── _client-profile.json    # 客户档案（联系人、合同、商务信息）
+│   └── 品牌名/                  # 第2层：品牌
+│       ├── _brand-profile.json     # 品牌档案（跨项目复用）
+│       ├── _brand-assets/          # 品牌资产库
+│       │   ├── logos/
+│       │   ├── vi-manual/
+│       │   └── reference-images/
+│       └── Campaign名称/            # 第3层：项目
+│           ├── project.json        # 项目元信息
+│           ├── brief.json          # AE Brief（带版本和变更历史）
+│           ├── problem-alignment.json  # 问题与目标对齐
+│           ├── research-request.json   # 资料收集清单
+│           ├── strategy.json       # 策略文档（带版本和变更历史）
+│           ├── creative-direction.json # 创意方向（带版本和变更历史）
+│           ├── materials/          # 项目素材
+│           │   ├── research/
+│           │   ├── reference/
+│           │   └── client-assets/
+│           ├── outputs/            # 产出文件
+│           │   ├── copy/
+│           │   ├── design/
+│           │   └── final/
+│           └── tasks/              # 第4层：任务
+│               ├── _tasks-registry.json
+│               └── TASK-xxx/
+│                   ├── task.json
+│                   └── iterations/  # 第5层：版本迭代
+│                       ├── v1/
+│                       ├── v2/
+│                       └── v3/
 ```
 
-### 项目立项流程
+### 项目立项流程（更新）
 
-1. 收到品牌全案任务时，首先检查是否已有该品牌的档案
-2. 如果是新品牌，运行 `scripts/init_agency_project.py` 创建品牌档案和项目
-3. 如果是老品牌，从品牌档案中读取品牌信息，创建新项目
-4. 项目创建后，按照 7 阶段工作流推进，每个阶段完成后更新对应的 JSON 文件
+1. 收到品牌全案任务时，**首先查询是否已有客户和品牌档案**：
+   ```bash
+   # 查询品牌档案
+   python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名"
+   ```
 
-### 常用脚本
+2. 如果是新客户，先创建客户档案：
+   ```bash
+   python3 /Users/a123/.openclaw/scripts/memory/client.py create \
+     --name "客户名" \
+     --industry "行业" \
+     --company-type "甲方"
+   ```
+
+3. 如果是新品牌，创建品牌档案：
+   ```bash
+   python3 /Users/a123/.openclaw/scripts/memory/brand.py create \
+     --client "客户名" \
+     --name "品牌名" \
+     --positioning "定位" \
+     --brand-tone "品牌调性" \
+     --target-audience "目标受众" \
+     --core-values "价值1" "价值2"
+   ```
+
+4. 创建项目（调用旧脚本的兼容路径将自动适配新结构）
+
+5. 项目创建后，按照 7 阶段工作流推进，每个阶段完成后更新对应的 JSON 文件
+
+### 常用脚本（更新）
+
+#### 新记忆系统脚本（推荐使用）
+
+1. **查询接口**（所有 agent 都应使用）：
+   ```bash
+   # 查询品牌档案
+   python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json
+
+   # 查询活跃项目
+   python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand "品牌名" --active --json
+
+   # 查询品牌资产
+   python3 /Users/a123/.openclaw/scripts/memory/query.py assets --brand "品牌名" --json
+   ```
+
+2. **客户管理**：
+   ```bash
+   python3 /Users/a123/.openclaw/scripts/memory/client.py create --name "客户名" [选项]
+   python3 /Users/a123/.openclaw/scripts/memory/client.py add-contact --client "客户名" --name "联系人"
+   python3 /Users/a123/.openclaw/scripts/memory/client.py add-contract --client "客户名" --contract-id "合同号" [选项]
+   ```
+
+3. **品牌管理**（带冲突检测）：
+   ```bash
+   python3 /Users/a123/.openclaw/scripts/memory/brand.py create --client "客户名" --name "品牌名" [选项]
+   python3 /Users/a123/.openclaw/scripts/memory/brand.py update --client "客户名" --name "品牌名" --field "brand_tone" --value "新调性"
+   # ⚠️ 更新品牌调性等关键字段会触发冲突检测，需要用户确认
+   ```
+
+#### 旧脚本（仍可用，路径已适配）
 
 1. `scripts/init_agency_project.py`
    - 初始化新项目，如果品牌不存在则创建品牌档案
    - 参数：`--workspace-root`, `--brand-name`, `--campaign-name`, `--campaign-type`
+   - ⚠️ 路径会自动适配到新结构
    - 可选品牌信息：`--brand-name-en`, `--industry`, `--category`, `--positioning`, `--brand-tone`, `--target-audience`, `--core-values`
 
 2. `scripts/find_brand_profile.py`
@@ -76,11 +143,35 @@ workspace/projects/
    - 更新项目阶段状态
    - 参数：`--project-dir`, `--stage`, `--status`, `--user-confirmed`
 
-### 跨 agent 协作
+### 跨 agent 协作（更新）
 
-- **design agent 调用生图 skill 时**，可通过 `find_brand_profile.py` 读取品牌档案
-- **归档产出时**，使用 `archive_material.py` 将生成的图片归档到项目的 `outputs/design/` 目录
-- **main agent 协调时**，通过 `find_active_project.py` 获取当前活跃项目的上下文
+**所有 agent 和 skill 都应使用统一查询接口读取记忆**：
+
+- **design agent 调用生图 skill 时**：
+  ```bash
+  # 查询品牌档案（获取调性、定位、目标受众）
+  python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json
+  
+  # 查询品牌资产（获取 Logo、VI、参考图）
+  python3 /Users/a123/.openclaw/scripts/memory/query.py assets --brand "品牌名" --json
+  ```
+
+- **归档产出时**，产出文件自动归档到项目的 `outputs/` 目录
+  
+- **main agent 协调时**：
+  ```bash
+  # 获取活跃项目上下文
+  python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand "品牌名" --active --json
+  ```
+
+- **strategy/copywriter agent 执行时**：
+  ```bash
+  # 读取品牌档案和项目上下文
+  python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json
+  python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand "品牌名" --campaign "项目名" --json
+  ```
+
+⚠️ **重要**：所有 agent 在执行品牌相关任务前，都应先查询品牌档案，确保产出符合品牌调性和定位。
 
 ## Role Routing
 

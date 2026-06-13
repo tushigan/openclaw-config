@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "project_id": "泓一-泓一全案",
+  "entries": [
+    {
+      "progress_id": "prog-001",
+      "recorded_at": "2026-06-05T10:10:00+08:00",
+      "event_type": "intake",
+      "stage_before": "",
+      "stage_after": "需求梳理",
+      "summary": "项目已立项",
+      "details": "已根据用户口述背景建立泓一全案项目，并归档一份历史服务框架表格作为首份来源材料。当前目标为在原 wokenday 单线合作基础上，重组为覆盖红标、蓝标、wokenday 三条品牌线的完整服务内容。",
+      "key_decisions": [
+        "原 2025 年 8 月签订的 wokenday 单线全案将被新的三品牌线完整版本替代",
+        "本轮先做服务内容重组，不直接进入报价"
+      ],
+      "open_questions": [],
+      "blockers": [],
+      "next_actions": [
+        "整理服务内容附件版",
+        "按用户反馈继续收口"
+      ],
+      "source_material_ids": ["mat-001"],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/notes/source-summaries/2026-06-05_原服务框架摘录.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-002",
+      "recorded_at": "2026-06-05T10:12:00+08:00",
+      "event_type": "draft",
+      "stage_before": "需求梳理",
+      "stage_after": "需求梳理",
+      "summary": "已输出三品牌线完整服务内容重组初稿",
+      "details": "基于用户确认的历史服务框架材料，将原按服务版块组织的内容重组为企业级共性服务、红标、蓝标、wokenday 及跨品牌协同五部分，形成可继续转为合同附件的内容骨架。",
+      "key_decisions": [
+        "确认用户补发的表格即本次用于重组的补充材料",
+        "重组方向按三品牌线完整服务内容展开"
+      ],
+      "open_questions": [],
+      "blockers": [],
+      "next_actions": [
+        "根据用户要求改为纯服务内容附件版"
+      ],
+      "source_material_ids": ["mat-001"],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/quote/泓一全案完整服务内容_重组初稿.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-003",
+      "recorded_at": "2026-06-05T10:14:30+08:00",
+      "event_type": "draft",
+      "stage_before": "需求梳理",
+      "stage_after": "需求梳理",
+      "summary": "已整理纯服务内容附件版",
+      "details": "按用户要求去掉合同绑定说明、作废说明及条款，仅保留《泓一全案服务内容附件》的服务结构，当前涵盖咨询、策略制定、品牌、产品包装、终端行销、线上详情页、展会等内容。",
+      "key_decisions": [
+        "本轮仅输出服务内容附件，不写合同说明与条款",
+        "附件重点覆盖咨询、策略制定、品牌、产品包装、终端行销、线上详情页、展会"
+      ],
+      "open_questions": [],
+      "blockers": [],
+      "next_actions": [
+        "等待用户确认是否继续微调服务结构或颗粒度"
+      ],
+      "source_material_ids": ["mat-001"],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/quote/泓一全案服务内容附件.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-004",
+      "recorded_at": "2026-06-05T10:16:20+08:00",
+      "event_type": "draft",
+      "stage_before": "需求梳理",
+      "stage_after": "需求梳理",
+      "summary": "已扩充为丰满版服务内容附件",
+      "details": "按用户选择的‘更丰满版’方向，对《泓一全案服务内容附件》进行扩写，增强各模块的服务颗粒度与呈现完整度，更适合先给客户看服务范围。",
+      "key_decisions": [
+        "附件采用更丰满版表达",
+        "在不写合同条款的前提下增强服务内容完整度"
+      ],
+      "open_questions": [],
+      "blockers": [],
+      "next_actions": [
+        "等待用户确认是否继续细化措辞或删减重复项"
+      ],
+      "source_material_ids": ["mat-001"],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/quote/泓一全案服务内容附件.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-005",
+      "recorded_at": "2026-06-08T09:03:00+08:00",
+      "event_type": "draft",
+      "stage_before": "需求梳理",
+      "stage_after": "需求梳理",
+      "summary": "已完成服务内容附件新一轮优化",
+      "details": "本轮继续对《泓一全案服务内容附件》进行收口，新增服务定位与协同执行说明，统一章节逻辑，压缩重复表达，并将各模块调整为更适合对外确认的口径。当前版本更适合继续做客户确认稿或后续报价交接底稿。",
+      "key_decisions": [
+        "保留附件体例，不扩写为合同条款",
+        "本轮优化重点放在结构顺序、措辞统一与对外可读性"
+      ],
+      "open_questions": [],
+      "blockers": [],
+      "next_actions": [
+        "根据用户反馈继续做精简版或更商务版措辞",
+        "如进入报价阶段，再基于本稿整理报价交接底稿"
+      ],
+      "source_material_ids": ["mat-001"],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/quote/泓一全案服务内容附件_正式版.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-006",
+      "recorded_at": "2026-06-08T09:05:00+08:00",
+      "event_type": "draft",
+      "stage_before": "需求梳理",
+      "stage_after": "需求梳理",
+      "summary": "已调整为全案咨询服务框架版",
+      "details": "根据用户要求，将附件从细项清单式表达收为大版块框架，突出全案咨询服务属性，保留服务结构与合作版块，不再展开具体执行明细。当前版本更适合做全案咨询框架确认稿。",
+      "key_decisions": [
+        "本轮改为大板块框架表达，不列过细服务项",
+        "整体口径以全案咨询服务为主，而非执行清单"
+      ],
+      "open_questions": [],
+      "blockers": [],
+      "next_actions": [
+        "继续视用户反馈调整为更商务版或更正式合同附件版"
+      ],
+      "source_material_ids": ["mat-001"],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/quote/泓一全案服务内容附件_正式版.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    }
+  ]
+}

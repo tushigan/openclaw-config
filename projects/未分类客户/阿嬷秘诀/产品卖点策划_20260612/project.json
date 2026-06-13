@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "project_id": "阿嬷秘诀-产品卖点策划_20260612",
+  "brand_name": "阿嬷秘诀",
+  "campaign_name": "产品卖点策划_20260612",
+  "campaign_type": "brand_product_strategy",
+  "current_stage": "execution_design",
+  "lifecycle_status": "active",
+  "project_summary": "阿嬷秘诀核心单品“卤猪腱、麻笋卤猪腱”的包装卖点策划，目标是给消费者提供购买理由并促成转化。",
+  "business_objective": "为后续包装设计提供清晰、可落版、可转化的产品卖点体系。",
+  "communication_objective": "在包装上让消费者快速理解：阿嬷秘诀不是普通卤味，而是有独家秘制风味、肉感扎实、开袋即食、适合作为零食/佐餐的卤猪腱产品。",
+  "target_audience": "需要即食肉类零食/佐餐补充的年轻消费者与家庭消费者；第一阶段包装卖点优先面向消费者转化",
+  "budget_range": "",
+  "timeline": {
+    "start_date": "2026-06-12",
+    "launch_date": "晋江展，具体日期待确认",
+    "end_date": ""
+  },
+  "brand_profile_path": "../_brand-profile.json",
+  "stage_checkpoints": {
+    "brief_intake": {
+      "status": "completed",
+      "completed_at": "2026-06-12T11:21:11.780430+08:00",
+      "user_confirmed": true
+    },
+    "problem_alignment": {
+      "status": "in_progress",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "research": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "strategy": {
+      "status": "completed",
+      "completed_at": "2026-06-12T11:40:47.129017+08:00",
+      "user_confirmed": true
+    },
+    "creative_direction": {
+      "status": "completed",
+      "completed_at": "2026-06-12T11:55:11.620145+08:00",
+      "user_confirmed": false
+    },
+    "direction_confirmation": {
+      "status": "completed",
+      "completed_at": "2026-06-12T11:58:24.610058+08:00",
+      "user_confirmed": true
+    },
+    "execution": {
+      "status": "in_progress",
+      "completed_at": "",
+      "user_confirmed": false
+    }
+  },
+  "created_at": "2026-06-12T11:02:56.193324+08:00",
+  "updated_at": "2026-06-12T14:36:09.494989+08:00",
+  "last_activity_at": "2026-06-12T14:36:09.494989+08:00"
+}

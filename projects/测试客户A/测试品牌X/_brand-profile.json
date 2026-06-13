@@ -1,0 +1,24 @@
+{
+  "brand_id": "BRD-20260613160944-81c8fa",
+  "client_id": "CLI-20260613160933-524653",
+  "name": "测试品牌X",
+  "name_en": "",
+  "industry": "",
+  "category": "",
+  "positioning": "高端健康食品",
+  "brand_tone": "温柔、治愈",
+  "target_audience": "25-35岁女性",
+  "core_values": [
+    "健康",
+    "品质",
+    "温暖"
+  ],
+  "brand_story": "",
+  "competitive_advantages": [],
+  "tags": [],
+  "assets_path": "/Users/a123/.openclaw/projects/测试客户A/测试品牌X/_brand-assets",
+  "created_at": "2026-06-13T16:09:44.959806",
+  "updated_at": "2026-06-13T16:09:44.959809",
+  "_history": [],
+  "_last_modified_by": "system"
+}

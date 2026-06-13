@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "project_id": "泓一-泓一全案",
+  "items": [
+    {
+      "material_id": "mat-001",
+      "type": "doc",
+      "title": "2026年未本x泓一品牌全案服务框架（用户发送表格）",
+      "source_channel": "feishu-dm",
+      "original_name": "é_ä_ï¼_2026æ_ªæ_x_æ³_ä_å_ç_å¹_æ_æ_æ---8b132052-8da1-40ee-b8bd-6c2bf81c287d.xlsx",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/materials/docs/2026年未本x泓一品牌全案服务框架.xlsx",
+      "copied_at": "2026-06-05T10:10:00+08:00",
+      "captured_at": "2026-06-05T10:06:39+08:00",
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "tags": [
+        "历史服务框架",
+        "立项材料"
+      ],
+      "summary": "用户补发的历史服务框架表格，当前已读取到一张“全案”工作表，内容包括战略咨询、品牌营销、行销等版块。",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/notes/source-summaries/2026-06-05_原服务框架摘录.md",
+      "processing_status": "summarized",
+      "related_progress_ids": [
+        "prog-001"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002",
+        "task-003"
+      ]
+    }
+  ]
+}

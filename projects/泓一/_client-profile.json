@@ -1,0 +1,17 @@
+{
+  "client_id": "CLI-20260613161206-a3caac",
+  "name": "泓一",
+  "name_en": "",
+  "industry": "",
+  "company_type": "客户",
+  "contacts": [],
+  "contracts": [],
+  "business_notes": "从 workspace-business 迁移",
+  "tags": [
+    "迁移"
+  ],
+  "created_at": "2026-06-13T16:12:06.194629",
+  "updated_at": "2026-06-13T16:12:06.194632",
+  "_last_modified_by": "migration-script",
+  "_migration_source": "workspace-business/projects"
+}

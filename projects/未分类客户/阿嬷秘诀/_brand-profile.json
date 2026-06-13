@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "brand_id": "阿嬷秘诀",
+  "brand_name": "阿嬷秘诀",
+  "brand_name_en": "",
+  "industry": "预包装卤味 / 休闲食品",
+  "category": "卤猪腱、麻笋卤猪腱等预包装酱卤肉制品",
+  "positioning": "以“阿嬷独家秘诀”为品牌核心、以卤猪腱/麻笋卤猪腱为核心单品的预包装卤味品牌",
+  "core_values": [
+    "阿嬷独家秘诀",
+    "温暖家常卤",
+    "记忆里的味道",
+    "独特风味配方",
+    "开袋即食的肉感满足"
+  ],
+  "brand_tone": "亲切、有烟火气、温暖可信，但重点不是只讲家常情绪，而是突出“独家秘诀”的风味独创性",
+  "target_audience": "需要即食肉类零食/佐餐补充的年轻消费者与家庭消费者；第一阶段包装卖点优先面向消费者转化",
+  "vi_guidelines": {
+    "primary_colors": [],
+    "secondary_colors": [],
+    "fonts": [],
+    "logo_usage_notes": ""
+  },
+  "brand_assets_dir": "_brand-assets/",
+  "historical_campaigns": [],
+  "key_contacts": [],
+  "notes": "已确认：阿嬷秘诀是本项目唯一正确品牌名；家之宝是工厂名，不作为消费品牌名。麻酱可作为品牌识别风味，但不宜让所有口味都围绕麻酱，五香/香辣等大众口味仍需保留。",
+  "created_at": "2026-06-12T11:02:56.193324+08:00",
+  "updated_at": "2026-06-12T11:21:11.780430+08:00",
+  "client_id": "CLI-20260613161206-553b5b",
+  "_migration_source": "workspace/projects"
+}

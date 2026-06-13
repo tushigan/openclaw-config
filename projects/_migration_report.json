@@ -1,0 +1,61 @@
+{
+  "migration_time": "2026-06-13T16:12:06.346065",
+  "business_projects": {
+    "count": 5,
+    "items": [
+      {
+        "client": "泓一",
+        "brand": "泓一全案",
+        "project": "业务对接",
+        "source": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案",
+        "target": "/Users/a123/.openclaw/projects/泓一/泓一全案/业务对接"
+      },
+      {
+        "client": "丹夫",
+        "brand": "年度整合营销合作报价项目",
+        "project": "业务对接",
+        "source": "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目",
+        "target": "/Users/a123/.openclaw/projects/丹夫/年度整合营销合作报价项目/业务对接"
+      },
+      {
+        "client": "知是",
+        "brand": "渠道营销物料报价项目",
+        "project": "业务对接",
+        "source": "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目",
+        "target": "/Users/a123/.openclaw/projects/知是/渠道营销物料报价项目/业务对接"
+      },
+      {
+        "client": "傅小姐",
+        "brand": "C端零食品牌首阶段整合设计项目",
+        "project": "业务对接",
+        "source": "/Users/a123/.openclaw/workspace-business/projects/傅小姐/C端零食品牌首阶段整合设计项目",
+        "target": "/Users/a123/.openclaw/projects/傅小姐/C端零食品牌首阶段整合设计项目/业务对接"
+      },
+      {
+        "client": "麦初心语",
+        "brand": "蛋糕棒产品线升级项目",
+        "project": "业务对接",
+        "source": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目",
+        "target": "/Users/a123/.openclaw/projects/麦初心语/蛋糕棒产品线升级项目/业务对接"
+      }
+    ]
+  },
+  "workspace_projects": {
+    "count": 2,
+    "items": [
+      {
+        "client": "未分类客户",
+        "brand": "测试品牌",
+        "source": "/Users/a123/.openclaw/workspace/projects/测试品牌",
+        "target": "/Users/a123/.openclaw/projects/未分类客户/测试品牌"
+      },
+      {
+        "client": "未分类客户",
+        "brand": "阿嬷秘诀",
+        "source": "/Users/a123/.openclaw/workspace/projects/阿嬷秘诀",
+        "target": "/Users/a123/.openclaw/projects/未分类客户/阿嬷秘诀"
+      }
+    ]
+  },
+  "total": 7
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "request_version": "1.0",
+  "requested_by": "Account Executive",
+  "requested_at": "2026-06-11T22:56:49.361489+08:00",
+  "updated_at": "2026-06-11T22:56:49.361489+08:00",
+  "research_needs": {
+    "industry_research": {
+      "needed": false,
+      "status": "pending",
+      "notes": ""
+    },
+    "competitor_analysis": {
+      "needed": false,
+      "status": "pending",
+      "notes": ""
+    },
+    "consumer_insights": {
+      "needed": false,
+      "status": "pending",
+      "notes": ""
+    },
+    "brand_materials": {
+      "needed": false,
+      "status": "pending",
+      "notes": ""
+    },
+    "product_materials": {
+      "needed": false,
+      "status": "pending",
+      "notes": ""
+    },
+    "channel_context": {
+      "needed": false,
+      "status": "pending",
+      "notes": ""
+    },
+    "historical_campaigns": {
+      "needed": false,
+      "status": "pending",
+      "notes": ""
+    }
+  },
+  "materials_available": [],
+  "materials_missing": []
+}

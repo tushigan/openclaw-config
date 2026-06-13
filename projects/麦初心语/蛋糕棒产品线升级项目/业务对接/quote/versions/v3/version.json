@@ -1,0 +1,18 @@
+{
+  "version": "v3",
+  "based_on": "v2",
+  "created_at": "2026-05-22T10:11:53.717113+08:00",
+  "change_reason": "按客户可发送正式版口径重构为第一阶段服务，删除负责人字段与研发建议",
+  "input_summary": "",
+  "changes": [],
+  "user_feedback": [],
+  "outputs": [
+    "versions/v3/quote.html",
+    "versions/v3/quote.xlsx"
+  ],
+  "case_type": "项目案",
+  "catalog_refs_used": [],
+  "detected_new_catalog_items": [],
+  "pending_pool_item_ids": [],
+  "notes": ""
+}

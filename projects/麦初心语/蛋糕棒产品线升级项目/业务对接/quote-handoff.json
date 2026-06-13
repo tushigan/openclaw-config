@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "project_id": "麦初心语-蛋糕棒产品线升级项目",
+  "handoff_status": "draft",
+  "prepared_at": "",
+  "prepared_by": "",
+  "trigger_reason": "",
+  "client_name": "麦初心语",
+  "project_name": "蛋糕棒产品线升级项目",
+  "current_stage": "待报价",
+  "business_goal": "整理以单一SPU为核心、覆盖产品策略到包装与详情页的整案报价方案，婚庆纳入主包但不含独立详情页，确认后启动执行。",
+  "recommended_case_type": "项目案",
+  "confirmed_scope": [],
+  "excluded_scope": [],
+  "key_requirements": [
+    "正式报价必须按标准 quote-content.json 结构生成",
+    "以单一SPU为单位组织整案项目",
+    "不预先限定SKU数量",
+    "婚庆纳入主包但不含独立详情页",
+    "价格后置，先锁结构"
+  ],
+  "key_decisions": [
+    "放弃上一轮手写预览结构",
+    "按标准服务清单重建正式结构",
+    "当前只先确认结构，不先补价格"
+  ],
+  "open_questions": [
+    "修改轮次与确认节点",
+    "各阶段价格口径",
+    "是否包含打样或落地陪跑说明"
+  ],
+  "material_refs": [
+    "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/docs/2026-05-18_飞书会议纪要摘录_蛋糕棒产品线升级.md",
+    "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价方案框架_v0.md",
+    "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价方案框架_v1_项目案.md",
+    "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价方案框架_v2_整案口径.md",
+    "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价方案框架_v3_SPU口径.md",
+    "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价预览_v1.content.json",
+    "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价预览_v1.html"
+  ],
+  "meeting_note_refs": [
+    "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/meeting-notes/2026-05-18_飞书会议纪要_蛋糕棒产品线升级.md"
+  ],
+  "quote_project_dir": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote",
+  "current_quote_version": "",
+  "quote_output_refs": [],
+  "last_quote_generated_at": "",
+  "quote_followup_summary": ""
+}

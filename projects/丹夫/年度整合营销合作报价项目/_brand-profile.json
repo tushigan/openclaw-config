@@ -1,0 +1,23 @@
+{
+  "brand_id": "BRD-20260613161206-0c2c0a",
+  "client_id": "CLI-20260613161206-59b26c",
+  "name": "年度整合营销合作报价项目",
+  "name_en": "",
+  "industry": "",
+  "category": "",
+  "positioning": "",
+  "brand_tone": "",
+  "target_audience": "",
+  "core_values": [],
+  "brand_story": "",
+  "competitive_advantages": [],
+  "tags": [
+    "迁移"
+  ],
+  "assets_path": "/Users/a123/.openclaw/projects/丹夫/年度整合营销合作报价项目/_brand-assets",
+  "created_at": "2026-06-13T16:12:06.207712",
+  "updated_at": "2026-06-13T16:12:06.207713",
+  "_history": [],
+  "_last_modified_by": "migration-script",
+  "_migration_source": "workspace-business/projects"
+}

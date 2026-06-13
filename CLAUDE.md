@@ -98,6 +98,86 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 4. In main session, also read `MEMORY.md` (long-term memory)
 5. Long-term memory is also stored as SQLite in root `memory/` dir (e.g. `memory/main.sqlite`)
 
+## OpenClaw 顶层记忆系统
+
+⚠️ **重要更新（2026-06-13）**：OpenClaw 现在有统一的顶层记忆系统，所有 agent 和 skill 共享使用。
+
+### 核心概念
+
+**5层架构**：客户 → 品牌 → 项目 → 任务 → 迭代版本
+
+**存储位置**：`/Users/a123/.openclaw/projects/`（根目录，所有 agent 平等访问）
+
+**核心特性**：
+- 统一查询接口
+- 冲突检测（品牌关键信息变更需用户确认）
+- 自动版本管理
+- 跨 agent 共享
+
+### 统一查询接口（最常用）
+
+```bash
+# 查询品牌档案（获取调性、定位、目标受众、核心价值）
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json
+
+# 查询品牌资产（Logo、VI 手册、参考图）
+python3 /Users/a123/.openclaw/scripts/memory/query.py assets --brand "品牌名" --json
+
+# 查询活跃项目（获取策略、创意方向、项目上下文）
+python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand "品牌名" --active --json
+
+# 列出所有品牌
+python3 /Users/a123/.openclaw/scripts/memory/query.py list-brands
+
+# 列出所有活跃项目
+python3 /Users/a123/.openclaw/scripts/memory/query.py list-projects
+```
+
+### 使用规范（所有 Agent 必须遵守）
+
+1. **执行品牌相关任务前，先查询品牌档案**
+2. **使用品牌调性、定位、目标受众指导产出**
+3. **不硬编码项目路径，始终通过查询接口获取**
+4. **品牌关键信息变更必须用户确认**
+
+### 典型工作流
+
+**设计任务（design agent）**：
+```bash
+# 1. 查询品牌档案
+brand=$(python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json)
+
+# 2. 查询品牌资产（Logo、参考图）
+assets=$(python3 /Users/a123/.openclaw/scripts/memory/query.py assets --brand "品牌名" --json)
+
+# 3. 使用品牌调性和资产生成设计
+```
+
+**文案任务（copywriter agent）**：
+```bash
+# 1. 查询品牌档案
+brand=$(python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json)
+
+# 2. 查询项目上下文（策略、创意方向）
+project=$(python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand "品牌名" --active --json)
+
+# 3. 基于品牌调性和策略撰写文案
+```
+
+**策略任务（strategy agent）**：
+```bash
+# 1. 查询品牌档案（定位、受众、核心价值）
+brand=$(python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json)
+
+# 2. 基于品牌基础制定策略
+```
+
+### 详细文档
+
+- 完整使用指南：[scripts/memory/README.md](scripts/memory/README.md)
+- Skill 集成指南：[scripts/memory/SKILL_INTEGRATION_GUIDE.md](scripts/memory/SKILL_INTEGRATION_GUIDE.md)
+- 测试脚本：`python3 scripts/memory/test_system.py`
+
 ## File Structure
 
 ```
@@ -113,7 +193,28 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 ├── agents/               # Agent runtime dirs (models.json, auth-profiles.json, sessions/)
 ├── workspace*/           # Per-agent workspaces (AGENTS.md, SOUL.md, IDENTITY.md, etc.)
 │
+├── projects/             # ⚠️ 顶层记忆系统（新）- 所有 agent 共享
+│   ├── _registry.json    # 全局项目注册表
+│   ├── 客户名/
+│   │   ├── _client-profile.json
+│   │   └── 品牌名/
+│   │       ├── _brand-profile.json
+│   │       ├── _brand-assets/
+│   │       └── 项目名/
+│   │           ├── project.json
+│   │           ├── materials/
+│   │           └── outputs/
+│
 ├── memory/               # Agent memory SQLite DBs (main.sqlite, design.sqlite, etc.)
+├── scripts/              # Utility scripts
+│   └── memory/           # ⚠️ 记忆系统脚本（新）
+│       ├── query.py      # 统一查询接口
+│       ├── client.py     # 客户管理
+│       ├── brand.py      # 品牌管理（带冲突检测）
+│       ├── migrate.py    # 数据迁移工具
+│       ├── test_system.py # 综合测试
+│       └── lib/          # 核心库
+│
 ├── skills/               # Local skills (brand-poster-creator, tvc-director, etc.)
 ├── skills-store*/        # Inactive/archived skill templates
 ├── subagents/            # Subagent run registry (runs.json)
@@ -126,8 +227,7 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 ├── tasks/                # Task run history (SQLite)
 ├── extensions/           # OpenClaw plugins (memos-local, openclaw-lark)
 ├── delivery-queue/       # Message delivery queue
-├── devices/              # Device registration data
-└── scripts/              # Utility scripts (cleanup-ghost-group-sessions.sh)
+└── devices/              # Device registration data
 ```
 
 ### Git tracking strategy
