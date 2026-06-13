@@ -19,6 +19,9 @@ workspace-design/skills/*
 !workspace-design/skills/omni-vision-psd-extractor/**
 workspace-design/skills/omni-vision-psd-extractor/scripts/node_modules/
 workspace-design/skills/omni-vision-psd-extractor/**/__pycache__/
+!workspace-design/skills/brand-poster-creator/
+!workspace-design/skills/brand-poster-creator/**
+workspace-design/skills/brand-poster-creator/**/__pycache__/
 
 workspace-video/*
 !workspace-video/AGENTS.md
