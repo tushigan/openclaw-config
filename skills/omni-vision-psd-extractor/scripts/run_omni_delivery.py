@@ -15,7 +15,7 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 SKILL_ROOT = SCRIPT_DIR.parent
-PIPELINE_SCRIPTS = SKILL_ROOT / "omni-vision-psd-extractor" / "omni-vision-psd-extractor" / "scripts"
+PIPELINE_SCRIPTS = SCRIPT_DIR  # After restructure, scripts are in the same directory
 sys.path.insert(0, str(PIPELINE_SCRIPTS))
 
 from runtime_config import default_output_base, load_runtime_env  # noqa: E402
@@ -522,61 +522,53 @@ def main() -> int:
 
     ensure_outputs(out_dir)
 
-    # 智能文件大小处理
+    # 🔥 新策略：直接上传 PSD 到飞书云盘，不再分卷压缩
     psd_path = out_dir / "layered-output.psd"
     psd_size_mb = psd_path.stat().st_size / (1024 * 1024)
 
     print(f"\n[Delivery] PSD 文件大小: {psd_size_mb:.2f} MB")
+    print(f"[Delivery] 准备上传到飞书云盘...")
 
     package_info = None
     send_result = None
-    feishu_drive_upload_info = None
+    feishu_drive_upload_info = upload_psd_to_feishu_drive(psd_path)
 
-    # 三档策略：< 30MB 直接发送，30-100MB 分卷压缩，> 100MB 上传云盘
-    if psd_size_mb > 100:
-        # 大文件：上传到飞书云盘
-        print(f"[Delivery] 文件超过 100MB，准备上传到飞书云盘...")
-        feishu_drive_upload_info = upload_psd_to_feishu_drive(psd_path)
+    if feishu_drive_upload_info.get("success"):
+        print(f"\n{'=' * 60}")
+        print(f"⚠️  需要 OpenClaw Agent 执行飞书云盘上传")
+        print(f"{'=' * 60}")
+        print(feishu_drive_upload_info.get("instruction", ""))
+        print(f"{'=' * 60}\n")
 
-        if feishu_drive_upload_info.get("success"):
-            print(f"\n{'=' * 60}")
-            print(f"⚠️  需要 OpenClaw Agent 执行飞书云盘上传")
-            print(f"{'=' * 60}")
-            print(feishu_drive_upload_info.get("instruction", ""))
-            print(f"{'=' * 60}\n")
-
-            # 不执行常规发送，由 agent 通过 feishu_drive_file 工具上传
-            send_result = {
-                "attempted": False,
-                "status": "pending_feishu_drive_upload",
-                "method": "feishu_drive",
-                "upload_info": feishu_drive_upload_info,
-                "error": "",
-                "target": delivery_target,
-                "sent": [],
-            }
-        else:
-            # 上传准备失败，回退到分卷压缩
-            print(f"[Delivery] 云盘上传准备失败，回退到分卷压缩: {feishu_drive_upload_info.get('error')}")
-            if not args.no_package:
-                package_info = make_delivery_package(out_dir, args.package_split_mb)
-            if not args.no_send and delivery_target.get("target"):
-                send_result = send_delivery_outputs(out_dir, package_info, delivery_target, send_preview=not args.no_send_preview)
+        # 返回上传指令，由 agent 通过 feishu_drive_file 工具上传
+        send_result = {
+            "attempted": False,
+            "status": "pending_feishu_drive_upload",
+            "method": "feishu_drive",
+            "upload_info": feishu_drive_upload_info,
+            "error": "",
+            "target": delivery_target,
+            "sent": [],
+        }
     else:
-        # 中小文件：使用原有逻辑（< 30MB 直接发送，30-100MB 分卷压缩）
-        if not args.no_package:
-            package_info = make_delivery_package(out_dir, args.package_split_mb)
-        if not args.no_send and delivery_target.get("target"):
-            send_result = send_delivery_outputs(out_dir, package_info, delivery_target, send_preview=not args.no_send_preview)
+        # 上传准备失败
+        print(f"[Delivery] 云盘上传准备失败: {feishu_drive_upload_info.get('error')}")
+        send_result = {
+            "attempted": False,
+            "status": "failed",
+            "error": f"feishu_drive_upload_failed: {feishu_drive_upload_info.get('error')}",
+            "target": delivery_target,
+            "sent": [],
+        }
 
     summary_path = write_summary(out_dir, args.source, package_info, delivery_target, send_result, feishu_drive_upload_info)
 
     print(f"[Delivery] PSD: {out_dir / 'layered-output.psd'}")
     print(f"[Delivery] Preview: {out_dir / 'reverse-preview.png'}")
 
-    if feishu_drive_upload_info:
+    if feishu_drive_upload_info and feishu_drive_upload_info.get("success"):
         print(f"\n{'=' * 60}")
-        print(f"[Delivery] 🚀 大文件云盘上传模式")
+        print(f"[Delivery] 🚀 飞书云盘上传模式")
         print(f"{'=' * 60}")
         print(f"[Delivery] 文件大小: {feishu_drive_upload_info.get('size_mb', 0):.2f} MB")
         print(f"[Delivery] 上传方法: 飞书云盘")
@@ -587,15 +579,9 @@ def main() -> int:
         print(f"   3. 获取 file_token 并生成下载链接")
         print(f"   4. 发送预览图和下载链接到用户")
         print(f"{'=' * 60}\n")
-    elif package_info:
-        print(f"[Delivery] Package: {package_info['archive']}")
-        print(f"[Delivery] Package Parts: {len(package_info['parts'])}")
-        print("[Delivery] Required files to send together:")
-        for file_path in package_info["deliveryFiles"]:
-            print(f"  - {file_path}")
 
     if send_result:
-        print(f"[Delivery] Feishu send status: {send_result['status']} target={delivery_target['target']}")
+        print(f"[Delivery] 交付状态: {send_result['status']}")
     print(f"[Delivery] Summary: {summary_path}")
     return 0
 

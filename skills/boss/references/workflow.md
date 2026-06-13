@@ -12,6 +12,7 @@ Use this sequence for brand cases and integrated campaigns:
 6. Creative Director creates creative directions from the strategy.
 7. AE, Strategy Director, and Creative Director jointly confirm the creative direction.
 8. Copywriter and Designer create concrete content from the confirmed direction and requirements.
+9. For TVC / brand film / AI video tasks, after the script or segmented video script is ready, Main must dispatch 生图高手 (`design` / `design-shared`) to generate storyboard images with `dreamina-reference-video` before any formal video generation.
 
 Do not skip stages. If a later role lacks required input, return to the relevant previous stage.
 Do not move to the next stage until the current role output is explicitly confirmed by the user.
@@ -142,10 +143,20 @@ Designer creates:
 - Layout and information hierarchy
 - Material adaptation
 - Design execution (generate actual images)
+- TVC / AI video storyboard images when the task includes film or video execution
 
 **Design Execution Rules:**
 
 When the Designer role needs to generate actual images (not just prompts), follow these steps:
+
+0. **Check if it's a TVC / video storyboard task**:
+   - Keywords: "TVC", "品牌片", "广告片", "AI 视频", "视频分镜", "分段生成视频", "即梦", "Kling", "Seedance"
+   - If a script / storyboard script / segmented video script is ready → Dispatch to `design` or `design-shared` (生图高手)
+   - The task must explicitly say: "**必须使用 dreamina-reference-video skill**"
+   - Do not ask again whether to generate storyboard unless the user explicitly said "只要文字脚本 / 暂不出图"
+   - Do not submit formal video generation before storyboard images are confirmed
+   - If a single 8-panel board drifts, split into 4+4 boards and rerun
+   - Required return: storyboard image path, result JSON / manifest path, QA conclusion
 
 1. **Check if it's a brand poster task**:
    - Keywords: "品牌海报", "海报", "KV", "主视觉", "poster"
@@ -179,12 +190,45 @@ When the Designer role needs to generate actual images (not just prompts), follo
 
 - ❌ DO NOT assume Claude/GPT models can generate images directly
 - ❌ DO NOT dispatch design agent without specifying the tool or skill to use
+- ❌ DO NOT stop a TVC / AI video task at text script when the user expects video execution
 - ✅ ALWAYS use `gpt-image2-gen` tool or equivalent image generation skill
+- ✅ ALWAYS use `dreamina-reference-video` through 生图高手 for TVC storyboard images
 - ✅ ALWAYS archive generated images to project outputs directory
+- ✅ ALWAYS verify storyboard image files exist before telling the user the stage is complete
 
 Gate: Creative Director reviews execution against the confirmed strategy and creative direction.
 User gate: submit Copywriter output and Designer output to the user for confirmation before final review, packaging, or next-step integration.
 Missing-material gate: ask the user for any missing copy mandatories, brand assets, packaging specs, size specs, or platform constraints before finalizing outputs.
+
+### 7a. TVC Storyboard Gate
+
+Apply this gate when the project objective includes TVC, brand film, ad film, AI video, video storyboard, segmented video generation, Dreamina / Kling / Seedance execution, or similar video deliverables.
+
+Main responsibilities:
+
+- Treat storyboard images as the mandatory confirmation artifact between text script and formal video generation.
+- Dispatch the storyboard task to `design` or `design-shared` (生图高手); Main coordinates, compresses prompts, verifies output, and delivers back in the original topic.
+- Require the dispatched agent to read `/Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video/SKILL.md` and use that skill's storyboard standards.
+- Pass the confirmed strategy, creative direction, script path, brand/IP/package references, project directory, ratio, and duration.
+- Poll the dispatched task until completion; do not treat stream end as final completion.
+- Verify storyboard image files and result manifest exist before delivery.
+
+Storyboard QA must check:
+
+- Every script beat is represented.
+- Subject/IP identity is stable and close to official references.
+- Product or packaging appears when the script requires it.
+- Text, logo, and Chinese packaging copy are blank placeholders unless provided as post-production assets.
+- The board is suitable for the next video generation step.
+
+Subagent polling rules:
+
+- Record agent, task label, sessionId/runId if returned, start time, timeout, and expected output path.
+- Send a visible dispatch receipt in the original topic with the next check time.
+- Poll ordinary strategy / copy tasks every 2-3 minutes.
+- Poll image / storyboard / video tasks every 60-90 seconds.
+- If still running, send a short heartbeat in the original topic at least every 3-5 minutes.
+- On failure, timeout, missing output, or missing file path, report the reason and next step; do not silently retry more than twice.
 
 ## Proposal Skeleton
 

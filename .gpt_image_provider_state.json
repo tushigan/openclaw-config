@@ -1,7 +1,7 @@
 {
   "primary_down_until": 0,
-  "last_failure_at": 1781083791.558079,
-  "last_failure_reason": "500 from https://direct.aixor.org/v1/images/edits: {\"error\":{\"message\":\"Post \\\"https://***.com/***/***/*** socks connect tcp ***.***.***.***:35746-\\u003e***.com:443: username/password authentication failed\",\"type\":\"server_error\",\"param\":\"\",\"code\":\"internal_server_error\"}}",
-  "last_failed_provider": "aixor",
-  "last_primary_recovered_at": 1781083800.347415
+  "last_failure_at": 1781247640.266049,
+  "last_failure_reason": "HTTPSConnectionPool(host='n.lconai.com', port=443): Read timed out. (read timeout=600)",
+  "last_failed_provider": "n.lconai",
+  "last_primary_recovered_at": 1781248844.161164
 }

@@ -100,21 +100,6 @@
             "maxTokens": 20000
           },
           {
-            "id": "claude-fable-5",
-            "name": "claude-fable-5",
-            "reasoning": true,
-            "input": [
-              "text",
-              "image"
-            ],
-            "cost": {
-              "input": 2.5,
-              "output": 12.5
-            },
-            "contextWindow": 1000000,
-            "maxTokens": 20000
-          },
-          {
             "id": "claude-opus-4-6",
             "name": "claude-opus-4-6",
             "reasoning": true,
@@ -169,40 +154,6 @@
             },
             "contextWindow": 1000000,
             "maxTokens": 20000
-          },
-          {
-            "id": "gpt-5.2",
-            "name": "GPT-5.2",
-            "reasoning": true,
-            "input": [
-              "text",
-              "image"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 1000000,
-            "maxTokens": 20000
-          },
-          {
-            "id": "gpt-5.4-mini",
-            "name": "gpt-5.4-mini",
-            "reasoning": true,
-            "input": [
-              "text",
-              "image"
-            ],
-            "cost": {
-              "input": 0,
-              "output": 0,
-              "cacheRead": 0,
-              "cacheWrite": 0
-            },
-            "contextWindow": 1000000,
-            "maxTokens": 20000
           }
         ]
       }
@@ -239,7 +190,6 @@
         "aixor/claude-opus-4-6": {},
         "cc-vibe/claude-opus-4-7": {},
         "cc-vibe/claude-opus-4-8": {},
-        "cc-vibe/claude-fable-5": {},
         "cc-vibe/claude-opus-4-6": {}
       },
       "workspace": "/Users/a123/.openclaw/workspace",
@@ -320,12 +270,12 @@
         "name": "龙虾总指挥",
         "workspace": "/Users/a123/.openclaw/workspace",
         "model": {
-          "primary": "cc-vibe/claude-fable-5",
+          "primary": "cc-vibe/claude-opus-4-8",
           "fallbacks": [
             "aixor/claude-opus-4-8"
           ]
         },
-        "thinkingDefault": "high",
+        "thinkingDefault": "adaptive",
         "reasoningDefault": "on",
         "skills": [
           "kefu-ae",
@@ -416,7 +366,7 @@
         "name": "战略专家",
         "workspace": "/Users/a123/.openclaw/workspace-strategy",
         "model": {
-          "primary": "cc-vibe/claude-fable-5",
+          "primary": "cc-vibe/claude-opus-4-8",
           "fallbacks": [
             "aixor/claude-opus-4-8"
           ]
@@ -725,9 +675,9 @@
         "name": "文案策划专家",
         "workspace": "/Users/a123/.openclaw/workspace-copywriter",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-7",
+          "primary": "cc-vibe/claude-opus-4-6",
           "fallbacks": [
-            "aixor/claude-opus-4-7"
+            "aixor/claude-opus-4-6"
           ]
         },
         "thinkingDefault": "high",
@@ -975,7 +925,7 @@
             "aixor-g/gpt-5.4"
           ]
         },
-        "thinkingDefault": "high",
+        "thinkingDefault": "adaptive",
         "reasoningDefault": "on",
         "subagents": {
           "allowAgents": [
@@ -1410,9 +1360,9 @@
         "name": "文案策划专家（共享版）",
         "workspace": "/Users/a123/.openclaw/workspace-copywriter",
         "model": {
-          "primary": "cc-vibe/claude-opus-4-7",
+          "primary": "cc-vibe/claude-opus-4-6",
           "fallbacks": [
-            "aixor/claude-opus-4-7"
+            "aixor/claude-opus-4-6"
           ]
         },
         "thinkingDefault": "high",

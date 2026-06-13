@@ -1,0 +1,464 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-12T03:14:37.403Z",
+  "traceId": "cb7f78e6-7990-4ed5-be73-c5e2aad4f48a",
+  "sessionId": "cb7f78e6-7990-4ed5-be73-c5e2aad4f48a",
+  "sessionKey": "agent:strategy-shared:feishu:direct:ou_4f09340c374ed6d656c9836989d88870",
+  "system": "You are a personal assistant running inside OpenClaw.\n## Tooling\nTool availability (filtered by policy):\nTool names are case-sensitive. Call tools exactly as listed.\n- read: Read file contents\n- write: Create or overwrite files\n- exec: Run shell commands (pty available for TTY-required CLIs)\n- process: Manage background exec sessions\n- web_fetch: Fetch and extract readable content from a URL\n- browser: Control web browser\n- canvas: Present/eval/snapshot the Canvas\n- message: Send messages and channel actions\n- sessions_list: List other sessions (incl. sub-agents) with filters/last\n- sessions_history: Fetch history for another session/sub-agent\n- sessions_send: Send a message to another session/sub-agent\n- subagents: List, steer, or kill sub-agent runs for this requester session\n- session_status: Show a /status-equivalent status card (usage + time + Reasoning/Verbose/Elevated); use for model-use questions (📊 session_status); optional per-session model override\n- feishu_ask_user_question\n- feishu_bitable_app\n- feishu_bitable_app_table\n- feishu_bitable_app_table_field\n- feishu_bitable_app_table_record\n- feishu_bitable_app_table_view\n- feishu_calendar_calendar\n- feishu_calendar_event\n- feishu_calendar_event_attendee\n- feishu_calendar_freebusy\n- feishu_chat\n- feishu_chat_members\n- feishu_conversation_binding\n- feishu_create_doc\n- feishu_doc_comments\n- feishu_doc_media\n- feishu_drive_file\n- feishu_fetch_doc\n- feishu_get_user\n- feishu_im_bot_image\n- feishu_im_user_fetch_resource\n- feishu_im_user_get_messages\n- feishu_im_user_get_thread_messages\n- feishu_im_user_message\n- feishu_im_user_search_messages\n- feishu_oauth\n- feishu_oauth_batch_auth\n- feishu_search_doc_wiki\n- feishu_search_user\n- feishu_sheet\n- feishu_task_comment\n- feishu_task_section\n- feishu_task_subtask\n- feishu_task_task\n- feishu_task_tasklist\n- feishu_update_doc\n- feishu_wiki_space\n- feishu_wiki_space_node\n- memory_get\n- memory_search\n- sessions_spawn: Spawn an isolated sub-agent session; use context=\"fork\"...<truncated>",
+  "submittedPrompts": [
+    "导出聊天记录",
+    "进度",
+    "好了吗",
+    "能不能直接发给我",
+    "根据这个记录可以继续推进项目吗\nReply target of current user message (untrusted, for context):\n```json\n{\n  \"body\": \"[message_id=om_x100b6d83103290b8b30e23a5a582856] <file key=\\\"file_v3_0012j_fc8e8c1a-8266-4df8-a213-7fc67bbbbb1g\\\" name=\\\"20260612-105841-ou_4f09340c374ed6d656c9836989d88870-聊天记录导出.md\\\"/>\"\n}\n```",
+    "Woken Day的产品策略",
+    "为什么出错了",
+    "不是说没影响，我要导出昨天的聊天记录，然后继续进行",
+    "导出聊天记录"
+  ],
+  "latestSubmittedPrompt": "导出聊天记录",
+  "skillsPrompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>huashu-design</name>\n    <description>花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、做个HTML页面、做个可视化、app原型、iOS原型、我要做一个新的 PPT、导出MP4/GIF、60fps视频、设计风格、设计方向、配色方案、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、长视频科普、voiceover、narration、5分钟讲清楚什么是XX。需求模糊时进设计方向顾问（三套逻辑并行出3版真实视觉，HTML原生40种风格库网页20+PPT20为弹药）；另含品牌资产协议、反AI slop、Junior工作流、Tweaks变体、动画→MP4/GIF导出、带解说长视频pipeline、5维评审。</description>\n    <location>~/.openclaw/workspace-strategy/skills/huashu-design/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>session-debug-export</name>\n    <description>导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说”导出聊天记录””导出当前聊天””导出对话记录””聊天记录导出””生成聊天日志””打包聊天记录”时必须使用本技能。</description>\n    <location>~/.openclaw/skills/session-debug-export/SKILL.md</location>\n  </skill>\n</available_skills>",
+  "systemPromptReport": {
+    "source": "run",
+    "generatedAt": 1781234065654,
+    "sessionId": "cb7f78e6-7990-4ed5-be73-c5e2aad4f48a",
+    "sessionKey": "agent:strategy-shared:feishu:direct:ou_4f09340c374ed6d656c9836989d88870",
+    "provider": "cc-vibe",
+    "model": "claude-opus-4-8",
+    "workspaceDir": "$WORKSPACE_DIR/workspace-strategy",
+    "bootstrapMaxChars": 12000,
+    "bootstrapTotalMaxChars": 60000,
+    "bootstrapTruncation": {
+      "warningMode": "once",
+      "warningShown": false,
+      "truncatedFiles": 0,
+      "nearLimitFiles": 0,
+      "totalNearLimit": false
+    },
+    "sandbox": {
+      "mode": "off",
+      "sandboxed": false
+    },
+    "systemPrompt": {
+      "chars": 26227,
+      "projectContextChars": 10210,
+      "nonProjectContextChars": 16017
+    },
+    "injectedWorkspaceFiles": [
+      {
+        "name": "AGENTS.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/AGENTS.md",
+        "missing": false,
+        "rawChars": 4869,
+        "injectedChars": 4869,
+        "truncated": false
+      },
+      {
+        "name": "SOUL.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/SOUL.md",
+        "missing": false,
+        "rawChars": 652,
+        "injectedChars": 652,
+        "truncated": false
+      },
+      {
+        "name": "TOOLS.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/TOOLS.md",
+        "missing": false,
+        "rawChars": 1579,
+        "injectedChars": 1579,
+        "truncated": false
+      },
+      {
+        "name": "IDENTITY.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/IDENTITY.md",
+        "missing": false,
+        "rawChars": 296,
+        "injectedChars": 296,
+        "truncated": false
+      },
+      {
+        "name": "USER.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/USER.md",
+        "missing": false,
+        "rawChars": 184,
+        "injectedChars": 184,
+        "truncated": false
+      },
+      {
+        "name": "HEARTBEAT.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/HEARTBEAT.md",
+        "missing": false,
+        "rawChars": 192,
+        "injectedChars": 192,
+        "truncated": false
+      },
+      {
+        "name": "BOOTSTRAP.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/BOOTSTRAP.md",
+        "missing": true,
+        "rawChars": 0,
+        "injectedChars": 0,
+        "truncated": false
+      },
+      {
+        "name": "MEMORY.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/MEMORY.md",
+        "missing": false,
+        "rawChars": 2080,
+        "injectedChars": 2080,
+        "truncated": false
+      }
+    ],
+    "skills": {
+      "promptChars": 1293,
+      "entries": [
+        {
+          "name": "huashu-design",
+          "blockChars": 625
+        },
+        {
+          "name": "session-debug-export",
+          "blockChars": 296
+        }
+      ]
+    },
+    "tools": {
+      "listChars": 0,
+      "schemaChars": 51668,
+      "entries": [
+        {
+          "name": "read",
+          "summaryChars": 298,
+          "schemaChars": 304,
+          "propertiesCount": 3
+        },
+        {
+          "name": "write",
+          "summaryChars": 127,
+          "schemaChars": 225,
+          "propertiesCount": 2
+        },
+        {
+          "name": "exec",
+          "summaryChars": 446,
+          "schemaChars": 1139,
+          "propertiesCount": 12
+        },
+        {
+          "name": "process",
+          "summaryChars": 322,
+          "schemaChars": 1011,
+          "propertiesCount": 12
+        },
+        {
+          "name": "canvas",
+          "summaryChars": 106,
+          "schemaChars": 661,
+          "propertiesCount": 18
+        },
+        {
+          "name": "message",
+          "summaryChars": 112,
+          "schemaChars": 6192,
+          "propertiesCount": 108
+        },
+        {
+          "name": "sessions_list",
+          "summaryChars": 225,
+          "schemaChars": 432,
+          "propertiesCount": 9
+        },
+        {
+          "name": "sessions_history",
+          "summaryChars": 180,
+          "schemaChars": 161,
+          "propertiesCount": 3
+        },
+        {
+          "name": "sessions_send",
+          "summaryChars": 314,
+          "schemaChars": 274,
+          "propertiesCount": 5
+        },
+        {
+          "name": "sessions_spawn",
+          "summaryChars": 419,
+          "schemaChars": 1211,
+          "propertiesCount": 16
+        },
+        {
+          "name": "sessions_yield",
+          "summaryChars": 97,
+          "schemaChars": 60,
+          "propertiesCount": 1
+        },
+        {
+          "name": "subagents",
+          "summaryChars": 105,
+          "schemaChars": 191,
+          "propertiesCount": 4
+        },
+        {
+          "name": "session_status",
+          "summaryChars": 456,
+          "schemaChars": 89,
+          "propertiesCount": 2
+        },
+        {
+          "name": "web_fetch",
+          "summaryChars": 129,
+          "schemaChars": 374,
+          "propertiesCount": 3
+        },
+        {
+          "name": "browser",
+          "summaryChars": 1537,
+          "schemaChars": 2976,
+          "propertiesCount": 52
+        },
+        {
+          "name": "memory_search",
+          "summaryChars": 605,
+          "schemaChars": 237,
+          "propertiesCount": 4
+        },
+        {
+          "name": "memory_get",
+          "summaryChars": 239,
+          "schemaChars": 215,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_get_user",
+          "summaryChars": 75,
+          "schemaChars": 185,
+          "propertiesCount": 2
+        },
+        {
+          "name": "feishu_search_user",
+          "summaryChars": 55,
+          "schemaChars": 311,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_chat",
+          "summaryChars": 92,
+          "schemaChars": 519,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_chat_members",
+          "summaryChars": 54,
+          "schemaChars": 353,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_im_user_message",
+          "summaryChars": 456,
+          "schemaChars": 1149,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_im_user_fetch_resource",
+          "summaryChars": 456,
+          "schemaChars": 371,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_im_user_get_messages",
+          "summaryChars": 526,
+          "schemaChars": 912,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_im_user_get_thread_messages",
+          "summaryChars": 166,
+          "schemaChars": 395,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_im_user_search_messages",
+          "summaryChars": 522,
+          "schemaChars": 1364,
+          "propertiesCount": 12
+        },
+        {
+          "name": "feishu_calendar_calendar",
+          "summaryChars": 93,
+          "schemaChars": 389,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_calendar_event",
+          "summaryChars": 455,
+          "schemaChars": 3200,
+          "propertiesCount": 21
+        },
+        {
+          "name": "feishu_calendar_event_attendee",
+          "summaryChars": 75,
+          "schemaChars": 981,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_calendar_freebusy",
+          "summaryChars": 80,
+          "schemaChars": 504,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_task_task",
+          "summaryChars": 167,
+          "schemaChars": 1868,
+          "propertiesCount": 15
+        },
+        {
+          "name": "feishu_task_tasklist",
+          "summaryChars": 163,
+          "schemaChars": 769,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_task_section",
+          "summaryChars": 127,
+          "schemaChars": 1061,
+          "propertiesCount": 13
+        },
+        {
+          "name": "feishu_task_comment",
+          "summaryChars": 95,
+          "schemaChars": 671,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_task_subtask",
+          "summaryChars": 86,
+          "schemaChars": 1128,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_bitable_app",
+          "summaryChars": 139,
+          "schemaChars": 511,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_bitable_app_table",
+          "summaryChars": 285,
+          "schemaChars": 1152,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_bitable_app_table_record",
+          "summaryChars": 292,
+          "schemaChars": 2381,
+          "propertiesCount": 14
+        },
+        {
+          "name": "feishu_bitable_app_table_field",
+          "summaryChars": 134,
+          "schemaChars": 824,
+          "propertiesCount": 10
+        },
+        {
+          "name": "feishu_bitable_app_table_view",
+          "summaryChars": 108,
+          "schemaChars": 692,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_search_doc_wiki",
+          "summaryChars": 212,
+          "schemaChars": 1806,
+          "propertiesCount": 5
+        },
+        {
+          "name": "feishu_drive_file",
+          "summaryChars": 703,
+          "schemaChars": 2278,
+          "propertiesCount": 16
+        },
+        {
+          "name": "feishu_doc_comments",
+          "summaryChars": 166,
+          "schemaChars": 1353,
+          "propertiesCount": 11
+        },
+        {
+          "name": "feishu_doc_media",
+          "summaryChars": 200,
+          "schemaChars": 963,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_wiki_space",
+          "summaryChars": 179,
+          "schemaChars": 451,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_wiki_space_node",
+          "summaryChars": 205,
+          "schemaChars": 995,
+          "propertiesCount": 13
+        },
+        {
+          "name": "feishu_sheet",
+          "summaryChars": 474,
+          "schemaChars": 1905,
+          "propertiesCount": 18
+        },
+        {
+          "name": "feishu_im_bot_image",
+          "summaryChars": 241,
+          "schemaChars": 384,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_fetch_doc",
+          "summaryChars": 42,
+          "schemaChars": 281,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_create_doc",
+          "summaryChars": 33,
+          "schemaChars": 427,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_update_doc",
+          "summaryChars": 105,
+          "schemaChars": 811,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_oauth",
+          "summaryChars": 168,
+          "schemaChars": 290,
+          "propertiesCount": 1
+        },
+        {
+          "name": "feishu_oauth_batch_auth",
+          "summaryChars": 55,
+          "schemaChars": 162,
+          "propertiesCount": 0
+        },
+        {
+          "name": "feishu_ask_user_question",
+          "summaryChars": 389,
+          "schemaChars": 1309,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_conversation_binding",
+          "summaryChars": 72,
+          "schemaChars": 811,
+          "propertiesCount": 7
+        }
+      ]
+    }
+  }
+}

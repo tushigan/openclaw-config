@@ -1,0 +1,220 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "quarantinedAtMs": 1781320206163,
+      "sourceIndex": 4,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "4d48ba31-4dfc-40e7-b930-755d152bfa40",
+        "name": "浏览器缓存定时清理",
+        "description": "每天凌晨2点清理超过15天的浏览器缓存数据（Cache、Code Cache、GPUCache、日志文件）",
+        "enabled": true,
+        "createdAtMs": 1781127000000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "17 2 * * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "isolated",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-browser-cache.sh"
+        },
+        "delivery": {
+          "mode": "none"
+        },
+        "state": {
+          "nextRunAtMs": 1781374620000,
+          "lastRunAtMs": 1781288220008,
+          "lastRunStatus": "skipped",
+          "lastStatus": "skipped",
+          "lastDurationMs": 5,
+          "lastDiagnostics": {
+            "summary": "isolated job requires payload.kind=agentTurn",
+            "entries": [
+              {
+                "ts": 1781288220013,
+                "source": "cron-preflight",
+                "severity": "warn",
+                "message": "isolated job requires payload.kind=agentTurn"
+              }
+            ]
+          },
+          "lastDiagnosticSummary": "isolated job requires payload.kind=agentTurn",
+          "lastDeliveryStatus": "not-requested",
+          "consecutiveErrors": 0,
+          "consecutiveSkipped": 2,
+          "lastError": "isolated job requires payload.kind=agentTurn"
+        },
+        "updatedAtMs": 1781288220013
+      }
+    },
+    {
+      "quarantinedAtMs": 1781320206163,
+      "sourceIndex": 5,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "19ef12ca-f64c-4420-9a5a-7940ba24787d",
+        "name": "临时文件定时清理",
+        "description": "每天凌晨3点清理超过7天的临时文件（/tmp目录）",
+        "enabled": true,
+        "createdAtMs": 1781127000000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "23 3 * * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "isolated",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-tmp-files.sh"
+        },
+        "delivery": {
+          "mode": "none"
+        },
+        "state": {
+          "nextRunAtMs": 1781378580000,
+          "lastRunAtMs": 1781292180011,
+          "lastRunStatus": "skipped",
+          "lastStatus": "skipped",
+          "lastDurationMs": 5,
+          "lastDiagnostics": {
+            "summary": "isolated job requires payload.kind=agentTurn",
+            "entries": [
+              {
+                "ts": 1781292180016,
+                "source": "cron-preflight",
+                "severity": "warn",
+                "message": "isolated job requires payload.kind=agentTurn"
+              }
+            ]
+          },
+          "lastDiagnosticSummary": "isolated job requires payload.kind=agentTurn",
+          "lastDeliveryStatus": "not-requested",
+          "consecutiveErrors": 0,
+          "consecutiveSkipped": 2,
+          "lastError": "isolated job requires payload.kind=agentTurn"
+        },
+        "updatedAtMs": 1781292180016
+      }
+    },
+    {
+      "quarantinedAtMs": 1781320206163,
+      "sourceIndex": 6,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "name": "Agent输出文件每日轻量清理",
+        "description": "每天凌晨2:45清理已交付文件、临时目录、语音文件、压缩日志",
+        "enabled": true,
+        "createdAtMs": 1749945600000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "45 2 * * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "isolated",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-daily-light.sh"
+        },
+        "delivery": {
+          "mode": "none"
+        },
+        "state": {
+          "nextRunAtMs": 1781376300000,
+          "lastRunAtMs": 1781289900007,
+          "lastRunStatus": "skipped",
+          "lastStatus": "skipped",
+          "lastDurationMs": 6,
+          "lastError": "isolated job requires payload.kind=agentTurn",
+          "lastDiagnostics": {
+            "summary": "isolated job requires payload.kind=agentTurn",
+            "entries": [
+              {
+                "ts": 1781289900013,
+                "source": "cron-preflight",
+                "severity": "warn",
+                "message": "isolated job requires payload.kind=agentTurn"
+              }
+            ]
+          },
+          "lastDiagnosticSummary": "isolated job requires payload.kind=agentTurn",
+          "lastDeliveryStatus": "not-requested",
+          "consecutiveErrors": 0,
+          "consecutiveSkipped": 1
+        },
+        "updatedAtMs": 1781289900013
+      }
+    },
+    {
+      "quarantinedAtMs": 1781320206163,
+      "sourceIndex": 7,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+        "name": "Agent输出文件每周中等清理",
+        "description": "每周日凌晨3:15清理超过30天的图片、JSON、Markdown，压缩会话记录",
+        "enabled": true,
+        "createdAtMs": 1749945600000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "15 3 * * 0",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "isolated",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-weekly-medium.sh"
+        },
+        "delivery": {
+          "mode": "none"
+        },
+        "state": {
+          "nextRunAtMs": 1781378100000
+        },
+        "updatedAtMs": 1749945600000
+      }
+    },
+    {
+      "quarantinedAtMs": 1781320206163,
+      "sourceIndex": 8,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+        "name": "Agent输出文件每月深度清理",
+        "description": "每月1号凌晨4:00清理设计产物、PSD源文件、旧会话记录",
+        "enabled": true,
+        "createdAtMs": 1749945600000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "0 4 1 * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "isolated",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-monthly-deep.sh"
+        },
+        "delivery": {
+          "mode": "none"
+        },
+        "state": {
+          "nextRunAtMs": 1782849600000
+        },
+        "updatedAtMs": 1749945600000
+      }
+    }
+  ]
+}

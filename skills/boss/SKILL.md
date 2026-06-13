@@ -96,11 +96,13 @@ workspace/projects/
 | 6. 方向确认 | AE + Strategy Director + Creative Director | `main` 协调三方 | 无 | 三方共同确认创意方向，形成执行依据 |
 | 7a. 文案执行 | Copywriter | **`copywriter`** | **`wenan`** | 根据已确认方向产出文案 |
 | 7b. 设计执行 | Designer | **`design`** 或 **`design-shared`** | **`sheji`** + 执行 skills | 根据已确认方向产出视觉内容 |
+| 7c. TVC 故事版执行 | Storyboard / AI Video Previsualization | **`design`** 或 **`design-shared`（生图高手）** | **`dreamina-reference-video`** + 必要时 `gpt-image2-gen` | TVC / 品牌片 / AI 视频任务在分镜头脚本确认后，必须输出故事版画面 |
 
 **重要说明**：
 - **粗体标注的 agent 和 skill** 表示必须派发给专家 agent，不能由 `main` 自己执行
 - `main` 负责协调阶段（2、6）和 AE 阶段（1、3）
 - 策略、创意、文案、设计阶段必须派发给对应的专家 agent
+- 只要任务是 TVC / 品牌片 / AI 视频 / 分镜视频，文字分镜脚本完成后不能停在文字稿；必须进入阶段 7c，派发给生图高手生成故事版画面
 - 每次派发时必须在任务描述中明确指定要调用的 skill（见下方"派发任务模板"章节）
 
 ## Dispatch Templates
@@ -165,17 +167,43 @@ workspace/projects/
 }
 ```
 
+### 阶段 7c：TVC 故事版执行（强制）
+
+适用条件：只要项目目标包含 TVC、品牌片、广告片、AI 视频、视频分镜、分段生成视频、即梦 / Kling / Seedance 等视频执行，且已经产出文字分镜脚本或 AI 视频分段脚本，就必须进入本阶段。不得只把文字分镜交给用户确认后结束。除非用户明确说“只要文字脚本 / 暂不出图”，否则不需要再额外询问“是否要生成故事版”，应直接派发生图高手开始故事版。
+
+```json
+{
+  "runtime": "subagent",
+  "agentId": "design",
+  "task": "【TVC故事版生成任务】\n\n**必须使用 dreamina-reference-video skill**\n**执行 agent：生图高手（design / design-shared）**\n\n**交付模式：混合模式**\n你是被 main agent 派发的生图高手。完成后：\n- ✅ 生成故事版画面文件，并写入 workspace-design/outputs/[项目名]-dreamina-storyboard-[日期]/\n- ✅ 同步归档到 main 项目目录 outputs/design/\n- ✅ 可用 message 工具的 path 参数发送图片给用户；文字说明保持 1-2 句话\n- ✅ 回传故事版图片绝对路径、结果 JSON / manifest 路径、质检结论\n- ❌ 不要提交正式视频生成；本阶段只做故事版 / 参考图确认\n- ❌ 不要只返回 prompt 或本地路径而不生成画面\n\n**前置信息**：\n- 项目目录：[项目目录绝对路径]\n- 已确认策略：[策略文档路径]\n- 已确认创意方向：[创意方向文档路径]\n- 文字分镜脚本 / AI 视频分段脚本：[脚本文档路径]\n- 品牌 / IP / 包装参考素材：[素材路径清单]\n- 输出比例 / 时长：[如 16:9 / 30s]\n\n**执行要求**：\n1. 先读取 /Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video/SKILL.md。\n2. 按 dreamina-reference-video 的故事版标准执行：先锁主体身份和世界观，再生成故事版；不直接跳到视频。\n3. 故事版必须服务后续视频生成：每格是独立成片画幅，镜头顺序清楚，主体一致，场景连续，运镜 / 动作意图明确。\n4. 对 IP / 品牌任务，必须明确 reference image 角色：identity-source 负责角色身份，style/world reference 负责风格与世界，storyboard 负责镜头节奏；不要混用职责。\n5. 中文 Logo、包装文字、结尾文案默认后期合成；故事版里只允许无字占位，避免 AI 生成假字。\n6. 若一次生成完整 8 格故事板内容偏移，必须主动拆成更稳的 4+4 或分段故事版重跑，例如：01-04 现实入口到云路入口，05-08 开心 / 治愈 / 好吃 / 品牌定格。\n7. 若 dreamina-reference-video 的完整 original → identity-board → storyboard 链路卡住，可说明原因后降级为“只生成故事版”的短链路，但仍必须沿用该 skill 的身份锁定、画幅、连续性和人工确认标准。\n8. 质检时必须检查：是否覆盖每个分镜段落、主体是否贴官方 IP、是否有产品/包装轻露出、是否出现干扰性文字、是否适合下一步视频生成。\n\n**输出格式**：\n回传内容必须包含：\n1. 故事版图片绝对路径\n2. 结果 JSON / manifest 绝对路径\n3. 质检结论：可确认 / 需重跑 / 建议拆分重跑\n4. 如果重跑，说明重跑策略和新文件名",
+  "mode": "run",
+  "timeoutSeconds": 1800,
+  "lightContext": true
+}
+```
+
 **模板使用规则**：
 - 模板中的 `[占位符]` 必须替换为实际内容
 - `timeoutSeconds` 可根据任务复杂度调整（简单任务 600s，复杂任务 1800s）
 - 品牌档案路径可通过 `find_brand_profile.py` 获取
 - 派发前必须确认前置条件已满足（如策略已确认、资料已收集等）
+- TVC 故事版阶段必须派发给生图高手；`main` 只能做协调、质检、转发和必要的 prompt 压缩，不应自己替代设计 agent 完成故事版执行
+
+**派发后持续轮询协议（强制）**：
+- `main` 使用 `sessions_spawn` 派发任何 subagent 后，必须记录：agent、任务标签、sessionId/runId（如工具返回）、开始时间、timeout、预期产物路径。
+- 派发后立即在原话题给用户一次可见回执：说明已派发给谁、正在做什么、预计多久、下一次检查时间。
+- 只要 subagent 未完成，`main` 必须主动轮询，不得等用户催问。普通策略/文案任务每 2-3 分钟查一次；生图/故事版/视频相关任务每 60-90 秒查一次，或按工具返回的运行状态更短间隔检查。
+- 每次轮询后，如果仍在运行，必须在原话题给一句短状态；如果状态没有变化，至少每 3-5 分钟给一次可见心跳。
+- `main` 不得在存在 active subagent 时用像“我等它完成”这样的最终语气结束；如果受运行时限制必须结束本轮，必须明确写出当前仍在运行、最近一次检查结果、下一次检查计划。
+- subagent 完成后，`main` 必须读取回传文件或 session 结果，验证产物存在，再在原话题交付；不能只依赖 subagent 的完成摘要。
+- subagent 失败、超时、无输出、输出路径不存在时，`main` 必须主动汇报原因和下一步处理，不得静默重试超过 2 次。
 
 **Main 接收 subagent 结果后的标准流程**：
 
-1. **等待 subagent 完成**：
-   - 使用 `sessions_spawn` 派发后，等待 subagent 完成通知
-   - Subagent 会回传文件路径和核心摘要
+1. **派发并持续跟踪 subagent**：
+   - 使用 `sessions_spawn` 派发后，按“派发后持续轮询协议”记录任务并主动检查
+   - 不把一次流式输出结束误当成任务完成；最终只认 subagent 终态、回传路径和真实产物
+   - Subagent 会回传文件路径和核心摘要，但 `main` 仍需自行验证
 
 2. **读取并验证产出**：
    ```bash
@@ -219,6 +247,7 @@ workspace/projects/
 
 **派发约束（强制）**：
 - **禁止跳过派发**：策略（阶段4）、创意方向（阶段5）、文案（阶段7a）、设计（阶段7b）**必须**派发给对应的专家 agent，不得由 `main` 自己执行
+- **禁止派发后失联**：`main` 派发 subagent 后必须持续轮询并主动给用户状态回报，不得让用户通过“检查进度”来推动流程
 - **禁止省略 skill 指定**：派发任务时**必须**在任务描述中明确写明”必须使用 XXX skill”，参考上方”Dispatch Templates”章节的模板
 - **禁止模糊派发**：不得使用”请制定策略”这种模糊指令，必须使用模板中的完整格式，包括前置信息、任务要求、输出要求
 - **禁止私自兜底**：如果专家 agent 不可用或失败，必须报告给用户，不得自行用其他方式（如 `main` 自己执行）兜底
@@ -247,6 +276,7 @@ workspace/projects/
 10. User Checkpoint 4：将创意方向和方向确认记录提交给用户确认；确认后才进入文案和设计执行。
 11. Copy Development：Copywriter 根据已确认方向、策略和具体需求产出 campaign 主题、KV 文案、社媒文案、脚本或提案文案。
 12. User Checkpoint 5：将文案产出提交给用户确认；确认后才进入后续整合或交付。
+12a. TVC Storyboard Gate：如果项目是 TVC / 品牌片 / AI 视频，且文案产出包含分镜头脚本、30s 脚本或 AI 视频分段脚本，必须派发生图高手执行阶段 7c，使用 `dreamina-reference-video` 的故事版能力输出故事版画面。除非用户明确说只要文字，不需要再等用户口头提醒“去出故事版”。故事版确认前，不进入正式视频生成，也不把文字分镜当成最终视觉确认稿。
 13. Design Development：Designer 根据已确认方向、策略、文案和物料需求产出视觉方向、KV brief、版式建议、物料适配和设计 prompt。
 14. User Checkpoint 6：将设计产出提交给用户确认；确认后才进入 CD 复核或 AE 整理。
 15. CD Review：Creative Director 复核文案和设计是否符合策略与已确认创意方向。
@@ -262,6 +292,10 @@ workspace/projects/
 - 当用户只要一个单点产物时，不强行跑完整流程；直接选择相关角色。
 - 即使用户只要单点产物，也要检查是否缺少必要前置输入；缺少时先提示所需输入或基于假设输出草案。
 - 复杂项目输出先给目录和工作台，再逐步展开。
+- TVC / 视频任务必须把“故事版画面”作为从脚本到视频之间的强制确认物；用户没有明确取消时，默认要生成。
+- TVC 故事版必须调用生图高手，并优先使用 `dreamina-reference-video` 中的故事板能力和标准；不能默认只用普通生图 prompt 画一张泛化插图。
+- 当用户的目标是生成 TVC / AI 视频时，“脚本策划完成”默认意味着下一步自动进入故事版画面生成；不要把“是否需要故事版”作为重复确认问题。
+- 对所有派发出去的专家任务，main 必须承担项目经理式跟踪：主动轮询、主动心跳、主动交付，不能把进度查询压力留给用户。
 
 **派发验证检查点**：
 执行每次派发前，必须验证以下条件：
@@ -289,6 +323,12 @@ workspace/projects/
    - [ ] 模板中的所有 `[占位符]` 已替换为实际内容
    - [ ] `timeoutSeconds` 已根据任务复杂度设置
 
+6. **轮询跟踪验证**：
+   - [ ] 已记录 subagent sessionId/runId、开始时间、timeout 和预期产物
+   - [ ] 已向用户发送启动回执和预计检查时间
+   - [ ] 已建立轮询节奏：普通任务 2-3 分钟，生图/视频任务 60-90 秒
+   - [ ] 已准备在原话题发送阶段性心跳，避免用户误以为任务结束
+
 **派发失败处理**：
 - 如果专家 agent 不可用，必须报告给用户："[agent] 当前不可用，无法执行 [阶段]，建议稍后重试或使用 [agent]-shared variant"
 - 如果专家 agent 返回错误，必须报告给用户并说明错误原因，不得自行重试超过 2 次
@@ -305,6 +345,11 @@ workspace/projects/
    - 检查 `timeoutSeconds` 是否合理（策略/创意：1800s，文案：1200s）
    - 查看 subagent session 日志确认卡在哪个步骤
    - 如果是等待外部 API，考虑增加超时时间
+
+2a. **用户反复催问进度**：
+   - 说明 main 没有履行轮询协议；立即查询当前 subagent 状态
+   - 回报最近一次检查结果、已运行时长、下一次检查时间
+   - 后续按固定节奏主动心跳，直到完成或失败
 
 3. **Skill 调用失败**：
    - 确认 skill 路径是否存在：`ls /Users/a123/.openclaw/workspace-*/skills/[skill-name]/`
@@ -339,6 +384,27 @@ available_skills | grep [skill-name]
 ## Design Execution Example
 
 When Creative Director confirms the design task includes image generation, the Designer role must:
+
+### For TVC / AI Video Storyboard Tasks
+
+Use `dreamina-reference-video` skill for visual storyboard previsualization. This is mandatory after a TVC script or segmented video script is ready.
+
+```bash
+# Read the skill first
+read /Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video/SKILL.md
+
+# Run preflight before paid / long generation
+python3 /Users/a123/.openclaw/workspace-design/skills/dreamina-reference-video/scripts/run_workflow.py preflight
+```
+
+Execution standards:
+- Send the task to `design` or `design-shared` (生图高手); do not keep it inside `main`.
+- Use the confirmed script as the storyboard truth; do not let the design agent rewrite the strategy or story.
+- Generate storyboard images before any formal video submission.
+- For 30s TVC, prefer 7-8 clear beats; if an 8-panel board drifts, split into 4+4 boards.
+- Keep each panel as an independent target-ratio frame, with stable subject identity and continuous world direction.
+- Use blank placeholders for Logo, Chinese endline, and packaging text; these are post-production layers.
+- Return image path, result/manifest path, and QA conclusion.
 
 ### For Brand Poster/KV Tasks
 
@@ -390,12 +456,14 @@ Before executing design:
 - [ ] Reference images are prepared (if needed)
 - [ ] Output directory exists: `projects/[brand]/[campaign]/outputs/design/`
 - [ ] Identified correct tool: `brand-poster-creator` or `gpt-image2-gen`
+- [ ] If this is TVC / AI video, identified correct tool as `dreamina-reference-video` and dispatched to 生图高手 for storyboard generation
 
 After generation:
 - [ ] Image file exists and is not 0 bytes
 - [ ] Image is archived to project outputs directory
 - [ ] generation_result.json shows `ok: true` (if using brand-poster-creator)
 - [ ] User receives the generated image (not just local path)
+- [ ] For TVC storyboard, QA confirms all script beats are represented before moving to formal video generation
 
 ## References
 
