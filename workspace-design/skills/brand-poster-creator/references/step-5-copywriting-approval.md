@@ -57,33 +57,67 @@ python3 {baseDir}/scripts/time_tracking.py \
   --actor "ai"
 ```
 
-### 5.2.2 请求文案审批
+### 5.2.2 请求文案审批并获取艾特标签
 
 ```bash
-# 请求文案审批
-approval_request=$(python3 {baseDir}/scripts/project_grading.py \
+# 请求文案审批（JSON 输出）
+python3 {baseDir}/scripts/project_grading.py \
   request \
   --project-dir "[项目目录绝对路径]" \
   --milestone "copywriting" \
-  --artifact "copywriting.json")
+  --artifact "copywriting.json"
+```
 
-# 提取艾特消息
-mention_message=$(echo "$approval_request" | jq -r '.message')
+脚本会返回 JSON，包含以下字段：
+```json
+{
+  "milestone": "copywriting",
+  "title": "文案策划完成",
+  "reviewer": {
+    "name": "张三",
+    "open_id": "ou_xxxxx"
+  },
+  "mention_tag": "<at user_id=\"ou_xxxxx\">张三</at>",
+  "artifact_path": "copywriting.json",
+  "timeout_at": "2026-06-13T13:00:00Z",
+  "message": "<at user_id=\"ou_xxxxx\">张三</at> 文案策划完成，请审核确认"
+}
 ```
 
 ### 5.2.3 向用户发送审批请求
 
+⚠️ **重要**：必须使用脚本返回的 `message` 字段中的艾特标签，不要手写 `@用户名`。
+
+从返回的 JSON 中提取 `message` 字段，直接用于回复：
+
 ```markdown
 ✅ **文案策划完成**
 
-[展示文案内容]
+[展示文案内容的表格]
 
-$mention_message
+{从 JSON 提取的 .message 字段内容，包含真实飞书艾特标签}
 
 请审核确认：
 - 回复「通过」→ 文案审批通过，进入设计阶段
 - 回复「修改：[具体要求]」→ 需要修改文案
 - 回复「拒绝：[原因]」→ 终止项目
+```
+
+**示例回复**：
+```markdown
+✅ **文案策划完成**
+
+| 区域 | 上画文案 | 字体建议 |
+|---|---|---|
+| 主标题 | 流程验证测试 | 黑体 |
+| 副标题 | 文案·审批·设计生成 全链路 | 无衬线体 |
+
+<at user_id="ou_b5d2c0a6787a3acc8bc889b15280ae11">肖宁劼</at> 文案策划完成，请审核确认
+
+请回复：
+- 「通过」→ 进入设计阶段
+- 「修改：具体要求」→ 调整文案
+- 「拒绝：原因」→ 终止项目
 ```
 
 ---

@@ -23,7 +23,7 @@
 ```json
 {
   "runtime": "subagent",
-  "agentId": "strategy",
+  "agentId": "strategy-shared",
   "task": "海报文案策略任务（见下方模板）",
   "mode": "run",
   "timeoutSeconds": 600,
@@ -33,6 +33,30 @@
   "model": ""
 }
 ```
+
+⚠️ **注意**：共享 agent 必须使用 `-shared` 后缀（如 `strategy-shared`、`copywriter-shared`），否则会报 `forbidden` 错误。
+
+### 4.1.2b 保持流式卡片活跃（重要）
+
+派发 subagent 后，**立即使用 `sessions_yield` 告知用户进度**，避免长时间无响应导致用户误以为卡住：
+
+```json
+{
+  "tool": "sessions_yield",
+  "message": "文案策略专家已启动，预计 30-60 秒完成策略文件..."
+}
+```
+
+**等待期间的进度提示规则**：
+- Strategy 预计耗时：30-60 秒
+- Copywriter 预计耗时：30-60 秒
+- 如果超过预计时间，每隔 30 秒 yield 一次进度更新
+- 完成后立即读取结果文件并继续下一步
+
+**禁止行为**：
+- ❌ 不要 yield 之后就静默等待 3 分钟
+- ❌ 不要只回复 "done" 就不管了
+- ✅ 要让用户知道任务正在进行中
 
 ### 4.1.3 给 strategy 的任务描述模板
 
@@ -101,7 +125,7 @@ strategy 完成后，main 必须**确认 `copy_strategy.json` 存在**，再派�
 ```json
 {
   "runtime": "subagent",
-  "agentId": "copywriter",
+  "agentId": "copywriter-shared",
   "task": "海报最终文案撰写任务（见下方模板）",
   "mode": "run",
   "timeoutSeconds": 600,
@@ -109,6 +133,19 @@ strategy 完成后，main 必须**确认 `copy_strategy.json` 存在**，再派�
   "lightContext": true,
   "thinking": "low",
   "model": ""
+}
+```
+
+⚠️ **注意**：共享 agent 必须使用 `-shared` 后缀。
+
+### 4.2.2b 保持流式卡片活跃
+
+派发 copywriter 后，立即使用 `sessions_yield` 告知进度：
+
+```json
+{
+  "tool": "sessions_yield",
+  "message": "文案专家已启动，基于策略撰写最终上画文案，预计 30-60 秒..."
 }
 ```
 
@@ -242,6 +279,8 @@ python3 {baseDir}/scripts/process_copywriting.py \
 4. **不得在 `copy_strategy.json` 缺失时进入 Step 5**
 5. **不得把思考内容写进 `thinking` 参数**
 6. **不得传递 `attachments` 参数**
+7. **不得使用非 `-shared` 后缀的 agentId**（共享 agent 场景）
+8. **不得派发 subagent 后长时间静默**（必须用 `sessions_yield` 保持进度提示）
 
 ---
 

@@ -169,34 +169,53 @@ python3 {baseDir}/scripts/time_tracking.py \
   --actor "ai"
 ```
 
-### 8.6.2 请求设计审批
+### 8.6.2 请求设计审批并获取艾特标签
 
 ```bash
-# 请求设计审批
-approval_request=$(python3 {baseDir}/scripts/project_grading.py \
+# 请求设计审批（JSON 输出）
+python3 {baseDir}/scripts/project_grading.py \
   request \
   --project-dir "[项目目录绝对路径]" \
   --milestone "design" \
-  --artifact "images/final_poster.png")
-
-# 提取艾特消息
-mention_message=$(echo "$approval_request" | jq -r '.message')
+  --artifact "images/final_poster.png"
 ```
 
+脚本会返回 JSON，包含真实飞书艾特标签。
+
 ### 8.6.3 向用户发送审批请求
+
+⚠️ **重要**：必须使用脚本返回的 `message` 字段中的艾特标签，不要手写 `@用户名`。
+
+从返回的 JSON 中提取 `message` 字段，直接用于回复：
 
 ```markdown
 ✅ **设计初稿完成**
 
 [已发送设计成品图]
 
-$mention_message
+{从 JSON 提取的 .message 字段内容，包含真实飞书艾特标签}
 
 请审核确认：
 - 回复「通过」→ 设计审批通过
   - B级项目：直接进入交付流程
   - A/S级项目：进入创意总监审核
 - 回复「修改：[具体要求]」→ 需要调整设计
+- 回复「拒绝：[原因]」→ 终止项目
+```
+
+**示例回复**：
+```markdown
+✅ **设计初稿完成**
+
+[已发送成品图]
+
+<at user_id="ou_2253f3cfcdb6e0ae8707cee2ea10a57c">林育丰</at> 设计初稿完成，请审核确认
+
+请回复：
+- 「通过」→ 设计审批通过
+- 「修改：具体要求」→ 调整设计
+- 「拒绝：原因」→ 终止项目
+```
 - 回复「拒绝：[原因]」→ 终止项目
 ```
 

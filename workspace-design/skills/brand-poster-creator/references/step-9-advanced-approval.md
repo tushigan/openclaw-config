@@ -17,27 +17,29 @@
 - 项目等级为 A 或 S
 - 设计判断者已审批通过（`project_grading.json` 中 `design` 节点的 `status` 为 `approved`）
 
-### 9.1.2 触发创意总监审批
+### 9.1.2 触发创意总监审批并获取艾特标签
 
 设计判断者通过后，触发创意总监审核：
 
 ```bash
-# 请求创意总监审批
-approval_request=$(python3 {baseDir}/scripts/project_grading.py \
+# 请求创意总监审批（JSON 输出）
+python3 {baseDir}/scripts/project_grading.py \
   request \
   --project-dir "[项目目录绝对路径]" \
   --milestone "creative_direction" \
-  --artifact "images/final_poster.png")
-
-mention_message=$(echo "$approval_request" | jq -r '.message')
+  --artifact "images/final_poster.png"
 ```
 
+脚本会返回 JSON，包含真实飞书艾特标签。
+
 ### 9.1.3 向用户发送审批请求
+
+⚠️ **重要**：必须使用脚本返回的 `message` 字段中的艾特标签，不要手写 `@用户名`。
 
 ```markdown
 ✅ **设计判断者已通过，进入创意总监审核**
 
-$mention_message
+{从 JSON 提取的 .message 字段内容，包含真实飞书艾特标签}
 
 请审核确认：
 - 回复「通过」→ 创意总监审批通过
@@ -89,27 +91,29 @@ python3 {baseDir}/scripts/project_grading.py \
 - 项目等级为 S
 - 创意总监已审批通过（`project_grading.json` 中 `creative_direction` 节点的 `status` 为 `approved`）
 
-### 9.2.2 触发老板最终审批
+### 9.2.2 触发老板最终审批并获取艾特标签
 
 创意总监通过后，触发老板最终审批：
 
 ```bash
-# 请求老板最终审批
-approval_request=$(python3 {baseDir}/scripts/project_grading.py \
+# 请求老板最终审批（JSON 输出）
+python3 {baseDir}/scripts/project_grading.py \
   request \
   --project-dir "[项目目录绝对路径]" \
   --milestone "final_approval" \
-  --artifact "images/final_poster.png")
-
-mention_message=$(echo "$approval_request" | jq -r '.message')
+  --artifact "images/final_poster.png"
 ```
 
+脚本会返回 JSON，包含真实飞书艾特标签。
+
 ### 9.2.3 向用户发送审批请求
+
+⚠️ **重要**：必须使用脚本返回的 `message` 字段中的艾特标签，不要手写 `@用户名`。
 
 ```markdown
 ✅ **创意总监已通过，进入老板最终决策**
 
-$mention_message
+{从 JSON 提取的 .message 字段内容，包含真实飞书艾特标签}
 
 请审核确认：
 - 回复「通过」→ 项目最终批准，进入交付流程
