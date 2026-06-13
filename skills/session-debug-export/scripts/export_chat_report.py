@@ -608,8 +608,8 @@ def main() -> int:
     ap.add_argument("--issue", required=True, help="Short issue title, used in report and filename")
     ap.add_argument("--agent-name", default="小爪", help="Agent display name in chat headings")
     ap.add_argument("--output-dir", default=None, help=f"Report output directory; default: {default_report_dir()}")
-    ap.add_argument("--log-lines", type=int, default=1000, help="How many gateway log lines to capture")
-    ap.add_argument("--max-bytes", type=int, default=2000000, help="Max bytes when capturing gateway logs")
+    ap.add_argument("--log-lines", type=int, default=300, help="How many gateway log lines to capture")
+    ap.add_argument("--max-bytes", type=int, default=400000, help="Max bytes when capturing gateway logs")
     ap.add_argument("--no-logs", action="store_true", help="Skip backend log capture")
     args = ap.parse_args()
 

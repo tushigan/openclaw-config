@@ -12,7 +12,7 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781346610360,
+          "lastUsedAt": 1781348423702,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -1118,9 +1118,9 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781268091092,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-design && python3 skills/dreamina-reference-video/scripts/run_workflow.py submit-video --run-dir /Users/a123/.openclaw/workspace-design/outputs/dreamina-reference-video/projects/ranli-dragon-boat-poster-video/runs/20260612-204100-fast-vip-copy",
-          "lastResolvedPath": "/usr/bin/cd"
+          "lastUsedAt": 1781349795991,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/outputs/_temp_export_chat_report.py --workspace /Users/a123/.openclaw --session-key current --agent design-shared --chat-type group --peer-id oc_deb2956a37fa31823df419ab084a073f --issue \"聊天记录导出\" --agent-name \"生图高手\"",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-design-bash",
@@ -1178,9 +1178,9 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781340619224,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/images/ip_character.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_20260613.png && cp /Users/a123/.openclaw/workspace-design/images/ip_character_card_v1.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_card_v1_20260613.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_20260613.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_character_card_v1_20260613.png",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1781349812423,
+          "lastUsedCommand": "ls -lh \"/Users/a123/Downloads/openclaw 问题汇总/20260613-192318-oc_deb2956a37fa31823df419ab084a073f-thread-omt_1948bfdc7b8f1cb1-聊天记录导出.md\" && wc -c \"/Users/a123/Downloads/openclaw 问题汇总/20260613-192318-oc_deb2956a37fa31823df419ab084a073f-thread-omt_1948bfdc7b8f1cb1-聊天记录导出.md\"",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-design-cat",
@@ -1223,8 +1223,8 @@
           "id": "shared-design-file",
           "pattern": "/usr/bin/file",
           "description": "允许检测文件类型",
-          "lastUsedAt": 1781254903389,
-          "lastUsedCommand": "file /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260612-001/images/revision_title_cleanup_v2.png && ls -lh /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260612-001/images/revision_title_cleanup_v2.png /Users/a123/.openclaw/workspace/feishu-deliver/gpt-image2-gen_20260612_165445/revision_title_cleanup_v2.png",
+          "lastUsedAt": 1781348348404,
+          "lastUsedCommand": "file /Users/a123/.openclaw/workspace-design/images/test_poster_20260613_1856.png /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260613_185900/test_poster_20260613_1856.png && ls -lh /Users/a123/.openclaw/workspace-design/feishu-deliver/gpt-image2-gen_20260613_185900/test_poster_20260613_1856.png",
           "lastResolvedPath": "/usr/bin/file"
         },
         {
@@ -1247,9 +1247,9 @@
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1781255620543,
-          "lastUsedCommand": "find /Users/a123/.openclaw -maxdepth 5 -type f \\( -path '*/gpt-image2-gen/*' -o -name 'generate.py' -o -name 'mask_edit_openai_compat.py' \\) | sed -n '1,120p'",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781348261817,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | sed -n '1,220p'",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
@@ -1272,8 +1272,8 @@
           "id": "design-wc",
           "pattern": "/usr/bin/wc",
           "description": "允许统计文本行数",
-          "lastUsedAt": 1781170419561,
-          "lastUsedCommand": "ls -lah /Users/a123/.openclaw/workspace/feishu-deliver/omni_job_1781169958 | sed -n '1,80p' && wc -c /Users/a123/.openclaw/workspace/feishu-deliver/omni_job_1781169958/layered-output.psd",
+          "lastUsedAt": 1781349812424,
+          "lastUsedCommand": "ls -lh \"/Users/a123/Downloads/openclaw 问题汇总/20260613-192318-oc_deb2956a37fa31823df419ab084a073f-thread-omt_1948bfdc7b8f1cb1-聊天记录导出.md\" && wc -c \"/Users/a123/Downloads/openclaw 问题汇总/20260613-192318-oc_deb2956a37fa31823df419ab084a073f-thread-omt_1948bfdc7b8f1cb1-聊天记录导出.md\"",
           "lastResolvedPath": "/bin/ls"
         },
         {
