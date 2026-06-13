@@ -48,25 +48,36 @@ APPROVAL_MILESTONES = {
         'title': '文案策划完成',
         'reviewer_role': 'copywriter',
         'artifact': 'copywriting.json',
-        'required_grades': ['B', 'A', 'S']
+        'required_grades': ['B', 'A', 'S'],
+        'approval_mode': 'single'
+    },
+    'creative_direction_dual': {
+        'title': '创意方向确认',
+        'reviewer_roles': ['copywriter', 'designer'],  # 多审批者
+        'artifact': 'creative_direction.json',
+        'required_grades': ['B', 'A', 'S'],
+        'approval_mode': 'all'  # 所有人都需要确认
     },
     'design': {
         'title': '设计初稿完成',
         'reviewer_role': 'designer',
         'artifact': 'generation_result.json',
-        'required_grades': ['B', 'A', 'S']
+        'required_grades': ['B', 'A', 'S'],
+        'approval_mode': 'single'
     },
     'creative_direction': {
         'title': '创意总监审核',
         'reviewer_role': 'creative_director',
         'artifact': 'creative_direction.json',
-        'required_grades': ['A', 'S']
+        'required_grades': ['A', 'S'],
+        'approval_mode': 'single'
     },
     'final_approval': {
         'title': '老板最终决策',
         'reviewer_role': 'boss',
-        'artifact': None,  # 基于前序审批通过后触发
-        'required_grades': ['S']
+        'artifact': None,
+        'required_grades': ['S'],
+        'approval_mode': 'single'
     }
 }
 
@@ -138,12 +149,13 @@ def init_project_grading(
     Args:
         project_dir: 项目目录
         grade: 项目等级 (B/A/S)
-        reviewers: 审批者信息
+        reviewers: 审批者信息（必须包含 ai_driver）
             {
-                "copywriter": {"name": "张三", "open_id": "ou_xxx"},
-                "designer": {"name": "李四", "open_id": "ou_yyy"},
-                "creative_director": {"name": "王五", "open_id": "ou_zzz"},
-                "boss": {"name": "赵六", "open_id": "ou_www"}
+                "ai_driver": {"name": "涂是淦", "open_id": "ou_xxx"},  # 必需
+                "copywriter": {"name": "张三", "open_id": "ou_yyy"},
+                "designer": {"name": "李四", "open_id": "ou_zzz"},
+                "creative_director": {"name": "王五", "open_id": "ou_www"},
+                "boss": {"name": "赵六", "open_id": "ou_vvv"}
             }
 
     Returns:
@@ -151,6 +163,10 @@ def init_project_grading(
     """
     if grade not in PROJECT_GRADES:
         raise ValueError(f"Invalid grade: {grade}. Must be one of B, A, S")
+
+    # 验证 ai_driver 必须存在
+    if 'ai_driver' not in reviewers:
+        raise ValueError("reviewers 必须包含 ai_driver（项目发起人）")
 
     grade_info = PROJECT_GRADES[grade]
     required_roles = grade_info['reviewers']
@@ -170,7 +186,10 @@ def init_project_grading(
         'created_at': now_iso()
     }
 
-    # 只记录当前等级需要的审批者
+    # 记录 AI 驱动者（所有项目都需要）
+    grading_config['reviewers']['ai_driver'] = reviewers['ai_driver']
+
+    # 只记录当前等级需要的其他审批者
     for role in required_roles:
         if role in reviewers:
             grading_config['reviewers'][role] = reviewers[role]
@@ -178,13 +197,23 @@ def init_project_grading(
     # 构建审批流程
     for milestone, config in APPROVAL_MILESTONES.items():
         if grade in config['required_grades']:
-            grading_config['approval_flow'].append({
+            step = {
                 'milestone': milestone,
                 'title': config['title'],
-                'reviewer_role': config['reviewer_role'],
                 'status': 'pending',
                 'timeout_minutes': APPROVAL_TIMEOUT[grade]
-            })
+            }
+
+            # 处理多审批者节点
+            if config.get('approval_mode') == 'all':
+                step['reviewer_roles'] = config['reviewer_roles']
+                step['approval_mode'] = 'all'
+                step['confirmations'] = {}  # 记录每个审批者的确认状态
+            else:
+                step['reviewer_role'] = config['reviewer_role']
+                step['approval_mode'] = 'single'
+
+            grading_config['approval_flow'].append(step)
 
     # 保存到 project_grading.json
     grading_file = project_dir / 'project_grading.json'
@@ -196,6 +225,7 @@ def init_project_grading(
         'timestamp': now_iso(),
         'event': 'project_grading_initialized',
         'grade': grade,
+        'ai_driver': reviewers['ai_driver']['name'],
         'reviewers': list(grading_config['reviewers'].keys()),
         'approval_flow_length': len(grading_config['approval_flow'])
     })
@@ -213,11 +243,24 @@ def request_approval(
 
     Args:
         project_dir: 项目目录
-        milestone: 审批节点 (copywriting, design, creative_direction, final_approval)
+        milestone: 审批节点 (copywriting, creative_direction_dual, design, etc.)
         artifact_path: 产物文件路径（用于展示）
 
     Returns:
         审批请求信息（包含艾特消息）
+
+        对于 creative_direction_dual 等多审批者节点，返回格式：
+        {
+            "milestone": "creative_direction_dual",
+            "title": "创意方向确认",
+            "reviewers": [
+                {"name": "肖宁劼", "open_id": "ou_xxx", "role": "copywriter"},
+                {"name": "林育丰", "open_id": "ou_yyy", "role": "designer"}
+            ],
+            "ai_driver": {"name": "涂是淦", "open_id": "ou_zzz"},
+            "mention_tags": [...],
+            "message": "<at ...>肖宁劼</at> <at ...>林育丰</at> <at ...>涂是淦</at> 创意方向已生成，请审核确认"
+        }
     """
     grading_file = project_dir / 'project_grading.json'
     grading_config = load_json(grading_file)
@@ -238,34 +281,99 @@ def request_approval(
     if approval_step['status'] != 'pending':
         raise ValueError(f"Milestone '{milestone}' is not pending (current status: {approval_step['status']})")
 
-    # 获取审批者信息
-    reviewer_role = approval_step['reviewer_role']
-    reviewer_info = grading_config['reviewers'].get(reviewer_role)
+    # 获取 AI 驱动者信息
+    ai_driver = grading_config['reviewers'].get('ai_driver')
 
-    if not reviewer_info:
-        raise ValueError(f"Reviewer info not found for role: {reviewer_role}")
+    # 处理多审批者节点
+    if approval_step.get('approval_mode') == 'all':
+        reviewer_roles = approval_step['reviewer_roles']
+        reviewers = []
+        mention_tags = []
 
-    # 更新审批状态为 "waiting"
-    approval_step['status'] = 'waiting'
-    approval_step['requested_at'] = now_iso()
-    approval_step['timeout_at'] = (
-        datetime.now(timezone.utc) + timedelta(minutes=approval_step['timeout_minutes'])
-    ).isoformat().replace('+00:00', 'Z')
+        # 收集所有审批者信息
+        for role in reviewer_roles:
+            reviewer_info = grading_config['reviewers'].get(role)
+            if not reviewer_info:
+                raise ValueError(f"Reviewer info not found for role: {role}")
 
-    write_json(grading_file, grading_config)
+            reviewers.append({
+                'name': reviewer_info['name'],
+                'open_id': reviewer_info['open_id'],
+                'role': role
+            })
+            mention_tags.append(generate_mention_tag(reviewer_info['name'], reviewer_info['open_id']))
 
-    # 生成艾特消息
-    mention_tag = generate_mention_tag(reviewer_info['name'], reviewer_info['open_id'])
+        # 添加 AI 驱动者
+        if ai_driver:
+            mention_tags.append(generate_mention_tag(ai_driver['name'], ai_driver['open_id']))
 
-    approval_request = {
-        'milestone': milestone,
-        'title': approval_step['title'],
-        'reviewer': reviewer_info,
-        'mention_tag': mention_tag,
-        'artifact_path': artifact_path,
-        'timeout_at': approval_step['timeout_at'],
-        'message': f"{mention_tag} {approval_step['title']}，请审核确认"
-    }
+        # 更新审批状态为 "waiting"
+        approval_step['status'] = 'waiting'
+        approval_step['requested_at'] = now_iso()
+        approval_step['timeout_at'] = (
+            datetime.now(timezone.utc) + timedelta(minutes=approval_step['timeout_minutes'])
+        ).isoformat().replace('+00:00', 'Z')
+
+        # 初始化确认状态
+        for role in reviewer_roles:
+            approval_step['confirmations'][role] = {
+                'status': 'pending',
+                'confirmed_at': None,
+                'feedback': ''
+            }
+
+        write_json(grading_file, grading_config)
+
+        # 生成艾特消息
+        mention_str = ' '.join(mention_tags)
+
+        approval_request = {
+            'milestone': milestone,
+            'title': approval_step['title'],
+            'reviewers': reviewers,
+            'ai_driver': ai_driver,
+            'mention_tags': mention_tags,
+            'artifact_path': artifact_path,
+            'timeout_at': approval_step['timeout_at'],
+            'message': f"{mention_str} {approval_step['title']}，请审核确认",
+            'note': f"需要{len(reviewers)}方都确认，或AI驱动者确认"
+        }
+
+    else:
+        # 单审批者节点
+        reviewer_role = approval_step['reviewer_role']
+        reviewer_info = grading_config['reviewers'].get(reviewer_role)
+
+        if not reviewer_info:
+            raise ValueError(f"Reviewer info not found for role: {reviewer_role}")
+
+        # 更新审批状态为 "waiting"
+        approval_step['status'] = 'waiting'
+        approval_step['requested_at'] = now_iso()
+        approval_step['timeout_at'] = (
+            datetime.now(timezone.utc) + timedelta(minutes=approval_step['timeout_minutes'])
+        ).isoformat().replace('+00:00', 'Z')
+
+        write_json(grading_file, grading_config)
+
+        # 生成艾特消息（包含 AI 驱动者）
+        mention_tags = [generate_mention_tag(reviewer_info['name'], reviewer_info['open_id'])]
+        if ai_driver:
+            mention_tags.append(generate_mention_tag(ai_driver['name'], ai_driver['open_id']))
+
+        mention_str = ' '.join(mention_tags)
+
+        approval_request = {
+            'milestone': milestone,
+            'title': approval_step['title'],
+            'reviewer': reviewer_info,
+            'ai_driver': ai_driver,
+            'mention_tag': mention_tags[0],
+            'mention_tags': mention_tags,
+            'artifact_path': artifact_path,
+            'timeout_at': approval_step['timeout_at'],
+            'message': f"{mention_str} {approval_step['title']}，请审核确认"
+        }
 
     # 记录审计日志
     audit_log = project_dir / 'audit_log.jsonl'
@@ -273,9 +381,7 @@ def request_approval(
         'timestamp': now_iso(),
         'event': 'approval_requested',
         'milestone': milestone,
-        'reviewer_role': reviewer_role,
-        'reviewer_name': reviewer_info['name'],
-        'timeout_at': approval_step['timeout_at']
+        'approval_mode': approval_step.get('approval_mode', 'single')
     })
 
     return approval_request
@@ -300,6 +406,11 @@ def record_approval_response(
 
     Returns:
         审批结果
+
+    权限检查：
+    1. AI驱动者（项目发起人）可以确认任何节点
+    2. 对应的审批者可以确认自己负责的节点
+    3. 对于多审批者节点，需要所有人都确认（或AI驱动者确认）
     """
     grading_file = project_dir / 'project_grading.json'
     grading_config = load_json(grading_file)
@@ -319,49 +430,174 @@ def record_approval_response(
     if not approval_step:
         raise ValueError(f"Milestone '{milestone}' not found in approval flow")
 
-    # 验证身份（可选）
-    reviewer_role = approval_step['reviewer_role']
-    expected_reviewer = grading_config['reviewers'].get(reviewer_role)
+    # 获取 AI 驱动者信息
+    ai_driver = grading_config['reviewers'].get('ai_driver')
+    is_ai_driver = (ai_driver and responder_open_id == ai_driver['open_id'])
 
-    if responder_open_id and expected_reviewer:
-        if responder_open_id != expected_reviewer['open_id']:
+    # 处理多审批者节点
+    if approval_step.get('approval_mode') == 'all':
+        # AI 驱动者可以直接通过
+        if is_ai_driver:
+            approval_step['status'] = decision
+            approval_step['responded_at'] = now_iso()
+            approval_step['decision'] = decision
+            approval_step['feedback'] = feedback
+            approval_step['responder'] = 'ai_driver'
+            approval_step['responder_name'] = ai_driver['name']
+
+            # 计算响应时长
+            if 'requested_at' in approval_step:
+                requested = datetime.fromisoformat(approval_step['requested_at'].replace('Z', '+00:00'))
+                responded = datetime.now(timezone.utc)
+                response_time_seconds = (responded - requested).total_seconds()
+                approval_step['response_time_seconds'] = int(response_time_seconds)
+
+            write_json(grading_file, grading_config)
+
+            # 记录审计日志
+            audit_log = project_dir / 'audit_log.jsonl'
+            append_jsonl(audit_log, {
+                'timestamp': now_iso(),
+                'event': 'approval_responded',
+                'milestone': milestone,
+                'decision': decision,
+                'responder': 'ai_driver',
+                'responder_name': ai_driver['name']
+            })
+
+            return {
+                'milestone': milestone,
+                'decision': decision,
+                'feedback': feedback,
+                'responder': 'ai_driver',
+                'status': 'completed' if decision == 'approved' else 'failed',
+                'next_action': _determine_next_action(grading_config, step_index, decision)
+            }
+
+        # 否则，找到响应者对应的角色
+        responder_role = None
+        for role in approval_step['reviewer_roles']:
+            reviewer_info = grading_config['reviewers'].get(role)
+            if reviewer_info and responder_open_id == reviewer_info['open_id']:
+                responder_role = role
+                break
+
+        if not responder_role:
             raise PermissionError(
-                f"Responder {responder_open_id} is not authorized to approve milestone '{milestone}'. "
-                f"Expected: {expected_reviewer['open_id']}"
+                f"Responder {responder_open_id} is not authorized for milestone '{milestone}'"
             )
 
-    # 更新审批状态
-    approval_step['status'] = decision
-    approval_step['responded_at'] = now_iso()
-    approval_step['feedback'] = feedback
+        # 记录该审批者的确认
+        approval_step['confirmations'][responder_role] = {
+            'status': decision,
+            'confirmed_at': now_iso(),
+            'feedback': feedback
+        }
 
-    # 计算响应时长
-    if 'requested_at' in approval_step:
-        requested = datetime.fromisoformat(approval_step['requested_at'].replace('Z', '+00:00'))
-        responded = datetime.now(timezone.utc)
-        response_time_seconds = (responded - requested).total_seconds()
-        approval_step['response_time_seconds'] = int(response_time_seconds)
+        # 检查是否所有审批者都已确认
+        all_approved = all(
+            conf['status'] == 'approved'
+            for conf in approval_step['confirmations'].values()
+        )
+        any_rejected = any(
+            conf['status'] == 'rejected'
+            for conf in approval_step['confirmations'].values()
+        )
 
-    write_json(grading_file, grading_config)
+        if all_approved:
+            approval_step['status'] = 'approved'
+            approval_step['responded_at'] = now_iso()
+        elif any_rejected:
+            approval_step['status'] = 'rejected'
+            approval_step['responded_at'] = now_iso()
+        else:
+            # 还在等待其他审批者
+            approval_step['status'] = 'waiting'
 
-    # 记录审计日志
-    audit_log = project_dir / 'audit_log.jsonl'
-    append_jsonl(audit_log, {
-        'timestamp': now_iso(),
-        'event': 'approval_responded',
-        'milestone': milestone,
-        'decision': decision,
-        'feedback': feedback,
-        'response_time_seconds': approval_step.get('response_time_seconds', 0),
-        'responder_verified': bool(responder_open_id and expected_reviewer)
-    })
+        # 计算响应时长
+        if 'requested_at' in approval_step and approval_step['status'] in ['approved', 'rejected']:
+            requested = datetime.fromisoformat(approval_step['requested_at'].replace('Z', '+00:00'))
+            responded = datetime.now(timezone.utc)
+            response_time_seconds = (responded - requested).total_seconds()
+            approval_step['response_time_seconds'] = int(response_time_seconds)
 
-    return {
-        'milestone': milestone,
-        'decision': decision,
-        'feedback': feedback,
-        'next_action': _determine_next_action(grading_config, step_index, decision)
-    }
+        write_json(grading_file, grading_config)
+
+        # 记录审计日志
+        audit_log = project_dir / 'audit_log.jsonl'
+        append_jsonl(audit_log, {
+            'timestamp': now_iso(),
+            'event': 'approval_responded',
+            'milestone': milestone,
+            'decision': decision,
+            'responder_role': responder_role,
+            'confirmations': approval_step['confirmations']
+        })
+
+        return {
+            'milestone': milestone,
+            'decision': approval_step['status'],
+            'responder_role': responder_role,
+            'confirmations': approval_step['confirmations'],
+            'status': 'completed' if all_approved else ('failed' if any_rejected else 'waiting'),
+            'next_action': _determine_next_action(grading_config, step_index, approval_step['status']) if approval_step['status'] in ['approved', 'rejected'] else 'wait_for_other_approvers'
+        }
+
+    else:
+        # 单审批者节点
+        reviewer_role = approval_step['reviewer_role']
+        expected_reviewer = grading_config['reviewers'].get(reviewer_role)
+
+        # 验证权限：AI驱动者或对应审批者
+        if responder_open_id:
+            if not is_ai_driver and expected_reviewer and responder_open_id != expected_reviewer['open_id']:
+                raise PermissionError(
+                    f"Responder {responder_open_id} is not authorized to approve milestone '{milestone}'. "
+                    f"Expected: {expected_reviewer['open_id']} or AI driver: {ai_driver['open_id'] if ai_driver else 'N/A'}"
+                )
+
+        # 记录审批结果
+        approval_step['status'] = decision
+        approval_step['responded_at'] = now_iso()
+        approval_step['feedback'] = feedback
+
+        if is_ai_driver:
+            approval_step['responder'] = 'ai_driver'
+            approval_step['responder_name'] = ai_driver['name']
+        elif expected_reviewer:
+            approval_step['responder'] = reviewer_role
+            approval_step['responder_name'] = expected_reviewer['name']
+
+        # 计算响应时长
+        if 'requested_at' in approval_step:
+            requested = datetime.fromisoformat(approval_step['requested_at'].replace('Z', '+00:00'))
+            responded = datetime.now(timezone.utc)
+            response_time_seconds = (responded - requested).total_seconds()
+            approval_step['response_time_seconds'] = int(response_time_seconds)
+
+        write_json(grading_file, grading_config)
+
+        # 记录审计日志
+        audit_log = project_dir / 'audit_log.jsonl'
+        append_jsonl(audit_log, {
+            'timestamp': now_iso(),
+            'event': 'approval_responded',
+            'milestone': milestone,
+            'decision': decision,
+            'feedback': feedback,
+            'response_time_seconds': approval_step.get('response_time_seconds', 0),
+            'responder': approval_step.get('responder', 'unknown'),
+            'responder_name': approval_step.get('responder_name', 'unknown')
+        })
+
+        return {
+            'milestone': milestone,
+            'decision': decision,
+            'feedback': feedback,
+            'responder': approval_step.get('responder'),
+            'status': 'completed' if decision == 'approved' else 'failed',
+            'next_action': _determine_next_action(grading_config, step_index, decision)
+        }
 
 
 def _determine_next_action(

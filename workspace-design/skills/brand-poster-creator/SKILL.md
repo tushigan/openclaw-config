@@ -104,11 +104,18 @@ read {baseDir}/references/step-5-copywriting-approval.md
 
 ---
 
-### Step 6：创意方向确认
+### Step 6：创意方向确认（⚠️ 审批节点 - 新增 v3.1）
 
 **详细文档**：`{baseDir}/references/step-6-creative-direction.md`
 
-生成画面创意表达方案，用户确认后进入 prompt 组装和生图。
+**执行前必读**：
+```bash
+read {baseDir}/references/step-6-creative-direction.md
+```
+
+⚠️ **重要**：创意方向需要文案策划判断者 + 设计判断者双方审核确认。
+
+生成画面创意表达方案，需要文案和设计双方确认后才能进入 prompt 组装和生图。
 
 ---
 
