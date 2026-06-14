@@ -386,14 +386,70 @@ def request_approval(
         'approval_mode': approval_step.get('approval_mode', 'single')
     })
 
-    # 🔴 自动发送审批消息到飞书（绕过 Agent 回复）
+    # 🔴 自动发送审批消息到飞书（分2条发送，避免流式输出和代码块）
     try:
         from send_approval_message import send_text_message, get_current_chat_id
         chat_id = get_current_chat_id()
-        send_result = send_text_message(chat_id, approval_request['message'])
+
+        # 第1条：只发送艾特消息
+        send_result_1 = send_text_message(chat_id, approval_request['message'])
         approval_request['auto_sent'] = True
-        approval_request['message_id'] = send_result.get('message_id')
-        print(f"[自动发送] 审批消息已发送到飞书，message_id={send_result.get('message_id')}", file=sys.stderr)
+        approval_request['message_id_1'] = send_result_1.get('message_id')
+        print(f"[自动发送1] 艾特消息已发送，message_id={send_result_1.get('message_id')}", file=sys.stderr)
+
+        # 第2条：根据不同节点发送不同内容
+        if milestone == 'creative_direction_dual':
+            # 创意方向：发送表格
+            creative_file = project_dir / 'creative_direction.json'
+            if creative_file.exists():
+                creative_data = read_json(creative_file)
+                table_message = f"""| 维度 | 内容 |
+|------|------|
+| 这张海报想表达 | {creative_data.get('summary', '')} |
+| 场景概念 | {creative_data.get('scene_concept', '')} |
+| 视觉主体 | {creative_data.get('hero_focus', '')} |
+| 必须打中 | {creative_data.get('must_hit', '')} |
+| 必须避免 | {creative_data.get('must_avoid', '')} |
+
+请回复：
+- 「通过」→ 进入生图阶段
+- 「修改：具体要求」→ 调整创意方向
+- 「拒绝：原因」→ 终止项目"""
+                send_result_2 = send_text_message(chat_id, table_message)
+                approval_request['message_id_2'] = send_result_2.get('message_id')
+                print(f"[自动发送2] 创意方向表格已发送，message_id={send_result_2.get('message_id')}", file=sys.stderr)
+
+        elif milestone == 'copywriting':
+            # 文案审批：发送文案表格
+            copywriting_file = project_dir / 'copywriting.json'
+            if copywriting_file.exists():
+                copywriting_data = read_json(copywriting_file)
+                copies = copywriting_data.get('copies', [])
+
+                # 构建文案表格
+                table_rows = []
+                for copy in copies:
+                    area = copy.get('area', '')
+                    text = copy.get('text', '')
+                    font = copy.get('font_suggestion', '')
+                    table_rows.append(f"| {area} | {text} | {font} |")
+
+                table_content = "\n".join(table_rows) if table_rows else "| 无文案 | - | - |"
+
+                table_message = f"""✅ **文案策划完成**
+
+| 区域 | 上画文案 | 字体建议 |
+|---|---|---|
+{table_content}
+
+请回复：
+- 「通过」→ 进入创意方向确认
+- 「修改：具体要求」→ 调整文案
+- 「拒绝：原因」→ 终止项目"""
+                send_result_2 = send_text_message(chat_id, table_message)
+                approval_request['message_id_2'] = send_result_2.get('message_id')
+                print(f"[自动发送2] 文案表格已发送，message_id={send_result_2.get('message_id')}", file=sys.stderr)
+
     except Exception as e:
         print(f"[警告] 自动发送失败: {e}，将返回 message 让 Agent 处理", file=sys.stderr)
         approval_request['auto_sent'] = False
