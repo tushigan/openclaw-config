@@ -85,17 +85,21 @@ def send_text_message(chat_id: str, content: str, msg_type: str = "text") -> dic
     # 构造消息体
     payload = {
         "receive_id": chat_id,
-        "receive_id_type": "chat_id",
         "msg_type": msg_type,
         "content": json.dumps({
             "text": content
         })
     }
 
+    # 添加 receive_id_type 参数到 URL
+    params = {
+        "receive_id_type": "chat_id"
+    }
+
     print(f"[发送消息] chat_id={chat_id}", file=sys.stderr)
     print(f"[消息内容] {content[:100]}...", file=sys.stderr)
 
-    response = requests.post(url, headers=headers, json=payload, timeout=30)
+    response = requests.post(url, headers=headers, json=payload, params=params, timeout=30)
     result = response.json()
 
     if result.get("code") != 0:
