@@ -113,12 +113,11 @@ read {baseDir}/references/step-5-copywriting-approval.md
 read {baseDir}/references/step-6-creative-direction.md
 ```
 
-🔴 **强制格式要求**：表格必须放在 plaintext 代码块内（与文案审批格式一致）：
+🔴 **强制格式要求**：使用 Markdown 表格 + 飞书卡片 at 格式（data-user-id）：
 
 ```markdown
 {使用脚本返回的 .message 字段}
 
-\`\`\`plaintext
 | 维度 | 内容 |
 |------|------|
 | 这张海报想表达 | [summary，一句话] |
@@ -126,7 +125,6 @@ read {baseDir}/references/step-6-creative-direction.md
 | 视觉主体 | [hero_focus，简短] |
 | 必须打中 | [must_hit，逗号分隔] |
 | 必须避免 | [must_avoid，逗号分隔] |
-\`\`\`
 
 请回复：
 - 「通过」→ 进入生图阶段
@@ -135,18 +133,14 @@ read {baseDir}/references/step-6-creative-direction.md
 ```
 
 ⚠️ **关键要点**：
-- 艾特标签在正常文本中（不在代码块内）
-- 表格在 plaintext 代码块内（用 \`\`\`plaintext 包裹）
-- 与文案审批格式完全一致
+- 使用 Markdown 表格（触发流式输出卡片）
+- 脚本已生成飞书卡片支持的 at 格式（data-user-id）
+- 直接使用脚本返回的 .message 字段
 
-❌ **严格禁止**：
-- 使用 Markdown 表格（会被飞书转换成卡片，艾特失效）
-- 艾特标签在代码块内
-
-🔍 **为什么必须用 plaintext 代码块**：
-- 文案审批（✅ 成功）：艾特在外 + 表格在 plaintext 代码块内
-- 创意方向（❌ 失败）：Markdown 表格 → 被飞书渲染成卡片 → 艾特失效
-- **plaintext 代码块防止消息被转换成卡片**
+🔍 **技术原理**：
+- Markdown 表格 → 触发飞书流式输出卡片
+- `<at data-user-id="..." data-user-name="..."></at>` → 卡片内艾特生效
+- 这是飞书官方确认的卡片艾特格式
 
 ---
 
