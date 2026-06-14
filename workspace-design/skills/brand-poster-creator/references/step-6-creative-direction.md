@@ -1,5 +1,25 @@
 # Step 6：创意方向
 
+🔴🔴🔴 **强制规则（必须遵守）** 🔴🔴🔴
+
+**发送审批消息时，必须使用脚本，严禁直接回复：**
+
+```bash
+python3 $WORKSPACE_DIR/workspace-design/skills/brand-poster-creator/scripts/send_approval_message.py \
+  --content "消息内容"
+```
+
+**为什么**：
+- 直接回复 → 触发流式输出 → 飞书卡片 → 艾特失效 ❌
+- 使用脚本 → 飞书 API → 普通消息 → 艾特生效 ✅
+
+**禁止**：
+- ❌ 直接回复给用户
+- ❌ 使用 message 工具
+- ❌ 在回复中包含审批内容
+
+---
+
 ## 概述
 
 本步骤负责基于已确认信息生成画面创意表达方案，让用户在 prompt 组装之前就能清晰理解最终海报的表达方式。这是 **prompt 之前的创意对齐步骤**。
