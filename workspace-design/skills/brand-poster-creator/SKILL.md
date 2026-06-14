@@ -197,13 +197,16 @@ read {baseDir}/references/step-9-advanced-approval.md
 - ❌ **不要说"假设审批通过，我们继续"**
 - ❌ **不要跳过艾特审批者的步骤**
 - ❌ **不要发送图片后只说"请看图确认"而不触发审批流程**
+- ❌ **不要把艾特标签单独放在第一行，前面必须有标题**
 - ✅ 必须等待审批者明确回复"通过"
 - ✅ 记录审批响应时间
 - ✅ **发送成品图后立即触发设计审批（Step 8.6），不要等用户说"确认定稿"**
 
-**特别提醒**：
-- Step 6 创意方向：展示后**立即**调用 `project_grading.py request --milestone creative_direction_dual`
-- Step 8 设计审批：发送图片后**立即**调用 `project_grading.py request --milestone design`
+**特别提醒 - 艾特标签格式**：
+- ❌ 错误：`<at user_id="...">xxx</at> 创意方向确认`（光秃秃的艾特，飞书无法解析）
+- ✅ 正确：`🎬 **标题**\n\n<at user_id="...">xxx</at> 创意方向确认`（有标题）
+- Step 6 创意方向：必须按照 step-6 文档的强制格式，标题 → 艾特 → 说明 → 内容
+- Step 8 设计审批：发送图片后立即调用 `project_grading.py request --milestone design`
 - 使用脚本返回的真实艾特标签，不要手写 `@用户名`
 
 ### 3. 生图入口
@@ -252,6 +255,7 @@ read {baseDir}/references/step-9-advanced-approval.md
 | 创意方向审批 | 不要展示创意方向后不触发审批流程 | 立即调用 `project_grading.py request --milestone creative_direction_dual` |
 | 设计审批 | 不要发送图片后只说"请看图确认"而不@审批者 | 发送图片后立即调用 `project_grading.py request --milestone design` |
 | 审批艾特 | 不要手写 `@用户名` 当作艾特标签 | 使用脚本返回的 `<at user_id="...">` 真实艾特标签 |
+| 艾特格式 | 不要把艾特标签单独放第一行（无标题） | 必须：`🎬 **标题**\n\n<at>艾特</at> 说明` 格式 |
 | Logo 验收 | 不要把 `ref_order.json` 含 `logo` 当成成品 Logo 正确 | `ref_order.json` 只证明已挂载；交付前必须视觉核验成品中的 Logo 是否接近官方文件 |
 | 清理 | 不要未确认就清理项目，也不要直接 `rm` | 用户确认后运行 `cleanup_project.py --confirmed` |
 
