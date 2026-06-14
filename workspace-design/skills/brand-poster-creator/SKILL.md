@@ -8,6 +8,7 @@ metadata:
       bins:
         - python3
     emoji: "🎨"
+    streaming: false
 ---
 
 # Brand Poster Creator - 品牌海报全流程协调器
