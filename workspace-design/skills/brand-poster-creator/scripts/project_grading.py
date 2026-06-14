@@ -303,7 +303,7 @@ def request_approval(
             })
             mention_tags.append(generate_mention_tag(reviewer_info['name'], reviewer_info['open_id']))
 
-        # 添加 AI 驱动者
+        # 添加 AI 驱动者到 mention_tags（用于记录）
         if ai_driver:
             mention_tags.append(generate_mention_tag(ai_driver['name'], ai_driver['open_id']))
 
@@ -324,8 +324,10 @@ def request_approval(
 
         write_json(grading_file, grading_config)
 
-        # 生成艾特消息
-        mention_str = ' '.join(mention_tags)
+        # 生成艾特消息 - 只包含审批者，不包含 AI 驱动者
+        # 飞书限制：一次最多只能 @ 2个人
+        reviewer_mention_tags = [generate_mention_tag(r['name'], r['open_id']) for r in reviewers]
+        mention_str = ' '.join(reviewer_mention_tags)
 
         approval_request = {
             'milestone': milestone,
