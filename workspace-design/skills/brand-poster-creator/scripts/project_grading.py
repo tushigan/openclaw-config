@@ -386,6 +386,18 @@ def request_approval(
         'approval_mode': approval_step.get('approval_mode', 'single')
     })
 
+    # 🔴 自动发送审批消息到飞书（绕过 Agent 回复）
+    try:
+        from send_approval_message import send_text_message, get_current_chat_id
+        chat_id = get_current_chat_id()
+        send_result = send_text_message(chat_id, approval_request['message'])
+        approval_request['auto_sent'] = True
+        approval_request['message_id'] = send_result.get('message_id')
+        print(f"[自动发送] 审批消息已发送到飞书，message_id={send_result.get('message_id')}", file=sys.stderr)
+    except Exception as e:
+        print(f"[警告] 自动发送失败: {e}，将返回 message 让 Agent 处理", file=sys.stderr)
+        approval_request['auto_sent'] = False
+
     return approval_request
 
 
