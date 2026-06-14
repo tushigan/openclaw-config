@@ -19,6 +19,49 @@ metadata:
 
 ---
 
+## 🔴 全局强制规则（优先级最高）
+
+### 审批消息发送规则
+
+**所有审批环节（文案审批、创意方向、设计审批、高级审批）必须使用脚本发送消息：**
+
+```bash
+python3 {baseDir}/scripts/send_approval_message.py --content "消息内容"
+```
+
+🔴 **严格禁止**：
+- ❌ 直接回复给用户（会触发流式输出或代码块）
+- ❌ 使用 message 工具（可能仍有系统行为）
+- ❌ 在回复中包含审批内容
+
+🔴 **为什么必须使用脚本**：
+1. 直接回复 → 流式输出 → 飞书卡片 → 艾特失效
+2. 直接回复 → 可能触发代码块 → 表格错乱
+3. 脚本发送 → 直接调用飞书 API → 普通消息 → 艾特生效 + 表格美观
+
+🔴 **脚本使用示例**：
+```bash
+# 第1条消息（艾特或标题+表格）
+python3 $WORKSPACE_DIR/workspace-design/skills/brand-poster-creator/scripts/send_approval_message.py \
+  --content "<at user_id=\"ou_xxx\">用户名</at> 审批请求"
+
+# 第2条消息（表格或操作指引）
+python3 $WORKSPACE_DIR/workspace-design/skills/brand-poster-creator/scripts/send_approval_message.py \
+  --content "| 列1 | 列2 |
+|---|---|
+| 内容1 | 内容2 |
+
+请回复：..."
+```
+
+**脚本特性**：
+- 自动获取群聊 ID（无需手动配置）
+- 支持飞书艾特标签（`<at user_id="...">用户名</at>`）
+- 支持 Markdown 表格
+- 已验证可用（commit 76bcad084）
+
+---
+
 ## 触发词
 
 用户说出以下任意内容时激活本技能：
