@@ -113,9 +113,47 @@ read {baseDir}/references/step-5-copywriting-approval.md
 read {baseDir}/references/step-6-creative-direction.md
 ```
 
-⚠️ **重要**：创意方向需要文案策划判断者 + 设计判断者双方审核确认。
+🔴 **强制格式要求**：展示创意方向时，必须严格按照以下格式输出（不要修改）：
 
-生成画面创意表达方案，需要文案和设计双方确认后才能进入 prompt 组装和生图。
+```markdown
+🎬 **创意方向双审**
+
+<at user_id="ou_xxx">肖宁劼</at> <at user_id="ou_yyy">林育丰</at> <at user_id="ou_zzz">涂是淦</at> 创意方向已生成，请审核确认
+
+**审核说明**：需要文案策划判断者和设计判断者双方都确认，或AI驱动者确认。
+
+---
+
+**这张海报想表达**：[从 creative_direction.json 的 summary 填充]
+
+**画面呈现**：
+- 场景概念：[scene_concept]
+- 第一视觉主体：[hero_focus]
+- 构图关系：[composition_plan]
+- 文案关系：[text_visual_relationship]
+
+**必须打中**：[must_hit，列表形式]
+
+**必须避免**：[must_avoid，列表形式]
+
+---
+
+请回复：
+- 「通过」→ 创意方向审批通过，进入生图阶段
+- 「修改：具体要求」→ 调整创意方向
+- 「拒绝：原因」→ 终止项目
+```
+
+⚠️ **关键要点**：
+- 第 1 行必须是标题 `🎬 **创意方向双审**`
+- 第 3 行必须是艾特标签（从 `project_grading.py request` 返回的 `.message` 字段获取）
+- 艾特标签后紧跟审核说明
+- 使用 `---` 分隔线区分审批请求和内容展示
+
+❌ **严格禁止**：
+- 不要把艾特标签单独放在第一行（光秃秃的艾特，飞书无法解析）
+- 不要把内容展示放在艾特标签之前
+- 不要自己编写艾特标签，必须使用脚本返回的
 
 ---
 
