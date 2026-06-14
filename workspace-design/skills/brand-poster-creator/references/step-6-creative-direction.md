@@ -173,19 +173,17 @@ python3 {baseDir}/scripts/project_grading.py \
 
 ⚠️ **关键**：使用 send_approval_message.py 脚本直接发送飞书消息，完全绕过流式输出。
 
-🔴 **强制方法**：使用脚本分两次发送
+🔴 **强制方法**：使用脚本分两次发送（脚本会自动获取群聊 ID）
 
 **第1次调用脚本**（发送艾特消息）：
 ```bash
 python3 {baseDir}/scripts/send_approval_message.py \
-  --chat-id "$FEISHU_CHAT_ID" \
   --content "{使用脚本返回的 .message 字段}"
 ```
 
 **第2次调用脚本**（发送表格）：
 ```bash
 python3 {baseDir}/scripts/send_approval_message.py \
-  --chat-id "$FEISHU_CHAT_ID" \
   --content "| 维度 | 内容 |
 |------|------|
 | 这张海报想表达 | [从 creative_direction.json 提取] |
@@ -204,11 +202,9 @@ python3 {baseDir}/scripts/send_approval_message.py \
 
 第1次：
 ```bash
-CHAT_ID="oc_deb2956a37fa31823df419ab084a073f"  # 从环境变量获取
 MESSAGE='<at user_id="ou_b5d2c0a6787a3acc8bc889b15280ae11">肖宁劼</at> <at user_id="ou_2253f3cfcdb6e0ae8707cee2ea10a57c">林育丰</at> 创意方向已生成，请审核确认'
 
 python3 $WORKSPACE_DIR/workspace-design/skills/brand-poster-creator/scripts/send_approval_message.py \
-  --chat-id "$CHAT_ID" \
   --content "$MESSAGE"
 ```
 
@@ -228,15 +224,14 @@ TABLE='| 维度 | 内容 |
 - 「拒绝：原因」→ 终止项目'
 
 python3 $WORKSPACE_DIR/workspace-design/skills/brand-poster-creator/scripts/send_approval_message.py \
-  --chat-id "$CHAT_ID" \
   --content "$TABLE"
 ```
 
 🔴 **关键要点**：
 1. **必须使用脚本发送**（不是 message 工具，不是直接回复）
 2. **分两次调用脚本**（第1次艾特，第2次表格）
-3. **脚本直接调用飞书 API**（绕过 Claude Code 的所有机制）
-4. **FEISHU_CHAT_ID 从环境变量获取**（当前对话的群聊 ID）
+3. **脚本会自动获取群聊 ID**（不需要传 --chat-id 参数）
+4. **使用 exec 工具执行**（确保脚本真正执行）
 
 🔴 **严格禁止**：
 - ❌ 直接回复给用户（会触发流式输出）
@@ -247,7 +242,7 @@ python3 $WORKSPACE_DIR/workspace-design/skills/brand-poster-creator/scripts/send
 - Python 脚本 → 直接调用飞书 API
 - 完全绕过 Claude Code 的输出机制
 - 飞书 API 发送普通消息 → 艾特标签生效
-- 这是最底层的方案，100%可控
+- 脚本自动获取群聊 ID → 简化使用
 
 ---
 

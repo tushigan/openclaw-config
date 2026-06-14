@@ -32,6 +32,36 @@ def get_tenant_access_token():
 
     return result["tenant_access_token"]
 
+def get_current_chat_id():
+    """
+    从环境变量或 OpenClaw 状态文件获取当前群聊 ID
+
+    优先级：
+    1. 环境变量 FEISHU_CHAT_ID
+    2. 从 OpenClaw 会话状态读取
+    3. 默认值（从测试记录中获取）
+    """
+    # 1. 环境变量
+    chat_id = os.getenv("FEISHU_CHAT_ID")
+    if chat_id:
+        return chat_id
+
+    # 2. 从 OpenClaw 状态文件读取（如果存在）
+    state_dir = Path(os.getenv("OPENCLAW_STATE_DIR", Path.home() / ".openclaw" / "state"))
+    session_file = state_dir / "current_session.json"
+    if session_file.exists():
+        try:
+            with open(session_file) as f:
+                session_data = json.load(f)
+                chat_id = session_data.get("feishu_chat_id")
+                if chat_id:
+                    return chat_id
+        except Exception:
+            pass
+
+    # 3. 默认值（当前测试使用的群聊 ID）
+    return "oc_deb2956a37fa31823df419ab084a073f"
+
 def send_text_message(chat_id: str, content: str, msg_type: str = "text") -> dict:
     """
     发送文本消息到飞书群聊
@@ -86,13 +116,16 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="发送审批消息到飞书")
-    parser.add_argument("--chat-id", required=True, help="飞书群聊 ID (oc_xxx)")
+    parser.add_argument("--chat-id", help="飞书群聊 ID (oc_xxx)，如果不提供则自动获取")
     parser.add_argument("--content", required=True, help="消息内容（支持 Markdown 和艾特标签）")
     parser.add_argument("--msg-type", default="text", help="消息类型（默认: text）")
 
     args = parser.parse_args()
 
-    result = send_text_message(args.chat_id, args.content, args.msg_type)
+    # 如果没有提供 chat_id，尝试自动获取
+    chat_id = args.chat_id or get_current_chat_id()
+
+    result = send_text_message(chat_id, args.content, args.msg_type)
 
     # 输出结果
     print(json.dumps(result, ensure_ascii=False, indent=2))
