@@ -209,6 +209,29 @@ read {baseDir}/references/step-9-advanced-approval.md
 - Step 8 设计审批：发送图片后立即调用 `project_grading.py request --milestone design`
 - 使用脚本返回的真实艾特标签，不要手写 `@用户名`
 
+**Step 6 创意方向强制格式（必须遵守）**：
+```markdown
+🎬 **创意方向双审**
+
+<at user_id="ou_xxx">肖宁劼</at> <at user_id="ou_yyy">林育丰</at> <at user_id="ou_zzz">涂是淦</at> 创意方向已生成，请审核确认
+
+**审核说明**：需要文案策划判断者和设计判断者双方都确认，或AI驱动者确认。
+
+---
+
+**这张海报想表达**：[summary]
+**画面呈现**：[详细展示]
+**必须打中**：[must_hit]
+**必须避免**：[must_avoid]
+
+---
+
+请回复：
+- 「通过」→ 创意方向审批通过，进入生图阶段
+- 「修改：具体要求」→ 调整创意方向
+- 「拒绝：原因」→ 终止项目
+```
+
 ### 3. 生图入口
 
 **不要绕过 `execute_generation.py` 直接调用 `gpt-image2-gen`。**
