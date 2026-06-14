@@ -114,10 +114,11 @@ read {baseDir}/references/step-5-copywriting-approval.md
 read {baseDir}/references/step-6-creative-direction.md
 ```
 
-🔴 **强制格式要求**：使用普通 Markdown 表格（非流式，艾特生效，表格美观）：
+🔴 **强制格式要求**：使用普通消息（非流式输出）+ Markdown 表格
 
-```markdown
-{使用脚本返回的 .message 字段}
+**实际发送示例**（直接发送，不要放在代码块内）：
+
+<at user_id="ou_xxx">肖宁劼</at> <at user_id="ou_yyy">林育丰</at> 创意方向已生成，请审核确认
 
 | 维度 | 内容 |
 |------|------|
@@ -131,17 +132,16 @@ read {baseDir}/references/step-6-creative-direction.md
 - 「通过」→ 进入生图阶段
 - 「修改：具体要求」→ 调整创意方向
 - 「拒绝：原因」→ 终止项目
-```
 
 ⚠️ **关键要点**：
-- 使用 Markdown 表格（不用 plaintext 代码块）
-- 飞书前端正确渲染表格，对齐美观
-- 艾特标签使用 user_id 格式（普通消息）
+- **直接发送上述格式**（不要使用代码块，不要使用流式输出）
+- 使用 Markdown 表格（前端渲染美观）
+- 艾特标签使用脚本返回的 message 字段
 
-🔍 **技术原理**：
-- 普通消息（非流式）→ 艾特生效
-- Markdown 表格 → 前端渲染美观
-- 简单可靠的方案
+🔴 **严格禁止**：
+- ❌ 使用流式输出（会变成卡片，艾特失效）
+- ❌ 在艾特前添加说明文字（如"✅ 文案已确认..."）
+- ❌ 使用代码块包裹消息
 
 ---
 
