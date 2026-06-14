@@ -325,12 +325,8 @@ def request_approval(
         write_json(grading_file, grading_config)
 
         # 生成艾特消息 - 只包含审批者，不包含 AI 驱动者
-        # 飞书限制：流式输出使用卡片，需要使用特殊格式的 at 标签
-        reviewer_mention_tags = []
-        for r in reviewers:
-            # 使用飞书卡片支持的 at 标签格式
-            tag = f'<at data-user-id="{r["open_id"]}" data-user-name="{r["name"]}"></at>'
-            reviewer_mention_tags.append(tag)
+        # 使用普通消息格式（非流式卡片）
+        reviewer_mention_tags = [generate_mention_tag(r['name'], r['open_id']) for r in reviewers]
         mention_str = ' '.join(reviewer_mention_tags)
 
         approval_request = {

@@ -171,7 +171,7 @@ python3 {baseDir}/scripts/project_grading.py \
 
 ### 6.5.3 向用户发送审批请求
 
-⚠️ **关键**：使用飞书卡片支持的 at 标签格式（data-user-id），让流式输出中的艾特生效。
+⚠️ **关键**：使用普通 Markdown 格式，但必须使用普通消息（非流式）的 at 标签格式。
 
 🔴 **强制格式**：
 
@@ -192,9 +192,9 @@ python3 {baseDir}/scripts/project_grading.py \
 - 「拒绝：原因」→ 终止项目
 ```
 
-**示例**（使用脚本实际返回值，注意 at 标签使用 data-user-id 格式）：
+**示例**（使用脚本实际返回值）：
 ```markdown
-<at data-user-id="ou_xxx" data-user-name="肖宁劼"></at> <at data-user-id="ou_yyy" data-user-name="林育丰"></at> 创意方向已生成，请审核确认
+<at user_id="ou_xxx">肖宁劼</at> <at user_id="ou_yyy">林育丰</at> 创意方向已生成，请审核确认
 
 | 维度 | 内容 |
 |------|------|
@@ -211,14 +211,14 @@ python3 {baseDir}/scripts/project_grading.py \
 ```
 
 🔴 **关键要点**：
-1. **使用 Markdown 表格**（触发流式输出卡片）
-2. **at 标签使用 data-user-id 格式**（飞书卡片支持）
-3. **脚本已生成正确格式的 at 标签**（data-user-id + data-user-name）
+1. **使用 Markdown 表格**（不用 plaintext 代码块，前端渲染更好看）
+2. **at 标签使用 user_id 格式**（普通消息格式，不是 data-user-id）
+3. **第1行艾特 + 第2行空行 + 第3行表格**
 
 🔴 **技术原理**：
-- Markdown 表格 → 触发飞书流式输出卡片
-- `<at data-user-id="..." data-user-name="..."></at>` → 卡片内艾特生效
-- 这是飞书官方确认的卡片艾特格式
+- 不用流式输出 → 普通消息 → 艾特生效
+- Markdown 表格 → 飞书前端正确渲染
+- 不用 plaintext 代码块 → 表格对齐，更美观
 
 ---
 

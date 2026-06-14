@@ -113,7 +113,7 @@ read {baseDir}/references/step-5-copywriting-approval.md
 read {baseDir}/references/step-6-creative-direction.md
 ```
 
-🔴 **强制格式要求**：使用 Markdown 表格 + 飞书卡片 at 格式（data-user-id）：
+🔴 **强制格式要求**：使用普通 Markdown 表格（非流式，艾特生效，表格美观）：
 
 ```markdown
 {使用脚本返回的 .message 字段}
@@ -133,14 +133,14 @@ read {baseDir}/references/step-6-creative-direction.md
 ```
 
 ⚠️ **关键要点**：
-- 使用 Markdown 表格（触发流式输出卡片）
-- 脚本已生成飞书卡片支持的 at 格式（data-user-id）
-- 直接使用脚本返回的 .message 字段
+- 使用 Markdown 表格（不用 plaintext 代码块）
+- 飞书前端正确渲染表格，对齐美观
+- 艾特标签使用 user_id 格式（普通消息）
 
 🔍 **技术原理**：
-- Markdown 表格 → 触发飞书流式输出卡片
-- `<at data-user-id="..." data-user-name="..."></at>` → 卡片内艾特生效
-- 这是飞书官方确认的卡片艾特格式
+- 普通消息（非流式）→ 艾特生效
+- Markdown 表格 → 前端渲染美观
+- 简单可靠的方案
 
 ---
 
