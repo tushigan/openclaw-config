@@ -58,6 +58,60 @@ def _ensure_brand_dirs(brand_dir: Path) -> None:
         (brand_dir / relative).mkdir(parents=True, exist_ok=True)
 
 
+def _sync_brand_to_registry(
+    workspace_root: Path,
+    client_name: str,
+    brand_name: str,
+    profile: dict[str, Any],
+) -> None:
+    """同步品牌到全局注册表（v2.0格式）"""
+    registry_path = workspace_root / "projects" / "_registry.json"
+
+    if registry_path.exists():
+        registry = _read_json(registry_path)
+    else:
+        registry = {
+            "version": "2.0",
+            "last_updated": _timestamp(),
+            "clients": [],
+            "brands": [],
+            "projects": [],
+            "tasks": []
+        }
+
+    # 确保客户已注册
+    client_id = None
+    for client in registry.get("clients", []):
+        if client.get("name") == client_name:
+            client_id = client.get("id")
+            break
+
+    if not client_id:
+        # 生成客户ID
+        client_id = f"CLI-{_timestamp().replace(':', '').replace('-', '').replace('.', '')[:14]}-{uuid4().hex[:6]}"
+        registry["clients"].append({
+            "id": client_id,
+            "name": client_name,
+            "created_at": _timestamp()
+        })
+
+    # 确保品牌已注册
+    brand_id = profile.get("brand_id")
+    if not brand_id:
+        brand_id = f"BRD-{_timestamp().replace(':', '').replace('-', '').replace('.', '')[:14]}-{uuid4().hex[:6]}"
+
+    brand_exists = any(b.get("id") == brand_id for b in registry.get("brands", []))
+    if not brand_exists:
+        registry["brands"].append({
+            "id": brand_id,
+            "name": brand_name,
+            "created_at": _timestamp()
+        })
+
+    registry["last_updated"] = _timestamp()
+    _write_json(registry_path, registry)
+
+
 def _update_registry(
     workspace_root: Path,
     brand_name: str,
@@ -146,6 +200,10 @@ def create_or_get_brand(
     )
 
     _write_json(profile_path, profile)
+
+    # ⚠️ 关键修复：自动更新全局注册表
+    _sync_brand_to_registry(workspace_root, client_name, brand_name, profile)
+
     return brand_dir
 
 

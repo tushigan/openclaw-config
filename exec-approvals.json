@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781532024540,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastUsedAt": 1781533886832,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py \"然利\"",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -52,8 +52,8 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781526635493,
-          "lastUsedCommand": "ls -lah /tmp/ | grep audit",
+          "lastUsedAt": 1781533893197,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace/projects/",
           "lastResolvedPath": "/bin/ls"
         },
         {

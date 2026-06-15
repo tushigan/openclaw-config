@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "brand_id": "验收测试品牌_视频",
+  "brand_name": "验收测试品牌_视频",
+  "brand_name_en": "",
+  "industry": "帮我做一个验收测试品牌_视频的",
+  "category": "",
+  "positioning": "从手工感升级为更专业、现代、高级的",
+  "core_values": [
+    "专业",
+    "现代",
+    "高级"
+  ],
+  "brand_tone": "专业、现代、高级",
+  "target_audience": "渠道客户、经销商",
+  "vi_guidelines": {
+    "primary_colors": [],
+    "secondary_colors": [],
+    "fonts": [],
+    "logo_usage_notes": ""
+  },
+  "brand_assets_dir": "_brand-assets/",
+  "historical_campaigns": [],
+  "key_contacts": [],
+  "notes": "",
+  "created_at": "2026-06-15T22:11:00.277677+08:00",
+  "updated_at": "2026-06-15T22:11:00.277677+08:00"
+}
