@@ -12,7 +12,11 @@ from agency_project import update_brand_profile_field
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Update brand profile field")
-    parser.add_argument("--workspace-root", required=True, help="Workspace root directory")
+    parser.add_argument(
+        "--workspace-root",
+        default="/Users/a123/.openclaw",
+        help="Workspace root directory (default: /Users/a123/.openclaw)"
+    )
     parser.add_argument("--brand-name", required=True, help="Brand name")
     parser.add_argument("--field", required=True, help="Field name (supports nested like 'vi_guidelines.primary_colors')")
     parser.add_argument("--value", required=True, help="New value (JSON string for lists/objects)")
@@ -22,6 +26,7 @@ def main() -> None:
         default="replace",
         help="Operation: 'replace' to replace value, 'append' to append to list",
     )
+    parser.add_argument("--json", action="store_true", help="Output JSON format")
 
     args = parser.parse_args()
 
@@ -41,7 +46,13 @@ def main() -> None:
         operation=args.operation,
     )
 
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    if args.json:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        if result["success"]:
+            print(f"✅ {result['message']}")
+        else:
+            print(f"❌ {result['message']}")
 
 
 if __name__ == "__main__":

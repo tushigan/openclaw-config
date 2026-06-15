@@ -12,7 +12,11 @@ from agency_project import find_brand_profile
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Find brand profile")
-    parser.add_argument("--workspace-root", required=True, help="Workspace root directory")
+    parser.add_argument(
+        "--workspace-root",
+        default="/Users/a123/.openclaw",
+        help="Workspace root directory (default: /Users/a123/.openclaw)"
+    )
     parser.add_argument("--brand-name", required=True, help="Brand name to search")
 
     args = parser.parse_args()

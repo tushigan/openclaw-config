@@ -12,7 +12,11 @@ from agency_project import detect_conflicts
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Detect brand profile conflicts")
-    parser.add_argument("--workspace-root", required=True, help="Workspace root directory")
+    parser.add_argument(
+        "--workspace-root",
+        default="/Users/a123/.openclaw",
+        help="Workspace root directory (default: /Users/a123/.openclaw)"
+    )
     parser.add_argument("--brand-name", required=True, help="Brand name")
     parser.add_argument("--new-info", required=True, help="New brand information (JSON string)")
 
