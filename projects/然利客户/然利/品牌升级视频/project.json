@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "project_id": "PRJ-20260615-ranli-brand-video",
+  "project_name": "品牌升级视频",
+  "project_type": "视频制作",
+  "brand_name": "然利",
+  "client_name": "然利客户",
+  "description": "然利 Logo/品牌形象升级视频，30秒横版16:9，分4段故事板展示从手工感到专业品牌形象的升级过程",
+  "goals": [
+    "制作品牌升级宣传视频",
+    "展示Logo从手工感到现代专业的升级过程",
+    "体现品牌招商形象和终端展示价值",
+    "通过4段故事板完整呈现品牌升级历程"
+  ],
+  "status": "active",
+  "start_date": "2026-06-15",
+  "target_completion_date": null,
+  "actual_completion_date": null,
+  "created_at": "2026-06-15T09:00:00+08:00",
+  "updated_at": "2026-06-15T23:29:49.269300",
+  "notes": "基于聊天记录补录的项目档案，原始工作在workspace-design中进行"
+}

@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781536397844,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/projects/scripts/list_active_projects.py",
+          "lastUsedAt": 1781537420523,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -304,8 +304,8 @@
           "id": "shared-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781530472767,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace/outputs/jizhi_milk_front_prompt_short.txt --ref-product /Users/a123/.openclaw/workspace/.openclaw-inbound-media/c18c0501-f43e-414f-ab26-ea706e349fce.jpg -s 1024x1024 -o /Users/a123/.openclaw/workspace/images/jizhi_milk_front_v1.png",
+          "lastUsedAt": 1781536886357,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace/outputs/milk_caps_blue_prompt.txt --ref-base /Users/a123/.openclaw/workspace-design/inputs/milk_two_pack_caps_source.png -s 1024x1024 -o /Users/a123/.openclaw/workspace-design/outputs/milk_two_pack_caps_blue.png",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -335,16 +335,16 @@
           "id": "shared-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1781518257384,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/639aeac3-99c2-4ad8-a675-6296d9e6766d.jpg /Users/a123/.openclaw/workspace-design/inputs/aldi_replace_20260615_1810/scene_quality_ref_fig1.jpg",
+          "lastUsedAt": 1781537541932,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/b93464cb-e952-41db-bd6f-6ca32b1556fc.png /Users/a123/.openclaw/workspace-design/inputs/milk_two_pack_caps_source_v2.png",
           "lastResolvedPath": "/bin/cp"
         },
         {
           "id": "shared-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1781527263658,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images/yellow_scene_templates_flat_20260615 /Users/a123/.openclaw/workspace/outputs/yellow_scene_templates_flat_20260615",
+          "lastUsedAt": 1781536641754,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/inputs /Users/a123/.openclaw/workspace-design/outputs && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/30c833b2-760f-422e-979e-0667e690f055.png /Users/a123/.openclaw/workspace-design/inputs/milk_two_pack_caps_source.png",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -437,9 +437,9 @@
           "id": "shared-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1781251103998,
-          "lastUsedCommand": "find /Users/a123/.openclaw/agents/main-shared/sessions -maxdepth 3 -type f | sed -n '1,80p'; echo '---'; find /Users/a123/.openclaw/agents/main-shared/sessions -type f | grep -F '2ffc2292-0bca-4970-baa3-1da8ee1856f4'",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781537530055,
+          "lastUsedCommand": "sed -n '1240,1335p' /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py",
+          "lastResolvedPath": "/usr/bin/sed"
         },
         {
           "id": "shared-grep",
@@ -1121,8 +1121,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781531446196,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/skills/session-debug-export/scripts/export_chat_report.py --workspace /Users/a123/.openclaw --session-key current --issue \"聊天记录导出\" --agent-name \"设计助手\"",
+          "lastUsedAt": 1781536736355,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1181,8 +1181,8 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781531463398,
-          "lastUsedCommand": "ls -lh \"/Users/a123/Downloads/openclaw 问题汇总/20260615-215047-oc_deb2956a37fa31823df419ab084a073f-thread-omt_194a3945448e9b91-聊天记录导出.md\"",
+          "lastUsedAt": 1781536782336,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-design/inputs /Users/a123/.openclaw/workspace-design/outputs && find /Users/a123/.openclaw -maxdepth 4 -type f \\( -name '*edit*.py' -o -name 'generate.py' -o -name '*gpt*image*.py' \\) | sed 's#^#/##' | head -80",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -1234,9 +1234,9 @@
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1781518142744,
-          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/omni_psd_20260615_1802_1k_py311 -maxdepth 3 -type f | head -80",
-          "lastResolvedPath": "/usr/bin/find"
+          "lastUsedAt": 1781536782340,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-design/inputs /Users/a123/.openclaw/workspace-design/outputs && find /Users/a123/.openclaw -maxdepth 4 -type f \\( -name '*edit*.py' -o -name 'generate.py' -o -name '*gpt*image*.py' \\) | sed 's#^#/##' | head -80",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-tail",
@@ -1250,9 +1250,9 @@
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1781520631976,
-          "lastUsedCommand": "sed -n '1,220p' /Users/a123/.openclaw/skills/omni-vision-psd-extractor/scripts/runtime_config.py && printf '\\n---\\n' && sed -n '200,360p' /Users/a123/.openclaw/skills/omni-vision-psd-extractor/scripts/extract_layers.py",
-          "lastResolvedPath": "/usr/bin/sed"
+          "lastUsedAt": 1781536782339,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-design/inputs /Users/a123/.openclaw/workspace-design/outputs && find /Users/a123/.openclaw -maxdepth 4 -type f \\( -name '*edit*.py' -o -name 'generate.py' -o -name '*gpt*image*.py' \\) | sed 's#^#/##' | head -80",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
@@ -1309,9 +1309,9 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1781524869775,
-          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781524625/raw/background.result.json; printf '\\n--- foreground ---\\n'; cat /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781524625/raw/foreground.result.json; printf '\\n--- outputs ---\\n'; find /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781524625 -maxdepth 2 -type f | sort",
-          "lastResolvedPath": "/bin/cat"
+          "lastUsedAt": 1781536782338,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-design/inputs /Users/a123/.openclaw/workspace-design/outputs && find /Users/a123/.openclaw -maxdepth 4 -type f \\( -name '*edit*.py' -o -name 'generate.py' -o -name '*gpt*image*.py' \\) | sed 's#^#/##' | head -80",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "34352226-bed6-4857-b096-abe0169a1f0d",
