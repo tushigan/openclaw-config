@@ -10,6 +10,7 @@ import threading
 import time
 import urllib.error
 import urllib.request
+import uuid
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -235,6 +236,9 @@ def _run_openai_image_edits(prompt, source_path, raw_out, config, suggested_size
     """
     使用 OpenAI /v1/images/edits 格式调用 gpt-image-2-pro
     """
+    def log(message: str) -> None:
+        print(f"[OpenAI image edits] {message}", file=sys.stderr)
+
     # 解析尺寸
     try:
         w, h = map(int, suggested_size.lower().split('x'))
@@ -302,18 +306,36 @@ def _run_openai_image_edits(prompt, source_path, raw_out, config, suggested_size
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=240) as response:
+        with urllib.request.urlopen(request, timeout=600) as response:  # 增加到 10 分钟
             response_text = response.read().decode("utf-8", errors="replace")
             data = json.loads(response_text)
     except urllib.error.HTTPError as exc:
         body_text = exc.read().decode("utf-8", errors="replace")
         last_error = f"HTTP {exc.code}: {body_text[:1000]}"
+
+        # 详细的错误日志
+        log("❌ API 请求失败:")
+        log(f"   HTTP 状态码: {exc.code}")
+        log(f"   端点: {config['endpoint']}")
+        log(f"   模型: {config['model']}")
+        log(f"   API Key (前10位): {config['api_key'][:10]}...")
+        log(f"   响应详情: {body_text[:500]}")
+
+        if exc.code == 401:
+            log("⚠️  认证失败 - 请检查:")
+            log(f"   1. API Key 是否有效（登录 {config['base_url']} 验证）")
+            log(f"   2. Key 是否有访问 {config['model']} 的权限")
+            log(f"   3. 端点 {config['endpoint']} 是否正确")
+        elif exc.code == 429:
+            log("⚠️  速率限制 - 建议等待 5 分钟后重试")
+
         result_path.write_text(json.dumps({
             "status": "error",
             "api_provider": config["provider"],
             "api_base_url": config["base_url"],
             "model": config["model"],
             "endpoint": config["endpoint"],
+            "http_code": exc.code,
             "error": last_error,
         }, ensure_ascii=False, indent=2), encoding="utf-8")
         return FinishedProcess(1, "", last_error)
@@ -384,60 +406,10 @@ def _run_openai_image_edits(prompt, source_path, raw_out, config, suggested_size
 
 
 def _run_gemini_generate(prompt, source_path, raw_out, config, suggested_size, source_url, result_path):
-
-def _run_gemini_generate(prompt, source_path, raw_out, config, suggested_size, source_url, result_path):
     """
     使用 Gemini API 格式生成图片（URL 传输模式）
     """
     # 如果没有提供 source_url，则上传到 Cloudinary
-    if not source_url:
-        try:
-            source_url = upload_to_cloudinary(source_path)
-        except Exception as exc:
-            error = f"Failed to upload source image to Cloudinary: {exc}"
-            result_path.write_text(json.dumps({
-                "status": "error",
-                "api_provider": config["provider"],
-                "api_base_url": config["base_url"],
-                "model": config["model"],
-                "error": error,
-            }, ensure_ascii=False, indent=2), encoding="utf-8")
-            return FinishedProcess(1, "", error)
-
-    # 计算宽高比和尺寸
-    aspect_ratio = guess_aspect_ratio(suggested_size)
-    image_size = guess_banana_size(suggested_size)
-
-    # 构建 Gemini API 请求 payload（URL 模式）
-    payload = {
-        "contents": [{
-            "role": "user",
-            "parts": [
-                {"text": f"{source_url} {prompt}"}
-            ]
-        }],
-        "generationConfig": {
-            "responseModalities": ["IMAGE"],
-            "imageConfig": {
-                "aspectRatio": aspect_ratio,
-                "imageSize": image_size
-            }
-        }
-    }
-
-    # 发送请求
-    api_url = f"{config['endpoint']}?key={config['api_key']}"
-    request = urllib.request.Request(
-        api_url,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-
-    try:
-        with urllib.request.urlopen(request, timeout=240) as response:
-            response_text = response.read().decode("utf-8", errors="replace")
-            data = json.loads(response_text)
     if not source_url:
         try:
             source_url = upload_to_cloudinary(source_path)
@@ -536,6 +508,9 @@ def _run_gemini_generate(prompt, source_path, raw_out, config, suggested_size, s
         "output_path": str(raw_out),
         "transport_mode": "cloudinary_url",
         "source_url": source_url,
+        "suggested_size": suggested_size,
+        "aspect_ratio": aspect_ratio,
+        "image_size": image_size,
     }, ensure_ascii=False, indent=2), encoding="utf-8")
     return FinishedProcess(0, str(raw_out), "")
 
@@ -564,6 +539,27 @@ def send_feishu_image(path: Path, user_id: str, chat_id: str, key: str, name: st
             print(f"[{key}][deliver:error] Failed to execute lark-cli for {path.name}: {e}", file=sys.stderr)
             sys.stdout.flush()
 
+
+def build_extraction_prompt(task: dict, script_dir=None) -> str:
+    # 背景和前景是两条固定语义链路，不能被 manifest 里的同名 layer 或 prompt 覆盖。
+    script_dir = script_dir or Path(__file__).resolve().parent
+    wanwu_path = script_dir.parent / "references" / "万物提取.md"
+    yuansu_path = script_dir.parent / "references" / "元素整理.md"
+    task_kind = task.get("kind", "")
+    prompt = task.get("prompt_spec") or task.get("prompt") or ""
+
+    if task_kind == "background":
+        wanwu_text = wanwu_path.read_text(encoding="utf-8") if wanwu_path.exists() else ""
+        return f"将图片中的背景提取出来。\n\n{wanwu_text}".strip()
+    if task_kind == "foreground" or prompt.lower() in ["", "foreground"]:
+        yuansu_text = yuansu_path.read_text(encoding="utf-8") if yuansu_path.exists() else ""
+        return yuansu_text.strip()
+    if prompt.lower() == "background":
+        wanwu_text = wanwu_path.read_text(encoding="utf-8") if wanwu_path.exists() else ""
+        return f"将图片中的背景提取出来。\n\n{wanwu_text}".strip()
+    return prompt
+
+
 def process_single_task(task, args, env, generator_path, remove_chroma_script, manifest, source_path, state, state_path, anchor_key, source_url=None, is_parallel=True):
     global completed_count
     key = task["key"]
@@ -586,20 +582,7 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
     safe_log(f"Starting semantic extraction layer: {task['name']} (group={task['group']})")
 
     # == 核心：组装提取 Prompt ==
-    prompt = task.get("prompt_spec") or task.get("prompt")
-    if not prompt or prompt.lower() in ["", "foreground", "background"]:
-        script_dir = Path(__file__).resolve().parent
-        wanwu_path = script_dir.parent / "references" / "万物提取.md"
-        yuansu_path = script_dir.parent / "references" / "元素整理.md"
-
-        if task["kind"] == "background":
-            # 第一个 API 请求（背景层）：固定提示词 = "将图片中的背景提取出来" + 万物提取.md 完整内容
-            wanwu_text = wanwu_path.read_text(encoding="utf-8") if wanwu_path.exists() else ""
-            prompt = f"将图片中的背景提取出来。\n\n{wanwu_text}"
-        else:
-            # 第二个 API 请求（前景层）：固定提示词 = 元素整理.md 完整内容
-            yuansu_text = yuansu_path.read_text(encoding="utf-8") if yuansu_path.exists() else ""
-            prompt = yuansu_text
+    prompt = build_extraction_prompt(task)
 
     suggested_size = task["size_plan"]["suggested_size"]
     raw_out = Path(task["raw_path"])

@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "brand_id": "测试品牌b",
+  "brand_name": "测试品牌B",
+  "brand_name_en": "",
+  "industry": "科技互联网",
+  "category": "",
+  "positioning": "定位：面向企业客户的高端SaaS平台",
+  "core_values": [
+    "专业",
+    "创新",
+    "用户第一",
+    "持续创新"
+  ],
+  "brand_tone": "专业、可靠、创新、领先",
+  "target_audience": "中大型企业IT决策者",
+  "vi_guidelines": {
+    "primary_colors": [],
+    "secondary_colors": [],
+    "fonts": [],
+    "logo_usage_notes": ""
+  },
+  "brand_assets_dir": "_brand-assets/",
+  "historical_campaigns": [],
+  "key_contacts": [],
+  "notes": "",
+  "created_at": "2026-06-15T22:07:52.308493+08:00",
+  "updated_at": "2026-06-15T22:07:52.312963+08:00"
+}

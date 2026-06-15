@@ -232,6 +232,92 @@ python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
 - 不可为了"方便"自动使用新信息，这会破坏品牌视觉一致性
 - 更新档案时记录原因，便于后续追溯
 
+#### 1.2.6 品牌任务强制档案检查（⚠️ 强制执行，不可跳过）
+
+**适用范围**：所有涉及品牌视觉的任务（海报、产品摄影、详情页、包装设计、品牌视频等）
+
+**执行时机**：任务开始前，获取 skill 参数后、正式生成前
+
+**强制检查流程**：
+
+1. **识别品牌名称**
+   - 从任务描述、用户对话、brief 中提取品牌名
+   - 关键词：品牌名、客户名、项目名
+
+2. **调用强制检查脚本**
+   ```bash
+   python3 /Users/a123/.openclaw/skills/boss/scripts/ensure_brand_profile.py \
+     --brand "品牌名" \
+     --extract-from "任务描述全文" \
+     --json
+   ```
+
+3. **处理检查结果**
+   
+   **情况 A：档案已存在** (`exists: true`)
+   - ✅ 继续执行任务
+   - 从档案读取品牌信息（定位、调性、VI 规范）
+   
+   **情况 B：档案不存在，未自动创建** (`exists: false, created: false`)
+   - ⚠️ **暂停任务**
+   - 向用户展示提示信息
+   - 提供选项：
+     1. **创建品牌档案**（推荐）- 输入品牌信息并创建
+     2. **跳过建档继续任务** - 本次不建档，但记录缺失
+   - 用户选择"创建"后，收集品牌信息并调用：
+     ```bash
+     python3 /Users/a123/.openclaw/skills/boss/scripts/ensure_brand_profile.py \
+       --brand "品牌名" \
+       --client "客户名" \
+       --extract-from "任务描述全文" \
+       --auto-create \
+       --json
+     ```
+   
+   **情况 C：档案已自动创建** (`exists: false, created: true`)
+   - ✅ 继续执行任务
+   - 通知用户："已为【品牌名】自动创建档案，提取的信息：..."
+
+4. **任务完成后的信息回写**
+   
+   任务执行过程中如果发现新的品牌信息（用户补充的调性、视觉偏好、VI 规范），在任务完成后自动补充到档案：
+   
+   ```bash
+   # 检测新信息
+   python3 /Users/a123/.openclaw/skills/boss/scripts/detect_brand_conflicts.py \
+     --workspace-root /Users/a123/.openclaw \
+     --brand-name "品牌名" \
+     --new-info '{"brand_tone": "专业、现代"}'
+   
+   # 自动补充（低严重性）
+   python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
+     --workspace-root /Users/a123/.openclaw \
+     --brand-name "品牌名" \
+     --field "brand_tone" \
+     --value "专业、现代" \
+     --operation replace
+   ```
+
+**违反后果**：
+
+- ❌ **不允许**"为了尽快出产物而跳过档案检查"
+- ❌ **不允许**"档案不存在时直接用对话 brief 继续做"
+- ❌ 跳过检查会导致：
+  - 品牌信息无法积累
+  - 后续任务无法复用品牌知识
+  - 用户需要每次重复提供相同信息
+  - 品牌视觉一致性无法保证
+
+**为什么这是强制规则？**
+
+品牌档案是所有品牌任务的基础设施。跳过建档看似"节省时间"，实际是"欠技术债"：
+- 第 1 次任务：跳过建档，快 30 秒
+- 第 2 次任务：用户重复提供品牌信息，浪费 2 分钟
+- 第 3 次任务：信息不一致，返工 10 分钟
+- 第 N 次任务：品牌知识完全丢失，无法维护一致性
+
+**正确的优先级**：建档 > 快速出产物
+
 ### 1.3 生图提示词撰写规范
 - **长度控制**：提示词控制在 150-200 字符以内（约 450-600 字节）
 - **核心优先**：优先描述风格 + 主体 + 氛围，细节按需添加

@@ -1,0 +1,49 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-14T08:39:40.820Z",
+  "traceId": "76a61484-8233-41cf-89ac-88871f9e439e",
+  "sessionId": "76a61484-8233-41cf-89ac-88871f9e439e",
+  "sessionKey": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194ba142e6169c9c",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 56818,
+    "output": 205,
+    "cacheRead": 18432,
+    "total": 75455
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 56818,
+      "output": 205,
+      "cacheRead": 18432,
+      "cacheWrite": 0,
+      "reasoningTokens": 0,
+      "total": 75455
+    },
+    "lastCacheTouchAt": 1781425213143
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "有的。\n\n这一轮创意审批第一行已经 at 了对应三个人：\n\n- 肖宁劼：文案策划判断者\n- 林育丰：设计判断者\n- 涂是淦：AI 驱动者 / 项目发起人\n\n格式也已按你更新后的 skill 来：第 1 行艾特，第 2 行空行，第 3 行直接表格。"
+  ],
+  "finalPromptText": "Conversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"chat:oc_deb2956a37fa31823df419ab084a073f#__feishu_reply_to=om_x100b6dd20d67c8a0b13a5231864a0ca&__feishu_thread_id=omt_194ba142e6169c9c\",\n  \"message_id\": \"om_x100b6dd20d67c8a0b13a5231864a0ca\",\n  \"sender_id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"conversation_label\": \"oc_deb2956a37fa31823df419ab084a073f\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Sun 2026-06-14 16:20:10 GMT+8\",\n  \"group_subject\": \"oc_deb2956a37fa31823df419ab084a073f\",\n  \"topic_id\": \"omt_194ba142e6169c9c\",\n  \"is_group_chat\": true,\n  \"was_mentioned\": true,\n  \"has_reply_context\": true\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_ade9d49cd1dff5315774a6cae2479938)\",\n  \"id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"name\": \"涂是淦\"\n}\n```\n\nReply target of current user message (untrusted, for context):\n```json\n{\n  \"body\": \"[message_id=om_x100b6dd6d6718d38b30b3895b77cf48] 涂是淦: @生图高手 我要做一张海报\"\n}\n```\n\n这一轮你at对应的人了吗？",
+  "itemLifecycle": {
+    "startedCount": 0,
+    "completedCount": 0,
+    "activeCount": 0
+  },
+  "toolMetas": [],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

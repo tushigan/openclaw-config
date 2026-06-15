@@ -94,6 +94,55 @@ python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
 - 定位变更可能需要回溯已确认的策略方向
 - 更新档案时记录变更原因
 
+#### 0.05.5 品牌任务强制档案检查（⚠️ 强制执行，不可跳过）
+
+**适用范围**：所有涉及品牌策略的任务（品牌定位、传播策略、营销方案、叙事结构等）
+
+**执行时机**：任务开始前，理解需求后、制定策略前
+
+**强制检查流程**：
+
+1. **识别品牌名称**
+   - 从任务描述、用户对话、brief 中提取品牌名
+
+2. **调用强制检查脚本**
+   ```bash
+   python3 /Users/a123/.openclaw/skills/boss/scripts/ensure_brand_profile.py \
+     --brand "品牌名" \
+     --extract-from "任务描述全文" \
+     --json
+   ```
+
+3. **处理检查结果**
+   
+   **情况 A：档案已存在** (`exists: true`)
+   - ✅ 继续执行任务
+   - 从档案读取品牌信息（定位、受众、核心价值）
+   
+   **情况 B：档案不存在** (`exists: false, created: false`)
+   - ⚠️ **暂停任务**
+   - 提示用户创建档案或跳过
+   - 用户选择"创建"后，收集品牌信息并调用：
+     ```bash
+     python3 /Users/a123/.openclaw/skills/boss/scripts/ensure_brand_profile.py \
+       --brand "品牌名" \
+       --client "客户名" \
+       --extract-from "任务描述全文" \
+       --auto-create \
+       --json
+     ```
+
+4. **任务完成后的信息回写**
+   
+   策略任务中如果明确了新的品牌信息（定位、受众、核心价值），在任务完成后自动补充到档案。
+
+**违反后果**：
+
+- ❌ **不允许**"档案不存在时直接制定策略"
+- ❌ 跳过检查会导致策略与品牌积累脱节，无法维护品牌一致性
+
+**正确的优先级**：建档 > 快速出策略
+
 ### 0.1 先查 Skill
 - 执行任务前先扫描可用 skills。
 - 命中任务型 skill 时，先读对应 `SKILL.md`，按 skill 流程执行。

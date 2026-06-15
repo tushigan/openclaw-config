@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "project_id": "梁师傅鲜食店项目服务内容",
+  "handoff_status": "draft",
+  "prepared_at": "2026-06-15T16:06:45+08:00",
+  "prepared_by": "business",
+  "trigger_reason": "客户版服务内容与整体合作费用已明确，待后续正式报价时可直接衔接",
+  "client_name": "梁师傅",
+  "project_name": "梁师傅鲜食店项目服务内容",
+  "current_stage": "方案沟通",
+  "business_goal": "围绕鲜食店1.0首店，输出品牌、空间、包装与终端物料的一体化服务方案并支撑后续报价与执行。",
+  "recommended_case_type": "品牌与空间一体化项目",
+  "confirmed_scope": [
+    "梁师傅品牌名筛选及建议",
+    "品牌言语及视觉体系",
+    "IP提炼及形象设计",
+    "门店空间整体规划及形象设计（含效果图、施工图）",
+    "门店内产品包装体系",
+    "店内运营物料系统"
+  ],
+  "excluded_scope": [
+    "施工费用",
+    "制作费用",
+    "第三方配套费用"
+  ],
+  "key_requirements": [
+    "客户版整体合作费用为60万元",
+    "本报价为含税价",
+    "空间版块需明确包含完整空间设计方案、效果图与施工图",
+    "包装体系需支持后续客户延展应用"
+  ],
+  "key_decisions": [
+    "客户版文件已输出 HTML 与 PDF 版本",
+    "最后版面已调整为“整体合作费用”与“备注说明”口径"
+  ],
+  "open_questions": [
+    "是否进入正式报价拆分",
+    "是否需要进一步增加执行排期与合作节点说明"
+  ],
+  "material_refs": [
+    "/Users/a123/.openclaw/projects/projects/梁师傅/梁师傅鲜食店项目服务内容/materials/docs/æ_æ_æ_ä_å_å_¹æ---45c1b6c4-090d-423f-acfc-c953297c0bbc.txt",
+    "/Users/a123/.openclaw/projects/projects/梁师傅/梁师傅鲜食店项目服务内容/outputs/reports/梁师傅鲜食店项目服务内容及报价建议_20260615_60万.html",
+    "/Users/a123/.openclaw/projects/projects/梁师傅/梁师傅鲜食店项目服务内容/outputs/reports/梁师傅鲜食店项目服务内容及报价建议_20260615_60万.pdf"
+  ],
+  "meeting_note_refs": [],
+  "quote_project_dir": "/Users/a123/.openclaw/projects/projects/梁师傅/梁师傅鲜食店项目服务内容/quote",
+  "current_quote_version": "v6",
+  "quote_output_refs": [
+    "/Users/a123/.openclaw/projects/projects/梁师傅/梁师傅鲜食店项目服务内容/outputs/reports/梁师傅鲜食店项目服务内容及报价建议_20260615_60万.pdf"
+  ],
+  "last_quote_generated_at": "2026-06-15T18:40:07+08:00",
+  "quote_followup_summary": "已按用户要求将客户版整体合作费用调整为60万元，并更新HTML与PDF归档文件。"
+}

@@ -176,14 +176,11 @@ def build_pipeline_command(args: argparse.Namespace, out_dir: Path) -> list[str]
         args.source,
         "--out-dir",
         str(out_dir),
-        "--auto-extract",
         "--bg-prompt",
         args.bg_prompt,
+        "--fg-prompt",
+        args.fg_prompt,
     ]
-    if args.fg_elements:
-        cmd.extend(["--fg-elements", args.fg_elements])
-    else:
-        cmd.extend(["--fg-prompt", args.fg_prompt])
     if args.conv_id:
         cmd.extend(["--conv-id", args.conv_id])
     if not args.no_prompt_append and args.prompt_append_file:

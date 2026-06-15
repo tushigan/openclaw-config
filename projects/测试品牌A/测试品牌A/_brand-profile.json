@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "brand_id": "测试品牌a",
+  "brand_name": "测试品牌A",
+  "brand_name_en": "",
+  "industry": "服装零售",
+  "category": "",
+  "positioning": "品牌定位：面向年轻消费者的时尚品牌",
+  "core_values": [
+    "活力",
+    "年轻",
+    "时尚"
+  ],
+  "brand_tone": "年轻、活力、时尚",
+  "target_audience": "18-35岁年轻人",
+  "vi_guidelines": {
+    "primary_colors": [],
+    "secondary_colors": [],
+    "fonts": [],
+    "logo_usage_notes": ""
+  },
+  "brand_assets_dir": "_brand-assets/",
+  "historical_campaigns": [],
+  "key_contacts": [],
+  "notes": "",
+  "created_at": "2026-06-15T22:04:46.901241+08:00",
+  "updated_at": "2026-06-15T22:04:46.901241+08:00"
+}

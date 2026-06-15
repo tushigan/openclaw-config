@@ -174,17 +174,8 @@ def main():
             except Exception as e:
                 print(f"[WARNING] Could not read image dimensions: {e}. Defaulting to 4096x4096")
                 
-        bg_final_prompt = args.bg_prompt
-        fg_final_prompt = args.fg_prompt
-        if args.prompt_append_file:
-            try:
-                with open(args.prompt_append_file, "r", encoding="utf-8") as pf:
-                    append_content = pf.read()
-                    bg_final_prompt += "\n\n[附加高级指令法典]:\n" + append_content
-                    fg_final_prompt += "\n\n[附加高级指令法典]:\n" + append_content
-            except Exception as e:
-                print(f"[WARNING] Could not read prompt-append-file {args.prompt_append_file}: {e}")
-
+        # 🔥 不要在这里组装完整的提示词，只传递标识符
+        # 让 extract_layers.py 根据 kind 来组装正确的提示词
         spec_data = {
             "canvas": {"width": img_w, "height": img_h},
             "layers": [
@@ -192,14 +183,14 @@ def main():
                     "key": "background",
                     "group": "01_BG",
                     "name": "Background",
-                    "prompt": bg_final_prompt,
+                    "prompt": "background",  # 简单标识符，extract_layers.py 会处理
                     "left": 0, "top": 0, "width": img_w, "height": img_h
                 },
                 {
                     "key": "foreground",
                     "group": "05_FOREGROUND",
                     "name": "Foreground",
-                    "prompt": fg_final_prompt,
+                    "prompt": "foreground",  # 简单标识符，extract_layers.py 会处理
                     "left": 0, "top": 0, "width": img_w, "height": img_h
                 }
             ]

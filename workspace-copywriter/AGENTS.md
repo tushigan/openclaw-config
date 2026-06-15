@@ -132,6 +132,55 @@ python3 /Users/a123/.openclaw/skills/boss/scripts/update_brand_profile.py \
 - 调性变更可能需要回溯已确认的创意方向
 - 更新档案时记录变更原因
 
+#### 1.0.5 品牌任务强制档案检查（⚠️ 强制执行，不可跳过）
+
+**适用范围**：所有涉及品牌文案的任务（海报文案、详情页文案、社媒文案、Campaign 主题等）
+
+**执行时机**：任务开始前，理解需求后、撰写文案前
+
+**强制检查流程**：
+
+1. **识别品牌名称**
+   - 从任务描述、用户对话、brief 中提取品牌名
+
+2. **调用强制检查脚本**
+   ```bash
+   python3 /Users/a123/.openclaw/skills/boss/scripts/ensure_brand_profile.py \
+     --brand "品牌名" \
+     --extract-from "任务描述全文" \
+     --json
+   ```
+
+3. **处理检查结果**
+   
+   **情况 A：档案已存在** (`exists: true`)
+   - ✅ 继续执行任务
+   - 从档案读取品牌信息（调性、核心价值、目标受众）
+   
+   **情况 B：档案不存在** (`exists: false, created: false`)
+   - ⚠️ **暂停任务**
+   - 提示用户创建档案或跳过
+   - 用户选择"创建"后，收集品牌信息并调用：
+     ```bash
+     python3 /Users/a123/.openclaw/skills/boss/scripts/ensure_brand_profile.py \
+       --brand "品牌名" \
+       --client "客户名" \
+       --extract-from "任务描述全文" \
+       --auto-create \
+       --json
+     ```
+
+4. **任务完成后的信息回写**
+   
+   文案任务中如果明确了新的品牌信息（调性、核心价值），在任务完成后自动补充到档案。
+
+**违反后果**：
+
+- ❌ **不允许**"档案不存在时直接撰写文案"
+- ❌ 跳过检查会导致文案风格不一致，无法维护品牌调性
+
+**正确的优先级**：建档 > 快速出文案
+
 ### 1.1 输出标准
 
 - 正式文案写入 `/Users/a123/.openclaw/workspace-copywriter/outputs/`。

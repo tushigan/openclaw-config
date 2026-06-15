@@ -685,7 +685,14 @@ def audit_background_execs(cutoff: int | None, grace_minutes: int) -> list[dict[
 
     grace_ms = max(grace_minutes, 0) * 60 * 1000
     now_ms = int(time.time() * 1000)
-    session_paths = sorted(AGENTS_DIR.glob('*/sessions/*.jsonl'), key=lambda p: p.stat().st_mtime, reverse=True)
+    def safe_mtime(p):
+        try:
+            return p.stat().st_mtime
+        except (FileNotFoundError, OSError):
+            return 0
+    all_sessions = list(AGENTS_DIR.glob('*/sessions/*.jsonl'))
+    session_paths = [p for p in all_sessions if safe_mtime(p) > 0]
+    session_paths = sorted(session_paths, key=safe_mtime, reverse=True)
     for session_path in session_paths:
         if not is_recent_path(session_path, cutoff):
             continue
@@ -760,7 +767,14 @@ def same_path(left: str, right: str) -> bool:
 def find_message_delivery_evidence(media_path: str, after_ms: int | None) -> dict[str, Any] | None:
     if not media_path or not AGENTS_DIR.exists():
         return None
-    session_paths = sorted(AGENTS_DIR.glob('*/sessions/*.jsonl'), key=lambda p: p.stat().st_mtime, reverse=True)
+    def safe_mtime(p):
+        try:
+            return p.stat().st_mtime
+        except (FileNotFoundError, OSError):
+            return 0
+    all_sessions = list(AGENTS_DIR.glob('*/sessions/*.jsonl'))
+    session_paths = [p for p in all_sessions if safe_mtime(p) > 0]
+    session_paths = sorted(session_paths, key=safe_mtime, reverse=True)
     for session_path in session_paths:
         try:
             if after_ms is not None and int(session_path.stat().st_mtime * 1000) < after_ms:

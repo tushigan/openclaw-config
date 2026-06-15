@@ -92,6 +92,7 @@ def _update_registry(
 def create_or_get_brand(
     workspace_root: Path,
     brand_name: str,
+    client_name: str = "",
     brand_name_en: str = "",
     industry: str = "",
     category: str = "",
@@ -100,8 +101,30 @@ def create_or_get_brand(
     brand_tone: str = "",
     target_audience: str = "",
 ) -> Path:
-    """Create brand profile or return existing brand directory."""
-    brand_dir = workspace_root / "projects" / brand_name
+    """
+    Create brand profile or return existing brand directory.
+
+    Args:
+        workspace_root: OpenClaw root directory
+        brand_name: Brand name
+        client_name: Client name (optional, defaults to brand_name if not provided)
+        brand_name_en: English brand name
+        industry: Industry
+        category: Category
+        positioning: Brand positioning
+        core_values: Core values
+        brand_tone: Brand tone
+        target_audience: Target audience
+
+    Returns:
+        Path to brand directory (client_name/brand_name/)
+    """
+    # 如果没有指定客户名，使用品牌名作为客户名（向后兼容）
+    if not client_name:
+        client_name = brand_name
+
+    # 使用"客户→品牌"两层结构
+    brand_dir = workspace_root / "projects" / client_name / brand_name
     profile_path = brand_dir / "_brand-profile.json"
 
     if profile_path.exists():
@@ -139,6 +162,7 @@ def create_agency_project(
     brand_dir = create_or_get_brand(
         workspace_root=workspace_root,
         brand_name=brand_name,
+        client_name=brand_info.get("client_name", ""),
         brand_name_en=brand_info.get("brand_name_en", ""),
         industry=brand_info.get("industry", ""),
         category=brand_info.get("category", ""),
@@ -186,25 +210,41 @@ def create_agency_project(
 
 
 def find_brand_profile(workspace_root: Path, brand_name: str) -> Path | None:
-    """Find brand profile by brand name."""
-    registry_path = workspace_root / "projects" / "_registry.json"
+    """
+    Find brand profile by brand name.
 
-    if not registry_path.exists():
-        return None
+    This function is compatible with both old structure (brand_name/)
+    and new structure (client_name/brand_name/).
+    """
+    projects_root = workspace_root / "projects"
 
-    registry = _read_json(registry_path)
+    # Method 1: Try registry (preferred)
+    registry_path = projects_root / "_registry.json"
+    if registry_path.exists():
+        registry = _read_json(registry_path)
+        if brand_name in registry.get("brands", {}):
+            brand_relative_path = registry["brands"][brand_name]
+            profile_path = projects_root / brand_relative_path / "_brand-profile.json"
+            if profile_path.exists():
+                return profile_path
 
-    if brand_name not in registry["brands"]:
-        return None
+    # Method 2: Search all client directories (fallback for unregistered brands)
+    for client_dir in projects_root.iterdir():
+        if not client_dir.is_dir() or client_dir.name.startswith("_"):
+            continue
 
-    brand_relative_path = registry["brands"][brand_name]
-    brand_dir = workspace_root / "projects" / brand_relative_path
-    profile_path = brand_dir / "_brand-profile.json"
+        # Try client_name/brand_name/
+        profile_path = client_dir / brand_name / "_brand-profile.json"
+        if profile_path.exists():
+            return profile_path
 
-    if not profile_path.exists():
-        return None
+        # Try brand_name/ (old structure compatibility)
+        if client_dir.name == brand_name:
+            profile_path = client_dir / "_brand-profile.json"
+            if profile_path.exists():
+                return profile_path
 
-    return profile_path
+    return None
 
 
 def find_active_project(workspace_root: Path, brand_name: str) -> Path | None:

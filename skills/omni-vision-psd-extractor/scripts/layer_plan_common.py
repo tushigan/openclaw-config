@@ -23,6 +23,14 @@ GROUP_PRIORITY = {
 }
 
 
+def is_background_layer(layer: dict) -> bool:
+    return layer.get("key") == "background" or layer.get("group") == "01_BG"
+
+
+def is_foreground_layer(layer: dict) -> bool:
+    return layer.get("key") == "foreground" or layer.get("group") in {"05_FOREGROUND", "05_FOREGROUND_GROUP"}
+
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
@@ -151,7 +159,7 @@ def background_task(manifest: dict) -> dict:
         "key": "background",
         "group": "01_BG",
         "name": "Rebuilt Background",
-        "prompt_spec": "纯环境大背景（没有任何前景、主体IP、文字、logo）",
+        "prompt_spec": "background",
         "left": 0,
         "top": 0,
         "width": canvas["width"],
@@ -180,15 +188,20 @@ def layer_tasks(manifest: dict) -> list[dict]:
             "layer_path": layer.get("layer_path", ""),
             "hidden": bool(layer.get("hidden", False)),
             "lossless_extract": bool(layer.get("lossless_extract", False)),
-            "kind": "layer",
+            "kind": "foreground" if is_foreground_layer(layer) else "layer",
         }
         for layer in manifest.get("layers", [])
+        if not is_background_layer(layer)
     ]
+
+
+def extraction_tasks(manifest: dict) -> list[dict]:
+    return [background_task(manifest), *layer_tasks(manifest)]
 
 
 def build_size_plan(manifest: dict, mode: str) -> list[dict]:
     canvas = manifest["canvas"]
-    tasks = [background_task(manifest), *layer_tasks(manifest)]
+    tasks = extraction_tasks(manifest)
     return [suggest_size(task, canvas, mode) for task in tasks]
 
 
@@ -237,7 +250,7 @@ def build_task_prompt(task: dict, anchor_task: dict, size_entry: dict, mode: str
 
 def build_parallel_plan(manifest: dict, mode: str = "max", preferred_anchor_key: str | None = None) -> dict:
     size_plan = build_size_plan(manifest, mode)
-    tasks = [background_task(manifest), *layer_tasks(manifest)]
+    tasks = extraction_tasks(manifest)
     size_map = {entry["key"]: entry for entry in size_plan}
     anchor_key = choose_anchor_key(tasks, preferred_anchor_key)
     anchor_task = next(task for task in tasks if task["key"] == anchor_key)

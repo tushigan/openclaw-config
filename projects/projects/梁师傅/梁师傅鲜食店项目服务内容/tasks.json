@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "project_id": "梁师傅鲜食店项目服务内容",
+  "tasks": [
+    {
+      "task_id": "task-20260615-01",
+      "title": "补充客户联系人与基础项目信息",
+      "status": "pending",
+      "priority": "medium",
+      "owner": "business",
+      "due_at": "",
+      "notes": "待补充梁总姓名、联系方式及公司主体信息"
+    },
+    {
+      "task_id": "task-20260615-02",
+      "title": "按当前方案准备正式报价拆分",
+      "status": "pending",
+      "priority": "high",
+      "owner": "business",
+      "due_at": "",
+      "notes": "如用户明确开始正式报价，可基于当前六大版块继续拆分"
+    }
+  ]
+}

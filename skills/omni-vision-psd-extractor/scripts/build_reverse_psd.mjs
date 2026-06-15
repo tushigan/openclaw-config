@@ -182,7 +182,7 @@ function main() {
   const buffer = writePsdBuffer(psd, {
     noBackground: true,
     invalidateTextLayers: false,
-    trimImageData: true,
+    trimImageData: false,
   });
   writeFileSync(outputPath, buffer);
   console.log(`PSD written to ${outputPath}`);
