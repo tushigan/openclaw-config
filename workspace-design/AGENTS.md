@@ -125,7 +125,7 @@
 在执行品牌视觉任务前，先查询是否存在品牌档案：
 
 ```bash
-python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py "品牌名称"
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名称"
 ```
 
 返回格式包含：`visual_guidelines`（色彩、字体、logo 规范）、`brand_assets_path`（飞书云盘素材路径）、`logo_path` 等。

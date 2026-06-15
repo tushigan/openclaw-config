@@ -11,7 +11,7 @@
 在执行品牌策略任务前，先查询是否存在品牌档案：
 
 ```bash
-python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py "品牌名称"
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名称"
 ```
 
 返回格式包含：`brand_name`、`industry`、`core_values`、`target_audience`、`brand_story`、`positioning`、`visual_guidelines` 等。

@@ -73,7 +73,7 @@
 
 ```bash
 # 查询品牌档案
-python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py "品牌名称"
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名称"
 
 # 查询项目状态（若已立项）
 python3 /Users/a123/.openclaw/workspace/projects/scripts/get_project_status.py "品牌名称/项目目录名"

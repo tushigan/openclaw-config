@@ -42,7 +42,7 @@
 在执行文案创作任务前，先查询是否存在品牌档案：
 
 ```bash
-python3 /Users/a123/.openclaw/workspace/projects/scripts/find_brand_profile.py "品牌名称"
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名称"
 ```
 
 返回格式包含：`core_values`（核心价值观）、`brand_story`（品牌故事）、`tone_of_voice`（品牌语气）、`target_audience`（目标受众）等。

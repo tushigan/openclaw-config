@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781535625240,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
+          "lastUsedAt": 1781536397844,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/projects/scripts/list_active_projects.py",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
