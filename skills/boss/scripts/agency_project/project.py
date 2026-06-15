@@ -120,26 +120,36 @@ def _update_registry(
     project_dir: Path,
     campaign_name: str,
 ) -> None:
-    """Update project registry."""
+    """Update project registry (v2.0 format with lists)."""
     registry_path = workspace_root / "projects" / "_registry.json"
 
     if registry_path.exists():
         registry = _read_json(registry_path)
     else:
-        registry = build_registry()
+        registry = {
+            "version": "2.0",
+            "last_updated": _timestamp(),
+            "clients": [],
+            "brands": [],
+            "projects": [],
+            "tasks": []
+        }
 
-    # Update brands index
-    registry["brands"][brand_name] = str(brand_dir.relative_to(workspace_root / "projects"))
+    # Update projects index (append to list, not dict)
+    # 检查项目是否已存在
+    existing_project = next((p for p in registry.get("projects", []) if p.get("id") == project_id), None)
 
-    # Update projects index
-    registry["projects"][project_id] = {
-        "brand_name": brand_name,
-        "campaign_name": campaign_name,
-        "project_path": str(project_dir.relative_to(workspace_root / "projects")),
-        "created_at": _timestamp(),
-        "status": "active",
-    }
+    if not existing_project:
+        registry["projects"].append({
+            "id": project_id,
+            "brand_name": brand_name,
+            "campaign_name": campaign_name,
+            "project_path": str(project_dir.relative_to(workspace_root / "projects")),
+            "created_at": _timestamp(),
+            "status": "active",
+        })
 
+    registry["last_updated"] = _timestamp()
     _write_json(registry_path, registry)
 
 

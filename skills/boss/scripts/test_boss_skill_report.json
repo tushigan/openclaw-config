@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-06-15T23:07:27.445979",
+  "total_tests": 5,
+  "passed": 4,
+  "failed": 1,
+  "errors": [
+    {
+      "test": "create_agency_project 创建项目",
+      "error": "项目创建成功但品牌未注册"
+    }
+  ],
+  "details": [
+    {
+      "test": "ensure_brand_profile 自动创建",
+      "success": true,
+      "message": "ensure_brand_profile 成功且已自动注册"
+    },
+    {
+      "test": "find_brand_profile 查找品牌",
+      "success": true,
+      "message": "find_brand_profile 成功找到品牌"
+    },
+    {
+      "test": "update_brand_profile 更新字段",
+      "success": true,
+      "message": "update_brand_profile 成功更新字段"
+    },
+    {
+      "test": "detect_brand_conflicts 冲突检测",
+      "success": true,
+      "message": "detect_brand_conflicts 正常工作"
+    },
+    {
+      "test": "create_agency_project 创建项目",
+      "success": false,
+      "message": "项目创建成功但品牌未注册"
+    }
+  ]
+}

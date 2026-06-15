@@ -1,5 +1,19 @@
 # OpenClaw 顶层记忆系统
 
+## ⚠️ 重要更新（2026-06-15）：自动注册机制已修复
+
+**问题**：品牌档案创建后未自动注册到 `_registry.json`，导致查询失败
+
+**修复方案**：
+1. ✅ 修复 `agency_project/project.py` 中的 `create_or_get_brand()` 函数
+2. ✅ 添加 `_sync_brand_to_registry()` 自动同步机制
+3. ✅ 新增 `sync_registry.py` 一致性修复工具
+4. ✅ 新增 `healthcheck.py` 健康检查工具
+
+**现在的行为**：创建品牌/客户时**自动注册到全局注册表**，查询系统可立即发现新数据
+
+---
+
 ## 概述
 
 OpenClaw 顶层记忆系统是一个统一的、5层架构的项目记忆框架，供所有 agent 和 skill 共享使用。
@@ -39,6 +53,19 @@ python3 /Users/a123/.openclaw/scripts/memory/query.py list-brands
 
 # 列出所有活跃项目
 python3 /Users/a123/.openclaw/scripts/memory/query.py list-projects
+```
+
+### 维护工具（新增）
+
+```bash
+# 健康检查（推荐定期运行）
+python3 /Users/a123/.openclaw/scripts/memory/healthcheck.py
+
+# 修复注册表不一致（如果健康检查发现问题）
+python3 /Users/a123/.openclaw/scripts/memory/sync_registry.py
+
+# 预览模式（不实际修改）
+python3 /Users/a123/.openclaw/scripts/memory/sync_registry.py --dry-run
 ```
 
 ### 维护工具（新增）

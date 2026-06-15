@@ -182,6 +182,18 @@ def fix_inconsistencies(filesystem: dict, registry: dict, issues: dict) -> dict:
         fixed_count += 1
         print(f"✅ 补充品牌注册: {brand_name} (客户: {brand_info['client']}, ID: {brand_id})")
 
+    # 清理孤立的客户记录
+    for orphan_client in issues["orphan_clients"]:
+        registry["clients"] = [c for c in registry["clients"] if c["name"] != orphan_client["name"]]
+        fixed_count += 1
+        print(f"🧹 清理孤立客户记录: {orphan_client['name']}")
+
+    # 清理孤立的品牌记录
+    for orphan_brand in issues["orphan_brands"]:
+        registry["brands"] = [b for b in registry["brands"] if b["name"] != orphan_brand["name"]]
+        fixed_count += 1
+        print(f"🧹 清理孤立品牌记录: {orphan_brand['name']}")
+
     # 更新时间戳
     if fixed_count > 0:
         registry["last_updated"] = get_timestamp()
