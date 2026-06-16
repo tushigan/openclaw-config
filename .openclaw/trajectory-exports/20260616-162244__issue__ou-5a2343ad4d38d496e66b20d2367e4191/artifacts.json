@@ -1,0 +1,53 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-16T08:22:45.868Z",
+  "traceId": "0c9549a9-d099-43de-b995-ce834afca172",
+  "sessionId": "0c9549a9-d099-43de-b995-ce834afca172",
+  "sessionKey": "agent:business:feishu:direct:ou_5a2343ad4d38d496e66b20d2367e4191",
+  "finalStatus": "error",
+  "aborted": true,
+  "externalAbort": false,
+  "timedOut": true,
+  "idleTimedOut": true,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptError": "LLM idle timeout (120s): no response from model",
+  "promptErrorSource": "prompt",
+  "usage": {
+    "input": 14846,
+    "output": 292,
+    "cacheRead": 26112,
+    "reasoningTokens": 248,
+    "total": 41250
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 0
+    },
+    "lastCacheTouchAt": 1781597675249
+  },
+  "compactionCount": 0,
+  "assistantTexts": [],
+  "finalPromptText": "Conversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_5a2343ad4d38d496e66b20d2367e4191\",\n  \"message_id\": \"om_x100b6c2418c728b0c2229f365a7f58b\",\n  \"sender_id\": \"ou_5a2343ad4d38d496e66b20d2367e4191\",\n  \"sender\": \"ou_5a2343ad4d38d496e66b20d2367e4191\",\n  \"timestamp\": \"Tue 2026-06-16 16:12:16 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"ou_5a2343ad4d38d496e66b20d2367e4191\",\n  \"id\": \"ou_5a2343ad4d38d496e66b20d2367e4191\",\n  \"name\": \"ou_5a2343ad4d38d496e66b20d2367e4191\"\n}\n```\n\n就用这个 Skill 导出然后给我导出后的文件地址",
+  "itemLifecycle": {
+    "startedCount": 1,
+    "completedCount": 1,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "read",
+      "meta": "lines 401-800 from ~/.openclaw/skills/session-debug-export/scripts/export_chat_report.py"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

@@ -1,0 +1,26 @@
+{
+  "project_name": "然利品牌升级视频第二段故事板",
+  "project_slug": "ranli-brand-video-seg02-what-changed",
+  "brand_name": "然利",
+  "video_mode": "non_ip_poster",
+  "subject": "第二段｜升级了哪些东西，6-13秒，四宫格故事板",
+  "action": "生成一张四宫格故事板，只描述第二段6-13秒。讲清楚Logo升级动作：去掉手工两个字，强化然利主品牌名，保留擀面杖符号、外框和原有品牌色，优化比例和识别层级。",
+  "scene": "品牌设计工作台视觉环境，旧Logo拆解成品牌名、手工字样、擀面杖、外框、英文Ranli几层；手工字样淡出/退后，然利主字视觉权重上升，进入新Logo结构雏形。",
+  "style": "品牌设计发布片，不是普通PPT；干净网格、比例线、红绿米白识别色，专业、现代、高级。",
+  "ratio": "16:9",
+  "duration": 7,
+  "quality_tier": "draft",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": 4,
+  "storyboard_beats_override": [
+    "格1：旧Logo完整出现，周围浮现结构拆解线，提示即将拆解。",
+    "格2：旧Logo分层展开：品牌名、手工字样、擀面杖、外框、英文Ranli清楚分离。",
+    "格3：手工两个字淡出或退后，然利主字放大并成为视觉重心，保留擀面杖、外框和品牌色。",
+    "格4：元素重新组合成新Logo结构雏形，能看出保留什么、弱化什么、强化什么。"
+  ],
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/02_new_logo.jpg"
+  },
+  "normalize_references": true,
+  "notes": "只生成这一段的四宫格故事板图片，不生成视频。每格独立16:9。参考素材：01旧Logo、02新Logo。重点不能只是旧Logo变新Logo，而要看出保留、弱化、强化。禁止汤包、禁止虚构包装、禁止多余字幕。"
+}

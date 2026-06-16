@@ -1,7 +1,7 @@
 ---
 name: omni-vision-psd-extractor
-version: 5.2.0-cloud-drive-only
-description: 【全息万物提取PSD构建器】智能版：仅 2 次 API 请求 + 自动 4K 缩放 + 前景自动切割 + 三层 PSD 结构 + 飞书云盘直接交付
+version: 5.3.3-timeout-600s
+description: 【全息万物提取PSD构建器】智能版：仅 2 次 API 请求 + 10分钟超时（适配复杂图像） + 智能兜底机制 + 触发词尺寸控制（1K/2K/4K） + 前景自动切割 + 三层 PSD 结构 + 飞书云盘直接交付
 triggers:
   - “原图提取分层”
   - “物理拆解PSD”
@@ -18,9 +18,33 @@ metadata:
     emoji: “🔪”
 ---
 
-# 全息万物提取 PSD (Omni-Vision PSD Extractor) - v5.2.0 云盘直传版
+# 全息万物提取 PSD (Omni-Vision PSD Extractor) - v5.3.3 超时优化版
 
-**v5.2.0 新特性**：
+**v5.3.3 新特性**（⏱️ 性能优化）：
+- ✅ **10 分钟超时**：所有 API 请求超时统一为 600 秒，适配复杂图像和大尺寸处理
+- ✅ **适配 4K 生成**：大尺寸图像（4096px）有充足时间完成，避免超时失败
+- ✅ **多元素场景**：复杂前景（多人物、多文字、多装饰）不再因超时中断
+- ✅ **网络容错**：在网络波动或 API 响应慢时提供更强的容错能力
+
+**v5.3.2 特性**（🔥 智能兜底）：
+- ✅ **智能兜底机制**：主 API 失败后自动切换到海报 skill 的 `gpt-image2-gen` 共享配置
+- ✅ **双保险生成**：大幅降低因单一 API 故障导致的任务失败率
+- ✅ **无缝切换**：保持相同的 prompt、尺寸、底图参数，用户无感知
+
+**v5.3.1 特性**：
+- ✅ **urllib 导入修复**：修复 OpenAI edits 协议分支的本地脚本错误
+- ✅ **增强异常处理**：线程池异常会打印详细堆栈信息，便于调试
+
+**v5.3.0 新特性**：
+- ✅ **触发词尺寸控制**：在触发词后加 `1K`/`2K`/`4K` 即可控制输出尺寸
+  - `无损提取PSD` → 默认 2K (2048px)
+  - `无损提取PSD 1K` → 1024px 最长边
+  - `无损提取PSD 2K` → 2048px 最长边
+  - `无损提取PSD 4K` → 4096px 最长边
+- ✅ **统一尺寸处理**：整个流程自动按最长边缩放到目标尺寸（无论原图大小）
+- ✅ **智能缩放算法**：保持宽高比 + 16 像素对齐 + 高质量 LANCZOS 重采样
+
+**v5.2.0 核心特性**：
 - ✅ **飞书云盘直接交付**：所有 PSD 文件统一上传到飞书云盘，无需分卷压缩
 - ✅ **一键下载**：用户点击链接直接下载完整 PSD 文件
 - ✅ **实时进度可见**：两次 API 请求结果实时发送到飞书对话框
@@ -30,7 +54,6 @@ metadata:
 - ✅ **简化流程**：取消分卷压缩，统一云盘交付体验
 
 **v5.1 核心特性**：
-- ✅ **自动 2K 缩放**：上传前自动缩放到 2048px（最长边），支持 512px ~ 4096px 任意尺寸输入
 - ✅ **前景自动切割**：前景透明层自动切割成多个独立元素（基于 alpha 碎片 + 间隔聚类）
 - ✅ **全新 PSD 结构**：原图（隐藏）+ 背景层 + 前景组（文件夹，包含多个元素）
 - ✅ **Cloudinary URL 传输**：原图只上传 1 次，节省 90%+ 传输流量
@@ -60,29 +83,64 @@ layered-output.psd
 ## OpenClaw 执行规则
 
 1. **默认使用 2 层模式**：背景层 + 前景合并层，自动切割成多个元素
-2. **自动 2K 缩放**：如果原图超过 2048px，自动缩放到 2K，保持宽高比
-3. 默认使用用户上传图片的本地绝对路径或 HTTPS URL 作为 `--source`
-4. 必须实际运行命令行脚本，不能只分析或复用历史产物
-5. 默认走轻包装入口 `scripts/run_omni_delivery.py`
-6. **不再需要前置视觉解析**：直接提取背景和全部前景，后期自动切割
-7. 本 skill 使用绑定模型：`gemini-3.1-flash-image-preview @ https://s.lconai.com/`
-8. Feishu 会话里运行时，必须把当前会话目标传给入口
-9. 成功后必须读取 `result-summary.json`
-10. 分层必须是真 API 成功：任意图层 API 重试后仍失败，整单失败
+2. **触发词尺寸控制**（v5.3 新增）：
+   - 解析用户输入，提取尺寸后缀（1K/2K/4K）
+   - 使用 `scripts/parse_trigger_size.py` 解析触发词
+   - 将 `--target-size` 参数传递给 `run_omni_delivery.py`
+   - 默认 2K（无后缀时）
+3. **统一尺寸缩放**：按最长边缩放到目标尺寸，保持宽高比，16px 对齐
+4. 默认使用用户上传图片的本地绝对路径或 HTTPS URL 作为 `--source`
+5. 必须实际运行命令行脚本，不能只分析或复用历史产物
+6. 默认走轻包装入口 `scripts/run_omni_delivery.py`
+7. **不再需要前置视觉解析**：直接提取背景和全部前景，后期自动切割
+8. 本 skill 使用绑定模型：`gemini-3.1-flash-image-preview @ https://s.lconai.com/`
+9. Feishu 会话里运行时，必须把当前会话目标传给入口
+10. 成功后必须读取 `result-summary.json`
+11. 分层必须是真 API 成功：任意图层 API 重试后仍失败，整单失败
 
 ## 推荐命令
 
-**最简调用**（推荐）：
+**最简调用**（默认 2K）：
 ```bash
 python3 {baseDir}/scripts/run_omni_delivery.py \
   --source “/absolute/path/to/source.png” \
   --feishu-user-id “ou_xxx”
 ```
 
+**指定输出尺寸**（v5.3 新增）：
+```bash
+# 1K 输出（1024px 最长边）
+python3 {baseDir}/scripts/run_omni_delivery.py \
+  --source “/absolute/path/to/source.png” \
+  --target-size “1K” \
+  --feishu-user-id “ou_xxx”
+
+# 2K 输出（2048px 最长边，默认）
+python3 {baseDir}/scripts/run_omni_delivery.py \
+  --source “/absolute/path/to/source.png” \
+  --target-size “2K” \
+  --feishu-user-id “ou_xxx”
+
+# 4K 输出（4096px 最长边）
+python3 {baseDir}/scripts/run_omni_delivery.py \
+  --source “/absolute/path/to/source.png” \
+  --target-size “4K” \
+  --feishu-user-id “ou_xxx”
+```
+
+**触发词用法示例**：
+```
+用户输入：无损提取PSD          → 自动使用 2K
+用户输入：无损提取PSD 1K       → 自动使用 1K
+用户输入：原图提取分层 4K      → 自动使用 4K
+用户输入：语义抠图PSD 2K       → 自动使用 2K
+```
+
 **自定义提示词**：
 ```bash
 python3 {baseDir}/scripts/run_omni_delivery.py \
   --source “/absolute/path/to/source.png” \
+  --target-size “4K” \
   --feishu-user-id “ou_xxx” \
   --bg-prompt “提取背景，保持光影氛围” \
   --fg-prompt “提取所有前景元素（人物、文字、Logo、装饰）”
@@ -134,18 +192,38 @@ python3 {baseDir}/scripts/run_omni_delivery.py \
 <万物提取.md 完整内容>
 ```
 
-## 尺寸处理
+## 尺寸处理（v5.3 更新）
 
-**输入支持**：512px ~ 4096px 任意尺寸
+**触发词尺寸控制**（新功能）：
+- 在触发词后加 `1K`/`2K`/`4K` 后缀，整个流程统一使用该尺寸
+- 无后缀时默认使用 2K
+- **强制缩放**：无论原图大小，都会按最长边缩放到目标尺寸
 
-**自动缩放规则**：
-- 如果最长边 ≤ 2048px：无需缩放
-- 如果最长边 > 2048px：缩放到 2048px（最长边），保持宽高比
+**支持的尺寸规格**：
+- `1K` → 1024px 最长边
+- `2K` → 2048px 最长边（默认）
+- `4K` → 4096px 最长边
+
+**缩放算法**：
+- 按最长边等比例缩放
+- 保持宽高比
+- 自动对齐到 16 的倍数（提高生成质量）
+- 使用 LANCZOS 高质量重采样
 
 **示例**：
-- 4096×3072 → 2048×1536 (缩放 50%)
-- 3840×2160 → 2048×1152 (缩放 ~53%)
-- 1920×1080 → 1920×1080 (无需缩放)
+```
+原图 4096×3072 + 触发词 "无损提取PSD 1K"
+→ 缩放到 1024×768 (缩放 25%)
+
+原图 4096×3072 + 触发词 "无损提取PSD 2K"
+→ 缩放到 2048×1536 (缩放 50%)
+
+原图 1920×1080 + 触发词 "无损提取PSD 4K"
+→ 放大到 4096×2304 (放大 213%)
+
+原图 3840×2160 + 触发词 "无损提取PSD"
+→ 缩放到 2048×1152 (默认 2K，缩放 53%)
+```
 
 ## 前景切割说明
 
@@ -208,8 +286,81 @@ https://bytedance.larkoffice.com/file/xxxxxxxx
 - **新增**：`elements/` 目录包含所有切割后的元素 PNG
 - **新增**：`elements/elements.json` 包含元素清单（面积、位置、边界框）
 
+## 智能兜底机制（v5.3.2 新增）
+
+### 工作原理
+
+当 PSD skill 的自有 API 配置（`OPENCLAW_BOUND_*`）请求失败后，会自动切换到海报 skill 的 `gpt-image2-gen` 共享配置：
+
+```
+主 API 调用（n.lconai.com gpt-image-2-pro）
+    ↓ 失败
+🔄 自动切换到 gpt-image2-gen（海报 skill 配置）
+    ↓ 使用相同 prompt、尺寸、底图
+✅ 兜底成功 → 继续后续流程
+❌ 兜底失败 → 记录双重失败
+```
+
+### 触发条件
+
+- 主 API 请求返回非 0 退出码
+- 输出文件未生成（即使 API 返回成功）
+- 所有重试次数用尽（`--api-retries` 参数）
+
+### 状态记录
+
+失败后的 `state.json` 会记录兜底情况：
+```json
+{
+  "tasks": {
+    "bg": {
+      "fallback_used": "gpt-image2-gen",
+      "fallback_success": true
+    }
+  }
+}
+```
+
+### 配置说明
+
+- **主 API**：使用 skill 目录下 `.env` 的 `OPENCLAW_BOUND_*` 配置
+- **兜底 API**：继承 `workspace-design/skills/gpt-image2-gen/` 的配置
+- **无需额外配置**：兜底机制自动生效，无需手动启用
+
+详细测试文档：[TEST_FALLBACK.md](TEST_FALLBACK.md)
+
+---
+
+## 超时配置（v5.3.3 更新）
+
+所有 API 请求超时统一为 **600 秒（10 分钟）**：
+
+| 请求类型 | 修改前 | 修改后 | 影响范围 |
+|---------|--------|--------|----------|
+| run_with_spinner 默认超时 | 240s | **600s** | 所有子进程调用 |
+| OpenAI Image Edits API | 600s | **600s** | 图像生成主请求 |
+| 生成图片下载 | 60s | **600s** | 从 API 下载结果 |
+| Gemini API 请求 | 240s | **600s** | Gemini 协议生成 |
+| 飞书图片发送 | 180s | **600s** | lark-cli 发送 |
+| RH 抠图王云端 | 150s | **600s** | 云端抠图服务 |
+| 本地去绿幕 | 60s | **600s** | 本地绿幕处理 |
+
+**适用场景**：
+- ✅ 4K 大尺寸图像生成（4096×3072）
+- ✅ 复杂多元素前景提取（人物+文字+Logo+装饰）
+- ✅ 网络不稳定环境
+- ✅ API 服务器高负载时期
+
+详细配置文档：[TIMEOUT_CONFIG_v5.3.3.md](TIMEOUT_CONFIG_v5.3.3.md)
+
+---
+
 ## 版本历史
 
+- **v5.3.3** (2026-06-16): 统一超时时长为 10 分钟（600 秒），适配复杂图像和大尺寸处理
+- **v5.3.2** (2026-06-16): 智能兜底机制，主 API 失败自动切换到 gpt-image2-gen 共享配置
+- **v5.3.1** (2026-06-16): urllib 导入修复 + 增强异常处理（OpenAI edits 协议分支）
+- **v5.3.0** (2026-06-16): 触发词尺寸控制（1K/2K/4K）+ 统一尺寸缩放 + 智能尺寸解析
 - **v5.2.0** (2026-06-12): 飞书云盘直接交付 + 取消分卷压缩 + 实时发送两次 API 请求结果
 - **v5.1.1** (2026-06-11): 飞书云盘大文件上传 + 智能文件大小判断（< 30MB 直接发送，30-100MB 分卷，> 100MB 云盘）
 - **v5.1.0** (2026-06-11): 自动 4K 缩放 + 前景自动切割 + 全新 PSD 结构

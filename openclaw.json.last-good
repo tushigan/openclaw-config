@@ -162,7 +162,7 @@
   "agents": {
     "defaults": {
       "memorySearch": {
-        "provider": "siliconflow",
+        "provider": "openai-compatible",
         "model": "BAAI/bge-m3",
         "remote": {
           "baseUrl": "https://api.siliconflow.cn/v1",

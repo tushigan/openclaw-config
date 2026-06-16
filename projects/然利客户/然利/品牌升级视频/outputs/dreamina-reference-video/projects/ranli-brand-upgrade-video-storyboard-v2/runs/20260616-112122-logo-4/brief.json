@@ -1,0 +1,41 @@
+{
+  "project_name": "然利品牌升级视频故事板V2",
+  "project_slug": "ranli-brand-upgrade-video-storyboard-v2",
+  "video_mode": "non_ip_poster",
+  "ratio": "16:9",
+  "duration": 30,
+  "quality_tier": "draft",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": 4,
+  "storyboard_beats_override": [
+    "格1 / 0-8秒 / 为什么升级：旧然利Logo在画面中心，旧包装作为背景或侧边参考，呈现从手工感、传统感向更专业品牌系统升级的起点。",
+    "格2 / 8-16秒 / 升级了哪些：以Logo设计拆解方式展示保留然利品牌名、擀面杖符号、外框、原有识别色系；弱化并移除“手工”信息；强化主品牌识别。",
+    "格3 / 16-22秒 / 提升点：新Logo在比例网格中完成，字形、外框和图形关系更现代、更简洁、更高级、更规范。",
+    "格4 / 22-30秒 / 应用与收束：新Logo应用到两组确认包装，最后回到新Logo+品牌广告语片尾定版，形成渠道招商和终端展示的品牌资产感。"
+  ],
+  "identity_strategy": null,
+  "identity_anchor_rules": [],
+  "identity_structure": [],
+  "identity_forbidden": [],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "这是故事板图片，不是正式视频。必须是4格storyboard layout，每格独立16:9；必须体现旧Logo、新Logo、包装新旧应用、最终Logo+广告语收束。素材白名单：01旧Logo、02新Logo、03新Logo+广告语、05包装A新Logo、06包装A旧Logo、08包装B旧Logo、09包装B新Logo。禁止04/07，禁止然利汤包，禁止AI虚构西柚味戚风蛋糕包装，禁止多余字幕。",
+  "normalize_references": true,
+  "brand_name": "然利",
+  "subject": "然利 Logo / 品牌形象升级展示片，4格故事板图片",
+  "action": "生成一张清晰的4格故事板图片，每格都是独立16:9画幅：第1格旧Logo与旧包装现状，第2格Logo拆解升级，第3格新Logo规范化定版，第4格包装应用与片尾Logo广告语收束。只做故事板图片，不生成视频。",
+  "scene": "高端品牌升级发布片的设计工作台与品牌展示环境：红色品牌背景、Logo设计网格、新旧包装对比、渠道招商展示语境。",
+  "style": "专业、现代、高级、规范、克制，有食品品牌温度；画面要像品牌升级视频的分镜图，不像单张海报；强调步骤、镜头节奏、资产对比。",
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/03_logo_slogan_final.jpg"
+  },
+  "storyboard_beats": [
+    "格1 / 0-8秒 / 为什么升级：旧然利Logo在画面中心，旧包装作为背景或侧边参考，呈现从手工感、传统感向更专业品牌系统升级的起点。",
+    "格2 / 8-16秒 / 升级了哪些：以Logo设计拆解方式展示保留然利品牌名、擀面杖符号、外框、原有识别色系；弱化并移除“手工”信息；强化主品牌识别。",
+    "格3 / 16-22秒 / 提升点：新Logo在比例网格中完成，字形、外框和图形关系更现代、更简洁、更高级、更规范。",
+    "格4 / 22-30秒 / 应用与收束：新Logo应用到两组确认包装，最后回到新Logo+品牌广告语片尾定版，形成渠道招商和终端展示的品牌资产感。"
+  ],
+  "storyboard_panel_count": 4,
+  "slug": "logo-4"
+}

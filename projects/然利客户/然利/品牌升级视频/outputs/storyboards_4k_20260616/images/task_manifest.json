@@ -1,0 +1,45 @@
+{
+  "schema": "openclaw.gpt-image2.task.v1",
+  "created_at": "2026-06-16T02:49:20.929899Z",
+  "target_locked": false,
+  "requested_output": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/01_why_upgrade_4k_retry3.png",
+  "output": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/01_why_upgrade_4k_retry3.png",
+  "result_path": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/01_why_upgrade_4k_retry3.result.json",
+  "delivery_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/01_why_upgrade_4k_retry3.delivery.json",
+  "prompt": "4K 16:9 premium Ranli storyboard frame. OLD Ranli logo centered on red brand background, subtle guide lines, heritage-to-professional upgrade mood. Clean, restrained, no extra text.\n\nReference images (by role — obey each role strictly, do not swap them):\n- Image 1: brand LOGO — must be reproduced precisely, do not redraw, do not distort, do not invent new marks",
+  "size": "3840x2160",
+  "aspect": "1:1",
+  "model": "gpt-image-2",
+  "count": 1,
+  "references": [
+    "/Users/a123/.openclaw/tmp/ranli-brand-upgrade-assets/01_old_logo.jpg"
+  ],
+  "delivery_target": {
+    "target": "",
+    "user_id": "",
+    "chat_id": "",
+    "account_id": "",
+    "source_session_key": "",
+    "target_source": "recent_session_scan",
+    "target_candidates": [
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+        "source_sender_name": "吴佳滢",
+        "target_source": "recent_session_scan"
+      }
+    ],
+    "target_conflict_reason": "recent_session_scan_not_trusted",
+    "channel": "feishu"
+  }
+}

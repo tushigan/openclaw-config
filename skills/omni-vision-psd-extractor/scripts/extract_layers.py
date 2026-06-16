@@ -8,11 +8,22 @@ import subprocess
 import sys
 import threading
 import time
-import urllib.error
-import urllib.request
 import uuid
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+# urllib 是标准库，无条件导入（OpenAI edits 分支需要）
+import urllib.error
+import urllib.request
+
+# 优先使用 requests 库（更好的 SSL 处理）
+try:
+    import requests
+    USE_REQUESTS = True
+except ImportError:
+    USE_REQUESTS = False
+    print("[Warning] requests 库未安装，使用 urllib（可能遇到 SSL 问题）")
+    print("[Hint] 运行 'pip install requests' 安装 requests 库")
 
 from runtime_config import (
     load_runtime_env,
@@ -27,6 +38,7 @@ state_lock = threading.Lock()
 print_lock = threading.Lock()
 completed_count = 0
 total_parallel_tasks = 0
+original_script_dir = Path(__file__).resolve().parent
 
 if sys.platform.startswith('win'):
     try:
@@ -41,7 +53,7 @@ class FinishedProcess:
         self.stdout = stdout
         self.stderr = stderr
 
-def run_with_spinner(cmd, env=None, message="Running", show_spinner=True, timeout=240):
+def run_with_spinner(cmd, env=None, message="Running", show_spinner=True, timeout=600):
     start_time = time.time()
     
     if not show_spinner:
@@ -365,10 +377,46 @@ def _run_openai_image_edits(prompt, source_path, raw_out, config, suggested_size
         }, ensure_ascii=False, indent=2), encoding="utf-8")
         return FinishedProcess(1, "", last_error)
 
-    # 下载生成的图片
+    # 🔥 兼容 URL 和 base64 两种返回格式，最终统一上传到 Cloudinary
     image_url = data["data"][0].get("url")
-    if not image_url:
-        last_error = "No image URL in response."
+    b64_json = data["data"][0].get("b64_json")
+
+    # 步骤 1：先保存到本地
+    if image_url:
+        # URL 格式：下载图片到本地
+        try:
+            with urllib.request.urlopen(image_url, timeout=600) as img_response:
+                raw_out.write_bytes(img_response.read())
+        except Exception as exc:
+            last_error = f"Failed to download generated image: {exc}"
+            result_path.write_text(json.dumps({
+                "status": "error",
+                "api_provider": config["provider"],
+                "api_base_url": config["base_url"],
+                "model": config["model"],
+                "error": last_error,
+            }, ensure_ascii=False, indent=2), encoding="utf-8")
+            return FinishedProcess(1, "", last_error)
+    elif b64_json:
+        # base64 格式：直接解码保存到本地
+        try:
+            import base64
+            image_bytes = base64.b64decode(b64_json)
+            raw_out.write_bytes(image_bytes)
+        except Exception as exc:
+            last_error = f"Failed to decode base64 image: {exc}"
+            result_path.write_text(json.dumps({
+                "status": "error",
+                "api_provider": config["provider"],
+                "api_base_url": config["base_url"],
+                "model": config["model"],
+                "endpoint": config["endpoint"],
+                "error": last_error,
+            }, ensure_ascii=False, indent=2), encoding="utf-8")
+            return FinishedProcess(1, "", last_error)
+    else:
+        # 两种格式都没有
+        last_error = "No image URL or b64_json in response."
         result_path.write_text(json.dumps({
             "status": "error",
             "api_provider": config["provider"],
@@ -376,22 +424,23 @@ def _run_openai_image_edits(prompt, source_path, raw_out, config, suggested_size
             "model": config["model"],
             "endpoint": config["endpoint"],
             "error": last_error,
+            "response": data,
         }, ensure_ascii=False, indent=2), encoding="utf-8")
         return FinishedProcess(1, "", last_error)
 
+    # 步骤 2：上传到 Cloudinary，统一返回 URL
     try:
-        with urllib.request.urlopen(image_url, timeout=60) as img_response:
-            raw_out.write_bytes(img_response.read())
+        from runtime_config import upload_to_cloudinary
+        safe_log = lambda msg: print(f"[OpenAI image edits] {msg}", file=sys.stderr)
+        safe_log(f"正在上传生成图片到 Cloudinary: {raw_out.name}")
+        cloudinary_url = upload_to_cloudinary(raw_out)
+        safe_log(f"✅ Cloudinary 上传成功: {cloudinary_url}")
+        # 更新 image_url 为 Cloudinary URL
+        image_url = cloudinary_url
     except Exception as exc:
-        last_error = f"Failed to download generated image: {exc}"
-        result_path.write_text(json.dumps({
-            "status": "error",
-            "api_provider": config["provider"],
-            "api_base_url": config["base_url"],
-            "model": config["model"],
-            "error": last_error,
-        }, ensure_ascii=False, indent=2), encoding="utf-8")
-        return FinishedProcess(1, "", last_error)
+        # Cloudinary 上传失败不影响主流程，继续使用本地文件
+        safe_log(f"⚠️  Cloudinary 上传失败: {exc}，将使用本地文件")
+        image_url = str(raw_out)
 
     result_path.write_text(json.dumps({
         "status": "success",
@@ -407,43 +456,77 @@ def _run_openai_image_edits(prompt, source_path, raw_out, config, suggested_size
 
 def _run_gemini_generate(prompt, source_path, raw_out, config, suggested_size, source_url, result_path):
     """
-    使用 Gemini API 格式生成图片（URL 传输模式）
+    使用 Gemini API 格式生成图片（URL 传输模式 + Base64 备用）
     """
-    # 如果没有提供 source_url，则上传到 Cloudinary
+    use_base64 = False
+
+    # 如果没有提供 source_url，则尝试上传到 Cloudinary
     if not source_url:
         try:
+            safe_log("[Cloudinary] 正在上传原图到图床...")
             source_url = upload_to_cloudinary(source_path)
+            safe_log(f"[Cloudinary] ✅ 上传成功: {source_url}")
         except Exception as exc:
-            error = f"Failed to upload source image to Cloudinary: {exc}"
-            result_path.write_text(json.dumps({
-                "status": "error",
-                "api_provider": config["provider"],
-                "api_base_url": config["base_url"],
-                "model": config["model"],
-                "error": error,
-            }, ensure_ascii=False, indent=2), encoding="utf-8")
-            return FinishedProcess(1, "", error)
+            safe_log(f"[Cloudinary] ❌ 上传失败: {exc}")
+            safe_log("[Base64 备用] 切换到 Base64 传输模式")
+            use_base64 = True
 
-    # 计算宽高比和尺寸
-    aspect_ratio = guess_aspect_ratio(suggested_size)
-    image_size = guess_banana_size(suggested_size)
+    # 如果 Cloudinary 失败，使用 Base64 模式
+    if use_base64:
+        # 读取图片并转为 Base64
+        with open(source_path, 'rb') as f:
+            image_data = f.read()
+        image_b64 = base64.b64encode(image_data).decode('utf-8')
+        mime_type = mimetypes.guess_type(str(source_path))[0] or 'image/png'
 
-    # 构建 Gemini API 请求 payload（URL 模式）
-    payload = {
-        "contents": [{
-            "role": "user",
-            "parts": [
-                {"text": f"{source_url} {prompt}"}
-            ]
-        }],
-        "generationConfig": {
-            "responseModalities": ["IMAGE"],
-            "imageConfig": {
-                "aspectRatio": aspect_ratio,
-                "imageSize": image_size
+        # 计算宽高比和尺寸
+        aspect_ratio = guess_aspect_ratio(suggested_size)
+        image_size = guess_banana_size(suggested_size)
+
+        # 构建 Gemini API 请求 payload（Base64 模式）
+        payload = {
+            "contents": [{
+                "role": "user",
+                "parts": [
+                    {
+                        "inline_data": {
+                            "mime_type": mime_type,
+                            "data": image_b64
+                        }
+                    },
+                    {"text": prompt}
+                ]
+            }],
+            "generationConfig": {
+                "responseModalities": ["IMAGE"],
+                "imageConfig": {
+                    "aspectRatio": aspect_ratio,
+                    "imageSize": image_size
+                }
             }
         }
-    }
+
+        safe_log(f"[Base64] 图片大小: {len(image_b64) / 1024:.2f} KB")
+    else:
+        # URL 模式（原逻辑）
+        aspect_ratio = guess_aspect_ratio(suggested_size)
+        image_size = guess_banana_size(suggested_size)
+
+        payload = {
+            "contents": [{
+                "role": "user",
+                "parts": [
+                    {"text": f"{source_url} {prompt}"}
+                ]
+            }],
+            "generationConfig": {
+                "responseModalities": ["IMAGE"],
+                "imageConfig": {
+                    "aspectRatio": aspect_ratio,
+                    "imageSize": image_size
+                }
+            }
+        }
 
     # 发送请求
     api_url = f"{config['endpoint']}?key={config['api_key']}"
@@ -455,7 +538,7 @@ def _run_gemini_generate(prompt, source_path, raw_out, config, suggested_size, s
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=240) as response:
+        with urllib.request.urlopen(request, timeout=600) as response:
             response_text = response.read().decode("utf-8", errors="replace")
             data = json.loads(response_text)
     except urllib.error.HTTPError as exc:
@@ -498,6 +581,10 @@ def _run_gemini_generate(prompt, source_path, raw_out, config, suggested_size, s
 
     # 保存生成的图片
     raw_out.write_bytes(base64.b64decode(image_data))
+
+    # 记录使用的传输模式
+    transport_mode = "base64" if use_base64 else "cloudinary_url"
+
     result_path.write_text(json.dumps({
         "status": "success",
         "api_provider": config["provider"],
@@ -506,11 +593,9 @@ def _run_gemini_generate(prompt, source_path, raw_out, config, suggested_size, s
         "effective_model": data.get("modelVersion", config["model"]),
         "endpoint": config["endpoint"],
         "output_path": str(raw_out),
-        "transport_mode": "cloudinary_url",
-        "source_url": source_url,
-        "suggested_size": suggested_size,
-        "aspect_ratio": aspect_ratio,
-        "image_size": image_size,
+        "transport_mode": transport_mode,
+        "source_url": source_url if not use_base64 else None,
+        "used_base64_fallback": use_base64,
     }, ensure_ascii=False, indent=2), encoding="utf-8")
     return FinishedProcess(0, str(raw_out), "")
 
@@ -527,7 +612,7 @@ def send_feishu_image(path: Path, user_id: str, chat_id: str, key: str, name: st
         sys.stdout.flush()
     
     try:
-        result = subprocess.run(cmd, text=True, capture_output=True, timeout=180, stdin=subprocess.DEVNULL)
+        result = subprocess.run(cmd, text=True, capture_output=True, timeout=600, stdin=subprocess.DEVNULL)
         with print_lock:
             if result.returncode != 0:
                 print(f"[{key}][deliver:error] lark-cli failed for {path.name}: {result.stderr.strip()}", file=sys.stderr)
@@ -560,9 +645,13 @@ def build_extraction_prompt(task: dict, script_dir=None) -> str:
     return prompt
 
 
-def process_single_task(task, args, env, generator_path, remove_chroma_script, manifest, source_path, state, state_path, anchor_key, source_url=None, is_parallel=True):
+def process_single_task(task, args, env, generator_path, remove_chroma_script, manifest, source_path, state, state_path, anchor_key, source_url=None, is_parallel=True, script_dir=None):
     global completed_count
     key = task["key"]
+
+    # 🔥 修复：获取脚本目录（用于 RH 抠图王等脚本路径）
+    if script_dir is None:
+        script_dir = Path(__file__).resolve().parent
 
     def safe_log(msg):
         with print_lock:
@@ -588,11 +677,13 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
     raw_out = Path(task["raw_path"])
     layer_out = Path(task["layer_path"])
 
+    # 🔥 v5.2: 默认使用海报 skill 的 gpt-image2-gen（更成熟的生图链路）
+    # 环境变量默认值从 "1" 改为 "0"，匹配 runtime_config.py 的新默认值
     force_gemini = (
         env.get("OMNI_USE_GPT_IMAGE2") != "1"
         and (
             args.force_gemini
-            or env.get("OMNI_FORCE_BOUND_GEMINI", "1") == "1"
+            or env.get("OMNI_FORCE_BOUND_GEMINI", "0") == "1"
             or env.get("BANANA_FORCE_GEMINI") == "1"
         )
     )
@@ -631,12 +722,76 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
 
     if not generation_success:
         error_msg = res.stderr if (res and res.returncode != 0) else "Output file not found"
-        safe_log(f"Generation failed for '{key}' after strict API attempts: {error_msg}")
-        with state_lock:
-            task_state = state["tasks"].get(key, {})
-            task_state["status"] = "failed"
-            task_state["error"] = error_msg
-            with open(state_path, "w", encoding="utf-8") as f: json.dump(state, f, ensure_ascii=False, indent=2)
+        safe_log(f"⚠️ Generation failed for '{key}' after primary API attempts: {error_msg}")
+
+        # 🔥 兜底逻辑：切换到海报 skill 的 gpt-image2-gen 共享配置
+        safe_log(f"🔄 [兜底机制] 切换到 gpt-image2-gen 共享 skill（海报 skill 配置）")
+
+        # 查找 gpt-image2-gen 脚本（海报 skill 使用的生图工具）
+        gpt_image2_gen_path = resolve_gpt_image_generator()
+        if gpt_image2_gen_path and gpt_image2_gen_path.exists():
+            safe_log(f"📍 找到 gpt-image2-gen: {gpt_image2_gen_path}")
+
+            # 准备 prompt 文件
+            prompt_file = raw_out.with_suffix(".fallback.prompt.txt")
+            prompt_file.write_text(prompt, encoding="utf-8")
+
+            # 组装兜底调用参数（与海报 skill 相同的方式）
+            fallback_args = [
+                sys.executable,
+                str(gpt_image2_gen_path),
+                "--prompt-file", str(prompt_file),
+                "-s", suggested_size,
+                "-o", str(raw_out),
+                "--ref-base", source_path  # 严格遵守"唯一本源"法则
+            ]
+
+            safe_log(f"🚀 [兜底] 执行 gpt-image2-gen 调用...")
+            fallback_res = run_with_spinner(
+                fallback_args,
+                env=env,
+                message=f"[兜底: gpt-image2-gen] Extracting layer '{key}'",
+                show_spinner=not is_parallel
+            )
+
+            # 检查兜底是否成功
+            if fallback_res.returncode == 0 and raw_out.exists():
+                generation_success = True
+                safe_log(f"✅ [兜底成功] gpt-image2-gen 生成成功: {raw_out}")
+                # 更新状态为成功，继续后续流程
+                with state_lock:
+                    task_state = state["tasks"].get(key, {})
+                    task_state["fallback_used"] = "gpt-image2-gen"
+                    task_state["fallback_success"] = True
+                    with open(state_path, "w", encoding="utf-8") as f:
+                        json.dump(state, f, ensure_ascii=False, indent=2)
+            else:
+                fallback_error = fallback_res.stderr if fallback_res.returncode != 0 else "Output file not found"
+                safe_log(f"❌ [兜底失败] gpt-image2-gen 也失败了: {fallback_error}")
+                safe_log(f"💀 所有生成方式均失败，任务终止")
+                with state_lock:
+                    task_state = state["tasks"].get(key, {})
+                    task_state["status"] = "failed"
+                    task_state["error"] = f"Primary: {error_msg}; Fallback: {fallback_error}"
+                    task_state["fallback_used"] = "gpt-image2-gen"
+                    task_state["fallback_success"] = False
+                    with open(state_path, "w", encoding="utf-8") as f:
+                        json.dump(state, f, ensure_ascii=False, indent=2)
+                return False
+        else:
+            safe_log(f"⚠️ [兜底失败] 找不到 gpt-image2-gen 脚本，无法执行兜底")
+            with state_lock:
+                task_state = state["tasks"].get(key, {})
+                task_state["status"] = "failed"
+                task_state["error"] = error_msg
+                task_state["fallback_attempted"] = True
+                task_state["fallback_available"] = False
+                with open(state_path, "w", encoding="utf-8") as f:
+                    json.dump(state, f, ensure_ascii=False, indent=2)
+            return False
+
+    # 如果兜底成功，继续后续流程（不要 return False）
+    if not generation_success:
         return False
 
     # 🔥 立即发送 API 原始返回结果到飞书（让用户实时查看两次 API 请求的结果）
@@ -656,21 +811,75 @@ def process_single_task(task, args, env, generator_path, remove_chroma_script, m
             import shutil
             shutil.copy2(str(raw_out), str(layer_out))
     else:
-        safe_log(f"Removing chroma key background from {raw_out} to {layer_out}...")
-        chroma_cmd = [sys.executable, str(remove_chroma_script), "--input", str(raw_out), "--output", str(layer_out), "--mode", args.key_mode, "--tolerance", str(args.tolerance)]
-        res = run_with_spinner(chroma_cmd, env=env, message=f"[Chroma Key] Removing green background from '{key}'", show_spinner=not is_parallel)
-        if res.returncode != 0 or not layer_out.exists():
-            with state_lock:
-                task_state = state["tasks"].get(key, {})
-                task_state["status"] = "failed"
-                task_state["error"] = res.stderr or "Chroma key output file not found"
-                with open(state_path, "w", encoding="utf-8") as f: json.dump(state, f, ensure_ascii=False, indent=2)
-            return False
+        # 🔥 尝试使用 RH抠图王云端抠图服务，失败时降级到本地去绿幕
+        rh_success = False
+        rh_matting_script = script_dir / "rh_matting.py"
+
+        # 尝试 RH 抠图王
+        safe_log(f"[抠图] 尝试 RH抠图王云端服务: {raw_out} → {layer_out}...")
+
+        rh_cmd = [
+            sys.executable,
+            str(rh_matting_script),
+            "--input", str(raw_out),
+            "--output", str(layer_out),
+            "--max-wait", "120",
+            "--poll-interval", "3"
+        ]
+
+        res = run_with_spinner(
+            rh_cmd,
+            env=env,
+            message=f"[RH抠图王] 云端高精度抠图处理 '{key}'",
+            show_spinner=not is_parallel,
+            timeout=600
+        )
+
+        if res.returncode == 0 and layer_out.exists():
+            safe_log(f"✅ RH抠图王处理成功: {layer_out}")
+            rh_success = True
+        else:
+            safe_log(f"⚠️  RH抠图王失败（可能 404 或不可用），降级到本地去绿幕")
+            safe_log(f"   错误信息: {res.stderr[:300]}")
+
+            # 降级：使用本地去绿幕处理
+            safe_log(f"[本地去绿幕] 正在处理: {raw_out} → {layer_out}...")
+
+            local_chroma_script = script_dir / "remove_chroma_key.py"
+            local_cmd = [
+                sys.executable,
+                str(local_chroma_script),
+                "--input", str(raw_out),
+                "--output", str(layer_out),
+                "--mode", "green",
+                "--tolerance", "30"
+            ]
+
+            local_res = run_with_spinner(
+                local_cmd,
+                env=env,
+                message=f"[本地去绿幕] 处理 '{key}'",
+                show_spinner=not is_parallel,
+                timeout=600
+            )
+
+            if local_res.returncode != 0 or not layer_out.exists():
+                safe_log(f"❌ 本地去绿幕也失败了: {local_res.stderr[:300]}")
+                with state_lock:
+                    task_state = state["tasks"].get(key, {})
+                    task_state["status"] = "failed"
+                    task_state["error"] = f"RH抠图王和本地去绿幕均失败: {local_res.stderr or '输出文件不存在'}"
+                    with open(state_path, "w", encoding="utf-8") as f: json.dump(state, f, ensure_ascii=False, indent=2)
+                return False
+
+            safe_log(f"✅ 本地去绿幕处理成功（降级方案）: {layer_out}")
+            rh_success = False  # 标记使用的是本地方案
 
         # 🔥 去绿幕完成后，发送前景透明层到飞书
         if feishu_user or feishu_chat:
-            safe_log(f"[{key}] 📤 发送去绿幕后的前景透明层到飞书")
-            send_feishu_image(layer_out, feishu_user, feishu_chat, key, "【去绿幕完成】前景透明层", f"透明层-{completed_count+1}/{total_parallel_tasks}" if is_parallel else "透明层")
+            method_label = "RH抠图王" if rh_success else "本地去绿幕"
+            safe_log(f"[{key}] 📤 发送{method_label}处理后的透明层到飞书")
+            send_feishu_image(layer_out, feishu_user, feishu_chat, key, f"【{method_label}完成】前景透明层", f"透明层-{completed_count+1}/{total_parallel_tasks}" if is_parallel else "透明层")
 
     with state_lock:
         task_state = state["tasks"].get(key, {})
@@ -731,7 +940,8 @@ def main():
     # 使用本地同目录下的脚本
     original_script_dir = Path(__file__).resolve().parent
     build_plan_script = original_script_dir / "build_parallel_layer_plan.py"
-    remove_chroma_script = original_script_dir / "remove_chroma_key.py"
+    # 🔥 改用 RH抠图王云端抠图服务（替换原来的本地去绿幕）
+    remove_chroma_script = original_script_dir / "rh_matting.py"
 
     if not plan_path.exists() or not state_path.exists():
         cmd = [sys.executable, str(build_plan_script), "--manifest", str(manifest_path), "--mode", args.mode, "--plan-out", str(plan_path), "--state-out", str(state_path)]
@@ -770,11 +980,19 @@ def main():
 
     success = True
     with ThreadPoolExecutor(max_workers=args.concurrency) as executor:
-        future_to_task = {executor.submit(process_single_task, task, args, env, generator_path, remove_chroma_script, manifest, source_path, state, state_path, anchor_key, source_url, True): task for task in remaining_tasks}
+        future_to_task = {executor.submit(process_single_task, task, args, env, generator_path, remove_chroma_script, manifest, source_path, state, state_path, anchor_key, source_url, True, original_script_dir): task for task in remaining_tasks}
         for future in as_completed(future_to_task):
+            task = future_to_task[future]
             try:
-                if not future.result(): success = False
-            except Exception: success = False
+                if not future.result():
+                    success = False
+            except Exception as e:
+                print(f"\n❌ [线程异常] 任务 '{task['key']}' 执行时发生未捕获异常:")
+                print(f"   异常类型: {type(e).__name__}")
+                print(f"   异常信息: {e}")
+                import traceback
+                print(f"   详细堆栈:\n{traceback.format_exc()}")
+                success = False
 
     if not success: sys.exit(1)
 

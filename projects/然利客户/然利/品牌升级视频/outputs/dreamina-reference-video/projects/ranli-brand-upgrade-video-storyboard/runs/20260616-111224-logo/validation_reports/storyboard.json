@@ -1,0 +1,39 @@
+{
+  "stage": "storyboard",
+  "passed": true,
+  "score": 1.0,
+  "issues": [],
+  "manual_checks": [
+    {
+      "id": "storyboard_panel_aspect",
+      "description": "故事板每一格是否都是 16:9 画幅？（不是横向长条）",
+      "checked": true
+    },
+    {
+      "id": "storyboard_panel_count",
+      "description": "故事板是否有 4 格？",
+      "checked": true
+    },
+    {
+      "id": "storyboard_product_anchors",
+      "description": "产品/场景数量、构图、色调和核心质感是否贴近尾帧海报？",
+      "checked": true
+    }
+  ],
+  "recovery_actions": [
+    {
+      "action": "refresh_run_state",
+      "target": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard/runs/20260616-111224-logo/run_state.json"
+    },
+    {
+      "action": "sync_canonical_reference",
+      "source": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard/runs/20260616-111224-logo/refs/storyboard.png",
+      "target": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard/canonical/storyboard.png"
+    },
+    {
+      "action": "sync_canonical_reference",
+      "source": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard/runs/20260616-111224-logo/refs/original.png",
+      "target": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard/canonical/original.png"
+    }
+  ]
+}

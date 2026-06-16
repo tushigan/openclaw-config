@@ -1,0 +1,75 @@
+{
+  "project_dir": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images",
+  "project_id": "03_what_improved_4k_retry",
+  "original_image": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/03_what_improved_4k_retry.png",
+  "delivery_mode": "direct_image",
+  "deliverables": {
+    "images": [
+      "/Users/a123/.openclaw/workspace/feishu-deliver/gpt-image2-gen_20260616_104554/03_what_improved_4k_retry.png"
+    ]
+  },
+  "delivery_target": {
+    "target": "",
+    "user_id": "",
+    "chat_id": "",
+    "account_id": "",
+    "source_session_key": "",
+    "target_source": "recent_session_scan",
+    "target_candidates": [
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+        "source_sender_name": "吴佳滢",
+        "target_source": "recent_session_scan"
+      }
+    ],
+    "target_conflict_reason": "recent_session_scan_not_trusted",
+    "channel": "feishu"
+  },
+  "delivery_attempted": false,
+  "delivery_attempted_at": null,
+  "delivery_status": "pending_target_resolution",
+  "delivery_method": "lark-cli",
+  "delivery_evidence": {
+    "ok": false,
+    "reason": "missing_delivery_target",
+    "sent_paths": [],
+    "results": []
+  },
+  "fallback_required": true,
+  "fallback_reason": "missing_delivery_target",
+  "user_report": "IMAGE GENERATED BUT TARGET NOT RESOLVED",
+  "error": "missing_delivery_target",
+  "generated_paths": [
+    "/Users/a123/.openclaw/workspace/feishu-deliver/gpt-image2-gen_20260616_104554/03_what_improved_4k_retry.png"
+  ],
+  "target_candidates": [
+    {
+      "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+      "account_id": "design",
+      "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+      "source_sender_open_id": "",
+      "source_sender_name": "",
+      "target_source": "recent_session_scan"
+    },
+    {
+      "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+      "account_id": "design",
+      "source_session_key": "",
+      "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+      "source_sender_name": "吴佳滢",
+      "target_source": "recent_session_scan"
+    }
+  ],
+  "target_conflict_reason": "recent_session_scan_not_trusted"
+}

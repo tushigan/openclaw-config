@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "run_id": "20260616-112122-logo-4",
+  "project_id": "ranli-brand-upgrade-video-storyboard-v2",
+  "stage": "generate_refs",
+  "status": "references_generated",
+  "created_at": "2026-06-16T11:21:22+08:00",
+  "updated_at": "2026-06-16T11:25:05+08:00",
+  "config_snapshot": {
+    "project_name": "然利品牌升级视频故事板V2",
+    "project_slug": "ranli-brand-upgrade-video-storyboard-v2",
+    "video_mode": "non_ip_poster",
+    "ratio": "16:9",
+    "duration": 30,
+    "quality_tier": "draft",
+    "language": "zh-CN",
+    "storyboard_strategy": "auto_beats",
+    "storyboard_panel_count_override": 4,
+    "storyboard_beats_override": [
+      "格1 / 0-8秒 / 为什么升级：旧然利Logo在画面中心，旧包装作为背景或侧边参考，呈现从手工感、传统感向更专业品牌系统升级的起点。",
+      "格2 / 8-16秒 / 升级了哪些：以Logo设计拆解方式展示保留然利品牌名、擀面杖符号、外框、原有识别色系；弱化并移除“手工”信息；强化主品牌识别。",
+      "格3 / 16-22秒 / 提升点：新Logo在比例网格中完成，字形、外框和图形关系更现代、更简洁、更高级、更规范。",
+      "格4 / 22-30秒 / 应用与收束：新Logo应用到两组确认包装，最后回到新Logo+品牌广告语片尾定版，形成渠道招商和终端展示的品牌资产感。"
+    ],
+    "identity_strategy": null,
+    "identity_anchor_rules": [],
+    "identity_structure": [],
+    "identity_forbidden": [],
+    "has_existing_references": true,
+    "anchor_elements": [],
+    "notes": "这是故事板图片，不是正式视频。必须是4格storyboard layout，每格独立16:9；必须体现旧Logo、新Logo、包装新旧应用、最终Logo+广告语收束。素材白名单：01旧Logo、02新Logo、03新Logo+广告语、05包装A新Logo、06包装A旧Logo、08包装B旧Logo、09包装B新Logo。禁止04/07，禁止然利汤包，禁止AI虚构西柚味戚风蛋糕包装，禁止多余字幕。",
+    "normalize_references": true,
+    "brand_name": "然利",
+    "subject": "然利 Logo / 品牌形象升级展示片，4格故事板图片",
+    "action": "生成一张清晰的4格故事板图片，每格都是独立16:9画幅：第1格旧Logo与旧包装现状，第2格Logo拆解升级，第3格新Logo规范化定版，第4格包装应用与片尾Logo广告语收束。只做故事板图片，不生成视频。",
+    "scene": "高端品牌升级发布片的设计工作台与品牌展示环境：红色品牌背景、Logo设计网格、新旧包装对比、渠道招商展示语境。",
+    "style": "专业、现代、高级、规范、克制，有食品品牌温度；画面要像品牌升级视频的分镜图，不像单张海报；强调步骤、镜头节奏、资产对比。",
+    "existing_references": {
+      "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/03_logo_slogan_final.jpg"
+    },
+    "storyboard_beats": [
+      "格1 / 0-8秒 / 为什么升级：旧然利Logo在画面中心，旧包装作为背景或侧边参考，呈现从手工感、传统感向更专业品牌系统升级的起点。",
+      "格2 / 8-16秒 / 升级了哪些：以Logo设计拆解方式展示保留然利品牌名、擀面杖符号、外框、原有识别色系；弱化并移除“手工”信息；强化主品牌识别。",
+      "格3 / 16-22秒 / 提升点：新Logo在比例网格中完成，字形、外框和图形关系更现代、更简洁、更高级、更规范。",
+      "格4 / 22-30秒 / 应用与收束：新Logo应用到两组确认包装，最后回到新Logo+品牌广告语片尾定版，形成渠道招商和终端展示的品牌资产感。"
+    ],
+    "storyboard_panel_count": 4,
+    "slug": "logo-4"
+  },
+  "prompt_files": {
+    "original": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/prompts/original.txt",
+    "identity_board": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/prompts/identity-board.txt",
+    "storyboard": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/prompts/storyboard.txt",
+    "video": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/prompts/video.txt"
+  },
+  "reference_files": {
+    "original": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/original.png",
+    "storyboard": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/storyboard.png",
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/final-frame-poster.png",
+    "normalized_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/normalized/manifest.json"
+  },
+  "artifacts": {
+    "downloads_dir": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/dreamina/downloads"
+  },
+  "prompt_risk_report": {
+    "original": {
+      "prompt_name": "original",
+      "risks": [
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 262",
+          "original_text": " 气质：专业、现代、高级、规范、克制，有食品品牌温度；画面要像品牌升级视频的分镜图，不像单张海报；强调步骤、镜头节奏、资产",
+          "reason": "使用了概念型描述词 '像'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 275",
+          "original_text": "规范、克制，有食品品牌温度；画面要像品牌升级视频的分镜图，不像单张海报；强调步骤、镜头节奏、资产对比。\n空间锚点：保留能稳",
+          "reason": "使用了概念型描述词 '像'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 15 处否定词",
+          "original_text": "否定词位置: [404, 412, 421, 597, 605]...",
+          "reason": "prompt 中有 15 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "原图任务：只负责风格与世界，不负责镜头顺序。\n主体：然利 Logo / 品牌形象升级展示片，4格故事板图片\n主体行为：生成一张清晰的4格故事板图片，每格都是独立16:9画幅：第1格旧Logo与旧包装现状，第2格Logo拆解升级，第3格新Logo规范化定版，第4格包装应用与片尾Logo广告语收束。只做故事板图片，不生成视频。\n场景 / 世界观：高端品牌升级发布片的设计工作台与品牌展示环境：红色品牌背景、Logo设计网格、新旧包装对比、渠道招商展示语境。\n风格 / 气质：专业、现代、高级、规范、克制，有食品品牌温度；画面要具体特征是品牌升级视频的分镜图，不具体特征是单张海报；强调步骤、镜头节奏、资产对比。\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 先建立完整世界观和主画面气质。\n2. 让主体与环境关系清晰，能作为后续身份板和故事板的世界基准。\n3. 保持电影感、真实感、可继续扩展成视频的空间信息。\n4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。\n补充说明：这是故事板图片，不是正式视频。必须是4格storyboard layout，每格独立16:9；必须体现旧Logo、新Logo、包装新旧应用、最终Logo+广告语收束。素材白名单：01旧Logo、02新Logo、03新Logo+广告语、05包装A新Logo、06包装A旧Logo、08包装B旧Logo、09包装B新Logo。禁止04/07，禁止然利汤包，禁止AI虚构西柚味戚风蛋糕包装，禁止多余字幕。"
+      }
+    },
+    "identity_board": {
+      "prompt_name": "identity_board",
+      "risks": [],
+      "rewrite_suggestions": {}
+    },
+    "storyboard": {
+      "prompt_name": "storyboard",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 11 处否定词",
+          "original_text": "否定词位置: [852, 860, 867, 883, 263]...",
+          "reason": "prompt 中有 11 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "无 IP 尾帧海报动效脚本：只规划产品/场景动效和镜头节奏，不生成角色身份板。\n主体：然利 Logo / 品牌形象升级展示片，4格故事板图片\n主体行为 / 动效主线：生成一张清晰的4格故事板图片，每格都是独立16:9画幅：第1格旧Logo与旧包装现状，第2格Logo拆解升级，第3格新Logo规范化定版，第4格包装应用与片尾Logo广告语收束。只做故事板图片，不生成视频。\n场景 / 世界观：高端品牌升级发布片的设计工作台与品牌展示环境：红色品牌背景、Logo设计网格、新旧包装对比、渠道招商展示语境。\n空间锚点：保留能稳定识别空间关系的地标\n比例：16:9\n时长：30 秒\n\n关键节奏：\n1. 格1 / 0-8秒 / 为什么升级：旧然利Logo在画面中心，旧包装作为背景或侧边参考，呈现从手工感、传统感向更专业品牌系统升级的起点。\n2. 格2 / 8-16秒 / 升级了哪些：以Logo设计拆解方式展示保留然利品牌名、擀面杖符号、外框、原有识别色系；弱化并移除“手工”信息；强化主品牌识别。\n3. 格3 / 16-22秒 / 提升点：新Logo在比例网格中完成，字形、外框和图形关系更现代、更简洁、更高级、更规范。\n4. 格4 / 22-30秒 / 应用与收束：新Logo应用到两组确认包装，最后回到新Logo+品牌广告语片尾定版，形成渠道招商和终端展示的品牌资产感。\n\n要求：\n1. 保持尾帧海报的产品、构图、数量、色调和核心空间关系。\n2. 动效优先写正向动作：水珠、光影、质感、景深、轻微运镜、局部高光。\n3. 最后回到或贴近定版尾帧构图，便于作为品牌收束画面。\n补充说明：这是故事板图片，不是正式视频。必须是4格storyboard layout，每格独立16:9；必须体现旧Logo、新Logo、包装新旧应用、最终Logo+广告语收束。素材白名单：01旧Logo、02新Logo、03新Logo+广告语、05包装A新Logo、06包装A旧Logo、08包装B旧Logo、09包装B新Logo。禁止04/07，禁止然利汤包，禁止AI虚构西柚味戚风蛋糕包装，禁止多余字幕。"
+      }
+    },
+    "video": {
+      "prompt_name": "video",
+      "risks": [
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 257",
+          "original_text": "语境。；专业、现代、高级、规范、克制，有食品品牌温度；画面要像品牌升级视频的分镜图，不像单张海报；强调步骤、镜头节奏、资产",
+          "reason": "使用了概念型描述词 '像'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 270",
+          "original_text": "规范、克制，有食品品牌温度；画面要像品牌升级视频的分镜图，不像单张海报；强调步骤、镜头节奏、资产对比。。\n镜头节奏：\n1.",
+          "reason": "使用了概念型描述词 '像'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 14 处否定词",
+          "original_text": "否定词位置: [634, 643, 821, 829, 836]...",
+          "reason": "prompt 中有 14 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "基于参考尾帧海报生成30秒产品/场景广告动效，16:9。\n主体：然利 Logo / 品牌形象升级展示片，4格故事板图片。\n动效：生成一张清晰的4格故事板图片，每格都是独立16:9画幅：第1格旧Logo与旧包装现状，第2格Logo拆解升级，第3格新Logo规范化定版，第4格包装应用与片尾Logo广告语收束。只做故事板图片，不生成视频。。\n场景与气质：高端品牌升级发布片的设计工作台与品牌展示环境：红色品牌背景、Logo设计网格、新旧包装对比、渠道招商展示语境。；专业、现代、高级、规范、克制，有食品品牌温度；画面要具体特征是品牌升级视频的分镜图，不具体特征是单张海报；强调步骤、镜头节奏、资产对比。。\n镜头节奏：\n1. 格1 / 0-8秒 / 为什么升级：旧然利Logo在画面中心，旧包装作为背景或侧边参考，呈现从手工感、传统感向更专业品牌系统升级的起点。\n2. 格2 / 8-16秒 / 升级了哪些：以Logo设计拆解方式展示保留然利品牌名、擀面杖符号、外框、原有识别色系；弱化并移除“手工”信息；强化主品牌识别。\n3. 格3 / 16-22秒 / 提升点：新Logo在比例网格中完成，字形、外框和图形关系更现代、更简洁、更高级、更规范。\n4. 格4 / 22-30秒 / 应用与收束：新Logo应用到两组确认包装，最后回到新Logo+品牌广告语片尾定版，形成渠道招商和终端展示的品牌资产感。\n要求：保持参考图的产品/主体数量、构图、色调和核心质感，最后稳定回到或贴近尾帧海报画面；不要新增无关主体，不要大幅改变产品结构。\n补充说明：这是故事板图片，不是正式视频。必须是4格storyboard layout，每格独立16:9；必须体现旧Logo、新Logo、包装新旧应用、最终Logo+广告语收束。素材白名单：01旧Logo、02新Logo、03新Logo+广告语、05包装A新Logo、06包装A旧Logo、08包装B旧Logo、09包装B新Logo。禁止04/07，禁止然利汤包，禁止AI虚构西柚味戚风蛋糕包装，禁止多余字幕。"
+      }
+    }
+  },
+  "validation_report": {
+    "stage": "storyboard",
+    "passed": true,
+    "score": 1.0,
+    "issues": [],
+    "manual_checks": [
+      {
+        "id": "storyboard_panel_aspect",
+        "description": "故事板每一格是否都是 16:9 画幅？（不是横向长条）",
+        "checked": false
+      },
+      {
+        "id": "storyboard_panel_count",
+        "description": "故事板是否有 4 格？",
+        "checked": false
+      },
+      {
+        "id": "storyboard_product_anchors",
+        "description": "产品/场景数量、构图、色调和核心质感是否贴近尾帧海报？",
+        "checked": false
+      }
+    ],
+    "recovery_actions": [
+      {
+        "action": "refresh_run_state",
+        "target": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/run_state.json"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/storyboard.png",
+        "target": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/canonical/storyboard.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/original.png",
+        "target": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/canonical/original.png"
+      }
+    ]
+  },
+  "next_action": {
+    "decision": "continue",
+    "reason": ""
+  },
+  "iterations": [
+    {
+      "version": 1,
+      "artifact_type": "storyboard",
+      "prompt_hash": "dbbdb5a64f11d116",
+      "issues": [],
+      "validation_score": 1.0,
+      "cost": null,
+      "created_at": "2026-06-16T11:25:05+08:00"
+    }
+  ]
+}

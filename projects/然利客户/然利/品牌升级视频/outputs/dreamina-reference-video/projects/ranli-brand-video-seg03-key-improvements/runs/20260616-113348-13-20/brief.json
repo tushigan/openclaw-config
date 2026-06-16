@@ -1,0 +1,41 @@
+{
+  "project_name": "然利品牌升级视频第三段故事板",
+  "project_slug": "ranli-brand-video-seg03-key-improvements",
+  "video_mode": "non_ip_poster",
+  "ratio": "16:9",
+  "duration": 7,
+  "quality_tier": "draft",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": 4,
+  "storyboard_beats_override": [
+    "格1：新Logo结构线和比例网格出现，画面开始从设计系统角度讲提升点。",
+    "格2：外框归整，比例线收束，然利主字更聚焦，结构更稳定。",
+    "格3：擀面杖符号作为品牌记忆点被保留并强调，新旧Logo可轻微闪现对比但不长停。",
+    "格4：新Logo稳定落位，画面呈现专业品牌感，为后续包装应用做铺垫。"
+  ],
+  "identity_strategy": null,
+  "identity_anchor_rules": [],
+  "identity_structure": [],
+  "identity_forbidden": [],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "只生成这一段的四宫格故事板图片，不生成视频。每格独立16:9。参考素材：02新Logo、03新Logo+广告语，可少量使用01旧Logo做对比。禁止汤包、禁止虚构包装、禁止多余字幕。",
+  "normalize_references": true,
+  "brand_name": "然利",
+  "subject": "第三段｜做了哪些提升 / 关键点，13-20秒，四宫格故事板",
+  "action": "生成一张四宫格故事板，只描述第三段13-20秒。新Logo结构更稳定、比例更舒服、主品牌更突出，在包装和渠道展示里更清晰，整体从手工标签转向专业品牌感。",
+  "scene": "新Logo在网格和比例线中成型，外框归整，然利主字更聚焦，擀面杖符号作为品牌记忆点保留，最后新Logo稳定落位，可轻微带一帧新旧Logo对比但不要停太久。",
+  "style": "视觉上像品牌设计发布片，不是PPT说明片；现代、清晰、高级、规范，有设计发布感。",
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/02_new_logo.jpg"
+  },
+  "storyboard_beats": [
+    "格1：新Logo结构线和比例网格出现，画面开始从设计系统角度讲提升点。",
+    "格2：外框归整，比例线收束，然利主字更聚焦，结构更稳定。",
+    "格3：擀面杖符号作为品牌记忆点被保留并强调，新旧Logo可轻微闪现对比但不长停。",
+    "格4：新Logo稳定落位，画面呈现专业品牌感，为后续包装应用做铺垫。"
+  ],
+  "storyboard_panel_count": 4,
+  "slug": "13-20"
+}

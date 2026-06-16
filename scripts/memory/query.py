@@ -185,33 +185,54 @@ def query_all_brands() -> List[dict]:
     return brands
 
 
-def query_all_active_projects() -> List[dict]:
-    """列出所有活跃项目"""
+def query_all_active_projects(include_all: bool = False) -> List[dict]:
+    """
+    列出所有活跃项目
+
+    Args:
+        include_all: 如果为 True，返回所有项目；如果为 False（默认），只返回 status='active' 的项目
+    """
     projects = []
     project_root = get_project_root()
 
     if not os.path.exists(project_root):
         return []
 
-    for client_dir in list_subdirs(project_root):
-        client_path = os.path.join(project_root, client_dir)
+    # 递归扫描所有 project.json 文件（不限深度）
+    for root, dirs, files in os.walk(project_root):
+        # 跳过隐藏目录和特殊目录
+        dirs[:] = [d for d in dirs if not d.startswith('.') and not d.startswith('_')]
 
-        for brand_dir in list_subdirs(client_path):
-            brand_path = os.path.join(client_path, brand_dir)
+        if 'project.json' in files:
+            project_path = os.path.join(root, 'project.json')
+            data = read_json(project_path)
 
-            for campaign_dir in list_subdirs(brand_path):
-                project_path = os.path.join(brand_path, campaign_dir, "project.json")
-                if os.path.exists(project_path):
-                    data = read_json(project_path)
-                    if data and data.get('status') == 'active':
-                        projects.append({
-                            "project_id": data.get("project_id"),
-                            "campaign_name": data.get("campaign_name"),
-                            "brand": brand_dir,
-                            "client": client_dir,
-                            "lifecycle_stage": data.get("lifecycle_stage", ""),
-                            "deadline_date": data.get("deadline_date", "")
-                        })
+            if data:
+                # 如果 include_all 为 True，或者项目状态为 active，则包含该项目
+                if include_all or data.get('status') == 'active':
+                    # 提取相对路径作为项目标识
+                    rel_path = os.path.relpath(root, project_root)
+                    path_parts = rel_path.split(os.sep)
+
+                    # 尝试解析客户/品牌/项目结构
+                    client = path_parts[0] if len(path_parts) > 0 else "未知客户"
+                    brand = path_parts[1] if len(path_parts) > 1 else "未知品牌"
+                    campaign = path_parts[2] if len(path_parts) > 2 else "未知项目"
+
+                    # 如果路径过深（超过3层），标记为子项目
+                    is_subproject = len(path_parts) > 3
+
+                    projects.append({
+                        "project_id": data.get("project_id", rel_path),
+                        "campaign_name": data.get("campaign_name", campaign),
+                        "brand": brand,
+                        "client": client,
+                        "lifecycle_stage": data.get("lifecycle_stage", ""),
+                        "deadline_date": data.get("deadline_date", ""),
+                        "status": data.get("status", "unknown"),
+                        "path": rel_path,
+                        "is_subproject": is_subproject
+                    })
 
     return projects
 
@@ -269,8 +290,10 @@ def main():
     list_brands_parser.add_argument('--json', action='store_true', help='输出 JSON 格式')
 
     # list-projects 命令
-    list_projects_parser = subparsers.add_parser('list-projects', help='列出所有活跃项目')
+    list_projects_parser = subparsers.add_parser('list-projects', help='列出所有项目')
     list_projects_parser.add_argument('--json', action='store_true', help='输出 JSON 格式')
+    list_projects_parser.add_argument('--active', action='store_true', help='只显示 status=active 的项目')
+    list_projects_parser.add_argument('--all', action='store_true', help='显示所有项目（包括非 active 状态）')
 
     args = parser.parse_args()
 
@@ -326,11 +349,20 @@ def main():
                 print(f"   • {brand['name']} ({brand['client']}) - {brand['brand_tone']}")
 
     elif args.command == 'list-projects':
-        result = query_all_active_projects()
+        # 默认显示所有项目，除非明确指定 --active
+        include_all = not args.active if hasattr(args, 'active') else True
+        if hasattr(args, 'all') and args.all:
+            include_all = True
+
+        result = query_all_active_projects(include_all=include_all)
         if not args.json:
-            print(f"📋 活跃项目总数: {len(result)}")
+            if include_all:
+                print(f"📋 项目总数: {len(result)}")
+            else:
+                print(f"📋 活跃项目总数: {len(result)}")
             for proj in result:
-                print(f"   🟢 {proj['campaign_name']} ({proj['brand']}) - {proj['lifecycle_stage']}")
+                status_emoji = "🟢" if proj.get('status') == 'active' else "○"
+                print(f"   {status_emoji} {proj['campaign_name']} ({proj['brand']}) - {proj['lifecycle_stage']} [{proj.get('status', 'unknown')}]")
 
     else:
         parser.print_help()

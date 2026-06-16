@@ -1,0 +1,2677 @@
+{
+  "schema": "openclaw.gpt-image2.task.v1",
+  "created_at": "2026-06-16T03:21:40.913692Z",
+  "target_locked": false,
+  "requested_output": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/storyboard.png",
+  "output": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/storyboard.png",
+  "result_path": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/storyboard.result.json",
+  "delivery_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/storyboard.delivery.json",
+  "prompt": "无 IP 尾帧海报动效脚本：只规划产品/场景动效和镜头节奏，不生成角色身份板。\n主体：然利 Logo / 品牌形象升级展示片，4格故事板图片\n主体行为 / 动效主线：生成一张清晰的4格故事板图片，每格都是独立16:9画幅：第1格旧Logo与旧包装现状，第2格Logo拆解升级，第3格新Logo规范化定版，第4格包装应用与片尾Logo广告语收束。只做故事板图片，不生成视频。\n场景 / 世界观：高端品牌升级发布片的设计工作台与品牌展示环境：红色品牌背景、Logo设计网格、新旧包装对比、渠道招商展示语境。\n空间锚点：保留能稳定识别空间关系的地标\n比例：16:9\n时长：30 秒\n\n关键节奏：\n1. 格1 / 0-8秒 / 为什么升级：旧然利Logo在画面中心，旧包装作为背景或侧边参考，呈现从手工感、传统感向更专业品牌系统升级的起点。\n2. 格2 / 8-16秒 / 升级了哪些：以Logo设计拆解方式展示保留然利品牌名、擀面杖符号、外框、原有识别色系；弱化并移除“手工”信息；强化主品牌识别。\n3. 格3 / 16-22秒 / 提升点：新Logo在比例网格中完成，字形、外框和图形关系更现代、更简洁、更高级、更规范。\n4. 格4 / 22-30秒 / 应用与收束：新Logo应用到两组确认包装，最后回到新Logo+品牌广告语片尾定版，形成渠道招商和终端展示的品牌资产感。\n\n要求：\n1. 保持尾帧海报的产品、构图、数量、色调和核心空间关系。\n2. 动效优先写正向动作：水珠、光影、质感、景深、轻微运镜、局部高光。\n3. 最后回到或贴近定版尾帧构图，便于作为品牌收束画面。\n补充说明：这是故事板图片，不是正式视频。必须是4格storyboard layout，每格独立16:9；必须体现旧Logo、新Logo、包装新旧应用、最终Logo+广告语收束。素材白名单：01旧Logo、02新Logo、03新Logo+广告语、05包装A新Logo、06包装A旧Logo、08包装B旧Logo、09包装B新Logo。禁止04/07，禁止然利汤包，禁止AI虚构西柚味戚风蛋糕包装，禁止多余字幕。\n\nReference images (by role — obey each role strictly, do not swap them):\n- Image 1: artistic tone reference — imitate only style, palette and mood, do NOT copy its content/objects",
+  "size": "2560x1440",
+  "aspect": "1:1",
+  "model": "gpt-image-2-pro",
+  "count": 1,
+  "references": [
+    "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/original.png"
+  ],
+  "delivery_target": {
+    "target": "",
+    "user_id": "",
+    "chat_id": "",
+    "account_id": "",
+    "source_session_key": "",
+    "target_source": "recent_session_scan",
+    "target_candidates": [
+      {
+        "target": "user:ou_822902a53cf75b5067322d6707017ad8",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_822902a53cf75b5067322d6707017ad8",
+        "source_sender_open_id": "ou_822902a53cf75b5067322d6707017ad8",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_68eb6a83b920ace11e0f0081972c9c2e",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:direct:ou_68eb6a83b920ace11e0f0081972c9c2e",
+        "source_sender_open_id": "ou_68eb6a83b920ace11e0f0081972c9c2e",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_c63f951874e6ad2cfb325e89bf299016",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_c63f951874e6ad2cfb325e89bf299016",
+        "source_sender_open_id": "ou_c63f951874e6ad2cfb325e89bf299016",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+        "source_sender_name": "吴佳滢",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_9588bac1d9b2b1611908631886b7b0ae",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_9588bac1d9b2b1611908631886b7b0ae",
+        "source_sender_open_id": "ou_9588bac1d9b2b1611908631886b7b0ae",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_c17bba1c85b98587a454ea1b73e02c01",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_c17bba1c85b98587a454ea1b73e02c01",
+        "source_sender_open_id": "ou_c17bba1c85b98587a454ea1b73e02c01",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_64143356292a6a5babd35863fc9c9a79",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_64143356292a6a5babd35863fc9c9a79",
+        "source_sender_open_id": "ou_64143356292a6a5babd35863fc9c9a79",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_01bf6764a68b824820eb9b94f941536d",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_01bf6764a68b824820eb9b94f941536d:thread:omt_1955334ad20f5be9",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_471e9e1436d4d187740867f9c69ba946",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_471e9e1436d4d187740867f9c69ba946",
+        "source_sender_open_id": "ou_471e9e1436d4d187740867f9c69ba946",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_f6e71c6100c0318d1c05f08e0fc47493",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_f6e71c6100c0318d1c05f08e0fc47493",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_ade9d49cd1dff5315774a6cae2479938",
+        "account_id": "design",
+        "source_session_key": "agent:design:feishu:direct:ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_open_id": "ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_eecba11ff33db403fe90502826ad90c3",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_eecba11ff33db403fe90502826ad90c3",
+        "source_sender_open_id": "ou_eecba11ff33db403fe90502826ad90c3",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_88079e6b06ce40e6851c96928fe1a03b",
+        "account_id": "main",
+        "source_session_key": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_06099da9fa8a6f69d0c1025ed29cdae2",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_06099da9fa8a6f69d0c1025ed29cdae2",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_3b86047692970f514890e0a79263ac63",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_3b86047692970f514890e0a79263ac63",
+        "source_sender_open_id": "ou_3b86047692970f514890e0a79263ac63",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_84f7663a0c5ca65ac6fa305af6f61788",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:direct:ou_84f7663a0c5ca65ac6fa305af6f61788",
+        "source_sender_open_id": "ou_84f7663a0c5ca65ac6fa305af6f61788",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "source_sender_open_id": "ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_d9344007feff9f34f5a3f9a042308647",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_d9344007feff9f34f5a3f9a042308647",
+        "source_sender_open_id": "ou_d9344007feff9f34f5a3f9a042308647",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5d7af83455d33e925a2525d388625fcd",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_5d7af83455d33e925a2525d388625fcd",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_aa3634a0c3c58324c23c4c2566ed235b",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_aa3634a0c3c58324c23c4c2566ed235b",
+        "source_sender_open_id": "ou_aa3634a0c3c58324c23c4c2566ed235b",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194ad2926ed5db85",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_c7cdee4db91a5052f03831e73db04f89",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_c7cdee4db91a5052f03831e73db04f89",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_7b38071a831157277e12c07a77b24f27",
+        "account_id": "business",
+        "source_session_key": "agent:business-shared:feishu:direct:ou_7b38071a831157277e12c07a77b24f27",
+        "source_sender_open_id": "ou_7b38071a831157277e12c07a77b24f27",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_941bae43230837b2ed38124807c4eee0",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_941bae43230837b2ed38124807c4eee0",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_66b61c7b309047f8f1af80b0db411c01",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_66b61c7b309047f8f1af80b0db411c01",
+        "source_sender_open_id": "ou_66b61c7b309047f8f1af80b0db411c01",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_2c4bf0211968691ab230633950e375ac",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:direct:ou_2c4bf0211968691ab230633950e375ac",
+        "source_sender_open_id": "ou_2c4bf0211968691ab230633950e375ac",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e691e052e4f782f0c9295e29168d5626",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_e691e052e4f782f0c9295e29168d5626",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_e2f8af4cbc49a97b32799d486041c4da",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_e2f8af4cbc49a97b32799d486041c4da",
+        "source_sender_open_id": "ou_e2f8af4cbc49a97b32799d486041c4da",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_070ad7f5a3b3bd669cd7ecb1ad897c8a",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_070ad7f5a3b3bd669cd7ecb1ad897c8a",
+        "source_sender_open_id": "ou_070ad7f5a3b3bd669cd7ecb1ad897c8a",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_4a65167ebfe769f12264477850dffa70",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_4a65167ebfe769f12264477850dffa70",
+        "source_sender_open_id": "ou_4a65167ebfe769f12264477850dffa70",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_fd72281b490fcdc501d3ec38091fb350",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_fd72281b490fcdc501d3ec38091fb350",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_fd72281b490fcdc501d3ec38091fb350",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_fd72281b490fcdc501d3ec38091fb350",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194af24da94edb9d",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_2c6fa85d837473dd9a7b86c7d8c16d55",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_2c6fa85d837473dd9a7b86c7d8c16d55",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_79cc9d4d277293bca6ca75849ea53363",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_79cc9d4d277293bca6ca75849ea53363",
+        "source_sender_open_id": "ou_79cc9d4d277293bca6ca75849ea53363",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5650910c55708b9945b8085620ed981e",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_5650910c55708b9945b8085620ed981e",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_90358a27c0c484ea10dd31b1c101890d",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_90358a27c0c484ea10dd31b1c101890d:thread:omt_194a488b250d1cb8",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_90358a27c0c484ea10dd31b1c101890d",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_7970faad6801bb3a88c36229f9bf7b07",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_7970faad6801bb3a88c36229f9bf7b07",
+        "source_sender_open_id": "ou_7970faad6801bb3a88c36229f9bf7b07",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_50dcb8d870751834e876225d9dac1b7f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_50dcb8d870751834e876225d9dac1b7f",
+        "source_sender_open_id": "ou_50dcb8d870751834e876225d9dac1b7f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+        "source_sender_open_id": "ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_e419c7199fcdf16df6175b191cc68797",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_e419c7199fcdf16df6175b191cc68797",
+        "source_sender_open_id": "ou_e419c7199fcdf16df6175b191cc68797",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_d4d404eedf2823baab3a64d36f1c36d4",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4",
+        "source_sender_open_id": "ou_d4d404eedf2823baab3a64d36f1c36d4",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194add3d9e8fdbbc",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_f1210751301957ea05e174872faba33f",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_f1210751301957ea05e174872faba33f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_f1210751301957ea05e174872faba33f",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_f1210751301957ea05e174872faba33f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194ad5a21a8c5b9b",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_b4085d3733a640f912236a161f7bfa29",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:direct:ou_b4085d3733a640f912236a161f7bfa29",
+        "source_sender_open_id": "ou_b4085d3733a640f912236a161f7bfa29",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_016ff57a4fb36eee52c4308c81724e6c",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_016ff57a4fb36eee52c4308c81724e6c",
+        "source_sender_open_id": "ou_016ff57a4fb36eee52c4308c81724e6c",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_c79f8932082cdd78a5406af8fe863a43",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_c79f8932082cdd78a5406af8fe863a43",
+        "source_sender_open_id": "ou_c79f8932082cdd78a5406af8fe863a43",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194ba142e6169c9c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_45b3e64c848e0de3871bd4578a9051db",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_45b3e64c848e0de3871bd4578a9051db",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_cd6cc762e35c0640414d33335a183a67",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:direct:ou_cd6cc762e35c0640414d33335a183a67",
+        "source_sender_open_id": "ou_cd6cc762e35c0640414d33335a183a67",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_4f09340c374ed6d656c9836989d88870",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:direct:ou_4f09340c374ed6d656c9836989d88870",
+        "source_sender_open_id": "ou_4f09340c374ed6d656c9836989d88870",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_db8d075ed93bb69cb58b3f809c9a2272",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter:feishu:direct:ou_db8d075ed93bb69cb58b3f809c9a2272",
+        "source_sender_open_id": "ou_db8d075ed93bb69cb58b3f809c9a2272",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194b92ccd3cf9c8b",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_1948e7f8768f1c90",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_1948d1cdbf4f1cb7",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_39c5e87826ea8cc8aa692c687777b18c",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_39c5e87826ea8cc8aa692c687777b18c",
+        "source_sender_open_id": "ou_39c5e87826ea8cc8aa692c687777b18c",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_1948d9cfed4f5cbd",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_1948bfdc7b8f1cb1",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194e386b374c5b85",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_442533093a478558484ef6461b4d4a56",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy:feishu:direct:ou_442533093a478558484ef6461b4d4a56",
+        "source_sender_open_id": "ou_442533093a478558484ef6461b4d4a56",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_3669c86e1e9957992630dd1fc0b85577",
+        "account_id": "research",
+        "source_session_key": "agent:research:feishu:direct:ou_3669c86e1e9957992630dd1fc0b85577",
+        "source_sender_open_id": "ou_3669c86e1e9957992630dd1fc0b85577",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_5a2343ad4d38d496e66b20d2367e4191",
+        "account_id": "business",
+        "source_session_key": "agent:business:feishu:direct:ou_5a2343ad4d38d496e66b20d2367e4191",
+        "source_sender_open_id": "ou_5a2343ad4d38d496e66b20d2367e4191",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_ccaada76f3692661da68519a27d3fc9d",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_ccaada76f3692661da68519a27d3fc9d",
+        "source_sender_open_id": "ou_ccaada76f3692661da68519a27d3fc9d",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_8e8cc8eb89ec56dcd4bdb5f8a7335012",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_8e8cc8eb89ec56dcd4bdb5f8a7335012",
+        "source_sender_open_id": "ou_8e8cc8eb89ec56dcd4bdb5f8a7335012",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_1e2494605d60685078e1532cedbb5c4f",
+        "account_id": "meeting-analyst",
+        "source_session_key": "agent:meeting-analyst:feishu:direct:ou_1e2494605d60685078e1532cedbb5c4f",
+        "source_sender_open_id": "ou_1e2494605d60685078e1532cedbb5c4f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_e28591f370ed0c449513aaed88be5b5c",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_e28591f370ed0c449513aaed88be5b5c",
+        "source_sender_open_id": "ou_e28591f370ed0c449513aaed88be5b5c",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194e511810cd9b9e",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_df673cbaede7ec76e9611d1a71c7c3c8",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_df673cbaede7ec76e9611d1a71c7c3c8",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_df673cbaede7ec76e9611d1a71c7c3c8",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_1e7a27a211bfc61d6ece8ba9993e9f75",
+        "source_sender_name": "葉宝萱",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f#__feishu_reply_to=om_x100b6d8894a7b8a0c49997a8cfb5ae9&__feishu_thread_id=omt_194eeb1ac88e9bb4",
+        "account_id": "",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194eeb1ac88e9bb4",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194efcd8430f5be3",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_11a550220045d2a5b60fd48adc528bc3",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_11a550220045d2a5b60fd48adc528bc3",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_241689cb71638eebce9bda64a54c49b6",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:direct:ou_241689cb71638eebce9bda64a54c49b6",
+        "source_sender_open_id": "ou_241689cb71638eebce9bda64a54c49b6",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_2154812cbdb5c7cddd409becb1dc9835",
+        "account_id": "meeting-analyst",
+        "source_session_key": "agent:meeting-analyst-shared:feishu:direct:ou_2154812cbdb5c7cddd409becb1dc9835",
+        "source_sender_open_id": "ou_2154812cbdb5c7cddd409becb1dc9835",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e5049862a42c820807da5f6f7edc99a0",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_e5049862a42c820807da5f6f7edc99a0",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e5049862a42c820807da5f6f7edc99a0",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_eecba11ff33db403fe90502826ad90c3",
+        "source_sender_name": "林媛媛",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_941bae43230837b2ed38124807c4eee0",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_941bae43230837b2ed38124807c4eee0",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_941bae43230837b2ed38124807c4eee0",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_941bae43230837b2ed38124807c4eee0",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_f1210751301957ea05e174872faba33f",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_f1210751301957ea05e174872faba33f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_8f30e10af8c409dac36a6966ed0a4133",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_8f30e10af8c409dac36a6966ed0a4133",
+        "source_sender_open_id": "ou_8f30e10af8c409dac36a6966ed0a4133",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_8f30e10af8c409dac36a6966ed0a4133",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_8f30e10af8c409dac36a6966ed0a4133",
+        "source_sender_name": "李海兵",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_0cc88f94a9064b6635e902b0481ac7bf",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_0cc88f94a9064b6635e902b0481ac7bf",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_020f8ed7c55af1ba255e0be15efd34ab",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:direct:ou_020f8ed7c55af1ba255e0be15efd34ab",
+        "source_sender_open_id": "ou_020f8ed7c55af1ba255e0be15efd34ab",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5650910c55708b9945b8085620ed981e",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_5650910c55708b9945b8085620ed981e",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5650910c55708b9945b8085620ed981e",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_c2312dec8c7eb120a668349b8e0fd4dd",
+        "source_sender_name": "彭宜",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_2253f3cfcdb6e0ae8707cee2ea10a57c",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_2253f3cfcdb6e0ae8707cee2ea10a57c",
+        "source_sender_open_id": "ou_2253f3cfcdb6e0ae8707cee2ea10a57c",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_2253f3cfcdb6e0ae8707cee2ea10a57c",
+        "account_id": "",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_2253f3cfcdb6e0ae8707cee2ea10a57c",
+        "source_sender_name": "林育丰",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_12917d89bd8d5e9e9c3ddf3ff17b64a9",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_12917d89bd8d5e9e9c3ddf3ff17b64a9",
+        "source_sender_open_id": "ou_12917d89bd8d5e9e9c3ddf3ff17b64a9",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_12917d89bd8d5e9e9c3ddf3ff17b64a9",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_12917d89bd8d5e9e9c3ddf3ff17b64a9",
+        "source_sender_name": "蔡雅琪",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194f05a87d8d5bb4",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194f0d1fb78e9b8f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5650910c55708b9945b8085620ed981e",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_5650910c55708b9945b8085620ed981e",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194ff4c9b18d5b95",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194ff043ce0f1b9e",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_5c319bec8cc7030d532ece9a44f91a25",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:direct:ou_5c319bec8cc7030d532ece9a44f91a25",
+        "source_sender_open_id": "ou_5c319bec8cc7030d532ece9a44f91a25",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_e3af1c1f206ab9a1e0fa0f5603ab619f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_e3af1c1f206ab9a1e0fa0f5603ab619f",
+        "source_sender_open_id": "ou_e3af1c1f206ab9a1e0fa0f5603ab619f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_e3af1c1f206ab9a1e0fa0f5603ab619f",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_e3af1c1f206ab9a1e0fa0f5603ab619f",
+        "source_sender_name": "张可可",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_46734e1eb0267abb4b5c659cfc693dbf",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_46734e1eb0267abb4b5c659cfc693dbf",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_3b080fb538714dda4a1be6aea428984a",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:direct:ou_3b080fb538714dda4a1be6aea428984a",
+        "source_sender_open_id": "ou_3b080fb538714dda4a1be6aea428984a",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_aa4a73c4e5bf077b4ef564df99292b4b",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_aa4a73c4e5bf077b4ef564df99292b4b",
+        "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e9d8b04f40d04454612818f1bc76135f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_e9d8b04f40d04454612818f1bc76135f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194fe606458c1b8d",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194fef28394f5be3",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194fee288a4fdbb7",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194feaae3a935c88",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194faeeb794e1b95",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e9d8b04f40d04454612818f1bc76135f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_e9d8b04f40d04454612818f1bc76135f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194fadb3b24c1baf",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e9d8b04f40d04454612818f1bc76135f",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_e9d8b04f40d04454612818f1bc76135f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194f9d7c008c1b8f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194fae98b10d9bbc",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194fad45684e1bb2",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_f96319a8c9e84cffd9ba098caaf6562f",
+        "source_sender_name": "陈焰",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_fa2c8ecffbef60156b3575e80f5fb666",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_fa2c8ecffbef60156b3575e80f5fb666",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_fa2c8ecffbef60156b3575e80f5fb666",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_fa2c8ecffbef60156b3575e80f5fb666",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_fa2c8ecffbef60156b3575e80f5fb666",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_09b057a087844319bb0afd27b83ba61c",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_09b057a087844319bb0afd27b83ba61c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_09b057a087844319bb0afd27b83ba61c",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_937bbb0342e11f009c5654cc38b9551c",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_937bbb0342e11f009c5654cc38b9551c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_937bbb0342e11f009c5654cc38b9551c",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_9de0004eaadf44bc7b4868c206c80bea",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:direct:ou_9de0004eaadf44bc7b4868c206c80bea",
+        "source_sender_open_id": "ou_9de0004eaadf44bc7b4868c206c80bea",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_8a2f509f5bb42d9bc0b56f8c72b16c1f",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_8a2f509f5bb42d9bc0b56f8c72b16c1f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "account_id": "meeting-analyst",
+        "source_session_key": "agent:meeting-analyst-shared:feishu:group:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_8a2f509f5bb42d9bc0b56f8c72b16c1f",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_8a2f509f5bb42d9bc0b56f8c72b16c1f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "account_id": "meeting-analyst",
+        "source_session_key": "agent:meeting-analyst-shared:feishu:group:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_09b057a087844319bb0afd27b83ba61c",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_09b057a087844319bb0afd27b83ba61c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_09b057a087844319bb0afd27b83ba61c",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_05396dd580eedaa92a7376199d87900c",
+        "source_sender_name": "高静",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_414f5ea1d49cc433962936ddd4fa7377",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:direct:ou_414f5ea1d49cc433962936ddd4fa7377",
+        "source_sender_open_id": "ou_414f5ea1d49cc433962936ddd4fa7377",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_4a65167ebfe769f12264477850dffa70",
+        "source_sender_name": "ou_4a65167ebfe769f12264477850dffa70",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_450c2b3d19a4df78bbc4bd3b5fb064c3",
+        "account_id": "strategy",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_442533093a478558484ef6461b4d4a56",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_169e152332c3c147546ac9e622aafcdb",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_169e152332c3c147546ac9e622aafcdb",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_169e152332c3c147546ac9e622aafcdb",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_eecba11ff33db403fe90502826ad90c3",
+        "source_sender_name": "林媛媛",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_450c2b3d19a4df78bbc4bd3b5fb064c3",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_450c2b3d19a4df78bbc4bd3b5fb064c3",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_5e3b10638cbe21ea17ecb66a13600d71",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_5e3b10638cbe21ea17ecb66a13600d71",
+        "source_sender_open_id": "ou_5e3b10638cbe21ea17ecb66a13600d71",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_d3eaaeccf7c286b4ad0b6199107264d5",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_d3eaaeccf7c286b4ad0b6199107264d5",
+        "source_sender_open_id": "ou_d3eaaeccf7c286b4ad0b6199107264d5",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_d3eaaeccf7c286b4ad0b6199107264d5",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_d3eaaeccf7c286b4ad0b6199107264d5",
+        "source_sender_name": "陈春宏",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_a7e17ff08a228b358cdcff775f9af920",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_a7e17ff08a228b358cdcff775f9af920",
+        "source_sender_open_id": "ou_a7e17ff08a228b358cdcff775f9af920",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_a7e17ff08a228b358cdcff775f9af920",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_a7e17ff08a228b358cdcff775f9af920",
+        "source_sender_name": "ou_a7e17ff08a228b358cdcff775f9af920",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_436ac2c9a5020845177188bb2cc1451a",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_436ac2c9a5020845177188bb2cc1451a",
+        "source_sender_open_id": "ou_436ac2c9a5020845177188bb2cc1451a",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_436ac2c9a5020845177188bb2cc1451a",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_436ac2c9a5020845177188bb2cc1451a",
+        "source_sender_name": "曾树超",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_83b7895cba825fef7e65c7542622889d",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_83b7895cba825fef7e65c7542622889d",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_83b7895cba825fef7e65c7542622889d",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_3669c86e1e9957992630dd1fc0b85577",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_09b057a087844319bb0afd27b83ba61c",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_09b057a087844319bb0afd27b83ba61c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_09b057a087844319bb0afd27b83ba61c",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_3669c86e1e9957992630dd1fc0b85577",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_937bbb0342e11f009c5654cc38b9551c",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_937bbb0342e11f009c5654cc38b9551c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_937bbb0342e11f009c5654cc38b9551c",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_3669c86e1e9957992630dd1fc0b85577",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_ff730da50653b4afc7e793b0bbec0489",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_ff730da50653b4afc7e793b0bbec0489",
+        "source_sender_open_id": "ou_ff730da50653b4afc7e793b0bbec0489",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_ff730da50653b4afc7e793b0bbec0489",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_ff730da50653b4afc7e793b0bbec0489",
+        "source_sender_name": "周荷花",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_b8b179ea333a8550d4d105661379d266",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_b8b179ea333a8550d4d105661379d266",
+        "source_sender_open_id": "ou_b8b179ea333a8550d4d105661379d266",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_49097578a3e50a7093688ca6fa6dd599",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_49097578a3e50a7093688ca6fa6dd599",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_36557b6bf7ce5fa5b95a47f7d3d7aa10",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_36557b6bf7ce5fa5b95a47f7d3d7aa10",
+        "source_sender_open_id": "ou_36557b6bf7ce5fa5b95a47f7d3d7aa10",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_36557b6bf7ce5fa5b95a47f7d3d7aa10",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_36557b6bf7ce5fa5b95a47f7d3d7aa10",
+        "source_sender_name": "张婧",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5cb6d0926ecf7c1b8347c047dc03f60b",
+        "account_id": "meeting-analyst",
+        "source_session_key": "agent:meeting-analyst-shared:feishu:group:oc_5cb6d0926ecf7c1b8347c047dc03f60b",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_f96319a8c9e84cffd9ba098caaf6562f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_f96319a8c9e84cffd9ba098caaf6562f",
+        "source_sender_open_id": "ou_f96319a8c9e84cffd9ba098caaf6562f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_f96319a8c9e84cffd9ba098caaf6562f",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_f96319a8c9e84cffd9ba098caaf6562f",
+        "source_sender_name": "陈焰",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_dbc9daef72a4c354fdbe8e3c03918c7c",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:direct:ou_dbc9daef72a4c354fdbe8e3c03918c7c",
+        "source_sender_open_id": "ou_dbc9daef72a4c354fdbe8e3c03918c7c",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_7ecbab619f69e5d1482b802d3683abda",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_7ecbab619f69e5d1482b802d3683abda",
+        "source_sender_open_id": "ou_7ecbab619f69e5d1482b802d3683abda",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_7ecbab619f69e5d1482b802d3683abda",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_7ecbab619f69e5d1482b802d3683abda",
+        "source_sender_name": "黄含芳",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_1e7a27a211bfc61d6ece8ba9993e9f75",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_1e7a27a211bfc61d6ece8ba9993e9f75",
+        "source_sender_open_id": "ou_1e7a27a211bfc61d6ece8ba9993e9f75",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_1e7a27a211bfc61d6ece8ba9993e9f75",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_1e7a27a211bfc61d6ece8ba9993e9f75",
+        "source_sender_name": "葉宝萱",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_5bd3dd197b0df34f8fbaa324e7088670",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_5bd3dd197b0df34f8fbaa324e7088670",
+        "source_sender_open_id": "ou_5bd3dd197b0df34f8fbaa324e7088670",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_5bd3dd197b0df34f8fbaa324e7088670",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_5bd3dd197b0df34f8fbaa324e7088670",
+        "source_sender_name": "林强",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_b5d2c0a6787a3acc8bc889b15280ae11",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_b5d2c0a6787a3acc8bc889b15280ae11",
+        "source_sender_open_id": "ou_b5d2c0a6787a3acc8bc889b15280ae11",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_b5d2c0a6787a3acc8bc889b15280ae11",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_b5d2c0a6787a3acc8bc889b15280ae11",
+        "source_sender_name": "肖宁劼",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_3c5a99fc9969e420ae42585246160271",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_3c5a99fc9969e420ae42585246160271",
+        "source_sender_open_id": "ou_3c5a99fc9969e420ae42585246160271",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_50dcb8d870751834e876225d9dac1b7f",
+        "source_sender_name": "陈焰",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_169e152332c3c147546ac9e622aafcdb",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_169e152332c3c147546ac9e622aafcdb",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5ec63adf29751538edd6738e36200d22",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_5ec63adf29751538edd6738e36200d22",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5ec63adf29751538edd6738e36200d22",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_c8ba8913257d32cf8712c4866b7f039f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_c8ba8913257d32cf8712c4866b7f039f",
+        "source_sender_open_id": "ou_c8ba8913257d32cf8712c4866b7f039f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_a78f858309f0e2918ff90d777be7232a",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_a78f858309f0e2918ff90d777be7232a",
+        "source_sender_open_id": "ou_a78f858309f0e2918ff90d777be7232a",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_f4cab49e29a49ad6a34e9a720a1b8694",
+        "source_sender_name": "陈焰",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_0187b05b7e11f3cac3108a59fab87a0f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_0187b05b7e11f3cac3108a59fab87a0f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_0187b05b7e11f3cac3108a59fab87a0f",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_112242beda96e5721fd417c0954cc951",
+        "source_sender_name": "许婕",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_b46e1cffb154771a0ba311b54f8334b2",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:direct:ou_b46e1cffb154771a0ba311b54f8334b2",
+        "source_sender_open_id": "ou_b46e1cffb154771a0ba311b54f8334b2",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3c48349e78bcf7d158c0367cdd4b70be",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_3c48349e78bcf7d158c0367cdd4b70be",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_2c6fa85d837473dd9a7b86c7d8c16d55",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_2c6fa85d837473dd9a7b86c7d8c16d55",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_2c6fa85d837473dd9a7b86c7d8c16d55",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_2e242a04ee5d318720f712d4d5952b74",
+        "source_sender_name": "连志远",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_83b7895cba825fef7e65c7542622889d",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_83b7895cba825fef7e65c7542622889d",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e5049862a42c820807da5f6f7edc99a0",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_e5049862a42c820807da5f6f7edc99a0",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3c48349e78bcf7d158c0367cdd4b70be",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_3c48349e78bcf7d158c0367cdd4b70be",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_83b7895cba825fef7e65c7542622889d",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_83b7895cba825fef7e65c7542622889d",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_ef8fb114755d6256481f62401591646f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_ef8fb114755d6256481f62401591646f",
+        "source_sender_open_id": "ou_ef8fb114755d6256481f62401591646f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_37a8bddfc5e3fa5fcda02ca3c1c5aaeb",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_37a8bddfc5e3fa5fcda02ca3c1c5aaeb",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_37a8bddfc5e3fa5fcda02ca3c1c5aaeb",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_ac8c758562b6d0f9b9f2a58f854f455a",
+        "account_id": "meeting-analyst",
+        "source_session_key": "agent:meeting-analyst-shared:feishu:direct:ou_ac8c758562b6d0f9b9f2a58f854f455a",
+        "source_sender_open_id": "ou_ac8c758562b6d0f9b9f2a58f854f455a",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_d3785f762e6fbac45fbd34803da4498e",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_d3785f762e6fbac45fbd34803da4498e",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_d3785f762e6fbac45fbd34803da4498e",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_aa3634a0c3c58324c23c4c2566ed235b",
+        "source_sender_name": "吴佳滢",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_937bbb0342e11f009c5654cc38b9551c",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_937bbb0342e11f009c5654cc38b9551c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_937bbb0342e11f009c5654cc38b9551c",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_d3785f762e6fbac45fbd34803da4498e",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_d3785f762e6fbac45fbd34803da4498e",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_39d858f989fc2fbbe4ce5df0d9363781",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_39d858f989fc2fbbe4ce5df0d9363781",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_39d858f989fc2fbbe4ce5df0d9363781",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_39d858f989fc2fbbe4ce5df0d9363781",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_c43dc908b790c1df15271159841d1e9a",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_822902a53cf75b5067322d6707017ad8",
+        "source_sender_name": "林奕衍",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_c43dc908b790c1df15271159841d1e9a",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_c43dc908b790c1df15271159841d1e9a",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_0b55e6a83ea978e1f2585243f9cab1e8",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_0b55e6a83ea978e1f2585243f9cab1e8",
+        "source_sender_open_id": "ou_0b55e6a83ea978e1f2585243f9cab1e8",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_fd72281b490fcdc501d3ec38091fb350",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_fd72281b490fcdc501d3ec38091fb350",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_536186321bb08f464e9015ab6e2898df",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_536186321bb08f464e9015ab6e2898df",
+        "source_sender_open_id": "ou_536186321bb08f464e9015ab6e2898df",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_8a3ad03c6b05b8faaf144dc6b332440c",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_8a3ad03c6b05b8faaf144dc6b332440c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_8a3ad03c6b05b8faaf144dc6b332440c",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_cdede8fa6df340558f58b5e67edf172a",
+        "source_sender_name": "陈春宏",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_70cc32dda6a791e26a576d2455ea8ffa",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_70cc32dda6a791e26a576d2455ea8ffa",
+        "source_sender_open_id": "ou_70cc32dda6a791e26a576d2455ea8ffa",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_f6e71c6100c0318d1c05f08e0fc47493",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_f6e71c6100c0318d1c05f08e0fc47493",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_f6e71c6100c0318d1c05f08e0fc47493",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_ef8fb114755d6256481f62401591646f",
+        "source_sender_name": "林媛媛",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_0cf6398e8fe62c5c9144b663284f3574",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_0cf6398e8fe62c5c9144b663284f3574",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_0cf6398e8fe62c5c9144b663284f3574",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "source_sender_name": "林奕衍",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_cdede8fa6df340558f58b5e67edf172a",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_cdede8fa6df340558f58b5e67edf172a",
+        "source_sender_open_id": "ou_cdede8fa6df340558f58b5e67edf172a",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_09b057a087844319bb0afd27b83ba61c",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_09b057a087844319bb0afd27b83ba61c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_70c282285ce9c1f4e46fef24f6debaba",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_70c282285ce9c1f4e46fef24f6debaba",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_70c282285ce9c1f4e46fef24f6debaba",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_70c282285ce9c1f4e46fef24f6debaba",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_70c282285ce9c1f4e46fef24f6debaba",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_8c2f071dbf9f3e70f7aaa93c71d75d30",
+        "source_sender_name": "潘超扬",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_8a2f509f5bb42d9bc0b56f8c72b16c1f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_8a2f509f5bb42d9bc0b56f8c72b16c1f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_23a3bba57d9889573ff60142d8553be8",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_23a3bba57d9889573ff60142d8553be8",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_441584bbc42acf29b2cd2f6399d6db3f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_441584bbc42acf29b2cd2f6399d6db3f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_441584bbc42acf29b2cd2f6399d6db3f",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_7962d8f86e7223b857e6e3b1fb09f327",
+        "source_sender_name": "彭宜",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_88e2c8887c6b9d37765ecfedc815e831",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_88e2c8887c6b9d37765ecfedc815e831",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_40ef7abb5d30fe9d6c3f8fdced3074e2",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_40ef7abb5d30fe9d6c3f8fdced3074e2",
+        "source_sender_open_id": "ou_40ef7abb5d30fe9d6c3f8fdced3074e2",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_89130e72c72a9bae883d5660ceb2d865",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_89130e72c72a9bae883d5660ceb2d865",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_4f9f2946a9bda46cdbd8bf7cc7208527",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_4f9f2946a9bda46cdbd8bf7cc7208527",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_4f9f2946a9bda46cdbd8bf7cc7208527",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_53f0903efb537f35b2af134d2f96d730",
+        "source_sender_name": "林乾东",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_180394f1af65c9af66569161edfcbb20",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_180394f1af65c9af66569161edfcbb20",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_180394f1af65c9af66569161edfcbb20",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_a46947a688a05d9814eb9043fa49342c",
+        "source_sender_name": "任文钰",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_89130e72c72a9bae883d5660ceb2d865",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_89130e72c72a9bae883d5660ceb2d865",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_131e05c4e9c86f4191275aa81d204ffa",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_131e05c4e9c86f4191275aa81d204ffa",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_131e05c4e9c86f4191275aa81d204ffa",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_37507d5bbd3e6f9d094626273e23eb49",
+        "source_sender_name": "李紫锘",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_f28b9d766151ad53ea7d934df6a89bc1",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_f28b9d766151ad53ea7d934df6a89bc1",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_f28b9d766151ad53ea7d934df6a89bc1",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_cdede8fa6df340558f58b5e67edf172a",
+        "source_sender_name": "陈春宏",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_1810b5b3566c67d3c8b4a30e920fb920",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_1810b5b3566c67d3c8b4a30e920fb920",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_1810b5b3566c67d3c8b4a30e920fb920",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_37507d5bbd3e6f9d094626273e23eb49",
+        "source_sender_name": "李紫锘",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_0ce8620f2ba57d25e4c22ab778dce661",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_0ce8620f2ba57d25e4c22ab778dce661",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_0ce8620f2ba57d25e4c22ab778dce661",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_57431a5c08a983cef0fa3435f2ea051a",
+        "source_sender_name": "江贵阳",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_4b84d083579323625c5321c03d573e66",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_4b84d083579323625c5321c03d573e66",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_4b84d083579323625c5321c03d573e66",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_9b1ddac751d42934cb5116bcc89c4987",
+        "source_sender_name": "林佳",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_d9344007feff9f34f5a3f9a042308647",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_d9344007feff9f34f5a3f9a042308647",
+        "source_sender_name": "张烨灵",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_9b1ddac751d42934cb5116bcc89c4987",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_9b1ddac751d42934cb5116bcc89c4987",
+        "source_sender_open_id": "ou_9b1ddac751d42934cb5116bcc89c4987",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_57fac6d81abf788d3d30095da0b29953",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_57fac6d81abf788d3d30095da0b29953",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_d51d0eda3f17a2c5e6cf59e953a1ecfd",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_d51d0eda3f17a2c5e6cf59e953a1ecfd",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_55d4ad8d441642104151d46b2868ef94",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_55d4ad8d441642104151d46b2868ef94",
+        "source_sender_open_id": "ou_55d4ad8d441642104151d46b2868ef94",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_f5b0f6c2222eafd8d4df01f4eec474ee",
+        "source_sender_name": "ou_f5b0f6c2222eafd8d4df01f4eec474ee",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_aaaf4863ba2d0ecdf280c2afe12d45ab",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_aaaf4863ba2d0ecdf280c2afe12d45ab",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_aaaf4863ba2d0ecdf280c2afe12d45ab",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_b8611ff27786236a849170bd48e8409f",
+        "source_sender_name": "孙佳玲",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_38ff83e3a066fc7dd63e9dfcb56a0675",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_38ff83e3a066fc7dd63e9dfcb56a0675",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_be48e75357180a8851e9db0f583142ac",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_be48e75357180a8851e9db0f583142ac",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_be48e75357180a8851e9db0f583142ac",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "source_sender_name": "林奕衍",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_73d90c956e6410a09a0487041956596a",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_73d90c956e6410a09a0487041956596a",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_73d90c956e6410a09a0487041956596a",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "source_sender_name": "林奕衍",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_29ba5266eb69654f0aa7c366d0ad03f6",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_29ba5266eb69654f0aa7c366d0ad03f6",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_90358a27c0c484ea10dd31b1c101890d",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_90358a27c0c484ea10dd31b1c101890d",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_522ee511c2da618388e3c71e77459dad",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_522ee511c2da618388e3c71e77459dad",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e92c6bd52b2d0b429c610c3c8a6d2626",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_e92c6bd52b2d0b429c610c3c8a6d2626",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e92c6bd52b2d0b429c610c3c8a6d2626",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_e92c6bd52b2d0b429c610c3c8a6d2626",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3c48349e78bcf7d158c0367cdd4b70be",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_3c48349e78bcf7d158c0367cdd4b70be",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e5049862a42c820807da5f6f7edc99a0",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_e5049862a42c820807da5f6f7edc99a0",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_ead7d18de298caeb444e5e89eceb6ec6",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_ead7d18de298caeb444e5e89eceb6ec6",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_13910eb01f8a1233115f60a7183f8c79",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_13910eb01f8a1233115f60a7183f8c79",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_9ac2571af99ea49f127f658eb664ef4a",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_9ac2571af99ea49f127f658eb664ef4a",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_29ba5266eb69654f0aa7c366d0ad03f6",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_29ba5266eb69654f0aa7c366d0ad03f6",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_23874ebbfe758fb182d0c40df9868b5a",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_23874ebbfe758fb182d0c40df9868b5a",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_23874ebbfe758fb182d0c40df9868b5a",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "source_sender_name": "林奕衍",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_b0951f50793cd31820fcdbfa96d75c26",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_b0951f50793cd31820fcdbfa96d75c26",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_b0951f50793cd31820fcdbfa96d75c26",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "source_sender_name": "林奕衍",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_38dd688d8d09e1bd6e0499ad352ff4c2",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_38dd688d8d09e1bd6e0499ad352ff4c2",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_38dd688d8d09e1bd6e0499ad352ff4c2",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_232a2e2e182c2f8378d1b9c82d4cd1ad",
+        "source_sender_name": "林奕衍",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_b8611ff27786236a849170bd48e8409f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_b8611ff27786236a849170bd48e8409f",
+        "source_sender_open_id": "ou_b8611ff27786236a849170bd48e8409f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_c4a205ba99dfb1ca702cda2f051ebb5f",
+        "account_id": "business",
+        "source_session_key": "agent:business-shared:feishu:direct:ou_c4a205ba99dfb1ca702cda2f051ebb5f",
+        "source_sender_open_id": "ou_c4a205ba99dfb1ca702cda2f051ebb5f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_d59870c4e7bd4a4cece7113f91929ccc",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_d59870c4e7bd4a4cece7113f91929ccc",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_d59870c4e7bd4a4cece7113f91929ccc",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_d59870c4e7bd4a4cece7113f91929ccc",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_bf2f04e3ca2e1f0dc81e16e5dad884f1",
+        "account_id": "business",
+        "source_session_key": "agent:business-shared:feishu:group:oc_bf2f04e3ca2e1f0dc81e16e5dad884f1",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_bf2f04e3ca2e1f0dc81e16e5dad884f1",
+        "account_id": "business",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_5a2343ad4d38d496e66b20d2367e4191",
+        "source_sender_name": "ou_5a2343ad4d38d496e66b20d2367e4191",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_29ba5266eb69654f0aa7c366d0ad03f6",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_29ba5266eb69654f0aa7c366d0ad03f6",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_059d063d428ac9aa8fa41327d781d0d7",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_059d063d428ac9aa8fa41327d781d0d7",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_3a0b51b5dffc4c2c07e66de10cb3c447",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_46a2b025354140f0214b3f33ffc7d540",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_46a2b025354140f0214b3f33ffc7d540",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_43dba9c25afd9aa8877de72a122e8a18",
+        "account_id": "meeting-analyst",
+        "source_session_key": "agent:meeting-analyst-shared:feishu:group:oc_43dba9c25afd9aa8877de72a122e8a18",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_43dba9c25afd9aa8877de72a122e8a18",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_43dba9c25afd9aa8877de72a122e8a18",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_b41586956b91ccfbb58a05c3034dd8d5",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_597f0dd8a677056440a2fd87e7391a8f",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_597f0dd8a677056440a2fd87e7391a8f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_597f0dd8a677056440a2fd87e7391a8f",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_55d4ad8d441642104151d46b2868ef94",
+        "source_sender_name": "林淼",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_46a2b025354140f0214b3f33ffc7d540",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_46a2b025354140f0214b3f33ffc7d540",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_46a2b025354140f0214b3f33ffc7d540",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_46a2b025354140f0214b3f33ffc7d540",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_46a2b025354140f0214b3f33ffc7d540",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_46a2b025354140f0214b3f33ffc7d540",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_46a2b025354140f0214b3f33ffc7d540",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_3669c86e1e9957992630dd1fc0b85577",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_28582c4acfbb8c7f66d122d22dcc50a5",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_28582c4acfbb8c7f66d122d22dcc50a5",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_28582c4acfbb8c7f66d122d22dcc50a5",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_7515c40169b9fab9b0cced46bbf88b25",
+        "source_sender_name": "杜海雪",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_c5cf39d602bd58e6d02879b6fa4bf2e5",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_c5cf39d602bd58e6d02879b6fa4bf2e5",
+        "source_sender_open_id": "ou_c5cf39d602bd58e6d02879b6fa4bf2e5",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_70da88b1d692ae6eb043c93cbdb0b30b",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_70da88b1d692ae6eb043c93cbdb0b30b",
+        "source_sender_open_id": "ou_70da88b1d692ae6eb043c93cbdb0b30b",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_11a550220045d2a5b60fd48adc528bc3",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:group:oc_11a550220045d2a5b60fd48adc528bc3",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_11a550220045d2a5b60fd48adc528bc3",
+        "account_id": "research",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_4a65167ebfe769f12264477850dffa70",
+        "source_sender_name": "林淼",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_ade9d49cd1dff5315774a6cae2479938",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_open_id": "ou_ade9d49cd1dff5315774a6cae2479938",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_2c6fa85d837473dd9a7b86c7d8c16d55",
+        "account_id": "main",
+        "source_session_key": "agent:main:feishu:group:oc_2c6fa85d837473dd9a7b86c7d8c16d55",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_a3452de41c3bd31d0ed75a97c8c1fd2f",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_a3452de41c3bd31d0ed75a97c8c1fd2f",
+        "source_sender_open_id": "ou_a3452de41c3bd31d0ed75a97c8c1fd2f",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_d6bb36d5e676938f624fa1aade3b2e16",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_d6bb36d5e676938f624fa1aade3b2e16",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_d6bb36d5e676938f624fa1aade3b2e16",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_10b27a4ec54a57b14e9675fa3be92a6e",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_10b27a4ec54a57b14e9675fa3be92a6e",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_aba0d44aa186b803562f835c75eb97b5",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:direct:ou_aba0d44aa186b803562f835c75eb97b5",
+        "source_sender_open_id": "ou_aba0d44aa186b803562f835c75eb97b5",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "account_id": "strategy",
+        "source_session_key": "agent:strategy-shared:feishu:group:oc_e8a3806775edc4d6b035e019c0184c4f",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_17cbe0235970f13b36b3cc99be150416",
+        "account_id": "meeting-analyst",
+        "source_session_key": "agent:meeting-analyst-shared:feishu:group:oc_17cbe0235970f13b36b3cc99be150416",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_17cbe0235970f13b36b3cc99be150416",
+        "account_id": "meeting-analyst",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_7de7f12365529fb3e7ba89275e383032",
+        "source_sender_name": "林淼",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_a06e614c15b6994ccfd838abe0ce2138",
+        "account_id": "copywriter",
+        "source_session_key": "agent:copywriter-shared:feishu:group:oc_a06e614c15b6994ccfd838abe0ce2138",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_e624624b187e63b97ddb6c883f69ad6d",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_e624624b187e63b97ddb6c883f69ad6d",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_740a6c239d4b0ca8f07cfa6f3203dfcc",
+        "account_id": "main",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_740a6c239d4b0ca8f07cfa6f3203dfcc",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_740a6c239d4b0ca8f07cfa6f3203dfcc",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_6935604bf8dd21b3dd88ebd3f50dfe9c",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_6935604bf8dd21b3dd88ebd3f50dfe9c",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_6935604bf8dd21b3dd88ebd3f50dfe9c",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_18b492eec3b6356df860515712948021",
+        "account_id": "default",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_88079e6b06ce40e6851c96928fe1a03b",
+        "source_sender_name": "涂是淦",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_564bbbc3798be8f901ca567d2ad3f18d",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_564bbbc3798be8f901ca567d2ad3f18d",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_18b492eec3b6356df860515712948021",
+        "account_id": "main",
+        "source_session_key": "agent:main-shared:feishu:group:oc_18b492eec3b6356df860515712948021",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "user:ou_333e42b029238ffbb8f0888fd1d119ff",
+        "account_id": "research",
+        "source_session_key": "agent:research-shared:feishu:direct:ou_333e42b029238ffbb8f0888fd1d119ff",
+        "source_sender_open_id": "ou_333e42b029238ffbb8f0888fd1d119ff",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      }
+    ],
+    "target_conflict_reason": "conflict_in_recent_session_scan",
+    "channel": "feishu"
+  }
+}

@@ -63,7 +63,9 @@ def load_runtime_env() -> dict[str, str]:
             if key.startswith("OPENCLAW_BOUND_"):
                 env[key] = value
 
-    env.setdefault("OMNI_FORCE_BOUND_GEMINI", "1")
+    # 🔥 v5.2: 默认使用海报 skill 的 gpt-image2-gen（支持 failover、兼容 URL/base64、智能模型路由）
+    # 如需强制使用旧的 Gemini 直连，设置环境变量 OMNI_FORCE_BOUND_GEMINI=1
+    env.setdefault("OMNI_FORCE_BOUND_GEMINI", "0")
 
     extra_path = [
         "/opt/homebrew/bin",

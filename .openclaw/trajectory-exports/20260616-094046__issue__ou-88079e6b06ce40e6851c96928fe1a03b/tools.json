@@ -1,0 +1,3034 @@
+[
+  {
+    "name": "apply_patch",
+    "description": "Apply a patch to one or more files using the apply_patch format. The input should include *** Begin Patch and *** End Patch markers.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "input"
+      ],
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "Patch content using the *** Begin Patch/End Patch format."
+        }
+      }
+    }
+  },
+  {
+    "name": "browser",
+    "description": "Control the browser via OpenClaw's browser control server (status/start/stop/profiles/tabs/open/snapshot/screenshot/actions). Browser choice: omit profile by default for the isolated OpenClaw-managed browser (`openclaw`). For the logged-in user browser, use profile=\"user\". A supported Chromium-based browser (v144+) must be running on the selected host or browser node. Use only when existing logins/cookies matter and the user is present. For profile=\"user\" or other existing-session profiles, omit timeoutMs on act:type, evaluate, hover, scrollIntoView, drag, select, and fill; that driver rejects per-call timeout overrides for those actions. When a node-hosted browser proxy is available, the tool may auto-route to it. Pin a node with node=<id|name> or target=\"node\". When using refs from snapshot (e.g. e12), keep the same tab: prefer passing targetId from the snapshot response into subsequent actions (act/click/type/etc). For tab operations, targetId also accepts tabId handles (t1) and labels from action=tabs. For multi-step browser work, login checks, stale refs, duplicate tabs, or Google Meet flows, use the bundled browser-automation skill when it is available. For stable, self-resolving refs across calls, use snapshot with refs=\"aria\" (Playwright aria-ref ids). Default refs=\"role\" are role+name-based. Use snapshot+act for UI automation. Avoid act:wait by default; use only in exceptional cases when no reliable UI state exists. target selects browser location (sandbox|host|node). Default: host. Host target allowed.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "target": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "node": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "targetUrl": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "targetId": {
+          "type": "string",
+          "description": "Tab reference. Prefer suggestedTargetId, tabId, or label from tabs output; raw CDP targetId and unique raw prefixes remain supported for compatibility."
+        },
+        "label": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxChars": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mode": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "snapshotFormat": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "refs": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "interactive": {
+          "type": "boolean"
+        },
+        "compact": {
+          "type": "boolean"
+        },
+        "depth": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "selector": {
+          "type": "string"
+        },
+        "frame": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "boolean"
+        },
+        "urls": {
+          "type": "boolean"
+        },
+        "fullPage": {
+          "type": "boolean"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "element": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "level": {
+          "type": "string"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "inputRef": {
+          "type": "string"
+        },
+        "timeoutMs": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "dialogId": {
+          "type": "string"
+        },
+        "accept": {
+          "type": "boolean"
+        },
+        "promptText": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "doubleClick": {
+          "type": "boolean"
+        },
+        "button": {
+          "type": "string"
+        },
+        "modifiers": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "text": {
+          "type": "string"
+        },
+        "submit": {
+          "type": "boolean"
+        },
+        "slowly": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "string"
+        },
+        "delayMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "startRef": {
+          "type": "string"
+        },
+        "endRef": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "timeMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "textGone": {
+          "type": "string"
+        },
+        "loadState": {
+          "type": "string"
+        },
+        "fn": {
+          "type": "string"
+        },
+        "request": {
+          "type": "object",
+          "required": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "exec",
+    "description": "Execute shell commands with background continuation for work that starts now. Use yieldMs/background to continue later via process tool. For long-running work started now, rely on automatic completion wake when it is enabled and the command emits output or fails; otherwise use process to confirm completion. Use process whenever you need logs, status, input, or intervention. Use pty=true for TTY-required commands (terminal UIs, coding agents).",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "command"
+      ],
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Shell command to execute"
+        },
+        "workdir": {
+          "type": "string",
+          "description": "Working directory (defaults to cwd)"
+        },
+        "env": {
+          "type": "object",
+          "patternProperties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "yieldMs": {
+          "type": "number",
+          "description": "Milliseconds to wait before backgrounding (default 10000)"
+        },
+        "background": {
+          "type": "boolean",
+          "description": "Run in background immediately"
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Timeout in seconds (optional, kills process on expiry)"
+        },
+        "pty": {
+          "type": "boolean",
+          "description": "Run in a pseudo-terminal (PTY) when available (TTY-required CLIs, coding agents)"
+        },
+        "elevated": {
+          "type": "boolean",
+          "description": "Run on the host with elevated permissions (if allowed)"
+        },
+        "host": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "Exec host/target (auto|sandbox|gateway|node)."
+        },
+        "security": {
+          "type": "string",
+          "description": "Ignored for normal calls; exec security is set by tools.exec.security and host approvals."
+        },
+        "ask": {
+          "type": "string",
+          "description": "Baseline ask comes from tools.exec.ask and host approvals; channel-origin calls ignore per-call ask when effective host ask is off."
+        },
+        "node": {
+          "type": "string",
+          "description": "Node id/name for host=node."
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_ask_user_question",
+    "description": "Ask the user a question via an interactive Feishu card. Returns immediately after sending the card. The user's answers will arrive as a new message in the conversation. Do NOT poll or re-call this tool — just wait for the response message. For lightweight internal interview questions, prefer questionStyle=buttons so users can tap once. For free-text input, set options to an empty array.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "questions"
+      ],
+      "properties": {
+        "accountId": {
+          "description": "主动外发时使用的飞书账号标识，例如 research。",
+          "type": "string"
+        },
+        "target": {
+          "description": "主动外发时的目标，可传 user:open_id 或 chat:chat_id。",
+          "type": "string"
+        },
+        "questionStyle": {
+          "description": "卡片样式。buttons 优先渲染按钮卡片；form 强制表单；auto 自动判断。",
+          "anyOf": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "questions": {
+          "description": "Questions to ask the user (1-6 questions)",
+          "minItems": 1,
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_bitable_app",
+    "description": "【以用户身份】飞书多维表格应用管理工具。当用户要求创建/查询/管理多维表格时使用。Actions: create（创建多维表格）, get（获取多维表格元数据）, list（列出多维表格）, patch（更新元数据）, delete（删除多维表格）, copy（复制多维表格）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "name": {
+          "description": "多维表格名称",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "每页数量，默认 50，最大 200",
+          "type": "number"
+        },
+        "is_advanced": {
+          "description": "是否开启高级权限",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_bitable_app_table",
+    "description": "【以用户身份】飞书多维表格数据表管理工具。当用户要求创建/查询/管理数据表时使用。\n\nActions: create（创建数据表，可选择在创建时传入 fields 数组定义字段，或后续逐个添加）, list（列出所有数据表）, patch（更新数据表）, batch_create（批量创建）。\n\n【字段定义方式】支持两种模式：1) 明确需求时，在 create 中通过 table.fields 一次性定义所有字段（减少 API 调用）；2) 探索式场景时，使用默认表 + feishu_bitable_app_table_field 逐步修改字段（更稳定，易调整）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "table": {
+          "type": "object",
+          "required": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "page_size": {
+          "description": "每页数量，默认 50，最大 100",
+          "type": "number"
+        },
+        "table_id": {
+          "description": "数据表 ID",
+          "type": "string"
+        },
+        "name": {
+          "description": "新的表名",
+          "type": "string"
+        },
+        "tables": {
+          "description": "要批量创建的数据表列表",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      },
+      "required": [
+        "action",
+        "app_token"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_bitable_app_table_field",
+    "description": "【以用户身份】飞书多维表格字段（列）管理工具。当用户要求创建/查询/更新/删除字段、调整表结构时使用。Actions: create（创建字段）, list（列出所有字段）, update（更新字段，支持只传 field_name 改名）, delete（删除字段）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "table_id": {
+          "description": "数据表 ID",
+          "type": "string"
+        },
+        "field_name": {
+          "description": "字段名称",
+          "type": "string"
+        },
+        "type": {
+          "description": "字段类型（1=文本，2=数字，3=单选，4=多选，5=日期，7=复选框，11=人员，13=电话，15=超链接，17=附件，1001=创建时间，1002=修改时间等）",
+          "type": "number"
+        },
+        "property": {
+          "description": "字段属性配置（根据类型而定，例如单选/多选需要options，数字需要formatter等）。⚠️ 重要：超链接字段（type=15）必须完全省略此参数，传空对象 {} 也会报错（URLFieldPropertyError）。"
+        },
+        "view_id": {
+          "description": "视图 ID（可选）",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "每页数量，默认 50，最大 100",
+          "type": "number"
+        },
+        "field_id": {
+          "description": "字段 ID",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action",
+        "app_token",
+        "table_id"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_bitable_app_table_record",
+    "description": "【以用户身份】飞书多维表格记录（行）管理工具。当用户要求创建/查询/更新/删除记录、搜索数据时使用。\n\nActions:\n- create（创建单条记录，使用 fields 参数）\n- batch_create（批量创建记录，使用 records 数组参数）\n- list（列出/搜索记录）\n- update（更新记录）\n- delete（删除记录）\n- batch_update（批量更新）\n- batch_delete（批量删除）\n\n⚠️ 注意参数区别：\n- create 使用 'fields' 对象（单条）\n- batch_create 使用 'records' 数组（批量）",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "table_id": {
+          "description": "数据表 ID",
+          "type": "string"
+        },
+        "fields": {
+          "additionalProperties": true,
+          "description": "记录字段（单条记录）。键为字段名，值根据字段类型而定：\n- 文本：string\n- 数字：number\n- 单选：string（选项名）\n- 多选：string[]（选项名数组）\n- 日期：number（毫秒时间戳，如 1740441600000）\n- 复选框：boolean\n- 人员：[{id: 'ou_xxx'}]\n- 附件：[{file_token: 'xxx'}]\n⚠️ 注意：create 只创建单条记录；批量创建请使用 batch_create",
+          "type": "object",
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "record_id": {
+          "description": "记录 ID",
+          "type": "string"
+        },
+        "records": {
+          "description": "要批量创建的记录列表（最多 500 条）",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "record_ids": {
+          "description": "要删除的记录 ID 列表（最多 500 条）",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "view_id": {
+          "description": "视图 ID（可选，建议指定以获得更好的性能）",
+          "type": "string"
+        },
+        "field_names": {
+          "description": "要返回的字段名列表（可选，不指定则返回所有字段）",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "filter": {
+          "description": "筛选条件（必须是结构化对象）。示例：{conjunction: 'and', conditions: [{field_name: '文本', operator: 'is', value: ['测试']}]}",
+          "type": "object",
+          "required": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "sort": {
+          "description": "排序规则",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "automatic_fields": {
+          "description": "是否返回自动字段（created_time, last_modified_time, created_by, last_modified_by），默认 false",
+          "type": "boolean"
+        },
+        "page_size": {
+          "description": "每页数量，默认 50，最大 500",
+          "type": "number"
+        }
+      },
+      "required": [
+        "action",
+        "app_token",
+        "table_id"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_bitable_app_table_view",
+    "description": "【以用户身份】飞书多维表格视图管理工具。当用户要求创建/查询/更新视图、切换展示方式时使用。Actions: create（创建视图）, get（获取视图详情）, list（列出所有视图）, patch（更新视图）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "table_id": {
+          "description": "数据表 ID",
+          "type": "string"
+        },
+        "view_name": {
+          "description": "视图名称",
+          "type": "string"
+        },
+        "view_type": {
+          "anyOf": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "view_id": {
+          "description": "视图 ID",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "每页数量，默认 50，最大 100",
+          "type": "number"
+        }
+      },
+      "required": [
+        "action",
+        "app_token",
+        "table_id"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_calendar_calendar",
+    "description": "【以用户身份】飞书日历管理工具。用于查询日历列表、获取日历信息、查询主日历。Actions: list（查询日历列表）, get（查询指定日历信息）, primary（查询主日历信息）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "page_size": {
+          "description": "Number of calendars to return per page (default: 50, max: 1000)",
+          "type": "number"
+        },
+        "calendar_id": {
+          "description": "Calendar ID",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_calendar_event",
+    "description": "【以用户身份】飞书日程管理工具。当用户要求查看日程、创建会议、约会议、修改日程、删除日程、搜索日程、回复日程邀请时使用。Actions: create（创建日历事件）, list（查询时间范围内的日程，自动展开重复日程）, get（获取日程详情）, patch（更新日程）, delete（删除日程）, search（搜索日程）, reply（回复日程邀请）, instances（获取重复日程的实例列表，仅对重复日程有效）, instance_view（查看展开后的日程列表）。【重要】create 时必须传 user_open_id 参数，值为消息上下文中的 SenderId（格式 ou_xxx），否则日程只在应用日历上，用户完全看不到。list 操作使用 instance_view 接口，会自动展开重复日程为多个实例，时间区间不能超过40天，返回实例数量上限1000。时间参数使用ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "start_time": {
+          "description": "开始时间（必填）。ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'",
+          "type": "string"
+        },
+        "end_time": {
+          "description": "结束时间（必填）。格式同 start_time。如果用户未指定时长，默认为开始时间后1小时。",
+          "type": "string"
+        },
+        "summary": {
+          "description": "日程标题（可选，但强烈建议提供）",
+          "type": "string"
+        },
+        "user_open_id": {
+          "description": "当前请求用户的 open_id（可选，但强烈建议提供）。从消息上下文的 SenderId 字段获取，格式为 ou_xxx。日程创建在应用日历上，必须通过此参数将用户加为参会人，日程才会出现在用户的飞书日历中。",
+          "type": "string"
+        },
+        "calendar_id": {
+          "description": "Calendar ID (optional; primary calendar used if omitted)",
+          "type": "string"
+        },
+        "description": {
+          "description": "日程描述",
+          "type": "string"
+        },
+        "attendees": {
+          "description": "参会人列表（强烈建议提供，否则日程只在应用日历上，用户看不到）。type='user' 时 id 填 open_id，type='third_party' 时 id 填邮箱。",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "vchat": {
+          "description": "视频会议信息。不传则默认在首次添加参与人时自动生成飞书视频会议。",
+          "type": "object",
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "visibility": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "日程公开范围。default（默认，跟随日历权限）、public（公开详情）、private（私密，仅自己可见）。默认值：default。"
+        },
+        "attendee_ability": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "参与人权限。none（无法编辑、邀请、查看）、can_see_others（可查看参与人列表）、can_invite_others（可邀请其他人）、can_modify_event（可编辑日程）。默认值：none。"
+        },
+        "free_busy_status": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "日程占用的忙闲状态。busy（忙碌）、free（空闲）。默认值：busy。"
+        },
+        "location": {
+          "description": "日程地点信息",
+          "type": "object",
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "reminders": {
+          "description": "日程提醒列表",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "recurrence": {
+          "description": "重复日程的重复性规则（RFC5545 RRULE 格式）。例如：'FREQ=DAILY;INTERVAL=1' 表示每天重复。",
+          "type": "string"
+        },
+        "event_id": {
+          "description": "Event ID",
+          "type": "string"
+        },
+        "need_notification": {
+          "description": "是否通知参会人（默认 true）",
+          "type": "boolean"
+        },
+        "query": {
+          "description": "搜索关键词",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "每页数量",
+          "type": "number"
+        },
+        "rsvp_status": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_calendar_event_attendee",
+    "description": "飞书日程参会人管理工具。当用户要求邀请/添加参会人、查看参会人列表时使用。Actions: create（添加参会人）, list（查询参会人列表）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "calendar_id": {
+          "description": "日历 ID",
+          "type": "string"
+        },
+        "event_id": {
+          "description": "日程 ID",
+          "type": "string"
+        },
+        "attendees": {
+          "description": "参会人列表",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "need_notification": {
+          "description": "是否给参会人发送通知（默认 true）",
+          "type": "boolean"
+        },
+        "attendee_ability": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "page_size": {
+          "description": "每页数量（默认 50，最大 500）",
+          "type": "number"
+        },
+        "user_id_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      },
+      "required": [
+        "action",
+        "calendar_id",
+        "event_id"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_calendar_freebusy",
+    "description": "【以用户身份】飞书日历忙闲查询工具。当用户要求查询某时间段内某人是否空闲、查看忙闲状态时使用。支持批量查询 1-10 个用户的主日历忙闲信息，用于安排会议时间。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "action",
+        "time_min",
+        "time_max",
+        "user_ids"
+      ],
+      "properties": {
+        "action": {
+          "const": "list",
+          "type": "string"
+        },
+        "time_min": {
+          "description": "查询起始时间（ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'）",
+          "type": "string"
+        },
+        "time_max": {
+          "description": "查询结束时间（ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'）",
+          "type": "string"
+        },
+        "user_ids": {
+          "description": "要查询忙闲的用户 ID 列表（1-10 个用户）",
+          "minItems": 1,
+          "maxItems": 10,
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_chat",
+    "description": "以用户身份调用飞书群聊管理工具。Actions: search（搜索群列表，支持关键词匹配群名称、群成员）, get（获取指定群的详细信息，包括群名称、描述、头像、群主、权限配置等）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "query": {
+          "description": "搜索关键词（必填）。支持匹配群名称、群成员名称。支持多语种、拼音、前缀等模糊搜索。",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "分页大小（默认20）",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "user_id_type": {
+          "description": "用户 ID 类型（默认 open_id）",
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "chat_id": {
+          "description": "群 ID（格式如 oc_xxx）",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_chat_members",
+    "description": "以用户的身份获取指定群组的成员列表。返回成员信息，包含成员 ID、姓名等。注意：不会返回群组内的机器人成员。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "chat_id"
+      ],
+      "properties": {
+        "chat_id": {
+          "description": "群 ID（格式如 oc_xxx）。可以通过 feishu_chat_search 工具搜索获取",
+          "type": "string"
+        },
+        "member_id_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "page_size": {
+          "description": "分页大小（默认20）",
+          "minimum": 1,
+          "type": "integer"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_conversation_binding",
+    "description": "把某个飞书会话目标绑定到指定的 OpenClaw 会话 key，适合内部访谈里把某位员工的私聊绑定到专属 research-shared 会话。",
+    "parameters": {
+      "description": "管理飞书会话和 OpenClaw 会话之间的绑定。内部访谈建议在外发前先把受访对象的 user:open_id 绑定到专属 research-shared 会话。",
+      "type": "object",
+      "required": [
+        "action",
+        "target"
+      ],
+      "properties": {
+        "action": {
+          "description": "bind: 绑定会话；unbind: 解绑会话；status: 查询绑定状态",
+          "anyOf": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "accountId": {
+          "description": "飞书账号标识。内部访谈默认传 research。",
+          "type": "string"
+        },
+        "target": {
+          "description": "会话目标。可传 user:open_id、chat:chat_id，或直接传 open_id/chat_id。",
+          "type": "string"
+        },
+        "targetSessionKey": {
+          "description": "要绑定到的 OpenClaw 会话 key。action=bind 时必填。",
+          "type": "string"
+        },
+        "agentId": {
+          "description": "目标 agent 标识，例如 research-shared。",
+          "type": "string"
+        },
+        "label": {
+          "description": "这条绑定的中文标签，建议写受访对象姓名。",
+          "type": "string"
+        },
+        "boundBy": {
+          "description": "谁创建了这条绑定，例如发起人或 research。",
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_create_doc",
+    "description": "从 Markdown 创建云文档（支持异步 task_id 查询）",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "markdown": {
+          "description": "Markdown 内容",
+          "type": "string"
+        },
+        "title": {
+          "description": "文档标题",
+          "type": "string"
+        },
+        "wiki_node": {
+          "description": "知识库节点 token 或 URL（可选，传入则在该节点下创建文档）",
+          "type": "string"
+        },
+        "wiki_space": {
+          "description": "知识空间 ID（可选，特殊值 my_library）",
+          "type": "string"
+        },
+        "task_id": {
+          "description": "异步任务 ID。提供此参数将查询任务状态而非创建新文档",
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_doc_comments",
+    "description": "【以用户身份】管理云文档评论。支持: (1) list - 获取评论列表(含完整回复); (2) list_replies - 获取指定评论的回复列表; (3) create - 添加全文评论(支持文本、@用户、超链接); (4) reply - 回复已有评论; (5) patch - 解决/恢复评论。支持 wiki token。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "action",
+        "file_token",
+        "file_type"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "file_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "文档类型。wiki类型会自动解析为实际文档类型(docx/sheet/bitable等)"
+        },
+        "is_whole": {
+          "description": "是否只获取全文评论(action=list时可选)",
+          "type": "boolean"
+        },
+        "is_solved": {
+          "description": "是否只获取已解决的评论(action=list时可选)",
+          "type": "boolean"
+        },
+        "page_size": {
+          "description": "分页大小",
+          "type": "integer"
+        },
+        "elements": {
+          "description": "评论内容元素数组(action=create/reply时必填)。支持text(纯文本)、mention(@用户)、link(超链接)三种类型",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "comment_id": {
+          "description": "评论ID(action=list_replies/reply/patch时必填)",
+          "type": "string"
+        },
+        "is_solved_value": {
+          "description": "解决状态:true=解决,false=恢复(action=patch时必填)",
+          "type": "boolean"
+        },
+        "user_id_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_doc_media",
+    "description": "【以用户身份】文档媒体管理工具。支持两种操作：(1) insert - 在飞书文档末尾插入本地图片或文件（需要文档 ID + 本地文件路径）；(2) download - 下载文档素材或画板缩略图到本地（需要资源 token + 输出路径）。\n\n【重要】insert 仅支持本地文件路径。URL 图片请使用 create-doc/update-doc 的 <image url=\"...\"/> 语法。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "doc_id": {
+          "description": "文档 ID 或文档 URL（必填）。支持从 URL 自动提取 document_id",
+          "type": "string"
+        },
+        "file_path": {
+          "description": "本地文件的绝对路径（必填）。图片支持 jpg/png/gif/webp 等，文件支持任意格式，最大 20MB",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "媒体类型：\"image\"（图片，默认）或 \"file\"（文件附件）"
+        },
+        "align": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "对齐方式（仅图片生效）：\"center\"（默认居中）、\"left\"（居左）、\"right\"（居右）"
+        },
+        "caption": {
+          "description": "图片描述/标题（可选，仅图片生效）",
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "资源类型：media（文档素材：图片、视频、文件等）或 whiteboard（画板缩略图）"
+        },
+        "output_path": {
+          "description": "保存文件的完整本地路径。可以包含扩展名（如 /tmp/image.png），也可以不带扩展名，系统会根据 Content-Type 自动添加",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_drive_file",
+    "description": "【以用户身份】飞书云空间文件管理工具。当用户要求查看云空间(云盘)中的文件列表、获取文件信息、复制/移动/删除文件、上传/下载文件时使用。消息中的文件读写**禁止**使用该工具!\n\nActions:\n- list（列出文件）：列出文件夹下的文件。不提供 folder_token 时获取根目录清单\n- get_meta（批量获取元数据）：批量查询文档元信息，使用 request_docs 数组参数，格式：[{doc_token: '...', doc_type: 'sheet'}]\n- copy（复制文件）：复制文件到指定位置\n- move（移动文件）：移动文件到指定文件夹\n- delete（删除文件）：删除文件\n- upload（上传文件）：上传本地文件到云空间。提供 file_path（本地文件路径）或 file_content_base64（Base64 编码）\n- download（下载文件）：下载文件到本地。提供 output_path（本地保存路径）则保存到本地，否则返回 Base64 编码\n\n【重要】copy/move/delete 操作需要 file_token 和 type 参数。get_meta 使用 request_docs 数组参数。\n【重要】upload 优先使用 file_path（自动读取文件、提取文件名和大小），也支持 file_content_base64（需手动提供 file_name 和 size）。\n【重要】download 提供 output_path 时保存到本地（可以是文件路径或文件夹路径+file_name），不提供则返回 Base64。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "page_size": {
+          "description": "分页大小（默认 200，最大 200）",
+          "minimum": 1,
+          "maximum": 200,
+          "type": "integer"
+        },
+        "order_by": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "排序方式：EditedTime（编辑时间）、CreatedTime（创建时间）"
+        },
+        "direction": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "排序方向：ASC（升序）、DESC（降序）"
+        },
+        "request_docs": {
+          "description": "要查询的文档列表（批量查询，最多 50 个）。示例：[{doc_token: 'Z1FjxxxxxxxxxxxxxxxxxxxtnAc', doc_type: 'sheet'}]",
+          "minItems": 1,
+          "maxItems": 50,
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "name": {
+          "description": "目标文件名（必填）",
+          "type": "string"
+        },
+        "type": {
+          "description": "文档类型（必填）",
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "parent_node": {
+          "description": "【folder_token 的别名】目标文件夹 token（为兼容性保留，建议使用 folder_token）",
+          "type": "string"
+        },
+        "file_path": {
+          "description": "本地文件路径（与 file_content_base64 二选一）。优先使用此参数，会自动读取文件内容、计算大小、提取文件名。",
+          "type": "string"
+        },
+        "file_content_base64": {
+          "description": "文件内容的 Base64 编码（与 file_path 二选一）。当不提供 file_path 时使用。",
+          "type": "string"
+        },
+        "file_name": {
+          "description": "文件名（可选）。如果提供了 file_path，会自动从路径中提取文件名；如果使用 file_content_base64，则必须提供此参数。",
+          "type": "string"
+        },
+        "size": {
+          "description": "文件大小（字节，可选）。如果提供了 file_path，会自动计算；如果使用 file_content_base64，则必须提供此参数。",
+          "type": "integer"
+        },
+        "output_path": {
+          "description": "本地保存的完整文件路径（可选）。必须包含文件名和扩展名，例如 '/tmp/file.pdf'。如果不提供，则返回 Base64 编码的文件内容。",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_fetch_doc",
+    "description": "获取飞书云文档内容，返回文档标题和 Markdown 格式内容。支持分页获取大文档。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "doc_id"
+      ],
+      "properties": {
+        "doc_id": {
+          "description": "文档 ID 或 URL（支持自动解析）",
+          "type": "string"
+        },
+        "offset": {
+          "description": "字符偏移量（可选，默认0）。用于大文档分页获取。",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "limit": {
+          "description": "返回的最大字符数（可选）。仅在用户明确要求分页时使用。",
+          "minimum": 1,
+          "type": "integer"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_get_user",
+    "description": "获取用户信息。不传 user_id 时获取当前用户自己的信息；传 user_id 时获取指定用户的信息。返回用户姓名、头像、邮箱、手机号、部门等信息。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "description": "用户 ID（格式如 ou_xxx）。若不传入，则获取当前用户自己的信息",
+          "type": "string"
+        },
+        "user_id_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_im_bot_image",
+    "description": "【以机器人身份】下载飞书 IM 消息中的图片或文件资源到本地。\n\n适用场景：用户直接发送给机器人的消息、用户引用的消息、机器人收到的群聊消息中的图片/文件。即当前对话上下文中出现的 message_id 和 image_key/file_key，应使用本工具下载。\n引用消息的 message_id 可从上下文中的 [message_id=om_xxx] 提取，无需向用户询问。\n\n文件自动保存到 /tmp/openclaw/ 下，返回值中的 saved_path 为实际保存路径。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "message_id",
+        "file_key",
+        "type"
+      ],
+      "properties": {
+        "message_id": {
+          "description": "消息 ID（om_xxx 格式），引用消息可从上下文中的 [message_id=om_xxx] 提取",
+          "type": "string"
+        },
+        "file_key": {
+          "description": "资源 Key，图片消息的 image_key（img_xxx）或文件消息的 file_key（file_xxx）",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "资源类型：image（图片消息中的图片）、file（文件/音频/视频消息中的文件）"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_im_user_fetch_resource",
+    "description": "【以用户身份】下载飞书 IM 消息中的文件或图片资源到本地文件。需要用户 OAuth 授权。\n\n适用场景：当你以用户身份调用了消息列表/搜索等 API 获取到 message_id 和 file_key 时，应使用本工具以同样的用户身份下载资源。\n注意：如果 message_id 来自当前对话上下文（用户发给机器人的消息、引用的消息），请使用 feishu_im_bot_image 工具以机器人身份下载，无需用户授权。\n\n参数说明：\n- message_id：消息 ID（om_xxx），从消息事件或消息列表中获取\n- file_key：资源 Key，从消息体中获取。图片用 image_key（img_xxx），文件用 file_key（file_xxx）\n- type：图片用 image，文件/音频/视频用 file\n\n文件自动保存到 /tmp/openclaw/ 下，返回值中的 saved_path 为实际保存路径。\n限制：文件大小不超过 100MB。不支持下载表情包、合并转发消息、卡片中的资源。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "message_id",
+        "file_key",
+        "type"
+      ],
+      "properties": {
+        "message_id": {
+          "description": "消息 ID（om_xxx 格式），从消息事件或消息列表中获取",
+          "type": "string"
+        },
+        "file_key": {
+          "description": "资源 Key，从消息体中获取。图片消息的 image_key（img_xxx）或文件消息的 file_key（file_xxx）",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "资源类型：image（图片消息中的图片）、file（文件/音频/视频消息中的文件）"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_im_user_get_messages",
+    "description": "【以用户身份】获取群聊或单聊的历史消息。\n\n用法：\n- 通过 chat_id 获取群聊/单聊消息\n- 通过 open_id 获取与指定用户的单聊消息（自动解析 chat_id）\n- 支持时间范围过滤：relative_time（如 today、last_3_days）或 start_time/end_time（ISO 8601 格式）\n- 支持分页：page_size + page_token\n\n【发送核验提醒】\n- open_id 路径会先解析当前用户视角下的 P2P chat_id，适合读历史，不适合默认拿来验机器人刚发出的首条私聊是否成功\n- 如果你刚用 message 工具发过消息，优先用 message 返回里的 chatId + messageId 做核验\n\n【参数约束】\n- open_id 和 chat_id 必须二选一，不能同时提供\n- relative_time 和 start_time/end_time 不能同时使用\n- page_size 范围 1-50，默认 50\n\n返回消息列表，每条消息包含 message_id、msg_type、content（AI 可读文本）、sender、create_time 等字段。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "open_id": {
+          "description": "用户 open_id（ou_xxx），获取与该用户的单聊消息。与 chat_id 互斥",
+          "type": "string"
+        },
+        "chat_id": {
+          "description": "会话 ID（oc_xxx），支持单聊和群聊。与 open_id 互斥",
+          "type": "string"
+        },
+        "sort_rule": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "排序方式，默认 create_time_desc（最新消息在前）"
+        },
+        "page_size": {
+          "description": "每页消息数（1-50），默认 50",
+          "minimum": 1,
+          "maximum": 50,
+          "type": "number"
+        },
+        "relative_time": {
+          "description": "相对时间范围：today / yesterday / day_before_yesterday / this_week / last_week / this_month / last_month / last_{N}_{unit}（unit: minutes/hours/days）。与 start_time/end_time 互斥",
+          "type": "string"
+        },
+        "start_time": {
+          "description": "起始时间（ISO 8601 格式，如 2026-02-27T00:00:00+08:00）。与 relative_time 互斥",
+          "type": "string"
+        },
+        "end_time": {
+          "description": "结束时间（ISO 8601 格式，如 2026-02-27T23:59:59+08:00）。与 relative_time 互斥",
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_im_user_get_thread_messages",
+    "description": "【以用户身份】获取话题（thread）内的消息列表。\n\n用法：\n- 通过 thread_id（omt_xxx）获取话题内的所有消息\n- 支持分页：page_size + page_token\n\n【注意】话题消息不支持时间范围过滤（飞书 API 限制）\n\n返回消息列表，格式同 feishu_im_user_get_messages。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "thread_id"
+      ],
+      "properties": {
+        "thread_id": {
+          "description": "话题 ID（omt_xxx 格式）",
+          "type": "string"
+        },
+        "sort_rule": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "排序方式，默认 create_time_desc（最新消息在前）"
+        },
+        "page_size": {
+          "description": "每页消息数（1-50），默认 50",
+          "minimum": 1,
+          "maximum": 50,
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_im_user_message",
+    "description": "飞书用户身份 IM 消息工具。**有且仅当用户明确要求以自己身份发消息、回复消息时使用，当没有明确要求时优先使用message系统工具**。\n\nActions:\n- send（发送消息）：发送消息到私聊或群聊。私聊用 receive_id_type=open_id，群聊用 receive_id_type=chat_id\n- reply（回复消息）：回复指定 message_id 的消息，支持话题回复（reply_in_thread=true）\n\n【重要】content 必须是合法 JSON 字符串，格式取决于 msg_type。最常用：text 类型 content 为 '{\"text\":\"消息内容\"}'。\n\n【安全约束】此工具以用户身份发送消息，发出后对方看到的发送者是用户本人。只能在当前 Feishu 用户消息上下文中使用；cron、后台任务、子任务和非 Feishu 会话禁止使用。调用前必须先向用户确认：1) 发送对象（哪个人或哪个群）2) 消息内容。禁止在用户未明确同意的情况下自行发送消息。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "receive_id_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "接收者 ID 类型：open_id（私聊，ou_xxx）、chat_id（群聊，oc_xxx）"
+        },
+        "receive_id": {
+          "description": "接收者 ID，与 receive_id_type 对应。open_id 填 'ou_xxx'，chat_id 填 'oc_xxx'",
+          "type": "string"
+        },
+        "msg_type": {
+          "description": "消息类型：text（纯文本）、post（富文本）、image（图片）、file（文件）、interactive（消息卡片）、share_chat（群名片）、share_user（个人名片）等",
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "content": {
+          "description": "消息内容（JSON 字符串），格式取决于 msg_type。示例：text → '{\"text\":\"你好\"}'，image → '{\"image_key\":\"img_xxx\"}'，share_chat → '{\"chat_id\":\"oc_xxx\"}'，post → '{\"zh_cn\":{\"title\":\"标题\",\"content\":[[{\"tag\":\"text\",\"text\":\"正文\"}]]}}'",
+          "type": "string"
+        },
+        "uuid": {
+          "description": "幂等唯一标识。同一 uuid 在 1 小时内只会发送一条消息，用于去重",
+          "type": "string"
+        },
+        "message_id": {
+          "description": "被回复消息的 ID（om_xxx 格式）",
+          "type": "string"
+        },
+        "reply_in_thread": {
+          "description": "是否以话题形式回复。true 则消息出现在该消息的话题中，false（默认）则出现在聊天主流",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "action",
+        "msg_type",
+        "content"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_im_user_search_messages",
+    "description": "【以用户身份】跨会话搜索飞书消息。\n\n用法：\n- 按关键词搜索消息内容\n- 按发送者、被@用户、消息类型过滤\n- 按时间范围过滤：relative_time 或 start_time/end_time\n- 限定在某个会话内搜索（chat_id）\n- 支持分页：page_size + page_token\n\n【参数约束】\n- 所有参数均可选，但至少应提供一个过滤条件\n- relative_time 和 start_time/end_time 不能同时使用\n- page_size 范围 1-50，默认 50\n\n返回消息列表，每条消息包含 message_id、msg_type、content、sender、create_time 等字段。\n每条消息还包含 chat_id、chat_type（p2p/group）、chat_name（群名或单聊对方名字）。\n单聊消息额外包含 chat_partner（对方 open_id 和名字）。\n搜索结果中的 chat_id 和 thread_id 可配合 feishu_im_user_get_messages / feishu_im_user_get_thread_messages 查看上下文。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "description": "搜索关键词，匹配消息内容。可为空字符串表示不按内容过滤",
+          "type": "string"
+        },
+        "sender_ids": {
+          "description": "发送者 open_id 列表。如需根据用户名查找 open_id，请先使用 search_user 工具",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "chat_id": {
+          "description": "限定搜索范围的会话 ID（oc_xxx）",
+          "type": "string"
+        },
+        "mention_ids": {
+          "description": "被@用户的 open_id 列表",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "message_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "消息类型过滤：file / image / media。为空则搜索所有类型"
+        },
+        "sender_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "发送者类型：user / bot / all。默认 user"
+        },
+        "chat_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "会话类型：group（群聊）/ p2p（单聊）"
+        },
+        "relative_time": {
+          "description": "相对时间范围：today / yesterday / day_before_yesterday / this_week / last_week / this_month / last_month / last_{N}_{unit}（unit: minutes/hours/days）。与 start_time/end_time 互斥",
+          "type": "string"
+        },
+        "start_time": {
+          "description": "起始时间（ISO 8601 格式，如 2026-02-27T00:00:00+08:00）。与 relative_time 互斥",
+          "type": "string"
+        },
+        "end_time": {
+          "description": "结束时间（ISO 8601 格式，如 2026-02-27T23:59:59+08:00）。与 relative_time 互斥",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "每页消息数（1-50），默认 50",
+          "minimum": 1,
+          "maximum": 50,
+          "type": "number"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_oauth",
+    "description": "飞书用户撤销授权工具。仅在用户明确说\"撤销授权\"、\"取消授权\"、\"退出登录\"、\"清除授权\"时调用 revoke。【严禁调用场景】用户说\"重新授权\"、\"发起授权\"、\"重新发起\"、\"授权失败\"、\"授权过期\"时，绝对不要调用此工具，授权流程由系统自动处理，无需人工干预。不需要传入 user_open_id，系统自动从消息上下文获取当前用户。",
+    "parameters": {
+      "description": "飞书用户撤销授权工具。仅在用户明确说\"撤销授权\"、\"取消授权\"、\"退出登录\"、\"清除授权\"时调用。【严禁调用场景】用户说\"重新授权\"、\"发起授权\"、\"重新发起\"、\"授权失败\"、\"授权过期\"时，绝对不要调用此工具，授权流程由系统自动处理。",
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "description": "revoke: 撤销当前用户已保存的授权凭据",
+          "const": "revoke",
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_oauth_batch_auth",
+    "description": "飞书批量授权工具，一次性授权应用已开通的所有用户权限。仅在用户明确要求'授权所有权限'、'一次性授权'时使用。",
+    "parameters": {
+      "description": "飞书批量授权工具。一次性授权应用已开通的所有用户权限（User Access Token scope）。【使用场景】用户明确要求'授权所有权限'、'一次性授权完成'时使用。【重要】禁止主动推荐此工具，仅在用户明确要求时使用。",
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "feishu_search_doc_wiki",
+    "description": "【以用户身份】飞书文档与 Wiki 统一搜索工具。同时搜索云空间文档和知识库 Wiki。Actions: search。【重要】query 参数是搜索关键词（必填），filter 参数可选。【重要】filter 不传时，搜索所有文档和 Wiki；传了则同时对文档和 Wiki 应用相同的过滤条件。【重要】支持按文档类型、创建者、创建时间、打开时间等多维度筛选。【重要】返回结果包含标题和摘要高亮（<h>标签包裹匹配关键词）。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "const": "search",
+          "type": "string"
+        },
+        "query": {
+          "description": "搜索关键词（可选）。不传或传空字符串表示空搜，也可以支持排序规则与筛选，默认根据最近浏览时间返回结果",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "filter": {
+          "description": "搜索过滤条件（可选）。不传则搜索所有文档和 Wiki；传了则同时对文档和 Wiki 应用相同的过滤条件。",
+          "type": "object",
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "page_size": {
+          "description": "分页大小（默认 15，最大 20）",
+          "minimum": 0,
+          "maximum": 20,
+          "type": "integer"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_search_user",
+    "description": "搜索员工信息（通过关键词搜索姓名、手机号、邮箱）。返回匹配的员工列表，包含姓名、部门、open_id 等信息。",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "query"
+      ],
+      "properties": {
+        "query": {
+          "description": "搜索关键词，用于匹配用户名（必填）",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "分页大小，控制每次返回的用户数量（默认20，最大200）",
+          "minimum": 1,
+          "maximum": 200,
+          "type": "integer"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_sheet",
+    "description": "【以用户身份】飞书电子表格工具。支持创建、读写、查找、导出电子表格。\n\n电子表格（Sheets）类似 Excel/Google Sheets，与多维表格（Bitable/Airtable）是不同产品。\n\n所有 action（除 create 外）均支持传入 url 或 spreadsheet_token，工具会自动解析。支持知识库 wiki URL，自动解析为电子表格 token。\n\nActions:\n- info：获取表格信息 + 全部工作表列表（一次调用替代 get_info + list_sheets）\n- read：读取数据。不填 range 自动读取第一个工作表全部数据\n- write：覆盖写入,高危,请谨慎使用该操作。不填 range 自动写入第一个工作表（从 A1 开始）\n- append：在已有数据末尾追加行\n- find：在工作表中查找单元格\n- create：创建电子表格。支持带 headers + data 一步创建含数据的表格\n- export：导出为 xlsx 或 csv（csv 必须指定 sheet_id）",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "url": {
+          "description": "电子表格 URL，例如 https://xxx.feishu.cn/sheets/TOKEN 或 https://xxx.feishu.cn/wiki/TOKEN（与 spreadsheet_token 二选一）",
+          "type": "string"
+        },
+        "range": {
+          "description": "读取范围（可选）。格式：<sheetId>!A1:D10 或 <sheetId>（sheetId 通过 info 获取）。不填则自动读取第一个工作表全部数据",
+          "type": "string"
+        },
+        "sheet_id": {
+          "description": "工作表 ID（可选）。仅当不提供 range 时生效，指定要读取的工作表。不填则读取第一个工作表",
+          "type": "string"
+        },
+        "value_render_option": {
+          "description": "值渲染方式：ToString（默认）、FormattedValue（按格式）、Formula（公式）、UnformattedValue（原始值）",
+          "anyOf": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "values": {
+          "description": "二维数组，每个元素是一行。例如 [[\"姓名\",\"年龄\"],[\"张三\",25]]",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "find": {
+          "description": "查找内容（字符串或正则表达式）",
+          "type": "string"
+        },
+        "match_case": {
+          "description": "是否区分大小写（默认 true）",
+          "type": "boolean"
+        },
+        "match_entire_cell": {
+          "description": "是否完全匹配整个单元格（默认 false）",
+          "type": "boolean"
+        },
+        "search_by_regex": {
+          "description": "是否使用正则表达式（默认 false）",
+          "type": "boolean"
+        },
+        "include_formulas": {
+          "description": "是否搜索公式（默认 false）",
+          "type": "boolean"
+        },
+        "title": {
+          "description": "电子表格标题",
+          "type": "string"
+        },
+        "headers": {
+          "description": "表头列名（可选）。例如 [\"姓名\", \"部门\", \"入职日期\"]。提供后会写入第一行",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "data": {
+          "description": "初始数据（可选）。二维数组，写在表头之后。例如 [[\"张三\", \"工程\", \"2026-01-01\"]]",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "file_extension": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "导出格式：xlsx 或 csv"
+        },
+        "output_path": {
+          "description": "本地保存路径（含文件名）。不填则只返回文件信息",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_task_comment",
+    "description": "【以用户身份】飞书任务评论管理工具。当用户要求添加/查询任务评论、回复评论时使用。Actions: create（添加评论）, list（列出任务的所有评论）, get（获取单个评论详情）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "task_guid": {
+          "description": "任务 GUID",
+          "type": "string"
+        },
+        "content": {
+          "description": "评论内容（纯文本，最长 3000 字符）",
+          "type": "string"
+        },
+        "reply_to_comment_id": {
+          "description": "要回复的评论 ID（用于回复评论）",
+          "type": "string"
+        },
+        "resource_id": {
+          "description": "要获取评论的资源 ID（任务 GUID）",
+          "type": "string"
+        },
+        "direction": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "排序方式（asc=从旧到新，desc=从新到旧，默认 asc）"
+        },
+        "page_size": {
+          "description": "每页数量，默认 50，最大 100",
+          "type": "number"
+        },
+        "comment_id": {
+          "description": "评论 ID",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_task_section",
+    "description": "【以用户身份】飞书任务自定义分组管理工具。用于创建、查询、更新自定义分组，以及列出分组内的任务。Actions: create（创建分组）, get（获取分组详情）, patch（更新分组）, list（获取分组列表）, tasks（获取分组任务列表）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "name": {
+          "description": "自定义分组名。不允许为空，最大100个utf8字符。",
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "resource_id": {
+          "description": "自定义分组要归属的资源id。当resource_type为\"tasklist\"时这里需要填写清单的GUID；当resource_type为\"my_tasks\"时，无需填写。",
+          "type": "string"
+        },
+        "insert_before": {
+          "description": "要将新分组插入到自定义分分组的前面的目标分组的guid。",
+          "type": "string"
+        },
+        "insert_after": {
+          "description": "要将新分组插入到自定义分分组的后面的目标分组的guid。",
+          "type": "string"
+        },
+        "user_id_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "section_guid": {
+          "description": "要获取的自定义分组GUID",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "分页大小",
+          "type": "number"
+        },
+        "completed": {
+          "description": "按照任务状态过滤，如果不填写则表示不按完成状态过滤",
+          "type": "boolean"
+        },
+        "created_from": {
+          "description": "按照创建时间筛选的起始时间（支持 ISO 8601 或毫秒时间戳）",
+          "type": "string"
+        },
+        "created_to": {
+          "description": "按照创建时间筛选的结束时间（支持 ISO 8601 或毫秒时间戳）",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_task_subtask",
+    "description": "【以用户身份】飞书任务的子任务管理工具。当用户要求创建子任务、查询任务的子任务列表时使用。Actions: create（创建子任务）, list（列出任务的所有子任务）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "task_guid": {
+          "description": "父任务 GUID",
+          "type": "string"
+        },
+        "summary": {
+          "description": "子任务标题",
+          "type": "string"
+        },
+        "description": {
+          "description": "子任务描述",
+          "type": "string"
+        },
+        "due": {
+          "type": "object",
+          "required": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "start": {
+          "type": "object",
+          "required": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "members": {
+          "description": "子任务成员列表（assignee=负责人，follower=关注人）",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "page_size": {
+          "description": "每页数量，默认 50，最大 100",
+          "type": "number"
+        }
+      },
+      "required": [
+        "action",
+        "task_guid"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_task_task",
+    "description": "【以用户身份】飞书任务管理工具。用于创建、查询、更新任务。Actions: create（创建任务）, get（获取任务详情）, list（查询任务列表，仅返回我负责的任务）, patch（更新任务）。时间参数使用ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "summary": {
+          "description": "任务标题",
+          "type": "string"
+        },
+        "current_user_id": {
+          "description": "当前用户的 open_id（强烈建议，从消息上下文的 SenderId 获取）。如果 members 中不包含此用户，工具会自动添加为 follower，确保创建者可以编辑任务。",
+          "type": "string"
+        },
+        "description": {
+          "description": "任务描述",
+          "type": "string"
+        },
+        "due": {
+          "type": "object",
+          "required": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "start": {
+          "type": "object",
+          "required": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "members": {
+          "description": "任务成员列表（assignee=负责人，follower=关注人）",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "repeat_rule": {
+          "description": "重复规则（RRULE 格式）",
+          "type": "string"
+        },
+        "tasklists": {
+          "description": "任务所属清单列表",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "user_id_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "task_guid": {
+          "description": "Task GUID",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "每页数量（默认 50，最大 100）。",
+          "type": "number"
+        },
+        "completed": {
+          "description": "是否筛选已完成任务",
+          "type": "boolean"
+        },
+        "completed_at": {
+          "description": "完成时间。支持三种格式：1) ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'（设为已完成）；2) '0'（反完成，任务变为未完成）；3) 毫秒时间戳字符串。",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_task_tasklist",
+    "description": "【以用户身份】飞书任务清单管理工具。当用户要求创建/查询/管理清单、查看清单内的任务时使用。Actions: create（创建清单）, get（获取清单详情）, list（列出所有可读取的清单，包括我创建的和他人共享给我的）, tasks（列出清单内的任务）, patch（更新清单）, add_members（添加成员）。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "name": {
+          "description": "清单名称",
+          "type": "string"
+        },
+        "members": {
+          "description": "清单成员列表（editor=可编辑，viewer=可查看）。注意：创建人自动成为 owner，如在 members 中也指定创建人，该用户最终成为 owner 并从 members 中移除（同一用户只能有一个角色）",
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "tasklist_guid": {
+          "description": "清单 GUID",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "每页数量，默认 50，最大 100",
+          "type": "number"
+        },
+        "completed": {
+          "description": "是否只返回已完成的任务（默认返回所有）",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_update_doc",
+    "description": "更新云文档（overwrite/append/replace_range/replace_all/insert_before/insert_after/delete_range，支持异步 task_id 查询）",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "doc_id": {
+          "description": "文档 ID 或 URL",
+          "type": "string"
+        },
+        "markdown": {
+          "description": "Markdown 内容",
+          "type": "string"
+        },
+        "mode": {
+          "description": "更新模式（必填）",
+          "anyOf": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "selection_with_ellipsis": {
+          "description": "定位表达式：开头内容...结尾内容（与 selection_by_title 二选一）",
+          "type": "string"
+        },
+        "selection_by_title": {
+          "description": "标题定位：例如 ## 章节标题（与 selection_with_ellipsis 二选一）",
+          "type": "string"
+        },
+        "new_title": {
+          "description": "新的文档标题（可选）",
+          "type": "string"
+        },
+        "task_id": {
+          "description": "异步任务 ID，用于查询任务状态",
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "feishu_wiki_space",
+    "description": "飞书知识空间管理工具。当用户要求查看知识库列表、获取知识库信息、创建知识库时使用。Actions: list（列出知识空间）, get（获取知识空间信息）, create（创建知识空间）。【重要】space_id 可以从浏览器 URL 中获取，或通过 list 接口获取。【重要】知识空间（Space）是知识库的基本组成单位，包含多个具有层级关系的文档节点。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "page_size": {
+          "description": "分页大小（默认 10，最大 50）",
+          "minimum": 1,
+          "maximum": 50,
+          "type": "integer"
+        },
+        "space_id": {
+          "description": "知识空间 ID（必填）",
+          "type": "string"
+        },
+        "name": {
+          "description": "知识空间名称",
+          "type": "string"
+        },
+        "description": {
+          "description": "知识空间描述",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "feishu_wiki_space_node",
+    "description": "飞书知识库节点管理工具。操作：list（列表）、get（获取）、create（创建）、move（移动）、copy（复制）。节点是知识库中的文档，包括 doc、bitable(多维表表格)、sheet(电子表格) 等类型。node_token 是节点的唯一标识符，obj_token 是实际文档的 token。可通过 get 操作将 wiki 类型的 node_token 转换为实际文档的 obj_token。",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "space_id": {
+          "description": "space_id",
+          "type": "string"
+        },
+        "page_size": {
+          "description": "page_size",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "obj_type": {
+          "description": "obj_type",
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "node_type": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "node_type"
+        },
+        "title": {
+          "description": "title",
+          "type": "string"
+        },
+        "target_space_id": {
+          "description": "target_space_id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    }
+  },
+  {
+    "name": "memory_get",
+    "description": "Safe exact excerpt read from MEMORY.md or memory/*.md. Defaults to a bounded excerpt when lines are omitted, includes truncation/continuation info when more content exists, and `corpus=wiki` reads from registered compiled-wiki supplements.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "lines": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "corpus": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "memory_search",
+    "description": "Mandatory recall step: semantically search MEMORY.md + memory/*.md (and optional session transcripts) before answering questions about prior work, decisions, dates, people, preferences, or todos. Optional `corpus=wiki` or `corpus=all` also searches registered compiled-wiki supplements. `corpus=memory` restricts hits to indexed memory files (excludes session transcript chunks from ranking). `corpus=sessions` restricts hits to indexed session transcripts (same visibility rules as session history tools). If response has disabled=true, memory retrieval is unavailable and should be surfaced to the user.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "maxResults": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minScore": {
+          "type": "number"
+        },
+        "corpus": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "message",
+    "description": "Send/delete/manage channel messages. Supports actions: delete, react, reactions, send, unsend.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "channel": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string",
+          "description": "Recipient/channel: E.164 for WhatsApp/Signal, Telegram chat id/@username, Discord/Slack/Mattermost <channelId|user:ID|channel:ID>, or iMessage handle/chat_id"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "dryRun": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "effectId": {
+          "type": "string",
+          "description": "Effect id/name for sendWithEffect."
+        },
+        "effect": {
+          "type": "string",
+          "description": "Alias for effectId."
+        },
+        "media": {
+          "type": "string",
+          "description": "Media URL/path. data: use buffer."
+        },
+        "filename": {
+          "type": "string"
+        },
+        "buffer": {
+          "type": "string",
+          "description": "Base64 attachment payload; data URL ok."
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "Structured attachments; each entry uses media."
+        },
+        "replyTo": {
+          "type": "string"
+        },
+        "threadId": {
+          "type": "string"
+        },
+        "asVoice": {
+          "type": "boolean"
+        },
+        "silent": {
+          "type": "boolean"
+        },
+        "quoteText": {
+          "type": "string",
+          "description": "Telegram reply quote text."
+        },
+        "gifPlayback": {
+          "type": "boolean"
+        },
+        "forceDocument": {
+          "type": "boolean",
+          "description": "Send image/GIF/video as document; avoids compression."
+        },
+        "asDocument": {
+          "type": "boolean",
+          "description": "Alias for forceDocument."
+        },
+        "messageId": {
+          "type": "string",
+          "description": "Target message id for read/react/edit/delete/pin/unpin. Reaction-like defaults current inbound id when available."
+        },
+        "message_id": {
+          "type": "string",
+          "description": "snake_case alias of messageId; same defaults."
+        },
+        "emoji": {
+          "type": "string"
+        },
+        "remove": {
+          "type": "boolean"
+        },
+        "trackToolCalls": {
+          "type": "boolean",
+          "description": "For current-message reaction, make reacted message the tool-progress reaction target."
+        },
+        "track_tool_calls": {
+          "type": "boolean",
+          "description": "snake_case alias of trackToolCalls."
+        },
+        "targetAuthor": {
+          "type": "string"
+        },
+        "targetAuthorUuid": {
+          "type": "string"
+        },
+        "groupId": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pageSize": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "before": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        },
+        "around": {
+          "type": "string"
+        },
+        "fromMe": {
+          "type": "boolean"
+        },
+        "includeArchived": {
+          "type": "boolean"
+        },
+        "pollId": {
+          "type": "string"
+        },
+        "pollOptionId": {
+          "type": "string",
+          "description": "Poll answer id."
+        },
+        "pollOptionIds": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "pollOptionIndex": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based poll option number."
+        },
+        "pollOptionIndexes": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "pollQuestion": {
+          "type": "string"
+        },
+        "pollOption": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "pollDurationHours": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pollMulti": {
+          "type": "boolean"
+        },
+        "channelId": {
+          "type": "string",
+          "description": "Channel id filter."
+        },
+        "chatId": {
+          "type": "string",
+          "description": "Chat id for chat metadata."
+        },
+        "channelIds": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "memberId": {
+          "type": "string"
+        },
+        "memberIdType": {
+          "type": "string"
+        },
+        "guildId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "openId": {
+          "type": "string"
+        },
+        "unionId": {
+          "type": "string"
+        },
+        "authorId": {
+          "type": "string"
+        },
+        "authorIds": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "roleId": {
+          "type": "string"
+        },
+        "roleIds": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "participant": {
+          "type": "string"
+        },
+        "_truncated": {
+          "truncated": true,
+          "reason": "trajectory-object-size-limit",
+          "originalKeys": 106,
+          "limitKeys": 64
+        }
+      }
+    }
+  },
+  {
+    "name": "process",
+    "description": "Manage running exec sessions for commands already started: list, poll, log, write, send-keys, submit, paste, kill. Use poll/log when you need status, logs, quiet-success confirmation, or completion confirmation when automatic completion wake is unavailable. Use poll/log also for input-wait hints. Use write/send-keys/submit/paste/kill for input or intervention.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "description": "Process action (list|poll|log|write|send-keys|submit|paste|kill|clear|remove)"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Session id for actions other than list"
+        },
+        "data": {
+          "type": "string",
+          "description": "Data to write for write"
+        },
+        "keys": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "Key tokens to send for send-keys"
+        },
+        "hex": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "Hex bytes to send for send-keys"
+        },
+        "literal": {
+          "type": "string",
+          "description": "Literal string for send-keys"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text to paste for paste"
+        },
+        "bracketed": {
+          "type": "boolean",
+          "description": "Wrap paste in bracketed mode"
+        },
+        "eof": {
+          "type": "boolean",
+          "description": "Close stdin after write"
+        },
+        "offset": {
+          "type": "number",
+          "description": "Log offset"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Log length"
+        },
+        "timeout": {
+          "type": "number",
+          "description": "For poll: wait up to this many milliseconds before returning; max 30000 ms, higher values are clamped to 30000",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "read",
+    "description": "Read the contents of a file. Supports text files and images (jpg, png, gif, webp). Images are sent as attachments. For text files, output is truncated to 2000 lines or 50KB (whichever is hit first). Use offset/limit for large files. When you need the full file, continue with offset until complete.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the file to read (relative or absolute)"
+        },
+        "offset": {
+          "type": "number",
+          "description": "Line number to start reading from (1-indexed)"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of lines to read"
+        }
+      }
+    }
+  },
+  {
+    "name": "session_status",
+    "description": "Show /status-like card for current/visible session: model, usage, time, cost, tasks. Use `sessionKey=\"current\"` for current session; UI labels like `openclaw-tui` are not keys. `model` sets session override; `model=default` resets. Use for active model/session config questions.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "sessionKey": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "sessions_history",
+    "description": "Fetch sanitized history for visible session. Use before replying, debugging, resuming; supports limits/tool messages.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "sessionKey"
+      ],
+      "properties": {
+        "sessionKey": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "includeTools": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "name": "sessions_list",
+    "description": "List visible sessions; filter by kind, label, agentId, search, activity. Use before sessions_history or sessions_send target selection.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "kinds": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "activeMinutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "messageLimit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agentId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "search": {
+          "type": "string",
+          "minLength": 1
+        },
+        "includeDerivedTitles": {
+          "type": "boolean"
+        },
+        "includeLastMessage": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "name": "sessions_send",
+    "description": "Send message to visible session by sessionKey/label, or configured agent by agentId; sessionKey wins when redundant label metadata is present. Thread-scoped chats rejected; target parent channel session. Creates missing configured-agent main session; waits for reply when available.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "sessionKey": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "agentId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "message": {
+          "type": "string"
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "sessions_spawn",
+    "description": "Spawn clean child session; default `runtime=\"subagent\"`. `mode=\"run\"` one-shot background work. Subagents inherit parent workspace. Native subagents get task in first visible `[Subagent Task]` message. Native only: `context=\"fork\"` only when child needs current transcript; else omit or `isolated`. Use for fresh child-session work.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "task"
+      ],
+      "properties": {
+        "task": {
+          "type": "string"
+        },
+        "taskName": {
+          "type": "string",
+          "description": "Stable alias for later targeting; lowercase letters/digits/underscores/hyphens, starts letter."
+        },
+        "label": {
+          "type": "string"
+        },
+        "runtime": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "agentId": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "thinking": {
+          "type": "string"
+        },
+        "cwd": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "cleanup": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "sandbox": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "context": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "Native context. Omit/\"isolated\" for clean child; \"fork\" only when child needs requester transcript."
+        },
+        "lightContext": {
+          "type": "boolean",
+          "description": "Light bootstrap context; runtime=\"subagent\" only."
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "maxItems": 50
+        },
+        "attachAs": {
+          "type": "object",
+          "properties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "sessions_yield",
+    "description": "End current turn. Use after spawning subagents; results arrive as next message.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  {
+    "name": "subagents",
+    "description": "List active and recent subagents for the requester session. If sessions_yield exists, use it for completion; do not poll wait loops.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "recentMinutes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  },
+  {
+    "name": "web_fetch",
+    "description": "Fetch URL and extract readable markdown/text. Lightweight page access; no browser automation.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "HTTP(S) URL."
+        },
+        "extractMode": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "Extract as markdown/text.",
+          "default": "markdown"
+        },
+        "maxChars": {
+          "type": "integer",
+          "description": "Max chars returned; truncates.",
+          "minimum": 100
+        }
+      }
+    }
+  },
+  {
+    "name": "write",
+    "description": "Write content to a file. Creates the file if it doesn't exist, overwrites if it does. Automatically creates parent directories.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "path",
+        "content"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the file to write (relative or absolute)"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content to write to the file"
+        }
+      }
+    }
+  }
+]

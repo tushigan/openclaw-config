@@ -1,0 +1,73 @@
+{
+  "schema_version": 2,
+  "project_id": "ranli-brand-upgrade-video-storyboard-v2",
+  "project_name": "然利品牌升级视频故事板V2",
+  "project_slug": "ranli-brand-upgrade-video-storyboard-v2",
+  "project_dir": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2",
+  "defaults": {
+    "video_mode": "non_ip_poster",
+    "ratio": "16:9",
+    "duration": 30,
+    "quality_tier": "draft",
+    "storyboard_strategy": "auto_beats",
+    "normalize_references": true
+  },
+  "constraints": {
+    "must_have": [],
+    "must_not_have": [],
+    "prefer": []
+  },
+  "validation_rules": {
+    "reference_system": [],
+    "storyboard": [],
+    "video": []
+  },
+  "iteration_strategy": {
+    "max_iterations": 3,
+    "max_same_error_repeats": 2,
+    "improvement_threshold": 0.15,
+    "ask_user_on_manual_checks": true
+  },
+  "canonical_files": {
+    "original": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/canonical/original.png",
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/canonical/final-frame-poster.png",
+    "storyboard": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/canonical/storyboard.png"
+  },
+  "state": {
+    "status": "references_generated",
+    "current_phase": "generate_refs",
+    "latest_run_id": "20260616-112122-logo-4",
+    "latest_run_dir": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4",
+    "updated_at": "2026-06-16T11:24:53+08:00"
+  },
+  "runs": [
+    {
+      "run_id": "20260616-112122-logo-4",
+      "stage": "generate_refs",
+      "status": "references_generated",
+      "run_dir": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4",
+      "brief_file": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/brief.json",
+      "summary_file": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/summary.md",
+      "prompt_files": {
+        "original": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/prompts/original.txt",
+        "identity_board": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/prompts/identity-board.txt",
+        "storyboard": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/prompts/storyboard.txt",
+        "video": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/original.png",
+        "storyboard": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/storyboard.png",
+        "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/final-frame-poster.png",
+        "normalized_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-06-16T11:24:53+08:00",
+      "created_at": "2026-06-16T11:21:22+08:00"
+    }
+  ],
+  "created_at": "2026-06-16T11:21:22+08:00",
+  "updated_at": "2026-06-16T11:24:53+08:00",
+  "status": "references_generated",
+  "current_phase": "generate_refs",
+  "latest_run_id": "20260616-112122-logo-4",
+  "latest_run_dir": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4"
+}

@@ -1,0 +1,54 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-16T08:06:02.809Z",
+  "traceId": "49f3291b-03ba-4b0f-bd2a-3b074255d12d",
+  "sessionId": "49f3291b-03ba-4b0f-bd2a-3b074255d12d",
+  "sessionKey": "agent:main-shared:feishu:direct:ou_b62acbae19505492e32fb626fc5159ed",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 57491,
+    "output": 157,
+    "cacheRead": 36864,
+    "total": 94512
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 28894,
+      "output": 86,
+      "cacheRead": 18432,
+      "cacheWrite": 0,
+      "reasoningTokens": 0,
+      "total": 47412
+    },
+    "lastCacheTouchAt": 1781597084798
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "我重新检查了，结果还是需要你本人点一次用户授权。\n\n后台权限开完只是应用有权限了；但创建飞书多维表格是“以你的身份”操作，还需要你在授权卡片里确认一次。\n\n现在系统已经重新发了一张授权卡片。你点完后回我：\n\n**已授权，继续建表**\n\n我再继续创建。"
+  ],
+  "finalPromptText": "Conversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_b62acbae19505492e32fb626fc5159ed\",\n  \"message_id\": \"om_x100b6c24762ea0a0b2ad1ea5c65428e\",\n  \"sender_id\": \"ou_b62acbae19505492e32fb626fc5159ed\",\n  \"sender\": \"ou_b62acbae19505492e32fb626fc5159ed\",\n  \"timestamp\": \"Tue 2026-06-16 16:04:30 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"ou_b62acbae19505492e32fb626fc5159ed\",\n  \"id\": \"ou_b62acbae19505492e32fb626fc5159ed\",\n  \"name\": \"ou_b62acbae19505492e32fb626fc5159ed\"\n}\n```\n\n我这边后台权限已经开完了，你重新检查",
+  "itemLifecycle": {
+    "startedCount": 1,
+    "completedCount": 1,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "feishu_bitable_app",
+      "meta": "小竹业务项目管理总表"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

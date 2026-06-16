@@ -39,6 +39,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--source", default="auto", help="Local absolute image path, HTTPS URL, or auto")
     parser.add_argument("--out-dir", help="Output directory; defaults to workspace-design outputs")
     parser.add_argument("--conv-id", default=None, help="Optional Antigravity conversation id for auto source")
+    parser.add_argument("--target-size", default="2K", help="Target resolution: 1K (1024px), 2K (2048px), 4K (4096px), or integer pixels (default: 2K)")
     parser.add_argument("--bg-prompt", default=DEFAULT_BG_PROMPT, help="Background extraction prompt")
     parser.add_argument("--fg-prompt", default=DEFAULT_FG_PROMPT, help="Foreground extraction prompt (used in 2-layer mode)")
     parser.add_argument("--fg-elements", default=None, help="[DEPRECATED] Comma-separated foreground element list for N-layer mode (not recommended)")
@@ -176,6 +177,8 @@ def build_pipeline_command(args: argparse.Namespace, out_dir: Path) -> list[str]
         args.source,
         "--out-dir",
         str(out_dir),
+        "--target-size",
+        args.target_size,
         "--bg-prompt",
         args.bg_prompt,
         "--fg-prompt",

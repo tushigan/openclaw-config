@@ -1,0 +1,26 @@
+{
+  "project_name": "然利品牌升级视频故事板",
+  "project_slug": "ranli-brand-upgrade-video-storyboard",
+  "brand_name": "然利",
+  "video_mode": "non_ip_poster",
+  "subject": "然利 Logo / 品牌形象升级展示片",
+  "action": "用四段故事板呈现品牌从旧 Logo 的手工感识别，升级为更专业、现代、高级、适合招商与终端展示的品牌形象。前 20 秒讲 Logo 升级逻辑，后 10 秒讲包装应用与最终定版。",
+  "scene": "高级品牌发布片视觉环境：干净红色品牌背景、Logo 设计网格、官方包装应用场景、渠道招商展示语境。",
+  "style": "专业、现代、高级、规范、克制，有食品品牌温度；招商形象、品牌资产感、终端展示感；不要小作坊感，不要过度情绪化。",
+  "ratio": "16:9",
+  "duration": 30,
+  "quality_tier": "draft",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": 4,
+  "storyboard_beats_override": [
+    "第1段 0-8秒：为什么升级。以旧 Logo 和旧包装为起点，表达旧识别完成过历史阶段，但现在需要更清晰、更专业、更适合渠道展示的品牌系统。",
+    "第2段 8-16秒：升级了哪些东西。拆解旧 Logo：保留然利品牌名、擀面杖符号、外框、原有识别色系；弱化并去掉“手工”两个字；强化主品牌识别。",
+    "第3段 16-22秒：做了哪些提升。展示新 Logo 在比例、字形、外框和图形关系上的现代化优化，更简洁、更高级、更规范。",
+    "第4段 22-30秒：应用展示与定版收束。展示新 Logo 在两组确认包装上的应用，并收束到新 Logo + 品牌广告语片尾。"
+  ],
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/03_logo_slogan_final.jpg"
+  },
+  "normalize_references": true,
+  "notes": "只使用昨天确认的素材白名单：01旧Logo、02新Logo、03新Logo+广告语、05/06/08/09包装新旧对比。04/07删除不用；禁止然利汤包；禁止AI虚构西柚味戚风蛋糕包装；不要文字字幕。"
+}

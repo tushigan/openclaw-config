@@ -1,0 +1,59 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-16T08:03:40.128Z",
+  "traceId": "d90d69fd-8539-44c0-b01b-32df0ac0a666",
+  "sessionId": "d90d69fd-8539-44c0-b01b-32df0ac0a666",
+  "sessionKey": "agent:meeting-analyst:feishu:direct:ou_1e2494605d60685078e1532cedbb5c4f",
+  "workspaceDir": "$WORKSPACE_DIR",
+  "leafId": "7db2ed2a",
+  "eventCount": 29,
+  "runtimeEventCount": 7,
+  "transcriptEventCount": 22,
+  "sourceFiles": {
+    "session": "$WORKSPACE_DIR/agents/meeting-analyst/sessions/d90d69fd-8539-44c0-b01b-32df0ac0a666.jsonl",
+    "runtime": "$WORKSPACE_DIR/agents/meeting-analyst/sessions/d90d69fd-8539-44c0-b01b-32df0ac0a666.trajectory.jsonl"
+  },
+  "supplementalFiles": [
+    "metadata.json",
+    "artifacts.json",
+    "prompts.json"
+  ],
+  "contents": [
+    {
+      "path": "metadata.json",
+      "mediaType": "application/json",
+      "bytes": 132758
+    },
+    {
+      "path": "artifacts.json",
+      "mediaType": "application/json",
+      "bytes": 2784
+    },
+    {
+      "path": "prompts.json",
+      "mediaType": "application/json",
+      "bytes": 38794
+    },
+    {
+      "path": "events.jsonl",
+      "mediaType": "application/x-ndjson",
+      "bytes": 305787
+    },
+    {
+      "path": "session-branch.json",
+      "mediaType": "application/json",
+      "bytes": 81759
+    },
+    {
+      "path": "system-prompt.txt",
+      "mediaType": "text/plain; charset=utf-8",
+      "bytes": 2017
+    },
+    {
+      "path": "tools.json",
+      "mediaType": "application/json",
+      "bytes": 106637
+    }
+  ]
+}

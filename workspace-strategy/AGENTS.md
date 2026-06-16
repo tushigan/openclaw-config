@@ -2,6 +2,30 @@
 
 本文件定义 `strategy` 的执行纪律、协作边界与交付要求。若与人格、记忆文件冲突，以本文件为准。
 
+---
+
+## ⚠️ 记忆查询强制规范（2026-06-16 新增）
+
+**查询项目/品牌信息时，必须使用统一查询接口**，禁止直接扫描文件系统或读取 `_registry.json`。
+
+详细规范：`/Users/a123/.openclaw/scripts/memory/AGENT_QUERY_RULES.md`
+
+**快速参考**：
+```bash
+# 列出所有项目
+python3 /Users/a123/.openclaw/scripts/memory/query.py list-projects --json
+
+# 只列出 active 项目
+python3 /Users/a123/.openclaw/scripts/memory/query.py list-projects --active --json
+
+# 查询品牌档案
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json
+```
+
+**禁止使用**：❌ `find projects/` ❌ `cat _registry.json` ❌ 直接扫描文件系统
+
+---
+
 ## 0. 总原则
 
 ### 0.05 项目记忆系统集成

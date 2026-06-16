@@ -110,6 +110,7 @@ def main():
     parser.add_argument("--source", default="auto", help="Path to original source image, or 'auto' to auto-detect the most recent image")
     parser.add_argument("--job-spec", required=False, help="Path to generated job-spec.json (optional, used for advanced N-layer mode)")
     parser.add_argument("--out-dir", required=True, help="Path to output directory")
+    parser.add_argument("--target-size", default="2K", help="Target resolution: 1K (1024px), 2K (2048px), 4K (4096px), or integer pixels (default: 2K)")
     parser.add_argument("--auto-2-layer", action="store_true", default=True, help="Auto-generate a 2-layer config (background + foreground). This is now the DEFAULT mode.")
     parser.add_argument("--disable-2-layer", action="store_true", help="Disable 2-layer mode and require --job-spec for N-layer mode")
     parser.add_argument("--bg-prompt", type=str, default="【极其重要：绝对禁止凭空生成完全不同的风景！必须严格保持原图中的背景结构、光影和色彩不变，仅仅智能脑补被移除的前景区域。】将图片中的背景提取出来，需要将前景所有元素全部剔除，只保留背景。", help="Prompt for background layer")
@@ -154,25 +155,30 @@ def main():
         if out_dir.exists():
             shutil.rmtree(out_dir, ignore_errors=True)
         out_dir.mkdir(parents=True, exist_ok=True)
-        
-        img_w, img_h = 4096, 4096
+
+        # 解析目标尺寸
+        from resize_to_2k import parse_target_size
+        target_max_edge = parse_target_size(args.target_size)
+        print(f"[INIT] 目标分辨率: {args.target_size} ({target_max_edge}px)")
+
+        img_w, img_h = target_max_edge, target_max_edge
         if source_path.exists():
             try:
                 from PIL import Image
                 with Image.open(source_path) as img:
                     orig_w, orig_h = img.width, img.height
-                
-                # --- FORCE 4K SCALING (McKinsey Rule) ---
-                max_edge_4k = 4096
+
+                # 按目标尺寸缩放（最长边缩放）
                 current_max = max(orig_w, orig_h)
-                scale = max_edge_4k / current_max
+                scale = target_max_edge / current_max
                 img_w = int(orig_w * scale)
                 img_h = int(orig_h * scale)
                 # align to 16
                 img_w = max(16, ((img_w + 15) // 16) * 16)
                 img_h = max(16, ((img_h + 15) // 16) * 16)
+                print(f"[INIT] 原始尺寸: {orig_w}×{orig_h} → 目标尺寸: {img_w}×{img_h} (缩放比例: {scale:.2%})")
             except Exception as e:
-                print(f"[WARNING] Could not read image dimensions: {e}. Defaulting to 4096x4096")
+                print(f"[WARNING] Could not read image dimensions: {e}. Defaulting to {target_max_edge}×{target_max_edge}")
                 
         # 🔥 不要在这里组装完整的提示词，只传递标识符
         # 让 extract_layers.py 根据 kind 来组装正确的提示词

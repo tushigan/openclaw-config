@@ -534,6 +534,192 @@
         "state": {},
         "updatedAtMs": 1781127000000
       }
+    },
+    {
+      "quarantinedAtMs": 1781576851293,
+      "sourceIndex": 11,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "4d48ba31-4dfc-40e7-b930-755d152bfa40",
+        "name": "浏览器缓存定时清理",
+        "description": "每天凌晨2点清理超过15天的浏览器缓存数据（Cache、Code Cache、GPUCache、日志文件）",
+        "enabled": true,
+        "createdAtMs": 1781127000000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "17 2 * * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "main",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-browser-cache.sh"
+        },
+        "delivery": {
+          "mode": "announce",
+          "channel": "feishu",
+          "target": "ou_88079e6b06ce40e6851c96928fe1a03b"
+        },
+        "state": {},
+        "updatedAtMs": 1781127000000
+      }
+    },
+    {
+      "quarantinedAtMs": 1781576851293,
+      "sourceIndex": 12,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "19ef12ca-f64c-4420-9a5a-7940ba24787d",
+        "name": "临时文件定时清理",
+        "description": "每天凌晨3点清理超过7天的临时文件（/tmp目录）",
+        "enabled": true,
+        "createdAtMs": 1781127000000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "23 3 * * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "main",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-tmp-files.sh"
+        },
+        "delivery": {
+          "mode": "announce",
+          "channel": "feishu",
+          "target": "ou_88079e6b06ce40e6851c96928fe1a03b"
+        },
+        "state": {},
+        "updatedAtMs": 1781127000000
+      }
+    },
+    {
+      "quarantinedAtMs": 1781576851293,
+      "sourceIndex": 13,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "name": "Agent输出文件每日轻量清理",
+        "description": "每天凌晨2:45清理已交付文件、临时目录、语音文件、压缩日志",
+        "enabled": true,
+        "createdAtMs": 1749945600000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "45 2 * * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "main",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-daily-light.sh"
+        },
+        "delivery": {
+          "mode": "announce",
+          "channel": "feishu",
+          "target": "ou_88079e6b06ce40e6851c96928fe1a03b"
+        },
+        "state": {},
+        "updatedAtMs": 1749945600000
+      }
+    },
+    {
+      "quarantinedAtMs": 1781576851293,
+      "sourceIndex": 14,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+        "name": "Agent输出文件每周中等清理",
+        "description": "每周日凌晨3:15清理超过30天的图片、JSON、Markdown，压缩会话记录",
+        "enabled": true,
+        "createdAtMs": 1749945600000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "15 3 * * 0",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "main",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-weekly-medium.sh"
+        },
+        "delivery": {
+          "mode": "announce",
+          "channel": "feishu",
+          "target": "ou_88079e6b06ce40e6851c96928fe1a03b"
+        },
+        "state": {},
+        "updatedAtMs": 1749945600000
+      }
+    },
+    {
+      "quarantinedAtMs": 1781576851293,
+      "sourceIndex": 15,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+        "name": "Agent输出文件每月深度清理",
+        "description": "每月1号凌晨4:00清理设计产物、PSD源文件、旧会话记录",
+        "enabled": true,
+        "createdAtMs": 1749945600000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "0 4 1 * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "main",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "bash /Users/a123/.openclaw/scripts/cleanup-monthly-deep.sh"
+        },
+        "delivery": {
+          "mode": "announce",
+          "channel": "feishu",
+          "target": "ou_88079e6b06ce40e6851c96928fe1a03b"
+        },
+        "state": {},
+        "updatedAtMs": 1749945600000
+      }
+    },
+    {
+      "quarantinedAtMs": 1781576851293,
+      "sourceIndex": 16,
+      "reason": "invalid-payload",
+      "job": {
+        "id": "d4e5f6a7-b8c9-0123-def0-234567890123",
+        "name": "Research浏览器空闲自动清理",
+        "description": "每10分钟检查一次，自动关闭空闲超过10分钟的research-login浏览器实例，避免内存泄漏",
+        "enabled": true,
+        "createdAtMs": 1781127000000,
+        "schedule": {
+          "kind": "cron",
+          "expr": "*/10 * * * *",
+          "tz": "Asia/Shanghai"
+        },
+        "sessionTarget": "main",
+        "wakeMode": "now",
+        "payload": {
+          "kind": "systemEvent",
+          "event": "exec",
+          "command": "python3 /Users/a123/.openclaw/workspace/skills/web-browse-capture/scripts/cleanup_idle_browsers.py --idle-timeout 600"
+        },
+        "delivery": {
+          "mode": "announce",
+          "channel": "feishu",
+          "target": "ou_88079e6b06ce40e6851c96928fe1a03b"
+        },
+        "state": {},
+        "updatedAtMs": 1781127000000
+      }
     }
   ]
 }

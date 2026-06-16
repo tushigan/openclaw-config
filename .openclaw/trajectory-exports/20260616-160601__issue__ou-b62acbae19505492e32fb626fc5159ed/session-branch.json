@@ -1,0 +1,649 @@
+{
+  "header": {
+    "type": "session",
+    "version": 3,
+    "id": "49f3291b-03ba-4b0f-bd2a-3b074255d12d",
+    "timestamp": "2026-06-16T06:10:14.027Z",
+    "cwd": "$WORKSPACE_DIR/workspace"
+  },
+  "leafId": "80a0dac6",
+  "entries": [
+    {
+      "type": "model_change",
+      "id": "8d7425c8",
+      "parentId": null,
+      "timestamp": "2026-06-16T06:10:14.048Z",
+      "provider": "aixor-g",
+      "modelId": "gpt-5.5"
+    },
+    {
+      "type": "thinking_level_change",
+      "id": "07f91535",
+      "parentId": "8d7425c8",
+      "timestamp": "2026-06-16T06:10:14.048Z",
+      "thinkingLevel": "medium"
+    },
+    {
+      "type": "custom",
+      "customType": "model-snapshot",
+      "data": {
+        "timestamp": 1781590214085,
+        "provider": "aixor-g",
+        "modelApi": "openai-completions",
+        "modelId": "gpt-5.5"
+      },
+      "id": "61a4192a",
+      "parentId": "07f91535",
+      "timestamp": "2026-06-16T06:10:14.085Z"
+    },
+    {
+      "type": "message",
+      "id": "a91cd27c",
+      "parentId": "61a4192a",
+      "timestamp": "2026-06-16T06:10:14.187Z",
+      "message": {
+        "role": "user",
+        "content": "你在吗？",
+        "timestamp": 1781590210103
+      }
+    },
+    {
+      "type": "message",
+      "id": "a44a3ba2",
+      "parentId": "a91cd27c",
+      "timestamp": "2026-06-16T06:10:18.192Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "在。有什么要我处理的，直接发我。"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 17295,
+          "output": 16,
+          "cacheRead": 18432,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 35743,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781590214246,
+        "responseId": "chatcmpl-51f70109"
+      }
+    },
+    {
+      "type": "message",
+      "id": "4cc4adb1",
+      "parentId": "a44a3ba2",
+      "timestamp": "2026-06-16T06:11:50.926Z",
+      "message": {
+        "role": "user",
+        "content": "我需要你先了解小竹这家公司，他是干什么的？公司的业务流有哪些？希望你了解后能时时帮我 管理公司业务项目进度以及公司内部日常管理，你能做到吗？然后需要我提供什么信息给到你？",
+        "timestamp": 1781590307442
+      }
+    },
+    {
+      "type": "message",
+      "id": "42964c01",
+      "parentId": "4cc4adb1",
+      "timestamp": "2026-06-16T06:11:55.884Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_bcoj9T7UByAp3BvbXsM6ag3e",
+            "name": "memory_search",
+            "arguments": {
+              "corpus": "all",
+              "maxResults": 5,
+              "minScore": 0.3,
+              "query": "小竹 公司 业务流 项目进度 内部管理"
+            },
+            "partialArgs": "{\"corpus\":\"all\",\"maxResults\":5,\"minScore\":0.3,\"query\":\"小竹 公司 业务流 项目进度 内部管理\"}"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 17385,
+          "output": 93,
+          "cacheRead": 18432,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 35910,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781590310961,
+        "responseId": "chatcmpl-524f5792"
+      }
+    },
+    {
+      "type": "message",
+      "id": "f4c07b2b",
+      "parentId": "42964c01",
+      "timestamp": "2026-06-16T06:11:56.000Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_bcoj9T7UByAp3BvbXsM6ag3e",
+        "toolName": "memory_search",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"results\": [],\n  \"disabled\": true,\n  \"unavailable\": true,\n  \"error\": \"index was built for model fts-only, expected BAAI/bge-m3\",\n  \"warning\": \"Tell the user: memory search is paused because the memory index was built with a different embedding provider/model/settings.\",\n  \"action\": \"Tell the user to run: openclaw memory status --index or openclaw memory index --force.\",\n  \"debug\": {\n    \"warning\": \"Tell the user: memory search is paused because the memory index was built with a different embedding provider/model/settings.\",\n    \"action\": \"Tell the user to run: openclaw memory status --index or openclaw memory index --force.\",\n    \"error\": \"index was built for model fts-only, expected BAAI/bge-m3\"\n  }\n}"
+          }
+        ],
+        "details": {
+          "results": [],
+          "disabled": true,
+          "unavailable": true,
+          "error": "index was built for model fts-only, expected BAAI/bge-m3",
+          "warning": "Tell the user: memory search is paused because the memory index was built with a different embedding provider/model/settings.",
+          "action": "Tell the user to run: openclaw memory status --index or openclaw memory index --force.",
+          "debug": {
+            "warning": "Tell the user: memory search is paused because the memory index was built with a different embedding provider/model/settings.",
+            "action": "Tell the user to run: openclaw memory status --index or openclaw memory index --force.",
+            "error": "index was built for model fts-only, expected BAAI/bge-m3"
+          }
+        },
+        "isError": false,
+        "timestamp": 1781590316000
+      }
+    },
+    {
+      "type": "message",
+      "id": "eb473179",
+      "parentId": "f4c07b2b",
+      "timestamp": "2026-06-16T06:12:16.571Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "可以做到，而且适合让我长期接手做“业务项目进度 + 内部管理”的中枢。\n\n但我现在还不了解“小竹”的真实情况，需要你先给我一批基础信息。我会先帮你梳理成一套「公司业务地图 + 项目管理机制 + 日常管理看板」。\n\n另外说明一下：我刚尝试查历史记忆，但当前记忆索引不可用，所以不能假装我已经知道小竹。需要你这次提供基础材料。\n\n你可以按下面 6 类给我，不用一次很完整，先粗略也行。\n\n## 1. 公司基本信息\n\n- 公司全称/简称：小竹？\n- 主要业务一句话介绍：比如“做食品品牌咨询”“做供应链”“做门店运营”等\n- 服务对象是谁：品牌方、工厂、渠道、消费者、企业客户？\n- 当前团队规模和主要成员分工\n- 公司现在最重要的目标：增长、交付、回款、降本、团队管理、客户拓展？\n\n## 2. 业务流\n\n请告诉我从“一个业务机会出现”到“项目结束”的完整流程，例如：\n\n1. 客户/线索从哪里来  \n2. 谁负责初步沟通  \n3. 如何报价/签约  \n4. 项目启动后有哪些阶段  \n5. 每阶段产出什么  \n6. 谁负责交付  \n7. 怎么验收  \n8. 怎么收款  \n9. 项目结束后是否复盘/归档\n\n如果你懒得写，可以直接发我现有流程文档、表格、聊天记录、报价单、项目排期表，我来整理。\n\n## 3. 当前正在推进的项目\n\n每个项目给我这些字段就够：\n\n- 项目名称\n- 客户/负责人\n- 当前阶段\n- 下一步动作\n- 截止时间\n- 卡点/风险\n- 是否涉及回款\n- 你希望我怎么提醒/跟进\n\n我可以后面帮你做成项目进度表或飞书多维表格。\n\n## 4. 内部日常管理\n\n我需要知道你希望我管哪些事：\n\n- 每日/每周工作汇报\n- 项目进度追踪\n- 客户会议纪要\n- 待办提醒\n- 成员任务分配\n- 回款/合同/报价跟进\n- 文件归档\n- 采购/样品/打样跟进\n- 团队例会安排\n- 老板视角的经营周报/月报\n\n你也可以直接说：“这些都要”。\n\n## 5. 管理方式偏好\n\n- 你希望我每天几点提醒？\n- 项目风险要不要主动预警？\n- 你希望我直接催人，还是只提醒你？\n- 进度汇总发给谁？只发你，还是发群？\n- 要不要建立固定日报/周报模板？\n\n## 6. 可授权资料\n\n如果方便，最好给我这些：\n\n- 公司介绍/PPT\n- 服务报价单\n- 项目流程表\n- 正在执行的项目清单\n- 团队成员名单和职责\n- 常用客户名单\n- 现有飞书表格/多维表格/文档链接\n- 过往项目案例\n\n## 我建议第一步这样做\n\n你先发我三样东西：\n\n1. 小竹是干什么的，用你自己的话说 5-10 句话  \n2. 当前所有在推进项目的清单  \n3. 团队成员和各自负责什么  \n\n我收到后，会先给你整理一版：\n\n- 《小竹公司业务地图》\n- 《业务流程拆解》\n- 《项目进度管理表结构》\n- 《日常管理机制建议》\n\n然后我们再决定是否做成飞书多维表格，开始持续跟进。"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 17827,
+          "output": 931,
+          "cacheRead": 18432,
+          "cacheWrite": 0,
+          "reasoningTokens": 82,
+          "totalTokens": 37190,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781590316004,
+        "responseId": "resp_04c0e56b1183aaeb016a30e92bc38081958494eb5a728d5cfd"
+      }
+    },
+    {
+      "type": "message",
+      "id": "4b1776a5",
+      "parentId": "eb473179",
+      "timestamp": "2026-06-16T07:43:58.887Z",
+      "message": {
+        "role": "user",
+        "content": "1、小竹是干什么的？小竹全名是福州小竹电子商务有限公司，聚焦在食品行业，助力品牌企业全域增长。以产品+内容双驱动推进品牌客户增长，深度参与品牌产品全生命周期的管理，以内容作为驱动协同产品开发、打品、持续增长全链路。公司业务模块有新品孵化、全平台全域增长代运营、小红书内容营销代理；",
+        "timestamp": 1781595835236
+      }
+    },
+    {
+      "type": "message",
+      "id": "2c788fa5",
+      "parentId": "4b1776a5",
+      "timestamp": "2026-06-16T07:44:32.536Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "收到。我先把“小竹”的核心理解整理成第一版，后面可以继续补全。\n\n## 我对小竹的初步理解\n\n**福州小竹电子商务有限公司**是一家聚焦食品行业的品牌增长服务公司。\n\n它不是单纯的代运营公司，也不是单纯的内容代理，而是围绕食品品牌做：\n\n> **产品开发 + 内容种草 + 平台运营 + 增长转化** 的全链路服务。\n\n核心逻辑是：\n\n**用产品力打底，用内容力放大，用平台运营承接增长。**\n\n## 小竹主要做三块业务\n\n### 1. 新品孵化\n\n帮助食品品牌从 0 到 1 做新品。\n\n可能包括：\n\n- 市场趋势判断\n- 消费者需求洞察\n- 产品概念策划\n- 口味/规格/包装/卖点规划\n- 打样与供应链协同\n- 上市节奏规划\n- 首轮内容种草与打品测试\n\n这块是小竹区别于普通代运营公司的关键能力：  \n**不是等客户有产品后再卖，而是提前参与产品生命周期。**\n\n---\n\n### 2. 全平台全域增长代运营\n\n帮助品牌在多个平台做增长承接。\n\n可能包括：\n\n- 天猫 / 京东 / 抖音 / 小红书 / 拼多多等平台运营\n- 店铺基础运营\n- 活动节奏规划\n- 爆品打造\n- 内容投放协同\n- 数据复盘\n- 销售转化优化\n- 用户资产沉淀\n\n这块解决的是：  \n**产品上市后，怎么持续卖、怎么放大、怎么增长。**\n\n---\n\n### 3. 小红书内容营销代理\n\n围绕小红书做内容种草和品牌声量。\n\n可能包括：\n\n- 小红书账号内容规划\n- 达人/KOC/KOL 种草\n- 笔记脚本与视觉方向\n- 搜索词布局\n- 产品卖点内容化\n- 种草数据追踪\n- 爆文复盘\n- 内容资产沉淀\n\n这块是小竹的内容驱动器：  \n**用内容影响认知，用种草反哺产品和销售。**\n\n## 小竹的业务流，我先判断是这条\n\n我先按你给的信息，推一版业务流：\n\n```text\n客户需求/品牌增长问题\n        ↓\n品牌与产品诊断\n        ↓\n确定增长目标：新品孵化 / 平台增长 / 小红书种草\n        ↓\n产品策略与内容策略共创\n        ↓\n产品开发/卖点提炼/内容规划\n        ↓\n平台运营 + 内容投放/种草执行\n        ↓\n数据监测：曝光、互动、转化、销量、复购\n        ↓\n复盘优化\n        ↓\n持续打品 / 上新 / 增长放大\n```\n\n更直白地说，小竹的业务不是线性的“接单—执行—交付”，而更像一个循环：\n\n> **发现机会 → 做出产品 → 内容验证 → 平台销售 → 数据复盘 → 再优化产品和内容。**\n\n这点很重要。后面我帮你管项目时，不能只盯“事情做没做完”，还要盯：\n\n- 产品阶段卡在哪里\n- 内容是否跟产品卖点一致\n- 平台数据是否反馈到产品优化\n- 客户增长目标有没有被持续推进\n\n## 我能怎么帮你管\n\n可以分三层。\n\n### 第一层：项目进度管理\n\n我可以帮你建立并持续维护：\n\n- 客户项目清单\n- 每个项目当前阶段\n- 负责人\n- 本周重点\n- 下一步动作\n- 截止时间\n- 卡点风险\n- 客户待确认事项\n- 回款/合同状态\n- 交付物归档\n\n### 第二层：业务流程管理\n\n我可以帮你把小竹的业务拆成标准流程，比如：\n\n- 新品孵化 SOP\n- 小红书内容营销 SOP\n- 代运营项目 SOP\n- 客户启动会模板\n- 项目周报模板\n- 复盘模板\n- 内部协作机制\n\n### 第三层：老板视角经营管理\n\n我可以定期帮你看：\n\n- 哪些项目有延期风险\n- 哪些客户需要推进续费/增购\n- 哪些项目投入产出不健康\n- 哪些成员任务过载\n- 哪些交付节点没人盯\n- 哪些业务机会值得优先投入\n\n## 现在我还需要你继续补 5 类信息\n\n你刚刚给的是“公司定位和业务模块”，很好。下一步需要这些：\n\n### 1. 当前客户/项目清单\n\n每个项目按这个格式发我就行：\n\n```text\n项目名：\n客户名：\n业务类型：新品孵化 / 代运营 / 小红书营销 / 其他\n当前阶段：\n负责人：\n本周要推进什么：\n卡点：\n截止时间：\n```\n\n### 2. 团队成员和分工\n\n比如：\n\n```text\n张三：客户沟通 / 项目管理\n李四：小红书内容\n王五：平台运营\n赵六：设计\n老板：商务/策略/关键客户\n```\n\n### 3. 三类业务的详细流程\n\n分别告诉我：\n\n- 新品孵化项目一般怎么做？\n- 代运营项目一般怎么做？\n- 小红书内容营销项目一般怎么做？\n\n不用正式，口语说也行。\n\n### 4. 你最想先管住的问题\n\n比如：\n\n- 项目进度混乱\n- 成员不主动汇报\n- 客户需求反复\n- 交付物散乱\n- 回款没人跟\n- 内容执行慢\n- 数据复盘弱\n- 老板不知道每天发生了什么\n\n你告诉我优先级，我先抓最痛的。\n\n### 5. 你希望我用什么形式管理\n\n我建议用飞书多维表格，建 4 张表：\n\n1. **客户项目总表**\n2. **任务推进表**\n3. **客户沟通/待确认事项表**\n4. **周报与风险表**\n\n如果你同意，我后面可以直接帮你搭结构。\n\n## 我的建议\n\n先别急着做复杂系统。\n\n你下一条先发我：\n\n1. **当前所有项目清单**  \n2. **团队成员分工**  \n3. **现在最混乱、最想先解决的 1-2 个管理问题**\n\n我会基于这些，给你搭一套“小竹业务项目管理骨架”。"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 18797,
+          "output": 1520,
+          "cacheRead": 18432,
+          "cacheWrite": 0,
+          "reasoningTokens": 53,
+          "totalTokens": 38749,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781595838921,
+        "responseId": "resp_07c22676bfca5b19016a30febe6c748196909be767d0785a10"
+      }
+    },
+    {
+      "type": "message",
+      "id": "411a1241",
+      "parentId": "2c788fa5",
+      "timestamp": "2026-06-16T07:57:44.295Z",
+      "message": {
+        "role": "user",
+        "content": "2、当前的项目清单：\na、小白心里软，这个项目是全平台，主力在抖音、拼多多、京东、天猫、猫超平台销售，需要重点关注日常日销的情况，过程管理中有两个子项目在推进：抖音店铺直播开播、新品上市（包含拼多多独享产品的变更）\nb、黄小咕，这个项目先阶段处于二次增长阶段，先阶段大概抖音是一个月是70万，拼多多大概一个月是30万，需要两个渠道都翻番，且保证盈亏平衡的ROI\nc、知是榴莲千层及奥丹小圆饼，这个项目属于打品阶段，需要关注日常的测品情况及内容测试情况\n3、团队分工\n吴茂林--抖音侧负责人；杜正义---内容负责人（主力是小红书营销）；黄俊杰---天猫负责人；许晓杭---拼多多及京东负责人\n4、现在最想解决的管理问题\na、从客户引入后，前期产品开发定位定价是我负责，然后给到抖音去孵化，但是这个阶段，我就关注不够，这个孵化过程管理不够，我需要加强这块的监控，比如每天干了什么孵化新品的动作，得到什么反馈，经营上是否需要调整\nb、内容孵化，所有新品包括已经孵化出来的产品做增长，都需要内容端的配合，最重要的达人短视频，也就是内容工厂的建设，需要是每天BD多少达人，产出什么视频，这些视频素材在经营端的作用力数据反馈如何，公司负责这个业务的人有没有复盘，复盘后优化素材的什么东西，是文案脚本优化，还是场景上优化，优化后的素材是不是对销售的转化更好了，是否能够形成正循环，变成公司资产。",
+        "timestamp": 1781596660351
+      }
+    },
+    {
+      "type": "message",
+      "id": "0f671f94",
+      "parentId": "411a1241",
+      "timestamp": "2026-06-16T07:58:42.515Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "能做到。你这批信息已经足够让我搭第一版“小竹业务管理框架”了。\n\n我的判断：小竹现在最该管住的不是“项目列表”，而是两个关键链路：\n\n1. **新品孵化链路有没有每天推进、每天反馈、每天调整**\n2. **内容工厂有没有形成从 BD 达人 → 出素材 → 投放/经营反馈 → 复盘优化 → 资产沉淀的闭环**\n\n如果这两条链路管不住，项目看起来在动，但增长不会稳定。\n\n---\n\n## 一、小竹当前业务项目地图\n\n### 1. 小白心里软\n\n**项目类型：全平台增长运营**\n\n主战场：\n\n- 抖音\n- 拼多多\n- 京东\n- 天猫\n- 猫超\n\n重点监控：\n\n- 日常日销\n- 各平台销售趋势\n- 各平台 ROI / 利润情况\n- 平台动作是否按计划执行\n\n当前两个子项目：\n\n#### A. 抖音店铺直播开播\n\n要盯：\n\n- 开播准备进度\n- 直播排期\n- 直播间货盘\n- 直播脚本/话术\n- 场观、转化、成交、ROI\n- 复盘和下一场优化\n\n#### B. 新品上市\n\n包含：\n\n- 新品上市节奏\n- 拼多多独享产品变更\n- 产品卖点\n- 定价策略\n- 首批销售反馈\n- 内容/达人素材配合\n- 是否需要调整货盘、价格、规格、卖点\n\n---\n\n### 2. 黄小咕\n\n**项目类型：二次增长项目**\n\n当前规模：\n\n- 抖音：约 70 万/月\n- 拼多多：约 30 万/月\n\n目标：\n\n- 抖音翻番：70 万 → 140 万/月\n- 拼多多翻番：30 万 → 60 万/月\n- 前提：保证盈亏平衡 ROI\n\n这个项目的核心不是“做增长”，而是：\n\n> **在不亏钱的情况下，把已有渠道模型放大一倍。**\n\n重点监控：\n\n- 抖音增长动作\n- 拼多多增长动作\n- ROI 是否守住\n- 毛利/投产/费用结构\n- 哪些 SKU 能放量\n- 哪些内容/达人/投流素材能放量\n- 是否存在“销售涨了但利润塌了”的风险\n\n---\n\n### 3. 知是榴莲千层 & 奥丹小圆饼\n\n**项目类型：打品阶段**\n\n重点不是大规模销售，而是验证：\n\n- 产品有没有潜力\n- 哪个卖点有效\n- 哪类内容有效\n- 哪类达人有效\n- 哪个平台反馈更好\n- 用户对价格、规格、口味、场景的反馈\n\n重点监控：\n\n- 每日测品动作\n- 每日内容测试\n- 达人反馈\n- 视频素材反馈\n- 点击、互动、转化、成交数据\n- 是否进入加码阶段\n- 是否要调整产品、卖点、价格、内容方向\n\n---\n\n## 二、团队分工地图\n\n目前可以先按这个方式管理：\n\n| 成员 | 职责 |\n|---|---|\n| 你 | 前期产品开发、定位、定价、关键策略、客户引入 |\n| 吴茂林 | 抖音侧负责人 |\n| 杜正义 | 内容负责人，主力小红书营销 / 达人内容 |\n| 黄俊杰 | 天猫负责人 |\n| 许晓杭 | 拼多多及京东负责人 |\n\n后面我建议每个项目都明确：\n\n- 项目总负责人\n- 平台负责人\n- 内容负责人\n- 产品策略负责人\n- 数据复盘负责人\n\n否则会出现一个问题：  \n**大家都在做局部动作，但没人对“增长闭环”负责。**\n\n---\n\n## 三、你当前真正要解决的两个管理问题\n\n### 问题 1：新品孵化过程失控\n\n现在流程大概是：\n\n```text\n客户引入\n↓\n你负责产品开发 / 定位 / 定价\n↓\n交给抖音孵化\n↓\n后续过程你关注不够\n```\n\n风险是：\n\n- 每天做了什么，你不知道\n- 测了什么，反馈如何，你不知道\n- 产品问题还是内容问题，没人及时判断\n- 经营策略是否要调整，反馈链路慢\n- 新品孵化变成“交出去等结果”\n\n这块必须改成：\n\n```text\n产品策略输入\n↓\n每日孵化动作\n↓\n每日经营反馈\n↓\n每日问题判断\n↓\n每周策略调整\n```\n\n我建议给每个新品建立一张“新品孵化日报”。\n\n每天只问 6 个问题：\n\n1. 今天做了什么孵化动作？\n2. 测了哪个 SKU / 卖点 / 价格 / 内容？\n3. 数据反馈如何？\n4. 用户/达人/平台有什么反馈？\n5. 判断问题出在产品、内容、价格、渠道，还是流量？\n6. 明天怎么调整？\n\n这样你每天 3 分钟就能知道这个新品有没有真的在被孵化。\n\n---\n\n### 问题 2：内容工厂没有形成闭环资产\n\n你说的很关键。内容不能只看“发了多少视频”，而要看它是否进入经营端形成作用力。\n\n我建议把内容工厂管成这条链路：\n\n```text\n达人 BD\n↓\n达人确认合作\n↓\n脚本/卖点输出\n↓\n视频产出\n↓\n视频发布/投放\n↓\n经营数据反馈\n↓\n复盘：什么有效/无效\n↓\n脚本、场景、卖点、达人类型优化\n↓\n形成可复用素材资产\n```\n\n每天要盯 8 个指标：\n\n1. 今日 BD 达人数\n2. 有效沟通达人数\n3. 确认合作达人数\n4. 今日产出视频数\n5. 视频对应产品/SKU\n6. 视频核心卖点/场景\n7. 经营端数据反馈：点击、转化、成交、ROI\n8. 复盘结论：下一版优化什么\n\n最重要的是最后两项。  \n否则内容部门会变成“素材生产部门”，而不是“增长驱动部门”。\n\n---\n\n## 四、我建议给小竹建立 5 张管理表\n\n如果你同意，我可以直接帮你搭成飞书多维表格。\n\n### 表 1：项目总控表\n\n用于老板视角看全局。\n\n字段：\n\n- 项目名称\n- 客户/品牌\n- 项目类型\n- 当前阶段\n- 项目负责人\n- 平台负责人\n- 内容负责人\n- 本周目标\n- 今日状态\n- 风险等级\n- 下一步动作\n- 截止时间\n- 是否需要你介入\n\n---\n\n### 表 2：新品孵化日报表\n\n专门解决你说的“新品交给抖音后过程关注不够”。\n\n字段：\n\n- 日期\n- 项目/品牌\n- 新品名称\n- 负责人\n- 今日孵化动作\n- 测试内容：价格/卖点/素材/直播/投流/达人\n- 今日数据\n- 用户反馈\n- 平台反馈\n- 问题判断\n- 明日调整动作\n- 是否需要老板决策\n\n---\n\n### 表 3：内容工厂日报表\n\n专门管达人短视频和素材资产。\n\n字段：\n\n- 日期\n- 负责人\n- 项目/品牌\n- 产品/SKU\n- 今日 BD 达人数\n- 有效沟通数\n- 确认合作数\n- 今日产出视频数\n- 视频链接\n- 达人类型\n- 视频核心卖点\n- 视频场景\n- 经营端反馈数据\n- 复盘结论\n- 下一版优化方向\n- 是否沉淀为可复用素材\n\n---\n\n### 表 4：平台经营数据表\n\n专门看销售和 ROI。\n\n字段：\n\n- 日期\n- 项目/品牌\n- 平台：抖音/拼多多/京东/天猫/猫超\n- GMV\n- 订单数\n- 客单价\n- ROI\n- 毛利/利润状态\n- 主推 SKU\n- 今日关键动作\n- 异常情况\n- 明日动作\n\n---\n\n### 表 5：问题与决策表\n\n专门记录需要你拍板的事项。\n\n字段：\n\n- 提出日期\n- 项目\n- 问题描述\n- 影响范围\n- 负责人建议\n- 需要你决策什么\n- 截止时间\n- 你的决策\n- 执行结果\n\n这个表很重要。  \n它能避免团队把问题藏在聊天里，最后变成“老板没看到、员工没推进”。\n\n---\n\n## 五、建议先建立一个日常管理节奏\n\n### 每日\n\n每天下午/晚上收一次：\n\n1. 各平台日销数据\n2. 新品孵化动作\n3. 内容工厂数据\n4. 今日卡点\n5. 明日动作\n\n我可以帮你整理成：\n\n> 《小竹每日经营&项目简报》\n\n格式大概是：\n\n```text\n今日重点：\n1.\n2.\n3.\n\n项目进度：\n- 小白心里软：\n- 黄小咕：\n- 知是榴莲千层：\n- 奥丹小圆饼：\n\n新品孵化：\n- 今日动作：\n- 数据反馈：\n- 明日调整：\n\n内容工厂：\n- BD达人：\n- 产出视频：\n- 有效素材：\n- 复盘结论：\n\n风险/需老板决策：\n1.\n2.\n```\n\n### 每周\n\n每周做一次：\n\n- 项目进度复盘\n- 平台经营复盘\n- 内容素材复盘\n- 新品孵化判断\n- 下周重点动作\n\n我可以帮你生成：\n\n> 《小竹业务周报》\n\n---\n\n## 六、我现在需要你确认 3 件事\n\n### 1. 要不要我直接帮你建飞书多维表格？\n\n我建议建，名字可以叫：\n\n**《小竹业务项目管理总表》**\n\n里面先放 5 张表：\n\n1. 项目总控\n2. 新品孵化日报\n3. 内容工厂日报\n4. 平台经营数据\n5. 问题与决策\n\n### 2. 每天由谁来填？\n\n初步建议：\n\n- 吴茂林：抖音数据 + 新品孵化动作\n- 杜正义：内容工厂日报\n- 黄俊杰：天猫数据\n- 许晓杭：拼多多 / 京东数据\n- 你：只看汇总和处理决策事项\n\n### 3. 你希望日报几点收？\n\n我建议：\n\n- **每天 18:00 前团队填写**\n- **我 18:30 帮你汇总成老板版简报**\n- **如果有红色风险，我单独提醒你**\n\n---\n\n## 我的建议\n\n下一步直接做两件事：\n\n1. 我先帮你创建《小竹业务项目管理总表》  \n2. 你把团队成员对应的飞书姓名/账号给我，后面我可以帮你设计每日提醒和填报机制\n\n你回复我一句：\n\n**“可以，先建表”**\n\n我就开始搭第一版。"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 20508,
+          "output": 2879,
+          "cacheRead": 18432,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 41819,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781596664331,
+        "responseId": "chatcmpl-8e7620f9"
+      }
+    },
+    {
+      "type": "message",
+      "id": "c1a8b11d",
+      "parentId": "0f671f94",
+      "timestamp": "2026-06-16T07:59:02.333Z",
+      "message": {
+        "role": "user",
+        "content": "可以，先建表",
+        "timestamp": 1781596739154
+      }
+    },
+    {
+      "type": "message",
+      "id": "2004828a",
+      "parentId": "c1a8b11d",
+      "timestamp": "2026-06-16T07:59:11.164Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_QTXbw6NkO9kLJcctAok1gPLM",
+            "name": "read",
+            "arguments": {
+              "limit": 200,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/workspace/.agents/skills/lark-base/SKILL.md"
+            },
+            "partialArgs": "{\"limit\":200,\"offset\":1,\"path\":\"$WORKSPACE_DIR/workspace/.agents/skills/lark-base/SKILL.md\"}"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 23055,
+          "output": 68,
+          "cacheRead": 18432,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 41555,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781596742370,
+        "responseId": "chatcmpl-ba25b062"
+      }
+    },
+    {
+      "type": "message",
+      "id": "d608ee8d",
+      "parentId": "2004828a",
+      "timestamp": "2026-06-16T07:59:11.265Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_QTXbw6NkO9kLJcctAok1gPLM",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "---\nname: lark-base\nversion: 1.2.2\ndescription: \"飞书多维表格（Base）操作：建表、字段、记录、视图、统计、公式/lookup、表单、仪表盘、workflow、角色权限；遇到 Base/多维表格/bitable 或 /base/ 链接时使用。文件导入转 lark-drive，认证/授权转 lark-shared。\"\nmetadata:\n  requires:\n    bins: [\"lark-cli\"]\n  cliHelp: \"lark-cli base --help\"\n---\n\n# base\n\n## 何时使用\n\n使用本 skill：\n\n- 用户明确提到 Base / 多维表格 / bitable，或给出 `/base/` 链接。\n- 用户要在 Base 内建表、改表、管理字段、写记录、查记录、配视图。\n- 用户要在 Base 内做公式字段、lookup 字段、跨表计算、派生指标、筛选聚合、TopN、统计分析。\n- 用户要管理 Base 表单、仪表盘、workflow、高级权限或角色。\n- 用户要把旧 Base 聚合式命令或旧写法迁移到当前 `lark-cli base +...` shortcut。\n\n不要使用本 skill：\n\n- 只是认证、初始化配置、切换身份、处理 scope 或权限授权恢复，转 `lark-shared`。\n- 把本地 Excel / CSV / `.base` 导入成 Base，转 `lark-drive +import --type bitable`。\n- 泛化数据分析、字段设计、公式讨论，但没有 Base/多维表格上下文。\n\n## 使用边界\n\n- Base 业务操作只使用 `lark-cli base +...` shortcut，不使用旧聚合式 `+table / +field / +record / +view / +history / +workspace`。\n- 本轮 Base 不依赖 `lark-cli schema`。SKILL 只保留路由、风险和复杂 JSON/DSL；简单命令由命令自身的参数、tips 和错误恢复承接。\n- 用户要把 Excel / CSV / `.base` 导入成 Base 时，先转 `lark-cli drive +import --type bitable`，导入完成后再回到 Base 命令。\n- 用户只给 Base 名称或关键词时，先用 `lark-cli drive +search --query <keyword> --doc-types bitable` 定位资源。\n- Base 命令必须先有 `base_token` 或可解析出的 Base URL。没有 token 时：用户要新建就用 `+base-create`；用户给标题/关键词就搜 `lark-cli drive +search --query \"<base title>\" --doc-types bitable --only-title --as user`；仍无法定位时，反问用户具体是哪一个 Base。\n- 认证、初始化、scope、身份切换、权限不足恢复属于 `lark-shared`；Base 文档只保留会影响 Base 路径选择的权限规则。\n\n## 快速路由\n\n| 用户目标 | 优先命令 | 何时读 reference |\n|---|---|---|\n| 查 Base 本体 | `+base-get` | 用返回确认 Base 名称、owner、权限和可继续操作的 token |\n| 创建/复制 Base | `+base-create` / `+base-copy` | 写入后报告新 Base 标识；注意返回中的 `permission_grant` |\n| 查看 Base 内资源目录 | `+base-block-list` | 想先了解一个 Base 里有哪些 table/docx/dashboard/workflow/folder 时优先用它；返回 ID 关系和 fewshot 看 `--help` |\n| 管理 Base 内资源目录 | `+base-block-create/move/rename/delete` | 创建或整理 Base 直接管理的 folder/table/docx/dashboard/workflow；资源内容继续用对应命令 |\n| 管理数据表 | `+table-list/get/create/update/delete` | 处理 table 的列出、详情、创建、重命名和删除 |\n| 列/查/删字段 | `+field-list/get/delete/search-options` | 写入前用 list/get 确认字段类型、选项、ID；删除前确认目标字段 |\n| 创建/更新字段 | `+field-create` / `+field-update` | 必读 [lark-base-field-json.md](references/lark-base-field-json.md)；公式读 [formula-field-guide.md](references/formula-field-guide.md)；lookup 读 [lookup-field-guide.md](references/lookup-field-guide.md)；命令细节读 [lark-base-field-create.md](references/lark-base-field-create.md) / [lark-base-field-update.md](references/lark-base-field-update.md) |\n| 读记录明细 | `+record-get` / `+record-list` / `+record-search` | 涉及筛选、排序、Top/Bottom N、聚合、多表关联、全局结论时读 [lark-base-data-analysis-sop.md](references/lark-base-data-analysis-sop.md) |\n| 写记录 | `+record-upsert` / `+record-batch-create` / `+record-batch-update` | 必读 [lark-base-record-upsert.md](references/lark-base-record-upsert.md) / [lark-base-record-batch-create.md](references/lark-base-record-batch-create.md) / [lark-base-record-batch-update.md](references/lark-base-record-batch-update.md) 和 [lark-base-cell-value.md](references/lark-base-cell-value.md) |\n| 附件字段 | `+record-upload-attachment` / `+record-download-attachment` / `+record-remove-attachment` | 附件不要伪造成普通 CellValue；上传走本地文件，下载/删除按 file token 或字段定位 |\n| 删除记录 / 分享记录链接 / 历史 | `+record-delete` / `+record-share-link-create` / `+record-history-list` | 删除前确认 record；分享链接最多 100 条；历史读 [lark-base-record-history-list.md](references/lark-base-record-history-list.md)，只查单条记录，不做整表审计 |\n| 管理视图 | `+view-*` | `+view-set-filter` 读 [lark-base-view-set-filter.md](references/lark-base-view-set-filter.md)；其余配置先 get 现状，再按返回结构更新 |\n| 一次性聚合统计 | `+data-query` | 必读 [lark-base-data-analysis-sop.md](references/lark-base-data-analysis-sop.md) 和入口 [lark-base-data-query-guide.md](references/lark-base-data-query-guide.md)；完整 DSL 再读 [lark-base-data-query.md](references/lark-base-data-query.md) |\n| 公式字段 | `+field-create/update --json '{\"type\":\"formula\",...}'` | 必读 [formula-field-guide.md](references/formula-field-guide.md)，读后再加隐藏确认 flag `--i-have-read-guide` |\n| Lookup 字段 | `+field-create/update --json '{\"type\":\"lookup\",...}'` | 必读 [lookup-field-guide.md](references/lookup-field-guide.md)，读后再加隐藏确认 flag `--i-have-read-guide` |\n| 表单提交 | `+form-submit` | 先读 [lark-base-form-detail.md](references/lark-base-form-detail.md) 获取题目、filter 和附件所需 `base_token`；提交 JSON 读 [lark-base-form-submit.md](references/lark-base-form-submit.md) |\n| 表单题目创建/更新 | `+form-questions-create` / `+form-questions-update` | 读 [lark-base-form-questions-create.md](references/lark-base-form-questions-create.md) / [lark-base-form-questions-update.md](references/lark-base-form-questions-update.md) |\n| 其他表单管理 | `+form-list/get/detail/create/update/delete` / `+form-questions-list/delete` | `+form-detail` 读 [lark-base-form-detail.md](references/lark-base-form-detail.md)；删除前确认目标表单 |\n| 仪表盘与组件 | `+dashboard-*` / `+dashboard-block-*` | 提到图表/看板/block 时先读 [lark-base-dashboard.md](references/lark-base-dashboard.md)；组件 `data_config` 读 [dashboard-block-data-config.md](references/dashboard-block-data-config.md)；读取图表计算结果用 `+dashboard-block-get-data` |\n| Workflow | `+workflow-*` | 创建/更新或理解 steps 时读入口 [lark-base-workflow-guide.md](references/lark-base-workflow-guide.md) 和 steps JSON SSOT [lark-base-workflow-schema.md](references/lark-base-workflow-schema.md)；list/get/enable/disable 只处理 workflow ID 与启停状态 |\n| 高级权限与角色 | `+advperm-*` / `+role-*` | 角色操作先读入口 [lark-base-role-guide.md](references/lark-base-role-guide.md)；角色 create/update 或解读完整配置再读权限 JSON SSOT [role-config.md](references/role-config.md)；系统角色不可删除；关闭高级权限会影响自定义角色 |\n\n## Base 心智模型\n\n- Base 曾用名 Bitable；返回字段、错误或旧文档里的 `bitable` 多为历史兼容，不代表应改走裸 API 或另一套命令。\n- `+base-block-list` 是查看一个 Base 内资源目录的新入口：它列出这个 Base 直接管理的 `folder/table/docx/dashboard/workflow`，适合先判断 Base 里有什么，再决定走 table、dashboard、workflow 或 docx 命令。\n- `base-block` 只负责资源目录管理，包括创建资源、移动到 folder、重命名和删除；具体资源内容仍走 table/dashboard/workflow 命令。\n- 表、字段、视图、workflow、dashboard block 的名称和 ID 必须来自真实返回，不要凭用户口述猜。\n- 存储字段可写；系统字段、`formula`、`lookup` 只读；附件字段走专用 attachment 命令。\n- 一次性原始记录查询优先用 `+record-list` / `+record-search` 的 filter/sort；聚合分析优先用 `+data-query`；需要长期显示在表中时，才新增 `formula` / `lookup` 字段。\n- `formula` 适合常规计算、条件判断、文本/日期处理和长期派生指标；`lookup` 适合明确的跨表查找、筛选后取值或聚合引用。\n- 写入、分析、公式、lookup、workflow、dashboard 前，先读取真实结构：表、字段、视图、关联表和 dashboard block 名称都以命令返回为准。\n- 跨表场景必须读取目标表结构；link 单元格中的关联 `record_id` 只是连接键，最终回答要回查并展示用户可读字段。\n\n## 身份与权限降级\n\n- 默认显式使用 `--as user` 操作用户资源；只有用户明确要求应用身份时，才直接用 `--as bot`。\n- user 身份报 scope/授权不足，或错误中包含 `permission_violations` / `hint`，先转 `lark-shared` 做用户授权恢复，不要直接降级 bot。\n- user 身份报资源级无访问且无授权恢复提示时，才可用 `--as bot` 重试一次；bot 仍失败就停止重试并按权限错误处理。\n- `91403` 或明确不可访问错误不要循环换身份重试。\n- `+base-create` / `+base-copy` 若用 bot 身份执行，关注返回中的 `permission_grant`，并把用户是否可打开新 Base 告知用户。\n\n## 查询与统计规则\n\n涉及查询、统计或判断结论时，先阅读 [lark-base-data-analysis-sop.md](references/lark-base-data-analysis-sop.md)，并遵守：\n\n1. `+record-list` 的默认页、固定 `--limit` 和本地 `jq` 只能证明已读取范围内的事实，不能直接支撑全局最值、全量计数、Top/Bottom N、异常识别或分组结论。\n2. 能由 Base 表达的筛选、排序、投影、聚合、分组和限制，应在 Base 云端查询能力中执行；不要先拉原始记录到本地上下文再手工筛选排序。\n3. `has_more=true` 或等价分页信号表示当前结果不是全量；除非用户只要样例/前 N 条，不能基于该页回答全局问题。\n4. 多表查询必须先确认关系字段和连接键；link 单元格里的 `record_id` 是关系键，不是用户可读答案。\n5. 最终答案必须能追溯到真实表、真实字段、查询范围、筛选/排序/聚合条件和必要的连接键。\n6. 一次性原始记录查询优先用 `+record-list` / `+record-search` 的 filter/sort；聚合分析优先用 `+data-query`；要把结果长期显示在表里，才考虑新增 `formula` / `lookup` 字段。\n7. `+data-query` 可返回聚合结果或维度字段行，但维度行按字段组合去重且不返回 `record_id`；需要逐条记录、记录定位或完整行级字段时，再用 `+record-list` / `+record-search` / `+record-get` 回查。\n\n## 写入前置规则\n\n- 写记录前先读字段结构；只写存储字段。系统字段、附件字段、`formula`、`lookup` 不作为普通记录写入目标。\n- 附件上传、下载、删除走专用 `+record-*-attachment` 命令。\n- 写字段前先读 [lark-base-field-json.md](references/lark-base-field-json.md)；涉及 `formula` / `lookup` 时必须读 [formula-field-guide.md](references/formula-field-guide.md) / [lookup-field-guide.md](references/lookup-field-guide.md)。\n- 表名、字段名、视图名、workflow 配置中的名称必须来自真实返回；跨表场景还要读取目标表结构。\n- 删除、角色更新、字段更新等高风险操作遵循 CLI 的 confirmation gate；目标不明确时先用 get/list 消歧。\n- 批量写入单批最多 200 条；连续写同一表时串行执行，遇到 `1254291` 按短暂等待后重试处理。\n- `+record-batch-update` 是“同值批量更新”：同一份 patch 应用到全部 `record_id_list`，不要拿它做逐行不同值映射。\n- select/multiselect 写入未知选项可能触发平台新增选项；不是要新增时，先用 `+field-list` 或 `+field-search-options` 确认可选值。\n\n## 表单与视图细节\n\n- `+form-submit` 前必须先跑 `+form-detail`，读取 `questions[].type`、`required`、`filter` 和附件场景需要的 `base_token`；不要填写被 filter 隐藏的问题。\n- 表单附件不要写进 `fields`，放在 `--json.attachments`；提交附件时必须同时传表单所属 Base 的 `--base-token`。\n- `+view-set-filter` 是唯一保留的 view reference；sort/group/card/timebar/visible-fields 这类配置先用对应 get 命令读现状，保留未修改字段，只替换用户要求变更的配置。\n- 视图适合持久化、共享和 UI 复用；一次性筛选/排序可先用 `+record-list` / `+record-search` 的 filter/sort 验证结果，再按需要沉淀为持久视图。\n\n## Token 与链接\n\n| 输入类型 | 含义 / 正确处理方式 |\n|---|---|\n| `/base/{token}` | 普通 Base 链接；提取 `/base/` 后的 token 作为 `--base-token` |\n| `/wiki/{token}` | Wiki 节点链接；先 `wiki +node-get`，当 `data.obj_type=bitable` 时使用 `data.obj_token` 作为 `--base-token` |\n| `/base/{token}?table={id}` | `table` 参数用于定位 Base 内对象：`tbl` 开头是数据表 `--table-id`；`blk` 开头是 dashboard ID；`wkf` 开头是 workflow ID |\n| `/base/{token}?view={id}` | `view` 参数用于定位表视图，提取为 `--view-id`；通常还需要确认 `table` 参数或先查表结构 |\n| `/share/base/form/{shareToken}` | 表单分享链接；这是表单 share token，走 `+form-detail` / `+form-submit --share-token <shareToken>` |\n| `/share/base/view/{shareToken}` | 视图分享链接；具有分享权限语义，暂不支持用 CLI 直接访问，引导用户在浏览器或飞书客户端打开 |\n| `/share/base/dashboard/{shareToken}` | 仪表盘分享链接；具有分享权限语义，暂不支持用 CLI 直接访问，引导用户在浏览器或飞书客户端打开 |\n| `/record/{shareToken}` | 记录分享链接；暂不支持用 CLI 直接访问，引导用户在浏览器或飞书客户端打开。若用户想生成现有记录的分享链接，用 `+record-share-link-create --base-token <base_token> --table-id <table_id> --record-ids <record_id>` |\n| `/base/workspace/{token}` | BaseApp / workspace 链接；暂不支持用 CLI 直接访问 |\n\n`wiki +node-get` 返回非 `bitable` 时，不继续使用 Base 命令：`docx` 转文档，`sheet` 转表格，其他云空间对象转对应 skill 或 drive。\n\n## Dashboard / Workflow / Role\n\n- Dashboard 的复杂点是 block 的 `data_config`，不是 list/get/create/delete 命令参数。创建或更新 block 前先读 [dashboard-block-data-config.md](references/dashboard-block-data-config.md)，组件必须串行创建；`+dashboard-arrange` 是服务端智能布局，只在用户明确要求重排/美化时执行。`+dashboard-block-get-data` 读取图表最终计算结果，不返回 block 名称、类型、布局或 `data_config`；需要元数据先用 `+dashboard-block-get`。\n- Workflow 的复杂点是 `steps` 结构。创建、更新或解释完整 workflow 时读入口 [lark-base-workflow-guide.md](references/lark-base-workflow-guide.md) 和 steps JSON SSOT [lark-base-workflow-schema.md](references/lark-base-workflow-schema.md)；enable/disable/list 只需确认 workflow ID、当前启停状态和用户意图。\n- Role 的复杂点是权限 JSON。角色操作先读入口 [lark-base-role-guide.md](references/lark-base-role-guide.md)；`+role-create` 只支持自定义角色；`+role-update` 是 delta merge；角色 create/update 或解读完整配置时读权限 JSON SSOT [role-config.md](references/role-config.md)。`+role-delete` 只适用于自定义角色，系统角色不可删除；删除角色和关闭高级权限前必须确认目标和影响。\n\n## 常见恢复\n\n| 错误 / 现象 | 恢复动作 |\n|---|---|\n| `param baseToken is invalid` / `base_token invalid` | 检查是否把 wiki token、workspace token 或完整 URL 当成了 `--base-token`；按 `Token 与链接` 重新定位真实 Base token |\n| `not found` 且输入来自 Wiki 链接 | 优先检查是否把 wiki token 当成 base token，不要立刻改走裸 API |\n| `1254045` 字段名不存在 | 重新 `+field-list`，使用真实字段名或字段 ID；注意空格、大小写和跨表字段 |\n| `1254015` 字段值类型不匹配 | 先 `+field-list`，再按 [lark-base-cell-value.md](references/lark-base-cell-value.md) 构造 CellValue |\n| 日期 / 人员 / 超链接字段报格式错误 | 日期用 `YYYY-MM-DD HH:mm:ss`；人员用 `[{ \"id\": \"ou_xxx\" }]`；超链接用 URL 或 markdown link 字符串 |\n| formula / lookup 创建失败 | 先读 [formula-field-guide.md](references/formula-field-guide.md) / [lookup-field-guide.md](references/lookup-field-guide.md)，再按 guide 重建请求 |\n| `ignored_fields` / `READONLY` | 移除只读字段，只写存储字段 |\n| `1254104` | 批量超过 200，分批调用 |\n| `1254291` | 并发写冲突，串行写入并在批次间短暂等待 |\n| `91403` | 无权限访问该 Base，按 `lark-shared` 权限流程处理，不要盲目重试 |\n\n## 保留 Reference\n\n- [lark-base-data-analysis-sop.md](references/lark-base-data-analysis-sop.md)：查询/统计/全局结论的选路 SOP\n- [lark-base-data-query-guide.md](references/lark-base-data-query-guide.md) / [lark-base-data-query.md](references/lark-base-data-query.md)：聚合查询入口 fewshot 与 DSL SSOT\n- [lark-base-cell-value.md](references/lark-base-cell-value.md)：记录 CellValue 构造\n- [lark-base-field-json.md](references/lark-base-field-json.md)：字段 JSON 构造\n- [formula-field-guide.md](references/formula-field-guide.md) / [lookup-field-guide.md](references/lookup-field-guide.md)：公式与 lookup 字段\n- [lark-base-field-create.md](references/lark-base-field-create.md) / [lark-base-field-update.md](references/lark-base-field-update.md)：字段创建/更新命令级补充\n- [lark-base-record-upsert.md](references/lark-base-record-upsert.md) / [lark-base-record-batch-create.md](references/lark-base-record-batch-create.md) / [lark-base-record-batch-update.md](references/lark-base-record-batch-update.md) / [lark-base-record-history-list.md](references/lark-base-record-history-list.md)：记录写入 JSON 与历史返回解释\n- [lark-base-view-set-filter.md](references/lark-base-view-set-filter.md)：视图筛选 JSON\n- [lark-base-form-detail.md](references/lark-base-form-detail.md) / [lark-base-form-submit.md](references/lark-base-form-submit.md) / [lark-base-form-questions-create.md](references/lark-base-form-questions-create.md) / [lark-base-form-questions-update.md](references/lark-base-form-questions-update.md)：表单详情、提交和复杂 JSON\n- [lark-base-dashboard.md](references/lark-base-dashboard.md) / [dashboard-block-data-config.md](references/dashboard-block-data-config.md) / [lark-base-dashboard-block-get-data.md](references/lark-base-dashboard-block-get-data.md)：仪表盘、组件配置与图表结果协议\n- [lark-base-workflow-guide.md](references/lark-base-workflow-guide.md) / [lark-base-workflow-schema.md](references/lark-base-workflow-schema.md)：workflow 入口与 steps JSON SSOT\n- [lark-base-role-guide.md](references/lark-base-role-guide.md) / [role-config.md](references/role-config.md)：角色入口与权限 JSON SSOT\n"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781596751263
+      }
+    },
+    {
+      "type": "message",
+      "id": "e413800c",
+      "parentId": "d608ee8d",
+      "timestamp": "2026-06-16T07:59:19.786Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Planning app and tables**\n\nI need to create a bitable with table fields using Feishu tools instead of the command line interface. First, I think about directly creating an app that includes fields and possibly initial records. I should also check current records. After creating the app, I might need to batch create tables too. I'll focus on using the Feishu API to structure this correctly, making sure the app creates a default table as needed.",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_Jl3peHrrhseNODb2PFRZt8CD",
+            "name": "feishu_bitable_app",
+            "arguments": {
+              "action": "create",
+              "name": "小竹业务项目管理总表"
+            },
+            "partialArgs": "{\"action\":\"create\",\"name\":\"小竹业务项目管理总表\"}"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 5792,
+          "output": 110,
+          "cacheRead": 40960,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 46862,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781596751269,
+        "responseId": "chatcmpl-1219d1a1"
+      }
+    },
+    {
+      "type": "message",
+      "id": "b3b67db2",
+      "parentId": "e413800c",
+      "timestamp": "2026-06-16T07:59:22.357Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_Jl3peHrrhseNODb2PFRZt8CD",
+        "toolName": "feishu_bitable_app",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"success\": true,\n  \"message\": \"已发送授权请求卡片，请用户在卡片中点击链接完成授权。授权完成后请重新执行之前的操作。\",\n  \"awaiting_authorization\": true\n}"
+          }
+        ],
+        "details": {
+          "success": true,
+          "message": "已发送授权请求卡片，请用户在卡片中点击链接完成授权。授权完成后请重新执行之前的操作。",
+          "awaiting_authorization": true
+        },
+        "isError": false,
+        "timestamp": 1781596762355
+      }
+    },
+    {
+      "type": "message",
+      "id": "3b9d33d6",
+      "parentId": "b3b67db2",
+      "timestamp": "2026-06-16T07:59:27.960Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "需要先完成一次飞书授权。系统已经给你发了授权卡片。\n\n你点卡片里的授权链接后，回我一句：\n\n**“已授权，继续建表”**\n\n我就继续创建《小竹业务项目管理总表》。"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 11721,
+          "output": 58,
+          "cacheRead": 35328,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 47107,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781596762374,
+        "responseId": "resp_08890c1d9c30deda016a31025a15788197bb8c2668ae21fa82"
+      }
+    },
+    {
+      "type": "message",
+      "id": "61f00e31",
+      "parentId": "3b9d33d6",
+      "timestamp": "2026-06-16T08:02:53.995Z",
+      "message": {
+        "role": "user",
+        "content": "重新授权",
+        "timestamp": 1781596969907
+      }
+    },
+    {
+      "type": "message",
+      "id": "7d7a2b07",
+      "parentId": "61f00e31",
+      "timestamp": "2026-06-16T08:03:00.098Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "可以，重新授权不用我撤销，也不用额外操作。\n\n你直接点刚才系统发的授权卡片链接完成授权；如果卡片过期或找不到，我再重新触发一次建表操作，系统会自动再发授权卡片。"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 11804,
+          "output": 60,
+          "cacheRead": 35328,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 47192,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781596974164,
+        "responseId": "resp_060dc06338b47e68016a31032e0d408193827c0da4985453be"
+      }
+    },
+    {
+      "type": "message",
+      "id": "7d86ca06",
+      "parentId": "7d7a2b07",
+      "timestamp": "2026-06-16T08:04:34.063Z",
+      "message": {
+        "role": "user",
+        "content": "我这边后台权限已经开完了，你重新检查",
+        "timestamp": 1781597070406
+      }
+    },
+    {
+      "type": "message",
+      "id": "59585a10",
+      "parentId": "7d86ca06",
+      "timestamp": "2026-06-16T08:04:41.583Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Planning the next steps**\n\nI need to continue creating, and I’m thinking about using Bitable for that. Maybe I don't need to involve memory for this? I've already done a memory search before, but I had it disabled. Right now, the important thing is to focus on the current task, so it might make sense to use Feishu to help facilitate the work. Let's see where this goes!",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_p0ZPE9zESQndUilyUf6yEAKY",
+            "name": "feishu_bitable_app",
+            "arguments": {
+              "action": "create",
+              "name": "小竹业务项目管理总表"
+            },
+            "partialArgs": "{\"action\":\"create\",\"name\":\"小竹业务项目管理总表\"}"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 28597,
+          "output": 71,
+          "cacheRead": 18432,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 47100,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781597074168,
+        "responseId": "chatcmpl-b3dd2584"
+      }
+    },
+    {
+      "type": "message",
+      "id": "2b288e4d",
+      "parentId": "59585a10",
+      "timestamp": "2026-06-16T08:04:44.682Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_p0ZPE9zESQndUilyUf6yEAKY",
+        "toolName": "feishu_bitable_app",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"success\": true,\n  \"message\": \"已发送授权请求卡片，请用户在卡片中点击链接完成授权。授权完成后请重新执行之前的操作。\",\n  \"awaiting_authorization\": true\n}"
+          }
+        ],
+        "details": {
+          "success": true,
+          "message": "已发送授权请求卡片，请用户在卡片中点击链接完成授权。授权完成后请重新执行之前的操作。",
+          "awaiting_authorization": true
+        },
+        "isError": false,
+        "timestamp": 1781597084615
+      }
+    },
+    {
+      "type": "message",
+      "id": "80a0dac6",
+      "parentId": "2b288e4d",
+      "timestamp": "2026-06-16T08:04:52.472Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "我重新检查了，结果还是需要你本人点一次用户授权。\n\n后台权限开完只是应用有权限了；但创建飞书多维表格是“以你的身份”操作，还需要你在授权卡片里确认一次。\n\n现在系统已经重新发了一张授权卡片。你点完后回我：\n\n**已授权，继续建表**\n\n我再继续创建。"
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 28894,
+          "output": 86,
+          "cacheRead": 18432,
+          "cacheWrite": 0,
+          "reasoningTokens": 0,
+          "totalTokens": 47412,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "stop",
+        "timestamp": 1781597084798,
+        "responseId": "resp_00e023c23fc89b86016a31039c919c819381fdf2980a62a831"
+      }
+    }
+  ]
+}

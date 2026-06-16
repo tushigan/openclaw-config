@@ -1,0 +1,41 @@
+{
+  "project_name": "然利品牌升级视频第四段故事板",
+  "project_slug": "ranli-brand-video-seg04-application-final",
+  "video_mode": "non_ip_poster",
+  "ratio": "16:9",
+  "duration": 10,
+  "quality_tier": "draft",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": 4,
+  "storyboard_beats_override": [
+    "格1：06旧包装到05新包装的变化作为第一组应用对比，包装占画面核心。",
+    "格2：08旧包装到09新包装的变化作为第二组应用对比，形成统一品牌识别。",
+    "格3：两组新包装进入同屏品牌系统矩阵，周围有纸袋、名片、工作服、车贴或配送车等辅助物料，但不抢包装。",
+    "格4：物料退后或淡出，红色品牌背景回归，03新Logo+广告语组合居中稳定停住1-2秒。"
+  ],
+  "identity_strategy": null,
+  "identity_anchor_rules": [],
+  "identity_structure": [],
+  "identity_forbidden": [],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "只生成这一段的四宫格故事板图片，不生成视频。每格独立16:9。参考素材：06/05包装A新旧、08/09包装B新旧、03新Logo+广告语。禁止汤包，禁止虚构食品包装，禁止多余字幕。",
+  "normalize_references": true,
+  "brand_name": "然利",
+  "subject": "第四段｜应用展示 + 定版收束，20-30秒，四宫格故事板",
+  "action": "生成一张四宫格故事板，只描述第四段20-30秒。20-25秒展示新Logo落到真实包装和品牌物料里，形成统一品牌系统；25-30秒回到新Logo+广告语组合，形成品牌记忆点。",
+  "scene": "先用06到05、08到09表达旧包装到新包装变化；包装只用确认过的两组，不发明新包装。周围可延展虚拟物料如纸袋、名片、工作服、车贴、配送车，但包装是核心，其他物料辅助不抢戏。最后物料退后/淡出，红色品牌背景回归，03 Logo+广告语居中稳定停住。",
+  "style": "品牌系统矩阵、渠道招商展示、终端展示、高级规范，克制不堆满，包装核心突出。",
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/03_logo_slogan_final.jpg"
+  },
+  "storyboard_beats": [
+    "格1：06旧包装到05新包装的变化作为第一组应用对比，包装占画面核心。",
+    "格2：08旧包装到09新包装的变化作为第二组应用对比，形成统一品牌识别。",
+    "格3：两组新包装进入同屏品牌系统矩阵，周围有纸袋、名片、工作服、车贴或配送车等辅助物料，但不抢包装。",
+    "格4：物料退后或淡出，红色品牌背景回归，03新Logo+广告语组合居中稳定停住1-2秒。"
+  ],
+  "storyboard_panel_count": 4,
+  "slug": "20-30"
+}

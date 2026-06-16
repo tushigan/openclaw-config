@@ -1,0 +1,26 @@
+{
+  "project_name": "然利品牌升级视频第一段故事板",
+  "project_slug": "ranli-brand-video-seg01-why-upgrade",
+  "brand_name": "然利",
+  "video_mode": "non_ip_poster",
+  "subject": "第一段｜为什么升级，0-6秒，四宫格故事板",
+  "action": "生成一张四宫格故事板，只描述第一段0-6秒。旧Logo有历史识别基础，但更偏手工感和单一产品阶段表达；现在面向渠道、经销商和终端展示，需要更清晰、更专业、更系统的品牌识别。不要批判旧Logo。",
+  "scene": "红色品牌背景，旧Logo居中，镜头慢慢推进，旧包装应用局部如06和08上的旧Logo出现，轻微设计分析线指出旧Logo在包装适配上略显拥挤、信息层级不够清楚。",
+  "style": "克制、专业、品牌设计发布片质感，红色品牌底，旧Logo，旧包装局部，轻微设计分析线，食品品牌温度。",
+  "ratio": "16:9",
+  "duration": 6,
+  "quality_tier": "draft",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": 4,
+  "storyboard_beats_override": [
+    "格1：红色品牌底上，旧然利Logo居中出现，画面干净克制，建立旧识别基础。",
+    "格2：镜头缓慢推进旧Logo，细节放大，出现轻微设计分析线，表达旧识别的历史感。",
+    "格3：切入旧包装局部，看到旧Logo在素材06/08包装上的应用，信息层级略拥挤但不贬低。",
+    "格4：旧Logo与旧包装局部并置，画面收束到需要更专业、更系统品牌识别的升级动机。"
+  ],
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/06_packaging_A_old_logo.jpg"
+  },
+  "normalize_references": true,
+  "notes": "只生成这一段的四宫格故事板图片，不生成视频。必须每格独立16:9。参考素材：01旧Logo、06/08旧包装。禁止汤包、禁止虚构包装、禁止多余字幕。"
+}

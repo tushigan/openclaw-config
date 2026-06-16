@@ -1,0 +1,38 @@
+[
+  {
+    "file": "01_why_upgrade.png",
+    "size": [
+      1672,
+      941
+    ],
+    "bytes": 1954824,
+    "ok_4k": false
+  },
+  {
+    "file": "02_what_changed.png",
+    "size": [
+      3840,
+      2160
+    ],
+    "bytes": 3317218,
+    "ok_4k": true
+  },
+  {
+    "file": "03_what_improved.png",
+    "size": [
+      3840,
+      2162
+    ],
+    "bytes": 3126940,
+    "ok_4k": true
+  },
+  {
+    "file": "04_application_final.png",
+    "size": [
+      3840,
+      2160
+    ],
+    "bytes": 4326406,
+    "ok_4k": true
+  }
+]
