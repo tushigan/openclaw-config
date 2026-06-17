@@ -1,0 +1,54 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-17T08:45:50.766Z",
+  "traceId": "aed34f3e-8947-44d2-9051-bff0afccf4a7",
+  "sessionId": "aed34f3e-8947-44d2-9051-bff0afccf4a7",
+  "sessionKey": "agent:design:feishu:direct:ou_ade9d49cd1dff5315774a6cae2479938",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 178723,
+    "output": 293,
+    "cacheRead": 18432,
+    "reasoningTokens": 89,
+    "total": 197448
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 102709,
+      "output": 144,
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "total": 102853
+    },
+    "lastCacheTouchAt": 1781685535006
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "这是**黑白手稿 / 版式线框稿**，不是最终设计稿。\n\n它的作用是先确认这几件事：\n- 6 屏顺序对不对\n- 每一屏讲什么信息\n- 产品出现的位置和角度对不对\n- 文案节奏是否符合你说的“先安心/配方，再正式介绍产品”\n- 使用场景、规格包装、品牌收束的位置是否合理\n\n我发它是为了避免直接上彩稿后大返工。  \n如果你觉得这个“手稿阶段”不需要确认，也可以，我可以直接按这个结构继续做最终视觉设计稿。"
+  ],
+  "finalPromptText": "Conversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"message_id\": \"om_x100b6c119fcb94b0c3b599f057aa326\",\n  \"sender_id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Wed 2026-06-17 16:38:40 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_ade9d49cd1dff5315774a6cae2479938)\",\n  \"id\": \"ou_ade9d49cd1dff5315774a6cae2479938\",\n  \"name\": \"涂是淦\"\n}\n```\n\n这是什么东西？",
+  "itemLifecycle": {
+    "startedCount": 1,
+    "completedCount": 1,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "memory_search",
+      "meta": "WokenDay 巧克力小吐司 详情页 黑白手稿 wireframe 是什么 头图"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

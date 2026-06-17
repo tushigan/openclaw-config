@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "brand_id": "丹夫",
+  "brand_name": "丹夫",
+  "brand_name_en": "",
+  "industry": "食品烘焙行业",
+  "category": "华夫饼",
+  "positioning": "高品质华夫专家",
+  "core_values": [
+    "品质至上",
+    "感恩共赢"
+  ],
+  "brand_tone": "极致匠心、真诚可靠、温暖有爱",
+  "target_audience": "",
+  "vi_guidelines": {
+    "primary_colors": [],
+    "secondary_colors": [],
+    "fonts": [],
+    "logo_usage_notes": ""
+  },
+  "brand_assets_dir": "_brand-assets/",
+  "historical_campaigns": [],
+  "key_contacts": [],
+  "notes": "",
+  "created_at": "2026-06-17T17:04:36.673718+08:00",
+  "updated_at": "2026-06-17T17:05:50.950044+08:00",
+  "slogan": "好华夫、选丹夫",
+  "communication_style": "专业且真诚",
+  "visual_guidelines": {
+    "primary_colors": [
+      "PANTONE 2035C",
+      "CMYK 0/100/100/0",
+      "RGB 230/0/18",
+      "#E60012"
+    ],
+    "logo_usage": "红底白标识为主，保留盾牌/金边资产；企业物料可使用白底红色图形纹样做辅助延展",
+    "pattern": "红色 Danco 字标、华夫格图标与几何折线构成的连续纹样"
+  }
+}

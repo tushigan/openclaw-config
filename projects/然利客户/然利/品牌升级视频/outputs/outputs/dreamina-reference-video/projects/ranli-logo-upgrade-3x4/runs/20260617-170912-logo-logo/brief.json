@@ -1,0 +1,54 @@
+{
+  "project_name": "然利品牌Logo升级视频-朋友圈3比4",
+  "project_slug": "ranli-logo-upgrade-3x4",
+  "video_mode": "non_ip_poster",
+  "ratio": "3:4",
+  "duration": 8,
+  "quality_tier": "standard",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": 6,
+  "storyboard_beats_override": [
+    "1. 旧版然利Logo完整居中呈现并短暂停格；2. 旧Logo外框、红色文字、绿色擀面杖分层柔和游离；3. 手工二字缓慢淡化消失",
+    "保留然利、米色印章框、绿色擀面杖、Ranli英文；4. 然利字体笔画平滑重塑",
+    "外框比例微调",
+    "线条更柔和精致；5. 绿色擀面杖从文字中间平稳位移至然利字体底部",
+    "形成稳定新版结构；6. 新版Logo完整汇聚成型",
+    "柔光提亮定格收尾。"
+  ],
+  "identity_strategy": null,
+  "identity_anchor_rules": [],
+  "identity_structure": [
+    "严格保留品牌正红色然利中文字作为核心识别",
+    "严格保留浅米色圆角印章外框",
+    "严格保留复古绿色擀面杖符号与Ranli英文",
+    "新版尾帧必须接近用户提供的新Logo参考图"
+  ],
+  "identity_forbidden": [
+    "禁止面粉飞溅、糕点杂物、复古胶片做旧",
+    "禁止卡通夸张动效、LOGO扭曲、文字错乱",
+    "禁止偏移品牌红绿米三色、禁止水印、多余边框、画面抖动闪烁"
+  ],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "品牌档案：然利/Ranli，预包装烘焙产品。定位从手工感升级为更专业、现代、高级、适合招商与终端展示的品牌形象。本片定位为朋友圈社交推广轻量化品牌形象宣传短片。",
+  "normalize_references": true,
+  "subject": "然利品牌Logo从旧版升级为新版Logo",
+  "action": "旧版Logo居中定格后分层拆解，手工二字淡化退场，然利红字平滑重塑，米色印章外框比例柔和优化，绿色擀面杖从文字中部平稳下移到文字底部，Ranli英文保留，所有核心元素有序汇聚成新版Logo并柔光定格",
+  "scene": "纯白干净极简背景，柔和电影级漫射光，画面始终居中，保留充足留白，适配朋友圈3:4竖屏观看",
+  "style": "现代极简国际化MG动态，丝滑分层渐变，克制高级，舒缓品牌仪式感，对标OpenAI品牌视觉渐进优化、百年银行品牌升级、支付宝简约Logo片头",
+  "existing_references": {
+    "original": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/inputs/ranli_old_logo.png",
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/inputs/ranli_new_logo.png"
+  },
+  "storyboard_beats": [
+    "1. 旧版然利Logo完整居中呈现并短暂停格；2. 旧Logo外框、红色文字、绿色擀面杖分层柔和游离；3. 手工二字缓慢淡化消失",
+    "保留然利、米色印章框、绿色擀面杖、Ranli英文；4. 然利字体笔画平滑重塑",
+    "外框比例微调",
+    "线条更柔和精致；5. 绿色擀面杖从文字中间平稳位移至然利字体底部",
+    "形成稳定新版结构；6. 新版Logo完整汇聚成型",
+    "柔光提亮定格收尾。"
+  ],
+  "storyboard_panel_count": 6,
+  "slug": "logo-logo"
+}
