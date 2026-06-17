@@ -189,6 +189,35 @@ Load `references/copy-pattern-library.md` when turning an insight, product featu
 
 ---
 
+
+## 📁 执行目录索引设置
+
+在任务执行过程中，需要维护执行目录与记忆系统的关联：
+
+### 1. 设置执行工作目录
+
+```bash
+# 定义实际执行工作目录
+EXECUTION_WORKSPACE="/Users/a123/.openclaw/workspace-copywriter/outputs/${PROJECT_NAME}_$(date +%Y%m%d)"
+
+# 创建执行目录
+mkdir -p "$EXECUTION_WORKSPACE"
+```
+
+### 2. 更新项目的执行目录索引
+
+```bash
+python3 /Users/a123/.openclaw/scripts/memory/project.py update-execution   --project-id "$PROJECT_ID"   --execution-workspace "$EXECUTION_WORKSPACE"   --work-stage "文案创作中"
+```
+
+### 3. 更新任务的执行目录索引
+
+```bash
+python3 /Users/a123/.openclaw/scripts/memory/task.py update-execution   --task-id "$TASK_ID"   --execution-workspace "$EXECUTION_WORKSPACE"   --work-stage "初稿完成"   --key-file "copy_v1" "$EXECUTION_WORKSPACE/copy_v1.md"
+```
+
+---
+
 ## 📦 产出归档（执行后必须）
 
 任务完成后，必须将产出归档到记忆系统：

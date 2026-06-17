@@ -2,8 +2,8 @@
 
 - 项目名：然利品牌Logo升级视频-朋友圈3比4
 - 项目标识：ranli-logo-upgrade-3x4
-- 当前阶段：prepare
-- 当前状态：ready_for_ref_generation
+- 当前阶段：generate_refs
+- 当前状态：references_generated
 - 最新运行：/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/outputs/dreamina-reference-video/projects/ranli-logo-upgrade-3x4/runs/20260617-170912-logo-logo
 
 ## 默认配置
@@ -28,6 +28,7 @@
 ## 关键文件
 - original: /Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/outputs/dreamina-reference-video/projects/ranli-logo-upgrade-3x4/canonical/original.png
 - final_frame_poster: /Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/outputs/dreamina-reference-video/projects/ranli-logo-upgrade-3x4/canonical/final-frame-poster.png
+- storyboard: /Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/outputs/dreamina-reference-video/projects/ranli-logo-upgrade-3x4/canonical/storyboard.png
 
 ## 最近运行
-- 20260617-170912-logo-logo | prepare | ready_for_ref_generation
+- 20260617-170912-logo-logo | generate_refs | references_generated

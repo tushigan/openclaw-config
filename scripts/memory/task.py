@@ -215,7 +215,10 @@ def update_task(task_id: str, updates: dict) -> dict:
 
     # 更新字段
     for key, value in updates.items():
-        if key in task_data:
+        if key in task_data and value is not None:
+            task_data[key] = value
+        elif key not in task_data and value is not None:
+            # 允许添加新字段（如执行目录索引相关字段）
             task_data[key] = value
 
     task_data["updated_at"] = get_timestamp()
@@ -226,6 +229,38 @@ def update_task(task_id: str, updates: dict) -> dict:
         "task_id": task_id,
         "task_data": task_data
     }
+
+
+def update_execution_workspace(task_id: str, execution_workspace: str,
+                               work_stage: str = "", index_path: str = "",
+                               readme_path: str = "", key_files: dict = None) -> dict:
+    """更新任务的执行目录索引
+
+    Args:
+        task_id: 任务ID
+        execution_workspace: 实际执行工作目录路径
+        work_stage: 当前工作阶段
+        index_path: 执行索引文件路径
+        readme_path: 执行索引说明文档路径
+        key_files: 关键文件路径字典 {name: path}
+    """
+    updates = {
+        "execution_workspace": execution_workspace,
+    }
+
+    if work_stage:
+        updates["latest_work_stage"] = work_stage
+
+    if index_path:
+        updates["execution_index_path"] = index_path
+
+    if readme_path:
+        updates["execution_readme_path"] = readme_path
+
+    if key_files:
+        updates["key_files"] = key_files
+
+    return update_task(task_id, updates)
 
 
 def save_output(task_id: str, output_file: str, version_note: str = "",
@@ -502,6 +537,17 @@ def main():
                               help="新状态")
     status_parser.add_argument("--json", action="store_true", help="输出 JSON")
 
+    # update-execution 命令
+    execution_parser = subparsers.add_parser("update-execution", help="更新执行目录索引")
+    execution_parser.add_argument("--task-id", required=True, help="任务 ID")
+    execution_parser.add_argument("--execution-workspace", required=True, help="执行工作目录路径")
+    execution_parser.add_argument("--work-stage", default="", help="当前工作阶段")
+    execution_parser.add_argument("--index-path", default="", help="索引文件路径")
+    execution_parser.add_argument("--readme-path", default="", help="README 路径")
+    execution_parser.add_argument("--key-file", action="append", nargs=2, metavar=("NAME", "PATH"),
+                                 help="关键文件 (可多次使用)")
+    execution_parser.add_argument("--json", action="store_true", help="输出 JSON")
+
     args = parser.parse_args()
 
     if args.command == "create":
@@ -604,6 +650,35 @@ def main():
                 print(f"❌ {result['error']}")
                 sys.exit(1)
             print(f"✅ 任务状态已更新: {args.status}")
+
+    elif args.command == "update-execution":
+        # 处理关键文件参数
+        key_files = {}
+        if args.key_file:
+            for name, path in args.key_file:
+                key_files[name] = path
+
+        result = update_execution_workspace(
+            args.task_id,
+            args.execution_workspace,
+            args.work_stage,
+            args.index_path,
+            args.readme_path,
+            key_files if key_files else None
+        )
+
+        if args.json:
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            if "error" in result:
+                print(f"❌ {result['error']}")
+                sys.exit(1)
+            print(f"✅ 执行目录索引已更新")
+            print(f"   执行目录: {args.execution_workspace}")
+            if args.work_stage:
+                print(f"   工作阶段: {args.work_stage}")
+            if key_files:
+                print(f"   关键文件: {len(key_files)} 个")
 
     else:
         parser.print_help()

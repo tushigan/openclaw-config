@@ -386,6 +386,34 @@ def update_lifecycle_stage(project_id: str, new_stage: str) -> dict:
     })
 
 
+def update_execution_workspace(project_id: str, execution_workspace: str,
+                               work_stage: str = "", index_path: str = "",
+                               readme_path: str = "") -> dict:
+    """更新项目的执行目录索引
+
+    Args:
+        project_id: 项目ID
+        execution_workspace: 实际执行工作目录路径
+        work_stage: 当前工作阶段
+        index_path: 执行索引文件路径
+        readme_path: 执行索引说明文档路径
+    """
+    updates = {
+        "execution_workspace": execution_workspace,
+    }
+
+    if work_stage:
+        updates["latest_work_stage"] = work_stage
+
+    if index_path:
+        updates["execution_index_path"] = index_path
+
+    if readme_path:
+        updates["execution_readme_path"] = readme_path
+
+    return update_project(project_id, updates)
+
+
 def add_milestone(project_id: str, milestone_name: str,
                   milestone_status: str = "pending") -> dict:
     """添加项目里程碑"""
@@ -444,6 +472,15 @@ def main():
     milestone_parser.add_argument("--name", required=True, help="里程碑名称")
     milestone_parser.add_argument("--status", default="pending", help="状态")
     milestone_parser.add_argument("--json", action="store_true", help="输出 JSON 格式")
+
+    # update-execution 命令
+    execution_parser = subparsers.add_parser("update-execution", help="更新执行目录索引")
+    execution_parser.add_argument("--project-id", required=True, help="项目 ID")
+    execution_parser.add_argument("--execution-workspace", required=True, help="执行工作目录路径")
+    execution_parser.add_argument("--work-stage", default="", help="当前工作阶段")
+    execution_parser.add_argument("--index-path", default="", help="索引文件路径")
+    execution_parser.add_argument("--readme-path", default="", help="README 路径")
+    execution_parser.add_argument("--json", action="store_true", help="输出 JSON 格式")
 
     args = parser.parse_args()
 
@@ -528,6 +565,26 @@ def main():
                 print(f"❌ {result['error']}")
                 sys.exit(1)
             print(f"✅ 里程碑已添加: {args.name}")
+
+    elif args.command == "update-execution":
+        result = update_execution_workspace(
+            args.project_id,
+            args.execution_workspace,
+            args.work_stage,
+            args.index_path,
+            args.readme_path
+        )
+
+        if args.json:
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            if "error" in result:
+                print(f"❌ {result['error']}")
+                sys.exit(1)
+            print(f"✅ 执行目录索引已更新")
+            print(f"   执行目录: {args.execution_workspace}")
+            if args.work_stage:
+                print(f"   工作阶段: {args.work_stage}")
 
     else:
         parser.print_help()

@@ -120,6 +120,12 @@ class ProjectProfile:
     strategy_path: str = ""
     creative_direction_path: str = ""
 
+    # 执行目录索引（关键：用于回溯实际工作目录）
+    execution_workspace: str = ""  # 实际执行工作目录（如 workspace-design/outputs/项目名_日期）
+    execution_index_path: str = ""  # 执行索引文件路径
+    execution_readme_path: str = ""  # 执行索引说明文档
+    latest_work_stage: str = ""  # 最新工作阶段
+
     def to_dict(self) -> Dict:
         data = asdict(self)
         return data
@@ -143,6 +149,13 @@ class TaskProfile:
     completed_at: str = ""
     latest_version: int = 0  # 当前最新版本号
     _last_modified_by: str = ""
+
+    # 执行目录索引（关键：用于回溯实际工作目录和关键文件）
+    execution_workspace: str = ""  # 实际执行工作目录
+    execution_index_path: str = ""  # 执行索引文件路径
+    execution_readme_path: str = ""  # 执行索引说明文档
+    latest_work_stage: str = ""  # 最新工作阶段
+    key_files: Dict[str, str] = field(default_factory=dict)  # 关键文件路径映射
 
     def to_dict(self) -> Dict:
         data = asdict(self)

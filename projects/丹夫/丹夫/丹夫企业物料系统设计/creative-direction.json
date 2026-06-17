@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "direction_version": "1.0",
+  "created_by": "Creative Director",
+  "created_at": "2026-06-17T17:14:32.209575+08:00",
+  "updated_at": "2026-06-17T17:14:32.209575+08:00",
+  "directions": [],
+  "confirmed_direction": {},
+  "confirmed_at": "",
+  "confirmed_by": [],
+  "rejected_directions": [],
+  "execution_boundaries": [],
+  "copy_tasks": [],
+  "design_tasks": []
+}

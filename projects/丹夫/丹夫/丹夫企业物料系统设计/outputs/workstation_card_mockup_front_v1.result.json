@@ -1,0 +1,83 @@
+{
+  "status": "succeeded",
+  "phase": "generated",
+  "ok": true,
+  "started_at": "2026-06-17T09:26:59.253956Z",
+  "finished_at": "2026-06-17T09:27:51.483587Z",
+  "duration_seconds": 87.662,
+  "exit_code": 0,
+  "prompt": "正视图工位牌样机展示图。参考画面：明亮办公室背景、白色隔断/玻璃、顶部悬挂结构，工位牌居中悬挂。牌面沿用丹夫款式：白底、细金边、丹夫红线条与少量红色点缀，左上小Logo，右侧极淡红色华夫纹样。文字清晰：研发部、冯思诺、研发工程师。整体企业专业、干净、高级，真实样机光影。\n\nReference images (by role — obey each role strictly, do not swap them):\n- Image 1: layout reference — follow placement, framing, crop, whitespace, and camera arrangement faithfully, without borrowing foreign product identity\n- Image 2: brand LOGO — must be reproduced precisely, do not redraw, do not distort, do not invent new marks\n- Image 3: locked element — this exact element must appear visibly in the final image",
+  "size": "4:3",
+  "aspect": "1:1",
+  "model": "gpt-image-2-pro",
+  "count": 1,
+  "references": [
+    "/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/a8fb00f1-7516-455f-8e4a-fb764e1bb99c.jpg",
+    "/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/789398e5-faa1-4527-b4c4-59c4ad555265.jpg",
+    "/Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/workstation_card_front_v1.png"
+  ],
+  "output": "/Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/workstation_card_mockup_front_v1.png",
+  "exists": true,
+  "size_bytes": 1457646,
+  "stdout_log": "",
+  "stderr_log": "",
+  "delivery_manifest": "/Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/workstation_card_mockup_front_v1.delivery.json",
+  "generation_status": "generated",
+  "delivery_status": "pending_target_resolution",
+  "delivery_attempted": false,
+  "delivery_attempted_at": null,
+  "delivery_method": "lark-cli",
+  "delivery_target": {
+    "target": "",
+    "user_id": "",
+    "chat_id": "",
+    "account_id": "",
+    "source_session_key": "",
+    "target_source": "recent_session_scan",
+    "target_candidates": [
+      {
+        "target": "user:ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:direct:ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+        "source_sender_open_id": "ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      }
+    ],
+    "target_conflict_reason": "recent_session_scan_not_trusted",
+    "channel": "feishu"
+  },
+  "delivery_evidence": {
+    "ok": false,
+    "reason": "missing_delivery_target",
+    "sent_paths": [],
+    "results": []
+  },
+  "fallback_required": true,
+  "fallback_reason": "missing_delivery_target",
+  "user_report": "IMAGE GENERATED BUT TARGET NOT RESOLVED",
+  "error": "missing_delivery_target",
+  "delivered_paths": [],
+  "target_candidates": [
+    {
+      "target": "user:ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+      "account_id": "design",
+      "source_session_key": "agent:design-shared:feishu:direct:ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+      "source_sender_open_id": "ou_6c32f3ff9fd78e6b0de2ebaf7eba08c6",
+      "source_sender_name": "",
+      "target_source": "recent_session_scan"
+    }
+  ],
+  "target_conflict_reason": "recent_session_scan_not_trusted",
+  "result_path": "/Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/workstation_card_mockup_front_v1.result.json",
+  "provider_mode": "auto",
+  "api_base_url": "https://n.lconai.com",
+  "api_provider": "n.lconai",
+  "requested_model": "gpt-image-2-pro",
+  "effective_model": "gpt-image-2",
+  "references_count": 3,
+  "requested_output": "/Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/workstation_card_mockup_front_v1.png",
+  "requested_alias_paths": [],
+  "task_manifest": "/Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/task_manifest.json",
+  "delivery_error": "missing_delivery_target"
+}

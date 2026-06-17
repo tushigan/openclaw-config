@@ -182,6 +182,101 @@ Load `references/frameworks.md` when building strategy outputs, insight structur
 
 ---
 
+
+## 📁 执行目录索引设置
+
+在任务执行过程中，需要维护执行目录与记忆系统的关联：
+
+### 1. 设置执行工作目录
+
+```bash
+# 定义实际执行工作目录（根据 skill 类型调整）
+EXECUTION_WORKSPACE="/Users/a123/.openclaw/workspace-design/outputs/${PROJECT_NAME}_$(date +%Y%m%d)"
+
+# 或者
+EXECUTION_WORKSPACE="/Users/a123/.openclaw/workspace-strategy/outputs/${PROJECT_NAME}_$(date +%Y%m%d)"
+
+# 创建执行目录
+mkdir -p "$EXECUTION_WORKSPACE"
+```
+
+### 2. 更新项目的执行目录索引
+
+```bash
+# 更新 project.json
+python3 /Users/a123/.openclaw/scripts/memory/project.py update-execution   --project-id "$PROJECT_ID"   --execution-workspace "$EXECUTION_WORKSPACE"   --work-stage "策略制定"
+```
+
+### 3. 更新任务的执行目录索引
+
+```bash
+# 更新 task.json
+python3 /Users/a123/.openclaw/scripts/memory/task.py update-execution   --task-id "$TASK_ID"   --execution-workspace "$EXECUTION_WORKSPACE"   --work-stage "初稿完成"   --key-file "strategy" "$EXECUTION_WORKSPACE/strategy_v1.md"   --key-file "wireframe" "$EXECUTION_WORKSPACE/wireframe_v1.png"
+```
+
+### 4. 创建执行索引文件（可选但推荐）
+
+```bash
+# 在项目目录创建索引文件
+cat > "$PROJECT_PATH/execution_index.json" << 'EOF'
+{
+  "execution_workspace": "$EXECUTION_WORKSPACE",
+  "key_files": {
+    "strategy": "$EXECUTION_WORKSPACE/strategy_v1.md",
+    "wireframe": "$EXECUTION_WORKSPACE/wireframe_v1.png",
+    "final_output": "$EXECUTION_WORKSPACE/final_v1.png"
+  },
+  "work_stages": [
+    {"stage": "策略制定", "completed_at": "2026-06-17T10:00:00"},
+    {"stage": "初稿设计", "completed_at": "2026-06-17T15:00:00"}
+  ],
+  "last_updated": "$(date -Iseconds)"
+}
+EOF
+
+# 创建可读的 README
+cat > "$PROJECT_PATH/README_执行索引.md" << 'EOF'
+# 执行目录索引
+
+## 实际执行工作目录
+$EXECUTION_WORKSPACE
+
+## 关键文件
+- 策略文档: strategy_v1.md
+- 线框图: wireframe_v1.png
+- 最终产出: final_v1.png
+
+## 工作阶段
+- [x] 策略制定
+- [x] 初稿设计
+- [ ] 最终成稿
+EOF
+```
+
+### 5. 在执行工作目录创建回链（推荐）
+
+```bash
+# 在执行工作目录创建指向记忆系统的链接
+cat > "$EXECUTION_WORKSPACE/memory_link.json" << EOF
+{
+  "project_id": "$PROJECT_ID",
+  "task_id": "$TASK_ID",
+  "project_path": "$PROJECT_PATH",
+  "task_path": "$TASK_PATH",
+  "memory_system_root": "/Users/a123/.openclaw/projects"
+}
+EOF
+```
+
+**为什么需要执行目录索引？**
+
+1. **回溯能力**：未来回忆项目时，能准确找到所有执行文件
+2. **关键文件定位**：知道策略文档、设计稿、最终产出的具体位置
+3. **工作连续性**：不同 agent 接手时能快速了解工作状态和文件位置
+4. **审计追溯**：完整记录从立项到交付的所有关键节点和文件
+
+---
+
 ## 📦 产出归档（执行后必须）
 
 任务完成后，必须将产出归档到记忆系统：
