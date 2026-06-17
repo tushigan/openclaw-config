@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "brand_id": "黄小咕",
+  "brand_name": "黄小咕",
+  "brand_name_en": "Huang Xiao Gu",
+  "industry": "食品",
+  "category": "干脆面",
+  "positioning": "新世代干脆面品牌",
+  "core_values": [
+    "好玩",
+    "有趣",
+    "年轻化",
+    "创新"
+  ],
+  "brand_tone": "活力、潮流、轻松、好玩",
+  "target_audience": "年轻人、儿童、休闲零食爱好者",
+  "vi_guidelines": {
+    "primary_colors": [],
+    "secondary_colors": [],
+    "fonts": [],
+    "logo_usage_notes": ""
+  },
+  "brand_assets_dir": "_brand-assets/",
+  "historical_campaigns": [],
+  "key_contacts": [],
+  "notes": "干脆面品牌，主打多种口味和创新包装",
+  "created_at": "2026-06-16T19:42:56.037739+08:00",
+  "updated_at": "2026-06-16T20:18:00.000000+08:00"
+}

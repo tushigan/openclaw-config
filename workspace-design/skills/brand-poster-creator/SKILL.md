@@ -11,6 +11,85 @@ metadata:
     streaming: false
 ---
 
+## 🔴 记忆系统集成（执行前必读）
+
+⚠️ **重要**：执行本 skill 前，必须完成项目立项和任务创建。
+
+### Step 0: 项目立项与任务创建
+
+```bash
+# 1. 查询或创建项目（自动创建客户和品牌）
+PROJECT_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/project.py get-or-create \
+  --client "${CLIENT_NAME}" \
+  --brand "${BRAND_NAME}" \
+  --project "${PROJECT_NAME}" \
+  --campaign-type "海报设计" \
+  --json)
+
+PROJECT_ID=$(echo $PROJECT_INFO | jq -r '.project_id')
+PROJECT_PATH=$(echo $PROJECT_INFO | jq -r '.project_path')
+
+echo "✅ 项目已就绪: $PROJECT_ID"
+
+# 2. 创建任务
+TASK_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/task.py create \
+  --project-id "$PROJECT_ID" \
+  --name "${TASK_NAME}" \
+  --type "poster" \
+  --agent "design" \
+  --skill "brand-poster-creator" \
+  --brief "${TASK_BRIEF}" \
+  --json)
+
+TASK_ID=$(echo $TASK_INFO | jq -r '.task_id')
+
+echo "✅ 任务已创建: $TASK_ID"
+
+# 3. 查询品牌档案（用于指导创作）
+BRAND_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/query.py brand \
+  --name "${BRAND_NAME}" \
+  --json)
+
+# 提取品牌信息
+BRAND_TONE=$(echo $BRAND_INFO | jq -r '.brand_tone')
+POSITIONING=$(echo $BRAND_INFO | jq -r '.positioning')
+TARGET_AUDIENCE=$(echo $BRAND_INFO | jq -r '.target_audience')
+CORE_VALUES=$(echo $BRAND_INFO | jq -r '.core_values | join(", ")')
+
+echo "📋 品牌调性: $BRAND_TONE"
+echo "📋 品牌定位: $POSITIONING"
+echo "📋 目标受众: $TARGET_AUDIENCE"
+
+# 4. 查询品牌资产（Logo、VI、参考图）
+BRAND_ASSETS=$(python3 /Users/a123/.openclaw/scripts/memory/query.py assets \
+  --brand "${BRAND_NAME}" \
+  --json)
+
+LOGO_PATH=$(echo $BRAND_ASSETS | jq -r '.logos[0] // empty')
+if [ -n "$LOGO_PATH" ]; then
+    echo "🎨 品牌 Logo: $LOGO_PATH"
+fi
+```
+
+**环境变量说明**：
+
+- `CLIENT_NAME`: 客户名称（从用户输入或上下文获取）
+- `BRAND_NAME`: 品牌名称
+- `PROJECT_NAME`: 项目名称（如"春节营销活动"）
+- `TASK_NAME`: 任务名称（如"春节海报设计"）
+- `TASK_BRIEF`: 任务简介
+
+**品牌信息使用**：
+
+在执行创作任务时，必须参考品牌档案中的：
+- `BRAND_TONE`: 品牌调性（用于指导视觉风格和文案语气）
+- `POSITIONING`: 品牌定位（用于确定传播策略）
+- `TARGET_AUDIENCE`: 目标受众（用于内容方向）
+- `LOGO_PATH`: 品牌 Logo（用于设计中的 Logo 使用）
+
+---
+
+
 # Brand Poster Creator - 品牌海报全流程协调器
 
 ⚠️ **本 Skill 已结构化拆分，执行时必须按需读取对应的详细文档。**
@@ -401,3 +480,52 @@ read {baseDir}/references/step-9-advanced-approval.md
 - **v3.1**：结构化拆分，主文件精简到 < 400 行，详细流程移至 references/
 - **v3.0**：新增项目分级与审批流系统
 - **v2.4**：集成品牌记忆系统
+
+
+---
+
+## 📦 产出归档（执行后必须）
+
+任务完成后，必须将产出归档到记忆系统：
+
+```bash
+# 1. 保存产出到任务系统
+python3 /Users/a123/.openclaw/scripts/memory/task.py save-output \
+  --task-id "$TASK_ID" \
+  --file "${OUTPUT_FILE_PATH}" \
+  --note "${VERSION_NOTE}" \
+  --expire-days 30 \
+  --prompt "${GENERATION_PROMPT}" \
+  --model "${MODEL_USED}" \
+  --json
+
+echo "✅ 产出已归档（30天后自动清理）"
+
+# 2. 更新任务状态
+python3 /Users/a123/.openclaw/scripts/memory/task.py update-status \
+  --task-id "$TASK_ID" \
+  --status "completed"
+
+echo "✅ 任务状态已更新为完成"
+
+# 3. 查看任务的所有版本
+python3 /Users/a123/.openclaw/scripts/memory/task.py list-iterations \
+  --task-id "$TASK_ID"
+```
+
+**变量说明**：
+
+- `OUTPUT_FILE_PATH`: 产出文件的绝对路径
+- `VERSION_NOTE`: 版本说明（如"初稿"、"客户反馈后修改"）
+- `GENERATION_PROMPT`: 生成时使用的 prompt（可选）
+- `MODEL_USED`: 使用的模型名称（可选）
+
+**归档后的效果**：
+
+- ✅ 自动版本化（v1, v2, v3...）
+- ✅ 记录生成参数和 prompt
+- ✅ 设置过期时间（30天后自动清理）
+- ✅ 可通过任务 ID 追溯所有历史版本
+- ✅ 产出文件自动复制到项目 tasks 目录下
+
+---

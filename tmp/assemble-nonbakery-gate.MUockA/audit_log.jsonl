@@ -1,2 +1,0 @@
-{"ts": "2026-05-20T09:05:39.100563Z", "event": "stage_started", "stage": "prompt", "status": "running", "actor": "assemble_prompt.py", "reason": "组装生图 prompt", "files": [], "attempt": 1, "extra": {}}
-{"ts": "2026-05-20T09:05:39.125832Z", "event": "stage_succeeded", "stage": "prompt", "status": "done", "actor": "assemble_prompt.py", "reason": "Prompt 与参考图顺序已生成，等待用户确认生图。", "files": ["prompt_draft.md", "ref_order.json", "prompt_manifest.json"], "attempt": 1, "extra": {"reference_count": 1}}

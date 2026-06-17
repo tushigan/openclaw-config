@@ -1,1 +1,0 @@
-{"ts": "2026-05-20T09:02:40.009937Z", "event": "product_reference_normalization_skipped", "stage": "assets", "status": "skipped", "actor": "normalize_product_reference.py", "reason": "非产品推广/产品海报场景", "files": ["product_reference_manifest.json"], "attempt": null, "extra": {"status": "skipped", "reason": "非产品推广/产品海报场景", "source": "images/product.jpg", "source_size": [320, 320]}}

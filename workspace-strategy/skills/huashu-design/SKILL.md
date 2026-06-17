@@ -3,6 +3,85 @@ name: huashu-design
 description: 花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、做个HTML页面、做个可视化、app原型、iOS原型、我要做一个新的 PPT、导出MP4/GIF、60fps视频、设计风格、设计方向、配色方案、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、长视频科普、voiceover、narration、5分钟讲清楚什么是XX。需求模糊时进设计方向顾问（三套逻辑并行出3版真实视觉，HTML原生40种风格库网页20+PPT20为弹药）；另含品牌资产协议、反AI slop、Junior工作流、Tweaks变体、动画→MP4/GIF导出、带解说长视频pipeline、5维评审。
 ---
 
+## 🔴 记忆系统集成（执行前必读）
+
+⚠️ **重要**：执行本 skill 前，必须完成项目立项和任务创建。
+
+### Step 0: 项目立项与任务创建
+
+```bash
+# 1. 查询或创建项目（自动创建客户和品牌）
+PROJECT_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/project.py get-or-create \
+  --client "${CLIENT_NAME}" \
+  --brand "${BRAND_NAME}" \
+  --project "${PROJECT_NAME}" \
+  --campaign-type "设计项目" \
+  --json)
+
+PROJECT_ID=$(echo $PROJECT_INFO | jq -r '.project_id')
+PROJECT_PATH=$(echo $PROJECT_INFO | jq -r '.project_path')
+
+echo "✅ 项目已就绪: $PROJECT_ID"
+
+# 2. 创建任务
+TASK_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/task.py create \
+  --project-id "$PROJECT_ID" \
+  --name "${TASK_NAME}" \
+  --type "design" \
+  --agent "design" \
+  --skill "huashu-design" \
+  --brief "${TASK_BRIEF}" \
+  --json)
+
+TASK_ID=$(echo $TASK_INFO | jq -r '.task_id')
+
+echo "✅ 任务已创建: $TASK_ID"
+
+# 3. 查询品牌档案（用于指导创作）
+BRAND_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/query.py brand \
+  --name "${BRAND_NAME}" \
+  --json)
+
+# 提取品牌信息
+BRAND_TONE=$(echo $BRAND_INFO | jq -r '.brand_tone')
+POSITIONING=$(echo $BRAND_INFO | jq -r '.positioning')
+TARGET_AUDIENCE=$(echo $BRAND_INFO | jq -r '.target_audience')
+CORE_VALUES=$(echo $BRAND_INFO | jq -r '.core_values | join(", ")')
+
+echo "📋 品牌调性: $BRAND_TONE"
+echo "📋 品牌定位: $POSITIONING"
+echo "📋 目标受众: $TARGET_AUDIENCE"
+
+# 4. 查询品牌资产（Logo、VI、参考图）
+BRAND_ASSETS=$(python3 /Users/a123/.openclaw/scripts/memory/query.py assets \
+  --brand "${BRAND_NAME}" \
+  --json)
+
+LOGO_PATH=$(echo $BRAND_ASSETS | jq -r '.logos[0] // empty')
+if [ -n "$LOGO_PATH" ]; then
+    echo "🎨 品牌 Logo: $LOGO_PATH"
+fi
+```
+
+**环境变量说明**：
+
+- `CLIENT_NAME`: 客户名称（从用户输入或上下文获取）
+- `BRAND_NAME`: 品牌名称
+- `PROJECT_NAME`: 项目名称（如"春节营销活动"）
+- `TASK_NAME`: 任务名称（如"春节海报设计"）
+- `TASK_BRIEF`: 任务简介
+
+**品牌信息使用**：
+
+在执行创作任务时，必须参考品牌档案中的：
+- `BRAND_TONE`: 品牌调性（用于指导视觉风格和文案语气）
+- `POSITIONING`: 品牌定位（用于确定传播策略）
+- `TARGET_AUDIENCE`: 目标受众（用于内容方向）
+- `LOGO_PATH`: 品牌 Logo（用于设计中的 Logo 使用）
+
+---
+
+
 # 花叔Design · Huashu-Design
 
 你是一位用HTML工作的设计师，不是程序员。用户是你的manager，你产出深思熟虑、做工精良的设计作品。
@@ -638,3 +717,52 @@ Skill 路径引用均采用**相对本 skill 根目录**的形式（`references/
 - **手写 Stage / Sprite**（不用 `assets/animations.jsx`）：必须实现两件事——(a) tick 第一帧同步设 `window.__ready = true` (b) 检测 `window.__recording === true` 时强制 loop=false。否则录视频必出问题。
 - **做带解说的动画**（≥1 分钟，长概念视频）：**整片是一个连续的运动叙事，不是一组独立场景**。选 1-2 个 hero element 跨 scene 持续存在，scene 之间 morph 不切。每个 Scene 各自独立 layout + cue 用 fade-up + 整页 opacity 切换 = 带配音的 PowerPoint = 质感归零。完整规则见 `references/voiceover-pipeline.md` 「铁律」章节。这条规则**强调多少遍都不为过**。
 - **做 launch film / 品牌宣传片**（20-30 秒级，用户提「Apple 级别」「超级碗品质感」「10x 细节」）：**先写万字 director's notes 再动手做动画**——5 大部分结构（Statement / Visual System / Story Arc / Storyboard / Manifest），12-15 镜 shot-by-shot spec，每镜含 10 字段（含 anti-slop 自检 + why this shot exists）。完整流程 + 触发判断 + 多视角并行策略见 `references/launch-film-director-notes.md`。**实战教训**：跳过这步 = 程序员视角动画（节奏匀速、缺 climax、slogan 撞、缺叙事弧）；走完这步 = 一次过、每帧 pause 都耐看。
+
+
+---
+
+## 📦 产出归档（执行后必须）
+
+任务完成后，必须将产出归档到记忆系统：
+
+```bash
+# 1. 保存产出到任务系统
+python3 /Users/a123/.openclaw/scripts/memory/task.py save-output \
+  --task-id "$TASK_ID" \
+  --file "${OUTPUT_FILE_PATH}" \
+  --note "${VERSION_NOTE}" \
+  --expire-days 30 \
+  --prompt "${GENERATION_PROMPT}" \
+  --model "${MODEL_USED}" \
+  --json
+
+echo "✅ 产出已归档（30天后自动清理）"
+
+# 2. 更新任务状态
+python3 /Users/a123/.openclaw/scripts/memory/task.py update-status \
+  --task-id "$TASK_ID" \
+  --status "completed"
+
+echo "✅ 任务状态已更新为完成"
+
+# 3. 查看任务的所有版本
+python3 /Users/a123/.openclaw/scripts/memory/task.py list-iterations \
+  --task-id "$TASK_ID"
+```
+
+**变量说明**：
+
+- `OUTPUT_FILE_PATH`: 产出文件的绝对路径
+- `VERSION_NOTE`: 版本说明（如"初稿"、"客户反馈后修改"）
+- `GENERATION_PROMPT`: 生成时使用的 prompt（可选）
+- `MODEL_USED`: 使用的模型名称（可选）
+
+**归档后的效果**：
+
+- ✅ 自动版本化（v1, v2, v3...）
+- ✅ 记录生成参数和 prompt
+- ✅ 设置过期时间（30天后自动清理）
+- ✅ 可通过任务 ID 追溯所有历史版本
+- ✅ 产出文件自动复制到项目 tasks 目录下
+
+---

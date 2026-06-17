@@ -16,7 +16,7 @@ def get_timestamp() -> str:
     return datetime.now().isoformat()
 
 
-def generate_id(prefix: str, name: str) -> str:
+def generate_id(prefix: str, name: str = "") -> str:
     """生成唯一 ID"""
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     hash_suffix = hashlib.md5(f"{name}{timestamp}".encode()).hexdigest()[:6]
@@ -41,6 +41,10 @@ def read_json(file_path: str) -> Optional[Dict]:
         return None
 
 
+# 别名函数，兼容旧代码
+load_json = read_json
+
+
 def write_json(file_path: str, data: Dict, indent: int = 2) -> bool:
     """写入 JSON 文件"""
     try:
@@ -54,9 +58,24 @@ def write_json(file_path: str, data: Dict, indent: int = 2) -> bool:
         return False
 
 
+# 别名函数，兼容旧代码
+save_json = write_json
+
+
 def get_project_root() -> str:
     """获取项目根目录"""
     return "/Users/a123/.openclaw/projects"
+
+
+# 别名函数
+def get_projects_root() -> Path:
+    """获取项目根目录（返回 Path 对象）"""
+    return Path(get_project_root())
+
+
+def get_registry_path() -> Path:
+    """获取全局注册表路径"""
+    return get_projects_root() / "_registry.json"
 
 
 def get_client_dir(client_name: str) -> str:

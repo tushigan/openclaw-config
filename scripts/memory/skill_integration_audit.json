@@ -1,0 +1,355 @@
+{
+  "total": 20,
+  "fully_integrated": 20,
+  "partially_integrated": 0,
+  "not_integrated": 0,
+  "skills": [
+    {
+      "name": "kefu-ae",
+      "path": "skills/kefu-ae",
+      "categories": [
+        "业务对接"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "tvc-director",
+      "path": "skills/tvc-director",
+      "categories": [
+        "视频生成"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "boss",
+      "path": "skills/boss",
+      "categories": [
+        "品牌全案"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": true,
+        "old_paths": [
+          "workspace/projects"
+        ]
+      }
+    },
+    {
+      "name": "quote-skill",
+      "path": "workspace-business/skills/quote-skill",
+      "categories": [
+        "业务对接"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": true,
+        "old_paths": [
+          "workspace-business/projects"
+        ]
+      }
+    },
+    {
+      "name": "business-project-intake",
+      "path": "workspace-business/skills/business-project-intake",
+      "categories": [
+        "业务对接"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": true,
+        "old_paths": [
+          "workspace-business/projects"
+        ]
+      }
+    },
+    {
+      "name": "brand-poster-creator",
+      "path": "workspace-design/skills/brand-poster-creator",
+      "categories": [
+        "海报设计"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "image-deglaze",
+      "path": "workspace-design/skills/image-deglaze",
+      "categories": [
+        "通用设计"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "image-upscale-realesrgan",
+      "path": "workspace-design/skills/image-upscale-realesrgan",
+      "categories": [
+        "通用设计"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "sheji",
+      "path": "workspace-design/skills/sheji",
+      "categories": [
+        "通用设计"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "video-expert-analyzer",
+      "path": "workspace-design/skills/video-expert-analyzer",
+      "categories": [
+        "视频生成"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "dreamina-reference-video",
+      "path": "workspace-design/skills/dreamina-reference-video",
+      "categories": [
+        "视频生成"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "dreamina-cli",
+      "path": "workspace-design/skills/dreamina-cli",
+      "categories": [
+        "视频生成"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "xiangqingye-desigen",
+      "path": "workspace-design/skills/xiangqingye-desigen",
+      "categories": [
+        "详情页设计"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "brand-poster-distiller",
+      "path": "workspace-design/skills/brand-poster-distiller",
+      "categories": [
+        "海报设计"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "gpt-image2-gen",
+      "path": "workspace-design/skills/gpt-image2-gen",
+      "categories": [
+        "通用设计"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "product-photography-workflow",
+      "path": "workspace-design/skills/product-photography-workflow",
+      "categories": [
+        "产品摄影"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "wenan",
+      "path": "workspace-copywriter/skills/wenan",
+      "categories": [
+        "文案创作"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "chuangyi-zj",
+      "path": "workspace-strategy/skills/chuangyi-zj",
+      "categories": [
+        "策略创意"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "huashu-design",
+      "path": "workspace-strategy/skills/huashu-design",
+      "categories": [
+        "通用设计"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    },
+    {
+      "name": "celue-zj",
+      "path": "workspace-strategy/skills/celue-zj",
+      "categories": [
+        "策略创意"
+      ],
+      "integration": {
+        "has_brand_query": true,
+        "has_project_query": true,
+        "has_task_create": true,
+        "has_output_archive": true,
+        "mentions_brand": true,
+        "mentions_project": true,
+        "uses_old_path": false,
+        "old_paths": []
+      }
+    }
+  ],
+  "needs_integration": []
+}

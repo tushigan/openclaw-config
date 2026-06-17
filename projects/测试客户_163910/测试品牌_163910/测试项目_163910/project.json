@@ -1,0 +1,21 @@
+{
+  "project_id": "PROJECT-20260617163910-657b81",
+  "brand_id": "BRD-20260617163910-363efa",
+  "client_id": "CLI-20260617163910-826e0e",
+  "campaign_name": "测试项目_163910",
+  "campaign_type": "测试",
+  "start_date": "",
+  "deadline_date": "",
+  "status": "active",
+  "lifecycle_stage": "需求收集",
+  "milestones": [],
+  "project_summary": "",
+  "current_goal": "",
+  "tags": [],
+  "created_at": "2026-06-17T16:39:10.916458",
+  "updated_at": "2026-06-17T16:39:10.916458",
+  "_last_modified_by": "system",
+  "brief_path": "",
+  "strategy_path": "",
+  "creative_direction_path": ""
+}

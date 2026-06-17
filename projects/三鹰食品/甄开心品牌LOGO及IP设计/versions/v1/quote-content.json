@@ -1,0 +1,235 @@
+{
+  "title": "甄开心品牌设计合作清单",
+  "subtitle": "项目案｜三鹰食品｜LOGO设计 + 品牌IP设计",
+  "case_type": "项目案",
+  "annual_context": {},
+  "overview_paragraphs": [
+    "本次合作围绕甄开心品牌视觉基础建设展开，重点包含品牌LOGO设计与品牌IP形象打造两大内容。",
+    "整体目标是帮助品牌先建立清晰统一的识别入口，再形成可传播、可延展、可应用的IP形象资产，为后续包装、宣传、电商及终端应用打下基础。"
+  ],
+  "pricing_summary": {
+    "label": "费用说明",
+    "details": "本次合作服务范围包含品牌LOGO设计与品牌IP设计，最终执行以双方确认后的合作清单为准。",
+    "total": "合作费用：人民币 100,000 元整"
+  },
+  "stage_plan": [],
+  "stages": [
+    {
+      "stage_name": "品牌LOGO设计服务",
+      "stage_price": "含税费用已计入总价",
+      "stage_duration": "预计 1～2 周",
+      "stage_deliverables": [
+        "LOGO方向说明",
+        "LOGO标准稿",
+        "LOGO组合规范",
+        "LOGO基础规范文件",
+        "LOGO源文件"
+      ],
+      "projects": [
+        {
+          "project_name": "LOGO策略梳理",
+          "project_deliverables": [
+            "品牌气质梳理",
+            "LOGO创意方向提案"
+          ],
+          "service_catalog_refs": [],
+          "tasks": [
+            {
+              "task_name": "品牌气质与视觉方向梳理",
+              "description_bullets": [
+                "围绕品牌名称、产品属性与目标受众，梳理适合甄开心当前阶段的品牌气质与识别方向。",
+                "帮助后续LOGO设计从一开始就对准品牌调性，而不是只停留在图形层面的表现。"
+              ],
+              "service_catalog_refs": [],
+              "catalog_status": "pending_review",
+              "catalog_candidate": {
+                "proposed_level_1_module": "品牌视觉",
+                "proposed_level_2_module": "LOGO设计",
+                "proposed_project": "LOGO策略梳理",
+                "proposed_task": "品牌气质与视觉方向梳理",
+                "description": "围绕品牌名称、产品属性与目标受众，梳理适合甄开心当前阶段的品牌气质与识别方向。",
+                "reason": "当前服务清单中缺少LOGO设计前期方向梳理类条目，需要补充入库。"
+              }
+            },
+            {
+              "task_name": "LOGO创意方向提案",
+              "description_bullets": [
+                "提出LOGO创意方向与图形语言思路，建立品牌识别的第一视觉入口。",
+                "便于客户在进入正式设计前，先对品牌表达方式形成明确判断。"
+              ],
+              "service_catalog_refs": [],
+              "catalog_status": "pending_review",
+              "catalog_candidate": {
+                "proposed_level_1_module": "品牌视觉",
+                "proposed_level_2_module": "LOGO设计",
+                "proposed_project": "LOGO策略梳理",
+                "proposed_task": "LOGO创意方向提案",
+                "description": "提出LOGO创意方向与图形语言思路，建立品牌识别的第一视觉入口。",
+                "reason": "当前服务清单中缺少LOGO创意方向提案类条目，需要补充入库。"
+              }
+            }
+          ]
+        },
+        {
+          "project_name": "LOGO设计执行",
+          "project_deliverables": [
+            "LOGO标准稿",
+            "LOGO组合规范",
+            "LOGO基础规范文件",
+            "LOGO源文件"
+          ],
+          "service_catalog_refs": [],
+          "tasks": [
+            {
+              "task_name": "LOGO标准稿设计",
+              "description_bullets": [
+                "在确认方向后完成品牌LOGO正式设计，形成品牌主识别符号。",
+                "确保LOGO在识别度、记忆点及后续延展应用上具备基础稳定性。"
+              ],
+              "service_catalog_refs": [],
+              "catalog_status": "pending_review",
+              "catalog_candidate": {
+                "proposed_level_1_module": "品牌视觉",
+                "proposed_level_2_module": "LOGO设计",
+                "proposed_project": "LOGO设计执行",
+                "proposed_task": "LOGO标准稿设计",
+                "description": "在确认方向后完成品牌LOGO正式设计，形成品牌主识别符号。",
+                "reason": "当前服务清单中缺少LOGO标准稿设计类条目，需要补充入库。"
+              }
+            },
+            {
+              "task_name": "LOGO组合与基础规范整理",
+              "description_bullets": [
+                "整理LOGO横版、竖版、图文组合及黑白、反白等基础使用规范。",
+                "便于品牌后续在包装、宣传、电商及终端场景中统一使用。"
+              ],
+              "service_catalog_refs": [],
+              "catalog_status": "pending_review",
+              "catalog_candidate": {
+                "proposed_level_1_module": "品牌视觉",
+                "proposed_level_2_module": "LOGO设计",
+                "proposed_project": "LOGO设计执行",
+                "proposed_task": "LOGO组合与基础规范整理",
+                "description": "整理LOGO横版、竖版、图文组合及黑白、反白等基础使用规范。",
+                "reason": "当前服务清单中缺少LOGO基础规范整理类条目，需要补充入库。"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage_name": "品牌IP设计服务",
+      "stage_price": "含税费用已计入总价",
+      "stage_duration": "预计 2～3 周",
+      "stage_deliverables": [
+        "IP设定方向说明",
+        "IP故事设定",
+        "IP形象定稿",
+        "IP三视图",
+        "IP应用建议图",
+        "IP源文件"
+      ],
+      "projects": [
+        {
+          "project_name": "IP定位与设定",
+          "project_deliverables": [
+            "IP角色定位",
+            "IP故事设定",
+            "IP形象提案"
+          ],
+          "service_catalog_refs": [],
+          "tasks": [
+            {
+              "task_name": "IP角色定位梳理",
+              "description_bullets": [
+                "明确IP与品牌之间的关系、角色属性、性格标签与传播定位。",
+                "帮助IP后续不仅能被看见，也能被持续使用和记住。"
+              ],
+              "service_catalog_refs": [],
+              "catalog_status": "pending_review",
+              "catalog_candidate": {
+                "proposed_level_1_module": "IP形象系统",
+                "proposed_level_2_module": "IP形象设计",
+                "proposed_project": "IP定位与设定",
+                "proposed_task": "IP角色定位梳理",
+                "description": "明确IP与品牌之间的关系、角色属性、性格标签与传播定位。",
+                "reason": "当前服务清单中缺少IP角色定位梳理类条目，需要补充入库。"
+              }
+            },
+            {
+              "task_name": "IP故事与角色设定搭建",
+              "description_bullets": [
+                "梳理IP的基础故事线、角色背景与品牌连接点，为后续传播内容打底。",
+                "让IP具备更完整的表达逻辑，而不是停留在单一形象层面。"
+              ],
+              "service_catalog_refs": [],
+              "catalog_status": "pending_review",
+              "catalog_candidate": {
+                "proposed_level_1_module": "IP形象系统",
+                "proposed_level_2_module": "IP形象设计",
+                "proposed_project": "IP定位与设定",
+                "proposed_task": "IP故事与角色设定搭建",
+                "description": "梳理IP的基础故事线、角色背景与品牌连接点，为后续传播内容打底。",
+                "reason": "当前服务清单中缺少IP故事设定类条目，需要补充入库。"
+              }
+            }
+          ]
+        },
+        {
+          "project_name": "IP形象设计执行",
+          "project_deliverables": [
+            "IP形象定稿",
+            "IP三视图",
+            "IP应用建议图",
+            "IP源文件"
+          ],
+          "service_catalog_refs": [],
+          "tasks": [
+            {
+              "task_name": "IP形象创意与造型设计",
+              "description_bullets": [
+                "提出IP整体风格方向、角色造型思路与视觉表达创意，并完成正式形象设计。",
+                "帮助客户先确认形象路线，再进入后续细化与应用。"
+              ],
+              "service_catalog_refs": [],
+              "catalog_status": "pending_review",
+              "catalog_candidate": {
+                "proposed_level_1_module": "IP形象系统",
+                "proposed_level_2_module": "IP形象设计",
+                "proposed_project": "IP形象设计执行",
+                "proposed_task": "IP形象创意与造型设计",
+                "description": "提出IP整体风格方向、角色造型思路与视觉表达创意，并完成正式形象设计。",
+                "reason": "当前服务清单中缺少IP形象创意与造型设计类条目，需要补充入库。"
+              }
+            },
+            {
+              "task_name": "IP三视图与应用建议整理",
+              "description_bullets": [
+                "输出IP正面、侧面、背面三视图，并整理基础应用延展建议。",
+                "便于品牌后续在包装、海报、物料及数字内容中统一调用。"
+              ],
+              "service_catalog_refs": [],
+              "catalog_status": "pending_review",
+              "catalog_candidate": {
+                "proposed_level_1_module": "IP形象系统",
+                "proposed_level_2_module": "IP形象设计",
+                "proposed_project": "IP形象设计执行",
+                "proposed_task": "IP三视图与应用建议整理",
+                "description": "输出IP正面、侧面、背面三视图，并整理基础应用延展建议。",
+                "reason": "当前服务清单中缺少IP三视图与应用建议类条目，需要补充入库。"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pending_catalog_items": [],
+  "service_sections": [],
+  "closing_notes": [
+    "本次合作费用为人民币 100,000 元整。",
+    "最终执行内容、交付范围与具体修改轮次，以双方确认后的合作清单为准。",
+    "如后续新增包装设计、VI延展、电商页面或线下物料应用，超出本次范围部分可另行沟通。"
+  ]
+}
