@@ -12,7 +12,7 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781688611097,
+          "lastUsedAt": 1781744411435,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/feishu-id-registry.py scan --since-days 14 --json",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -52,8 +52,8 @@
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781674269999,
-          "lastUsedCommand": "ls -la ~/.openclaw/sessions/ | grep -E \"(fast-meadow|fast-comet)\" | tail -2",
+          "lastUsedAt": 1781744457069,
+          "lastUsedCommand": "ls -la ~/.openclaw/sessions/ | grep -E \"(briny-cloud|ember-seaslug)\"",
           "lastResolvedPath": "/bin/ls"
         },
         {
@@ -108,8 +108,8 @@
           "id": "design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本进行生图",
-          "lastUsedAt": 1781689290130,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/_temp_make_cut_contact.py && python3 /Users/a123/.openclaw/workspace-design/skills/xiangqingye-desigen/scripts/probe_image_size.py /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v1/cut_preview/cut_preview_contact_sheet.jpg",
+          "lastUsedAt": 1781691108489,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v3_mobile_long_wireframe_prompt.txt --size 1280x3840 --output /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v3_mobile_long_wireframe.png --ref-style /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/style_guide.png --ref-product /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/参考/产品实物拍摄图.jpg --ref-logo /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/参考/品牌logo.jpg --ref-element /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/参考/包装与运输箱图.jpg",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -307,8 +307,8 @@
           "id": "shared-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781686494723,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/skills/boss/scripts/ensure_brand_profile.py --brand \"莎布蕾\" --extract-from \"基于世界杯球场海报作为视频创意关键帧，创建莎布蕾品牌世界杯播传视频；IP对镜头踢出足球，足球飞过镜头上方，镜头追随上转，足球飞向球场天空直到看不见，突然天空烟花绽放，出现掰成两半的曲奇烟花和GOAL英文烟花；生成视频镜头脚本。\" --json",
+          "lastUsedAt": 1781692771005,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_create_shabulei_excel.py && ls -lh /Users/a123/.openclaw/workspace/outputs/莎布蕾代言测算_客户数据收集表.xlsx",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -346,8 +346,8 @@
           "id": "shared-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1781685369977,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/outputs && python3 /Users/a123/.openclaw/workspace/_temp_make_june_calendar.py && sed -n '1,80p' /Users/a123/.openclaw/workspace/outputs/2026-06-marketing-calendar-blank.md",
+          "lastUsedAt": 1781692394591,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images/duanwu_20260617_v4",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -371,17 +371,17 @@
           "id": "shared-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781681905345,
-          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/outputs/唇动项目PPT制作说明_图表化重构版V2_不漏数据.md && grep -n \"2025实际\\|2026预算\\|2026剩余7个月目标\\|完整数据表\" /Users/a123/.openclaw/workspace/outputs/唇动项目PPT制作说明_图表化重构版V2_不漏数据.md | head -40",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1781692771006,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_create_shabulei_excel.py && ls -lh /Users/a123/.openclaw/workspace/outputs/莎布蕾代言测算_客户数据收集表.xlsx",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1781578631673,
-          "lastUsedCommand": "cat /Users/a123/.openclaw/projects/未分类客户/阿嬷秘诀/_brand-profile.json",
-          "lastResolvedPath": "/bin/cat"
+          "lastUsedAt": 1781691985464,
+          "lastUsedCommand": "python3 outputs/shengkoule_gantt/prepare_merges_dropdowns.py && cat outputs/shengkoule_gantt/merge_ranges.json",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-pwd",
@@ -416,8 +416,8 @@
           "id": "shared-file",
           "pattern": "/usr/bin/file",
           "description": "允许检测文件类型",
-          "lastUsedAt": 1781619440854,
-          "lastUsedCommand": "file /Users/a123/.openclaw/workspace/images/aldi_delight_packaging_mockup_4k.png && sips -g pixelWidth -g pixelHeight /Users/a123/.openclaw/workspace/images/aldi_delight_packaging_mockup_4k.png",
+          "lastUsedAt": 1781692405415,
+          "lastUsedCommand": "file /Users/a123/.openclaw/workspace/.openclaw-inbound-media/00953808-a1b0-4b97-a97f-0c30a3b573b4.png /Users/a123/.openclaw/workspace/.openclaw-inbound-media/4eae77d3-6c8b-4434-8883-c0a6d63d4ebc.png",
           "lastResolvedPath": "/usr/bin/file"
         },
         {
@@ -565,8 +565,8 @@
           "id": "shared-which",
           "pattern": "/usr/bin/which",
           "description": "允许定位命令路径",
-          "lastUsedAt": 1781234281953,
-          "lastUsedCommand": "which pdftotext || true; which pdfinfo || true; mkdir -p \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/research\" \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/client-assets\" && cp \"/tmp/openclaw/bot-resource-1781234259690-96a86ce9-1a67-4677-a460-6d6ade4d2673.pdf\" \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/research/卤制品市场调研报告260530.pdf\" && cp \"/tmp/openclaw/bot-resource-1781234255667-49502424-9c7e-4d35-b5d0-e356dd16e62a.jpg\" \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/client-assets/产品实物图_陈焰_20260612.jpg\" && ls -lh \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/research/卤制品市场调研报告260530.pdf\" \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/client-assets/产品实物图_陈焰_20260612.jpg\"",
+          "lastUsedAt": 1781690998784,
+          "lastUsedCommand": "which lark-cli && lark-cli --version || true",
           "lastResolvedPath": "/usr/bin/which"
         },
         {
@@ -1124,8 +1124,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781688383645,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/workstation_card_mockup_front_prompt_v1.txt --ref-layout /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/a8fb00f1-7516-455f-8e4a-fb764e1bb99c.jpg --ref-logo /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/789398e5-faa1-4527-b4c4-59c4ad555265.jpg --ref-element /Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/workstation_card_front_v1.png -s 4:3 -o /Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs/workstation_card_mockup_front_v1.png",
+          "lastUsedAt": 1781702175747,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -120",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1155,16 +1155,16 @@
           "id": "shared-design-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1781688983576,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/orange_pumpkin_stack_20260617/result_clean.png /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png && file /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png && ls -lh /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png",
+          "lastUsedAt": 1781702292121,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/chips_texture_edit/chips_translucent_thin_v1.png /Users/a123/.openclaw/workspace/feishu-deliver/chips_translucent_thin_v1.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/chips_translucent_thin_v1.png",
           "lastResolvedPath": "/bin/cp"
         },
         {
           "id": "shared-design-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1781687701346,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/projects/丹夫/丹夫/丹夫企业物料系统设计/outputs /Users/a123/.openclaw/workspace-design/images",
+          "lastUsedAt": 1781699391718,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/images /Users/a123/.openclaw/workspace/feishu-deliver && python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/outputs/chips_thin_prompt.txt --ref-layout /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/62c076b7-6a33-4105-b2fe-40f3d4b2a4a6.png --ref-style /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/e78f1d25-e69a-473a-9b98-f70d14852f54.png -s 1668x1072 -o /Users/a123/.openclaw/workspace-design/images/chips_thin_translucent_v1.png",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
@@ -1184,8 +1184,8 @@
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1781688983578,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/orange_pumpkin_stack_20260617/result_clean.png /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png && file /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png && ls -lh /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png",
+          "lastUsedAt": 1781702292122,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/chips_texture_edit/chips_translucent_thin_v1.png /Users/a123/.openclaw/workspace/feishu-deliver/chips_translucent_thin_v1.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/chips_translucent_thin_v1.png",
           "lastResolvedPath": "/bin/cp"
         },
         {
@@ -1229,17 +1229,17 @@
           "id": "shared-design-file",
           "pattern": "/usr/bin/file",
           "description": "允许检测文件类型",
-          "lastUsedAt": 1781688983577,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/orange_pumpkin_stack_20260617/result_clean.png /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png && file /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png && ls -lh /Users/a123/.openclaw/workspace-design/feishu-deliver/orange_pumpkin_stack_clean.png",
-          "lastResolvedPath": "/bin/cp"
+          "lastUsedAt": 1781692060763,
+          "lastUsedCommand": "file /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/cad6011f-5cc7-4966-82de-147e602220cd.png /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/28de0291-6494-49af-8e0b-5818e86d1a99.png && identify -format '%f %wx%h\\n' /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/cad6011f-5cc7-4966-82de-147e602220cd.png /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/28de0291-6494-49af-8e0b-5818e86d1a99.png",
+          "lastResolvedPath": "/usr/bin/file"
         },
         {
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1781688086692,
-          "lastUsedCommand": "grep -R \"mask\\|edit\\|ref-base\\|images/edits\" -n /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts | head -80",
-          "lastResolvedPath": "/usr/bin/grep"
+          "lastUsedAt": 1781702175748,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -120",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-tail",
@@ -1253,16 +1253,16 @@
           "id": "design-sed",
           "pattern": "/usr/bin/sed",
           "description": "允许做只读文本筛选（不含 -i 原地修改）",
-          "lastUsedAt": 1781688094298,
-          "lastUsedCommand": "sed -n '1340,1425p' /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py && sed -n '1020,1090p' /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py",
+          "lastUsedAt": 1781701303138,
+          "lastUsedCommand": "sed -n '840,910p' /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py",
           "lastResolvedPath": "/usr/bin/sed"
         },
         {
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
           "pattern": "/usr/bin/grep",
           "source": "allow-always",
-          "lastUsedAt": 1781688086690,
-          "lastUsedCommand": "grep -R \"mask\\|edit\\|ref-base\\|images/edits\" -n /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts | head -80",
+          "lastUsedAt": 1781701312464,
+          "lastUsedCommand": "grep -n \"RATIO_TO_PIXELS\" -A30 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py",
           "lastResolvedPath": "/usr/bin/grep",
           "description": "允许做只读文本搜索"
         },
@@ -1312,9 +1312,9 @@
           "id": "shared-design-find",
           "pattern": "/usr/bin/find",
           "description": "允许查找文件",
-          "lastUsedAt": 1781687507682,
-          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/outputs/dreamina-reference-video/projects/ranli-logo-upgrade-3x4/runs/20260617-170912-logo-logo/refs && find /Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/outputs/dreamina-reference-video/projects/ranli-logo-upgrade-3x4/runs/20260617-170912-logo-logo -maxdepth 3 -type f | sed 's#^#/##' | tail -30",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1781700190571,
+          "lastUsedCommand": "find images/chip_thin_translucent_20260617 -maxdepth 1 -type f -ls; ps -p 71091 -o pid,etime,command",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "34352226-bed6-4857-b096-abe0169a1f0d",
@@ -1415,9 +1415,9 @@
           "id": "shared-ps",
           "pattern": "/bin/ps",
           "description": "允许查看进程列表",
-          "lastUsedAt": 1781579382203,
-          "lastUsedCommand": "ps aux | grep -E 'extract_layers|run_omni|omni-vision' | grep -v grep || true",
-          "lastResolvedPath": "/bin/ps"
+          "lastUsedAt": 1781700190571,
+          "lastUsedCommand": "find images/chip_thin_translucent_20260617 -maxdepth 1 -type f -ls; ps -p 71091 -o pid,etime,command",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "shared-top",
@@ -1438,9 +1438,9 @@
           "id": "shared-design-sips",
           "pattern": "/usr/bin/sips",
           "description": "允许读取图片尺寸与格式信息",
-          "lastUsedAt": 1781687449096,
-          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\np=Path('/Users/a123/.openclaw/workspace-design/_temp_make_storyboard_script_image.py')\ns=p.read_text()\ns=s.replace(\"font_path = '/System/Library/Fonts/PingFang.ttc'\", \"font_path = '/System/Library/AssetsV2/com_apple_MobileAsset_Font7/3419f2a427639ad8c8e139149a287865a90fa17e.asset/AssetData/PingFang.ttc'\")\np.write_text(s)\nPY\npython3 /Users/a123/.openclaw/workspace-design/_temp_make_storyboard_script_image.py && sips -g pixelWidth -g pixelHeight /Users/a123/.openclaw/workspace-design/feishu-deliver/sable_worldcup_storyboard_script_table.png",
-          "lastResolvedPath": "/usr/bin/python3"
+          "lastUsedAt": 1781699968130,
+          "lastUsedCommand": "sips -g pixelWidth -g pixelHeight /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/3271a944-af3c-4548-9897-0ba2357f2edc.png /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/4b8f96b5-f55e-459a-bf06-fa6749ee6a4d.png",
+          "lastResolvedPath": "/usr/bin/sips"
         },
         {
           "id": "shared-identify",
