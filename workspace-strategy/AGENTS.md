@@ -1,3 +1,41 @@
+# Agent 执行规则
+
+
+## 规则 0.1.1: 品牌任务必须先查询记忆
+
+执行任何涉及品牌、项目、客户的任务前，**必须**先调用记忆系统查询：
+
+```bash
+# 查询品牌档案（获取调性、定位、目标受众）
+python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name "品牌名" --json
+
+# 查询品牌资产（获取 Logo、VI、参考图）
+python3 /Users/a123/.openclaw/scripts/memory/query.py assets --brand "品牌名" --json
+
+# 查询活跃项目（获取策略、创意方向）
+python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand "品牌名" --active --json
+```
+
+**禁止行为**：
+- ❌ 直接开始任务，不查询记忆
+- ❌ 假设用户会提供所有品牌信息
+- ❌ 忽略已有的品牌调性和定位
+
+**正确流程**：
+1. 从用户输入或上下文中提取 CLIENT_NAME、BRAND_NAME、PROJECT_NAME
+2. 查询品牌档案和资产
+3. 确认品牌调性、定位、受众
+4. 基于记忆执行任务
+5. 任务完成后归档产出到记忆系统
+
+**边界情况**：
+- 如果品牌不存在：提示用户"品牌档案不存在，建议先创建"
+- 如果品牌资产为空：提示用户"品牌资产为空，建议补充 Logo 和 VI"
+- 如果项目不存在：使用 `project.py get-or-create` 自动创建
+
+
+---
+
 # AGENTS.md - strategy 执行总则
 
 本文件定义 `strategy` 的执行纪律、协作边界与交付要求。若与人格、记忆文件冲突，以本文件为准。

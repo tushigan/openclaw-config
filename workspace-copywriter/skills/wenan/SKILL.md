@@ -10,6 +10,15 @@ description: 广告公司文案。用于 Campaign 主题、Slogan、KV 文案、
 ### Step 0: 项目立项与任务创建
 
 ```bash
+# 0. 验证必填变量
+if [ -z "$CLIENT_NAME" ] || [ -z "$BRAND_NAME" ] || [ -z "$PROJECT_NAME" ]; then
+    echo "❌ 缺少必填信息，请补充："
+    [ -z "$CLIENT_NAME" ] && echo "  - 客户名称 (CLIENT_NAME)"
+    [ -z "$BRAND_NAME" ] && echo "  - 品牌名称 (BRAND_NAME)"
+    [ -z "$PROJECT_NAME" ] && echo "  - 项目名称 (PROJECT_NAME)"
+    exit 1
+fi
+
 # 1. 查询或创建项目（自动创建客户和品牌）
 PROJECT_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/project.py get-or-create \
   --client "${CLIENT_NAME}" \
@@ -27,7 +36,7 @@ echo "✅ 项目已就绪: $PROJECT_ID"
 TASK_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/task.py create \
   --project-id "$PROJECT_ID" \
   --name "${TASK_NAME}" \
-  --type "copy" \
+  --type "copywriting" \
   --agent "copywriter" \
   --skill "wenan" \
   --brief "${TASK_BRIEF}" \
@@ -40,36 +49,54 @@ echo "✅ 任务已创建: $TASK_ID"
 # 3. 查询品牌档案（用于指导创作）
 BRAND_INFO=$(python3 /Users/a123/.openclaw/scripts/memory/query.py brand \
   --name "${BRAND_NAME}" \
-  --json)
+  --json 2>&1)
 
-# 提取品牌信息
-BRAND_TONE=$(echo $BRAND_INFO | jq -r '.brand_tone')
-POSITIONING=$(echo $BRAND_INFO | jq -r '.positioning')
-TARGET_AUDIENCE=$(echo $BRAND_INFO | jq -r '.target_audience')
-CORE_VALUES=$(echo $BRAND_INFO | jq -r '.core_values | join(", ")')
-
-echo "📋 品牌调性: $BRAND_TONE"
-echo "📋 品牌定位: $POSITIONING"
-echo "📋 目标受众: $TARGET_AUDIENCE"
+if echo "$BRAND_INFO" | jq -e '.brand_id' > /dev/null 2>&1; then
+    # 品牌存在，提取信息
+    BRAND_TONE=$(echo $BRAND_INFO | jq -r '.brand_tone // "未设置"')
+    POSITIONING=$(echo $BRAND_INFO | jq -r '.positioning // "未设置"')
+    TARGET_AUDIENCE=$(echo $BRAND_INFO | jq -r '.target_audience // "未设置"')
+    CORE_VALUES=$(echo $BRAND_INFO | jq -r '.core_values // [] | join(", ")')
+    
+    echo "📋 品牌调性: $BRAND_TONE"
+    echo "📋 品牌定位: $POSITIONING"
+    echo "📋 目标受众: $TARGET_AUDIENCE"
+else
+    echo "⚠️ 品牌档案不存在或查询失败，将在立项时创建"
+    # 设置默认值
+    BRAND_TONE="未设置"
+    POSITIONING="未设置"
+    TARGET_AUDIENCE="未设置"
+fi
 
 # 4. 查询品牌资产（Logo、VI、参考图）
-BRAND_ASSETS=$(python3 /Users/a123/.openclaw/scripts/memory/query.py assets \
-  --brand "${BRAND_NAME}" \
-  --json)
-
-LOGO_PATH=$(echo $BRAND_ASSETS | jq -r '.logos[0] // empty')
-if [ -n "$LOGO_PATH" ]; then
-    echo "🎨 品牌 Logo: $LOGO_PATH"
+if [ "$BRAND_TONE" != "未设置" ]; then
+    BRAND_ASSETS=$(python3 /Users/a123/.openclaw/scripts/memory/query.py assets \
+      --brand "${BRAND_NAME}" \
+      --json 2>&1)
+    
+    if echo "$BRAND_ASSETS" | jq -e '.logos' > /dev/null 2>&1; then
+        LOGO_PATH=$(echo $BRAND_ASSETS | jq -r '.logos[0] // empty')
+        if [ -n "$LOGO_PATH" ]; then
+            echo "🎨 品牌 Logo: $LOGO_PATH"
+        else
+            echo "⚠️ 品牌资产中暂无 Logo，建议补充"
+        fi
+    else
+        echo "⚠️ 品牌资产查询失败或为空"
+    fi
 fi
 ```
 
 **环境变量说明**：
 
-- `CLIENT_NAME`: 客户名称（从用户输入或上下文获取）
-- `BRAND_NAME`: 品牌名称
-- `PROJECT_NAME`: 项目名称（如"春节营销活动"）
-- `TASK_NAME`: 任务名称（如"春节海报设计"）
-- `TASK_BRIEF`: 任务简介
+执行 Step 0 前，必须先从用户输入或上下文中提取以下变量：
+
+- `CLIENT_NAME`: 客户名称（必填）
+- `BRAND_NAME`: 品牌名称（必填）
+- `PROJECT_NAME`: 项目名称（必填，如"春节营销活动"）
+- `TASK_NAME`: 任务名称（必填，如"春节海报设计"）
+- `TASK_BRIEF`: 任务简介（必填）
 
 **品牌信息使用**：
 
@@ -78,6 +105,12 @@ fi
 - `POSITIONING`: 品牌定位（用于确定传播策略）
 - `TARGET_AUDIENCE`: 目标受众（用于内容方向）
 - `LOGO_PATH`: 品牌 Logo（用于设计中的 Logo 使用）
+
+**边界情况处理**：
+
+- 如果品牌档案不存在，系统会提示"将在立项时创建"
+- 如果品牌资产为空，系统会提示"建议补充"
+- 变量提取失败会使用默认值"未设置"，不会中断流程
 
 ---
 

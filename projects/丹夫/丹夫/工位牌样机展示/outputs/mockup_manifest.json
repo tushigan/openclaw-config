@@ -1,0 +1,26 @@
+{
+  "input_design": "/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/a76259ac-0781-40ae-a83d-bbee8258634d.jpg",
+  "input_environment": "/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/2fc1f64c-408c-4f95-98b9-e7b3ccbd284b.jpg",
+  "note": "工位牌画面仅做透视贴合与环境光影融合，未重绘原设计内容。",
+  "output": "/Users/a123/.openclaw/projects/丹夫/丹夫/工位牌样机展示/outputs/丹夫_工位牌样机展示_v1.png",
+  "output_hi": "/Users/a123/.openclaw/projects/丹夫/丹夫/工位牌样机展示/outputs/丹夫_工位牌样机展示_2x_v1.png",
+  "delivery_copy": "/Users/a123/.openclaw/workspace/feishu-deliver/丹夫_工位牌样机展示_v1.png",
+  "target_quad_original_px": [
+    [
+      280,
+      482
+    ],
+    [
+      655,
+      486
+    ],
+    [
+      655,
+      560
+    ],
+    [
+      280,
+      554
+    ]
+  ]
+}
