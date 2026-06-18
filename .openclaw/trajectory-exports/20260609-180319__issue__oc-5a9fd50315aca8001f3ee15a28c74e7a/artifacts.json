@@ -1,0 +1,48 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T10:03:21.371Z",
+  "traceId": "e05fcd18-7754-4f81-b8b8-80862e9f0101",
+  "sessionId": "e05fcd18-7754-4f81-b8b8-80862e9f0101",
+  "sessionKey": "agent:research-shared:feishu:group:oc_5a9fd50315aca8001f3ee15a28c74e7a",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 25310,
+    "output": 115,
+    "cacheRead": 18944,
+    "total": 44369
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 25310,
+      "output": 115,
+      "cacheRead": 18944,
+      "cacheWrite": 0,
+      "total": 44369
+    },
+    "lastCacheTouchAt": 1780999146499
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "NO_REPLY"
+  ],
+  "finalPromptText": "ok 可以～",
+  "itemLifecycle": {
+    "startedCount": 0,
+    "completedCount": 0,
+    "activeCount": 0
+  },
+  "toolMetas": [],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

@@ -1,0 +1,37 @@
+{
+  "project_id": "PROJECT-20260617172118-786fe3",
+  "task_id": "TASK-20260617172128-077f15",
+  "client": "泓一",
+  "brand": "WokenDay",
+  "project_name": "巧克力小吐司详情页",
+  "created_or_updated_at": "2026-06-17T17:34:21+08:00",
+  "execution_workspace": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617",
+  "execution_agent": "design",
+  "skill": "xiangqingye-desigen",
+  "current_stage": "wireframe_qa_passed / awaiting wireframe cut confirmation",
+  "key_files": {
+    "local_project_progress": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/progress.json",
+    "memory_link": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/memory_task_link.json",
+    "facts": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/facts.json",
+    "asset_registry": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/asset_registry.json",
+    "brand_asset_confirmed": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/参考/brand_asset_confirmed.json",
+    "brand_knowledge_confirmed": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/策划/brand_knowledge_confirmed.json",
+    "strategy": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/策划/strategy_v1.md",
+    "copywriting": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/策划/copywriting_v1.md",
+    "style_guide": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/style_guide.png",
+    "wireframe": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v1/wireframe_all.png",
+    "wireframe_qa_report": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v1/wireframe_qa_report_parent.json",
+    "head_images_dir": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/头图/v1",
+    "head_contact_sheet": "/Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/头图/v1/head_contact_sheet_v1.jpg"
+  },
+  "next_actions": [
+    "生成手稿切段预览 cut_preview/",
+    "生成 cut_report.md 与 cut_manifest.json",
+    "发给用户确认切段结构",
+    "确认后进入最终成稿分段生成"
+  ],
+  "known_risks": [
+    "头图首版部分返回非方形比例，不能直接作为最终交付，需要统一重做或导出方图。",
+    "手稿为方形总览画板，用户可能不直观；后续需明确说明或改为竖版分段预览。"
+  ]
+}

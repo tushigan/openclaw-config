@@ -1,0 +1,58 @@
+{
+  "project_id": "麦初心语-蛋糕棒产品整案报价-001",
+  "client_name": "麦初心语",
+  "project_name": "蛋糕棒产品整案报价",
+  "project_slug": "蛋糕棒产品整案报价",
+  "status": "revising",
+  "current_version": "v11",
+  "created_at": "2026-05-18T19:56:49.197951+08:00",
+  "updated_at": "2026-05-22T15:33:34.720827+08:00",
+  "project_summary": "对客HTML过稿版本，已扩充详情页配套服务任务颗粒度，增强价值感表达。",
+  "output_mode": "html_pdf",
+  "pricing_owner": "human",
+  "suggested_case_type": "项目案",
+  "confirmed_case_type": "项目案",
+  "business_goal": "基于会议纪要与现场样品信息，形成一版符合标准服务清单的正式报价结构。",
+  "service_scope": [
+    "企业调研分析",
+    "现有产品盘点",
+    "现有包装卖点及视觉盘点",
+    "产品沟通策略",
+    "产品线与规格整理",
+    "包装策略与创意定义",
+    "包装设计执行",
+    "婚庆渠道包装策划设计",
+    "婚庆渠道包装设计执行",
+    "详情页策划与设计"
+  ],
+  "excluded_scope": [
+    "产品研发建议",
+    "第二轮服务内容",
+    "第三方增量费用"
+  ],
+  "catalog_pending_summary": [],
+  "missing_info": [],
+  "open_questions": [
+    "正式价格何时补入"
+  ],
+  "key_decisions": [
+    "本版作为对客正式版本",
+    "不再使用第一阶段口径",
+    "任务明细按公司服务内容颗粒度展开",
+    "继续去掉服务部门与负责人列"
+  ],
+  "source_materials": [],
+  "versions": [
+    "v1",
+    "v2",
+    "v3",
+    "v4",
+    "v5",
+    "v6",
+    "v7",
+    "v8",
+    "v9",
+    "v10",
+    "v11"
+  ]
+}

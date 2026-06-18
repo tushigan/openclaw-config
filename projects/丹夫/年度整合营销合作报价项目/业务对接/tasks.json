@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "project_id": "丹夫-年度整合营销合作报价项目",
+  "tasks": [
+    {
+      "task_id": "task-20260528-001",
+      "title": "补建丹夫报价项目主档",
+      "description": "将丹夫历史报价文件从 deliverables 收口到标准 business 项目目录，并补写主档。",
+      "status": "done",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-28T10:20:00+08:00",
+      "updated_at": "2026-05-28T10:20:00+08:00",
+      "source_progress_id": "prog-20260528-001",
+      "related_material_ids": [
+        "mat-20260521-001"
+      ],
+      "related_quote_version": "v4-70wan-latest-found",
+      "completion_note": "已补建项目目录、主 JSON，并归档 v1-v4 报价文件与 v4 PDF。"
+    },
+    {
+      "task_id": "task-20260528-002",
+      "title": "确认丹夫最终报价版本状态",
+      "description": "确认 v4-70万 是否已发客户、是否为最终定稿，以及是否还存在后续未归档版本。",
+      "status": "done",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-28T10:20:00+08:00",
+      "updated_at": "2026-05-28T10:26:00+08:00",
+      "source_progress_id": "prog-20260528-002",
+      "related_material_ids": [
+        "mat-20260521-001"
+      ],
+      "related_quote_version": "v4-client-delivered",
+      "completion_note": "用户已确认 v4 版本发过客户；当前进入客户反馈后的修改阶段。"
+    },
+    {
+      "task_id": "task-20260528-003",
+      "title": "记录客户最新反馈并启动 v5 修改",
+      "description": "收集昨日客户电话反馈，明确修改项，并基于 v4 已发客户版继续出下一轮版本。",
+      "status": "todo",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-28T10:26:00+08:00",
+      "updated_at": "2026-05-28T10:26:00+08:00",
+      "source_progress_id": "prog-20260528-002",
+      "related_material_ids": [
+        "mat-20260521-001"
+      ],
+      "related_quote_version": "v4-client-delivered",
+      "completion_note": ""
+    }
+  ]
+}

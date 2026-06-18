@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "project_id": "丹夫-年度整合营销合作报价项目",
+  "entries": [
+    {
+      "progress_id": "prog-20260528-001",
+      "recorded_at": "2026-05-28T10:20:00+08:00",
+      "event_type": "intake",
+      "stage_before": "",
+      "stage_after": "待确认报价状态",
+      "summary": "补建丹夫报价项目主档并回收历史版本文件",
+      "details": "发现丹夫项目此前已有连续报价交付文件，但未在 business 项目目录中系统立项。已补建项目目录，归档 v1-v4 报价文件、v4 PDF 及一份 PPT 策划材料。",
+      "key_decisions": [
+        "先按业务项目补建主档，而不是继续散落在 deliverables 下管理",
+        "当前最新发现版本记为 v4-70万",
+        "在无明确证据前，不把 v4 直接写为已发客户最终版"
+      ],
+      "open_questions": [
+        "v4-70万 是否已正式发给客户",
+        "v4-70万 是否就是最终定稿",
+        "原始客户沟通材料和正式联系人信息在哪里"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "补写 quote 项目结构与版本说明",
+        "生成 quote-handoff.json",
+        "等待用户确认最终版状态或补充原始沟通材料"
+      ],
+      "source_material_ids": [
+        "mat-20260521-001"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/notes/summaries/2026-05-28_建档摘要.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-20260528-002",
+      "recorded_at": "2026-05-28T10:26:00+08:00",
+      "event_type": "quote-feedback",
+      "stage_before": "待确认报价状态",
+      "stage_after": "已报价",
+      "summary": "确认 v4 已发客户，项目进入客户反馈后二次修改阶段",
+      "details": "用户确认当前归档的 v4 版本已发给客户。昨日客户电话提出新反馈，需要基于该版本继续修改，因此项目状态切换为已报价，并进入反馈后迭代阶段。",
+      "key_decisions": [
+        "将 v4-70万 回写为已发客户版本",
+        "当前修改基线以 v4 版本为准",
+        "本轮工作不是重新立项报价，而是基于已报价版本继续迭代"
+      ],
+      "open_questions": [
+        "客户最新反馈的具体条目是什么",
+        "本轮是结构调整、文案调整，还是价格与范围调整",
+        "修改后是否需要生成 v5 并再次发客户"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "记录客户反馈",
+        "确认修改范围",
+        "基于 v4 产出下一轮版本"
+      ],
+      "source_material_ids": [
+        "mat-20260521-001"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/notes/summaries/2026-05-28_建档摘要.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    }
+  ]
+}

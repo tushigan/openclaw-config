@@ -1,0 +1,69 @@
+{
+  "timestamp": "2026-06-15T23:08:20.985646",
+  "total_tests": 10,
+  "passed": 10,
+  "failed": 0,
+  "errors": [],
+  "details": [
+    {
+      "test": "客户创建 + 自动注册",
+      "success": true,
+      "message": "客户创建成功且已自动注册到注册表",
+      "details": ""
+    },
+    {
+      "test": "品牌创建 + 自动注册",
+      "success": true,
+      "message": "品牌创建成功且已自动注册到注册表",
+      "details": ""
+    },
+    {
+      "test": "品牌查询",
+      "success": true,
+      "message": "品牌查询成功，数据完整",
+      "details": ""
+    },
+    {
+      "test": "列出所有品牌",
+      "success": true,
+      "message": "列出品牌成功，测试品牌在列表中",
+      "details": ""
+    },
+    {
+      "test": "健康检查",
+      "success": true,
+      "message": "健康检查完成 (状态码: 0)",
+      "details": ""
+    },
+    {
+      "test": "注册表同步（预览）",
+      "success": true,
+      "message": "注册表同步预览成功",
+      "details": ""
+    },
+    {
+      "test": "品牌更新冲突检测",
+      "success": true,
+      "message": "冲突检测机制正常工作",
+      "details": ""
+    },
+    {
+      "test": "ensure_brand_profile 自动创建",
+      "success": true,
+      "message": "ensure_brand_profile 自动创建成功且已注册",
+      "details": ""
+    },
+    {
+      "test": "特殊字符处理",
+      "success": true,
+      "message": "特殊字符处理正常",
+      "details": ""
+    },
+    {
+      "test": "缺失必填字段处理",
+      "success": true,
+      "message": "缺失字段处理正常（允许空值）",
+      "details": ""
+    }
+  ]
+}

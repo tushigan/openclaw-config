@@ -1,0 +1,80 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T09:03:29.121Z",
+  "traceId": "3c08f5ff-70d5-4ce8-8d69-686bd941d3a0",
+  "sessionId": "3c08f5ff-70d5-4ce8-8d69-686bd941d3a0",
+  "sessionKey": "agent:research-shared:feishu:group:oc_83b7895cba825fef7e65c7542622889d",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 81103,
+    "output": 925,
+    "cacheRead": 252928,
+    "total": 334956
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 1004,
+      "output": 6,
+      "cacheRead": 66560,
+      "cacheWrite": 0,
+      "total": 67570
+    },
+    "lastCacheTouchAt": 1780994702269
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "NO_REPLY"
+  ],
+  "finalPromptText": "导出聊天记录",
+  "itemLifecycle": {
+    "startedCount": 6,
+    "completedCount": 6,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "read",
+      "meta": "lines 1-220 from ~/.openclaw/skills/session-debug-export/SKILL.md"
+    },
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/workspace-research/outputs/_temp_export_chat_report.py (in ~/.openclaw/workspace-research)"
+    },
+    {
+      "toolName": "exec",
+      "meta": "list files in ~/Downloads/openclaw 问题汇总/20260609-164434-oc_83b7895cba825fef7e65c7542622889d-聊天记录导出.md (in ~/.openclaw/workspace-research)"
+    },
+    {
+      "toolName": "message",
+      "meta": "om_x100b6d496a64e0a0c347822a7a91d8d"
+    }
+  ],
+  "didSendViaMessagingTool": true,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [
+    "已导出，见附件。"
+  ],
+  "messagingToolSentMediaUrls": [
+    "~/Downloads/openclaw 问题汇总/20260609-164434-oc_83b7895cba825fef7e65c7542622889d-聊天记录导出.md"
+  ],
+  "messagingToolSentTargets": [
+    {
+      "tool": "message",
+      "provider": "feishu",
+      "accountId": "research",
+      "to": "oc_83b7895cba825fef7e65c7542622889d",
+      "text": "已导出，见附件。",
+      "mediaUrls": [
+        "~/Downloads/openclaw 问题汇总/20260609-164434-oc_83b7895cba825fef7e65c7542622889d-聊天记录导出.md"
+      ]
+    }
+  ]
+}

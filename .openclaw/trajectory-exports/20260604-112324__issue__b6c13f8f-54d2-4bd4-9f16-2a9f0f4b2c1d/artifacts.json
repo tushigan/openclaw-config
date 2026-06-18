@@ -1,0 +1,64 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-04T03:23:26.150Z",
+  "traceId": "f1b2fe79-ac0e-4e78-bd55-d2d04c45ba2f",
+  "sessionId": "f1b2fe79-ac0e-4e78-bd55-d2d04c45ba2f",
+  "sessionKey": "agent:main:cron:b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 8656,
+    "output": 627,
+    "cacheRead": 9709,
+    "cacheWrite": 1830,
+    "total": 20822
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 2177,
+      "output": 119,
+      "cacheRead": 2912,
+      "cacheWrite": 37,
+      "total": 5245
+    },
+    "lastCacheTouchAt": 1780542048151
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "我开始执行交付补偿巡检。",
+    "等待 registry 扫描完成...",
+    "两个审计脚本都在运行中，等待结果..."
+  ],
+  "finalPromptText": "[cron:b6c13f8f-54d2-4bd4-9f16-2a9f0f4b2c1d OpenClaw交付补偿巡检-涂是淦] 你是 OpenClaw 交付补偿巡检。目标：发现最近任务完成但没有反馈、图片/视频已生成但没有真实发到飞书、或 agent 承诺执行但没有启动工具/需要用户催促才继续的问题，并主动补救。\n\n步骤：\n1. 先执行 `python3 $WORKSPACE_DIR/scripts/feishu-id-registry.py scan --since-days 14 --json`，刷新飞书群聊/私聊 ID registry。\n2. 再执行 `python3 $WORKSPACE_DIR/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5`。\n3. 如果结果里 `stalled_commitments`、`background_execs`、`subagents` 和 `undelivered_manifests` 都为空，直接结束，不要向用户发送任何消息。\n4. 发送补偿消息/媒体时，优先使用 finding 里的 `target` 作为 `target`、`account_id` 作为 `accountId`，把结果发回原群/原会话。`target` 可能是 `chat:oc_xxx`，也可能是 `user:ou_xxx`。如果 finding 没有 `target`，但有 `source_session_file`，再用 `python3 $WORKSPACE_DIR/scripts/feishu-id-registry.py resolve --session-file <session_file> --json` 查 registry。只有仍然没有可用 `target` 时，才允许考虑 fallback 给 `target=\"user:ou_88079e6b06ce40e6851c96928fe1a03b\"`、`accountId=\"main\"`，并且必须在消息里明确说明原任务属主和解析失败原因。\n5. 如果存在 `stalled_commitments`，说明某个会话说了“我先生成/开始跑/下一步发图”等承诺，但超过 5 分钟没有主动启动工具，或 finding 里 `required_user_chase=true` 表示用户追问后才继续。先根据 `session_file` 和文本判断任务；若能从上下文恢复输入，就继续启动对应生成/发送流程；若不能恢复，给原会话发一条短说明：任务没有真正启动或没有主动交付，需要重新发起或补充输入。不要装作还在处理。\n6. 如果存在 `background_execs`，逐条查看 `command`：对 Dreamina/即梦任务，先执行 `dreamina list_task`，找到最近同 prompt/同任务类型的记录；若是 `querying`，继续 `dreamina query_result --submit_id=...`；若是 `success`，下载视频/图片到 `$WORKSPACE_DIR/workspace/feishu-deliver/` 后发送真实媒体；若是 `fail`，把 `fail_reason` 短告知用户。对 Kling/其它异步命令，也按命令里的 task id 或输出路径查询结果。不能只发 URL 或本地路径文本。\n7. 如果存在 `pending_final_delivery=true`、`subagent-error`、或 `undelivered_manifests`，先判断是否有可发送文件：优先使用每条 manifest 的 `send_path`，且必须确认 `send_path_exists=true`。注意：这里包括品牌海报 manifest，也包括普通生图工具的 `images/*.delivery.json` / `outputs/*.delivery.json`。如果 finding 的 `target_resolved=false`，先看是否至少有 `fallback_owner_summary`、`source_sender_name`、`source_sender_open_id`、`source_session_file`、`target_conflict_reason` 这些属主和失败线索。\n\n7.5. 【重要】检查每条 finding 的 `target_confidence` 字段。如果 `target_confidence` 为 `low`，说明 targe...<truncated>",
+  "itemLifecycle": {
+    "startedCount": 6,
+    "completedCount": 6,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/scripts/feishu-id-registry.py"
+    },
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/scripts/feishu-id-registry.py"
+    },
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/scripts/audit-feedback-gaps.py"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

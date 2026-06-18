@@ -1,0 +1,100 @@
+{
+  "status": "succeeded",
+  "phase": "generated",
+  "ok": true,
+  "started_at": "2026-06-16T02:36:56.180663Z",
+  "finished_at": "2026-06-16T02:38:13.664069Z",
+  "duration_seconds": 109.968,
+  "exit_code": 0,
+  "prompt": "4K 16:9 storyboard keyframe, Ranli logo upgrade film segment 1. Show OLD Ranli logo as hero on clean red brand background, with subtle design analysis lines and OLD packaging details from references. Meaning: old identity served past stage, now brand needs clearer professional channel identity. Premium restrained food brand style. Use only old logo and confirmed old packaging. No soup dumpling, no grapefruit chiffon, no invented packaging, no extra text.\n\nReference images (by role — obey each role strictly, do not swap them):\n- Image 1: brand LOGO — must be reproduced precisely, do not redraw, do not distort, do not invent new marks\n- Image 2: product reference — keep packaging shape, real materials and color identity faithful\n- Image 3: product reference — keep packaging shape, real materials and color identity faithful\n- Image 4: artistic tone reference — imitate only style, palette and mood, do NOT copy its content/objects",
+  "size": "3840x2160",
+  "aspect": "1:1",
+  "model": "gpt-image-2",
+  "count": 1,
+  "references": [
+    "/Users/a123/.openclaw/tmp/ranli-brand-upgrade-assets/01_old_logo.jpg",
+    "/Users/a123/.openclaw/tmp/ranli-brand-upgrade-assets/06_packaging_A_old_logo.jpg",
+    "/Users/a123/.openclaw/tmp/ranli-brand-upgrade-assets/08_packaging_B_old_logo.jpg",
+    "/Users/a123/.openclaw/tmp/ranli-brand-upgrade-assets/03_logo_slogan_final.jpg"
+  ],
+  "output": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/01_why_upgrade.png",
+  "exists": true,
+  "size_bytes": 1954824,
+  "stdout_log": "",
+  "stderr_log": "",
+  "delivery_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/01_why_upgrade.delivery.json",
+  "generation_status": "generated",
+  "delivery_status": "pending_target_resolution",
+  "delivery_attempted": false,
+  "delivery_attempted_at": null,
+  "delivery_method": "lark-cli",
+  "delivery_target": {
+    "target": "",
+    "user_id": "",
+    "chat_id": "",
+    "account_id": "",
+    "source_session_key": "",
+    "target_source": "recent_session_scan",
+    "target_candidates": [
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+        "source_sender_name": "吴佳滢",
+        "target_source": "recent_session_scan"
+      }
+    ],
+    "target_conflict_reason": "recent_session_scan_not_trusted",
+    "channel": "feishu"
+  },
+  "delivery_evidence": {
+    "ok": false,
+    "reason": "missing_delivery_target",
+    "sent_paths": [],
+    "results": []
+  },
+  "fallback_required": true,
+  "fallback_reason": "missing_delivery_target",
+  "user_report": "IMAGE GENERATED BUT TARGET NOT RESOLVED",
+  "error": "missing_delivery_target",
+  "delivered_paths": [],
+  "target_candidates": [
+    {
+      "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+      "account_id": "design",
+      "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+      "source_sender_open_id": "",
+      "source_sender_name": "",
+      "target_source": "recent_session_scan"
+    },
+    {
+      "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+      "account_id": "design",
+      "source_session_key": "",
+      "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+      "source_sender_name": "吴佳滢",
+      "target_source": "recent_session_scan"
+    }
+  ],
+  "target_conflict_reason": "recent_session_scan_not_trusted",
+  "result_path": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/01_why_upgrade.result.json",
+  "provider_mode": "auto",
+  "api_base_url": "https://n.lconai.com",
+  "api_provider": "n.lconai",
+  "requested_model": "gpt-image-2",
+  "effective_model": "gpt-image-2-pro",
+  "references_count": 4,
+  "requested_output": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/01_why_upgrade.png",
+  "requested_alias_paths": [],
+  "task_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/task_manifest.json",
+  "delivery_error": "missing_delivery_target"
+}

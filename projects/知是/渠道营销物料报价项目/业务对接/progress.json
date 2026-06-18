@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0",
+  "project_id": "知是-渠道营销物料报价项目",
+  "entries": [
+    {
+      "progress_id": "prog-20260525-001",
+      "recorded_at": "2026-05-25T16:25:00+08:00",
+      "event_type": "intake",
+      "stage_before": "",
+      "stage_after": "待报价",
+      "summary": "根据客户沟通截图完成知是项目首轮需求建档",
+      "details": "已整理出原有渠道包装设计需求与新增营销配套物料需求，并形成报价前分析笔记。",
+      "key_decisions": [
+        "本轮先按包装需求与营销需求双模块整理",
+        "营销部分暂按基础物料包口径理解",
+        "先补范围，不先报价格"
+      ],
+      "open_questions": [
+        "营销物料服务于永辉单渠道还是多渠道共用",
+        "视频横版/竖版及版本数量",
+        "详情页是电商页还是招商介绍长图",
+        "冷柜陈列物料是单件还是整组",
+        "海报是一套KV延展还是多主题海报"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "输出报价需求清单初稿",
+        "确认营销物料使用口径",
+        "再生成正式报价交接件"
+      ],
+      "source_material_ids": [
+        "mat-20260525-001"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/notes/summaries/2026-05-25_新增渠道营销需求分析.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-20260525-002",
+      "recorded_at": "2026-05-25T16:45:31+08:00",
+      "event_type": "quote-prep",
+      "stage_before": "待报价",
+      "stage_after": "待报价",
+      "summary": "已补齐知是项目报价结构关键口径",
+      "details": "明确了永辉与泸溪河包装颗粒度、泸溪河提报PPT、双套营销物料、视频横版、冷柜整组陈列、渠道线上详情页及海报数量。",
+      "key_decisions": [
+        "永辉包装按已有主设计基础上的优化与展开处理",
+        "泸溪河包装按1款2枚装处理",
+        "泸溪河另含1份产品提报PPT策划及设计",
+        "营销物料按两套计算",
+        "视频先按横版口径整理",
+        "冷柜物料按整组陈列整理",
+        "详情页用于渠道线上平台",
+        "海报每套3张"
+      ],
+      "open_questions": [
+        "永辉包装优化是否含刀版展开规范整理",
+        "泸溪河包装是否有既有品牌视觉规范",
+        "PPT页数区间与是否含文案",
+        "视频时长与制作方式",
+        "海报是同KV延展还是独立主题"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "按分模块结构生成正式报价稿",
+        "补价格与修改边界",
+        "准备正式报价交接件"
+      ],
+      "source_material_ids": [
+        "mat-20260525-001"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/quote/2026-05-25_报价需求清单_v1.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-20260527-003",
+      "recorded_at": "2026-05-27T18:06:00+08:00",
+      "event_type": "quote-revision",
+      "stage_before": "待报价",
+      "stage_after": "待报价",
+      "summary": "知是报价完成多轮结构与价格调整，已形成 v5 可交付版",
+      "details": "围绕未本 × 知是渠道产品服务明细，连续完成板块数量、详情页与海报单价、包装细化执行与延展设计拆分、栏目重排、延展设计任务展开，以及 HTML/PDF 交付修正。最终沉淀 v5 HTML 与修正后的 PDF。",
+      "key_decisions": [
+        "板块一调整为渠道产品提报服务，数量1套，费用2万/套",
+        "板块二拆分为包装细化执行与延展设计两个独立分栏",
+        "包装细化执行保留任务展开写法，费用3万/SKU",
+        "延展设计需单独分栏并展开任务，礼盒类延展5万/款，常规包装类延展3万/款",
+        "营销物料中视频数量单位改为1条，详情页为1.2万/条，海报为1.5万/组",
+        "备注说明删除原第2条"
+      ],
+      "open_questions": [
+        "v5 版本是否作为最终正式定稿对外使用",
+        "是否还需要继续调整文案细节或版式表现",
+        "是否要把当前口径同步进入正式报价流转文件"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "等待用户确认 v5 版是否最终定稿",
+        "若定稿，回写正式报价状态与输出结果",
+        "如继续修改，基于 v5 版本迭代"
+      ],
+      "source_material_ids": [
+        "mat-20260525-001"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/quote/versions/v5/未本x知是渠道产品服务明细_交付版_已修改_v5.html",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-20260527-004",
+      "recorded_at": "2026-05-27T18:09:57+08:00",
+      "event_type": "quote-finalized",
+      "stage_before": "待报价",
+      "stage_after": "已报价",
+      "summary": "知是报价 v5 已定稿并已发给客户",
+      "details": "用户明确确认 v5 版本作为最终定稿，并说明该版本已经发送给客户。项目状态从待报价切换为已报价。",
+      "key_decisions": [
+        "v5 作为最终正式报价版本",
+        "最终对外发送版本为 v5 HTML/PDF 口径",
+        "后续如有反馈，基于 v5 继续迭代"
+      ],
+      "open_questions": [
+        "客户是否会提出修改意见",
+        "是否进入后续商务谈判或执行准备"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "等待客户反馈",
+        "如客户无修改，推进后续商务流程",
+        "如客户有修改，基于 v5 版本迭代"
+      ],
+      "source_material_ids": [
+        "mat-20260525-001"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/quote/versions/v5/未本x知是渠道产品服务明细_交付版_已修改_v5_正确版.pdf",
+      "recorded_by": "business",
+      "source_material_count": 1
+    }
+  ]
+}

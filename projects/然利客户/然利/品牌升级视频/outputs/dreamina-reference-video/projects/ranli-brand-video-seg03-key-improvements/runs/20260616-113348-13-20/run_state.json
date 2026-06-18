@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "run_id": "20260616-113348-13-20",
+  "project_id": "ranli-brand-video-seg03-key-improvements",
+  "stage": "generate_refs",
+  "status": "references_generated",
+  "created_at": "2026-06-16T11:33:48+08:00",
+  "updated_at": "2026-06-16T12:02:06+08:00",
+  "config_snapshot": {
+    "project_name": "然利品牌升级视频第三段故事板",
+    "project_slug": "ranli-brand-video-seg03-key-improvements",
+    "video_mode": "non_ip_poster",
+    "ratio": "16:9",
+    "duration": 7,
+    "quality_tier": "draft",
+    "language": "zh-CN",
+    "storyboard_strategy": "auto_beats",
+    "storyboard_panel_count_override": 4,
+    "storyboard_beats_override": [
+      "格1：新Logo结构线和比例网格出现，画面开始从设计系统角度讲提升点。",
+      "格2：外框归整，比例线收束，然利主字更聚焦，结构更稳定。",
+      "格3：擀面杖符号作为品牌记忆点被保留并强调，新旧Logo可轻微闪现对比但不长停。",
+      "格4：新Logo稳定落位，画面呈现专业品牌感，为后续包装应用做铺垫。"
+    ],
+    "identity_strategy": null,
+    "identity_anchor_rules": [],
+    "identity_structure": [],
+    "identity_forbidden": [],
+    "has_existing_references": true,
+    "anchor_elements": [],
+    "notes": "只生成这一段的四宫格故事板图片，不生成视频。每格独立16:9。参考素材：02新Logo、03新Logo+广告语，可少量使用01旧Logo做对比。禁止汤包、禁止虚构包装、禁止多余字幕。",
+    "normalize_references": true,
+    "brand_name": "然利",
+    "subject": "第三段｜做了哪些提升 / 关键点，13-20秒，四宫格故事板",
+    "action": "生成一张四宫格故事板，只描述第三段13-20秒。新Logo结构更稳定、比例更舒服、主品牌更突出，在包装和渠道展示里更清晰，整体从手工标签转向专业品牌感。",
+    "scene": "新Logo在网格和比例线中成型，外框归整，然利主字更聚焦，擀面杖符号作为品牌记忆点保留，最后新Logo稳定落位，可轻微带一帧新旧Logo对比但不要停太久。",
+    "style": "视觉上像品牌设计发布片，不是PPT说明片；现代、清晰、高级、规范，有设计发布感。",
+    "existing_references": {
+      "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/02_new_logo.jpg"
+    },
+    "storyboard_beats": [
+      "格1：新Logo结构线和比例网格出现，画面开始从设计系统角度讲提升点。",
+      "格2：外框归整，比例线收束，然利主字更聚焦，结构更稳定。",
+      "格3：擀面杖符号作为品牌记忆点被保留并强调，新旧Logo可轻微闪现对比但不长停。",
+      "格4：新Logo稳定落位，画面呈现专业品牌感，为后续包装应用做铺垫。"
+    ],
+    "storyboard_panel_count": 4,
+    "slug": "13-20"
+  },
+  "prompt_files": {
+    "original": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/prompts/original.txt",
+    "identity_board": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/prompts/identity-board.txt",
+    "storyboard": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/prompts/storyboard.txt",
+    "video": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/prompts/video.txt"
+  },
+  "reference_files": {
+    "original": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/refs/original.png",
+    "storyboard": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/refs/storyboard.png",
+    "final_frame_poster": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/refs/final-frame-poster.png",
+    "normalized_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/refs/normalized/manifest.json"
+  },
+  "artifacts": {
+    "downloads_dir": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/dreamina/downloads"
+  },
+  "prompt_risk_report": {
+    "original": {
+      "prompt_name": "original",
+      "risks": [
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 237",
+          "original_text": "带一帧新旧Logo对比但不要停太久。\n风格 / 气质：视觉上像品牌设计发布片，不是PPT说明片；现代、清晰、高级、规范，有",
+          "reason": "使用了概念型描述词 '像'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 15 处否定词",
+          "original_text": "否定词位置: [219, 382, 390, 399, 486]...",
+          "reason": "prompt 中有 15 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "原图任务：只负责风格与世界，不负责镜头顺序。\n主体：第三段｜做了哪些提升 / 关键点，13-20秒，四宫格故事板\n主体行为：生成一张四宫格故事板，只描述第三段13-20秒。新Logo结构更稳定、比例更舒服、主品牌更突出，在包装和渠道展示里更清晰，整体从手工标签转向专业品牌感。\n场景 / 世界观：新Logo在网格和比例线中成型，外框归整，然利主字更聚焦，擀面杖符号作为品牌记忆点保留，最后新Logo稳定落位，可轻微带一帧新旧Logo对比但不要停太久。\n风格 / 气质：视觉上具体特征是品牌设计发布片，不是PPT说明片；现代、清晰、高级、规范，有设计发布感。\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 先建立完整世界观和主画面气质。\n2. 让主体与环境关系清晰，能作为后续身份板和故事板的世界基准。\n3. 保持电影感、真实感、可继续扩展成视频的空间信息。\n4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。\n补充说明：只生成这一段的四宫格故事板图片，不生成视频。每格独立16:9。参考素材：02新Logo、03新Logo+广告语，可少量使用01旧Logo做对比。禁止汤包、禁止虚构包装、禁止多余字幕。"
+      }
+    },
+    "identity_board": {
+      "prompt_name": "identity_board",
+      "risks": [],
+      "rewrite_suggestions": {}
+    },
+    "storyboard": {
+      "prompt_name": "storyboard",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 10 处否定词",
+          "original_text": "否定词位置: [243, 622, 627, 634, 261]...",
+          "reason": "prompt 中有 10 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "无 IP 尾帧海报动效脚本：只规划产品/场景动效和镜头节奏，不生成角色身份板。\n主体：第三段｜做了哪些提升 / 关键点，13-20秒，四宫格故事板\n主体行为 / 动效主线：生成一张四宫格故事板，只描述第三段13-20秒。新Logo结构更稳定、比例更舒服、主品牌更突出，在包装和渠道展示里更清晰，整体从手工标签转向专业品牌感。\n场景 / 世界观：新Logo在网格和比例线中成型，外框归整，然利主字更聚焦，擀面杖符号作为品牌记忆点保留，最后新Logo稳定落位，可轻微带一帧新旧Logo对比但不要停太久。\n空间锚点：保留能稳定识别空间关系的地标\n比例：16:9\n时长：7 秒\n\n关键节奏：\n1. 格1：新Logo结构线和比例网格出现，画面开始从设计系统角度讲提升点。\n2. 格2：外框归整，比例线收束，然利主字更聚焦，结构更稳定。\n3. 格3：擀面杖符号作为品牌记忆点被保留并强调，新旧Logo可轻微闪现对比但不长停。\n4. 格4：新Logo稳定落位，画面呈现专业品牌感，为后续包装应用做铺垫。\n\n要求：\n1. 保持尾帧海报的产品、构图、数量、色调和核心空间关系。\n2. 动效优先写正向动作：水珠、光影、质感、景深、轻微运镜、局部高光。\n3. 最后回到或贴近定版尾帧构图，便于作为品牌收束画面。\n补充说明：只生成这一段的四宫格故事板图片，不生成视频。每格独立16:9。参考素材：02新Logo、03新Logo+广告语，可少量使用01旧Logo做对比。禁止汤包、禁止虚构包装、禁止多余字幕。"
+      }
+    },
+    "video": {
+      "prompt_name": "video",
+      "risks": [
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 231",
+          "original_text": "稳定落位，可轻微带一帧新旧Logo对比但不要停太久。；视觉上像品牌设计发布片，不是PPT说明片；现代、清晰、高级、规范，有",
+          "reason": "使用了概念型描述词 '像'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 13 处否定词",
+          "original_text": "否定词位置: [221, 473, 482, 571, 576]...",
+          "reason": "prompt 中有 13 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "基于参考尾帧海报生成7秒产品/场景广告动效，16:9。\n主体：第三段｜做了哪些提升 / 关键点，13-20秒，四宫格故事板。\n动效：生成一张四宫格故事板，只描述第三段13-20秒。新Logo结构更稳定、比例更舒服、主品牌更突出，在包装和渠道展示里更清晰，整体从手工标签转向专业品牌感。。\n场景与气质：新Logo在网格和比例线中成型，外框归整，然利主字更聚焦，擀面杖符号作为品牌记忆点保留，最后新Logo稳定落位，可轻微带一帧新旧Logo对比但不要停太久。；视觉上具体特征是品牌设计发布片，不是PPT说明片；现代、清晰、高级、规范，有设计发布感。。\n镜头节奏：\n1. 格1：新Logo结构线和比例网格出现，画面开始从设计系统角度讲提升点。\n2. 格2：外框归整，比例线收束，然利主字更聚焦，结构更稳定。\n3. 格3：擀面杖符号作为品牌记忆点被保留并强调，新旧Logo可轻微闪现对比但不长停。\n4. 格4：新Logo稳定落位，画面呈现专业品牌感，为后续包装应用做铺垫。\n要求：保持参考图的产品/主体数量、构图、色调和核心质感，最后稳定回到或贴近尾帧海报画面；不要新增无关主体，不要大幅改变产品结构。\n补充说明：只生成这一段的四宫格故事板图片，不生成视频。每格独立16:9。参考素材：02新Logo、03新Logo+广告语，可少量使用01旧Logo做对比。禁止汤包、禁止虚构包装、禁止多余字幕。"
+      }
+    }
+  },
+  "validation_report": {
+    "stage": "storyboard",
+    "passed": true,
+    "score": 1.0,
+    "issues": [],
+    "manual_checks": [
+      {
+        "id": "storyboard_panel_aspect",
+        "description": "故事板每一格是否都是 16:9 画幅？（不是横向长条）",
+        "checked": false
+      },
+      {
+        "id": "storyboard_panel_count",
+        "description": "故事板是否有 4 格？",
+        "checked": false
+      },
+      {
+        "id": "storyboard_product_anchors",
+        "description": "产品/场景数量、构图、色调和核心质感是否贴近尾帧海报？",
+        "checked": false
+      }
+    ],
+    "recovery_actions": [
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/refs/storyboard.png",
+        "target": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/canonical/storyboard.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/runs/20260616-113348-13-20/refs/original.png",
+        "target": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg03-key-improvements/canonical/original.png"
+      }
+    ]
+  },
+  "next_action": {
+    "decision": "continue",
+    "reason": ""
+  },
+  "iterations": [
+    {
+      "version": 1,
+      "artifact_type": "storyboard",
+      "prompt_hash": "0332adbf7517e14a",
+      "issues": [],
+      "validation_score": 1.0,
+      "cost": null,
+      "created_at": "2026-06-16T11:39:48+08:00"
+    },
+    {
+      "version": 2,
+      "artifact_type": "storyboard",
+      "prompt_hash": "0332adbf7517e14a",
+      "issues": [],
+      "validation_score": 1.0,
+      "cost": null,
+      "created_at": "2026-06-16T12:02:06+08:00"
+    }
+  ]
+}

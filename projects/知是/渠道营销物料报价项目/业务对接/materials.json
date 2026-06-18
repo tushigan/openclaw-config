@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "project_id": "知是-渠道营销物料报价项目",
+  "items": [
+    {
+      "material_id": "mat-20260525-001",
+      "type": "image",
+      "title": "2026-05-25 客户沟通截图：新增渠道营销需求",
+      "source_channel": "feishu-chat-screenshot",
+      "original_name": "4c9cb64e-1d16-4c6a-87c8-7048c49658ad.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/materials/images/2026-05-25_客户沟通截图_新增营销需求.jpg",
+      "copied_at": "2026-05-25T16:25:00+08:00",
+      "captured_at": "2026-05-25T16:24:38+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "聊天截图",
+        "新增需求",
+        "待报价材料"
+      ],
+      "summary": "客户在原有包装设计需求之外，新增一组用于动销的营销配套物料，场景涉及门店电视、视频号和冷柜文化牌。",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/知是/渠道营销物料报价项目/notes/summaries/2026-05-25_新增渠道营销需求分析.md",
+      "processing_status": "summarized",
+      "related_progress_ids": [
+        "prog-20260525-001"
+      ],
+      "related_task_ids": [
+        "task-20260525-001",
+        "task-20260525-002"
+      ]
+    }
+  ]
+}

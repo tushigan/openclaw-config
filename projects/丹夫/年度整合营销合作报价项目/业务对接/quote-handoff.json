@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "project_id": "丹夫-年度整合营销合作报价项目",
+  "handoff_status": "client-delivered-awaiting-revision",
+  "prepared_at": "2026-05-28T10:26:00+08:00",
+  "prepared_by": "business",
+  "trigger_reason": "用户确认 v4 已发客户，且客户已在电话中提出新反馈，需要基于该版本继续修改。",
+  "client_name": "丹夫",
+  "project_name": "年度整合营销合作报价项目",
+  "current_stage": "已报价",
+  "business_goal": "基于已发客户的 v4 报价版本，收口客户反馈并推动下一轮修改输出。",
+  "recommended_case_type": "项目案",
+  "confirmed_scope": [
+    "年度整合营销规划专项",
+    "终端需求研究、渠道研究、品牌落地研究",
+    "年度营销主线规划、品类表达与传播口径梳理",
+    "线上传播规划、终端活动规划、销售支持物料方向建议",
+    "v4 版本增加品类分析深化模块"
+  ],
+  "excluded_scope": [
+    "具体广告拍摄与执行费用",
+    "终端制作、电商设计制作、包装设计执行与落地制作费用",
+    "产品线经营梳理暂不纳入主报价",
+    "包装升级与新品包装按后续专项另行确认"
+  ],
+  "key_requirements": [
+    "以已发客户的 v4 版本为修改底稿",
+    "补录客户电话反馈",
+    "确认本轮修改是否形成 v5 并再次对外发送"
+  ],
+  "key_decisions": [
+    "v4-70万 已确认为发客户版本",
+    "当前项目状态改为已报价",
+    "本轮为客户反馈后的继续迭代，不是重新从头报价"
+  ],
+  "open_questions": [
+    "客户反馈具体修改项待补",
+    "是否涉及价格或范围调整",
+    "是否需要输出 v5 HTML/PDF"
+  ],
+  "material_refs": [
+    "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/materials/docs/丹夫年度整合营销提报PPT策划-6页版.md"
+  ],
+  "meeting_note_refs": [
+    "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/notes/summaries/2026-05-28_建档摘要.md"
+  ],
+  "quote_project_dir": "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/quote",
+  "current_quote_version": "v4-client-delivered",
+  "quote_output_refs": [
+    "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/quote/versions/v4/丹夫年度整合营销合作报价方案-品类深化版-v4-70万.html",
+    "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/quote/versions/v4/丹夫年度整合营销合作报价方案-品类深化版-v4-70万.pdf"
+  ],
+  "last_quote_generated_at": "2026-05-25T17:38:00+08:00",
+  "quote_followup_summary": "v4 已发客户，当前等待整理客户反馈并启动下一轮改稿。"
+}

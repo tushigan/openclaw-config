@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "project_id": "gabrielle-chanel-essence",
+  "project_name": "Gabrielle Chanel Essence 香水瓶",
+  "project_slug": "gabrielle-chanel-essence",
+  "project_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence",
+  "defaults": {
+    "ratio": "9:16",
+    "duration": 5,
+    "quality_tier": "final",
+    "storyboard_strategy": "auto_beats",
+    "normalize_references": true,
+    "identity_strategy": "reuse_exact"
+  },
+  "constraints": {
+    "must_have": [],
+    "must_not_have": [],
+    "prefer": []
+  },
+  "validation_rules": {
+    "reference_system": [],
+    "storyboard": [],
+    "video": []
+  },
+  "iteration_strategy": {
+    "max_iterations": 3,
+    "max_same_error_repeats": 2,
+    "improvement_threshold": 0.15,
+    "ask_user_on_manual_checks": true
+  },
+  "canonical_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/canonical/original.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/canonical/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/canonical/identity-board.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/canonical/final-frame-poster.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/canonical/storyboard.png"
+  },
+  "state": {
+    "status": "video_submit_failed",
+    "current_phase": "submit_video",
+    "latest_run_id": "20260604-145924-gabrielle-chanel-essence",
+    "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence",
+    "updated_at": "2026-06-04T15:37:06+08:00"
+  },
+  "runs": [
+    {
+      "run_id": "20260604-145924-gabrielle-chanel-essence",
+      "stage": "submit_video",
+      "status": "video_submit_failed",
+      "run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence",
+      "brief_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/brief.json",
+      "summary_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/summary.md",
+      "prompt_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/prompts/original.txt",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/prompts/identity-board.txt",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/prompts/storyboard.txt",
+        "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/original.png",
+        "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/identity-source.png",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/identity-board.png",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/storyboard.png",
+        "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/final-frame-poster.png",
+        "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-06-04T15:37:06+08:00",
+      "created_at": "2026-06-04T14:59:24+08:00",
+      "last_error": "/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '/Users/a123/.openclaw/workspace/workspace-design/skills/gpt-image2-gen/scripts/generate.py': [Errno 2] No such file or directory\n",
+      "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/dreamina/result.json"
+    }
+  ],
+  "created_at": "2026-06-04T14:59:24+08:00",
+  "updated_at": "2026-06-04T15:37:06+08:00",
+  "status": "video_submit_failed",
+  "current_phase": "submit_video",
+  "latest_run_id": "20260604-145924-gabrielle-chanel-essence",
+  "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence"
+}

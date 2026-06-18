@@ -1,0 +1,49 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-08T16:44:55.561Z",
+  "traceId": "afa2cbb5-8e31-405a-8c43-bf43ba73ce71",
+  "sessionId": "afa2cbb5-8e31-405a-8c43-bf43ba73ce71",
+  "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 23421,
+    "output": 885,
+    "cacheRead": 48613,
+    "cacheWrite": 4505,
+    "total": 77424
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 23421,
+      "output": 885,
+      "cacheRead": 48613,
+      "cacheWrite": 4505,
+      "total": 77424
+    },
+    "lastCacheTouchAt": 1780934247864
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "没有，我这里没有 `openclaw-changelog-writer` 这个 skill。\n\n你可以：\n1. 检查是否已安装：`lark-cli skills list` 或 `npx skills list`\n2. 如果没有，尝试安装：`npx skills install openclaw-changelog-writer`\n3. 或者告诉我这个 skill 是用来做什么的，我看能不能用其他方式帮你\n\n---\n\n我们继续刚才的海报流程方案吗？还是先处理这个 skill 的事？"
+  ],
+  "finalPromptText": "你有这个skill吗？openclaw-changelog-writer",
+  "itemLifecycle": {
+    "startedCount": 0,
+    "completedCount": 0,
+    "activeCount": 0
+  },
+  "toolMetas": [],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

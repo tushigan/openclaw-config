@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "prompt": "帮我读一下这篇公众号文章：https://mp.weixin.qq.com/s/abc123xyz",
+    "expected": "调用脚本提取文章、返回标题/作者/正文/图片列表"
+  },
+  {
+    "id": 2,
+    "prompt": "这篇微信文章的内容帮我保存成 Markdown 格式：https://mp.weixin.qq.com/s/def456uvw",
+    "expected": "提取文章、转换为 Markdown、保存到指定目录"
+  }
+]

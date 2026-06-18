@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "project_id": "丹夫-年度整合营销合作报价项目",
+  "items": [
+    {
+      "material_id": "mat-20260521-001",
+      "type": "doc",
+      "title": "丹夫年度整合营销提报PPT策划-6页版",
+      "source_channel": "deliverables",
+      "original_name": "丹夫年度整合营销提报PPT策划-6页版.md",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/materials/docs/丹夫年度整合营销提报PPT策划-6页版.md",
+      "copied_at": "2026-05-28T10:20:00+08:00",
+      "captured_at": "2026-05-21T14:29:00+08:00",
+      "mime_type": "text/markdown",
+      "tags": [
+        "PPT策划",
+        "报价辅助材料",
+        "年度整合营销"
+      ],
+      "summary": "一份用于支撑丹夫年度整合营销合作报价表达的 6 页提报策划稿，可作为报价说明与客户阅读型提案辅助材料。",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/丹夫/年度整合营销合作报价项目/notes/summaries/2026-05-28_建档摘要.md",
+      "processing_status": "summarized",
+      "related_progress_ids": [
+        "prog-20260528-001"
+      ],
+      "related_task_ids": [
+        "task-20260528-001"
+      ]
+    }
+  ]
+}

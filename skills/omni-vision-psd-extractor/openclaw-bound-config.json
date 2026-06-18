@@ -1,0 +1,14 @@
+{
+  "id": "img_014",
+  "name": "gpt-image-2-pro",
+  "requestModel": "gpt-image-2-pro",
+  "protocol": "openai",
+  "baseUrl": "https://n.lconai.com/",
+  "apiKey": "sk-ggmpALjAOCLr7WDeCILNxEpx9ZQmntVQOJJScKnVNWhUFrh8",
+  "aspectRatio": "",
+  "resolution": "",
+  "defaultPrompt": "",
+  "negativePrompt": "",
+  "requestModelI2I": "",
+  "protocolI2I": "openai-multipart"
+}

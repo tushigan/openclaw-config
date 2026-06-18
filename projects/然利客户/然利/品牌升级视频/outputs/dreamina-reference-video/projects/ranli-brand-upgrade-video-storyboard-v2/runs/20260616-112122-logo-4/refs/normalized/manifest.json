@@ -1,0 +1,17 @@
+[
+  {
+    "role": "final_frame_poster",
+    "source_path": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/03_logo_slogan_final.jpg",
+    "source_format": "JPEG",
+    "source_width": 9583,
+    "source_height": 5391,
+    "source_bytes": 1665191,
+    "normalized_path": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-upgrade-video-storyboard-v2/runs/20260616-112122-logo-4/refs/normalized/final-frame-poster.png",
+    "normalized_format": "JPEG",
+    "normalized_width": 1920,
+    "normalized_height": 1080,
+    "normalized_bytes": 82926,
+    "alpha_flattened": false,
+    "changed": true
+  }
+]

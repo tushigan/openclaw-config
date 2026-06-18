@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "project_id": "知是-渠道营销物料报价项目",
+  "tasks": [
+    {
+      "task_id": "task-20260525-001",
+      "title": "整理知是报价需求清单",
+      "description": "把包装设计与营销配套物料整理为可报价的结构化清单。",
+      "status": "done",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-25T16:25:00+08:00",
+      "updated_at": "2026-05-25T16:45:31+08:00",
+      "source_progress_id": "prog-20260525-001",
+      "related_material_ids": [
+        "mat-20260525-001"
+      ],
+      "related_quote_version": "v1-structure",
+      "completion_note": "已输出 2026-05-25_报价需求清单_v1.md"
+    },
+    {
+      "task_id": "task-20260525-002",
+      "title": "确认营销物料使用范围与版本口径",
+      "description": "补齐视频方向、详情页用途、冷柜物料颗粒度、海报套数与服务渠道范围。",
+      "status": "done",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-25T16:25:00+08:00",
+      "updated_at": "2026-05-25T16:45:31+08:00",
+      "source_progress_id": "prog-20260525-001",
+      "related_material_ids": [
+        "mat-20260525-001"
+      ],
+      "related_quote_version": "v1-structure",
+      "completion_note": "已确认双套营销物料、横版视频、整组冷柜、渠道线上详情页、每套3张海报。"
+    },
+    {
+      "task_id": "task-20260525-003",
+      "title": "生成知是正式报价稿",
+      "description": "基于已确认结构，按分模块方式生成正式报价内容与价格口径。",
+      "status": "done",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-25T16:45:31+08:00",
+      "updated_at": "2026-05-27T18:06:00+08:00",
+      "source_progress_id": "prog-20260525-002",
+      "related_material_ids": [
+        "mat-20260525-001"
+      ],
+      "related_quote_version": "v5-delivery-draft",
+      "completion_note": "已完成多轮修改并沉淀 v5 HTML 与修正后的 PDF 交付版。"
+    },
+    {
+      "task_id": "task-20260527-004",
+      "title": "确认知是 v5 报价版是否定稿",
+      "description": "等待用户确认当前 HTML/PDF 是否作为最终正式报价版本。",
+      "status": "done",
+      "priority": "high",
+      "owner": "",
+      "due_at": "",
+      "created_at": "2026-05-27T18:06:00+08:00",
+      "updated_at": "2026-05-27T18:09:57+08:00",
+      "source_progress_id": "prog-20260527-004",
+      "related_material_ids": [
+        "mat-20260525-001"
+      ],
+      "related_quote_version": "v5-final",
+      "completion_note": "用户已确认 v5 为最终定稿，并已发送给客户。"
+    }
+  ]
+}

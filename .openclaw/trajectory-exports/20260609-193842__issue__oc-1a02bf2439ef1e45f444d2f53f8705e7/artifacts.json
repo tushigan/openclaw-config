@@ -1,0 +1,78 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T11:38:53.299Z",
+  "traceId": "fd954aa1-cbc5-490a-8f59-8905b9b8842a",
+  "sessionId": "fd954aa1-cbc5-490a-8f59-8905b9b8842a",
+  "sessionKey": "agent:design-shared:feishu:group:oc_1a02bf2439ef1e45f444d2f53f8705e7",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 7515,
+    "output": 1035,
+    "cacheRead": 340992,
+    "total": 349542
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 1409,
+      "output": 6,
+      "cacheRead": 87552,
+      "cacheWrite": 0,
+      "total": 88967
+    },
+    "lastCacheTouchAt": 1781001272740
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "好了，PSD 真跑完了。我先核一下文件和黄小咕图层，再把 PSD 直接发群里。",
+    "NO_REPLY"
+  ],
+  "finalPromptText": "检查进度",
+  "itemLifecycle": {
+    "startedCount": 5,
+    "completedCount": 5,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "process",
+      "meta": "grand-seaslug"
+    },
+    {
+      "toolName": "read",
+      "meta": "lines 1-260 from ~/.openclaw/workspace-design/outputs/duanwu-poster-psd-20260609/layers_manifest.json"
+    },
+    {
+      "toolName": "exec",
+      "meta": "list files in outputs/duanwu-poster-psd-20260609/output.psd → run true → run file outputs/duanwu-poster-psd-20260609/output.psd (in ~/.openclaw/workspace-design)"
+    },
+    {
+      "toolName": "message",
+      "meta": "media ~/.openclaw/workspace-design/outputs/duanwu-poster-psd-20260609/output.psd, reply to om_x100b6d4af1dc2880c4c4a67495b4a7a"
+    }
+  ],
+  "didSendViaMessagingTool": true,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [
+    "$WORKSPACE_DIR/workspace-design/outputs/duanwu-poster-psd-20260609/output.psd"
+  ],
+  "messagingToolSentTargets": [
+    {
+      "tool": "message",
+      "provider": "feishu",
+      "accountId": "design",
+      "to": "oc_1a02bf2439ef1e45f444d2f53f8705e7",
+      "mediaUrls": [
+        "$WORKSPACE_DIR/workspace-design/outputs/duanwu-poster-psd-20260609/output.psd"
+      ]
+    }
+  ]
+}

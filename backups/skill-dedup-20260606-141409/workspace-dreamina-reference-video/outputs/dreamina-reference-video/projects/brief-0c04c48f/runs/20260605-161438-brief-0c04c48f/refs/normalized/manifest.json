@@ -1,0 +1,17 @@
+[
+  {
+    "role": "final_frame_poster",
+    "source_path": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/36df326d-ff20-416d-b89d-642c0da6c885.png",
+    "source_format": "PNG",
+    "source_width": 1086,
+    "source_height": 1448,
+    "source_bytes": 2210257,
+    "normalized_path": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-0c04c48f/runs/20260605-161438-brief-0c04c48f/refs/normalized/final-frame-poster.png",
+    "normalized_format": "PNG",
+    "normalized_width": 1086,
+    "normalized_height": 1448,
+    "normalized_bytes": 2144817,
+    "alpha_flattened": false,
+    "changed": false
+  }
+]

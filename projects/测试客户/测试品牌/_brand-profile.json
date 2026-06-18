@@ -1,0 +1,23 @@
+{
+  "brand_id": "BRD-20260617163137-82f7ae",
+  "client_id": "CLI-20260617162816-62dab9",
+  "name": "测试品牌",
+  "name_en": "",
+  "industry": "",
+  "category": "",
+  "positioning": "测试定位",
+  "brand_tone": "专业",
+  "target_audience": "测试受众",
+  "core_values": [
+    "价值1",
+    "价值2"
+  ],
+  "brand_story": "",
+  "competitive_advantages": [],
+  "tags": [],
+  "assets_path": "/Users/a123/.openclaw/projects/测试客户/测试品牌/_brand-assets",
+  "created_at": "2026-06-17T16:31:37.020055",
+  "updated_at": "2026-06-17T16:31:37.020058",
+  "_history": [],
+  "_last_modified_by": "system"
+}

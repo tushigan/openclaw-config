@@ -158,7 +158,16 @@ mkdir -p agents/*/sessions 2>/dev/null || true
 mkdir -p workspace/images workspace/outputs workspace/feishu-deliver 2>/dev/null || true
 ok "运行时目录创建完成"
 
-# ---- 8. 验证 ----
+# ---- 8. 补齐图片处理依赖 ----
+if [ -x "./scripts/ensure-openclaw-image-deps.sh" ]; then
+    echo ""
+    info "校验图片处理依赖..."
+    ./scripts/ensure-openclaw-image-deps.sh || warn "图片处理依赖校验失败，可稍后手动执行 ./scripts/ensure-openclaw-image-deps.sh"
+else
+    warn "未找到 ./scripts/ensure-openclaw-image-deps.sh，跳过图片处理依赖校验"
+fi
+
+# ---- 9. 验证 ----
 echo ""
 info "验证部署..."
 
@@ -185,7 +194,7 @@ else
     warn "有 $errors 个问题需要处理"
 fi
 
-# ---- 9. 完成 ----
+# ---- 10. 完成 ----
 echo ""
 echo "========================================="
 echo "  部署完成！"
@@ -194,5 +203,6 @@ echo ""
 echo "下一步："
 echo "  1. 配置 API keys（见上方说明）"
 echo "  2. 运行健康检查: openclaw doctor"
-echo "  3. 启动网关: openclaw gateway --port 18789 --verbose"
+echo "  3. 如升级后出现看不了图，可执行: ./scripts/ensure-openclaw-image-deps.sh"
+echo "  4. 启动网关: openclaw gateway --port 18789 --verbose"
 echo ""

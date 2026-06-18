@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "run_id": "20260605-161528-brief-d8dd5fa6",
+  "project_id": "brief-d8dd5fa6",
+  "stage": "fetch_result",
+  "status": "video_result_fetched",
+  "created_at": "2026-06-05T16:15:29+08:00",
+  "updated_at": "2026-06-05T16:34:42+08:00",
+  "config_snapshot": {
+    "project_name": "成熟新鲜芒果堆微距特写，左上方切开的芒果果肉块，前景和中景是带水珠的红黄色渐变整颗芒果",
+    "project_slug": "brief-d8dd5fa6",
+    "ratio": "3:4",
+    "duration": 7,
+    "quality_tier": "draft",
+    "language": "zh-CN",
+    "storyboard_strategy": "auto_beats",
+    "storyboard_panel_count_override": null,
+    "storyboard_beats_override": [],
+    "identity_strategy": "reuse_exact",
+    "identity_anchor_rules": [],
+    "identity_structure": [
+      "最后一帧必须高度一致地回到参考图构图",
+      "主体始终是参考图中的芒果堆：左上切块芒果、中央大整芒果、前景两个整芒果、右后方整芒果",
+      "保持红黄渐变果皮、水珠、橙黄色背景和微距浅景深",
+      "动作只允许水珠滑落、果肉汁光、轻微镜头推移和柔和光晕"
+    ],
+    "identity_forbidden": [
+      "禁止出现文字、logo、包装、人物、刀具、餐具",
+      "禁止新增其他水果或改变芒果数量",
+      "禁止芒果飞起、旋转、爆炸、切块散开",
+      "禁止卡通感、CG感、塑料感、过度果汁喷溅",
+      "禁止破坏尾帧定版构图"
+    ],
+    "has_existing_references": true,
+    "anchor_elements": [],
+    "notes": "",
+    "normalize_references": true,
+    "subject": "成熟新鲜芒果堆微距特写，左上方切开的芒果果肉块，前景和中景是带水珠的红黄色渐变整颗芒果",
+    "action": "从定版海报静帧开始，芒果表皮水珠轻微颤动并缓慢滑落，切开的芒果果肉出现自然汁水高光和轻微呼吸感，淡金色香气光晕扩散，最后回到原始尾帧构图定格",
+    "scene": "温暖橙黄色背景中的高饱和芒果堆微距摄影场景，主体充满画面，浅景深，高级水果广告质感",
+    "style": "真实微距水果广告，自然光，清爽水珠，饱满多汁，柔和景深，细腻高光，高级食欲感，克制自然的微动",
+    "existing_references": {
+      "identity_source": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/36df326d-ff20-416d-b89d-642c0da6c885.png",
+      "final_frame_poster": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/36df326d-ff20-416d-b89d-642c0da6c885.png"
+    },
+    "video_prompt": "基于参考图生成一支7秒竖版水果广告视频。画面是微距特写的成熟芒果堆，其中左上方有切开的芒果果肉，前景和中景是红黄色渐变的整颗芒果，表面布满清新的水珠。整体保持原图构图、主体位置、颜色和质感不变。视频从定版海报画面开始，镜头极慢推近，芒果表面的水珠轻微颤动并缓慢滑落，产生晶莹高光。随后镜头轻轻移动到左上方切开的芒果果肉，切块轻微饱满起伏，果肉边缘出现自然汁水光泽，表现新鲜、多汁、香甜。中段有非常淡的金黄色香气光晕和柔和雾气从果肉附近扩散，背景保持温暖橙黄色。最后镜头缓慢回正，所有元素稳定回到原始海报构图，最后一帧与参考图高度一致。风格为高级水果广告、微距摄影、真实质感、自然光、高饱和黄色橙色、清爽水珠、诱人果肉、柔和景深、细腻高光。动作克制自然，不夸张。不要出现文字、logo、包装、人物、刀具、餐具。不要让芒果飞起、旋转、爆炸、切块散开。不要新增其他水果。不要改变原始构图和主体数量。不要卡通感、CG感、塑料感。不要过度果汁喷溅。最后一帧必须回到参考图构图。",
+    "storyboard_beats": [
+      "建立空间：温暖橙黄色背景中的高饱和芒果堆微距摄影场景，主体充满画面，浅景深，高级水果广告质感",
+      "收束定格：从定版海报静帧开始",
+      "动作推进：芒果表皮水珠轻微颤动并缓慢滑落",
+      "动作推进：切开的芒果果肉出现自然汁水高光和轻微呼吸感",
+      "动作推进：淡金色香气光晕扩散",
+      "收束定格：回到原始尾帧构图定格"
+    ],
+    "storyboard_panel_count": 6,
+    "slug": "brief-d8dd5fa6"
+  },
+  "prompt_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/prompts/original.txt",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/prompts/identity-board.txt",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/prompts/storyboard.txt",
+    "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/prompts/video.txt"
+  },
+  "reference_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/original.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/identity-board.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/storyboard.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/final-frame-poster.png",
+    "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/normalized/manifest.json"
+  },
+  "artifacts": {
+    "downloads_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/dreamina/downloads",
+    "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/dreamina/result.json",
+    "submit_id_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/dreamina/submit_id.txt"
+  },
+  "prompt_risk_report": {
+    "original": {
+      "prompt_name": "original",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 8 处否定词",
+          "original_text": "否定词位置: [359, 367, 376, 263, 14]...",
+          "reason": "prompt 中有 8 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "原图任务：只负责风格与世界，不负责镜头顺序。\n主体：成熟新鲜芒果堆微距特写，左上方切开的芒果果肉块，前景和中景是带水珠的红黄色渐变整颗芒果\n主体行为：从定版海报静帧开始，芒果表皮水珠轻微颤动并缓慢滑落，切开的芒果果肉出现自然汁水高光和轻微呼吸感，淡金色香气光晕扩散，最后回到原始尾帧构图定格\n场景 / 世界观：温暖橙黄色背景中的高饱和芒果堆微距摄影场景，主体充满画面，浅景深，高级水果广告质感\n风格 / 气质：真实微距水果广告，自然光，清爽水珠，饱满多汁，柔和景深，细腻高光，高级食欲感，克制自然的微动\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 先建立完整世界观和主画面气质。\n2. 让主体与环境关系清晰，能作为后续身份板和故事板的世界基准。\n3. 保持电影感、真实感、可继续扩展成视频的空间信息。\n4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。"
+      }
+    },
+    "identity_board": {
+      "prompt_name": "identity_board",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 17 处否定词",
+          "original_text": "否定词位置: [529, 536, 920, 19, 780]...",
+          "reason": "prompt 中有 17 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n严格禁止：\n- 严禁出现文字、logo、包装、人物、刀具、餐具\n- 严禁新增其他水果或改变芒果数量\n- 严禁芒果飞起、旋转、爆炸、切块散开\n- 严禁卡通感、CG感、塑料感、过度果汁喷溅\n- 严禁破坏尾帧定版构图\n\n**结构真相**：\n- 最后一帧必须高度一致地回到参考图构图\n- 主体始终是参考图中的芒果堆：左上切块芒果、中央大整芒果、前景两个整芒果、右后方整芒果\n- 保持红黄渐变果皮、水珠、橙黄色背景和微距浅景深\n- 动作只允许水珠滑落、果肉汁光、轻微镜头推移和柔和光晕\n身份板任务：只负责角色一致性，不负责背景叙事。\n主体：成熟新鲜芒果堆微距特写，左上方切开的芒果果肉块，前景和中景是带水珠的红黄色渐变整颗芒果\n主体行为线索：从定版海报静帧开始，芒果表皮水珠轻微颤动并缓慢滑落，切开的芒果果肉出现自然汁水高光和轻微呼吸感，淡金色香气光晕扩散，最后回到原始尾帧构图定格\n目标：生成一张适合 3:4 项目的角色身份板 / 角色设定板。\n这次模式：已有准确三视图 / 定稿图，身份板主要作为复用说明，不允许改动角色结构真相。\n要求：\n1. 严格锁定主体的脸、发型、服装、身体比例、手部、表情和姿态语言。\n2. 使用纯净浅底，不要复杂背景，不要重新讲故事。\n3. 版式偏高端工作室设定板：大主视角 + 多个辅助角度 + 局部细节。\n4. 只负责角色一致性，不出现 12 格分镜，不重新定义世界观。\n5. 如果主体是动物或非人角色，也要把毛发、肢体比例、表情范围和关键特征锁住。\n6. 结构真相：最后一帧必须高度一致地回到参考图构图；主体始终是参考图中的芒果堆：左上切块芒果、中央大整芒果、前景两个整芒果、右后方整芒果；保持红黄渐变果皮、水珠、橙黄色背景和微距浅景深；动作只允许水珠滑落、果肉汁光、轻微镜头推移和柔和光晕。\n7. 禁止变形：禁止出现文字、logo、包装、人物、刀具、餐具；禁止新增其他水果或改变芒果数量；禁止芒果飞起、旋转、爆炸、切块散开；禁止卡通感、CG感、塑料感、过度果汁喷溅；禁止破坏尾帧定版构图。\n7. 用户提供的 identity-source 是角色结构最高依据，任何延展版身份板都不能推翻它。"
+      }
+    },
+    "storyboard": {
+      "prompt_name": "storyboard",
+      "risks": [
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 859",
+          "original_text": "：保留能稳定识别空间关系的地标。\n9. 故事板里的角色首先要读成身份板里的核心轮廓，不能被画成一个新的普通角色。\n10. 如",
+          "reason": "使用了概念型描述词 '读成'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 26 处否定词",
+          "original_text": "否定词位置: [538, 548, 742, 770, 1206]...",
+          "reason": "prompt 中有 26 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n严格禁止：\n- 严禁出现文字、logo、包装、人物、刀具、餐具\n- 严禁新增其他水果或改变芒果数量\n- 严禁芒果飞起、旋转、爆炸、切块散开\n- 严禁卡通感、CG感、塑料感、过度果汁喷溅\n- 严禁破坏尾帧定版构图\n\n**结构真相**：\n- 最后一帧必须高度一致地回到参考图构图\n- 主体始终是参考图中的芒果堆：左上切块芒果、中央大整芒果、前景两个整芒果、右后方整芒果\n- 保持红黄渐变果皮、水珠、橙黄色背景和微距浅景深\n- 动作只允许水珠滑落、果肉汁光、轻微镜头推移和柔和光晕\n故事板任务：只负责镜头与动作节奏，不负责重新定义角色。\n主体：成熟新鲜芒果堆微距特写，左上方切开的芒果果肉块，前景和中景是带水珠的红黄色渐变整颗芒果\n主体行为主线：从定版海报静帧开始，芒果表皮水珠轻微颤动并缓慢滑落，切开的芒果果肉出现自然汁水高光和轻微呼吸感，淡金色香气光晕扩散，最后回到原始尾帧构图定格\n场景 / 世界观：温暖橙黄色背景中的高饱和芒果堆微距摄影场景，主体充满画面，浅景深，高级水果广告质感\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 根据本次关键帧规划，做成 6 格黑白导演分镜稿。\n2. **每一格都必须是独立的 3:4 成片画幅**。不要做横向长条单格，不要把多格画成电影条带。整张看板怎么排版都可以，但每格内部画幅必须服从 3:4 成片比例。\n3. **每格必须包含文字标注**：用文字标注景别（特写/中景/全景）、运镜方向（推/拉/摇/跟）、关键动作描述。这是专业导演分镜板的标准要求。\n4. **使用箭头指示运镜方向和动作路径**：让分镜板的镜头语言和动作意图一目了然，提高可读性和执行性。\n5. 强调连续空间，同一世界内完成镜头推进，不要每格重造世界。\n6. 主体身份必须保持和身份板一致，不要变脸、变衣服、变体型。\n7. 让故事从建立空间，到动作推进，到结尾收束，形成清晰视频节奏。\n8. 默认保留关键锚点：保留能稳定识别空间关系的地标。\n9. 故事板里的角色首先要外轮廓是身份板里的核心轮廓，不能被画成一个新的普通角色。\n10. 如果存在 identity-source，角色首先服从 identity-source，不服从任何漂移版身份板。\n10. 禁止变形：禁止出现文字、logo、包装、人物、刀具、餐具；禁止新增其他水果或改变芒果数量；禁止芒果飞起、旋转、爆炸、切块散开；禁止卡通感、CG感、塑料感、过度果汁喷溅；禁止破坏尾帧定版构图。\n12. 结构真相：最后一帧必须高度一致地回到参考图构图；主体始终是参考图中的芒果堆：左上切块芒果、中央大整芒果、前景两个整芒果、右后方整芒果；保持红黄渐变果皮、水珠、橙黄色背景和微距浅景深；动作只允许水珠滑落、果肉汁光、轻微镜头推移和柔和光晕。\n13. 如果动作设计和角色结构发生冲突，优先保住角色结构，宁可简化动作，不要改形。\n14. 分镜允许用简化线稿表达动作，但外轮廓、体块关系和关键识别点必须忠于身份板。\n15. 格数服务于关键帧，不追求平均切段。关键帧规划如下：\n1. 建立空间：温暖橙黄色背景中的高饱和芒果堆微距摄影场景，主体充满画面，浅景深，高级水果广告质感\n2. 收束定格：从定版海报静帧开始\n3. 动作推进：芒果表皮水珠轻微颤动并缓慢滑落\n4. 动作推进：切开的芒果果肉出现自然汁水高光和轻微呼吸感\n5. 动作推进：淡金色香气光晕扩散\n6. 收束定格：回到原始尾帧构图定格"
+      }
+    },
+    "video": {
+      "prompt_name": "video",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 16 处否定词",
+          "original_text": "否定词位置: [636, 706, 787, 275, 19]...",
+          "reason": "prompt 中有 16 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "**关键约束（最高优先级）**：\n严格禁止：\n- 严禁出现文字、logo、包装、人物、刀具、餐具\n- 严禁新增其他水果或改变芒果数量\n- 严禁芒果飞起、旋转、爆炸、切块散开\n- 严禁卡通感、CG感、塑料感、过度果汁喷溅\n- 严禁破坏尾帧定版构图\n\n**结构真相**：\n- 最后一帧必须高度一致地回到参考图构图\n- 主体始终是参考图中的芒果堆：左上切块芒果、中央大整芒果、前景两个整芒果、右后方整芒果\n- 保持红黄渐变果皮、水珠、橙黄色背景和微距浅景深\n- 动作只允许水珠滑落、果肉汁光、轻微镜头推移和柔和光晕\n视频提示词任务：必须引用前三张图的职责，不能重新发明一个冲突的新世界。\n使用三张参考图：\n- 原图：负责风格与世界\n- 身份板：负责角色一致性\n- 故事板：负责镜头与动作节奏\n\n视频目标：\n主体：成熟新鲜芒果堆微距特写，左上方切开的芒果果肉块，前景和中景是带水珠的红黄色渐变整颗芒果\n主体行为：从定版海报静帧开始，芒果表皮水珠轻微颤动并缓慢滑落，切开的芒果果肉出现自然汁水高光和轻微呼吸感，淡金色香气光晕扩散，最后回到原始尾帧构图定格\n场景 / 世界观：温暖橙黄色背景中的高饱和芒果堆微距摄影场景，主体充满画面，浅景深，高级水果广告质感\n风格 / 气质：真实微距水果广告，自然光，清爽水珠，饱满多汁，柔和景深，细腻高光，高级食欲感，克制自然的微动\n比例：3:4\n时长：7 秒\n\n要求：\n1. 严格沿用故事板的镜头顺序和动作推进。\n2. 严格沿用身份板的主体身份，不要漂角色。\n3. 如果存在 identity-source，角色身份以原始三视图 / 定稿图为最高依据。\n4. 严格沿用原图的世界与色调，不要把背景改成另一套体系。\n5. 用自然流畅的镜头连接，按本次 6 格关键帧顺序压成连贯短视频。\n6. 保留明确的空间锚点：保留能稳定识别空间关系的地标。\n7. 不要重新发明新的世界观、角色设定或冲突风格。\n8. 本次关键帧规划如下：\n1. 建立空间：温暖橙黄色背景中的高饱和芒果堆微距摄影场景，主体充满画面，浅景深，高级水果广告质感\n2. 收束定格：从定版海报静帧开始\n3. 动作推进：芒果表皮水珠轻微颤动并缓慢滑落\n4. 动作推进：切开的芒果果肉出现自然汁水高光和轻微呼吸感\n5. 动作推进：淡金色香气光晕扩散\n6. 收束定格：回到原始尾帧构图定格\n9. 结构真相：最后一帧必须高度一致地回到参考图构图；主体始终是参考图中的芒果堆：左上切块芒果、中央大整芒果、前景两个整芒果、右后方整芒果；保持红黄渐变果皮、水珠、橙黄色背景和微距浅景深；动作只允许水珠滑落、果肉汁光、轻微镜头推移和柔和光晕。\n10. 禁止变形：禁止出现文字、logo、包装、人物、刀具、餐具；禁止新增其他水果或改变芒果数量；禁止芒果飞起、旋转、爆炸、切块散开；禁止卡通感、CG感、塑料感、过度果汁喷溅；禁止破坏尾帧定版构图。"
+      }
+    }
+  },
+  "validation_report": {
+    "stage": "storyboard",
+    "passed": true,
+    "score": 1.0,
+    "issues": [],
+    "manual_checks": [
+      {
+        "id": "storyboard_panel_aspect",
+        "description": "故事板每一格是否都是 3:4 画幅？（不是横向长条）",
+        "checked": true
+      },
+      {
+        "id": "storyboard_panel_count",
+        "description": "故事板是否有 6 格？",
+        "checked": true
+      },
+      {
+        "id": "storyboard_continuity",
+        "description": "故事板是否保持连续空间？（不是每格重造世界）",
+        "checked": true
+      }
+    ],
+    "recovery_actions": [
+      {
+        "action": "refresh_run_state",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/run_state.json"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/storyboard.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/canonical/storyboard.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/original.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/canonical/original.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/runs/20260605-161528-brief-d8dd5fa6/refs/identity-source.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-d8dd5fa6/canonical/identity-source.png"
+      }
+    ]
+  },
+  "next_action": {
+    "decision": "proceed",
+    "reason": "验证通过",
+    "suggested_action": "可以继续下一阶段",
+    "reviewed_at": "2026-06-05T16:20:24+08:00",
+    "validation_stage": "storyboard"
+  },
+  "iterations": [
+    {
+      "version": 1,
+      "artifact_type": "storyboard",
+      "prompt_hash": "74c884ee0a932dd6",
+      "issues": [],
+      "validation_score": 1.0,
+      "cost": null,
+      "created_at": "2026-06-05T16:20:15+08:00"
+    }
+  ]
+}

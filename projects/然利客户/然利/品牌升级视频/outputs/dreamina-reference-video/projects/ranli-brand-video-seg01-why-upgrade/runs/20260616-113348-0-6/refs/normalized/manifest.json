@@ -1,0 +1,17 @@
+[
+  {
+    "role": "final_frame_poster",
+    "source_path": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/assets/06_packaging_A_old_logo.jpg",
+    "source_format": "JPEG",
+    "source_width": 2797,
+    "source_height": 1499,
+    "source_bytes": 1712769,
+    "normalized_path": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/dreamina-reference-video/projects/ranli-brand-video-seg01-why-upgrade/runs/20260616-113348-0-6/refs/normalized/final-frame-poster.png",
+    "normalized_format": "JPEG",
+    "normalized_width": 1920,
+    "normalized_height": 1028,
+    "normalized_bytes": 235041,
+    "alpha_flattened": false,
+    "changed": true
+  }
+]

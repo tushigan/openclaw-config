@@ -1,0 +1,61 @@
+{
+  "project_id": "泓一-泓一全案",
+  "brand_id": "BRD-20260613161206-ef2eb9",
+  "client_id": "CLI-20260613161206-a3caac",
+  "campaign_name": "业务对接",
+  "campaign_type": "业务对接",
+  "start_date": "2026-06-05T10:10:00+08:00",
+  "deadline_date": "",
+  "status": "active",
+  "lifecycle_stage": "需求梳理",
+  "milestones": [],
+  "project_summary": "泓一是一家专注于烘焙食品的品牌企业，覆盖流通、定量、私域三大渠道。当前企业端已明确三条品牌线：红标（经典系列）、蓝标（健康系列）、wokenday（儿童营养系列）。",
+  "current_goal": "基于原 wokenday 全案合同与补充协议，重组为覆盖红标/蓝标/wokenday 三条品牌线的一份完整全案咨询服务框架，供后续形成新合同文本。",
+  "tags": [
+    "烘焙食品",
+    "品牌全案",
+    "合同重组",
+    "三品牌线"
+  ],
+  "created_at": "2026-06-05T10:10:00+08:00",
+  "updated_at": "2026-06-08T09:05:00+08:00",
+  "_last_modified_by": "migration-script",
+  "brief_path": "",
+  "strategy_path": "",
+  "creative_direction_path": "",
+  "_migration_source": "workspace-business/projects",
+  "_original_data": {
+    "schema_version": "1.0",
+    "project_id": "泓一-泓一全案",
+    "client_name": "泓一",
+    "project_name": "泓一全案",
+    "project_slug": "泓一全案",
+    "current_stage": "需求梳理",
+    "lifecycle_status": "active",
+    "current_goal": "基于原 wokenday 全案合同与补充协议，重组为覆盖红标/蓝标/wokenday 三条品牌线的一份完整全案咨询服务框架，供后续形成新合同文本。",
+    "project_summary": "泓一是一家专注于烘焙食品的品牌企业，覆盖流通、定量、私域三大渠道。当前企业端已明确三条品牌线：红标（经典系列）、蓝标（健康系列）、wokenday（儿童营养系列）。",
+    "background_summary": "2025年8月双方已签订一份仅针对 wokenday 的3年全案合作。现因企业品牌架构已明确为三条品牌线，双方已沟通确认，将原合作内容重组为包含三条品牌线的完整服务内容，并以新的完整文件替代原单线版本。",
+    "requirement_summary": "需要读取原 wokenday 全案服务内容、结合补充协议或现有补充材料，重新梳理一份结构清晰、以大版块呈现的完整全案咨询服务框架；原版本拟作废，以新版本为准。",
+    "recommended_case_type": "品牌全案服务重组",
+    "quote_status": "not-ready",
+    "created_at": "2026-06-05T10:10:00+08:00",
+    "updated_at": "2026-06-08T09:05:00+08:00",
+    "last_activity_at": "2026-06-08T09:05:00+08:00",
+    "next_action_summary": "基于框架版服务内容附件继续收口为更适合客户确认的全案咨询服务表述，必要时再转报价交接底稿。",
+    "primary_contact": "",
+    "source_channels": [
+      "feishu-dm"
+    ],
+    "tags": [
+      "烘焙食品",
+      "品牌全案",
+      "合同重组",
+      "三品牌线"
+    ],
+    "material_count": 1,
+    "latest_material_id": "mat-001",
+    "latest_progress_id": "prog-006",
+    "current_quote_version": "服务内容附件_框架版",
+    "quote_project_dir": "/Users/a123/.openclaw/workspace-business/projects/泓一/泓一全案/quote"
+  }
+}

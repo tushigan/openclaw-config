@@ -1,0 +1,62 @@
+{
+  "project_name": "黄小咕 IP，一只黄色鸡，整体外轮廓为拇指体块鸡形吉祥物的拟物角色",
+  "project_slug": "ip",
+  "ratio": "9:16",
+  "duration": 8,
+  "quality_tier": "draft",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": null,
+  "storyboard_beats_override": [],
+  "identity_strategy": "reuse_exact",
+  "identity_anchor_rules": [],
+  "identity_structure": [
+    "整体外轮廓必须是拇指体块与黄色小鸡融合的一体化造型",
+    "正面和背面视角都应看到尾巴呈现",
+    "侧面视角可以看不到尾巴，这是正常结构",
+    "角色没有手，也没有额外翅膀，只有脚",
+    "鸡冠、黄色主体、橙色嘴和橙色脚必须稳定保留",
+    "角色要保持圆润、玩具感、可爱且有品牌吉祥物完成度"
+  ],
+  "identity_forbidden": [
+    "禁止长出手臂、手掌、人类手指",
+    "禁止长出额外翅膀或常规鸡翅",
+    "禁止把角色变成普通圆鸡而失去拇指体块轮廓",
+    "禁止正面或背面视角尾巴消失",
+    "禁止脸部五官漂移、比例突变、材质突变",
+    "禁止写实动物羽毛质感，保持干净 3D 吉祥物质感"
+  ],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": [
+    "final frame poster is the only world-reference mother image; use it directly as world, scene, color, and final lock frame truth",
+    "identity source three-view is the only character structure truth; do not invent a new identity board beyond it",
+    "only regenerate storyboard for review; do not create redundant world or identity reference substitutes",
+    "IP enters around second 3, movement should feel cheerful and light",
+    "maple leaves fall naturally from tree branches",
+    "distant sun gradually rises to strengthen morning atmosphere",
+    "final 2 seconds reveal poster typography and brand layout via motion graphics",
+    "camera should include subtle push in / pull / floating motion, keep whole animation flowing",
+    "do not add extra characters or props that compete with the IP"
+  ],
+  "normalize_references": true,
+  "subject": "黄小咕 IP，一只黄色鸡，整体外轮廓为拇指体块鸡形吉祥物的拟物角色",
+  "action": "前 3 秒环境建立与镜头缓推，第 3 秒主体从画外欢快走入，后段在定版海报场景中站定，最后 2 秒文字与版式元素逐步出现，形成品牌收尾",
+  "scene": "霜降节气海报世界：高山远景、晨光日出、红枫林、带霜前景岩石，空气通透，活泼元气而有秋日诗意",
+  "style": "明亮、活泼、元气、有品牌海报完成度的 3D 广告短视频，色彩干净，晨光柔暖，镜头有轻推拉和流动感",
+  "quality": "draft",
+  "existing_references": {
+    "identity_source": "/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/9c8ab30a-8f03-4898-9ff3-1ed46bf578bf.jpg",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/f334c753-fa55-4afb-96cb-0d97ac6685f1.png"
+  },
+  "storyboard_beats": [
+    "建立空间：霜降节气海报世界：高山远景、晨光日出、红枫林、带霜前景岩石，空气通透，活泼元气而有秋日诗意",
+    "动作推进：前 3 秒环境建立与镜头缓推",
+    "动作推进：第 3 秒主体从画外欢快走入",
+    "收束定格：后段在定版海报场景中站定",
+    "动作推进：2 秒文字与版式元素逐步出现",
+    "收束定格：形成品牌收尾"
+  ],
+  "storyboard_panel_count": 6,
+  "slug": "ip"
+}

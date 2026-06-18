@@ -1,0 +1,11 @@
+{
+  "date": "2026-06-09",
+  "status": "success",
+  "code": 200,
+  "diaryId": 9992,
+  "submittedAt": "2026-06-09T10:05:12",
+  "response": {
+    "code": 200,
+    "message": "SUCCESS"
+  }
+}

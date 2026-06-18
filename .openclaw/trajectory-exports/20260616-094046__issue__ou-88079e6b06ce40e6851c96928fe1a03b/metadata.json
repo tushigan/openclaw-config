@@ -1,0 +1,2935 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-16T01:40:48.179Z",
+  "traceId": "a8b269f9-d398-4622-8f72-589afbfa90d1",
+  "sessionId": "a8b269f9-d398-4622-8f72-589afbfa90d1",
+  "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+  "harness": {
+    "type": "openclaw",
+    "name": "OpenClaw",
+    "version": "2026.6.6",
+    "gitSha": "b59363c",
+    "os": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "release": "24.6.0",
+      "label": "macos 15.6.1 (arm64)"
+    },
+    "runtime": {
+      "node": "v22.22.2"
+    },
+    "invocation": [
+      "/opt/homebrew/Cellar/node@22/22.22.2_2/bin/node",
+      "/opt/homebrew/lib/node_modules/openclaw/dist/index.js",
+      "gateway",
+      "--port",
+      "18789"
+    ],
+    "entrypoint": "/opt/homebrew/lib/node_modules/openclaw/dist/index.js",
+    "workspaceDir": "$OPENCLAW_STATE_DIR/workspace",
+    "sessionFile": "$OPENCLAW_STATE_DIR/agents/main/sessions/a8b269f9-d398-4622-8f72-589afbfa90d1.jsonl"
+  },
+  "model": {
+    "provider": "cc-vibe",
+    "name": "claude-opus-4-8",
+    "api": "anthropic-messages",
+    "fastMode": false,
+    "thinkLevel": "adaptive",
+    "reasoningLevel": "on"
+  },
+  "config": {
+    "redacted": {
+      "meta": {
+        "lastTouchedVersion": "2026.6.6",
+        "lastTouchedAt": "2026-06-13T06:42:56.067Z"
+      },
+      "wizard": {
+        "lastRunAt": "2026-05-11T03:19:25.535Z",
+        "lastRunVersion": "2026.5.7",
+        "lastRunCommand": "doctor",
+        "lastRunMode": "local"
+      },
+      "browser": {
+        "profiles": {
+          "research-login": {
+            "cdpPort": 18801,
+            "attachOnly": true,
+            "color": "#0066CC"
+          },
+          "research-login-xhs": {
+            "cdpPort": 18811,
+            "attachOnly": false,
+            "color": "#D94A64"
+          },
+          "research-login-quandashi": {
+            "cdpPort": 18812,
+            "attachOnly": false,
+            "color": "#7A5AF8"
+          },
+          "research-login-zhenbiao": {
+            "cdpPort": 18813,
+            "attachOnly": false,
+            "color": "#00A676"
+          },
+          "research-login-86sb": {
+            "cdpPort": 18814,
+            "attachOnly": false,
+            "color": "#F08C00"
+          },
+          "research-login-huaban": {
+            "cdpPort": 18815,
+            "attachOnly": false,
+            "color": "#C2255C"
+          },
+          "research-login-biaoyuan": {
+            "cdpPort": 18816,
+            "attachOnly": false,
+            "color": "#1971C2"
+          },
+          "research-login-taobao": {
+            "cdpPort": 18817,
+            "attachOnly": false,
+            "color": "#E8590C"
+          },
+          "research-login-jd": {
+            "cdpPort": 18818,
+            "attachOnly": false,
+            "color": "#C92A2A"
+          },
+          "research-login-douyin": {
+            "cdpPort": 18819,
+            "attachOnly": false,
+            "color": "#0B7285"
+          }
+        }
+      },
+      "secrets": {
+        "providers": {
+          "lark-secrets": {
+            "source": "__OPENCLAW_REDACTED__",
+            "path": "__OPENCLAW_REDACTED__"
+          }
+        }
+      },
+      "models": {
+        "mode": "merge",
+        "providers": {
+          "aixor": {
+            "baseUrl": "https://aixor.org",
+            "api": "anthropic-messages",
+            "models": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "cc-vibe": {
+            "baseUrl": "https://cc-vibe.com",
+            "api": "anthropic-messages",
+            "models": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "aixor-g": {
+            "baseUrl": "https://aixor.org/v1",
+            "api": "openai-completions",
+            "models": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        }
+      },
+      "agents": {
+        "defaults": {
+          "model": {
+            "primary": "aixor-g/gpt-5.5"
+          },
+          "imageModel": {
+            "primary": "aixor-g/gpt-5.5",
+            "fallbacks": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "models": {
+            "aixor-g/gpt-5.4": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor-g/gpt-5.5": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor-g/gpt-5.4-mini": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor-g/gpt-5.2": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor/claude-opus-4-7": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor/claude-opus-4-8": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor/claude-opus-4-6": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "cc-vibe/claude-opus-4-7": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "cc-vibe/claude-opus-4-8": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "cc-vibe/claude-opus-4-6": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "workspace": "$WORKSPACE_DIR/workspace",
+          "skills": [
+            "kefu-ae",
+            "boss",
+            "celue-zj",
+            "chuangyi-zj",
+            "wenan",
+            "sheji",
+            "browser-automation",
+            "diagnose",
+            "feishu-channel-rules",
+            "feishu-troubleshoot",
+            "gpt-image2-gen",
+            "grill-me",
+            "grill-with-docs",
+            "handoff",
+            "healthcheck",
+            "improve-codebase-architecture",
+            "lark-approval",
+            "lark-attendance",
+            "lark-base",
+            "lark-calendar",
+            "lark-contact",
+            "lark-doc",
+            "lark-drive",
+            "lark-event",
+            "lark-im",
+            "lark-mail",
+            "lark-minutes",
+            "lark-okr",
+            "lark-openapi-explorer",
+            "lark-shared",
+            "lark-sheets",
+            "lark-skill-maker",
+            "lark-slides",
+            "lark-task",
+            "lark-vc",
+            "lark-whiteboard",
+            "lark-wiki",
+            "lark-workflow-meeting-summary",
+            "lark-workflow-standup-report",
+            "multi-search-engine",
+            "node-connect",
+            "pdf-smart-tool-cn",
+            "session-debug-export",
+            "session-logs",
+            "taskflow",
+            "taskflow-inbox-triage",
+            "weather",
+            "web-browse-capture",
+            "wechat-article-reader",
+            "design-brief-builder",
+            "anysearch"
+          ],
+          "memorySearch": {
+            "provider": "siliconflow",
+            "remote": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "model": "BAAI/bge-m3"
+          },
+          "compaction": {
+            "mode": "safeguard"
+          },
+          "verboseDefault": "on",
+          "timeoutSeconds": 1800,
+          "maxConcurrent": 32,
+          "subagents": {
+            "allowAgents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "maxConcurrent": 16,
+            "maxSpawnDepth": 5,
+            "maxChildrenPerAgent": 5,
+            "thinking": "adaptive",
+            "runTimeoutSeconds": 1800,
+            "archiveAfterMinutes": 60
+          }
+        },
+        "list": [
+          {
+            "id": "main",
+            "default": true,
+            "name": "龙虾总指挥",
+            "workspace": "$WORKSPACE_DIR/workspace",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "adaptive",
+            "reasoningDefault": "on",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "strategy",
+            "name": "战略专家",
+            "workspace": "$WORKSPACE_DIR/workspace-strategy",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "high",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "design",
+            "name": "生图高手",
+            "workspace": "$WORKSPACE_DIR/workspace-design",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "medium",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "research",
+            "name": "调研专家",
+            "workspace": "$WORKSPACE_DIR/workspace-research",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "high",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "copywriter",
+            "name": "文案策划专家",
+            "workspace": "$WORKSPACE_DIR/workspace-copywriter",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "high",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "meeting-analyst",
+            "name": "会议记录分析员",
+            "workspace": "$WORKSPACE_DIR/workspace-meeting",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "medium",
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "business",
+            "name": "业务专家",
+            "workspace": "$WORKSPACE_DIR/workspace-business",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "medium",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "main-shared",
+            "name": "龙虾总指挥（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "adaptive",
+            "reasoningDefault": "on",
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "strategy-shared",
+            "name": "战略专家（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-strategy",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "high",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "design-shared",
+            "name": "生图高手（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-design",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "medium",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "research-shared",
+            "name": "调研专家（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-research",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "high",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "copywriter-shared",
+            "name": "文案策划专家（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-copywriter",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "high",
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "meeting-analyst-shared",
+            "name": "会议记录分析员（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-meeting",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "medium",
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "business-shared",
+            "name": "业务专家（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-business",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "medium",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        ]
+      },
+      "tools": {
+        "profile": "coding",
+        "allow": [
+          "gpt-image2-gen",
+          "brand-poster-creator",
+          "brand-poster-workflow",
+          "browser",
+          "canvas",
+          "data-intelligence",
+          "dify-rag",
+          "exec",
+          "process",
+          "feishu_calendar_*",
+          "feishu_chat",
+          "feishu_chat*",
+          "feishu_create_doc",
+          "feishu_doc",
+          "feishu_doc*",
+          "feishu_drive",
+          "feishu_drive*",
+          "feishu_fetch_doc",
+          "feishu_im_*",
+          "feishu_search_*",
+          "feishu_sheet*",
+          "feishu_task_*",
+          "feishu_wiki",
+          "feishu_wiki*",
+          "file-guardian",
+          "group:plugins",
+          "group:runtime",
+          "group:sessions",
+          "memory_share",
+          "memory_viewer",
+          "message",
+          "multi_search",
+          "multi_search_engine",
+          "outline-architect",
+          "packaging-design",
+          "pdf-smart-tool-cn",
+          "research-analyst",
+          "read",
+          "sessions_history",
+          "sessions_list",
+          "sessions_spawn",
+          "skill-vetter",
+          "skill_file_get",
+          "skill_files",
+          "skill_get",
+          "skill_install",
+          "skill_publish",
+          "skill_search",
+          "skill_unpublish",
+          "tavily_extract",
+          "tavily_search",
+          "transition-video",
+          "web_fetch",
+          "write"
+        ],
+        "web": {
+          "search": {
+            "enabled": true,
+            "provider": "duckduckgo"
+          }
+        },
+        "media": {
+          "image": {
+            "attachments": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "audio": {
+            "enabled": true,
+            "maxBytes": 20971520,
+            "timeoutSeconds": 120,
+            "models": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        "sessions": {
+          "visibility": "all"
+        },
+        "agentToAgent": {
+          "enabled": true,
+          "allow": [
+            "main",
+            "main-shared",
+            "research",
+            "research-shared"
+          ]
+        },
+        "exec": {
+          "security": "full",
+          "ask": "off",
+          "notifyOnExit": true,
+          "notifyOnExitEmptySuccess": true
+        }
+      },
+      "bindings": [
+        {
+          "agentId": "main",
+          "match": {
+            "channel": "feishu",
+            "accountId": "main",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "main",
+          "match": {
+            "channel": "feishu",
+            "accountId": "default",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "main-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "main"
+          }
+        },
+        {
+          "agentId": "main-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "default"
+          }
+        },
+        {
+          "agentId": "strategy",
+          "match": {
+            "channel": "feishu",
+            "accountId": "strategy",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "strategy-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "strategy"
+          }
+        },
+        {
+          "agentId": "research",
+          "match": {
+            "channel": "feishu",
+            "accountId": "research",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "research-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "research"
+          }
+        },
+        {
+          "agentId": "meeting-analyst",
+          "match": {
+            "channel": "feishu",
+            "accountId": "meeting-analyst",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "meeting-analyst-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "meeting-analyst"
+          }
+        },
+        {
+          "agentId": "copywriter",
+          "match": {
+            "channel": "feishu",
+            "accountId": "copywriter",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "copywriter-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "copywriter"
+          }
+        },
+        {
+          "agentId": "design",
+          "match": {
+            "channel": "feishu",
+            "accountId": "design",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "design-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "design"
+          }
+        },
+        {
+          "agentId": "business",
+          "match": {
+            "channel": "feishu",
+            "accountId": "business",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "business-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "business"
+          }
+        }
+      ],
+      "messages": {
+        "groupChat": {
+          "visibleReplies": "automatic"
+        },
+        "ackReactionScope": "group-mentions"
+      },
+      "commands": {
+        "native": "auto",
+        "nativeSkills": "auto",
+        "text": true,
+        "bash": false,
+        "config": false,
+        "mcp": false,
+        "plugins": false,
+        "debug": false,
+        "restart": false,
+        "useAccessGroups": true,
+        "ownerAllowFrom": [
+          "feishu:ou_88079e6b06ce40e6851c96928fe1a03b",
+          "feishu:ou_442533093a478558484ef6461b4d4a56",
+          "feishu:ou_3669c86e1e9957992630dd1fc0b85577",
+          "feishu:ou_1e2494605d60685078e1532cedbb5c4f",
+          "feishu:ou_db8d075ed93bb69cb58b3f809c9a2272",
+          "feishu:ou_ade9d49cd1dff5315774a6cae2479938",
+          "feishu:ou_5a2343ad4d38d496e66b20d2367e4191"
+        ],
+        "ownerDisplay": "raw"
+      },
+      "session": {
+        "dmScope": "per-channel-peer",
+        "maintenance": {
+          "mode": "enforce",
+          "pruneAfter": "7d",
+          "maxEntries": 300
+        }
+      },
+      "cron": {
+        "enabled": true,
+        "maxConcurrentRuns": 8
+      },
+      "hooks": {
+        "internal": {
+          "enabled": true,
+          "entries": {
+            "boot-md": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "bootstrap-extra-files": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "command-logger": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "session-memory": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        }
+      },
+      "channels": {
+        "feishu": {
+          "enabled": true,
+          "domain": "feishu",
+          "connectionMode": "websocket",
+          "appId": "cli_a920219cfdf81bcb",
+          "webhookPath": "/feishu/events",
+          "dmPolicy": "open",
+          "groupPolicy": "allowlist",
+          "groupAllowFrom": [
+            "*"
+          ],
+          "reactionNotifications": "own",
+          "typingIndicator": true,
+          "resolveSenderNames": true,
+          "defaultAccount": "main",
+          "requireMention": true,
+          "blockStreaming": true,
+          "threadSession": true,
+          "groups": {
+            "*": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "streaming": true,
+          "replyMode": {
+            "default": "streaming",
+            "direct": "streaming",
+            "group": "streaming"
+          },
+          "footer": {
+            "elapsed": true,
+            "status": true,
+            "model": true
+          },
+          "mediaLocalRoots": [
+            "$WORKSPACE_DIR/workspace",
+            "$WORKSPACE_DIR/workspace-design",
+            "$WORKSPACE_DIR/workspace-strategy",
+            "$WORKSPACE_DIR/workspace-research",
+            "$WORKSPACE_DIR/workspace-meeting",
+            "$WORKSPACE_DIR/workspace-copywriter",
+            "$WORKSPACE_DIR/workspace-business"
+          ],
+          "monitor": {
+            "enabled": false
+          },
+          "allowFrom": [
+            "*"
+          ],
+          "configWrites": false,
+          "commands": {
+            "enforceOwnerForCommands": true
+          },
+          "name": "龙虾总指挥"
+        }
+      },
+      "gateway": {
+        "port": 18789,
+        "mode": "local",
+        "bind": "loopback",
+        "auth": {
+          "mode": "token"
+        },
+        "tailscale": {
+          "mode": "off",
+          "resetOnExit": false
+        },
+        "nodes": {
+          "denyCommands": [
+            "camera.snap",
+            "camera.clip",
+            "screen.record",
+            "contacts.add",
+            "calendar.add",
+            "reminders.add",
+            "sms.send"
+          ]
+        }
+      },
+      "skills": {
+        "load": {
+          "extraDirs": [
+            "$WORKSPACE_DIR/workspace/skills",
+            "$WORKSPACE_DIR/workspace/.agents/skills",
+            "$WORKSPACE_DIR/skills",
+            "$WORKSPACE_DIR/workspace-strategy/skills",
+            "$WORKSPACE_DIR/workspace-design/skills",
+            "$WORKSPACE_DIR/workspace-research/skills",
+            "$WORKSPACE_DIR/workspace-copywriter/skills",
+            "$WORKSPACE_DIR/workspace-business/skills"
+          ],
+          "watch": true,
+          "watchDebounceMs": 250
+        },
+        "entries": {
+          "image-to-psd": {
+            "enabled": false
+          },
+          "pptx": {
+            "enabled": false
+          },
+          "memos-memory-guide": {
+            "enabled": false
+          },
+          "PPT": {
+            "enabled": false
+          },
+          "layered-psd-gen": {
+            "enabled": true
+          },
+          "deckify": {
+            "enabled": true
+          },
+          "apple-notes": {
+            "enabled": false
+          },
+          "apple-reminders": {
+            "enabled": false
+          },
+          "bear-notes": {
+            "enabled": false
+          },
+          "blogwatcher": {
+            "enabled": false
+          },
+          "blucli": {
+            "enabled": false
+          },
+          "bluebubbles": {
+            "enabled": false
+          },
+          "camsnap": {
+            "enabled": false
+          },
+          "clawhub": {
+            "enabled": false
+          },
+          "coding-agent": {
+            "enabled": false
+          },
+          "discord": {
+            "enabled": false
+          },
+          "eightctl": {
+            "enabled": false
+          },
+          "gemini": {
+            "enabled": false
+          },
+          "gh-issues": {
+            "enabled": false
+          },
+          "gifgrep": {
+            "enabled": false
+          },
+          "github": {
+            "enabled": false
+          },
+          "gog": {
+            "enabled": false
+          },
+          "goplaces": {
+            "enabled": false
+          },
+          "himalaya": {
+            "enabled": false
+          },
+          "imsg": {
+            "enabled": false
+          },
+          "mcporter": {
+            "enabled": false
+          },
+          "model-usage": {
+            "enabled": false
+          },
+          "nano-pdf": {
+            "enabled": false
+          },
+          "notion": {
+            "enabled": false
+          },
+          "obsidian": {
+            "enabled": false
+          },
+          "openai-whisper": {
+            "enabled": false
+          },
+          "openai-whisper-api": {
+            "enabled": false
+          },
+          "openhue": {
+            "enabled": false
+          },
+          "oracle": {
+            "enabled": false
+          },
+          "ordercli": {
+            "enabled": false
+          },
+          "runninghub": {
+            "enabled": true
+          },
+          "mask-edit-localized": {
+            "enabled": false
+          },
+          "peekaboo": {
+            "enabled": false
+          },
+          "sag": {
+            "enabled": false
+          },
+          "sherpa-onnx-tts": {
+            "enabled": false
+          },
+          "slack": {
+            "enabled": false
+          },
+          "songsee": {
+            "enabled": false
+          },
+          "session-debug-export": {
+            "enabled": true
+          },
+          "kefu-ae": {
+            "enabled": true
+          },
+          "boss": {
+            "enabled": true
+          },
+          "celue-zj": {
+            "enabled": true
+          },
+          "chuangyi-zj": {
+            "enabled": true
+          },
+          "wenan": {
+            "enabled": true
+          },
+          "sheji": {
+            "enabled": true
+          },
+          "sonoscli": {
+            "enabled": false
+          },
+          "spotify-player": {
+            "enabled": false
+          },
+          "summarize": {
+            "enabled": false
+          },
+          "things-mac": {
+            "enabled": false
+          },
+          "tmux": {
+            "enabled": false
+          },
+          "trello": {
+            "enabled": false
+          },
+          "voice-call": {
+            "enabled": false
+          },
+          "wacli": {
+            "enabled": false
+          },
+          "xurl": {
+            "enabled": false
+          },
+          "product-photography-workflow": {
+            "enabled": true
+          },
+          "tvc-director": {
+            "enabled": false
+          },
+          "lark-approval": {
+            "enabled": true
+          },
+          "lark-apps": {
+            "enabled": true
+          },
+          "lark-attendance": {
+            "enabled": true
+          },
+          "_truncated": {
+            "truncated": true,
+            "reason": "trajectory-object-size-limit",
+            "originalKeys": 91,
+            "limitKeys": 64
+          }
+        }
+      },
+      "plugins": {
+        "enabled": true,
+        "allow": [
+          "browser",
+          "duckduckgo",
+          "feishu",
+          "memory-core",
+          "openclaw-lark"
+        ],
+        "entries": {
+          "duckduckgo": {
+            "enabled": true,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "tavily": {
+            "enabled": false,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "feishu": {
+            "enabled": false
+          },
+          "memory-core": {
+            "enabled": true,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "browser": {
+            "enabled": true,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "openclaw-lark": {
+            "enabled": true,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        "bundledDiscovery": "allowlist"
+      }
+    },
+    "runtime": {
+      "timeoutMs": 1800000,
+      "trigger": "user",
+      "disableTools": false,
+      "toolResultFormat": "plain"
+    }
+  },
+  "plugins": {
+    "source": "active-registry",
+    "importedRuntimePluginIds": [
+      "anthropic",
+      "browser",
+      "duckduckgo",
+      "lmstudio",
+      "memory-core",
+      "openai",
+      "openclaw-lark",
+      "opencode-go",
+      "xai",
+      "xiaomi"
+    ],
+    "entries": [
+      {
+        "id": "canvas",
+        "name": "Canvas",
+        "version": "2026.6.6",
+        "description": "Experimental Canvas control and A2UI rendering surfaces for paired nodes.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/canvas/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/canvas"
+      },
+      {
+        "id": "codex-supervisor",
+        "name": "Codex Supervisor",
+        "version": "2026.6.6",
+        "description": "Supervise Codex app-server sessions from OpenClaw.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/codex-supervisor/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/codex-supervisor"
+      },
+      {
+        "id": "file-transfer",
+        "name": "File Transfer",
+        "version": "2026.6.6",
+        "description": "Fetch, list, and write files on paired nodes via dedicated node commands. Bypasses bash stdout truncation by using base64 over node.invoke for binaries up to 16 MB.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/file-transfer/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/file-transfer"
+      },
+      {
+        "id": "firecrawl",
+        "name": "@openclaw/firecrawl-plugin",
+        "version": "2026.6.6",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/firecrawl/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/firecrawl",
+        "webFetchProviderIds": [
+          "firecrawl"
+        ],
+        "webSearchProviderIds": [
+          "firecrawl"
+        ]
+      },
+      {
+        "id": "llm-task",
+        "name": "LLM Task",
+        "version": "2026.5.21",
+        "description": "Generic JSON-only LLM tool for structured tasks callable from workflows.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/llm-task/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/llm-task"
+      },
+      {
+        "id": "memory-wiki",
+        "name": "Memory Wiki",
+        "version": "2026.6.6",
+        "description": "Persistent wiki compiler and Obsidian-friendly knowledge vault for OpenClaw.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/memory-wiki/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/memory-wiki"
+      },
+      {
+        "id": "workboard",
+        "name": "Workboard",
+        "version": "2026.6.6",
+        "description": "Dashboard workboard for agent-owned issues and sessions.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/workboard/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/workboard"
+      }
+    ]
+  },
+  "skills": {
+    "snapshotVersion": 1781571502831,
+    "skillFilter": [
+      "anysearch",
+      "boss",
+      "feishu-channel-rules",
+      "feishu-troubleshoot",
+      "gpt-image2-gen",
+      "kefu-ae",
+      "lark-approval",
+      "lark-apps",
+      "lark-attendance",
+      "lark-base",
+      "lark-calendar",
+      "lark-contact",
+      "lark-doc",
+      "lark-drive",
+      "lark-event",
+      "lark-im",
+      "lark-mail",
+      "lark-markdown",
+      "lark-minutes",
+      "lark-note",
+      "lark-okr",
+      "lark-openapi-explorer",
+      "lark-shared",
+      "lark-sheets",
+      "lark-skill-maker",
+      "lark-slides",
+      "lark-task",
+      "lark-vc",
+      "lark-vc-agent",
+      "lark-whiteboard",
+      "lark-wiki",
+      "lark-workflow-meeting-summary",
+      "lark-workflow-standup-report",
+      "multi-search-engine",
+      "pdf-smart-tool-cn",
+      "research-analyst",
+      "session-debug-export",
+      "skill-creator",
+      "wechat-article-reader"
+    ],
+    "entries": [
+      {
+        "id": "anysearch",
+        "name": "anysearch",
+        "description": "Real-time search engine supporting web search, vertical domain search, parallel batch search, and URL content extraction.",
+        "filePath": "$OPENCLAW_STATE_DIR/skills/anysearch/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/skills/anysearch",
+        "source": "openclaw-managed",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/skills/anysearch",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/skills/anysearch/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-managed"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "boss",
+        "name": "boss",
+        "description": "广告公司总控岗位。用于协调完整品牌战役和整合营销流程，从 Brief 收集到策略、创意对齐、执行和修订。触发词：品牌全案、整合营销、营销战役、Launch Campaign。",
+        "filePath": "$OPENCLAW_STATE_DIR/skills/boss/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/skills/boss",
+        "source": "openclaw-managed",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/skills/boss",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/skills/boss/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-managed"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "feishu-channel-rules",
+        "name": "feishu-channel-rules",
+        "description": "Lark/Feishu channel output rules. Always active in Lark conversations.",
+        "filePath": "$OPENCLAW_STATE_DIR/plugin-skills/feishu-channel-rules/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/plugin-skills/feishu-channel-rules",
+        "source": "openclaw-extra",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/plugin-skills/feishu-channel-rules",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/plugin-skills/feishu-channel-rules/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-extra"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "feishu-troubleshoot",
+        "name": "feishu-troubleshoot",
+        "description": "飞书插件问题排查工具。包含常见问题 FAQ 和深度诊断命令（/feishu_doctor）。\n\n常见问题可随时查阅。诊断命令用于排查复杂问题（多次授权仍失败、自动授权无法解决等），\n会检查账户配置、API 连通性、应用权限、用户授权状态，并生成详细的诊断报告和解决方案。",
+        "filePath": "$OPENCLAW_STATE_DIR/plugin-skills/feishu-troubleshoot/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/plugin-skills/feishu-troubleshoot",
+        "source": "openclaw-extra",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/plugin-skills/feishu-troubleshoot",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/plugin-skills/feishu-troubleshoot/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-extra"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "gpt-image2-gen",
+        "name": "gpt-image2-gen",
+        "description": "统一 gpt-image-2-pro 生图入口：文生图、图生图、多参考图、按蒸馏卡自动锚定版式。✨ 2.3.0 新增：参考图自动压缩（默认启用）",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/gpt-image2-gen/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/gpt-image2-gen",
+        "source": "openclaw-extra",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/gpt-image2-gen",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/gpt-image2-gen/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-extra"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "kefu-ae",
+        "name": "kefu-ae",
+        "description": "广告公司客服 AE。用于 Brief 收集、客户需求整理、会议纪要、反馈拆解、项目协调、风险提示。触发词：Brief收集、客户需求、需求整理、会议纪要、反馈整理、项目协调。",
+        "filePath": "$OPENCLAW_STATE_DIR/skills/kefu-ae/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/skills/kefu-ae",
+        "source": "openclaw-managed",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/skills/kefu-ae",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/skills/kefu-ae/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-managed"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-approval",
+        "name": "lark-approval",
+        "description": "飞书审批：当前用户审批的查询与全部处理操作，覆盖待本人审批的任务与本人发起的实例。审批待办不是飞书任务（任务类待办走 lark-task）；不负责创建审批定义和发起新审批。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-approval/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-approval",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-approval",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-approval/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-apps",
+        "name": "lark-apps",
+        "description": "把本地 HTML 文件或目录部署到飞书妙搭（Miaoda），生成一个公网可访问的应用及其链接（URL）。当用户要创建 HTML 或要把 HTML、静态网站或 Web demo 发布成公网可访问的链接 / 可分享链接、设置应用共享范围，或提到妙搭 / Miaoda 时使用。凡产出可独立访问的 HTML 产物都属本 skill 的潜在归宿，是否真要部署由 skill 内部协议判断。不用于：上传普通文件到云空间/云盘/云存储（用 lark-drive）、编辑飞书云文档内容（用 lark-doc）、创建飞书原生幻灯片 / 演示文稿（用 lark-slides）。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-apps/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-apps",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-apps",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-apps/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-attendance",
+        "name": "lark-attendance",
+        "description": "飞书考勤打卡：查询自己的考勤打卡记录",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-attendance/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-attendance",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-attendance",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-attendance/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-base",
+        "name": "lark-base",
+        "description": "飞书多维表格（Base）操作：建表、字段、记录、视图、统计、公式/lookup、表单、仪表盘、workflow、角色权限；遇到 Base/多维表格/bitable 或 /base/ 链接时使用。文件导入转 lark-drive，认证/授权转 lark-shared。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-base/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-base",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-base",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-base/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-calendar",
+        "name": "lark-calendar",
+        "description": "飞书日历：管理日历日程和会议室。查看/搜索日程、创建/更新日程、管理参会人、查询忙闲和推荐时段、预定会议室。当用户需要查看日程安排、创建/修改会议、查询/预定会议室时使用。不负责：查询过去的视频会议记录（走 lark-vc）、待办任务（走 lark-task）。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-calendar/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-calendar",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-calendar",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-calendar/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-contact",
+        "name": "lark-contact",
+        "description": "飞书 / Lark 通讯录:按姓名 / 邮箱解析成 open_id,或按 open_id 反查姓名 / 部门 / 邮箱 / 联系方式 / 个人状态 / 签名。当用户提到某人姓名要下一步发消息 / 排日程,或拿到 open_id 想查具体信息时使用。不负责部门树遍历、按部门列员工、组织架构图,这类需求走原生 OpenAPI。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-contact/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-contact",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-contact",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-contact/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-doc",
+        "name": "lark-doc",
+        "description": "飞书云文档（Docx / Wiki 文档，v2 API）：读取和编辑飞书文档内容。当用户给出文档 URL 或 token，或需要查看、创建、编辑文档、插入或下载文档图片附件时使用。文档中嵌入的电子表格、多维表格、画板，先用本 skill 提取 token 再切到对应 skill。当用户给出 doubao.com 的 /docx/ 或 /wiki/ URL/token 时，也应直接使用本 skill；路由依据是 URL 路径模式和 token，而不是域名。不负责文档评论管理，也不负责表格或 Base 的数据操作。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-doc/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-doc",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-doc",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-doc/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-drive",
+        "name": "lark-drive",
+        "description": "飞书云空间（云盘/云存储）：管理云空间（云盘/云存储）中的文件和文件夹。上传和下载文件、创建文件夹、复制/移动/删除文件、查看文件元数据、管理文档评论、管理文档权限、订阅用户评论变更事件、修改文件标题（docx、sheet、bitable、file、folder、wiki）；也负责把本地 Word/Markdown/Excel/CSV/PPTX 以及 Base 快照（.base）导入为飞书在线云文档（docx、sheet、bitable、slides）。当用户需要上传或下载文件、整理云空间（云盘/云存储）目录、查看文件详情、管理评论、管理文档权限、修改文件标题、订阅用户评论变更事件，或要把本地文件导入成新版文档、电子表格、多维表格/Base/幻灯片 时使用。\"云空间\"、\"云盘\"和\"云存储\"是同一概念，用户说\"云盘\"、\"云存储\"、\"网盘\"、\"我的空间\"时均路由到本 skill。当用户给出 doubao.com 的云空间资源 URL/token，或明确提到豆包里的 file/folder/docx/sheet/bitable/wiki 资源时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是资源类型、URL 路径模式和 token，而不是域名。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-drive/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-drive",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-drive",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-drive/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-event",
+        "name": "lark-event",
+        "description": "Lark/Feishu real-time event listening / subscribing / consuming: stream events as NDJSON via `lark-cli event consume <EventKey>` (covers IM messages/reactions/chat changes, VC meeting ended, Minutes generated, Whiteboard updated, etc.). Use for Lark bots, real-time message processing, long-running subscribers, streaming webhook/push handlers. Supports `--max-events` / `--timeout` bounded runs and a stderr ready-marker contract — designed for AI agents running as subprocesses.",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-event/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-event",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-event",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-event/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-im",
+        "name": "lark-im",
+        "description": "飞书即时通讯：收发消息和管理群聊。发送和回复消息、搜索聊天记录、管理群聊成员、上传下载图片和文件（支持大文件分片下载）、管理表情回复、发送应用内/短信/电话加急。当用户需要发消息、查看或搜索聊天记录、下载聊天中的文件、查看群成员、搜索群、创建群聊或话题群、管理标记数据、管理 Feed 置顶（添加/移除/查询置顶会话）、管理标签数据时使用。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-im/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-im",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-im",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-im/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-mail",
+        "name": "lark-mail",
+        "description": "飞书邮箱 — draft, compose, send, reply, forward, read, and search emails; manage drafts, folders, labels, contacts, attachments, and mail rules. Use when user mentions 起草邮件, 写一封邮件, 拟邮件, 草稿, 发通知邮件, 发送邮件, 发邮件, 回复邮件, 转发邮件, 查看邮件, 看邮件, 读邮件, 搜索邮件, 查邮件, 收件箱, 邮件会话, 编辑草稿, 管理草稿, 下载附件, 邮件文件夹, 邮件标签, 邮件联系人, 监听新邮件, 收信规则, 邮件规则, draft, compose, send email, reply, forward, inbox, mail thread, mail rules.",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-mail/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-mail",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-mail",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-mail/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-markdown",
+        "name": "lark-markdown",
+        "description": "飞书 Markdown：查看、创建、上传、编辑和比较 Markdown 文件。当用户需要创建或编辑 Markdown 文件、读取、修改、局部 patch 或比较差异时使用。不负责将 Markdown 导入为飞书在线文档，也不负责文件搜索、权限、评论、移动、删除等云空间管理操作。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-markdown/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-markdown",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-markdown",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-markdown/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-minutes",
+        "name": "lark-minutes",
+        "description": "飞书妙记：搜索妙记列表、查看妙记基础信息、下载妙记音视频文件、上传音视频生成妙记、更新妙记标题、替换说话人。当需要获取、操作或者生成妙记时使用。也支持将本地音视频文件转成纪要和逐字稿（优先使用本 skill，不要用 ffmpeg/whisper 本地转写）。不负责：获取会议关联妙记、纪要/逐字稿内容获取走 lark-vc",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-minutes/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-minutes",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-minutes",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-minutes/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-note",
+        "name": "lark-note",
+        "description": "飞书会议纪要（Note）直查：已知 note_id 时查询纪要详情、展示类型、关联文档 token，并读取 unified 原始逐字记录。当用户已持有 note_id，或从文档显式 vc-node-id 获得 note_id 时使用。不负责会议/日程/妙记定位、文档标题搜索或 Docx 正文读取。",
+        "filePath": "~/.agents/skills/lark-note/SKILL.md",
+        "baseDir": "~/.agents/skills/lark-note",
+        "source": "agents-skills-personal",
+        "sourceInfo": {
+          "baseDir": "~/.agents/skills/lark-note",
+          "origin": "top-level",
+          "path": "~/.agents/skills/lark-note/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-personal"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-okr",
+        "name": "lark-okr",
+        "description": "飞书 OKR：管理目标与关键结果。查看和编辑 OKR 周期、目标（Objective）、关键结果（Key Result）、对齐关系、量化指标和进展记录。当用户需要查看或创建 OKR、管理目标和关键结果、查看对齐关系时使用。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-okr/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-okr",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-okr",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-okr/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-openapi-explorer",
+        "name": "lark-openapi-explorer",
+        "description": "飞书/Lark 原生 OpenAPI 探索：从官方文档库中挖掘未经 CLI 封装的原生 OpenAPI 接口。当用户的需求无法被现有 lark-* skill 或 lark-cli 已注册命令满足，需要查找并调用原生飞书 OpenAPI 时使用。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-openapi-explorer/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-openapi-explorer",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-openapi-explorer",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-openapi-explorer/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-shared",
+        "name": "lark-shared",
+        "description": "Use when first setting up lark-cli, running auth login, switching user/bot identity (--as), handling permission denied or scope errors, needing to update lark-cli, or seeing _notice in JSON output.",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-shared/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-shared",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-shared",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-shared/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-sheets",
+        "name": "lark-sheets",
+        "description": "飞书电子表格：创建和操作电子表格。支持创建表格、管理工作表与行列结构（增删/合并/调整尺寸/隐藏/冻结）、读写单元格（值/公式/样式/批注/单元格图片）、查找替换、多操作原子批量更新，以及图表、透视表、条件格式、筛选器、迷你图、浮动图片等对象的创建与维护。当用户需要创建电子表格、管理工作表、批量读写或编辑数据、统计汇总与可视化、表格美化、公式计算（含 Excel 公式迁移）等任务时使用。若用户是想按名称或关键词搜索云空间（云盘/云存储）里的表格文件，请改用 lark-drive 的 drive +search 先定位资源。当用户给出 doubao.com 的 /sheets/ URL/token 时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是 URL 路径模式和 token，而不是域名。仅针对飞书在线电子表格，不适用于本地 Excel 文件。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-sheets/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-sheets",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-sheets",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-sheets/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-skill-maker",
+        "name": "lark-skill-maker",
+        "description": "创建 lark-cli 的自定义 Skill。当用户需要把飞书 API 操作封装成可复用的 Skill（包装原子 API 或编排多步流程）时使用。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-skill-maker/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-skill-maker",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-skill-maker",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-skill-maker/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-slides",
+        "name": "lark-slides",
+        "description": "飞书幻灯片：创建和编辑幻灯片。创建演示文稿、读取幻灯片内容、管理幻灯片页面（创建、删除、读取、局部替换）。当用户需要创建或编辑幻灯片、读取或修改单个页面时使用。当用户给出 doubao.com 的 /slides/ URL/token 时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是 URL 路径模式和 token，而不是域名。不负责：云文档内容编辑（走 lark-doc）、云文档里的独立画板对象（走 lark-whiteboard，注意 slide 内嵌的流程图/架构图仍属本 skill）、上传或下载普通文件（走 lark-drive）。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-slides/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-slides",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-slides",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-slides/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-task",
+        "name": "lark-task",
+        "description": "飞书任务：管理任务、清单和任务智能体。创建待办任务、查看和更新任务状态、拆分子任务、组织任务清单、分配协作成员、上传任务附件、注册或注销任务智能体、更新任务智能体的主页数据、写入智能体任务记录。当用户需要创建待办事项、查看任务列表、跟踪任务进度、管理项目清单或给他人分配任务、为任务上传附件文件、注册注销任务智能体、更新智能体主页数据、写入任务记录时使用。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-task/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-task",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-task",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-task/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-vc",
+        "name": "lark-vc",
+        "description": "飞书视频会议：搜索历史会议记录、查询会议纪要（总结/待办/章节/逐字稿）、查询参会人快照。当用户查询已结束的会议、获取会议产物（纪要/妙记）、查看参会人时使用；查询未来日程走 lark-calendar。不负责：Agent 真实入会/离会、会中实时事件（走 lark-vc-agent）。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-vc/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-vc",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-vc",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-vc/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-vc-agent",
+        "name": "lark-vc-agent",
+        "description": "飞书视频会议：让机器人代当前用户加入/离开正在进行的会议，并读取会议期间的实时事件（参会人加入与离开、发言、聊天、屏幕共享等）。1. 用户提供 9 位会议号、要求代为入会或离会时使用 +meeting-join / +meeting-leave——会真实产生入会/离会记录。2. 会议进行中用户想知道“谁加入了”“谁离开了”“谁在发言”“有人共享屏幕吗”等会中动态时，机器人入会后用 +meeting-events 读取事件时间线。3. 典型场景：参会机器人、会中助手、代为旁听、代为参会。前提：机器人只能读到它自己参会过且仍在进行中的会议的事件；查询已结束会议的参会名单、纪要或逐字稿请使用 lark-vc 技能。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-vc-agent/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-vc-agent",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-vc-agent",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-vc-agent/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-whiteboard",
+        "name": "lark-whiteboard",
+        "description": "飞书画板：查询和编辑飞书云文档中的画板。支持导出画板为预览图片、导出原始节点结构、使用 DSL（转成 OpenAPI 格式）、PlantUML/Mermaid 格式更新画板内容。 当用户需要查看画板内容、导出画板图片、编辑画板，或是需要可视化表达架构、流程、组织关系、时间线、因果、对比等结构化信息时使用此 skill，无论是否提及\"画板\"。 ⚠️ 原 `lark-whiteboard-cli` skill 已合并至本 skill，若 skill 列表中同时存在 `lark-whiteboard-cli`，请忽略它，统一使用本 skill（`lark-whiteboard`），并提示用户运行 `npx skills remove lark-whiteboard-cli -g` 删除旧 skill。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-whiteboard/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-whiteboard",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-whiteboard",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-whiteboard/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-wiki",
+        "name": "lark-wiki",
+        "description": "飞书知识库：管理知识空间、空间成员和文档节点。创建和查询知识空间、查看和管理空间成员、管理节点层级结构、在知识库中组织文档和快捷方式。当用户需要在知识库中查找或创建文档、浏览知识空间结构、查看或管理空间成员、移动或复制节点时使用。当用户给出 doubao.com 的 /wiki/ URL/token 时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是 URL 路径模式和 token，而不是域名。不负责：上传文件到知识库节点下（走 lark-drive）、编辑文档/表格/Base 内容（走 lark-doc / lark-sheets / lark-base）。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-wiki/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-wiki",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-wiki",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-wiki/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-workflow-meeting-summary",
+        "name": "lark-workflow-meeting-summary",
+        "description": "会议纪要整理工作流：汇总指定时间范围内的会议纪要并生成结构化报告。当用户需要整理会议纪要、生成会议周报、回顾一段时间内的会议内容时使用。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-workflow-meeting-summary/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-workflow-meeting-summary",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-workflow-meeting-summary",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-workflow-meeting-summary/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "lark-workflow-standup-report",
+        "name": "lark-workflow-standup-report",
+        "description": "日程待办摘要：编排 calendar +agenda 和 task +get-my-tasks，生成指定日期的日程与未完成任务摘要。适用于了解今天/明天/本周的安排。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-workflow-standup-report/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-workflow-standup-report",
+        "source": "agents-skills-project",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-workflow-standup-report",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace/.agents/skills/lark-workflow-standup-report/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-project"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "multi-search-engine",
+        "name": "multi-search-engine",
+        "description": "默认免费搜索入口。覆盖 17 个搜索源（8 个国内 + 9 个国际），适合新闻、日报、资料、来源、竞品、报告检索。",
+        "filePath": "$OPENCLAW_STATE_DIR/skills/multi-search-engine/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/skills/multi-search-engine",
+        "source": "openclaw-managed",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/skills/multi-search-engine",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/skills/multi-search-engine/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-managed"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "pdf-smart-tool-cn",
+        "name": "pdf-smart-tool-cn",
+        "description": "PDF智能处理工具 v2.1 | PDF Smart Tool. 支持PDF转换、OCR识别、合并拆分、数字签名、批量处理、水印添加、加密解密。触发词：PDF、转换、识别。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-strategy/skills/pdf-smart-tool-cn/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-strategy/skills/pdf-smart-tool-cn",
+        "source": "openclaw-extra",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-strategy/skills/pdf-smart-tool-cn",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-strategy/skills/pdf-smart-tool-cn/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-extra"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "research-analyst",
+        "name": "research-analyst",
+        "description": "通用调研执行技能。将输入主题或资料转为证据包、洞察图谱和风险假设，可复用于 PPT/报告/方案类流程。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-research/skills/research-analyst/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-research/skills/research-analyst",
+        "source": "openclaw-extra",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-research/skills/research-analyst",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-research/skills/research-analyst/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-extra"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "session-debug-export",
+        "name": "session-debug-export",
+        "description": "导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说”导出聊天记录””导出当前聊天””导出对话记录””聊天记录导出””生成聊天日志””打包聊天记录”时必须使用本技能。",
+        "filePath": "$OPENCLAW_STATE_DIR/skills/session-debug-export/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/skills/session-debug-export",
+        "source": "openclaw-managed",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/skills/session-debug-export",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/skills/session-debug-export/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-managed"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": true,
+        "invocationDetectedBy": "tool-call-file-path"
+      },
+      {
+        "id": "skill-creator",
+        "name": "skill-creator",
+        "description": "Create, edit, improve, tidy, review, audit, or restructure AgentSkills and SKILL.md files.",
+        "filePath": "~/.agents/skills/skill-creator/SKILL.md",
+        "baseDir": "~/.agents/skills/skill-creator",
+        "source": "agents-skills-personal",
+        "sourceInfo": {
+          "baseDir": "~/.agents/skills/skill-creator",
+          "origin": "top-level",
+          "path": "~/.agents/skills/skill-creator/SKILL.md",
+          "scope": "project",
+          "source": "agents-skills-personal"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "wechat-article-reader",
+        "name": "wechat-article-reader",
+        "description": "读取微信公众号文章全文。当用户提供 mp.weixin.qq.com 链接时自动调用。支持提取标题、作者、发布时间、摘要、正文 HTML/Markdown/纯文本、图片列表。无需登录、无需额外配置。触发词：公众号文章、微信文章、mp.weixin、公众号链接、微信链接。",
+        "filePath": "$OPENCLAW_STATE_DIR/skills/wechat-article-reader/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/skills/wechat-article-reader",
+        "source": "openclaw-managed",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/skills/wechat-article-reader",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/skills/wechat-article-reader/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-managed"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      }
+    ]
+  },
+  "prompting": {
+    "skillsPrompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nIf a skill's <version> differs from a previous turn, re-read its SKILL.md before using it.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>anysearch</name>\n    <description>Real-time search engine supporting web search, vertical domain search, parallel batch search, and URL content extraction.</description>\n    <location>~/.openclaw/skills/anysearch/SKILL.md</location>\n    <version>sha256:749987ba3c28f3f8</version>\n  </skill>\n  <skill>\n    <name>boss</name>\n    <description>广告公司总控岗位。用于协调完整品牌战役和整合营销流程，从 Brief 收集到策略、创意对齐、执行和修订。触发词：品牌全案、整合营销、营销战役、Launch Campaign。</description>\n    <location>~/.openclaw/skills/boss/SKILL.md</location>\n    <version>sha256:306daf49321fe982</version>\n  </skill>\n  <skill>\n    <name>feishu-channel-rules</name>\n    <description>Lark/Feishu channel output rules. Always active in Lark conversations.</description>\n    <location>~/.openclaw/plugin-skills/feishu-channel-rules/SKILL.md</location>\n    <version>sha256:e7197f146a7e7c69</version>\n  </skill>\n  <skill>\n    <name>feishu-troubleshoot</name>\n    <description>飞书插件问题排查工具。包含常见问题 FAQ 和深度诊断命令（/feishu_doctor）。\n\n常见问题可随时查阅。诊断命令用于排查复杂问题（多次授权仍失败、自动授权无法解决等），\n会检查账户配置、API 连通性、应用权限、用户授权状态，并生成详细的诊断报告和解决方案。</description>\n    <location>~/.openclaw/plugin-skills/feishu-troubleshoot/SKILL.md</location>\n    <version>sha256:6f0e43bc7958ec37</version>\n  </skill>\n  <skill>\n    <name>gpt-image2-gen</name>\n    <description>统一 gpt-image-2-pro 生图入口：文生图、图生图、多参考图、按蒸馏卡自动锚定版式。✨ 2.3.0 新增：参考图自动压缩（默认启用）</description>\n    <location>~/.openclaw/workspace-design/skills/gpt-image2-gen/SKILL.md</location>\n    <version>sha256:35fca6e9eaed9938</version>\n  </skill>\n  <skill>\n    <name>kefu-ae</name>\n    <description>广告公司客服 AE。用于 Brief 收集、客户需求整理、会议纪要、反馈拆解、项目协调、风险提示。触发词：Brief收集、客户需求、需求整理、会议纪要、反馈整理、项目协调。</description>\n    <location>~/.openclaw/skills/kefu-ae/SKILL.md</location>\n    <version>sha256:dad339f8220c9d42</version>\n  </skill>\n  <skill>\n    <name>lark-approval</name>\n    <description>飞书审批：当前用户审批的查询与全部处理操作，覆盖待本人审批的任务与本人发起的实例。审批待办不是飞书任务（任务类待办走 lark-task）；不负责创建审批定义和发起新审批。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-approval/SKILL.md</location>\n    <version>sha256:9e36ab914f1bba22</version>\n  </skill>\n  <skill>\n    <name>lark-apps</name>\n    <description>把本地 HTML 文件或目录部署到飞书妙搭（Miaoda），生成一个公网可访问的应用及其链接（URL）。当用户要创建 HTML 或要把 HTML、静态网站或 Web demo 发布成公网可访问的链接 / 可分享链接、设置应用共享范围，或提到妙搭 / Miaoda 时使用。凡产出可独立访问的 HTML 产物都属本 skill 的潜在归宿，是否真要部署由 skill 内部协议判断。不用于：上传普通文件到云空间/云盘/云存储（用 lark-drive）、编辑飞书云文档内容（用 lark-doc）、创建飞书原生幻灯片 / 演示文稿（用 lark-slides）。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-apps/SKILL.md</location>\n    <version>sha256:7b764615c5d7fe3f</version>\n  </skill>\n  <skill>\n    <name>lark-attendance</name>\n    <description>飞书考勤打卡：查询自己的考勤打卡记录</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-attendance/SKILL.md</location>\n    <version>sha256:a0ea5f3fa176496d</version>\n  </skill>\n  <skill>\n    <name>lark-base</name>\n    <description>飞书多维表格（Base）操作：建表、字段、记录、视图、统计、公式/lookup、表单、仪表盘、workflow、角色权限；遇到 Base/多维表格/bitable 或 /base/ 链接时使用。文件导入转 lark-drive，认证/授权转 lark-shared。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-base/SKILL.md</location>\n    <version>sha256:788163884402bea4</version>\n  </skill>\n  <skill>\n    <name>lark-calendar</name>\n    <description>飞书日历：管理日历日程和会议室。查看/搜索日程、创建/更新日程、管理参会人、查询忙闲和推荐时段、预定会议室。当用户需要查看日程安排、创建/修改会议、查询/预定会议室时使用。不负责：查询过去的视频会议记录（走 lark-vc）、待办任务（走 lark-task）。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-calendar/SKILL.md</location>\n    <version>sha256:4e739cf89030aaea</version>\n  </skill>\n  <skill>\n    <name>lark-contact</name>\n    <description>飞书 / Lark 通讯录:按姓名 / 邮箱解析成 open_id,或按 open_id 反查姓名 / 部门 / 邮箱 / 联系方式 / 个人状态 / 签名。当用户提到某人姓名要下一步发消息 / 排日程,或拿到 open_id 想查具体信息时使用。不负责部门树遍历、按部门列员工、组织架构图,这类需求走原生 OpenAPI。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-contact/SKILL.md</location>\n    <version>sha256:94c3a645131c08dd</version>\n  </skill>\n  <skill>\n    <name>lark-doc</name>\n    <description>飞书云文档（Docx / Wiki 文档，v2 API）：读取和编辑飞书文档内容。当用户给出文档 URL 或 token，或需要查看、创建、编辑文档、插入或下载文档图片附件时使用。文档中嵌入的电子表格、多维表格、画板，先用本 skill 提取 token 再切到对应 skill。当用户给出 doubao.com 的 /docx/ 或 /wiki/ URL/token 时，也应直接使用本 skill；路由依据是 URL 路径模式和 token，而不是域名。不负责文档评论管理，也不负责表格或 Base 的数据操作。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-doc/SKILL.md</location>\n    <version>sha256:4dc7487dff4b6940</version>\n  </skill>\n  <skill>\n    <name>lark-drive</name>\n    <description>飞书云空间（云盘/云存储）：管理云空间（云盘/云存储）中的文件和文件夹。上传和下载文件、创建文件夹、复制/移动/删除文件、查看文件元数据、管理文档评论、管理文档权限、订阅用户评论变更事件、修改文件标题（docx、sheet、bitable、file、folder、wiki）；也负责把本地 Word/Markdown/Excel/CSV/PPTX 以及 Base 快照（.base）导入为飞书在线云文档（docx、sheet、bitable、slides）。当用户需要上传或下载文件、整理云空间（云盘/云存储）目录、查看文件详情、管理评论、管理文档权限、修改文件标题、订阅用户评论变更事件，或要把本地文件导入成新版文档、电子表格、多维表格/Base/幻灯片 时使用。&quot;云空间&quot;、&quot;云盘&quot;和&quot;云存储&quot;是同一概念，用户说&quot;云盘&quot;、&quot;云存储&quot;、&quot;网盘&quot;、&quot;我的空间&quot;时均路由到本 skill。当用户给出 doubao.com 的云空间资源 URL/token，或明确提到豆包里的 file/folder/docx/sheet/bitable/wiki 资源时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是资源类型、URL 路径模式和 token，而不是域名。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-drive/SKILL.md</location>\n    <version>sha256:2a94c853b7953013</version>\n  </skill>\n  <skill>\n    <name>lark-event</name>\n    <description>Lark/Feishu real-time event listening / subscribing / consuming: stream events as NDJSON via `lark-cli event consume &lt;EventKey&gt;` (covers IM messages/reactions/chat changes, VC meeting ended, Minutes generated, Whiteboard updated, etc.). Use for Lark bots, real-time message processing, long-running subscribers, streaming webhook/push handlers. Supports `--max-events` / `--timeout` bounded runs and a stderr ready-marker contract — designed for AI agents running as subprocesses.</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-event/SKILL.md</location>\n    <version>sha256:bd25ce44c5451ce9</version>\n  </skill>\n  <skill>\n    <name>lark-im</name>\n    <description>飞书即时通讯：收发消息和管理群聊。发送和回复消息、搜索聊天记录、管理群聊成员、上传下载图片和文件（支持大文件分片下载）、管理表情回复、发送应用内/短信/电话加急。当用户需要发消息、查看或搜索聊天记录、下载聊天中的文件、查看群成员、搜索群、创建群聊或话题群、管理标记数据、管理 Feed 置顶（添加/移除/查询置顶会话）、管理标签数据时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-im/SKILL.md</location>\n    <version>sha256:48b98bae19ddd41d</version>\n  </skill>\n  <skill>\n    <name>lark-mail</name>\n    <description>飞书邮箱 — draft, compose, send, reply, forward, read, and search emails; manage drafts, folders, labels, contacts, attachments, and mail rules. Use when user mentions 起草邮件, 写一封邮件, 拟邮件, 草稿, 发通知邮件, 发送邮件, 发邮件, 回复邮件, 转发邮件, 查看邮件, 看邮件, 读邮件, 搜索邮件, 查邮件, 收件箱, 邮件会话, 编辑草稿, 管理草稿, 下载附件, 邮件文件夹, 邮件标签, 邮件联系人, 监听新邮件, 收信规则, 邮件规则, draft, compose, send email, reply, forward, inbox, mail thread, mail rules.</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-mail/SKILL.md</location>\n    <version>sha256:83b46bada959e426</version>\n  </skill>\n  <skill>\n    <name>lark-markdown</name>\n    <description>飞书 Markdown：查看、创建、上传、编辑和比较 Markdown 文件。当用户需要创建或编辑 Markdown 文件、读取、修改、局部 patch 或比较差异时使用。不负责将 Markdown 导入为飞书在线文档，也不负责文件搜索、权限、评论、移动、删除等云空间管理操作。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-markdown/SKILL.md</location>\n    <version>sha256:c240e243d84b7869</version>\n  </skill>\n  <skill>\n    <name>lark-minutes</name>\n    <description>飞书妙记：搜索妙记列表、查看妙记基础信息、下载妙记音视频文件、上传音视频生成妙记、更新妙记标题、替换说话人。当需要获取、操作或者生成妙记时使用。也支持将本地音视频文件转成纪要和逐字稿（优先使用本 skill，不要用 ffmpeg/whisper 本地转写）。不负责：获取会议关联妙记、纪要/逐字稿内容获取走 lark-vc</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-minutes/SKILL.md</location>\n    <version>sha256:cf23786a4c72b087</version>\n  </skill>\n  <skill>\n    <name>lark-note</name>\n    <description>飞书会议纪要（Note）直查：已知 note_id 时查询纪要详情、展示类型、关联文档 token，并读取 unified 原始逐字记录。当用户已持有 note_id，或从文档显式 vc-node-id 获得 note_id 时使用。不负责会议/日程/妙记定位、文档标题搜索或 Docx 正文读取。</description>\n    <location>~/.agents/skills/lark-note/SKILL.md</location>\n    <version>sha256:d6b2e162acbcf6c4</version>\n  </skill>\n  <skill>\n    <name>lark-okr</name>\n    <description>飞书 OKR：管理目标与关键结果。查看和编辑 OKR 周期、目标（Objective）、关键结果（Key Result）、对齐关系、量化指标和进展记录。当用户需要查看或创建 OKR、管理目标和关键结果、查看对齐关系时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-okr/SKILL.md</location>\n    <version>sha256:eb60b0922e324ed2</version>\n  </skill>\n  <skill>\n    <name>lark-openapi-explorer</name>\n    <description>飞书/Lark 原生 OpenAPI 探索：从官方文档库中挖掘未经 CLI 封装的原生 OpenAPI 接口。当用户的需求无法被现有 lark-* skill 或 lark-cli 已注册命令满足，需要查找并调用原生飞书 OpenAPI 时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-openapi-explorer/SKILL.md</location>\n    <version>sha256:ae89debc3f807f99</version>\n  </skill>\n  <skill>\n    <name>lark-shared</name>\n    <description>Use when first setting up lark-cli, running auth login, switching user/bot identity (--as), handling permission denied or scope errors, needing to update lark-cli, or seeing _notice in JSON output.</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-shared/SKILL.md</location>\n    <version>sha256:47eb16beb85cec95</version>\n  </skill>\n  <skill>\n    <name>lark-sheets</name>\n    <description>飞书电子表格：创建和操作电子表格。支持创建表格、管理工作表与行列结构（增删/合并/调整尺寸/隐藏/冻结）、读写单元格（值/公式/样式/批注/单元格图片）、查找替换、多操作原子批量更新，以及图表、透视表、条件格式、筛选器、迷你图、浮动图片等对象的创建与维护。当用户需要创建电子表格、管理工作表、批量读写或编辑数据、统计汇总与可视化、表格美化、公式计算（含 Excel 公式迁移）等任务时使用。若用户是想按名称或关键词搜索云空间（云盘/云存储）里的表格文件，请改用 lark-drive 的 drive +search 先定位资源。当用户给出 doubao.com 的 /sheets/ URL/token 时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是 URL 路径模式和 token，而不是域名。仅针对飞书在线电子表格，不适用于本地 Excel 文件。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-sheets/SKILL.md</location>\n    <version>sha256:7b1f0de266147e6e</version>\n  </skill>\n  <skill>\n    <name>lark-skill-maker</name>\n    <description>创建 lark-cli 的自定义 Skill。当用户需要把飞书 API 操作封装成可复用的 Skill（包装原子 API 或编排多步流程）时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-skill-maker/SKILL.md</location>\n    <version>sha256:8591158289a3cb00</version>\n  </skill>\n  <skill>\n    <name>lark-slides</name>\n    <description>飞书幻灯片：创建和编辑幻灯片。创建演示文稿、读取幻灯片内容、管理幻灯片页面（创建、删除、读取、局部替换）。当用户需要创建或编辑幻灯片、读取或修改单个页面时使用。当用户给出 doubao.com 的 /slides/ URL/token 时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是 URL 路径模式和 token，而不是域名。不负责：云文档内容编辑（走 lark-doc）、云文档里的独立画板对象（走 lark-whiteboard，注意 slide 内嵌的流程图/架构图仍属本 skill）、上传或下载普通文件（走 lark-drive）。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-slides/SKILL.md</location>\n    <version>sha256:054f491b448d862a</version>\n  </skill>\n  <skill>\n    <name>lark-task</name>\n    <description>飞书任务：管理任务、清单和任务智能体。创建待办任务、查看和更新任务状态、拆分子任务、组织任务清单、分配协作成员、上传任务附件、注册或注销任务智能体、更新任务智能体的主页数据、写入智能体任务记录。当用户需要创建待办事项、查看任务列表、跟踪任务进度、管理项目清单或给他人分配任务、为任务上传附件文件、注册注销任务智能体、更新智能体主页数据、写入任务记录时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-task/SKILL.md</location>\n    <version>sha256:da64e5a56f4e477f</version>\n  </skill>\n  <skill>\n    <name>lark-vc</name>\n    <description>飞书视频会议：搜索历史会议记录、查询会议纪要（总结/待办/章节/逐字稿）、查询参会人快照。当用户查询已结束的会议、获取会议产物（纪要/妙记）、查看参会人时使用；查询未来日程走 lark-calendar。不负责：Agent 真实入会/离会、会中实时事件（走 lark-vc-agent）。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-vc/SKILL.md</location>\n    <version>sha256:fb18506a08c8eb00</version>\n  </skill>\n  <skill>\n    <name>lark-vc-agent</name>\n    <description>飞书视频会议：让机器人代当前用户加入/离开正在进行的会议，并读取会议期间的实时事件（参会人加入与离开、发言、聊天、屏幕共享等）。1. 用户提供 9 位会议号、要求代为入会或离会时使用 +meeting-join / +meeting-leave——会真实产生入会/离会记录。2. 会议进行中用户想知道“谁加入了”“谁离开了”“谁在发言”“有人共享屏幕吗”等会中动态时，机器人入会后用 +meeting-events 读取事件时间线。3. 典型场景：参会机器人、会中助手、代为旁听、代为参会。前提：机器人只能读到它自己参会过且仍在进行中的会议的事件；查询已结束会议的参会名单、纪要或逐字稿请使用 lark-vc 技能。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-vc-agent/SKILL.md</location>\n    <version>sha256:dbda1b2aaf9269ea</version>\n  </skill>\n  <skill>\n    <name>lark-whiteboard</name>\n    <description>飞书画板：查询和编辑飞书云文档中的画板。支持导出画板为预览图片、导出原始节点结构、使用 DSL（转成 OpenAPI 格式）、PlantUML/Mermaid 格式更新画板内容。 当用户需要查看画板内容、导出画板图片、编辑画板，或是需要可视化表达架构、流程、组织关系、时间线、因果、对比等结构化信息时使用此 skill，无论是否提及&quot;画板&quot;。 ⚠️ 原 `lark-whiteboard-cli` skill 已合并至本 skill，若 skill 列表中同时存在 `lark-whiteboard-cli`，请忽略它，统一使用本 skill（`lark-whiteboard`），并提示用户运行 `npx skills remove lark-whiteboard-cli -g` 删除旧 skill。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-whiteboard/SKILL.md</location>\n    <version>sha256:ecc65a5fd5414a64</version>\n  </skill>\n  <skill>\n    <name>lark-wiki</name>\n    <description>飞书知识库：管理知识空间、空间成员和文档节点。创建和查询知识空间、查看和管理空间成员、管理节点层级结构、在知识库中组织文档和快捷方式。当用户需要在知识库中查找或创建文档、浏览知识空间结构、查看或管理空间成员、移动或复制节点时使用。当用户给出 doubao.com 的 /wiki/ URL/token 时，也应直接使用本 skill，不要因为域名不是飞书而回退到 WebFetch；路由依据是 URL 路径模式和 token，而不是域名。不负责：上传文件到知识库节点下（走 lark-drive）、编辑文档/表格/Base 内容（走 lark-doc / lark-sheets / lark-base）。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-wiki/SKILL.md</location>\n    <version>sha256:9e3eab7ab8c8ed3d</version>\n  </skill>\n  <skill>\n    <name>lark-workflow-meeting-summary</name>\n    <description>会议纪要整理工作流：汇总指定时间范围内的会议纪要并生成结构化报告。当用户需要整理会议纪要、生成会议周报、回顾一段时间内的会议内容时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-workflow-meeting-summary/SKILL.md</location>\n    <version>sha256:b9a13b4f8d266f52</version>\n  </skill>\n  <skill>\n    <name>lark-workflow-standup-report</name>\n    <description>日程待办摘要：编排 calendar +agenda 和 task +get-my-tasks，生成指定日期的日程与未完成任务摘要。适用于了解今天/明天/本周的安排。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-workflow-standup-report/SKILL.md</location>\n    <version>sha256:a283de746e65f97d</version>\n  </skill>\n  <skill>\n    <name>multi-search-engine</name>\n    <description>默认免费搜索入口。覆盖 17 个搜索源（8 个国内 + 9 个国际），适合新闻、日报、资料、来源、竞品、报告检索。</description>\n    <location>~/.openclaw/skills/multi-search-engine/SKILL.md</location>\n    <version>sha256:b7423e540fda818d</version>\n  </skill>\n  <skill>\n    <name>pdf-smart-tool-cn</name>\n    <description>PDF智能处理工具 v2.1 | PDF Smart Tool. 支持PDF转换、OCR识别、合并拆分、数字签名、批量处理、水印添加、加密解密。触发词：PDF、转换、识别。</description>\n    <location>~/.openclaw/workspace-strategy/skills/pdf-smart-tool-cn/SKILL.md</location>\n    <version>sha256:14901b6d093c917a</version>\n  </skill>\n  <skill>\n    <name>research-analyst</name>\n    <description>通用调研执行技能。将输入主题或资料转为证据包、洞察图谱和风险假设，可复用于 PPT/报告/方案类流程。</description>\n    <location>~/.openclaw/workspace-research/skills/research-analyst/SKILL.md</location>\n    <version>sha256:dbb92911049c6d1a</version>\n  </skill>\n  <skill>\n    <name>session-debug-export</name>\n    <description>导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说”导出聊天记录””导出当前聊天””导出对话记录””聊天记录导出””生成聊天日志””打包聊天记录”时必须使用本技能。</description>\n    <location>~/.openclaw/skills/session-debug-export/SKILL.md</location>\n    <version>sha256:837cecca97ebdb55</version>\n  </skill>\n  <skill>\n    <name>skill-creator</name>\n    <description>Create, edit, improve, tidy, review, audit, or restructure AgentSkills and SKILL.md files.</description>\n    <location>~/.agents/skills/skill-creator/SKILL.md</location>\n    <version>sha256:7566f2a205897334</version>\n  </skill>\n  <skill>\n    <name>wechat-article-reader</name>\n    <description>读取微信公众号文章全文。当用户提供 mp.weixin.qq.com 链接时自动调用。支持提取标题、作者、发布时间、摘要、正文 HTML/Markdown/纯文本、图片列表。无需登录、无需额外配置。触发词：公众号文章、微信文章、mp.weixin、公众号链接、微信链接。</description>\n    <location>~/.openclaw/skills/wechat-article-reader/SKILL.md</location>\n    <version>sha256:f7107ad9c4929d4e</version>\n  </skill>\n</available_skills>",
+    "systemPromptReport": {
+      "source": "run",
+      "generatedAt": 1781573024619,
+      "sessionId": "a8b269f9-d398-4622-8f72-589afbfa90d1",
+      "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+      "provider": "cc-vibe",
+      "model": "claude-opus-4-8",
+      "workspaceDir": "$WORKSPACE_DIR/workspace",
+      "bootstrapMaxChars": 20000,
+      "bootstrapTotalMaxChars": 60000,
+      "bootstrapTruncation": {
+        "warningMode": "always",
+        "warningShown": false,
+        "truncatedFiles": 0,
+        "nearLimitFiles": 0,
+        "totalNearLimit": false
+      },
+      "sandbox": {
+        "mode": "off",
+        "sandboxed": false
+      },
+      "systemPrompt": {
+        "chars": 46992,
+        "hash": "cd3d7cc1aeaefa3ae1b3baadda5bffc657a7f83f2139d63f5b1155b453e71bf1",
+        "projectContextChars": 19155,
+        "nonProjectContextChars": 27837
+      },
+      "injectedWorkspaceFiles": [
+        {
+          "name": "AGENTS.md",
+          "path": "$WORKSPACE_DIR/workspace/AGENTS.md",
+          "missing": false,
+          "rawChars": 11813,
+          "injectedChars": 11813,
+          "truncated": false
+        },
+        {
+          "name": "SOUL.md",
+          "path": "$WORKSPACE_DIR/workspace/SOUL.md",
+          "missing": false,
+          "rawChars": 757,
+          "injectedChars": 757,
+          "truncated": false
+        },
+        {
+          "name": "TOOLS.md",
+          "path": "$WORKSPACE_DIR/workspace/TOOLS.md",
+          "missing": false,
+          "rawChars": 656,
+          "injectedChars": 656,
+          "truncated": false
+        },
+        {
+          "name": "IDENTITY.md",
+          "path": "$WORKSPACE_DIR/workspace/IDENTITY.md",
+          "missing": false,
+          "rawChars": 357,
+          "injectedChars": 357,
+          "truncated": false
+        },
+        {
+          "name": "USER.md",
+          "path": "$WORKSPACE_DIR/workspace/USER.md",
+          "missing": false,
+          "rawChars": 386,
+          "injectedChars": 386,
+          "truncated": false
+        },
+        {
+          "name": "HEARTBEAT.md",
+          "path": "$WORKSPACE_DIR/workspace/HEARTBEAT.md",
+          "missing": false,
+          "rawChars": 192,
+          "injectedChars": 192,
+          "truncated": false
+        },
+        {
+          "name": "MEMORY.md",
+          "path": "$WORKSPACE_DIR/workspace/MEMORY.md",
+          "missing": false,
+          "rawChars": 4616,
+          "injectedChars": 4616,
+          "truncated": false
+        }
+      ],
+      "skills": {
+        "promptChars": 15672,
+        "hash": "d83cbd4800d597ccf0b33f6ec976e63bb5ec4a92a45dc0d2337516440014ae33",
+        "entries": [
+          {
+            "name": "anysearch",
+            "blockChars": 308
+          },
+          {
+            "name": "boss",
+            "blockChars": 264
+          },
+          {
+            "name": "feishu-channel-rules",
+            "blockChars": 286
+          },
+          {
+            "name": "feishu-troubleshoot",
+            "blockChars": 349
+          },
+          {
+            "name": "gpt-image2-gen",
+            "blockChars": 286
+          },
+          {
+            "name": "kefu-ae",
+            "blockChars": 269
+          },
+          {
+            "name": "lark-approval",
+            "blockChars": 299
+          },
+          {
+            "name": "lark-apps",
+            "blockChars": 485
+          },
+          {
+            "name": "lark-attendance",
+            "blockChars": 235
+          },
+          {
+            "name": "lark-base",
+            "blockChars": 338
+          },
+          {
+            "name": "lark-calendar",
+            "blockChars": 344
+          },
+          {
+            "name": "lark-contact",
+            "blockChars": 373
+          },
+          {
+            "name": "lark-doc",
+            "blockChars": 461
+          },
+          {
+            "name": "lark-drive",
+            "blockChars": 824
+          },
+          {
+            "name": "lark-event",
+            "blockChars": 693
+          },
+          {
+            "name": "lark-im",
+            "blockChars": 371
+          },
+          {
+            "name": "lark-mail",
+            "blockChars": 591
+          },
+          {
+            "name": "lark-markdown",
+            "blockChars": 352
+          },
+          {
+            "name": "lark-minutes",
+            "blockChars": 372
+          },
+          {
+            "name": "lark-note",
+            "blockChars": 334
+          },
+          {
+            "name": "lark-okr",
+            "blockChars": 314
+          },
+          {
+            "name": "lark-openapi-explorer",
+            "blockChars": 352
+          },
+          {
+            "name": "lark-shared",
+            "blockChars": 406
+          },
+          {
+            "name": "lark-sheets",
+            "blockChars": 607
+          },
+          {
+            "name": "lark-skill-maker",
+            "blockChars": 292
+          },
+          {
+            "name": "lark-slides",
+            "blockChars": 503
+          },
+          {
+            "name": "lark-task",
+            "blockChars": 383
+          },
+          {
+            "name": "lark-vc",
+            "blockChars": 345
+          },
+          {
+            "name": "lark-vc-agent",
+            "blockChars": 521
+          },
+          {
+            "name": "lark-whiteboard",
+            "blockChars": 579
+          },
+          {
+            "name": "lark-wiki",
+            "blockChars": 508
+          },
+          {
+            "name": "lark-workflow-meeting-summary",
+            "blockChars": 313
+          },
+          {
+            "name": "lark-workflow-standup-report",
+            "blockChars": 326
+          },
+          {
+            "name": "multi-search-engine",
+            "blockChars": 264
+          },
+          {
+            "name": "pdf-smart-tool-cn",
+            "blockChars": 308
+          },
+          {
+            "name": "research-analyst",
+            "blockChars": 271
+          },
+          {
+            "name": "session-debug-export",
+            "blockChars": 343
+          },
+          {
+            "name": "skill-creator",
+            "blockChars": 283
+          },
+          {
+            "name": "wechat-article-reader",
+            "blockChars": 346
+          }
+        ]
+      },
+      "tools": {
+        "listChars": 0,
+        "schemaChars": 51363,
+        "entries": [
+          {
+            "name": "read",
+            "summaryChars": 298,
+            "summaryHash": "f8a1d7cf1ecfe02b1b5865c93387e6a5891e5079117b4fe18614b6f912521727",
+            "schemaChars": 304,
+            "schemaHash": "134f19bcabe3e29d63c5cebb38f1d2556759fd08adad6bc90a4b4d3cd1fb8441",
+            "propertiesCount": 3
+          },
+          {
+            "name": "write",
+            "summaryChars": 127,
+            "summaryHash": "cdb1c46027b22d1f1b923b47bfe297821d9fe589a9f9d92994961948060a4d89",
+            "schemaChars": 225,
+            "schemaHash": "e98a2484f667cf7c22d76ca103bf2022bf9113dc63fe38b899e71c328cb1e833",
+            "propertiesCount": 2
+          },
+          {
+            "name": "apply_patch",
+            "summaryChars": 132,
+            "summaryHash": "432bf38688a4f011d2b765a441ac07e1fdfa9faf2051679adee04abcd9332d93",
+            "schemaChars": 153,
+            "schemaHash": "05521268363ff4f191472c90d69ef08a503ba9acf1d2febc50b3ee68db32ab65",
+            "propertiesCount": 1
+          },
+          {
+            "name": "exec",
+            "summaryChars": 446,
+            "summaryHash": "369f5e5e195c647ab1e3cfad282e6d25488d4b9fe269f1157e273a546ca80295",
+            "schemaChars": 1283,
+            "schemaHash": "2608ea36cf51376859b7204cda1bf1a2507134eb542097b9e8dbc8af617f216b",
+            "propertiesCount": 12
+          },
+          {
+            "name": "process",
+            "summaryChars": 362,
+            "summaryHash": "21d78afb643a24f211fe9aa86c748f165ca82f1dc21bbaf6e3e6d6d4d4411d86",
+            "schemaChars": 1074,
+            "schemaHash": "a2d30a25569f409d7e8539844c89a088044535388b24031d014577b96ed27c5c",
+            "propertiesCount": 12
+          },
+          {
+            "name": "message",
+            "summaryChars": 94,
+            "summaryHash": "e840269c83486fde8ea5e59212894b5a1f2f0896ca7766f6b41b1cecfe901109",
+            "schemaChars": 5736,
+            "schemaHash": "82d38a4b86f46198aff18528a78812fcbe2cf6cf1c1b077f2504db9d73c508c6",
+            "propertiesCount": 106
+          },
+          {
+            "name": "sessions_list",
+            "summaryChars": 135,
+            "summaryHash": "c7e411ae02e3adff5504aaee48f02d262a8abb9152558a3172aae289e3b05faf",
+            "schemaChars": 435,
+            "schemaHash": "c29c6b82c36a2d95a88c8944f129929b2621ee2af6d17b2ab101d4d7e9633d89",
+            "propertiesCount": 9
+          },
+          {
+            "name": "sessions_history",
+            "summaryChars": 117,
+            "summaryHash": "f5d45b76f11a8ac63cc45d456fb6f675f0b1a2e191feb9671924cb5830058f03",
+            "schemaChars": 162,
+            "schemaHash": "ac33b8af2252262afe479236046f5a04bc018f1fcf24d1a8bf32743f0e867598",
+            "propertiesCount": 3
+          },
+          {
+            "name": "sessions_send",
+            "summaryChars": 282,
+            "summaryHash": "061e9ef3487676bb2a4fd4c0336bd973aaab5eea0725e7443c4cb17518cd1e78",
+            "schemaChars": 275,
+            "schemaHash": "f1fbaa412fe6b6aee102234c87c5aa140f39c9086f9bae6e1e9691309a602ffb",
+            "propertiesCount": 5
+          },
+          {
+            "name": "sessions_spawn",
+            "summaryChars": 332,
+            "summaryHash": "5ced554d0c09b9c71fa003139eca7871bbfdc0917a323fc17af2a9faec46c5b7",
+            "schemaChars": 1151,
+            "schemaHash": "9a91c7668463da8a66386260ce2ae97e7efe3bb93b9b6f03ac85102c354457e1",
+            "propertiesCount": 15
+          },
+          {
+            "name": "sessions_yield",
+            "summaryChars": 79,
+            "summaryHash": "f3782fc41c1522657e1d3494f486a2df998fed38a6b89dcf7f6934fb41424320",
+            "schemaChars": 60,
+            "schemaHash": "b1c4c753820bc3096d85ef7a266a14c9fbe12450536db58076b75bb61d14dbbb",
+            "propertiesCount": 1
+          },
+          {
+            "name": "subagents",
+            "summaryChars": 132,
+            "summaryHash": "1c2ffd38549c0444b118d43736fc4b875ea1aaabc446bbf8bc1fc4ee9180cca4",
+            "schemaChars": 122,
+            "schemaHash": "c4a241d2c3d46ba7985abfce4d3fcd63298ce81f89d49183c8f3d584c48d0c33",
+            "propertiesCount": 2
+          },
+          {
+            "name": "session_status",
+            "summaryChars": 278,
+            "summaryHash": "71177e543dc6235bad4b1a26761995681dcec27ab58dcb4f4f8a7fc9a7b2b5aa",
+            "schemaChars": 89,
+            "schemaHash": "d2995f3d69d126e98ac93eec3c2a9fe5556925bd7979a8e4b6b5a2bf62d329dd",
+            "propertiesCount": 2
+          },
+          {
+            "name": "web_fetch",
+            "summaryChars": 93,
+            "summaryHash": "8875afbb51bd63673e5e6836ca31eeda73914a464862665cd73b346e28d28fd5",
+            "schemaChars": 317,
+            "schemaHash": "d2d8ad58a1b84d849dd16142282aff6c5606f7b0e3d08405e1b740a6a79e6bcc",
+            "propertiesCount": 3
+          },
+          {
+            "name": "browser",
+            "summaryChars": 1537,
+            "summaryHash": "8a4aab8d6a66131c4f065bc2672af8fbcc19555e55fb4fbb1c24261d02e63e28",
+            "schemaChars": 3570,
+            "schemaHash": "fcbd681856651c4d2817a3c0f9786a321a20a50a6c117866bf08d4df6f40486a",
+            "propertiesCount": 53
+          },
+          {
+            "name": "memory_search",
+            "summaryChars": 605,
+            "summaryHash": "0f918d28864d3682ae77731f149273997c84773592a466b18c7cd0121b599a05",
+            "schemaChars": 250,
+            "schemaHash": "088cd2a3d3a47b251429ff7c56844cdedd1c45c3af0fa8bfaf7aa795766976bf",
+            "propertiesCount": 4
+          },
+          {
+            "name": "memory_get",
+            "summaryChars": 239,
+            "summaryHash": "bff1141a3da31a345c550337417efc9ace4da2909004606c727c59ca1a294495",
+            "schemaChars": 241,
+            "schemaHash": "78f5d58460a82f9104deebad2f1873a8cde05d1ce7328b3ba4da6e994653e70a",
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_get_user",
+            "summaryChars": 75,
+            "summaryHash": "49af1e7eaa05d33d9090c3d9e9609129fa950b1658b34240cbcac6955be33807",
+            "schemaChars": 185,
+            "schemaHash": "6f31f57b3ca30895ed7e5ea0cf0a18d4d650e89bc40ed04dd771ca43f97ae852",
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_search_user",
+            "summaryChars": 55,
+            "summaryHash": "9a8833160a5473a1858d17b4e35ab2a4738749047a0c0b5ada0c587ce7457767",
+            "schemaChars": 311,
+            "schemaHash": "10a5c5baf181e54aba6aab795074086a77ffbf76f3f6ced2d3b84deb63d052c5",
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_chat",
+            "summaryChars": 92,
+            "summaryHash": "7405099b4093360bc5affc0f2d0be6b7d8cc055fac56a26fe52f8b073832cc0a",
+            "schemaChars": 519,
+            "schemaHash": "4f7476e692df34bba0eae58f85ada6c3f95d9012e0715abcd38ce6ecb1a1edf9",
+            "propertiesCount": 6
+          },
+          {
+            "name": "feishu_chat_members",
+            "summaryChars": 54,
+            "summaryHash": "f216e67da9adc2aea9bbcca27877f072d423c0df7e96959ae3457c0e7b5f0c9e",
+            "schemaChars": 353,
+            "schemaHash": "5c2ab6d621a2dd6691409a0f38641692459e2ddb9277f3fbfa0a030a69338c30",
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_im_user_message",
+            "summaryChars": 456,
+            "summaryHash": "5c0cdcdfe20be0f65b14b3975010f25ad1a63a8f84d67c8a7d7c3ed37d3f5085",
+            "schemaChars": 1149,
+            "schemaHash": "d99dbd73b7b179cb3548368fcba8a3b9b9b358c044285ed9069926c6d0649bb6",
+            "propertiesCount": 8
+          },
+          {
+            "name": "feishu_im_user_fetch_resource",
+            "summaryChars": 456,
+            "summaryHash": "1ecfa7334687208fd1d098dfd620345ff6c71a404278684282f8b1bc7f50326a",
+            "schemaChars": 371,
+            "schemaHash": "c1e392d16ef3f28b99ca9072a64315334592cd9de34863d914cddbdca0293443",
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_im_user_get_messages",
+            "summaryChars": 526,
+            "summaryHash": "36532a1f62541e38402c4997647b2196290731a06b5e542c972ecc622934ef89",
+            "schemaChars": 912,
+            "schemaHash": "98558f2a300a8cddca070984f1eacdd124663c55547630cc5a6f79996d40be7e",
+            "propertiesCount": 8
+          },
+          {
+            "name": "feishu_im_user_get_thread_messages",
+            "summaryChars": 166,
+            "summaryHash": "1a1e0d3b2637e07067f0bc709bfeff226c66de5c694017999961b6db64d4691f",
+            "schemaChars": 395,
+            "schemaHash": "fdd186d1c814b7d0c8f2aa7e789e4db3485811afe5558f6f6a17f21caf658283",
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_im_user_search_messages",
+            "summaryChars": 522,
+            "summaryHash": "6c4f4591d91d3acbd91bf3b99eeefbf99420d6d551cd60f5b1ff0c19045cb0e1",
+            "schemaChars": 1364,
+            "schemaHash": "178a4976e617a4f7c9587194e1c13798cf5a92a37392eec0c6f431ab8335b6bf",
+            "propertiesCount": 12
+          },
+          {
+            "name": "feishu_calendar_calendar",
+            "summaryChars": 93,
+            "summaryHash": "2f10182931714a6e78247ffb50300e68ed20a3a902d8f1d9b266d496cb5f0bf3",
+            "schemaChars": 389,
+            "schemaHash": "2e81ae74b6bcf50f369973a2b2d3c7259826ce3a21cebfa5bf6f0888b1c29d71",
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_calendar_event",
+            "summaryChars": 455,
+            "summaryHash": "52c1ea9603376ffd8649b4cf28294f8a32eb6cabab54187ee790c11c7f9d19a6",
+            "schemaChars": 3200,
+            "schemaHash": "01e0eb85d0b6dfcb268aa13e3c96c4aa9b812bced467307a3f40f67b6e275f08",
+            "propertiesCount": 21
+          },
+          {
+            "name": "feishu_calendar_event_attendee",
+            "summaryChars": 75,
+            "summaryHash": "f49d93e43c039b0c7413a12eb1ebd184387e84ca84cbf196f43786f4a40d911b",
+            "schemaChars": 981,
+            "schemaHash": "790e3d370efdd45d763befde58fe27c3b3707879177c27d0acbdb2320b773619",
+            "propertiesCount": 9
+          },
+          {
+            "name": "feishu_calendar_freebusy",
+            "summaryChars": 80,
+            "summaryHash": "57b659adee0ff25e1038bf13572b678361bab4aea89f2fdfac6f099b2605fd10",
+            "schemaChars": 504,
+            "schemaHash": "0d710b3872c7812c3ad5bdc0a5af8986d4e91d0ba90d93a54b05dca41c6ccfaa",
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_task_task",
+            "summaryChars": 167,
+            "summaryHash": "221eed66095a8da6f264465c7c63185fa98b81e5105a8cad8d98f26b4028688e",
+            "schemaChars": 1868,
+            "schemaHash": "2ee793631b9d7520b28c702a9e876a71c1520475fd097a8e86b72a046933a530",
+            "propertiesCount": 15
+          },
+          {
+            "name": "feishu_task_tasklist",
+            "summaryChars": 163,
+            "summaryHash": "e855e2a9120b994cbbc1395d756c312ed1163fe36ae85aca4a2fd774f710e009",
+            "schemaChars": 769,
+            "schemaHash": "1cfe323654c7a64017995cda92da7d95e7f44ba3a75337931553753b12378611",
+            "propertiesCount": 7
+          },
+          {
+            "name": "feishu_task_section",
+            "summaryChars": 127,
+            "summaryHash": "11d4bbaf3fe0ccc331b86819d761a3fea028df2cfa8dc6c1c69efdbc20664d40",
+            "schemaChars": 1061,
+            "schemaHash": "899ae100a8ee7950d30be104d93538052266bf218f9b346406f12eb707a87dc5",
+            "propertiesCount": 13
+          },
+          {
+            "name": "feishu_task_comment",
+            "summaryChars": 95,
+            "summaryHash": "b82aa33779ec2735dcd265992784fce083a742289bb27df792cd6d12d69fb5ca",
+            "schemaChars": 671,
+            "schemaHash": "eaa584df557d7af6181728fae49ae59ca2b28a23176b7665488af3ae593b96c8",
+            "propertiesCount": 9
+          },
+          {
+            "name": "feishu_task_subtask",
+            "summaryChars": 86,
+            "summaryHash": "c76fd412c503a9ce387443c5bdd03de9e98fbd4f89aa0640bc5a85c768e3816f",
+            "schemaChars": 1128,
+            "schemaHash": "053c5d4e0e4749617e59a3d9919ba0eb2269976a742139bfe04ed2c2d19b4108",
+            "propertiesCount": 9
+          },
+          {
+            "name": "feishu_bitable_app",
+            "summaryChars": 139,
+            "summaryHash": "5df7f485e0e77f82658b88c7e298e6f6255150a5a2b85d4a66e4c29872d588f0",
+            "schemaChars": 511,
+            "schemaHash": "9c084f455d9b98885cf12751fe566fe2b2c4c07572f10dd80d3c55cda74cebcb",
+            "propertiesCount": 7
+          },
+          {
+            "name": "feishu_bitable_app_table",
+            "summaryChars": 285,
+            "summaryHash": "36bc1229ddc1630e891e773f4fea0485b3de313d10330add976e7889f58ca87c",
+            "schemaChars": 1152,
+            "schemaHash": "9b99578f12915c45f7528ad056495286037b5dc4c9491d134ac9c0c174b47117",
+            "propertiesCount": 8
+          },
+          {
+            "name": "feishu_bitable_app_table_record",
+            "summaryChars": 292,
+            "summaryHash": "e01061812c1060380c12e393e6b8288c3e8b43c42dd13fb31c3e8e3c59443c55",
+            "schemaChars": 2381,
+            "schemaHash": "f7ef6ebe97c0862f961af85264a6917f9d115582ce5de94d95b470585f40a050",
+            "propertiesCount": 14
+          },
+          {
+            "name": "feishu_bitable_app_table_field",
+            "summaryChars": 134,
+            "summaryHash": "05983a340cbf18c38e439874e5fba24182d15ac3260172ad4b2e9de0fb8d6759",
+            "schemaChars": 824,
+            "schemaHash": "4e734acbf5055773a7c1f3a24555059741a6225c4b4cf9fcbcd7e99052bd229b",
+            "propertiesCount": 10
+          },
+          {
+            "name": "feishu_bitable_app_table_view",
+            "summaryChars": 108,
+            "summaryHash": "800918d345b5da1b4fd3aee881de9435b44fe58e4740492462073ded5b49c44c",
+            "schemaChars": 692,
+            "schemaHash": "9192a0ae958c566d946044ee1a14aff29494e0dfe06bd7d675afda2b04e3ff3f",
+            "propertiesCount": 8
+          },
+          {
+            "name": "feishu_search_doc_wiki",
+            "summaryChars": 212,
+            "summaryHash": "8cfe7d02a995fce6e0544ae211c408b4352bb6a0b3a2d3bca1da95d7269d75b8",
+            "schemaChars": 1806,
+            "schemaHash": "e529c04de67e1a10e38477dbc89b9e9d9d912e0ea8cbc19d8dc1fa2970f5a6b1",
+            "propertiesCount": 5
+          },
+          {
+            "name": "feishu_drive_file",
+            "summaryChars": 703,
+            "summaryHash": "3a7b77d5942001a0ff1350fe155eb0cac0f0b1652f1e86150071553d33671e90",
+            "schemaChars": 2278,
+            "schemaHash": "a0add869b5e68725a20db67c26d5a904e27537f1d22dd2c43d422856f65e6b2f",
+            "propertiesCount": 16
+          },
+          {
+            "name": "feishu_doc_comments",
+            "summaryChars": 166,
+            "summaryHash": "1751aac7a8091e49248c0e55bedf0524c06d4853f27ff8b60d6e2f78422de42c",
+            "schemaChars": 1353,
+            "schemaHash": "3f06b0cebb8d1f0080dc955f22d774d121abb34f55328b3d9cd995951fcceffa",
+            "propertiesCount": 11
+          },
+          {
+            "name": "feishu_doc_media",
+            "summaryChars": 200,
+            "summaryHash": "ddefb253f8807ae36e7c97c9ac80c6588099c10a12fce6e0d40e60137ee2b921",
+            "schemaChars": 963,
+            "schemaHash": "9a2961a24bf9ba18eae2e4521842a3e347347d016652b60e628c68373e704cd0",
+            "propertiesCount": 9
+          },
+          {
+            "name": "feishu_wiki_space",
+            "summaryChars": 179,
+            "summaryHash": "2d647fe21d48d4de10df9cab402139141e62a8127748ec444798ec0fce120362",
+            "schemaChars": 451,
+            "schemaHash": "86caac57d1069033e69ed886efa4400ffa20dbb787fd4864787a3cd5be20550f",
+            "propertiesCount": 6
+          },
+          {
+            "name": "feishu_wiki_space_node",
+            "summaryChars": 205,
+            "summaryHash": "f2d2747821a04c1ce06644128326817017276edf03391e72bb1a2ce14a44cc2c",
+            "schemaChars": 995,
+            "schemaHash": "804e320cdac5f505b811dbf5214623db9b04450999486cabf2724f6925ecf33d",
+            "propertiesCount": 13
+          },
+          {
+            "name": "feishu_sheet",
+            "summaryChars": 474,
+            "summaryHash": "a547f28ac3fafe22c5975c9104e8dc56830dc11a5501f7b3d012ab6e5b5d164f",
+            "schemaChars": 1905,
+            "schemaHash": "42ebe2c41fdf6a66ce38bb795a39358e8b98cd5bd4f8e700f32908e37b0109de",
+            "propertiesCount": 18
+          },
+          {
+            "name": "feishu_im_bot_image",
+            "summaryChars": 241,
+            "summaryHash": "200a544503979c1a46acf1cc66573a85d27765db30724957b3574611ce2e8652",
+            "schemaChars": 384,
+            "schemaHash": "ccc10b4dd5c321c302665b13b319928af6921ac7da6bfc6bb79f2d46a155425c",
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_fetch_doc",
+            "summaryChars": 42,
+            "summaryHash": "ce58233cf7fd56c492855f27dc90ce3dbab23512748229fb7982f1db74664124",
+            "schemaChars": 281,
+            "schemaHash": "e80de43154aed30fb5dce5d5a104a954dfc3ea1adef4611524983effaf0f9087",
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_create_doc",
+            "summaryChars": 33,
+            "summaryHash": "77b091443689e2cc13a30b470b64a8eb0d90fa3188f0d27a0077c39d2119b4b4",
+            "schemaChars": 427,
+            "schemaHash": "76f821c7baafbef17364552c9890d0b5c5054ae533891cc78a3c807b10c0b094",
+            "propertiesCount": 6
+          },
+          {
+            "name": "feishu_update_doc",
+            "summaryChars": 105,
+            "summaryHash": "a1282997a47b50cf3104ea87c4ef89ac803aa09dfcd18f1480ae55b7fc52ff97",
+            "schemaChars": 811,
+            "schemaHash": "ab2c8c7459d4064bbc88c47447c4f552a7d8431c3489faa39d57c3fde724a72b",
+            "propertiesCount": 7
+          },
+          {
+            "name": "feishu_oauth",
+            "summaryChars": 168,
+            "summaryHash": "8342cbea8efb97a12b059de526ca476aeffb48a7d63682c878a6525bd0cd119d",
+            "schemaChars": 290,
+            "schemaHash": "cce4662e33ce842a8f1d2a4619e621382a79cc2a61170c8db71fdfd5fc218a7d",
+            "propertiesCount": 1
+          },
+          {
+            "name": "feishu_oauth_batch_auth",
+            "summaryChars": 55,
+            "summaryHash": "29773ca96523c2ef486e6c4e8b87c4208eb26c4132fab1259cdda403b9797721",
+            "schemaChars": 162,
+            "schemaHash": "6428575c51949f3127f834f333d50537a88d56638226844baf320c0965055af3",
+            "propertiesCount": 0
+          },
+          {
+            "name": "feishu_ask_user_question",
+            "summaryChars": 389,
+            "summaryHash": "7f41435f2aab61396f784c6427c67bb9b7da6271777512501c58ee224d7f49f6",
+            "schemaChars": 1309,
+            "schemaHash": "b96c4a75927bdf0e8c46a8c2e1bfad5a2156efe99c214a8f8312a11eb844bc19",
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_conversation_binding",
+            "summaryChars": 72,
+            "summaryHash": "d7d2ab84f10760b12f00dbc4d1c0ad890e863e315560655257d2e4ec565037b5",
+            "schemaChars": 811,
+            "schemaHash": "9f58056c5a17388caec1c850dae5458b141c427ac1bbe532e8dff224257b9847",
+            "propertiesCount": 7
+          }
+        ]
+      }
+    }
+  },
+  "redaction": {
+    "config": {
+      "mode": "redactConfigObject",
+      "secretsMasked": true
+    },
+    "payloads": {
+      "mode": "sanitizeDiagnosticPayload",
+      "credentialsRemoved": true,
+      "imageDataRedacted": true
+    },
+    "harness": {
+      "mode": "diagnostic-support-redaction",
+      "programArgumentsRedacted": true,
+      "localPathsRedacted": true
+    }
+  },
+  "metadata": {
+    "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+    "agentId": "main",
+    "messageProvider": "feishu"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "project_name": "端午龙舟海报场景：卡通龙舟载着粽子与黑金杯状产品，在竹林水面中前行",
+  "project_slug": "brief-9f7b0c78",
+  "ratio": "9:16",
+  "duration": 5,
+  "quality_tier": "draft",
+  "language": "zh-CN",
+  "storyboard_strategy": "auto_beats",
+  "storyboard_panel_count_override": null,
+  "storyboard_beats_override": [],
+  "identity_strategy": "reuse_exact",
+  "identity_anchor_rules": [],
+  "identity_structure": [
+    "最终尾帧必须严格贴合定版海报构图：龙舟、粽子、黑金杯状产品、竹林、水面、阳光位置都保持一致",
+    "龙头是绿色与橙红色卡通龙，鹿角、胡须、张嘴表情明显",
+    "黑色杯状产品在龙舟中后部，正面有金色圆环标识",
+    "龙舟内有绿色粽子，船桨在右侧，水面有清晰倒影和涟漪"
+  ],
+  "identity_forbidden": [
+    "禁止改变尾帧海报的主体结构和位置",
+    "禁止把龙舟变成普通船或真实龙",
+    "禁止增加无关人物、文字、logo、额外产品",
+    "禁止把黑金杯状产品变形或移出船体",
+    "禁止最后一帧和定版海报明显不一致"
+  ],
+  "has_existing_references": true,
+  "anchor_elements": [],
+  "notes": "这是基于已确认尾帧定版海报制作小视频。核心策略是尾帧锁定，前面镜头倒推，避免最后无法回到海报。",
+  "normalize_references": true,
+  "subject": "端午龙舟海报场景：卡通龙舟载着粽子与黑金杯状产品，在竹林水面中前行",
+  "action": "镜头从清澈水面和竹叶光影中缓慢推进，龙舟轻轻驶入画面，水波荡漾、阳光闪耀，最终稳定停留并无缝落到定版尾帧海报构图",
+  "scene": "夏日端午氛围，蓝天白云，阳光从右上方洒下，竹林环绕，清澈水面有倒影和涟漪",
+  "style": "高质感3D卡通商业广告，清爽明亮，节日氛围，画面干净，手机竖屏海报级质感",
+  "existing_references": {
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/outputs/video-tailframe-20260605/refs/final_frame_poster.jpg",
+    "identity_source": "/Users/a123/.openclaw/workspace/outputs/video-tailframe-20260605/refs/logo_or_ip.jpg"
+  },
+  "storyboard_beats": [
+    "建立空间：夏日端午氛围，蓝天白云，阳光从右上方洒下，竹林环绕，清澈水面有倒影和涟漪",
+    "动作推进：镜头从清澈水面和竹叶光影中缓慢推进",
+    "动作推进：龙舟轻轻驶入画面",
+    "动作推进：水波荡漾、阳光闪耀",
+    "收束定格：最终稳定停留并无缝落到定版尾帧海报构图"
+  ],
+  "storyboard_panel_count": 5,
+  "slug": "brief-9f7b0c78"
+}

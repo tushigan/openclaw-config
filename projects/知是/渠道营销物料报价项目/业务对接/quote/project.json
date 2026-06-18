@@ -1,0 +1,52 @@
+{
+  "project_id": "zhishi-channel-marketing-quote-001",
+  "client_name": "知是",
+  "project_name": "渠道营销物料报价项目",
+  "project_slug": "渠道营销物料报价项目",
+  "status": "final-delivered",
+  "current_version": "v5",
+  "created_at": "2026-05-26T15:05:00+08:00",
+  "updated_at": "2026-05-27T18:09:57+08:00",
+  "project_summary": "根据最终确认口径输出知是渠道产品提报、包装执行与延展设计、营销物料的正式报价定稿，并已对客户发送。",
+  "output_mode": "html_pdf",
+  "pricing_owner": "human",
+  "suggested_case_type": "项目案",
+  "confirmed_case_type": "项目案",
+  "business_goal": "围绕永辉与泸溪河两个渠道，形成一版可直接对外发送的正式报价终稿，并保留后续客户反馈迭代基础。",
+  "service_scope": [
+    "渠道产品提报服务",
+    "包装细化执行",
+    "包装延展设计",
+    "渠道宣传视频",
+    "终端冷柜陈列物料",
+    "渠道线上平台详情页",
+    "产品宣传海报"
+  ],
+  "excluded_scope": [
+    "印刷制作与物料落地执行费用",
+    "打样生产费用",
+    "额外拍摄执行费用",
+    "超出当前确认范围的新增页面或新增物料"
+  ],
+  "catalog_pending_summary": [],
+  "missing_info": [],
+  "open_questions": [
+    "等待客户反馈，如需改动则基于 v5 迭代"
+  ],
+  "key_decisions": [
+    "v5 版作为最终正式报价定稿",
+    "用户已将 v5 版发送给客户",
+    "最终版本保留 HTML 与 PDF 两种交付件"
+  ],
+  "source_materials": [
+    "../2026-05-25_报价需求清单_v1.md",
+    "../../quote-handoff.json",
+    "versions/v5/未本x知是渠道产品服务明细_交付版_已修改_v5.html",
+    "versions/v5/未本x知是渠道产品服务明细_交付版_已修改_v5_正确版.pdf"
+  ],
+  "versions": [
+    "v1",
+    "v2",
+    "v5"
+  ]
+}

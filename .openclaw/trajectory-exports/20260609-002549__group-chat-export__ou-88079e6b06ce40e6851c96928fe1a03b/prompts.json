@@ -1,0 +1,651 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-08T16:26:00.810Z",
+  "traceId": "afa2cbb5-8e31-405a-8c43-bf43ba73ce71",
+  "sessionId": "afa2cbb5-8e31-405a-8c43-bf43ba73ce71",
+  "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+  "submittedPrompts": [
+    "https://l5rd0uzm0z.feishu.cn/minutes/obcn4i9616l4ew29w92c3sqk",
+    "去看这个会议的逐字稿",
+    "我已经拥有这个文档的管理权限了，你可以用我的账号来查看",
+    "[media attached: $WORKSPACE_DIR/workspace/.openclaw-inbound-media/FPJc9BfZFk---94eee2cc-73d4-4625-bd83-8c540dd555dd.ogg (audio/ogg) | $WORKSPACE_DIR/workspace/.openclaw-inbound-media/FPJc9BfZFk---94eee2cc-73d4-4625-bd83-8c540dd555dd.ogg]\n[Audio: $WORKSPACE_DIR/workspace/.openclaw-inbound-media/FPJc9BfZFk---94eee2cc-73d4-4625-bd83-8c540dd555dd.ogg]\nReply target of current user message (untrusted, for context):\n```json\n{\n  \"body\": \"[message_id=om_x100b6d5e4c42e8bcb3be2437610683a] <card>\\n**Stage progress** [####] 100%\\nCompleted\\n▶ 🛠️ 执行耗时 41.4s · 查看 2 个步骤\\n好，我用你的身份重新尝试获取逐字稿。\\n\\n好了，逐字稿已下载到本地。我看一下内容。\\n\\n逐字稿已读取完成。这是一个18分39秒的内部管理会议，核心是**AI赋能海报项目的流程重构和绩效考核方案**。##### 完整逐字稿要点\\n##### 参会人员- **林翀**（主持，决策者）\\n- **涂是淦**（技术方案负责人）\\n- **俞霞**（HR/绩效方案负责人）\\n- **王桦莹**（执行层，对方案有疑问）\\n- **杨洋**（AI海报操作员，被提及但未发言）---##### 核心决策逻辑\\n##### 1. 管理思路转变**林翀的核心主张：**\\n- 将管理痛点与AI赋能、制度管理、工资绑定三者结合\\n- 改变以往\\\"靠人嘴巴顶\\\"的反馈模式\\n- 先从技术成熟度高的海报入手设考核指标\\n- 时间弹性只留给包装/品牌类项目，其他全部卡死##### 2. 时间管控机制**颗粒度细化到半天：**\\n- 海报交付：半天\\n- 视频交付：1天\\n- 详情页交付：1天\\n- **含客户反馈修改时间**，倒逼员工催客户确认\\n- 项目起头时间需审批，确认合理后进入系统**不允许改动**##### 3. 杨洋的角色争议**王桦莹的疑问：** 为什么要单独设置一个AI操作员，而不是各策划自己用龙虾？\\n\\n**涂是淦的解释：**\\n- **并行效率最高** — 一个人同时驱动十几个项目，像他演示时同时操十几个群\\n- 策划在等客户/判断节点时，AI操作员不能闲着，必须有并行任务\\n- 目前只做海报，杨洋一个人覆盖全公司花不了70%精力\\n- 避免单项目等待造成的资源浪费**林翀补充：**\\n- 如果产能有问题，可以增人、转岗或招聘\\n- 管理逻辑是\\\"以终为始\\\"，关注从启动到交付的效率和质量\\n- 如果AI出的海报质量很烂，那AI就没价值 — 必须**又好又快**##### 4. 绩效考核的分歧**俞霞的担忧：**\\n- 新流程刚出来就马上绩效考量，机器效率不确定\\n- 建议先收集数据，再定标准\\n- 绩效与工资挂钩需谨慎**林翀的坚持：**\\n- **试行标准必须有，目标就是100%完成率**\\n- 通过2-3周试行检核迭代\\n- 做不到100%时分析原因：人为？技术？其他？\\n- 特例是解决bug的点，但不能放过特例\\n- 薪酬结构必须设**绩效工资板块**##### 5. 时间节点（清晰版）| 时间 | 任务 | 责任人 |\\n|------|------|------|\\n| 周四 | 向林翀确认整个业务流闭环 | 俞霞 |\\n| 周五上午 | 优化调整方案 | 俞霞 |\\n| 周五下午3-4点 | 宣导培训会议（排除财务、空间部） | 俞霞组织 |\\n| 下周一 | 试行开始 | 全员 |\\n| 7月1日 | 正式采纳执行 | 全员 |##### 6. 后续推广计划- 海报试行成功 → 推广到视频\\n- 视频跑通 → 推广到详情页\\n- 模型验证可行 → 逐步覆盖所有项目类型##### 7. 人员架构调整- **尹阳调下来做宣讲**，明确各环节责任\\n- 需要确定一个有经验的项目经理（提到惠惠）\\n- 小朱和桦莹配合俞霞执行---##### 关键争议点回顾**王桦莹的顾虑：** 杨洋一个人并行上限是多少？遇到同一节点（展会/节气）所有品牌都要做海报怎么办？\\n\\n**涂是淦的回应：** 目前只做海报，杨洋一个人全公司都能...<truncated>",
+    "[media attached: $WORKSPACE_DIR/workspace/.openclaw-inbound-media/1prHzzvz3s---71cf117f-f06d-4c82-bb0e-d9115c566444.ogg (audio/ogg) | $WORKSPACE_DIR/workspace/.openclaw-inbound-media/1prHzzvz3s---71cf117f-f06d-4c82-bb0e-d9115c566444.ogg]\n[Audio: $WORKSPACE_DIR/workspace/.openclaw-inbound-media/1prHzzvz3s---71cf117f-f06d-4c82-bb0e-d9115c566444.ogg]",
+    "[media attached: $WORKSPACE_DIR/workspace/.openclaw-inbound-media/90k2VtmdWA---75be1a40-6c0d-4e27-8408-35dfc9e2d2f2.ogg (audio/ogg) | $WORKSPACE_DIR/workspace/.openclaw-inbound-media/90k2VtmdWA---75be1a40-6c0d-4e27-8408-35dfc9e2d2f2.ogg]\n[Audio: $WORKSPACE_DIR/workspace/.openclaw-inbound-media/90k2VtmdWA---75be1a40-6c0d-4e27-8408-35dfc9e2d2f2.ogg]",
+    "我直接告诉你我想要的流程吧，不用管原来的流程，因为现在已经在逐渐改变。\n\n我想的流程就是：\n1. 不管是设计、策划还是项目经理，都可以发起生成海报的任务。\n2. 一旦有遇到海报的这种任务，就需要先建群。\n3. 在群里面需要明确：\n a. 项目的负责人\n b. 策划的判断者\n c. 设计的判断者\n d. AI的驱动源（统一由@杨洋 来承担）\n\n[System: This message @mentions the following users: 杨洋 (open_id: ou_70da88b1d692ae6eb043c93cbdb0b30b). Use these open_ids when performing actions involving these users.]",
+    "然后拉进群之后，@杨洋 就开始驱动AI来跑整个设计海报的工作流。\n\n这个所说的AI其实就是你\n\n[System: This message @mentions the following users: 杨洋 (open_id: ou_70da88b1d692ae6eb043c93cbdb0b30b). Use these open_ids when performing actions involving these users.]",
+    "然后过程中，比如说策划在过程中，文案你已经产出了几个方案，就由@杨洋 at策划判断人来进行判断、确认、给反馈。\n\n然后策划文案的环节过了之后，生成图片。那就由相关的设计负责人判断者来进行反馈，然后最终确认了之后，由项目经理来负责收件，发送给客户，收集客户的反馈。\n\n如果确认之后，项目经理要进行这个文件在本地或者百度网盘的归档\n\n[System: This message @mentions the following users: 杨洋 (open_id: ou_70da88b1d692ae6eb043c93cbdb0b30b). Use these open_ids when performing actions involving these users.]",
+    "立项的这个时间肯定是由项目经理来确认的，这个时间是什么时候。至于这个时间如何被记录，如何被检索，我觉得我后面会开发一个单独的 skill，或者把这个 skill 的能力绑定到生成海报的这个 skill 里面，就是立项的时候明确它的 smart 原则，就会明确时间，那这个时间会被记录在一个固定的飞书表格中，来进行统计和最终的绩效核验",
+    "他说的半天这个事情可以暂时不用管，因为这个是他给内部的工作效率在安排时间的颗粒度上下的要求。因为我们以前安排时工作的时间其实都是一天 1 天的，他希望通过 AI 的话，以后我们规划时间可以半天来检索。那这个事情，我在后面会通过给 AI 具备项目管理的能力的 skill 的时候去安排，暂时可以不用考虑这个点",
+    "Users/a123/.openclaw/workspace- design/images/dreamy_sparkle_edit_20260608_v1.png帮我把这张图片发给我一下",
+    "你有这个skill吗？openclaw-changelog-writer"
+  ],
+  "latestSubmittedPrompt": "你有这个skill吗？openclaw-changelog-writer",
+  "skillsPrompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>browser-automation</name>\n    <description>Use when controlling web pages with the OpenClaw browser tool, especially multi-step flows, login checks, tab management, or recovery from stale refs/timeouts.</description>\n    <location>~/.openclaw/plugin-skills/browser-automation/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>business-project-intake</name>\n    <description>Use when business docking requests need project background collection, durable project setup, material archiving, progress tracking, or quote handoff preparation before formal quoting.</description>\n    <location>~/.openclaw/skills/business-project-intake/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>design-brief-builder</name>\n    <description>Use when the user needs to turn scattered design project notes, chat records, oral requirements, Feishu documents, product facts, channel/audience notes, visual assets, or incomplete briefs into a standard brief for packaging, product posters, festival/event KV, or ecommerce detail pages before strategy, design generation, or review.</description>\n    <location>~/.openclaw/workspace/skills/design-brief-builder/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>diagnose</name>\n    <description>Disciplined diagnosis loop for hard bugs and performance regressions. Reproduce → minimise → hypothesise → instrument → fix → regression-test. Use when user says &quot;diagnose this&quot; / &quot;debug this&quot;, reports a bug, says something is broken/throwing/failing, or describes a performance regression.</description>\n    <location>~/.agents/skills/diagnose/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>dreamina-reference-video</name>\n    <description>Use when the user wants to reduce 视频抽卡, keep 角色一致性, build 角色板或身份板与故事板, use 即梦 CLI 或 dreamina 或 Seedance 或 全能参考, or turn one idea into a staged 多参考图视频流程 before正式生成视频.</description>\n    <location>~/.openclaw/skills/dreamina-reference-video/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-channel-rules</name>\n    <description>Lark/Feishu channel output rules. Always active in Lark conversations.</description>\n    <location>~/.openclaw/plugin-skills/feishu-channel-rules/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>feishu-troubleshoot</name>\n    <description>飞书插件问题排查工具。包含常见问题 FAQ 和深度诊断命令（/feishu_doctor）。\n\n常见问题可随时查阅。诊断命令用于排查复杂问题（多次授权仍失败、自动授权无法解决等），\n会检查账户配置、API 连通性、应用权限、用户授权状态，并生成详细的诊断报告和解决方案。</description>\n    <location>~/.openclaw/plugin-skills/feishu-troubleshoot/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>gpt-image2-gen</name>\n    <description>统一 gpt-image-2-pro 生图入口：文生图、图生图、多参考图、按蒸馏卡自动锚定版式。✨ 2.3.0 新增：参考图自动压缩（默认启用）</description>\n    <location>~/.openclaw/workspace-design/skills/gpt-image2-gen/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>grill-me</name>\n    <description>Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions &quot;grill me&quot;.</description>\n    <location>~/.agents/skills/grill-me/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>grill-with-docs</name>\n    <description>Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project&apos;s language and documented decisions.</description>\n    <location>~/.agents/skills/grill-with-docs/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>handoff</name>\n    <description>Compact the current conversation into a handoff document for another agent to pick up.</description>\n    <location>~/.agents/skills/handoff/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>healthcheck</name>\n    <description>Audit and harden hosts running OpenClaw for SSH, firewall, updates, exposure, cron checks, and risk posture.</description>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/healthcheck/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>image-deglaze</name>\n    <description>基于参考图的高清重绘工具：用 AI 理解原图构图、风格、元素后，以更高质量重新生成。适合”基于草图生成高清成品”、”风格化高清重绘”、”低质量图片高清化（允许内容优化）”等场景。触发词：”参考图重绘”、”草图转高清”、”风格化重绘”、”提升画质（允许优化）”。不适合”完全保持原图内容去包浆”（那种需求请推荐 Real-ESRGAN、Magnific AI 等超分辨率工具）。调用 gpt-image2-gen 做整图重生。</description>\n    <location>~/.openclaw/skills/image-deglaze/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>improve-codebase-architecture</name>\n    <description>Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.</description>\n    <location>~/.agents/skills/improve-codebase-architecture/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-approval</name>\n    <description>飞书审批 API：审批实例、审批任务管理。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-approval/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-attendance</name>\n    <description>飞书考勤打卡：查询自己的考勤打卡记录</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-attendance/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-base</name>\n    <description>当需要用 lark-cli 操作飞书多维表格（Base）时调用：搜索 Base、建表、字段管理、记录读写、记录分享链接、视图配置、历史查询，以及角色/表单/仪表盘管理/工作流；也适用于把旧的 +table / +field / +record 写法改成当前命令写法。涉及字段设计、公式字段、查找引用、跨表计算、行级派生指标、数据分析需求时也必须使用本 skill。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-base/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-calendar</name>\n    <description>飞书日历（calendar）：提供日历与日程（会议）的全面管理能力。核心场景包括：查看/搜索日程、创建/更新日程、管理参会人、查询忙闲状态及推荐空闲时段、查询/搜索与预定会议室。注意：涉及【预约日程/会议】或【查询/预定会议室】时，必须先读取 references/lark-calendar-schedule-meeting.md 工作流！高频操作请优先使用 Shortcuts：+agenda（快速概览今日/近期行程）、+create（创建日程并按需邀请参会人及预定会议室）、+update（更新既有日程字段，或独立增删参会人/会议室）、+freebusy（查询用户主日历的忙闲信息和rsvp的状态）、+rsvp（回复日程邀请）</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-calendar/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-contact</name>\n    <description>飞书 / Lark 通讯录,用于按姓名 / 邮箱把员工解析成 open_id,以及按 open_id 反查员工的姓名 / 部门 / 邮箱 / 联系方式。当用户说出某人姓名而下一步需要发消息 / 加群 / 排日程时,先用本 skill 把姓名换成 ID;当输出里出现 open_id 需要展示成姓名给用户看,或用户直接询问某人的部门 / 邮箱 / 联系方式时,用本 skill 查。不负责部门树遍历、按部门列员工、组织架构图,这类需求走原生 OpenAPI。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-contact/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-doc</name>\n    <description>飞书云文档（v2）：创建和编辑飞书文档。使用本 skill 时，docs +create、docs +fetch、docs +update 必须携带 --api-version v2；默认使用 DocxXML 格式（也支持 Markdown）。创建文档、获取文档内容（支持 simple/with-ids/full 三种导出详细度，以及 full/outline/range/keyword/section 五种局部读取模式，可按目录、block id 区间、关键词或标题自动成节只拉部分内容以节省上下文）、更新文档（八种指令：str_replace/block_insert_after/block_copy_insert_after/block_replace/block_delete/block_move_after/overwrite/append）、上传和下载文档中的图片和文件、搜索云空间文档。当用户需要创建或编辑飞书文档、读取文档内容、在文档中插入图片、搜索云空间文档时使用；如果用户是想按名称或关键词先定位电子表格、报表等云空间对象，也优先使用本 skill 的 docs +search 做资源发现。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-doc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-drive</name>\n    <description>飞书云空间：管理云空间中的文件和文件夹。上传和下载文件、创建文件夹、复制/移动/删除文件、查看文件元数据、管理文档评论、管理文档权限、订阅用户评论变更事件、修改文件标题（docx、sheet、bitable、file、folder、wiki）；也负责把本地 Word/Markdown/Excel/CSV 导入为飞书在线云文档（docx、sheet、bitable）。当用户需要上传或下载文件、整理云空间目录、查看文件详情、管理评论、管理文档权限、修改文件标题、订阅用户评论变更事件，或要把本地文件导入成新版文档、电子表格、多维表格/Base 时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-drive/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-event</name>\n    <description>Lark/Feishu real-time event listening / subscribing / consuming: stream events as NDJSON via `lark-cli event consume &lt;EventKey&gt;` (covers IM message receive, reactions, chat member changes, etc.). Use for Lark bots, real-time message processing, long-running subscribers, streaming webhook/push handlers. Supports `--max-events` / `--timeout` bounded runs and a stderr ready-marker contract — designed for AI agents running as subprocesses.</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-event/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-im</name>\n    <description>飞书即时通讯：收发消息和管理群聊。发送和回复消息、搜索聊天记录、管理群聊成员、上传下载图片和文件（支持大文件分片下载）、管理表情回复。当用户需要发消息、查看或搜索聊天记录、下载聊天中的文件、查看群成员、管理标记数据时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-im/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-mail</name>\n    <description>飞书邮箱 — draft, compose, send, reply, forward, read, and search emails; manage drafts, folders, labels, contacts, attachments, and mail rules. Use when user mentions 起草邮件, 写一封邮件, 拟邮件, 草稿, 发通知邮件, 发送邮件, 发邮件, 回复邮件, 转发邮件, 查看邮件, 看邮件, 读邮件, 搜索邮件, 查邮件, 收件箱, 邮件会话, 编辑草稿, 管理草稿, 下载附件, 邮件文件夹, 邮件标签, 邮件联系人, 监听新邮件, 收信规则, 邮件规则, draft, compose, send email, reply, forward, inbox, mail thread, mail rules.</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-mail/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-minutes</name>\n    <description>飞书妙记：妙记相关基本功能。1.查询妙记列表（按关键词/所有者/参与者/时间范围）；2.获取妙记基础信息（标题、封面、时长 等）；3.下载妙记音视频文件；4.获取妙记相关 AI 产物（总结、待办、章节）；5.上传音视频生成妙记，也支持将本地音视频文件转成纪要、逐字稿、文字稿、撰写文字等产物。遇到这类请求时，应优先使用本 skill，而不是尝试 `ffmpeg`、`whisper` 等本地转写命令。飞书妙记 URL 格式: http(s)://&lt;host&gt;/minutes/&lt;minute-token&gt;</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-minutes/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-okr</name>\n    <description>飞书 OKR：管理目标与关键结果。查看和编辑 OKR 周期、目标（Objective）、关键结果（Key Result）、对齐关系、量化指标和进展记录。当用户需要查看或创建 OKR、管理目标和关键结果、查看对齐关系时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-okr/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-openapi-explorer</name>\n    <description>飞书/Lark 原生 OpenAPI 探索：从官方文档库中挖掘未经 CLI 封装的原生 OpenAPI 接口。当用户的需求无法被现有 lark-* skill 或 lark-cli 已注册命令满足，需要查找并调用原生飞书 OpenAPI 时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-openapi-explorer/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-shared</name>\n    <description>飞书/Lark CLI 共享基础：应用配置初始化、认证登录（auth login）、身份切换（--as user/bot）、权限与 scope 管理、Permission denied 错误处理、安全规则。当用户需要第一次配置(`lark-cli config init`)、使用登录授权(`lark-cli auth login`)、遇到权限不足、切换 user/bot 身份、配置 scope、或首次使用 lark-cli 时触发。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-shared/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-sheets</name>\n    <description>飞书电子表格：创建和操作电子表格。创建表格并写入表头和数据、读取和写入单元格、追加行数据、在已知电子表格中查找单元格内容、导出表格文件。当用户需要创建电子表格、批量读写数据、在已知表格中查找内容、导出或下载表格时使用。若用户是想按名称或关键词搜索云空间里的表格文件，请改用 lark-doc 的 docs +search 先定位资源。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-sheets/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-skill-maker</name>\n    <description>创建 lark-cli 的自定义 Skill。当用户需要把飞书 API 操作封装成可复用的 Skill（包装原子 API 或编排多步流程）时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-skill-maker/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-slides</name>\n    <description>飞书幻灯片：创建和编辑幻灯片，接口通过 XML 协议通信。创建演示文稿、读取幻灯片内容、管理幻灯片页面（创建、删除、读取、局部替换）。当用户需要创建或编辑幻灯片、读取或修改单个页面时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-slides/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-task</name>\n    <description>飞书任务：管理任务、清单和任务智能体。创建待办任务、查看和更新任务状态、拆分子任务、组织任务清单、分配协作成员、上传任务附件、注册或注销任务智能体、更新任务智能体的主页数据、写入智能体任务记录。当用户需要创建待办事项、查看任务列表、跟踪任务进度、管理项目清单或给他人分配任务、为任务上传附件文件、注册注销任务智能体、更新智能体主页数据、写入任务记录时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-task/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-vc</name>\n    <description>飞书视频会议：查询会议记录、获取会议纪要产物（总结、待办、章节、逐字稿）。1. 查询已经结束的会议数量或详情时使用本技能(如历史日期｜ 昨天 | 上周 | 今天已经开过的会议等场景)，查询未开始的会议日程使用 lark-calendar 技能。2. 支持通过关键词、时间范围、组织者、参与者、会议室等筛选条件搜索会议记录。3. 获取或整理会议纪要时使用本技能。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-vc/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-whiteboard</name>\n    <description>飞书画板：查询和编辑飞书云文档中的画板。支持导出画板为预览图片、导出原始节点结构、使用 DSL（转成 OpenAPI 格式）、PlantUML/Mermaid 格式更新画板内容。 当用户需要查看画板内容、导出画板图片、编辑画板，或是需要可视化表达架构、流程、组织关系、时间线、因果、对比等结构化信息时使用此 skill，无论是否提及&quot;画板&quot;。 ⚠️ 原 `lark-whiteboard-cli` skill 已合并至本 skill，若 skill 列表中同时存在 `lark-whiteboard-cli`，请忽略它，统一使用本 skill（`lark-whiteboard`），并提示用户运行 `npx skills remove lark-whiteboard-cli -g` 删除旧 skill。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-whiteboard/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-wiki</name>\n    <description>飞书知识库：管理知识空间、空间成员和文档节点。创建和查询知识空间、查看和管理空间成员、管理节点层级结构、在知识库中组织文档和快捷方式。当用户需要在知识库中查找或创建文档、浏览知识空间结构、查看或管理空间成员、移动或复制节点时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-wiki/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-workflow-meeting-summary</name>\n    <description>会议纪要整理工作流：汇总指定时间范围内的会议纪要并生成结构化报告。当用户需要整理会议纪要、生成会议周报、回顾一段时间内的会议内容时使用。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-workflow-meeting-summary/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>lark-workflow-standup-report</name>\n    <description>日程待办摘要：编排 calendar +agenda 和 task +get-my-tasks，生成指定日期的日程与未完成任务摘要。适用于了解今天/明天/本周的安排。</description>\n    <location>~/.openclaw/workspace/.agents/skills/lark-workflow-standup-report/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>multi-search-engine</name>\n    <description>默认免费搜索入口。覆盖 17 个搜索源（8 个国内 + 9 个国际），适合新闻、日报、资料、来源、竞品、报告检索。</description>\n    <location>~/.openclaw/skills/multi-search-engine/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>node-connect</name>\n    <description>Diagnose OpenClaw Android, iOS, or macOS node pairing, QR/setup code, route, auth, and connection failures.</description>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/node-connect/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>pdf-smart-tool-cn</name>\n    <description>PDF智能处理工具 v2.1 | PDF Smart Tool. 支持PDF转换、OCR识别、合并拆分、数字签名、批量处理、水印添加、加密解密。触发词：PDF、转换、识别。</description>\n    <location>~/.openclaw/workspace-strategy/skills/pdf-smart-tool-cn/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>quote-skill</name>\n    <description>用公司标准服务清单生成正式报价，并同步维护项目记录、版本记录与待入库清单。</description>\n    <location>~/.openclaw/workspace/skills/quote-skill/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>session-debug-export</name>\n    <description>导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说“导出聊天记录”“导出当前聊天”“导出对话记录”“聊天记录导出”“生成聊天日志”“打包聊天记录”时必须使用本技能。</description>\n    <location>~/.openclaw/skills/session-debug-export/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>session-logs</name>\n    <description>Search and analyze your own session logs (older/parent conversations) using jq.</description>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/session-logs/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow</name>\n    <description>Coordinate multi-step detached tasks as one durable TaskFlow job with owner context, state, waits, and child tasks.</description>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/taskflow/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>taskflow-inbox-triage</name>\n    <description>Example TaskFlow pattern for inbox triage, intent routing, waiting on replies, and later summaries.</description>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/taskflow-inbox-triage/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>weather</name>\n    <description>Get current weather, rain, temperature, and forecasts for locations or travel planning.</description>\n    <location>/opt/homebrew/lib/node_modules/openclaw/skills/weather/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>web-browse-capture</name>\n    <description>Use browser-use to browse, click, paginate, expand, and extract data from real webpages through a live browser. Trigger when a task needs true browser interaction rather than plain search or static fetch, such as JS-rendered pages, login-gated views, button clicks, pagination, dropdowns, tab switching, dynamic tables, or step-by-step website operations. Also trigger when the user wants to visit a specific website and collect/extract images, text, or data from it. Typical requests include: 去某个网站抓数据, 从网页抓图片, 去Pinterest抓图, 爬取网页内容, 点进这个网站抓数据, 翻页把列表都扒下来, 进后台网页操作并提取字段, 动态网页读取, 真实浏览器访问网页, browser-use 网页采集, 用浏览器进去看, 帮我去XX上抓/爬/采集, or 打开网页提取信息.</description>\n    <location>~/.openclaw/workspace/skills/web-browse-capture/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>wechat-article-reader</name>\n    <description>读取微信公众号文章全文。当用户提供 mp.weixin.qq.com 链接时自动调用。支持提取标题、作者、发布时间、摘要、正文 HTML/Markdown/纯文本、图片列表。无需登录、无需额外配置。触发词：公众号文章、微信文章、mp.weixin、公众号链接、微信链接。</description>\n    <location>~/.openclaw/skills/wechat-article-reader/SKILL.md</location>\n  </skill>\n</available_skills>",
+  "systemPromptReport": {
+    "source": "run",
+    "generatedAt": 1780934247750,
+    "sessionId": "afa2cbb5-8e31-405a-8c43-bf43ba73ce71",
+    "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+    "provider": "cc-vibe",
+    "model": "claude-opus-4-8",
+    "workspaceDir": "$WORKSPACE_DIR/workspace",
+    "bootstrapMaxChars": 12000,
+    "bootstrapTotalMaxChars": 60000,
+    "bootstrapTruncation": {
+      "warningMode": "once",
+      "warningShown": false,
+      "truncatedFiles": 0,
+      "nearLimitFiles": 0,
+      "totalNearLimit": false
+    },
+    "sandbox": {
+      "mode": "off",
+      "sandboxed": false
+    },
+    "systemPrompt": {
+      "chars": 43599,
+      "projectContextChars": 12122,
+      "nonProjectContextChars": 31477
+    },
+    "injectedWorkspaceFiles": [
+      {
+        "name": "AGENTS.md",
+        "path": "$WORKSPACE_DIR/workspace/AGENTS.md",
+        "missing": false,
+        "rawChars": 4854,
+        "injectedChars": 4854,
+        "truncated": false
+      },
+      {
+        "name": "SOUL.md",
+        "path": "$WORKSPACE_DIR/workspace/SOUL.md",
+        "missing": false,
+        "rawChars": 757,
+        "injectedChars": 757,
+        "truncated": false
+      },
+      {
+        "name": "TOOLS.md",
+        "path": "$WORKSPACE_DIR/workspace/TOOLS.md",
+        "missing": false,
+        "rawChars": 656,
+        "injectedChars": 656,
+        "truncated": false
+      },
+      {
+        "name": "IDENTITY.md",
+        "path": "$WORKSPACE_DIR/workspace/IDENTITY.md",
+        "missing": false,
+        "rawChars": 357,
+        "injectedChars": 357,
+        "truncated": false
+      },
+      {
+        "name": "USER.md",
+        "path": "$WORKSPACE_DIR/workspace/USER.md",
+        "missing": false,
+        "rawChars": 386,
+        "injectedChars": 386,
+        "truncated": false
+      },
+      {
+        "name": "HEARTBEAT.md",
+        "path": "$WORKSPACE_DIR/workspace/HEARTBEAT.md",
+        "missing": false,
+        "rawChars": 192,
+        "injectedChars": 192,
+        "truncated": false
+      },
+      {
+        "name": "BOOTSTRAP.md",
+        "path": "$WORKSPACE_DIR/workspace/BOOTSTRAP.md",
+        "missing": true,
+        "rawChars": 0,
+        "injectedChars": 0,
+        "truncated": false
+      },
+      {
+        "name": "MEMORY.md",
+        "path": "$WORKSPACE_DIR/workspace/MEMORY.md",
+        "missing": false,
+        "rawChars": 4616,
+        "injectedChars": 4616,
+        "truncated": false
+      }
+    ],
+    "skills": {
+      "promptChars": 17158,
+      "entries": [
+        {
+          "name": "browser-automation",
+          "blockChars": 324
+        },
+        {
+          "name": "business-project-intake",
+          "blockChars": 352
+        },
+        {
+          "name": "design-brief-builder",
+          "blockChars": 507
+        },
+        {
+          "name": "diagnose",
+          "blockChars": 446
+        },
+        {
+          "name": "dreamina-reference-video",
+          "blockChars": 335
+        },
+        {
+          "name": "feishu-channel-rules",
+          "blockChars": 239
+        },
+        {
+          "name": "feishu-troubleshoot",
+          "blockChars": 302
+        },
+        {
+          "name": "gpt-image2-gen",
+          "blockChars": 239
+        },
+        {
+          "name": "grill-me",
+          "blockChars": 377
+        },
+        {
+          "name": "grill-with-docs",
+          "blockChars": 433
+        },
+        {
+          "name": "handoff",
+          "blockChars": 220
+        },
+        {
+          "name": "healthcheck",
+          "blockChars": 280
+        },
+        {
+          "name": "image-deglaze",
+          "blockChars": 360
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "blockChars": 468
+        },
+        {
+          "name": "lark-approval",
+          "blockChars": 187
+        },
+        {
+          "name": "lark-attendance",
+          "blockChars": 188
+        },
+        {
+          "name": "lark-base",
+          "blockChars": 340
+        },
+        {
+          "name": "lark-calendar",
+          "blockChars": 482
+        },
+        {
+          "name": "lark-contact",
+          "blockChars": 392
+        },
+        {
+          "name": "lark-doc",
+          "blockChars": 666
+        },
+        {
+          "name": "lark-drive",
+          "blockChars": 436
+        },
+        {
+          "name": "lark-event",
+          "blockChars": 605
+        },
+        {
+          "name": "lark-im",
+          "blockChars": 265
+        },
+        {
+          "name": "lark-mail",
+          "blockChars": 544
+        },
+        {
+          "name": "lark-minutes",
+          "blockChars": 428
+        },
+        {
+          "name": "lark-okr",
+          "blockChars": 267
+        },
+        {
+          "name": "lark-openapi-explorer",
+          "blockChars": 305
+        },
+        {
+          "name": "lark-shared",
+          "blockChars": 380
+        },
+        {
+          "name": "lark-sheets",
+          "blockChars": 329
+        },
+        {
+          "name": "lark-skill-maker",
+          "blockChars": 245
+        },
+        {
+          "name": "lark-slides",
+          "blockChars": 256
+        },
+        {
+          "name": "lark-task",
+          "blockChars": 336
+        },
+        {
+          "name": "lark-vc",
+          "blockChars": 334
+        },
+        {
+          "name": "lark-whiteboard",
+          "blockChars": 532
+        },
+        {
+          "name": "lark-wiki",
+          "blockChars": 273
+        },
+        {
+          "name": "lark-workflow-meeting-summary",
+          "blockChars": 266
+        },
+        {
+          "name": "lark-workflow-standup-report",
+          "blockChars": 279
+        },
+        {
+          "name": "multi-search-engine",
+          "blockChars": 217
+        },
+        {
+          "name": "node-connect",
+          "blockChars": 281
+        },
+        {
+          "name": "pdf-smart-tool-cn",
+          "blockChars": 261
+        },
+        {
+          "name": "quote-skill",
+          "blockChars": 191
+        },
+        {
+          "name": "session-debug-export",
+          "blockChars": 296
+        },
+        {
+          "name": "session-logs",
+          "blockChars": 253
+        },
+        {
+          "name": "taskflow",
+          "blockChars": 281
+        },
+        {
+          "name": "taskflow-inbox-triage",
+          "blockChars": 291
+        },
+        {
+          "name": "weather",
+          "blockChars": 251
+        },
+        {
+          "name": "web-browse-capture",
+          "blockChars": 810
+        },
+        {
+          "name": "wechat-article-reader",
+          "blockChars": 299
+        }
+      ]
+    },
+    "tools": {
+      "listChars": 0,
+      "schemaChars": 51668,
+      "entries": [
+        {
+          "name": "read",
+          "summaryChars": 298,
+          "schemaChars": 304,
+          "propertiesCount": 3
+        },
+        {
+          "name": "write",
+          "summaryChars": 127,
+          "schemaChars": 225,
+          "propertiesCount": 2
+        },
+        {
+          "name": "exec",
+          "summaryChars": 446,
+          "schemaChars": 1139,
+          "propertiesCount": 12
+        },
+        {
+          "name": "process",
+          "summaryChars": 322,
+          "schemaChars": 1011,
+          "propertiesCount": 12
+        },
+        {
+          "name": "canvas",
+          "summaryChars": 106,
+          "schemaChars": 661,
+          "propertiesCount": 18
+        },
+        {
+          "name": "message",
+          "summaryChars": 112,
+          "schemaChars": 6192,
+          "propertiesCount": 108
+        },
+        {
+          "name": "sessions_list",
+          "summaryChars": 225,
+          "schemaChars": 432,
+          "propertiesCount": 9
+        },
+        {
+          "name": "sessions_history",
+          "summaryChars": 180,
+          "schemaChars": 161,
+          "propertiesCount": 3
+        },
+        {
+          "name": "sessions_send",
+          "summaryChars": 314,
+          "schemaChars": 274,
+          "propertiesCount": 5
+        },
+        {
+          "name": "sessions_spawn",
+          "summaryChars": 419,
+          "schemaChars": 1211,
+          "propertiesCount": 16
+        },
+        {
+          "name": "sessions_yield",
+          "summaryChars": 97,
+          "schemaChars": 60,
+          "propertiesCount": 1
+        },
+        {
+          "name": "subagents",
+          "summaryChars": 105,
+          "schemaChars": 191,
+          "propertiesCount": 4
+        },
+        {
+          "name": "session_status",
+          "summaryChars": 456,
+          "schemaChars": 89,
+          "propertiesCount": 2
+        },
+        {
+          "name": "web_fetch",
+          "summaryChars": 129,
+          "schemaChars": 374,
+          "propertiesCount": 3
+        },
+        {
+          "name": "browser",
+          "summaryChars": 1537,
+          "schemaChars": 2976,
+          "propertiesCount": 52
+        },
+        {
+          "name": "memory_search",
+          "summaryChars": 605,
+          "schemaChars": 237,
+          "propertiesCount": 4
+        },
+        {
+          "name": "memory_get",
+          "summaryChars": 239,
+          "schemaChars": 215,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_get_user",
+          "summaryChars": 75,
+          "schemaChars": 185,
+          "propertiesCount": 2
+        },
+        {
+          "name": "feishu_search_user",
+          "summaryChars": 55,
+          "schemaChars": 311,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_chat",
+          "summaryChars": 92,
+          "schemaChars": 519,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_chat_members",
+          "summaryChars": 54,
+          "schemaChars": 353,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_im_user_message",
+          "summaryChars": 456,
+          "schemaChars": 1149,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_im_user_fetch_resource",
+          "summaryChars": 456,
+          "schemaChars": 371,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_im_user_get_messages",
+          "summaryChars": 526,
+          "schemaChars": 912,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_im_user_get_thread_messages",
+          "summaryChars": 166,
+          "schemaChars": 395,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_im_user_search_messages",
+          "summaryChars": 522,
+          "schemaChars": 1364,
+          "propertiesCount": 12
+        },
+        {
+          "name": "feishu_calendar_calendar",
+          "summaryChars": 93,
+          "schemaChars": 389,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_calendar_event",
+          "summaryChars": 455,
+          "schemaChars": 3200,
+          "propertiesCount": 21
+        },
+        {
+          "name": "feishu_calendar_event_attendee",
+          "summaryChars": 75,
+          "schemaChars": 981,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_calendar_freebusy",
+          "summaryChars": 80,
+          "schemaChars": 504,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_task_task",
+          "summaryChars": 167,
+          "schemaChars": 1868,
+          "propertiesCount": 15
+        },
+        {
+          "name": "feishu_task_tasklist",
+          "summaryChars": 163,
+          "schemaChars": 769,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_task_section",
+          "summaryChars": 127,
+          "schemaChars": 1061,
+          "propertiesCount": 13
+        },
+        {
+          "name": "feishu_task_comment",
+          "summaryChars": 95,
+          "schemaChars": 671,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_task_subtask",
+          "summaryChars": 86,
+          "schemaChars": 1128,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_bitable_app",
+          "summaryChars": 139,
+          "schemaChars": 511,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_bitable_app_table",
+          "summaryChars": 285,
+          "schemaChars": 1152,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_bitable_app_table_record",
+          "summaryChars": 292,
+          "schemaChars": 2381,
+          "propertiesCount": 14
+        },
+        {
+          "name": "feishu_bitable_app_table_field",
+          "summaryChars": 134,
+          "schemaChars": 824,
+          "propertiesCount": 10
+        },
+        {
+          "name": "feishu_bitable_app_table_view",
+          "summaryChars": 108,
+          "schemaChars": 692,
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_search_doc_wiki",
+          "summaryChars": 212,
+          "schemaChars": 1806,
+          "propertiesCount": 5
+        },
+        {
+          "name": "feishu_drive_file",
+          "summaryChars": 703,
+          "schemaChars": 2278,
+          "propertiesCount": 16
+        },
+        {
+          "name": "feishu_doc_comments",
+          "summaryChars": 166,
+          "schemaChars": 1353,
+          "propertiesCount": 11
+        },
+        {
+          "name": "feishu_doc_media",
+          "summaryChars": 200,
+          "schemaChars": 963,
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_wiki_space",
+          "summaryChars": 179,
+          "schemaChars": 451,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_wiki_space_node",
+          "summaryChars": 205,
+          "schemaChars": 995,
+          "propertiesCount": 13
+        },
+        {
+          "name": "feishu_sheet",
+          "summaryChars": 474,
+          "schemaChars": 1905,
+          "propertiesCount": 18
+        },
+        {
+          "name": "feishu_im_bot_image",
+          "summaryChars": 241,
+          "schemaChars": 384,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_fetch_doc",
+          "summaryChars": 42,
+          "schemaChars": 281,
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_create_doc",
+          "summaryChars": 33,
+          "schemaChars": 427,
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_update_doc",
+          "summaryChars": 105,
+          "schemaChars": 811,
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_oauth",
+          "summaryChars": 168,
+          "schemaChars": 290,
+          "propertiesCount": 1
+        },
+        {
+          "name": "feishu_oauth_batch_auth",
+          "summaryChars": 55,
+          "schemaChars": 162,
+          "propertiesCount": 0
+        },
+        {
+          "name": "feishu_ask_user_question",
+          "summaryChars": 389,
+          "schemaChars": 1309,
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_conversation_binding",
+          "summaryChars": 72,
+          "schemaChars": 811,
+          "propertiesCount": 7
+        }
+      ]
+    }
+  }
+}

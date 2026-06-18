@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "project_id": "测试品牌-2024春节campaign",
+  "brand_name": "测试品牌",
+  "campaign_name": "2024春节Campaign",
+  "campaign_type": "integrated_marketing",
+  "current_stage": "brief_intake",
+  "lifecycle_status": "active",
+  "project_summary": "",
+  "business_objective": "",
+  "communication_objective": "",
+  "target_audience": "",
+  "budget_range": "",
+  "timeline": {
+    "start_date": "",
+    "launch_date": "",
+    "end_date": ""
+  },
+  "brand_profile_path": "../_brand-profile.json",
+  "stage_checkpoints": {
+    "brief_intake": {
+      "status": "completed",
+      "completed_at": "2026-06-11T22:58:10.417247+08:00",
+      "user_confirmed": true
+    },
+    "problem_alignment": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "research": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "strategy": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "creative_direction": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "direction_confirmation": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "execution": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    }
+  },
+  "created_at": "2026-06-11T22:56:49.361068+08:00",
+  "updated_at": "2026-06-11T22:58:10.417435+08:00",
+  "last_activity_at": "2026-06-11T22:58:10.417435+08:00"
+}

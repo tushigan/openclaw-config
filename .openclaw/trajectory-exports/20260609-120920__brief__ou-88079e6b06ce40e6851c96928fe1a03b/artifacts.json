@@ -1,0 +1,64 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T04:09:28.795Z",
+  "traceId": "b4d46565-3326-4aa6-813b-57573efa98f2",
+  "sessionId": "b4d46565-3326-4aa6-813b-57573efa98f2",
+  "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 93131,
+    "output": 6630,
+    "cacheRead": 210103,
+    "cacheWrite": 20615,
+    "total": 330479
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 23295,
+      "output": 949,
+      "cacheRead": 58488,
+      "cacheWrite": 5292,
+      "total": 88024
+    },
+    "lastCacheTouchAt": 1780977482017
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "让我搜索一下刚创建的文档。",
+    "找到了几个相关文档，但都是之前创建的。我刚才通过 message 工具创建的文档可能没有成功显示。\n\n让我重新用 lark-cli 创建一个文档，这样可以确保拿到链接：",
+    "好了，文档已创建成功：\n\nhttps://l5rd0uzm0z.feishu.cn/docx/DB5RdSZrWo62qcxELM8cylIynAd\n\n可以打开检查一下内容。"
+  ],
+  "finalPromptText": "没看到",
+  "itemLifecycle": {
+    "startedCount": 6,
+    "completedCount": 6,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "exec",
+      "meta": "lark-cli docs +search --query \"星搭档锁鲜面包\" --api-version v2"
+    },
+    {
+      "toolName": "exec",
+      "meta": "lark-cli docs +search --query \"星搭档锁鲜面包\""
+    },
+    {
+      "toolName": "exec",
+      "meta": "lark-cli docs +create --api-version v2 --title \"星搭档锁鲜面包 包装设计Brief\" --content '<title>星搭档锁鲜面包 包装设计Brief</title> <callout…"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

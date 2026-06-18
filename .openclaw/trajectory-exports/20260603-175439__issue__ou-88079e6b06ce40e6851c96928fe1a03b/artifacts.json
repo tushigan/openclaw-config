@@ -1,0 +1,54 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-03T09:54:41.091Z",
+  "traceId": "80e91a4c-6510-455d-a7f5-793c96b70e71",
+  "sessionId": "80e91a4c-6510-455d-a7f5-793c96b70e71",
+  "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 46507,
+    "output": 405,
+    "cacheRead": 82697,
+    "cacheWrite": 621,
+    "total": 130230
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 23258,
+      "output": 324,
+      "cacheRead": 41636,
+      "cacheWrite": 46,
+      "total": 65264
+    },
+    "lastCacheTouchAt": 1780480256821
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "因为 `message` 工具的 `action` 参数只支持这些操作：\n\n```\nsend, delete, unsend, react, reactions\n```\n\n但发起投票需要 `action=\"poll\"`，这个值不在允许列表里，所以我调用时会被拒绝。\n\n刚才我尝试调用时返回的错误就是：\n> \"Poll fields require action \\\"poll\\\"; use action \\\"poll\\\" instead of \\\"send\\\".\"\n\n但当我改成 `action=\"poll\"` 后，又报错说：\n> \"action: must be equal to one of the allowed values\"\n\n说明这个功能**还没有开放给我调用**，可能是：\n1. 工具还在开发中，暂未支持\n2. 需要配置开启\n3. 或者飞书投票本身不支持通过 API 发起\n\n所以目前我只能用 `feishu_ask_user_question` 这种卡片式问卷，但它是一对一的，不适合群调研。\n\n**群投票**暂时只能你手动在飞书群里发起：输入框点「+」→ 投票。"
+  ],
+  "finalPromptText": "[media attached: $WORKSPACE_DIR/workspace/.openclaw-inbound-media/6Pvi9PpsJo---3bd71ea2-26eb-4537-ac09-286ca9884b42.ogg (audio/ogg) | $WORKSPACE_DIR/workspace/.openclaw-inbound-media/6Pvi9PpsJo---3bd71ea2-26eb-4537-ac09-286ca9884b42.ogg]\n[Audio: $WORKSPACE_DIR/workspace/.openclaw-inbound-media/6Pvi9PpsJo---3bd71ea2-26eb-4537-ac09-286ca9884b42.ogg]",
+  "itemLifecycle": {
+    "startedCount": 2,
+    "completedCount": 2,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "exec",
+      "meta": "run python3 ~/.openclaw/workspace/scripts/voice2text.py"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

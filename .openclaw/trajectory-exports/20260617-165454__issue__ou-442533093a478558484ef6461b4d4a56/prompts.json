@@ -1,0 +1,572 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-17T08:54:55.654Z",
+  "traceId": "efe579f1-9e5e-4af3-8b76-0e60ca71744e",
+  "sessionId": "efe579f1-9e5e-4af3-8b76-0e60ca71744e",
+  "sessionKey": "agent:strategy:feishu:direct:ou_442533093a478558484ef6461b4d4a56",
+  "system": "You are a personal assistant running inside OpenClaw.\n## Tooling\nAvailable tools are policy-filtered. Names are case-sensitive; call exactly as listed.\n- read: Read file contents\n- write: Create or overwrite files\n- apply_patch: Apply multi-file patches\n- exec: Run shell commands (pty available for TTY-required CLIs)\n- process: Manage background exec sessions\n- web_fetch: Fetch and extract readable content from a URL\n- browser: Control web browser\n- message: Send messages and channel actions\n- sessions_list: List other sessions (incl. sub-agents) with filters/last\n- sessions_history: Fetch history for another session/sub-agent\n- sessions_send: Send a message to another session/sub-agent\n- sessions_spawn: Spawn an isolated sub-agent session; use context=\"fork\" only when current transcript context is required\n- sessions_yield: End this turn and wait for spawned sub-agent completion events\n- subagents: On-demand list/status visibility for sub-agent runs in this requester session; do not use for wait loops\n- session_status: Show a /status-equivalent status card (usage + time + Reasoning/Verbose/Elevated); use for model-use questions (📊 session_status); optional per-session model override\n- feishu_ask_user_question\n- feishu_bitable_app\n- feishu_bitable_app_table\n- feishu_bitable_app_table_field\n- feishu_bitable_app_table_record\n- feishu_bitable_app_table_view\n- feishu_calendar_calendar\n- feishu_calendar_event\n- feishu_calendar_event_attendee\n- feishu_calendar_freebusy\n- feishu_chat\n- feishu_chat_members\n- feishu_conversation_binding\n- feishu_create_doc\n- feishu_doc_comments\n- feishu_doc_media\n- feishu_drive_file\n- feishu_fetch_doc\n- feishu_get_user\n- feishu_im_bot_image\n- feishu_im_user_fetch_resource\n- feishu_im_user_get_messages\n- feishu_im_user_get_thread_messages\n- feishu_im_user_message\n- feishu_im_user_search_messages\n- feishu_oauth\n- feishu_oauth_batch_auth\n- feishu_search_doc_wiki\n- feishu_search_user\n- feishu_sheet\n- feishu_task_comment\n- feishu_task_section\n- ...<truncated>",
+  "submittedPrompts": [
+    "Conversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_442533093a478558484ef6461b4d4a56\",\n  \"message_id\": \"om_x100b6c118a6130a0c23892c3fedd7ea\",\n  \"sender_id\": \"ou_442533093a478558484ef6461b4d4a56\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Wed 2026-06-17 16:35:23 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_442533093a478558484ef6461b4d4a56)\",\n  \"id\": \"ou_442533093a478558484ef6461b4d4a56\",\n  \"name\": \"涂是淦\"\n}\n```\n\n[media attached: $WORKSPACE_DIR/workspace-strategy/.openclaw-inbound-media/622dea98-63bf-4df5-9717-b96cb4c2db43.jpg (image/jpeg)]\n$WORKSPACE_DIR/workspace-strategy/.openclaw-inbound-media/622dea98-63bf-4df5-9717-b96cb4c2db43.jpg"
+  ],
+  "latestSubmittedPrompt": "Conversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_442533093a478558484ef6461b4d4a56\",\n  \"message_id\": \"om_x100b6c118a6130a0c23892c3fedd7ea\",\n  \"sender_id\": \"ou_442533093a478558484ef6461b4d4a56\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Wed 2026-06-17 16:35:23 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_442533093a478558484ef6461b4d4a56)\",\n  \"id\": \"ou_442533093a478558484ef6461b4d4a56\",\n  \"name\": \"涂是淦\"\n}\n```\n\n[media attached: $WORKSPACE_DIR/workspace-strategy/.openclaw-inbound-media/622dea98-63bf-4df5-9717-b96cb4c2db43.jpg (image/jpeg)]\n$WORKSPACE_DIR/workspace-strategy/.openclaw-inbound-media/622dea98-63bf-4df5-9717-b96cb4c2db43.jpg",
+  "skillsPrompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nIf a skill's <version> differs from a previous turn, re-read its SKILL.md before using it.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>anysearch</name>\n    <description>Real-time search engine supporting web search, vertical domain search, parallel batch search, and URL content extraction.</description>\n    <location>~/.openclaw/skills/anysearch/SKILL.md</location>\n    <version>sha256:749987ba3c28f3f8</version>\n  </skill>\n  <skill>\n    <name>celue-zj</name>\n    <description>广告公司策略总监。用于定位、问题诊断、受众洞察、竞品分析、品牌战役策略、Creative Brief 开发。触发词：定位、品牌策略、受众洞察、竞品分析、Creative Brief。</description>\n    <location>~/.openclaw/workspace-strategy/skills/celue-zj/SKILL.md</location>\n    <version>sha256:7166560bf14820e6</version>\n  </skill>\n  <skill>\n    <name>chuangyi-zj</name>\n    <description>广告公司创意总监。用于创意方向制定、Big Idea 判断、创意路线评估、提案逻辑、文案和设计复核。触发词：创意方向、Big Idea、概念选择、创意评审。</description>\n    <location>~/.openclaw/workspace-strategy/skills/chuangyi-zj/SKILL.md</location>\n    <version>sha256:0fcb555be1b0c2d3</version>\n  </skill>\n  <skill>\n    <name>huashu-design</name>\n    <description>花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、做个HTML页面、做个可视化、app原型、iOS原型、我要做一个新的 PPT、导出MP4/GIF、60fps视频、设计风格、设计方向、配色方案、推荐风格、选个风格、做个好看的、评审、好不好看、review this design、带解说的动画、解说视频、长视频科普、voiceover、narration、5分钟讲清楚什么是XX。需求模糊时进设计方向顾问（三套逻辑并行出3版真实视觉，HTML原生40种风格库网页20+PPT20为弹药）；另含品牌资产协议、反AI slop、Junior工作流、Tweaks变体、动画→MP4/GIF导出、带解说长视频pipeline、5维评审。</description>\n    <location>~/.openclaw/workspace-strategy/skills/huashu-design/SKILL.md</location>\n    <version>sha256:edcd454452811bcd</version>\n  </skill>\n  <skill>\n    <name>session-debug-export</name>\n    <description>导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说”导出聊天记录””导出当前聊天””导出对话记录””聊天记录导出””生成聊天日志””打包聊天记录”时必须使用本技能。</description>\n    <location>~/.openclaw/skills/session-debug-export/SKILL.md</location>\n    <version>sha256:837cecca97ebdb55</version>\n  </skill>\n</available_skills>",
+  "systemPromptReport": {
+    "source": "run",
+    "generatedAt": 1781685328072,
+    "sessionId": "efe579f1-9e5e-4af3-8b76-0e60ca71744e",
+    "sessionKey": "agent:strategy:feishu:direct:ou_442533093a478558484ef6461b4d4a56",
+    "provider": "cc-vibe",
+    "model": "claude-opus-4-8",
+    "workspaceDir": "$WORKSPACE_DIR/workspace-strategy",
+    "bootstrapMaxChars": 20000,
+    "bootstrapTotalMaxChars": 60000,
+    "bootstrapTruncation": {
+      "warningMode": "always",
+      "warningShown": false,
+      "truncatedFiles": 0,
+      "nearLimitFiles": 0,
+      "totalNearLimit": false
+    },
+    "sandbox": {
+      "mode": "off",
+      "sandboxed": false
+    },
+    "systemPrompt": {
+      "chars": 28705,
+      "hash": "467b3614e0bcb31e63cad711dffc948cb949e8021f7de1745e480f0951a9d1b6",
+      "projectContextChars": 14149,
+      "nonProjectContextChars": 14556
+    },
+    "injectedWorkspaceFiles": [
+      {
+        "name": "AGENTS.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/AGENTS.md",
+        "missing": false,
+        "rawChars": 8223,
+        "injectedChars": 8223,
+        "truncated": false
+      },
+      {
+        "name": "SOUL.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/SOUL.md",
+        "missing": false,
+        "rawChars": 652,
+        "injectedChars": 652,
+        "truncated": false
+      },
+      {
+        "name": "TOOLS.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/TOOLS.md",
+        "missing": false,
+        "rawChars": 1579,
+        "injectedChars": 1579,
+        "truncated": false
+      },
+      {
+        "name": "IDENTITY.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/IDENTITY.md",
+        "missing": false,
+        "rawChars": 296,
+        "injectedChars": 296,
+        "truncated": false
+      },
+      {
+        "name": "USER.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/USER.md",
+        "missing": false,
+        "rawChars": 184,
+        "injectedChars": 184,
+        "truncated": false
+      },
+      {
+        "name": "HEARTBEAT.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/HEARTBEAT.md",
+        "missing": false,
+        "rawChars": 192,
+        "injectedChars": 192,
+        "truncated": false
+      },
+      {
+        "name": "MEMORY.md",
+        "path": "$WORKSPACE_DIR/workspace-strategy/MEMORY.md",
+        "missing": false,
+        "rawChars": 2591,
+        "injectedChars": 2591,
+        "truncated": false
+      }
+    ],
+    "skills": {
+      "promptChars": 2378,
+      "hash": "1e8bf1b22cd961aaf2f9de2d1d9e555099c80099055078e909bba3eb25980fa2",
+      "entries": [
+        {
+          "name": "anysearch",
+          "blockChars": 308
+        },
+        {
+          "name": "celue-zj",
+          "blockChars": 295
+        },
+        {
+          "name": "chuangyi-zj",
+          "blockChars": 288
+        },
+        {
+          "name": "huashu-design",
+          "blockChars": 672
+        },
+        {
+          "name": "session-debug-export",
+          "blockChars": 343
+        }
+      ]
+    },
+    "tools": {
+      "listChars": 0,
+      "schemaChars": 51363,
+      "entries": [
+        {
+          "name": "read",
+          "summaryChars": 298,
+          "summaryHash": "f8a1d7cf1ecfe02b1b5865c93387e6a5891e5079117b4fe18614b6f912521727",
+          "schemaChars": 304,
+          "schemaHash": "134f19bcabe3e29d63c5cebb38f1d2556759fd08adad6bc90a4b4d3cd1fb8441",
+          "propertiesCount": 3
+        },
+        {
+          "name": "write",
+          "summaryChars": 127,
+          "summaryHash": "cdb1c46027b22d1f1b923b47bfe297821d9fe589a9f9d92994961948060a4d89",
+          "schemaChars": 225,
+          "schemaHash": "e98a2484f667cf7c22d76ca103bf2022bf9113dc63fe38b899e71c328cb1e833",
+          "propertiesCount": 2
+        },
+        {
+          "name": "apply_patch",
+          "summaryChars": 132,
+          "summaryHash": "432bf38688a4f011d2b765a441ac07e1fdfa9faf2051679adee04abcd9332d93",
+          "schemaChars": 153,
+          "schemaHash": "05521268363ff4f191472c90d69ef08a503ba9acf1d2febc50b3ee68db32ab65",
+          "propertiesCount": 1
+        },
+        {
+          "name": "exec",
+          "summaryChars": 446,
+          "summaryHash": "369f5e5e195c647ab1e3cfad282e6d25488d4b9fe269f1157e273a546ca80295",
+          "schemaChars": 1283,
+          "schemaHash": "2608ea36cf51376859b7204cda1bf1a2507134eb542097b9e8dbc8af617f216b",
+          "propertiesCount": 12
+        },
+        {
+          "name": "process",
+          "summaryChars": 362,
+          "summaryHash": "21d78afb643a24f211fe9aa86c748f165ca82f1dc21bbaf6e3e6d6d4d4411d86",
+          "schemaChars": 1074,
+          "schemaHash": "a2d30a25569f409d7e8539844c89a088044535388b24031d014577b96ed27c5c",
+          "propertiesCount": 12
+        },
+        {
+          "name": "message",
+          "summaryChars": 94,
+          "summaryHash": "e840269c83486fde8ea5e59212894b5a1f2f0896ca7766f6b41b1cecfe901109",
+          "schemaChars": 5736,
+          "schemaHash": "82d38a4b86f46198aff18528a78812fcbe2cf6cf1c1b077f2504db9d73c508c6",
+          "propertiesCount": 106
+        },
+        {
+          "name": "sessions_list",
+          "summaryChars": 135,
+          "summaryHash": "c7e411ae02e3adff5504aaee48f02d262a8abb9152558a3172aae289e3b05faf",
+          "schemaChars": 435,
+          "schemaHash": "c29c6b82c36a2d95a88c8944f129929b2621ee2af6d17b2ab101d4d7e9633d89",
+          "propertiesCount": 9
+        },
+        {
+          "name": "sessions_history",
+          "summaryChars": 117,
+          "summaryHash": "f5d45b76f11a8ac63cc45d456fb6f675f0b1a2e191feb9671924cb5830058f03",
+          "schemaChars": 162,
+          "schemaHash": "ac33b8af2252262afe479236046f5a04bc018f1fcf24d1a8bf32743f0e867598",
+          "propertiesCount": 3
+        },
+        {
+          "name": "sessions_send",
+          "summaryChars": 282,
+          "summaryHash": "061e9ef3487676bb2a4fd4c0336bd973aaab5eea0725e7443c4cb17518cd1e78",
+          "schemaChars": 275,
+          "schemaHash": "f1fbaa412fe6b6aee102234c87c5aa140f39c9086f9bae6e1e9691309a602ffb",
+          "propertiesCount": 5
+        },
+        {
+          "name": "sessions_spawn",
+          "summaryChars": 332,
+          "summaryHash": "5ced554d0c09b9c71fa003139eca7871bbfdc0917a323fc17af2a9faec46c5b7",
+          "schemaChars": 1151,
+          "schemaHash": "9a91c7668463da8a66386260ce2ae97e7efe3bb93b9b6f03ac85102c354457e1",
+          "propertiesCount": 15
+        },
+        {
+          "name": "sessions_yield",
+          "summaryChars": 79,
+          "summaryHash": "f3782fc41c1522657e1d3494f486a2df998fed38a6b89dcf7f6934fb41424320",
+          "schemaChars": 60,
+          "schemaHash": "b1c4c753820bc3096d85ef7a266a14c9fbe12450536db58076b75bb61d14dbbb",
+          "propertiesCount": 1
+        },
+        {
+          "name": "subagents",
+          "summaryChars": 132,
+          "summaryHash": "1c2ffd38549c0444b118d43736fc4b875ea1aaabc446bbf8bc1fc4ee9180cca4",
+          "schemaChars": 122,
+          "schemaHash": "c4a241d2c3d46ba7985abfce4d3fcd63298ce81f89d49183c8f3d584c48d0c33",
+          "propertiesCount": 2
+        },
+        {
+          "name": "session_status",
+          "summaryChars": 278,
+          "summaryHash": "71177e543dc6235bad4b1a26761995681dcec27ab58dcb4f4f8a7fc9a7b2b5aa",
+          "schemaChars": 89,
+          "schemaHash": "d2995f3d69d126e98ac93eec3c2a9fe5556925bd7979a8e4b6b5a2bf62d329dd",
+          "propertiesCount": 2
+        },
+        {
+          "name": "web_fetch",
+          "summaryChars": 93,
+          "summaryHash": "8875afbb51bd63673e5e6836ca31eeda73914a464862665cd73b346e28d28fd5",
+          "schemaChars": 317,
+          "schemaHash": "d2d8ad58a1b84d849dd16142282aff6c5606f7b0e3d08405e1b740a6a79e6bcc",
+          "propertiesCount": 3
+        },
+        {
+          "name": "browser",
+          "summaryChars": 1537,
+          "summaryHash": "8a4aab8d6a66131c4f065bc2672af8fbcc19555e55fb4fbb1c24261d02e63e28",
+          "schemaChars": 3570,
+          "schemaHash": "fcbd681856651c4d2817a3c0f9786a321a20a50a6c117866bf08d4df6f40486a",
+          "propertiesCount": 53
+        },
+        {
+          "name": "memory_search",
+          "summaryChars": 605,
+          "summaryHash": "0f918d28864d3682ae77731f149273997c84773592a466b18c7cd0121b599a05",
+          "schemaChars": 250,
+          "schemaHash": "088cd2a3d3a47b251429ff7c56844cdedd1c45c3af0fa8bfaf7aa795766976bf",
+          "propertiesCount": 4
+        },
+        {
+          "name": "memory_get",
+          "summaryChars": 239,
+          "summaryHash": "bff1141a3da31a345c550337417efc9ace4da2909004606c727c59ca1a294495",
+          "schemaChars": 241,
+          "schemaHash": "78f5d58460a82f9104deebad2f1873a8cde05d1ce7328b3ba4da6e994653e70a",
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_get_user",
+          "summaryChars": 75,
+          "summaryHash": "49af1e7eaa05d33d9090c3d9e9609129fa950b1658b34240cbcac6955be33807",
+          "schemaChars": 185,
+          "schemaHash": "6f31f57b3ca30895ed7e5ea0cf0a18d4d650e89bc40ed04dd771ca43f97ae852",
+          "propertiesCount": 2
+        },
+        {
+          "name": "feishu_search_user",
+          "summaryChars": 55,
+          "summaryHash": "9a8833160a5473a1858d17b4e35ab2a4738749047a0c0b5ada0c587ce7457767",
+          "schemaChars": 311,
+          "schemaHash": "10a5c5baf181e54aba6aab795074086a77ffbf76f3f6ced2d3b84deb63d052c5",
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_chat",
+          "summaryChars": 92,
+          "summaryHash": "7405099b4093360bc5affc0f2d0be6b7d8cc055fac56a26fe52f8b073832cc0a",
+          "schemaChars": 519,
+          "schemaHash": "4f7476e692df34bba0eae58f85ada6c3f95d9012e0715abcd38ce6ecb1a1edf9",
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_chat_members",
+          "summaryChars": 54,
+          "summaryHash": "f216e67da9adc2aea9bbcca27877f072d423c0df7e96959ae3457c0e7b5f0c9e",
+          "schemaChars": 353,
+          "schemaHash": "5c2ab6d621a2dd6691409a0f38641692459e2ddb9277f3fbfa0a030a69338c30",
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_im_user_message",
+          "summaryChars": 456,
+          "summaryHash": "5c0cdcdfe20be0f65b14b3975010f25ad1a63a8f84d67c8a7d7c3ed37d3f5085",
+          "schemaChars": 1149,
+          "schemaHash": "d99dbd73b7b179cb3548368fcba8a3b9b9b358c044285ed9069926c6d0649bb6",
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_im_user_fetch_resource",
+          "summaryChars": 456,
+          "summaryHash": "1ecfa7334687208fd1d098dfd620345ff6c71a404278684282f8b1bc7f50326a",
+          "schemaChars": 371,
+          "schemaHash": "c1e392d16ef3f28b99ca9072a64315334592cd9de34863d914cddbdca0293443",
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_im_user_get_messages",
+          "summaryChars": 526,
+          "summaryHash": "36532a1f62541e38402c4997647b2196290731a06b5e542c972ecc622934ef89",
+          "schemaChars": 912,
+          "schemaHash": "98558f2a300a8cddca070984f1eacdd124663c55547630cc5a6f79996d40be7e",
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_im_user_get_thread_messages",
+          "summaryChars": 166,
+          "summaryHash": "1a1e0d3b2637e07067f0bc709bfeff226c66de5c694017999961b6db64d4691f",
+          "schemaChars": 395,
+          "schemaHash": "fdd186d1c814b7d0c8f2aa7e789e4db3485811afe5558f6f6a17f21caf658283",
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_im_user_search_messages",
+          "summaryChars": 522,
+          "summaryHash": "6c4f4591d91d3acbd91bf3b99eeefbf99420d6d551cd60f5b1ff0c19045cb0e1",
+          "schemaChars": 1364,
+          "schemaHash": "178a4976e617a4f7c9587194e1c13798cf5a92a37392eec0c6f431ab8335b6bf",
+          "propertiesCount": 12
+        },
+        {
+          "name": "feishu_calendar_calendar",
+          "summaryChars": 93,
+          "summaryHash": "2f10182931714a6e78247ffb50300e68ed20a3a902d8f1d9b266d496cb5f0bf3",
+          "schemaChars": 389,
+          "schemaHash": "2e81ae74b6bcf50f369973a2b2d3c7259826ce3a21cebfa5bf6f0888b1c29d71",
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_calendar_event",
+          "summaryChars": 455,
+          "summaryHash": "52c1ea9603376ffd8649b4cf28294f8a32eb6cabab54187ee790c11c7f9d19a6",
+          "schemaChars": 3200,
+          "schemaHash": "01e0eb85d0b6dfcb268aa13e3c96c4aa9b812bced467307a3f40f67b6e275f08",
+          "propertiesCount": 21
+        },
+        {
+          "name": "feishu_calendar_event_attendee",
+          "summaryChars": 75,
+          "summaryHash": "f49d93e43c039b0c7413a12eb1ebd184387e84ca84cbf196f43786f4a40d911b",
+          "schemaChars": 981,
+          "schemaHash": "790e3d370efdd45d763befde58fe27c3b3707879177c27d0acbdb2320b773619",
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_calendar_freebusy",
+          "summaryChars": 80,
+          "summaryHash": "57b659adee0ff25e1038bf13572b678361bab4aea89f2fdfac6f099b2605fd10",
+          "schemaChars": 504,
+          "schemaHash": "0d710b3872c7812c3ad5bdc0a5af8986d4e91d0ba90d93a54b05dca41c6ccfaa",
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_task_task",
+          "summaryChars": 167,
+          "summaryHash": "221eed66095a8da6f264465c7c63185fa98b81e5105a8cad8d98f26b4028688e",
+          "schemaChars": 1868,
+          "schemaHash": "2ee793631b9d7520b28c702a9e876a71c1520475fd097a8e86b72a046933a530",
+          "propertiesCount": 15
+        },
+        {
+          "name": "feishu_task_tasklist",
+          "summaryChars": 163,
+          "summaryHash": "e855e2a9120b994cbbc1395d756c312ed1163fe36ae85aca4a2fd774f710e009",
+          "schemaChars": 769,
+          "schemaHash": "1cfe323654c7a64017995cda92da7d95e7f44ba3a75337931553753b12378611",
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_task_section",
+          "summaryChars": 127,
+          "summaryHash": "11d4bbaf3fe0ccc331b86819d761a3fea028df2cfa8dc6c1c69efdbc20664d40",
+          "schemaChars": 1061,
+          "schemaHash": "899ae100a8ee7950d30be104d93538052266bf218f9b346406f12eb707a87dc5",
+          "propertiesCount": 13
+        },
+        {
+          "name": "feishu_task_comment",
+          "summaryChars": 95,
+          "summaryHash": "b82aa33779ec2735dcd265992784fce083a742289bb27df792cd6d12d69fb5ca",
+          "schemaChars": 671,
+          "schemaHash": "eaa584df557d7af6181728fae49ae59ca2b28a23176b7665488af3ae593b96c8",
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_task_subtask",
+          "summaryChars": 86,
+          "summaryHash": "c76fd412c503a9ce387443c5bdd03de9e98fbd4f89aa0640bc5a85c768e3816f",
+          "schemaChars": 1128,
+          "schemaHash": "053c5d4e0e4749617e59a3d9919ba0eb2269976a742139bfe04ed2c2d19b4108",
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_bitable_app",
+          "summaryChars": 139,
+          "summaryHash": "5df7f485e0e77f82658b88c7e298e6f6255150a5a2b85d4a66e4c29872d588f0",
+          "schemaChars": 511,
+          "schemaHash": "9c084f455d9b98885cf12751fe566fe2b2c4c07572f10dd80d3c55cda74cebcb",
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_bitable_app_table",
+          "summaryChars": 285,
+          "summaryHash": "36bc1229ddc1630e891e773f4fea0485b3de313d10330add976e7889f58ca87c",
+          "schemaChars": 1152,
+          "schemaHash": "9b99578f12915c45f7528ad056495286037b5dc4c9491d134ac9c0c174b47117",
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_bitable_app_table_record",
+          "summaryChars": 292,
+          "summaryHash": "e01061812c1060380c12e393e6b8288c3e8b43c42dd13fb31c3e8e3c59443c55",
+          "schemaChars": 2381,
+          "schemaHash": "f7ef6ebe97c0862f961af85264a6917f9d115582ce5de94d95b470585f40a050",
+          "propertiesCount": 14
+        },
+        {
+          "name": "feishu_bitable_app_table_field",
+          "summaryChars": 134,
+          "summaryHash": "05983a340cbf18c38e439874e5fba24182d15ac3260172ad4b2e9de0fb8d6759",
+          "schemaChars": 824,
+          "schemaHash": "4e734acbf5055773a7c1f3a24555059741a6225c4b4cf9fcbcd7e99052bd229b",
+          "propertiesCount": 10
+        },
+        {
+          "name": "feishu_bitable_app_table_view",
+          "summaryChars": 108,
+          "summaryHash": "800918d345b5da1b4fd3aee881de9435b44fe58e4740492462073ded5b49c44c",
+          "schemaChars": 692,
+          "schemaHash": "9192a0ae958c566d946044ee1a14aff29494e0dfe06bd7d675afda2b04e3ff3f",
+          "propertiesCount": 8
+        },
+        {
+          "name": "feishu_search_doc_wiki",
+          "summaryChars": 212,
+          "summaryHash": "8cfe7d02a995fce6e0544ae211c408b4352bb6a0b3a2d3bca1da95d7269d75b8",
+          "schemaChars": 1806,
+          "schemaHash": "e529c04de67e1a10e38477dbc89b9e9d9d912e0ea8cbc19d8dc1fa2970f5a6b1",
+          "propertiesCount": 5
+        },
+        {
+          "name": "feishu_drive_file",
+          "summaryChars": 703,
+          "summaryHash": "3a7b77d5942001a0ff1350fe155eb0cac0f0b1652f1e86150071553d33671e90",
+          "schemaChars": 2278,
+          "schemaHash": "a0add869b5e68725a20db67c26d5a904e27537f1d22dd2c43d422856f65e6b2f",
+          "propertiesCount": 16
+        },
+        {
+          "name": "feishu_doc_comments",
+          "summaryChars": 166,
+          "summaryHash": "1751aac7a8091e49248c0e55bedf0524c06d4853f27ff8b60d6e2f78422de42c",
+          "schemaChars": 1353,
+          "schemaHash": "3f06b0cebb8d1f0080dc955f22d774d121abb34f55328b3d9cd995951fcceffa",
+          "propertiesCount": 11
+        },
+        {
+          "name": "feishu_doc_media",
+          "summaryChars": 200,
+          "summaryHash": "ddefb253f8807ae36e7c97c9ac80c6588099c10a12fce6e0d40e60137ee2b921",
+          "schemaChars": 963,
+          "schemaHash": "9a2961a24bf9ba18eae2e4521842a3e347347d016652b60e628c68373e704cd0",
+          "propertiesCount": 9
+        },
+        {
+          "name": "feishu_wiki_space",
+          "summaryChars": 179,
+          "summaryHash": "2d647fe21d48d4de10df9cab402139141e62a8127748ec444798ec0fce120362",
+          "schemaChars": 451,
+          "schemaHash": "86caac57d1069033e69ed886efa4400ffa20dbb787fd4864787a3cd5be20550f",
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_wiki_space_node",
+          "summaryChars": 205,
+          "summaryHash": "f2d2747821a04c1ce06644128326817017276edf03391e72bb1a2ce14a44cc2c",
+          "schemaChars": 995,
+          "schemaHash": "804e320cdac5f505b811dbf5214623db9b04450999486cabf2724f6925ecf33d",
+          "propertiesCount": 13
+        },
+        {
+          "name": "feishu_sheet",
+          "summaryChars": 474,
+          "summaryHash": "a547f28ac3fafe22c5975c9104e8dc56830dc11a5501f7b3d012ab6e5b5d164f",
+          "schemaChars": 1905,
+          "schemaHash": "42ebe2c41fdf6a66ce38bb795a39358e8b98cd5bd4f8e700f32908e37b0109de",
+          "propertiesCount": 18
+        },
+        {
+          "name": "feishu_im_bot_image",
+          "summaryChars": 241,
+          "summaryHash": "200a544503979c1a46acf1cc66573a85d27765db30724957b3574611ce2e8652",
+          "schemaChars": 384,
+          "schemaHash": "ccc10b4dd5c321c302665b13b319928af6921ac7da6bfc6bb79f2d46a155425c",
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_fetch_doc",
+          "summaryChars": 42,
+          "summaryHash": "ce58233cf7fd56c492855f27dc90ce3dbab23512748229fb7982f1db74664124",
+          "schemaChars": 281,
+          "schemaHash": "e80de43154aed30fb5dce5d5a104a954dfc3ea1adef4611524983effaf0f9087",
+          "propertiesCount": 3
+        },
+        {
+          "name": "feishu_create_doc",
+          "summaryChars": 33,
+          "summaryHash": "77b091443689e2cc13a30b470b64a8eb0d90fa3188f0d27a0077c39d2119b4b4",
+          "schemaChars": 427,
+          "schemaHash": "76f821c7baafbef17364552c9890d0b5c5054ae533891cc78a3c807b10c0b094",
+          "propertiesCount": 6
+        },
+        {
+          "name": "feishu_update_doc",
+          "summaryChars": 105,
+          "summaryHash": "a1282997a47b50cf3104ea87c4ef89ac803aa09dfcd18f1480ae55b7fc52ff97",
+          "schemaChars": 811,
+          "schemaHash": "ab2c8c7459d4064bbc88c47447c4f552a7d8431c3489faa39d57c3fde724a72b",
+          "propertiesCount": 7
+        },
+        {
+          "name": "feishu_oauth",
+          "summaryChars": 168,
+          "summaryHash": "8342cbea8efb97a12b059de526ca476aeffb48a7d63682c878a6525bd0cd119d",
+          "schemaChars": 290,
+          "schemaHash": "cce4662e33ce842a8f1d2a4619e621382a79cc2a61170c8db71fdfd5fc218a7d",
+          "propertiesCount": 1
+        },
+        {
+          "name": "feishu_oauth_batch_auth",
+          "summaryChars": 55,
+          "summaryHash": "29773ca96523c2ef486e6c4e8b87c4208eb26c4132fab1259cdda403b9797721",
+          "schemaChars": 162,
+          "schemaHash": "6428575c51949f3127f834f333d50537a88d56638226844baf320c0965055af3",
+          "propertiesCount": 0
+        },
+        {
+          "name": "feishu_ask_user_question",
+          "summaryChars": 389,
+          "summaryHash": "7f41435f2aab61396f784c6427c67bb9b7da6271777512501c58ee224d7f49f6",
+          "schemaChars": 1309,
+          "schemaHash": "b96c4a75927bdf0e8c46a8c2e1bfad5a2156efe99c214a8f8312a11eb844bc19",
+          "propertiesCount": 4
+        },
+        {
+          "name": "feishu_conversation_binding",
+          "summaryChars": 72,
+          "summaryHash": "d7d2ab84f10760b12f00dbc4d1c0ad890e863e315560655257d2e4ec565037b5",
+          "schemaChars": 811,
+          "schemaHash": "9f58056c5a17388caec1c850dae5458b141c427ac1bbe532e8dff224257b9847",
+          "propertiesCount": 7
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "status": "succeeded",
+  "phase": "generated",
+  "ok": true,
+  "started_at": "2026-06-16T02:44:47.327654Z",
+  "finished_at": "2026-06-16T02:45:54.460367Z",
+  "duration_seconds": 101.478,
+  "exit_code": 0,
+  "prompt": "4K 16:9 storyboard keyframe, Ranli logo upgrade film segment 3. Show NEW logo forming on grid and proportion guides, outer frame tightened, Ranli main word focused, rolling-pin symbol kept as memory anchor, final logo locked cleanly. Premium brand release-film style, elegant and stable. Use only new logo and slogan reference. No soup dumpling, no invented package, no extra text.\n\nReference images (by role — obey each role strictly, do not swap them):\n- Image 1: brand LOGO — must be reproduced precisely, do not redraw, do not distort, do not invent new marks\n- Image 2: artistic tone reference — imitate only style, palette and mood, do NOT copy its content/objects",
+  "size": "3840x2160",
+  "aspect": "1:1",
+  "model": "gpt-image-2",
+  "count": 1,
+  "references": [
+    "/Users/a123/.openclaw/tmp/ranli-brand-upgrade-assets/02_new_logo.jpg",
+    "/Users/a123/.openclaw/tmp/ranli-brand-upgrade-assets/03_logo_slogan_final.jpg"
+  ],
+  "output": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/03_what_improved_4k_retry.png",
+  "exists": true,
+  "size_bytes": 3126940,
+  "stdout_log": "",
+  "stderr_log": "",
+  "delivery_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/03_what_improved_4k_retry.delivery.json",
+  "generation_status": "generated",
+  "delivery_status": "pending_target_resolution",
+  "delivery_attempted": false,
+  "delivery_attempted_at": null,
+  "delivery_method": "lark-cli",
+  "delivery_target": {
+    "target": "",
+    "user_id": "",
+    "chat_id": "",
+    "account_id": "",
+    "source_session_key": "",
+    "target_source": "recent_session_scan",
+    "target_candidates": [
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+        "source_sender_open_id": "",
+        "source_sender_name": "",
+        "target_source": "recent_session_scan"
+      },
+      {
+        "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+        "account_id": "design",
+        "source_session_key": "",
+        "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+        "source_sender_name": "吴佳滢",
+        "target_source": "recent_session_scan"
+      }
+    ],
+    "target_conflict_reason": "recent_session_scan_not_trusted",
+    "channel": "feishu"
+  },
+  "delivery_evidence": {
+    "ok": false,
+    "reason": "missing_delivery_target",
+    "sent_paths": [],
+    "results": []
+  },
+  "fallback_required": true,
+  "fallback_reason": "missing_delivery_target",
+  "user_report": "IMAGE GENERATED BUT TARGET NOT RESOLVED",
+  "error": "missing_delivery_target",
+  "delivered_paths": [],
+  "target_candidates": [
+    {
+      "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+      "account_id": "design",
+      "source_session_key": "agent:design-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194a3945448e9b91",
+      "source_sender_open_id": "",
+      "source_sender_name": "",
+      "target_source": "recent_session_scan"
+    },
+    {
+      "target": "chat:oc_deb2956a37fa31823df419ab084a073f",
+      "account_id": "design",
+      "source_session_key": "",
+      "source_sender_open_id": "ou_aa4a73c4e5bf077b4ef564df99292b4b",
+      "source_sender_name": "吴佳滢",
+      "target_source": "recent_session_scan"
+    }
+  ],
+  "target_conflict_reason": "recent_session_scan_not_trusted",
+  "result_path": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/03_what_improved_4k_retry.result.json",
+  "provider_mode": "auto",
+  "api_base_url": "https://n.lconai.com",
+  "api_provider": "n.lconai",
+  "requested_model": "gpt-image-2",
+  "effective_model": "gpt-image-2-pro",
+  "references_count": 2,
+  "requested_output": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/03_what_improved_4k_retry.png",
+  "requested_alias_paths": [],
+  "task_manifest": "/Users/a123/.openclaw/projects/然利客户/然利/品牌升级视频/outputs/storyboards_4k_20260616/images/task_manifest.json",
+  "delivery_error": "missing_delivery_target"
+}

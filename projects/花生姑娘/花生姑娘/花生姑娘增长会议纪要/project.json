@@ -1,0 +1,29 @@
+{
+  "project_id": "PROJECT-20260617173057-59b13e",
+  "brand_id": "BRD-20260617173020-1d0254",
+  "client_id": "CLI-20260617173020-1d0254",
+  "campaign_name": "花生姑娘增长会议纪要",
+  "campaign_type": "会议纪要/增长分析",
+  "start_date": "2026-06-17",
+  "deadline_date": "",
+  "status": "active",
+  "lifecycle_stage": "需求收集",
+  "milestones": [],
+  "project_summary": "基于2026年6月16日两段会议录音转写，整理花生姑娘在品牌、产品创新、渠道结构、C端打法与后续合作路径上的核心结论与会议纪要。",
+  "current_goal": "完成会议纪要建档，并沉淀飞书文档链接，作为后续增长、产品与品牌项目推进的基础材料。",
+  "tags": [
+    "会议纪要",
+    "增长分析",
+    "花生",
+    "品牌升级",
+    "产品创新",
+    "渠道策略",
+    "C端"
+  ],
+  "created_at": "2026-06-17T17:30:57.004092",
+  "updated_at": "2026-06-17T17:31:30.000000",
+  "_last_modified_by": "meeting-analyst",
+  "brief_path": "https://www.feishu.cn/docx/Z3A4dJwoqoWKHaxCF5acreninEg",
+  "strategy_path": "",
+  "creative_direction_path": ""
+}

@@ -1,0 +1,88 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-10T08:23:06.778Z",
+  "traceId": "e5fdc155-6ab7-48e1-89c2-04c3eddbde1d",
+  "sessionId": "e5fdc155-6ab7-48e1-89c2-04c3eddbde1d",
+  "sessionKey": "agent:design-shared:feishu:direct:ou_2253f3cfcdb6e0ae8707cee2ea10a57c",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 11454,
+    "output": 2316,
+    "cacheRead": 317952,
+    "total": 331722
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 6534,
+      "output": 6,
+      "cacheRead": 103424,
+      "cacheWrite": 0,
+      "total": 109964
+    },
+    "lastCacheTouchAt": 1781079016703
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "我查一下刚才失败的原因，然后换一种能发出去的方式给你。",
+    "PSD 本体已经生成了，但飞书不接受我刚才直接上传 `.psd`，所以那次发失败了。  \n我现在改成发送它的分卷压缩包，你下载后解压就能拿到 PSD。",
+    "NO_REPLY"
+  ],
+  "finalPromptText": "为什么还没发给我？",
+  "itemLifecycle": {
+    "startedCount": 6,
+    "completedCount": 6,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "exec",
+      "meta": "list files in ~/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.* (in ~/.openclaw/workspace-design)"
+    },
+    {
+      "toolName": "message",
+      "meta": "~/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.zip"
+    },
+    {
+      "toolName": "message",
+      "meta": "~/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.z02"
+    },
+    {
+      "toolName": "message",
+      "meta": "~/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.z01"
+    },
+    {
+      "toolName": "message",
+      "meta": "~/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.z03"
+    }
+  ],
+  "didSendViaMessagingTool": true,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [
+    "分卷 4/4（主 zip）",
+    "分卷 2/4",
+    "分卷 1/4",
+    "分卷 3/4"
+  ],
+  "messagingToolSentMediaUrls": [
+    "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.zip",
+    "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.z02",
+    "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.z01",
+    "$WORKSPACE_DIR/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.z03"
+  ],
+  "messagingToolSentTargets": [],
+  "lastToolError": {
+    "toolName": "exec",
+    "meta": "list files in ~/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.* (in ~/.openclaw/workspace-design)",
+    "error": "spawn /bin/zsh EAGAIN",
+    "mutatingAction": true,
+    "actionFingerprint": "tool=exec|meta=list files in ~/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781076354/layered-output-delivery.* (in ~/.openclaw/workspace-design)"
+  }
+}

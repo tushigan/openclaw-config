@@ -1,0 +1,271 @@
+{
+  "schema_version": 2,
+  "project_id": "brief-9bfb296e",
+  "project_name": "一杯芒果牛奶甜品饮产品海报",
+  "project_slug": "brief-9bfb296e",
+  "project_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e",
+  "defaults": {
+    "ratio": "9:16",
+    "duration": 7,
+    "quality_tier": "draft",
+    "storyboard_strategy": "auto_beats",
+    "normalize_references": true,
+    "identity_strategy": "reuse_exact"
+  },
+  "constraints": {
+    "must_have": [
+      {
+        "id": "structure-0",
+        "type": "must_have",
+        "description": "参考图是最终尾帧，最后 1 秒必须准确定格回参考图构图",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-1",
+        "type": "must_have",
+        "description": "主杯位于画面中心偏右，透明塑料杯，杯中有奶白色饮品、黄色芒果泥、芒果果肉层次，顶部铺满芒果丁",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-2",
+        "type": "must_have",
+        "description": "左下角保留切花芒果，桌面保留冰块、芒果丁、小碗芒果，右侧保留牛奶杯，背景保留白色花瓶和黄色背景",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-3",
+        "type": "must_have",
+        "description": "杯身 logo 和包装视觉必须保持清晰、稳定、不变形",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-4",
+        "type": "must_have",
+        "description": "整体只做光影、冰块反光、果肉光泽、杯中层次流动和轻微镜头推进",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      }
+    ],
+    "must_not_have": [
+      {
+        "id": "forbidden-0",
+        "type": "must_not_have",
+        "description": "禁止改变尾帧构图",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-1",
+        "type": "must_not_have",
+        "description": "禁止改变杯子形状或位置",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-2",
+        "type": "must_not_have",
+        "description": "禁止改变、扭曲或消失 logo",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-3",
+        "type": "must_not_have",
+        "description": "禁止新增人物、手、吸管、勺子、新文字或新品牌信息",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-4",
+        "type": "must_not_have",
+        "description": "禁止让芒果变成其他水果",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-5",
+        "type": "must_not_have",
+        "description": "禁止芒果大幅飞溅、液体喷溅、爆炸特效",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-6",
+        "type": "must_not_have",
+        "description": "禁止杯子旋转、大幅变焦、快速摇镜",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-7",
+        "type": "must_not_have",
+        "description": "禁止桌面道具或背景花瓶消失",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-8",
+        "type": "must_not_have",
+        "description": "禁止塑料感、CG 感、低清晰度、严重畸变、画面抖动",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      }
+    ],
+    "prefer": []
+  },
+  "validation_rules": {
+    "reference_system": [],
+    "storyboard": [],
+    "video": []
+  },
+  "iteration_strategy": {
+    "max_iterations": 3,
+    "max_same_error_repeats": 2,
+    "improvement_threshold": 0.15,
+    "ask_user_on_manual_checks": true
+  },
+  "canonical_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/canonical/original.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/canonical/final-frame-poster.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/canonical/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/canonical/identity-board.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/canonical/storyboard.png"
+  },
+  "state": {
+    "status": "video_result_fetched",
+    "current_phase": "fetch_result",
+    "latest_run_id": "20260605-165958-brief-9bfb296e",
+    "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e",
+    "updated_at": "2026-06-05T17:18:06+08:00"
+  },
+  "runs": [
+    {
+      "run_id": "20260605-165902-brief-9bfb296e",
+      "stage": "prepare",
+      "status": "ready_for_ref_generation",
+      "run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e",
+      "brief_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/brief.json",
+      "summary_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/summary.md",
+      "prompt_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/prompts/original.txt",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/prompts/identity-board.txt",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/prompts/storyboard.txt",
+        "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/refs/original.png",
+        "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/refs/final-frame-poster.png",
+        "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165902-brief-9bfb296e/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-06-05T16:59:03+08:00",
+      "created_at": "2026-06-05T16:59:03+08:00"
+    },
+    {
+      "run_id": "20260605-165958-brief-9bfb296e",
+      "stage": "fetch_result",
+      "status": "video_result_fetched",
+      "run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e",
+      "brief_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/brief.json",
+      "summary_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/summary.md",
+      "prompt_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/prompts/original.txt",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/prompts/identity-board.txt",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/prompts/storyboard.txt",
+        "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/original.png",
+        "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/identity-source.png",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/identity-board.png",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/storyboard.png",
+        "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/final-frame-poster.png",
+        "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-06-05T17:18:06+08:00",
+      "created_at": "2026-06-05T17:00:01+08:00",
+      "submit_id": "9c610d83-1f3e-4bf3-9b0a-efc91311ef69",
+      "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/dreamina/result.json",
+      "downloads_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e/dreamina/downloads"
+    }
+  ],
+  "created_at": "2026-06-05T16:59:03+08:00",
+  "updated_at": "2026-06-05T17:18:06+08:00",
+  "status": "video_result_fetched",
+  "current_phase": "fetch_result",
+  "latest_run_id": "20260605-165958-brief-9bfb296e",
+  "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9bfb296e/runs/20260605-165958-brief-9bfb296e"
+}

@@ -1,0 +1,315 @@
+{
+  "header": {
+    "type": "session",
+    "version": 3,
+    "id": "e7a862f9-3198-4ad4-bd0b-c67d6464d6d2",
+    "timestamp": "2026-06-09T12:32:45.984Z",
+    "cwd": "$WORKSPACE_DIR/workspace"
+  },
+  "leafId": "67754b75",
+  "entries": [
+    {
+      "type": "model_change",
+      "id": "443c9554",
+      "parentId": null,
+      "timestamp": "2026-06-09T12:32:46.417Z",
+      "provider": "aixor-g",
+      "modelId": "gpt-5.5"
+    },
+    {
+      "type": "thinking_level_change",
+      "id": "2dec02da",
+      "parentId": "443c9554",
+      "timestamp": "2026-06-09T12:32:46.417Z",
+      "thinkingLevel": "medium"
+    },
+    {
+      "type": "custom",
+      "customType": "model-snapshot",
+      "data": {
+        "timestamp": 1781008366484,
+        "provider": "aixor-g",
+        "modelApi": "openai-completions",
+        "modelId": "gpt-5.5"
+      },
+      "id": "6f367d31",
+      "parentId": "2dec02da",
+      "timestamp": "2026-06-09T12:32:46.484Z"
+    },
+    {
+      "type": "message",
+      "id": "fef7aef4",
+      "parentId": "6f367d31",
+      "timestamp": "2026-06-09T12:32:46.752Z",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "导出聊天记录"
+          }
+        ],
+        "timestamp": 1781008366525
+      }
+    },
+    {
+      "type": "custom_message",
+      "customType": "openclaw.runtime-context",
+      "content": "System: [2026-06-09 20:32:39 GMT+8] Feishu[main] DM | 胡凤晖 (ou_016ff57a4fb36eee52c4308c81724e6c) [msg:om_x100b6db430a988a4c4a23dda84f4cd3]\n\nConversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_016ff57a4fb36eee52c4308c81724e6c\",\n  \"message_id\": \"om_x100b6db430a988a4c4a23dda84f4cd3\",\n  \"sender_id\": \"ou_016ff57a4fb36eee52c4308c81724e6c\",\n  \"sender\": \"胡凤晖\",\n  \"timestamp\": \"Tue 2026-06-09 20:32 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"胡凤晖 (ou_016ff57a4fb36eee52c4308c81724e6c)\",\n  \"id\": \"ou_016ff57a4fb36eee52c4308c81724e6c\",\n  \"name\": \"胡凤晖\"\n}\n```",
+      "display": false,
+      "details": {
+        "source": "openclaw-runtime-context"
+      },
+      "id": "1c31ec2e",
+      "parentId": "fef7aef4",
+      "timestamp": "2026-06-09T12:32:46.934Z"
+    },
+    {
+      "type": "message",
+      "id": "7dda66de",
+      "parentId": "1c31ec2e",
+      "timestamp": "2026-06-09T12:32:52.654Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_86Yji44El2u4i0IkdlYUp1i6",
+            "name": "read",
+            "arguments": {
+              "limit": 200,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/skills/session-debug-export/SKILL.md"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 36043,
+          "output": 118,
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "totalTokens": 36161,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781008366937,
+        "responseId": "chatcmpl-5a07f36f"
+      }
+    },
+    {
+      "type": "message",
+      "id": "fc9b8962",
+      "parentId": "7dda66de",
+      "timestamp": "2026-06-09T12:32:52.758Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_86Yji44El2u4i0IkdlYUp1i6",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "---\nname: session-debug-export\ndescription: 导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说”导出聊天记录””导出当前聊天””导出对话记录””聊天记录导出””生成聊天日志””打包聊天记录”时必须使用本技能。\ntriggers:\n  - “导出聊天记录”\n  - “导出当前聊天”\n  - “导出当前对话”\n  - “导出对话记录”\n  - “聊天记录导出”\n  - “生成聊天日志”\n  - “打包聊天记录”\n  - “导出后台日志”\n  - “生成调试报告”\n---\n\n## ⚠️ AGENT 必读：执行流程（最高优先级）\n\n**当收到”导出聊天记录”等触发词时，按以下步骤执行，不要自行拼接简化的 txt 导出：**\n\n### 第 1 步：复制脚本到 workspace\n\n由于路径保护机制，不能直接执行 `~/.openclaw/skills/` 下的脚本。必须先复制到当前 workspace：\n\n```python\n# 使用 read 工具读取脚本内容\nread('$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py')\n\n# 使用 write 工具写入到当前 workspace 的 outputs 目录\n# 例如：<current-workspace>/outputs/_temp_export_chat_report.py\nwrite('<current-workspace>/outputs/_temp_export_chat_report.py', <script-content>)\n```\n\n### 第 2 步：执行临时脚本\n\n```bash\npython3 <current-workspace>/outputs/_temp_export_chat_report.py \\\n  --workspace $OPENCLAW_STATE_DIR \\\n  --session-key current \\\n  --issue “聊天记录导出” \\\n  --agent-name “<agent-display-name>”\n```\n\n**参数说明**：\n- `--workspace`：固定为 `$OPENCLAW_STATE_DIR`\n- `--session-key`：使用 `current` 自动查找当前会话\n- `--issue`：问题描述，用于文件命名\n- `--agent-name`：当前 agent 的显示名称（如 “research”、”design” 等）\n\n### 第 3 步：检查输出文件\n\n脚本执行成功后，会在以下路径生成导出文件：\n\n```\n~/Downloads/openclaw 问题汇总/YYYYMMDD-HHMMSS-对话ID-问题短名.md\n```\n\n使用 `ls` 或 `find` 命令确认文件已生成，并检查文件大小是否合理（通常 > 10KB）。\n\n### 第 4 步：发送文件给用户\n\n使用 `message` 工具的 `path` 参数发送文件：\n\n```json\n{\n  “tool”: “message”,\n  “path”: “~/Downloads/openclaw 问题汇总/<actual-filename>.md”,\n  “caption”: “OpenClaw 聊天记录导出”\n}\n```\n\n**重要**：必须真实发送文件，不能只返回本地路径。\n\n### 常见问题\n\n**Q: 遇到 `exec blocked: python3 cannot target protected path ~/.openclaw/skills/` 怎么办？**  \nA: 按第 1 步使用 read+write 复制脚本，不要直接执行 skills 目录下的脚本。\n\n**Q: 遇到 `exec blocked: cp cannot modify protected path ~/.openclaw/skills/` 怎么办？**  \nA: 不要用 `cp` 命令，用 read+write 工具复制。\n\n**Q: `sessions_history` 工具超时怎么办？**  \nA: 不要降级使用 `sessions_history`，它有截断限制。坚持使用本 skill 的脚本。\n\n**Q: 能不能用 heredoc 手动拼接一个简化版？**  \nA: ❌ **禁止**。必须使用本 skill 的完整流程，生成包含 AI 分析和后台日志的完整导出。\n\n---\n\n# Session...<truncated>"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781008372758
+      }
+    },
+    {
+      "type": "message",
+      "id": "c1235f2e",
+      "parentId": "fc9b8962",
+      "timestamp": "2026-06-09T12:32:56.873Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_5j4cgruw4zqSIaWm61RohG1H",
+            "name": "read",
+            "arguments": {
+              "limit": 2000,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 2290,
+          "output": 43,
+          "cacheRead": 35840,
+          "cacheWrite": 0,
+          "totalTokens": 38173,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781008372759,
+        "responseId": "chatcmpl-ca67441b"
+      }
+    },
+    {
+      "type": "message",
+      "id": "0e64b596",
+      "parentId": "c1235f2e",
+      "timestamp": "2026-06-09T12:32:56.982Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_5j4cgruw4zqSIaWm61RohG1H",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "#!/usr/bin/env python3\n\"\"\"Export an OpenClaw session as a shareable debugging markdown report.\n\nThe generated report follows the chat-export style:\n- AI analysis / issue localization summary\n- Full chat transcript with tool calls and tool outputs\n- Recent backend gateway logs\n\nIt also keeps the raw OpenClaw trajectory bundle next to the export for deeper inspection.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport datetime as dt\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\nfrom typing import Any\n\nANSI_RE = re.compile(r\"\\x1b\\[[0-9;]*m\")\nSESSION_KEY_ENV_VARS = (\n    \"OPENCLAW_MCP_SESSION_KEY\",\n    \"OPENCLAW_SOURCE_SESSION_KEY\",\n    \"OPENCLAW_SESSION_KEY\",\n    \"CLAUDE_AI_SESSION_KEY\",\n    \"CLAUDE_WEB_SESSION_KEY\",\n)\nDEFAULT_REPORT_SUBDIR = Path(\"Downloads\") / \"openclaw 问题汇总\"\n\n\ndef filename_part(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Keep readable Unicode in filenames while removing path-hostile characters.\"\"\"\n    text = re.sub(r\"[\\\\/:*?\\\"<>|\\s]+\", \"-\", text.strip())\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-.\")\n    return text or fallback\n\n\ndef default_report_dir() -> Path:\n    return Path.home() / DEFAULT_REPORT_SUBDIR\n\n\ndef short_issue_part(text: str, max_chars: int = 8) -> str:\n    \"\"\"Prefer a concise Chinese issue label for human-scannable filenames.\"\"\"\n    chinese = \"\".join(re.findall(r\"[\\u4e00-\\u9fff]\", text or \"\"))\n    if chinese:\n        return chinese[:max_chars]\n    return filename_part(text, \"问题\")[:max_chars] or \"问题\"\n\n\ndef conversation_id_part(session_key: str) -> str:\n    return filename_part(session_peer_id(session_key) or session_key.split(\":\")[-1], \"conversation\")\n\n\ndef build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:\n    return f\"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md\"\n\n\ndef slugify(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Convert arbitrary text into a stable ASCII-ish filename slug.\"\"\"\n    text = text.strip().lower()\n    text = re.sub(r\"[^a-z0-9]+\", \"-\", text)\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-\")\n    return text or fallback\n\n\ndef run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:\n    return subprocess.run(\n        cmd,\n        cwd=str(cwd) if cwd else None,\n        text=True,\n        capture_output=True,\n        check=False,\n    )\n\n\ndef clean_string(value: Any) -> str:\n    return str(value or \"\").strip()\n\n\ndef looks_like_session_key(value: str) -> bool:\n    return bool(value and value != \"current\" and value.startswith(\"agent:\") and value.count(\":\") >= 2)\n\n\ndef session_agent_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[1] if len(parts) > 1 and parts[0] == \"agent\" else \"\"\n\n\ndef session_chat_type(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[3] if len(parts) > 3 and parts[0] == \"agent\" else \"\"\n\n\ndef session_peer_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return \":\".join(parts[4:]) if len(parts) > 4 and parts[0] == \"agent\" else \"\"\n\n\ndef runtime_session_key(env: dict[str, str] | None = None) -> str | None:\n    source = env if env is not None else os.environ\n    for name in SESSION_KEY_ENV_VARS:\n        value = clean_string(source.get(name))\n        if looks_like_session_key(value):\n            return value\n    return None\n\n\ndef read_config_agents(workspace: Path) -> list[dict[str, Any]]:\n    config_path = workspace / \"openclaw.json\"\n    try:\n        data = json.loads(config_path.read_text(encoding=\"utf-8\"))\n    except Exception:\n        return []\n    agents = data.get(\"agents\", {})\n    if isinstance(agents, dict) and isinstance(agents.get(\"list\"), list):\n        return [agent for agent in agents[\"list\"] if isinstance(agent, dict)]\n    return []\n\n\ndef infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:\n    try:\n        resolved_cwd = cwd.expanduser().resolve()\n    except Exception:\n        return set()\n\n    ids: set[str] = set()\n    for agent in read_config_agents(workspace):\n        agent_id = clean_string(agent.get(\"id\"))\n        agent_workspace = clean_string(agent.get(\"workspace\"))\n        if not agent_id or not agent_workspace:\n            continue\n        try:\n            resolved_workspace = Path(agent_workspace).expanduser().resolve()\n        except Exception:\n            continue\n        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:\n            ids.add(agent_id)\n    return ids\n\n\ndef load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:\n    res = run(cmd, cwd=cwd)\n    if res.returncode != 0:\n        return []\n    try:\n        sessions = json.loads(res.stdout).get(\"sessions\") or []\n    except Exception:\n        return []\n    return [session for session in sessions if isinstance(session, dict)]\n\n\ndef session_matches(\n    session: dict[str, Any],\n    *,\n    agent_ids: set[str] | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> bool:\n    key = clean_string(session.get(\"key\"))\n    if not looks_like_session_key(key):\n        return False\n\n    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}\n    if normalized_agent_ids:\n        agent = clean_string(session.get(\"agentId\")) or session_agent_id(key)\n        if agent not in normalized_agent_ids:\n            return False\n\n    normalized_chat_type = clean_string(chat_type)\n    if normalized_chat_type:\n        kind = clean_string(session.get(\"kind\")) or clean_string(session.get(\"chatType\")) or session_chat_type(key)\n        if kind != normalized_chat_type:\n            return False\n\n    normalized_peer_id = clean_string(peer_id)\n    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:\n        return False\n\n    return True\n\n\ndef newest_session_key(sessions: list[dict[str, Any]]) -> str | None:\n    if not sessions:\n        return None\n    sessions = sorted(sessions, key=lambda session: int(session.get(\"updatedAt\") or 0), reverse=True)\n    return clean_string(sessions[0].get(\"key\")) or None\n\n\ndef resolve_current_session_key(\n    *,\n    workspace: Path | None = None,\n    cwd: Path | None = None,\n    env: dict[str, str] | None = None,\n    agent_id: str | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> str | None:\n    \"\"\"Resolve the current OpenClaw session with channel/agent context when available.\"\"\"\n    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()\n    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()\n    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()\n    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))\n    env_key = runtime_session_key(env)\n    if env_key and (\n        not has_explicit_filters\n        or session_matches(\n            {\"key\": env_key, \"agentId\": session_agent_id(env_key), \"kind\": session_chat_type(env_key)},\n            agent_ids=explicit_agent_ids,\n            chat_type=chat_type,\n            peer_id=peer_id,\n        )\n    ):\n        return env_key\n\n    agent_ids = set(explicit_agent_ids)\n    env_source = env if env is not None else os.environ\n    env_agent_id = clean_string(env_source.get(\"OPENCLAW_MCP_AGENT_ID\"))\n    if env_agent_id and not agent_ids:\n        agent_ids.add(env_agent_id)\n    if not agent_ids:\n        agent_ids = infer_workspace_agent_ids(workspace, cwd)\n\n    for active_minutes in (\"180\", None):\n        cmd = [\"openclaw\", \"sessions\", \"--all-agents\", \"--limit\", \"50\", \"--json\"]\n        if active_minutes:\n            cmd[2:2] = [\"--active\", active_minutes]\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n\n    # Last-resort compatibility for old installs without --all-agents.\n    for cmd in (\n        [\"openclaw\", \"sessions\", \"--active\", \"180\", \"--limit\", \"10\", \"--json\"],\n        [\"openclaw\", \"sessions\", \"--limit\", \"10\", \"--json\"],\n    ):\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n    return None\n\n\ndef format_timestamp(value: str | None) -> str:\n    if not value:\n        return \"unknown-time\"\n    try:\n        parsed = dt.datetime.fromisoformat(value.replace(\"Z\", \"+00:00\"))\n        return parsed.astimezone(dt.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%S.%f\")[:-3] + \"Z\"\n    except Exception:\n        return value\n\n\ndef text_from_content_parts(parts: Any) -> tuple[str, list[str]]:\n    \"\"\"Extract text and attachment markers from OpenClaw/Anthropic-style content blocks.\"\"\"\n    if isinstance(parts, str):\n        return parts, []\n    if not isinstance(parts, list):\n        return str(parts) if parts else \"\", []\n\n    text_chunks: list[str] = []\n    attachments: list[str] = []\n    for part in parts:\n        if isinstance(part, str):\n            text_chunks.append(part)\n            continue\n        if not isinstance(part, dict):\n            continue\n        ptype = part.get(\"type\")\n        if ptype == \"text\":\n            text_chunks.append(str(part.get(\"text\", \"\")))\n        elif ptype in {\"image\", \"input_image\"}:\n            source = part.get(\"source\") or part.get(\"image\") or {}\n            if isinstance(source, dict):\n                label = source.get(\"path\") or source.get(\"media_id\") or source.get(\"url\") or \"inline-image\"\n            else:\n                label = source or \"inline-image\"\n            attachments.append(f\"[Image: {label}]\")\n        elif ptype == \"toolCall\":\n            # Tool calls are emitted as separate tool.call events; avoid duplicating here.\n            continue\n    return \"\".join(text_chunks), attachments\n\n\ndef tool_result_text(data: dict[str, Any]) -> str:\n    if \"result\" in data:\n        return str(data.get(\"result\", \"\"))\n    message = data.get(\"message\", {})\n    content = message.get(\"content\", data.get(\"content\", \"\"))\n    text, attachments = text_from_content_parts(content)\n    if attachments:\n        return \"\\n\".join(attachments + ([text] if text else []))\n    return text\n\n\ndef parse_events_to_messages(events_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:\n    \"\"\"Parse trajectory events into displayable chat messages and export stats.\"\"\"\n    messages: list[dict[str, Any]] = []\n    stats: dict[str, Any] = {\n        \"events\": 0,\n        \"user\": 0,\n        \"assistant\": 0,\n        \"tool_calls\": 0,\n        \"tool_results\": 0,\n        \"tool_errors\": 0,\n        \"tools\": Counter(),\n        \"model\": None,\n        \"provider\": None,\n    }\n\n    if not events_path.exists():\n        return messages, stats\n\n    with events_path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            if not line.strip():\n                continue\n            try:\n                event = json.loads(line)\n            except json.JSONDecodeError:\n                continue\n\n            stats[\"events\"] += 1\n            etype = event.get(\"type\")\n            ts = event.get(\"ts\") or event.get(\"timestamp\")\n            data = event.get(\"data\", {}) or {}\n            stats[\"model\"] = stats[\"model\"] or event.get(\"modelId\")\n            stats[\"provider\"] = stats[\"provider\"] or event.get(\"provider\")\n\n            if etype == \"user.message\":\n                message = data.get(\"message\", {})\n                text, attachments = text_from_content_parts(message.get(\"content\", []))\n                messages.append({\n                    \"role\": \"user\",\n                    \"timestamp\": ts,\n                    \"content\": text.strip(),\n                    \"attachments\": attachments,\n                })\n                stats[\"user\"] += 1\n\n            elif etype == \"assistant.message\":\n                message = data.get(\"message\", {})\n                text, _ = text_from_content_parts(message.get(\"content\", []))\n                if text.strip():\n                    messages.append({\n                        \"role\": \"assistant\",\n                        \"timestamp\": ts,\n                        \"content\": text.strip(),\n                    })\n                    stats[\"assistant\"] += 1\n\n            elif etype == \"tool.call\":\n                name = data.get(\"name\") or data.get(\"toolName\") or \"unknown\"\n                messages.append({\n                    \"role\": \"tool_call\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"input\": data.get(\"arguments\", data.get(\"input\", {})),\n                })\n                stats[\"tool_calls\"] += 1\n                stats[\"tools\"][name] += 1\n\n            elif etype == \"tool.result\":\n                message = data.get(\"message\", {})\n                name = data.get(\"name\") or data.get(\"toolName\") or message.get(\"toolName\") or \"unknown\"\n                error = data.get(\"error\") or message.get(\"error\")\n                output = tool_result_text(data)\n                messages.append({\n                    \"role\": \"tool_result\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"output\": output,\n                    \"error\": error,\n                })\n                stats[\"tool_results\"] += 1\n                if error or re.search(r\"\\b(error|failed|timeout|timed out|exception)\\b\", output, re.I):\n                    stats[\"tool_errors\"] += 1\n\n    return messages, stats\n\n\ndef strip_ansi(text: str) -> str:\n    return ANSI_RE.sub(\"\", text)\n\n\ndef find_signals(messages: list[dict[str, Any]], logs: str) -> dict[str, list[str]]:\n    \"\"\"Find likely debugging signals without treating documentation reads as failures.\"\"\"\n    corpus_parts: list[str] = [logs]\n    signal_tools = {\"exec\", \"process\", \"image\", \"run_command\", \"bash\", \"browser\", \"mcp\", \"openclaw\"}\n    for msg in messages:\n        if msg.get(\"role\") != \"tool_result\":\n            continue\n        tool = str(msg.get(\"tool\") or \"\").lower()\n        output = str(msg.get(\"output\") or \"\")\n        if msg.get(\"error\") or tool in signal_tools:\n            corpus_parts.append(output)\n    corpus = strip_ansi(\"\\n\".join(corpus_parts))\n\n    patterns = {\n        \"errors\": r\"(?im)^.*\\b(error|failed|exception|traceback|timed out|timeout)\\b.*$\",\n        \"fallbacks\": r\"(?im)^.*\\b(fallback|failover|recovery|retry|降级|回退|重试)\\b.*$\",\n        \"long_running\": r\"(?im)^.*\\b(long-running|queued_behind_active_work|event_loop_delay|queueDepth|still running)\\b.*$\",\n        \"slow_gateway\": r\"(?im)^.*\\b(gateway/ws|node\\.list|chat\\.history)\\b.*(?:[1-9][0-9]{3,}ms).*$\",\n    }\n    signals: dict[str, list[str]] = {}\n    for key, pattern in patterns.items():\n        seen: list[str] = []\n        for match in re.findall(pattern, corpus):\n            # re.findall with capture groups returns captured tuple/string, so use finditer instead below.\n            pass\n        for m in re.finditer(pattern, corpus):\n            line = m.group(0).strip()\n            if line and line not in seen:\n                seen.append(line[:500])\n            if len(seen) >= 8:\n                break\n        signals[key] = seen\n    return signals\n\n\ndef generate_analysis(\n    issue_title: str,\n    session_key: str,\n    stats: dict[str, Any],\n    logs: str,[... 10796 more characters truncated]"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781008376981
+      }
+    },
+    {
+      "type": "message",
+      "id": "8fc18eef",
+      "parentId": "0e64b596",
+      "timestamp": "2026-06-09T12:35:15.920Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_ZStl65PaN0JVSuJGlQzfXeeE",
+            "name": "write",
+            "arguments": {
+              "content": "#!/usr/bin/env python3\n\"\"\"Export an OpenClaw session as a shareable debugging markdown report.\n\nThe generated report follows the chat-export style:\n- AI analysis / issue localization summary\n- Full chat transcript with tool calls and tool outputs\n- Recent backend gateway logs\n\nIt also keeps the raw OpenClaw trajectory bundle next to the export for deeper inspection.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport datetime as dt\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\nfrom typing import Any\n\nANSI_RE = re.compile(r\"\\x1b\\[[0-9;]*m\")\nSESSION_KEY_ENV_VARS = (\n    \"OPENCLAW_MCP_SESSION_KEY\",\n    \"OPENCLAW_SOURCE_SESSION_KEY\",\n    \"OPENCLAW_SESSION_KEY\",\n    \"CLAUDE_AI_SESSION_KEY\",\n    \"CLAUDE_WEB_SESSION_KEY\",\n)\nDEFAULT_REPORT_SUBDIR = Path(\"Downloads\") / \"openclaw 问题汇总\"\n\n\ndef filename_part(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Keep readable Unicode in filenames while removing path-hostile characters.\"\"\"\n    text = re.sub(r\"[\\\\/:*?\\\"<>|\\s]+\", \"-\", text.strip())\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-.\")\n    return text or fallback\n\n\ndef default_report_dir() -> Path:\n    return Path.home() / DEFAULT_REPORT_SUBDIR\n\n\ndef short_issue_part(text: str, max_chars: int = 8) -> str:\n    \"\"\"Prefer a concise Chinese issue label for human-scannable filenames.\"\"\"\n    chinese = \"\".join(re.findall(r\"[\\u4e00-\\u9fff]\", text or \"\"))\n    if chinese:\n        return chinese[:max_chars]\n    return filename_part(text, \"问题\")[:max_chars] or \"问题\"\n\n\ndef conversation_id_part(session_key: str) -> str:\n    return filename_part(session_peer_id(session_key) or session_key.split(\":\")[-1], \"conversation\")\n\n\ndef build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:\n    return f\"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md\"\n\n\ndef slugify(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Convert arbitrary text into a stable ASCII-ish filename slug.\"\"\"\n    text = text.strip().lower()\n    text = re.sub(r\"[^a-z0-9]+\", \"-\", text)\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-\")\n    return text or fallback\n\n\ndef run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:\n    return subprocess.run(\n        cmd,\n        cwd=str(cwd) if cwd else None,\n        text=True,\n        capture_output=True,\n        check=False,\n    )\n\n\ndef clean_string(value: Any) -> str:\n    return str(value or \"\").strip()\n\n\ndef looks_like_session_key(value: str) -> bool:\n    return bool(value and value != \"current\" and value.startswith(\"agent:\") and value.count(\":\") >= 2)\n\n\ndef session_agent_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[1] if len(parts) > 1 and parts[0] == \"agent\" else \"\"\n\n\ndef session_chat_type(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[3] if len(parts) > 3 and parts[0] == \"agent\" else \"\"\n\n\ndef session_peer_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return \":\".join(parts[4:]) if len(parts) > 4 and parts[0] == \"agent\" else \"\"\n\n\ndef runtime_session_key(env: dict[str, str] | None = None) -> str | None:\n    source = env if env is not None else os.environ\n    for name in SESSION_KEY_ENV_VARS:\n        value = clean_string(source.get(name))\n        if looks_like_session_key(value):\n            return value\n    return None\n\n\ndef read_config_agents(workspace: Path) -> list[dict[str, Any]]:\n    config_path = workspace / \"openclaw.json\"\n    try:\n        data = json.loads(config_path.read_text(encoding=\"utf-8\"))\n    except Exception:\n        return []\n    agents = data.get(\"agents\", {})\n    if isinstance(agents, dict) and isinstance(agents.get(\"list\"), list):\n        return [agent for agent in agents[\"list\"] if isinstance(agent, dict)]\n    return []\n\n\ndef infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:\n    try:\n        resolved_cwd = cwd.expanduser().resolve()\n    except Exception:\n        return set()\n\n    ids: set[str] = set()\n    for agent in read_config_agents(workspace):\n        agent_id = clean_string(agent.get(\"id\"))\n        agent_workspace = clean_string(agent.get(\"workspace\"))\n        if not agent_id or not agent_workspace:\n            continue\n        try:\n            resolved_workspace = Path(agent_workspace).expanduser().resolve()\n        except Exception:\n            continue\n        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:\n            ids.add(agent_id)\n    return ids\n\n\ndef load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:\n    res = run(cmd, cwd=cwd)\n    if res.returncode != 0:\n        return []\n    try:\n        sessions = json.loads(res.stdout).get(\"sessions\") or []\n    except Exception:\n        return []\n    return [session for session in sessions if isinstance(session, dict)]\n\n\ndef session_matches(\n    session: dict[str, Any],\n    *,\n    agent_ids: set[str] | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> bool:\n    key = clean_string(session.get(\"key\"))\n    if not looks_like_session_key(key):\n        return False\n\n    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}\n    if normalized_agent_ids:\n        agent = clean_string(session.get(\"agentId\")) or session_agent_id(key)\n        if agent not in normalized_agent_ids:\n            return False\n\n    normalized_chat_type = clean_string(chat_type)\n    if normalized_chat_type:\n        kind = clean_string(session.get(\"kind\")) or clean_string(session.get(\"chatType\")) or session_chat_type(key)\n        if kind != normalized_chat_type:\n            return False\n\n    normalized_peer_id = clean_string(peer_id)\n    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:\n        return False\n\n    return True\n\n\ndef newest_session_key(sessions: list[dict[str, Any]]) -> str | None:\n    if not sessions:\n        return None\n    sessions = sorted(sessions, key=lambda session: int(session.get(\"updatedAt\") or 0), reverse=True)\n    return clean_string(sessions[0].get(\"key\")) or None\n\n\ndef resolve_current_session_key(\n    *,\n    workspace: Path | None = None,\n    cwd: Path | None = None,\n    env: dict[str, str] | None = None,\n    agent_id: str | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> str | None:\n    \"\"\"Resolve the current OpenClaw session with channel/agent context when available.\"\"\"\n    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()\n    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()\n    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()\n    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))\n    env_key = runtime_session_key(env)\n    if env_key and (\n        not has_explicit_filters\n        or session_matches(\n            {\"key\": env_key, \"agentId\": session_agent_id(env_key), \"kind\": session_chat_type(env_key)},\n            agent_ids=explicit_agent_ids,\n            chat_type=chat_type,\n            peer_id=peer_id,\n        )\n    ):\n        return env_key\n\n    agent_ids = set(explicit_agent_ids)\n    env_source = env if env is not None else os.environ\n    env_agent_id = clean_string(env_source.get(\"OPENCLAW_MCP_AGENT_ID\"))\n    if env_agent_id and not agent_ids:\n        agent_ids.add(env_agent_id)\n    if not agent_ids:\n        agent_ids = infer_workspace_agent_ids(workspace, cwd)\n\n    for active_minutes in (\"180\", None):\n        cmd = [\"openclaw\", \"sessions\", \"--all-agents\", \"--limit\", \"50\", \"--json\"]\n        if active_minutes:\n            cmd[2:2] = [\"--active\", active_minutes]\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n\n    # Last-resort compatibility for old installs without --all-agents.\n    for cmd in (\n        [\"openclaw\", \"sessions\", \"--active\", \"180\", \"--limit\", \"10\", \"--json\"],\n        [\"openclaw\", \"sessions\", \"--limit\", \"10\", \"--json\"],\n    ):\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n    return None\n\n\ndef format_timestamp(value: str | None) -> str:\n    if not value:\n        return \"unknown-time\"\n    try:\n        parsed = dt.datetime.fromisoformat(value.replace(\"Z\", \"+00:00\"))\n        return parsed.astimezone(dt.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%S.%f\")[:-3] + \"Z\"\n    except Exception:\n        return value\n\n\ndef text_from_content_parts(parts: Any) -> tuple[str, list[str]]:\n    \"\"\"Extract text and attachment markers from OpenClaw/Anthropic-style content blocks.\"\"\"\n    if isinstance(parts, str):\n        return parts, []\n    if not isinstance(parts, list):\n        return str(parts) if parts else \"\", []\n\n    text_chunks: list[str] = []\n    attachments: list[str] = []\n    for part in parts:\n        if isinstance(part, str):\n            text_chunks.append(part)\n            continue\n        if not isinstance(part, dict):\n            continue\n        ptype = part.get(\"type\")\n        if ptype == \"text\":\n            text_chunks.append(str(part.get(\"text\", \"\")))\n        elif ptype in {\"image\", \"input_image\"}:\n            source = part.get(\"source\") or part.get(\"image\") or {}\n            if isinstance(source, dict):\n                label = source.get(\"path\") or source.get(\"media_id\") or source.get(\"url\") or \"inline-image\"\n            else:\n                label = source or \"inline-image\"\n            attachments.append(f\"[Image: {label}]\")\n        elif ptype == \"toolCall\":\n            # Tool calls are emitted as separate tool.call events; avoid duplicating here.\n            continue\n    return \"\".join(text_chunks), attachments\n\n\ndef tool_result_text(data: dict[str, Any]) -> str:\n    if \"result\" in data:\n        return str(data.get(\"result\", \"\"))\n    message = data.get(\"message\", {})\n    content = message.get(\"content\", data.get(\"content\", \"\"))\n    text, attachments = text_from_content_parts(content)\n    if attachments:\n        return \"\\n\".join(attachments + ([text] if text else []))\n    return text\n\n\ndef parse_events_to_messages(events_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:\n    \"\"\"Parse trajectory events into displayable chat messages and export stats.\"\"\"\n    messages: list[dict[str, Any]] = []\n    stats: dict[str, Any] = {\n        \"events\": 0,\n        \"user\": 0,\n        \"assistant\": 0,\n        \"tool_calls\": 0,\n        \"tool_results\": 0,\n        \"tool_errors\": 0,\n        \"tools\": Counter(),\n        \"model\": None,\n        \"provider\": None,\n    }\n\n    if not events_path.exists():\n        return messages, stats\n\n    with events_path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            if not line.strip():\n                continue\n            try:\n                event = json.loads(line)\n            except json.JSONDecodeError:\n                continue\n\n            stats[\"events\"] += 1\n            etype = event.get(\"type\")\n            ts = event.get(\"ts\") or event.get(\"timestamp\")\n            data = event.get(\"data\", {}) or {}\n            stats[\"model\"] = stats[\"model\"] or event.get(\"modelId\")\n            stats[\"provider\"] = stats[\"provider\"] or event.get(\"provider\")\n\n            if etype == \"user.message\":\n                message = data.get(\"message\", {})\n                text, attachments = text_from_content_parts(message.get(\"content\", []))\n                messages.append({\n                    \"role\": \"user\",\n                    \"timestamp\": ts,\n                    \"content\": text.strip(),\n                    \"attachments\": attachments,\n                })\n                stats[\"user\"] += 1\n\n            elif etype == \"assistant.message\":\n                message = data.get(\"message\", {})\n                text, _ = text_from_content_parts(message.get(\"content\", []))\n                if text.strip():\n                    messages.append({\n                        \"role\": \"assistant\",\n                        \"timestamp\": ts,\n                        \"content\": text.strip(),\n                    })\n                    stats[\"assistant\"] += 1\n\n            elif etype == \"tool.call\":\n                name = data.get(\"name\") or data.get(\"toolName\") or \"unknown\"\n                messages.append({\n                    \"role\": \"tool_call\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"input\": data.get(\"arguments\", data.get(\"input\", {})),\n                })\n                stats[\"tool_calls\"] += 1\n                stats[\"tools\"][name] += 1\n\n            elif etype == \"tool.result\":\n                message = data.get(\"message\", {})\n                name = data.get(\"name\") or data.get(\"toolName\") or message.get(\"toolName\") or \"unknown\"\n                error = data.get(\"error\") or message.get(\"error\")\n                output = tool_result_text(data)\n                messages.append({\n                    \"role\": \"tool_result\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"output\": output,\n                    \"error\": error,\n                })\n                stats[\"tool_results\"] += 1\n                if error or re.search(r\"\\b(error|failed|timeout|timed out|exception)\\b\", output, re.I):\n                    stats[\"tool_errors\"] += 1\n\n    return messages, stats\n\n\ndef strip_ansi(text: str) -> str:\n    return ANSI_RE.sub(\"\", text)\n\n\ndef find_signals(messages: list[dict[str, Any]], logs: str) -> dict[str, list[str]]:\n    \"\"\"Find likely debugging signals without treating documentation reads as failures.\"\"\"\n    corpus_parts: list[str] = [logs]\n    signal_tools = {\"exec\", \"process\", \"image\", \"run_command\", \"bash\", \"browser\", \"mcp\", \"openclaw\"}\n    for msg in messages:\n        if msg.get(\"role\") != \"tool_result\":\n            continue\n        tool = str(msg.get(\"tool\") or \"\").lower()\n        output = str(msg.get(\"output\") or \"\")\n        if msg.get(\"error\") or tool in signal_tools:\n            corpus_parts.append(output)\n    corpus = strip_ansi(\"\\n\".join(corpus_parts))\n\n    patterns = {\n        \"errors\": r\"(?im)^.*\\b(error|failed|exception|traceback|timed out|timeout)\\b.*$\",\n        \"fallbacks\": r\"(?im)^.*\\b(fallback|failover|recovery|retry|降级|回退|重试)\\b.*$\",\n        \"long_running\": r\"(?im)^.*\\b(long-running|queued_behind_active_work|event_loop_delay|queueDepth|still running)\\b.*$\",\n        \"slow_gateway\": r\"(?im)^.*\\b(gateway/ws|node\\.list|chat\\.history)\\b.*(?:[1-9][0-9]{3,}ms).*$\",\n    }\n    signals: dict[str, list[str]] = {}\n    for key, pattern in patterns.items():\n        seen: list[str] = []\n        for match in re.findall(pattern, corpus):\n            # re.findall with capture groups returns captured tuple/string, so use finditer instead below.\n            pass\n        for m in re.finditer(pattern, corpus):\n            line = m.group(0).strip()\n            if line and line not in seen:\n                seen.append(line[:500])\n            if len(seen) >= 8:\n                break\n        signals[key] = seen\n    return signals\n\n\ndef generate_analysis(\n    issue_title: str,\n    session_key: str,\n    stats: dict[str, Any],\n    logs: str,\n    messages: list[dict[str, Any]],\n) -> str:\n    signals = find_signals(messages, logs)\n    tools = stats.get(\"tools\") or Counter()\n    top_tools = \", \".join(f\"{name}×{count}\" for name, count in tools.most_common(8)) or \"none\"\n\n    likely_causes: list[str] = []\n    if signals[\"errors\"]:\n        likely_causes.append(\"工具或上游服务存在错误 / 超时，需要优先查看 Tool Output 和 Backend Logs 中的 error/timeout 行。\")\n    if signals[\"fallbacks\"]:\n        likely_causes.append(\"执行链路触发 fallback/failover/retry，说明主链路不稳定或被上游拒绝，结果可能来自降级路径。\")\n    if signals[\"long_running\"]:\n        likely_causes.append(\"存在 long-running / queued_behind_active_work / event_loop_delay，可能是后台队列、事件循环或长工具调用导致响应延迟。\")\n    if signals[\"slow_gateway\"]:\n        likely_causes.append(\"Backend Logs 出现高耗时 gateway/ws 请求，可能影响前端感知速度或消息同步。\")\n    if not likely_causes:\n        likely_causes.append(\"未在导出内容中发现明显 error/timeout/fallback/long-running 信号，可从完整聊天记录和原始 events.jsonl 继续人工定位。\")\n\n    lines = [\n        \"### 定位摘要\",\n        \"\",\n        f\"- **问题标题**：{issue_title}\",\n        f\"- **Session Key**：`{session_key}`\",\n        f\"- **模型/提供方**：`{stats.get('provider') or 'unknown'}` / `{stats.get('model') or 'unknown'}`\",\n        f\"- **事件数**：{stats.get('events', 0)}；用户消息 {stats.get('user', 0)}；AI 消息 {stats.get('assistant', 0)}；工具调用 {stats.get('tool_calls', 0)}；工具结果 {stats.get('tool_results', 0)}；疑似工具错误 {stats.get('tool_errors', 0)}\",\n        f\"- **高频工具**：{top_tools}\",\n        \"\",\n        \"### 初步判断\",\n        \"\",\n    ]\n    lines.extend(f\"- {cause}\" for cause in likely_causes)\n\n    def section(title: str, key: str) -> None:\n        values = signals.get(key) or []\n        lines.extend([\"\", f\"### {title}\", \"\"])\n        if not values:\n            lines.append(\"- 未发现明显信号。\")\n        else:\n            for value in values:\n                lines.append(f\"- `{value}`\")\n\n    section(\"错误 / 超时信号\", \"errors\")\n    section(\"Fallback / Retry 信号\", \"fallbacks\")\n    section(\"队列 / 长运行信号\", \"long_running\")\n    section(\"慢网关信号\", \"slow_gateway\")\n\n    lines.extend([\n        \"\",\n        \"### 建议下一步\",\n        \"\",\n        \"1. 先看上面的错误/超时信号，确认是否与用户报障时间点一致。\",\n        \"2. 再看聊天记录中相邻的 Tool Call / Tool Output，确认触发参数、路径、模型和降级链路。\",\n        \"3. 如果本 md 不够定位，继续查看同目录原始 `events.jsonl`、`manifest.json`、`metadata.json`。\",\n    ])\n    return \"\\n\".join(lines)\n\n\ndef fence_text(text: str, limit: int | None = None) -> str:\n    text = str(text or \"\")\n    if limit and len(text) > limit:\n        text = text[:limit] + f\"\\n...[truncated {len(text) - limit} chars]\"\n    return text.replace(\"```\", \"``\\`\")\n\n\ndef generate_markdown_report(\n    session_key: str,\n    agent_name: str,\n    issue_title: str,\n    messages: list[dict[str, Any]],\n    logs: str,\n    analysis: str,\n    export_dir: Path,\n) -> str:\n    lines = [\n        f\"# Chat with {agent_name}\",\n        \"\",\n        \"## AI Analysis\",\n        \"\",\n        analysis,\n        \"\",\n        \"---\",\n        \"\",\n        \"## Export Metadata\",\n        \"\",\n        f\"- Issue: `{issue_title}`\",\n        f\"- Session: `{session_key}`\",\n        f\"- Raw trajectory bundle: `{export_dir}`\",\n        f\"- Generated at: `{dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]}Z`\",\n        \"\",\n        \"---\",\n        \"\",\n    ]\n\n    for msg in messages:\n        role = msg.get(\"role\")\n        timestamp = format_timestamp(msg.get(\"timestamp\"))\n\n        if role == \"user\":\n            lines.extend([f\"## You ({timestamp})\", \"\"])\n            for attachment in msg.get(\"attachments\", []):\n                lines.append(attachment)\n            if msg.get(\"content\"):\n                lines.append(msg[\"content\"])\n            lines.append(\"\")\n\n        elif role == \"assistant\":\n            lines.extend([f\"## {agent_name} ({timestamp})\", \"\", msg.get(\"content\", \"\"), \"\"])\n\n        elif role == \"tool_call\":\n            tool_name = msg.get(\"tool\", \"unknown\")\n            lines.extend([\n                f\"## {agent_name} ({timestamp})\",\n                \"\",\n                f\"🔧 **Tool Call**: `{tool_name}` ({tool_name})\",\n                \"**Input**:\",\n                \"```json\",\n                fence_text(json.dumps(msg.get(\"input\", {}), indent=2, ensure_ascii=False), 12000),\n                \"```\",\n                \"\",\n            ])\n\n        elif role == \"tool_result\":\n            tool_name = msg.get(\"tool\", \"unknown\")\n            lines.extend([f\"## Tool ({timestamp})\", \"\"])\n            if msg.get(\"error\"):\n                lines.extend([\n                    f\"❌ **Tool Error**: `{tool_name}` ({tool_name})\",\n                    f\"**Error**: {msg.get('error')}\",\n                    \"\",\n                ])\n            lines.extend([\n                f\"📦 **Tool Output**: `{tool_name}` ({tool_name})\",\n                \"**Output**:\",\n                \"```text\",\n                fence_text(msg.get(\"output\", \"\"), 12000),\n                \"```\",\n                \"\",\n            ])\n\n    if logs:\n        lines.extend([\n            \"\",\n            \"## Backend Logs\",\n            \"\",\n            \"```log\",\n            fence_text(strip_ansi(logs), 30000),\n            \"```\",\n        ])\n\n    return \"\\n\".join(lines).rstrip() + \"\\n\"\n\n\ndef read_manifest(output_dir: Path) -> dict[str, Any]:\n    try:\n        return json.loads((output_dir / \"manifest.json\").read_text(encoding=\"utf-8\"))\n    except Exception:\n        return {}\n\n\ndef main() -> int:\n    ap = argparse.ArgumentParser(description=\"Export OpenClaw session as a chat-style markdown debug report\")\n    ap.add_argument(\"--workspace\", default=os.getcwd(), help=\"Workspace/state root used by openclaw sessions export-trajectory\")\n    ap.add_argument(\"--session-key\", default=\"current\", help=\"Session key to export; use 'current' to auto-resolve\")\n    ap.add_argument(\"--agent\", \"--agent-id\", dest=\"agent_id\", default=None, help=\"Agent id to prefer when resolving --session-key current\")\n    ap.add_argument(\"--chat-type\", choices=[\"direct\", \"group\", \"channel\"], default=None, help=\"Chat type to prefer when resolving --session-key current\")\n    ap.add_argument(\"--peer-id\", default=None, help=\"Peer/chat id to prefer when resolving --session-key current, such as ou_xxx or oc_xxx\")\n    ap.add_argument(\"--issue\", required=True, help=\"Short issue title, used in report and filename\")\n    ap.add_argument(\"--agent-name\", default=\"小爪\", help=\"Agent display name in chat headings\")\n    ap.add_argument(\"--output-dir\", default=None, help=f\"Report output directory; default: {default_report_dir()}\")\n    ap.add_argument(\"--log-lines\", type=int, default=1000, help=\"How many gateway log lines to capture\")\n    ap.add_argument(\"--max-bytes\", type=int, default=2000000, help=\"Max bytes when capturing gateway logs\")\n    ap.add_argument(\"--no-logs\", action=\"store_true\", help=\"Skip backend log capture\")\n    args = ap.parse_args()\n\n    workspace = Path(args.workspace).expanduser().resolve()\n    session_key = clean_string(args.session_key) or \"current\"\n    if session_key == \"current\":\n        session_key = resolve_current_session_key(\n            workspace=workspace,\n            cwd=Path.cwd(),\n            agent_id=args.agent_id,\n            chat_type=args.chat_type,\n            peer_id=args.peer_id,\n        )\n        if not session_key:\n            sys.stderr.write(\"Failed to auto-resolve current session key. Pass --session-key explicitly.\\n\")\n            return 2\n\n    generated_ts = dt.datetime.now().strftime(\"%Y%m%d-%H%M%S\")\n    issue_slug = slugify(args.issue, \"issue\")\n    session_slug = slugify(session_key.split(\":\")[-1], \"session\")\n    bundle_name = f\"{generated_ts}__{issue_slug}__{session_slug}\"\n\n    export_res = run([\n        \"openclaw\", \"sessions\", \"export-trajectory\",\n        \"--session-key\", session_key,\n        \"--workspace\", str(workspace),\n        \"--output\", bundle_name,\n        \"--json\",\n    ], cwd=workspace)\n    if export_res.returncode != 0:\n        sys.stderr.write(export_res.stdout)\n        sys.stderr.write(export_res.stderr)\n        return export_res.returncode\n\n    try:\n        export_data = json.loads(export_res.stdout.strip().splitlines()[-1])\n    except Exception:\n        export_data = {}\n    output_dir = Path(export_data.get(\"outputDir\") or workspace / \".openclaw\" / \"trajectory-exports\" / bundle_name)\n\n    messages, stats = parse_events_to_messages(output_dir / \"events.jsonl\")\n    manifest = read_manifest(output_dir)\n    stats[\"events\"] = manifest.get(\"eventCount\", stats.get(\"events\", 0))\n\n    logs = \"\"\n    if not args.no_logs:\n        # Fetch more logs than requested to account for filtering\n        logs_res = run([\n            \"openclaw\", \"logs\",\n            \"--limit\", str(args.log_lines * 3),  # 3x to ensure we get enough after filtering\n            \"--max-bytes\", str(args.max_bytes * 3),\n            \"--plain\",\n            \"--local-time\",\n        ], cwd=workspace)\n        all_logs = (logs_res.stdout or logs_res.stderr or \"\").strip()\n\n        # Filter logs to only include lines related to this session\n        # Use session_key (most specific) and session_id from manifest\n        # Do NOT use peer_id alone as it would include other agents' activities in the same group\n        session_id = manifest.get(\"sessionId\", \"\")\n\n        filter_patterns = [session_key, session_id]\n        filter_patterns = [p for p in filter_patterns if p]  # Remove empty strings\n\n        if filter_patterns:\n            filtered_lines = []\n            for line in all_logs.splitlines():\n                if any(pattern in line for pattern in filter_patterns):\n                    filtered_lines.append(line)\n                    if len(\"\\n\".join(filtered_lines)) > args.max_bytes:\n                        break\n            logs = \"\\n\".join(filtered_lines[:args.log_lines])\n        else:\n            # Fallback: if no patterns to filter by, use original logic\n            logs = all_logs[:args.max_bytes]\n\n    analysis = generate_analysis(args.issue, session_key, stats, logs, messages)\n    report = generate_markdown_report(\n        session_key=session_key,\n        agent_name=args.agent_name,\n        issue_title=args.issue,\n        messages=messages,\n        logs=logs,\n        analysis=analysis,\n        export_dir=output_dir,\n    )\n\n    report_dir = Path(args.output_dir).expanduser() if args.output_dir else default_report_dir()\n    report_dir.mkdir(parents=True, exist_ok=True)\n    report_name = build_report_filename(generated_ts, session_key, args.issue)\n    report_path = report_dir / report_name\n    report_path.write_text(report, encoding=\"utf-8\")\n\n    print(json.dumps({\n        \"sessionKey\": session_key,\n        \"issue\": args.issue,\n        \"outputFile\": str(report_path),\n        \"rawBundleDir\": str(output_dir),\n        \"messageCount\": len(messages),\n        \"eventCount\": stats.get(\"events\"),\n        \"toolErrorSignals\": stats.get(\"tool_errors\"),\n    }, ensure_ascii=False, indent=2))\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+              "path": "$WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 6681,
+          "output": 7523,
+          "cacheRead": 37888,
+          "cacheWrite": 0,
+          "totalTokens": 52092,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781008376983,
+        "responseId": "chatcmpl-dbc37149"
+      }
+    },
+    {
+      "type": "message",
+      "id": "9566c870",
+      "parentId": "8fc18eef",
+      "timestamp": "2026-06-09T12:35:16.315Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_ZStl65PaN0JVSuJGlQzfXeeE",
+        "toolName": "write",
+        "content": [
+          {
+            "type": "text",
+            "text": "Successfully wrote 26738 bytes to $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781008516315
+      }
+    },
+    {
+      "type": "message",
+      "id": "4b9d28f8",
+      "parentId": "9566c870",
+      "timestamp": "2026-06-09T12:35:21.634Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_iGQeYWOUkXrOZP0BaJrnQRB7",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py --workspace $OPENCLAW_STATE_DIR --session-key current --issue 聊天记录导出 --agent-name 虾指挥 --chat-type direct --peer-id ou_016ff57a4fb36eee52c4308c81724e6c",
+              "workdir": "$WORKSPACE_DIR/workspace",
+              "timeout": 120
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 17684,
+          "output": 110,
+          "cacheRead": 32256,
+          "cacheWrite": 0,
+          "totalTokens": 50050,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781008516316,
+        "responseId": "chatcmpl-96d59c3d"
+      }
+    },
+    {
+      "type": "message",
+      "id": "67754b75",
+      "parentId": "4b9d28f8",
+      "timestamp": "2026-06-09T12:35:31.765Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_iGQeYWOUkXrOZP0BaJrnQRB7",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session amber-seaslug, pid 32021). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "amber-seaslug",
+          "pid": 32021,
+          "startedAt": 1781008521740,
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1781008531765
+      }
+    }
+  ]
+}

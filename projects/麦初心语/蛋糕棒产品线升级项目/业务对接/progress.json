@@ -1,0 +1,268 @@
+{
+  "schema_version": "1.0",
+  "project_id": "麦初心语-蛋糕棒产品线升级项目",
+  "entries": [
+    {
+      "progress_id": "prog-97832547ce",
+      "recorded_at": "2026-05-18T19:14:56.239014+08:00",
+      "event_type": "intake",
+      "stage_before": "",
+      "stage_after": "线索",
+      "summary": "项目已立项",
+      "details": "基于会议纪要完成产品线梳理、包装升级方向整理与后续任务建档",
+      "key_decisions": [],
+      "open_questions": [],
+      "blockers": [],
+      "next_actions": [],
+      "source_material_ids": [
+        "mat-53b43a5e3b"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/meeting-notes/2026-05-18_飞书会议纪要_蛋糕棒产品线升级.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-ec3083ab07",
+      "recorded_at": "2026-05-18T19:14:56.239014+08:00",
+      "event_type": "stage-update",
+      "stage_before": "线索",
+      "stage_after": "需求梳理",
+      "summary": "根据会议纪要进入需求梳理阶段",
+      "details": "已从会议纪要中提取产品、包装、口味、规格、渠道与成本方向，并形成首轮任务。",
+      "key_decisions": [
+        "先整理现有产品线与规格，再做视觉升级",
+        "优先推进国内市场，重点关注零食系统和鲜食健康渠道",
+        "婚庆礼赠渠道单独制定方案",
+        "当前产品线暂按三个SKU方向整理"
+      ],
+      "open_questions": [
+        "婚庆渠道具体规格、包装与数量要求待补充",
+        "芝士味与黑巧味的试吃反馈待确认",
+        "秋糖展位是否最终落实待确认"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "整理现有产品规格与产品线",
+        "输出包装升级方向与视觉重点",
+        "制定婚庆礼赠渠道专项方案",
+        "安排芝士味产品试吃与寄样"
+      ],
+      "source_material_ids": [
+        "mat-53b43a5e3b"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/meeting-notes/2026-05-18_飞书会议纪要_蛋糕棒产品线升级.md",
+      "recorded_by": "business",
+      "source_material_count": 1
+    },
+    {
+      "progress_id": "prog-4237c4e7d5",
+      "recorded_at": "2026-05-18T19:17:29.404162+08:00",
+      "event_type": "material-update",
+      "stage_before": "需求梳理",
+      "stage_after": "需求梳理",
+      "summary": "补充归档现场产品照片，并完成图片观察结论",
+      "details": "新增 8 张现场产品图，已结合会议纪要补充对产品形态、包装系统、渠道适配与品质感问题的判断。",
+      "key_decisions": [
+        "当前更适合先做产品线与包装架构梳理，不直接跳单包设计",
+        "长条蛋糕棒的胶囊感问题在现场图中得到印证",
+        "婚庆渠道应独立方案处理"
+      ],
+      "open_questions": [
+        "现有 3 类以上产品中，哪些是保留SKU，哪些仅为测试样",
+        "深咖包装、粉色包装、透明罐分别对应哪个渠道与售价带"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "按现场图梳理现有产品形态与包装对应关系",
+        "输出第一版产品线梳理表",
+        "提炼包装母系统与子款区分逻辑"
+      ],
+      "source_material_ids": [
+        "mat-9abadd0ccd",
+        "mat-158de187ac",
+        "mat-f945c69eb0",
+        "mat-67c32f9c24",
+        "mat-d335ad62b0",
+        "mat-85be9dfd17",
+        "mat-14da760b42",
+        "mat-c2a2ede7fa"
+      ],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "recorded_by": "business",
+      "source_material_count": 8
+    },
+    {
+      "progress_id": "prog-b40188f301",
+      "recorded_at": "2026-05-18T19:21:00.136096+08:00",
+      "event_type": "stage-update",
+      "stage_before": "待报价",
+      "stage_after": "待报价",
+      "summary": "项目进入待报价阶段",
+      "details": "根据最新要求，下一阶段先整理报价方案，待确认后再开工，不直接进入执行。",
+      "key_decisions": [
+        "下一步先整理报价方案",
+        "报价确认后才开工",
+        "当前不直接推进执行物料"
+      ],
+      "open_questions": [
+        "报价方案按阶段拆分还是按整包呈现",
+        "客户确认节点和开工条件如何定义"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "整理报价方案结构",
+        "明确服务边界与交付项",
+        "待确认后再启动正式执行"
+      ],
+      "source_material_ids": [],
+      "note_path": "",
+      "recorded_by": "business",
+      "source_material_count": 0
+    },
+    {
+      "progress_id": "prog-476d8bbf24",
+      "recorded_at": "2026-05-18T19:22:24.601783+08:00",
+      "event_type": "quote-prep",
+      "stage_before": "待报价",
+      "stage_after": "待报价",
+      "summary": "已输出报价方案框架 v0",
+      "details": "先形成“确认后再开工”的报价结构草案，供内部确认。",
+      "key_decisions": [
+        "本轮报价先围绕方案确认前置段展开",
+        "执行段作为确认后的后续阶段处理",
+        "建议保留两种报价组织方式供选择"
+      ],
+      "open_questions": [
+        "按散案、项目案还是全案去报",
+        "是否要做前置梳理与首批执行的双方案",
+        "具体价格口径待人工确认"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "确认报价组织方式",
+        "确认服务边界",
+        "确认价格口径后再出正式报价"
+      ],
+      "source_material_ids": [],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价方案框架_v0.md",
+      "recorded_by": "business",
+      "source_material_count": 0
+    },
+    {
+      "progress_id": "prog-859523f6a5",
+      "recorded_at": "2026-05-18T19:24:02.272805+08:00",
+      "event_type": "quote-prep",
+      "stage_before": "待报价",
+      "stage_after": "待报价",
+      "summary": "报价方案框架更新为项目案口径",
+      "details": "已确认按项目案组织，并从产品策略阶段开始，价格暂后置。",
+      "key_decisions": [
+        "按项目案报价",
+        "从产品策略阶段开始",
+        "价格先不写死，先确认结构和边界"
+      ],
+      "open_questions": [
+        "首批纳入设计执行的产品范围有多大",
+        "婚庆礼赠专项是否进入首轮主包",
+        "修改轮次与确认节点如何约定"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "按项目案继续细化正式报价结构",
+        "补首批执行范围",
+        "最后补价格口径"
+      ],
+      "source_material_ids": [],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价方案框架_v1_项目案.md",
+      "recorded_by": "business",
+      "source_material_count": 0
+    },
+    {
+      "progress_id": "prog-58a727accf",
+      "recorded_at": "2026-05-18T19:27:57.485196+08:00",
+      "event_type": "quote-prep",
+      "stage_before": "待报价",
+      "stage_after": "待报价",
+      "summary": "报价口径更新为整案项目案",
+      "details": "已明确本项目覆盖产品策略、研发建议、产品线规划、渠道策略、包装策划设计及详情页；婚庆纳入主包但为独立设计体系。",
+      "key_decisions": [
+        "按整案项目案推进报价",
+        "从产品策略开始，覆盖到包装与详情页",
+        "婚庆纳入同一项目主包，但单独一套设计体系"
+      ],
+      "open_questions": [
+        "常规市场首批落地几个包装对象",
+        "婚庆市场是否包含独立详情页",
+        "各阶段修改轮次与价格口径如何设定"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "继续细化正式报价结构",
+        "补交付颗粒度与修改边界",
+        "最后补价格"
+      ],
+      "source_material_ids": [],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价方案框架_v2_整案口径.md",
+      "recorded_by": "business",
+      "source_material_count": 0
+    },
+    {
+      "progress_id": "prog-639550a0d5",
+      "recorded_at": "2026-05-18T19:30:16.535457+08:00",
+      "event_type": "quote-prep",
+      "stage_before": "待报价",
+      "stage_after": "待报价",
+      "summary": "报价口径补充为SPU整案，不限SKU，婚庆不含独立详情页",
+      "details": "已明确本项目按单一SPU整案升级推进，SKU数量不预先限定；婚庆纳入主包但不包含独立详情页。",
+      "key_decisions": [
+        "以单一SPU为单位推进整案报价",
+        "不预先限定SKU数量",
+        "婚庆纳入主包但不含独立详情页"
+      ],
+      "open_questions": [
+        "修改轮次如何设定",
+        "各阶段价格口径如何设定",
+        "是否补充打样或落地陪跑边界"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "继续细化正式报价说明稿",
+        "补修改边界与确认节点",
+        "最后补价格"
+      ],
+      "source_material_ids": [],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价方案框架_v3_SPU口径.md",
+      "recorded_by": "business",
+      "source_material_count": 0
+    },
+    {
+      "progress_id": "prog-333adb3cb8",
+      "recorded_at": "2026-05-18T19:33:01.918775+08:00",
+      "event_type": "quote-prep",
+      "stage_before": "待报价",
+      "stage_after": "待报价",
+      "summary": "已生成报价 HTML 预览版",
+      "details": "基于当前确认口径，输出客户可读版报价 HTML 预览稿，先看结构，不含正式价格。",
+      "key_decisions": [
+        "先出 HTML 预览版看结构",
+        "价格先留空",
+        "按单一 SPU 整案项目案组织表达"
+      ],
+      "open_questions": [
+        "是否需要调整阶段名称和服务表述",
+        "是否需要压缩或强化某些板块的客户表达",
+        "价格、修改轮次和确认节点后续何时补入"
+      ],
+      "blockers": [],
+      "next_actions": [
+        "收集本版 HTML 反馈",
+        "按反馈调整正式报价结构",
+        "后续补价格与边界条款"
+      ],
+      "source_material_ids": [],
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/quote/2026-05-18_报价预览_v1.html",
+      "recorded_by": "business",
+      "source_material_count": 0
+    }
+  ]
+}

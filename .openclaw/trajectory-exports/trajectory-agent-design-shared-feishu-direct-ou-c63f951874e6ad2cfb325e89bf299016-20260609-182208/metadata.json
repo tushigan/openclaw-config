@@ -1,0 +1,2089 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-09T10:22:11.586Z",
+  "traceId": "af41fa55-e7dd-49b8-aa67-d5dea60f5fa1",
+  "sessionId": "af41fa55-e7dd-49b8-aa67-d5dea60f5fa1",
+  "sessionKey": "agent:design-shared:feishu:direct:ou_c63f951874e6ad2cfb325e89bf299016",
+  "harness": {
+    "type": "openclaw",
+    "name": "OpenClaw",
+    "version": "2026.5.7",
+    "gitSha": "9c1600e",
+    "os": {
+      "platform": "darwin",
+      "arch": "arm64",
+      "release": "24.6.0",
+      "label": "macos 15.6.1 (arm64)"
+    },
+    "runtime": {
+      "node": "v22.22.2"
+    },
+    "invocation": [
+      "/opt/homebrew/Cellar/node@22/22.22.2_2/bin/node",
+      "/opt/homebrew/lib/node_modules/openclaw/dist/index.js",
+      "gateway",
+      "--port",
+      "18789"
+    ],
+    "entrypoint": "/opt/homebrew/lib/node_modules/openclaw/dist/index.js",
+    "workspaceDir": "$OPENCLAW_STATE_DIR/workspace-design",
+    "sessionFile": "$OPENCLAW_STATE_DIR/agents/design-shared/sessions/af41fa55-e7dd-49b8-aa67-d5dea60f5fa1.jsonl"
+  },
+  "model": {
+    "provider": "aixor-g",
+    "name": "gpt-5.4",
+    "api": "openai-completions",
+    "fastMode": false,
+    "thinkLevel": "medium",
+    "reasoningLevel": "off"
+  },
+  "config": {
+    "redacted": {
+      "meta": {
+        "lastTouchedVersion": "2026.5.7",
+        "lastTouchedAt": "2026-05-27T08:23:55.253Z"
+      },
+      "wizard": {
+        "lastRunAt": "2026-05-11T03:19:25.535Z",
+        "lastRunVersion": "2026.5.7",
+        "lastRunCommand": "doctor",
+        "lastRunMode": "local"
+      },
+      "browser": {
+        "profiles": {
+          "research-login": {
+            "cdpPort": 18801,
+            "attachOnly": true,
+            "color": "#0066CC"
+          },
+          "research-login-xhs": {
+            "cdpPort": 18811,
+            "attachOnly": false,
+            "color": "#D94A64"
+          },
+          "research-login-quandashi": {
+            "cdpPort": 18812,
+            "attachOnly": false,
+            "color": "#7A5AF8"
+          },
+          "research-login-zhenbiao": {
+            "cdpPort": 18813,
+            "attachOnly": false,
+            "color": "#00A676"
+          },
+          "research-login-86sb": {
+            "cdpPort": 18814,
+            "attachOnly": false,
+            "color": "#F08C00"
+          },
+          "research-login-huaban": {
+            "cdpPort": 18815,
+            "attachOnly": false,
+            "color": "#C2255C"
+          },
+          "research-login-biaoyuan": {
+            "cdpPort": 18816,
+            "attachOnly": false,
+            "color": "#1971C2"
+          },
+          "research-login-taobao": {
+            "cdpPort": 18817,
+            "attachOnly": false,
+            "color": "#E8590C"
+          },
+          "research-login-jd": {
+            "cdpPort": 18818,
+            "attachOnly": false,
+            "color": "#C92A2A"
+          },
+          "research-login-douyin": {
+            "cdpPort": 18819,
+            "attachOnly": false,
+            "color": "#0B7285"
+          }
+        }
+      },
+      "secrets": {
+        "providers": {
+          "lark-secrets": {
+            "source": "__OPENCLAW_REDACTED__",
+            "path": "__OPENCLAW_REDACTED__"
+          }
+        }
+      },
+      "models": {
+        "mode": "merge",
+        "providers": {
+          "aixor": {
+            "baseUrl": "https://aixor.org",
+            "api": "anthropic-messages",
+            "models": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "cc-vibe": {
+            "baseUrl": "https://cc-vibe.com",
+            "api": "anthropic-messages",
+            "models": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "aixor-g": {
+            "baseUrl": "https://aixor.org/v1",
+            "api": "openai-completions",
+            "models": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        }
+      },
+      "agents": {
+        "defaults": {
+          "model": {
+            "primary": "aixor-g/gpt-5.5"
+          },
+          "imageModel": {
+            "primary": "aixor-g/gpt-5.5",
+            "fallbacks": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "models": {
+            "aixor-g/gpt-5.4": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor-g/gpt-5.5": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor-g/gpt-5.4-mini": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor-g/gpt-5.2": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor/claude-opus-4-7": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor/claude-opus-4-8": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "aixor/claude-opus-4-6": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "cc-vibe/claude-opus-4-7": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "cc-vibe/claude-opus-4-8": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "cc-vibe/claude-opus-4-6": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "workspace": "$WORKSPACE_DIR/workspace",
+          "skills": [
+            "browser-automation",
+            "diagnose",
+            "feishu-channel-rules",
+            "feishu-troubleshoot",
+            "gpt-image2-gen",
+            "grill-me",
+            "grill-with-docs",
+            "handoff",
+            "healthcheck",
+            "improve-codebase-architecture",
+            "lark-approval",
+            "lark-attendance",
+            "lark-base",
+            "lark-calendar",
+            "lark-contact",
+            "lark-doc",
+            "lark-drive",
+            "lark-event",
+            "lark-im",
+            "lark-mail",
+            "lark-minutes",
+            "lark-okr",
+            "lark-openapi-explorer",
+            "lark-shared",
+            "lark-sheets",
+            "lark-skill-maker",
+            "lark-slides",
+            "lark-task",
+            "lark-vc",
+            "lark-whiteboard",
+            "lark-wiki",
+            "lark-workflow-meeting-summary",
+            "lark-workflow-standup-report",
+            "multi-search-engine",
+            "node-connect",
+            "pdf-smart-tool-cn",
+            "session-debug-export",
+            "session-logs",
+            "taskflow",
+            "taskflow-inbox-triage",
+            "weather",
+            "web-browse-capture",
+            "wechat-article-reader",
+            "design-brief-builder"
+          ],
+          "memorySearch": {
+            "provider": "siliconflow",
+            "remote": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "model": "BAAI/bge-m3"
+          },
+          "compaction": {
+            "mode": "safeguard"
+          },
+          "verboseDefault": "on",
+          "timeoutSeconds": 1800,
+          "maxConcurrent": 32,
+          "subagents": {
+            "allowAgents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "maxConcurrent": 16,
+            "maxSpawnDepth": 5,
+            "maxChildrenPerAgent": 5,
+            "thinking": "adaptive",
+            "runTimeoutSeconds": 1800
+          }
+        },
+        "list": [
+          {
+            "id": "main",
+            "default": true,
+            "name": "龙虾总指挥",
+            "workspace": "$WORKSPACE_DIR/workspace",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "adaptive",
+            "reasoningDefault": "on",
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "strategy",
+            "name": "战略专家",
+            "workspace": "$WORKSPACE_DIR/workspace-strategy",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "design",
+            "name": "生图高手",
+            "workspace": "$WORKSPACE_DIR/workspace-design",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "research",
+            "name": "调研专家",
+            "workspace": "$WORKSPACE_DIR/workspace-research",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "copywriter",
+            "name": "文案策划专家",
+            "workspace": "$WORKSPACE_DIR/workspace-copywriter",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "adaptive",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "meeting-analyst",
+            "name": "会议记录分析员",
+            "workspace": "$WORKSPACE_DIR/workspace-meeting",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "business",
+            "name": "业务专家",
+            "workspace": "$WORKSPACE_DIR/workspace-business",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "adaptive",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "main-shared",
+            "name": "龙虾总指挥（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "adaptive",
+            "reasoningDefault": "on",
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "strategy-shared",
+            "name": "战略专家（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-strategy",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "design-shared",
+            "name": "生图高手（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-design",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "research-shared",
+            "name": "调研专家（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-research",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "copywriter-shared",
+            "name": "文案策划专家（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-copywriter",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "adaptive",
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "meeting-analyst-shared",
+            "name": "会议记录分析员（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-meeting",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          {
+            "id": "business-shared",
+            "name": "业务专家（共享版）",
+            "workspace": "$WORKSPACE_DIR/workspace-business",
+            "model": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "thinkingDefault": "adaptive",
+            "skills": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "subagents": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "tools": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        ]
+      },
+      "tools": {
+        "profile": "coding",
+        "allow": [
+          "gpt-image2-gen",
+          "brand-poster-creator",
+          "brand-poster-workflow",
+          "browser",
+          "canvas",
+          "data-intelligence",
+          "dify-rag",
+          "exec",
+          "process",
+          "feishu-send-image",
+          "feishu_calendar_*",
+          "feishu_chat",
+          "feishu_chat*",
+          "feishu_create_doc",
+          "feishu_doc",
+          "feishu_doc*",
+          "feishu_drive",
+          "feishu_drive*",
+          "feishu_fetch_doc",
+          "feishu_im_*",
+          "feishu_search_*",
+          "feishu_sheet*",
+          "feishu_task_*",
+          "feishu_wiki",
+          "feishu_wiki*",
+          "file-guardian",
+          "group:plugins",
+          "group:runtime",
+          "group:sessions",
+          "memory_share",
+          "memory_viewer",
+          "message",
+          "multi_search",
+          "multi_search_engine",
+          "outline-architect",
+          "packaging-design",
+          "pdf-smart-tool-cn",
+          "research-analyst",
+          "read",
+          "sessions_history",
+          "sessions_list",
+          "sessions_spawn",
+          "skill-vetter",
+          "skill_file_get",
+          "skill_files",
+          "skill_get",
+          "skill_install",
+          "skill_publish",
+          "skill_search",
+          "skill_unpublish",
+          "tavily_extract",
+          "tavily_search",
+          "transition-video",
+          "web_fetch",
+          "write"
+        ],
+        "web": {
+          "search": {
+            "enabled": true,
+            "provider": "duckduckgo"
+          }
+        },
+        "media": {
+          "image": {
+            "attachments": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "audio": {
+            "enabled": true,
+            "maxBytes": 20971520,
+            "timeoutSeconds": 120,
+            "models": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        "sessions": {
+          "visibility": "all"
+        },
+        "agentToAgent": {
+          "enabled": true,
+          "allow": [
+            "main",
+            "main-shared",
+            "research",
+            "research-shared"
+          ]
+        },
+        "exec": {
+          "security": "full",
+          "ask": "off",
+          "notifyOnExit": true,
+          "notifyOnExitEmptySuccess": true
+        }
+      },
+      "bindings": [
+        {
+          "agentId": "main",
+          "match": {
+            "channel": "feishu",
+            "accountId": "main",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "main",
+          "match": {
+            "channel": "feishu",
+            "accountId": "default",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "main-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "main"
+          }
+        },
+        {
+          "agentId": "main-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "default"
+          }
+        },
+        {
+          "agentId": "strategy",
+          "match": {
+            "channel": "feishu",
+            "accountId": "strategy",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "strategy-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "strategy"
+          }
+        },
+        {
+          "agentId": "research",
+          "match": {
+            "channel": "feishu",
+            "accountId": "research",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "research-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "research"
+          }
+        },
+        {
+          "agentId": "meeting-analyst",
+          "match": {
+            "channel": "feishu",
+            "accountId": "meeting-analyst",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "meeting-analyst-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "meeting-analyst"
+          }
+        },
+        {
+          "agentId": "copywriter",
+          "match": {
+            "channel": "feishu",
+            "accountId": "copywriter",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "copywriter-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "copywriter"
+          }
+        },
+        {
+          "agentId": "design",
+          "match": {
+            "channel": "feishu",
+            "accountId": "design",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "design-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "design"
+          }
+        },
+        {
+          "agentId": "video",
+          "match": {
+            "channel": "feishu",
+            "accountId": "video",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "video-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "video"
+          }
+        },
+        {
+          "agentId": "business",
+          "match": {
+            "channel": "feishu",
+            "accountId": "business",
+            "peer": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        {
+          "agentId": "business-shared",
+          "match": {
+            "channel": "feishu",
+            "accountId": "business"
+          }
+        }
+      ],
+      "messages": {
+        "groupChat": {
+          "visibleReplies": "automatic"
+        },
+        "ackReactionScope": "group-mentions"
+      },
+      "commands": {
+        "native": "auto",
+        "nativeSkills": "auto",
+        "text": true,
+        "bash": false,
+        "config": false,
+        "mcp": false,
+        "plugins": false,
+        "debug": false,
+        "restart": false,
+        "useAccessGroups": true,
+        "ownerAllowFrom": [
+          "feishu:ou_88079e6b06ce40e6851c96928fe1a03b",
+          "feishu:ou_442533093a478558484ef6461b4d4a56",
+          "feishu:ou_3669c86e1e9957992630dd1fc0b85577",
+          "feishu:ou_1e2494605d60685078e1532cedbb5c4f",
+          "feishu:ou_db8d075ed93bb69cb58b3f809c9a2272",
+          "feishu:ou_ade9d49cd1dff5315774a6cae2479938",
+          "feishu:ou_5a2343ad4d38d496e66b20d2367e4191"
+        ],
+        "ownerDisplay": "raw"
+      },
+      "session": {
+        "dmScope": "per-channel-peer",
+        "maintenance": {
+          "mode": "enforce",
+          "pruneAfter": "7d",
+          "maxEntries": 300
+        }
+      },
+      "cron": {
+        "enabled": true
+      },
+      "hooks": {
+        "internal": {
+          "enabled": true,
+          "entries": {
+            "boot-md": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "bootstrap-extra-files": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "command-logger": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            },
+            "session-memory": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        }
+      },
+      "channels": {
+        "feishu": {
+          "enabled": true,
+          "domain": "feishu",
+          "connectionMode": "websocket",
+          "appId": "cli_aa8694531e789cd6",
+          "webhookPath": "/feishu/events",
+          "dmPolicy": "open",
+          "groupPolicy": "allowlist",
+          "groupAllowFrom": [
+            "*"
+          ],
+          "reactionNotifications": "own",
+          "typingIndicator": true,
+          "resolveSenderNames": true,
+          "defaultAccount": "main",
+          "requireMention": true,
+          "blockStreaming": true,
+          "groups": {
+            "*": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "streaming": true,
+          "replyMode": {
+            "default": "streaming",
+            "direct": "streaming",
+            "group": "streaming"
+          },
+          "footer": {
+            "elapsed": true,
+            "status": true,
+            "model": true
+          },
+          "mediaLocalRoots": [
+            "$WORKSPACE_DIR/workspace",
+            "$WORKSPACE_DIR/workspace-design",
+            "$WORKSPACE_DIR/workspace-strategy",
+            "$WORKSPACE_DIR/workspace-research",
+            "$WORKSPACE_DIR/workspace-meeting",
+            "$WORKSPACE_DIR/workspace-copywriter",
+            "$WORKSPACE_DIR/workspace-business"
+          ],
+          "monitor": {
+            "enabled": false
+          },
+          "allowFrom": [
+            "*"
+          ],
+          "configWrites": false,
+          "commands": {
+            "enforceOwnerForCommands": true
+          },
+          "name": "生图高手"
+        }
+      },
+      "gateway": {
+        "port": 18789,
+        "mode": "local",
+        "bind": "loopback",
+        "auth": {
+          "mode": "token"
+        },
+        "tailscale": {
+          "mode": "off",
+          "resetOnExit": false
+        },
+        "nodes": {
+          "denyCommands": [
+            "camera.snap",
+            "camera.clip",
+            "screen.record",
+            "contacts.add",
+            "calendar.add",
+            "reminders.add",
+            "sms.send"
+          ]
+        }
+      },
+      "skills": {
+        "load": {
+          "extraDirs": [
+            "$WORKSPACE_DIR/workspace/skills",
+            "$WORKSPACE_DIR/workspace/.agents/skills",
+            "$WORKSPACE_DIR/skills",
+            "$WORKSPACE_DIR/workspace-strategy/skills",
+            "$WORKSPACE_DIR/workspace-design/skills",
+            "$WORKSPACE_DIR/workspace-research/skills",
+            "$WORKSPACE_DIR/workspace-copywriter/skills",
+            "$WORKSPACE_DIR/workspace-business/skills"
+          ],
+          "watch": true,
+          "watchDebounceMs": 250
+        },
+        "entries": {
+          "image-to-psd": {
+            "enabled": false
+          },
+          "pptx": {
+            "enabled": false
+          },
+          "memos-memory-guide": {
+            "enabled": false
+          },
+          "PPT": {
+            "enabled": false
+          },
+          "layered-psd-gen": {
+            "enabled": true
+          },
+          "deckify": {
+            "enabled": true
+          },
+          "apple-notes": {
+            "enabled": false
+          },
+          "apple-reminders": {
+            "enabled": false
+          },
+          "bear-notes": {
+            "enabled": false
+          },
+          "blogwatcher": {
+            "enabled": false
+          },
+          "blucli": {
+            "enabled": false
+          },
+          "bluebubbles": {
+            "enabled": false
+          },
+          "camsnap": {
+            "enabled": false
+          },
+          "clawhub": {
+            "enabled": false
+          },
+          "coding-agent": {
+            "enabled": false
+          },
+          "discord": {
+            "enabled": false
+          },
+          "eightctl": {
+            "enabled": false
+          },
+          "gemini": {
+            "enabled": false
+          },
+          "gh-issues": {
+            "enabled": false
+          },
+          "gifgrep": {
+            "enabled": false
+          },
+          "github": {
+            "enabled": false
+          },
+          "gog": {
+            "enabled": false
+          },
+          "goplaces": {
+            "enabled": false
+          },
+          "himalaya": {
+            "enabled": false
+          },
+          "imsg": {
+            "enabled": false
+          },
+          "mcporter": {
+            "enabled": false
+          },
+          "model-usage": {
+            "enabled": false
+          },
+          "nano-pdf": {
+            "enabled": false
+          },
+          "notion": {
+            "enabled": false
+          },
+          "obsidian": {
+            "enabled": false
+          },
+          "openai-whisper": {
+            "enabled": false
+          },
+          "openai-whisper-api": {
+            "enabled": false
+          },
+          "openhue": {
+            "enabled": false
+          },
+          "oracle": {
+            "enabled": false
+          },
+          "ordercli": {
+            "enabled": false
+          },
+          "runninghub": {
+            "enabled": true
+          },
+          "mask-edit-localized": {
+            "enabled": false
+          },
+          "peekaboo": {
+            "enabled": false
+          },
+          "sag": {
+            "enabled": false
+          },
+          "sherpa-onnx-tts": {
+            "enabled": false
+          },
+          "slack": {
+            "enabled": false
+          },
+          "songsee": {
+            "enabled": false
+          },
+          "session-debug-export": {
+            "enabled": true
+          },
+          "sonoscli": {
+            "enabled": false
+          },
+          "spotify-player": {
+            "enabled": false
+          },
+          "summarize": {
+            "enabled": false
+          },
+          "things-mac": {
+            "enabled": false
+          },
+          "tmux": {
+            "enabled": false
+          },
+          "trello": {
+            "enabled": false
+          },
+          "voice-call": {
+            "enabled": false
+          },
+          "wacli": {
+            "enabled": false
+          },
+          "xurl": {
+            "enabled": false
+          },
+          "product-photography-workflow": {
+            "enabled": true
+          },
+          "tvc-director": {
+            "enabled": false
+          }
+        }
+      },
+      "plugins": {
+        "enabled": true,
+        "allow": [
+          "browser",
+          "duckduckgo",
+          "feishu",
+          "memory-core",
+          "openclaw-lark"
+        ],
+        "entries": {
+          "duckduckgo": {
+            "enabled": true,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "tavily": {
+            "enabled": false,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "feishu": {
+            "enabled": false
+          },
+          "memory-core": {
+            "enabled": true,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "browser": {
+            "enabled": true,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          },
+          "openclaw-lark": {
+            "enabled": true,
+            "config": {
+              "truncated": true,
+              "reason": "trajectory-depth-limit",
+              "limitDepth": 6
+            }
+          }
+        },
+        "bundledDiscovery": "allowlist"
+      }
+    },
+    "runtime": {
+      "timeoutMs": 1800000,
+      "trigger": "user",
+      "disableTools": false,
+      "toolResultFormat": "plain"
+    }
+  },
+  "plugins": {
+    "source": "active-registry",
+    "importedRuntimePluginIds": [
+      "browser",
+      "duckduckgo",
+      "memory-core",
+      "openclaw-lark"
+    ],
+    "entries": [
+      {
+        "id": "file-transfer",
+        "name": "File Transfer",
+        "version": "2026.5.7",
+        "description": "Fetch, list, and write files on paired nodes via dedicated node commands. Bypasses bash stdout truncation by using base64 over node.invoke for binaries up to 16 MB.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/file-transfer/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/file-transfer"
+      },
+      {
+        "id": "firecrawl",
+        "name": "@openclaw/firecrawl-plugin",
+        "version": "2026.5.7",
+        "description": "OpenClaw Firecrawl plugin",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/firecrawl/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/firecrawl",
+        "webFetchProviderIds": [
+          "firecrawl"
+        ],
+        "webSearchProviderIds": [
+          "firecrawl"
+        ]
+      },
+      {
+        "id": "llm-task",
+        "name": "LLM Task",
+        "version": "2026.5.7",
+        "description": "Generic JSON-only LLM tool for structured tasks callable from workflows.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/llm-task/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/llm-task"
+      },
+      {
+        "id": "memory-wiki",
+        "name": "Memory Wiki",
+        "version": "2026.5.7",
+        "description": "Persistent wiki compiler and Obsidian-friendly knowledge vault for OpenClaw.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/memory-wiki/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/memory-wiki"
+      },
+      {
+        "id": "skill-workshop",
+        "name": "Skill Workshop",
+        "version": "2026.5.7",
+        "description": "Captures repeatable workflows as workspace skills, with pending review, safe writes, and skill prompt refresh.",
+        "origin": "bundled",
+        "enabled": false,
+        "explicitlyEnabled": false,
+        "activated": false,
+        "activationSource": "disabled",
+        "activationReason": "not in allowlist",
+        "status": "disabled",
+        "error": "not in allowlist",
+        "format": "openclaw",
+        "source": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/skill-workshop/index.js",
+        "rootDir": "/opt/homebrew/lib/node_modules/openclaw/dist/extensions/skill-workshop"
+      }
+    ]
+  },
+  "skills": {
+    "snapshotVersion": 0,
+    "skillFilter": [
+      "brand-poster-creator",
+      "brand-poster-distiller",
+      "dreamina-cli",
+      "dreamina-reference-video",
+      "image-deglaze",
+      "product-photography-workflow",
+      "psd-layered-rebuilder",
+      "RunningHub",
+      "video-expert-analyzer",
+      "xiangqingye-desigen"
+    ],
+    "entries": [
+      {
+        "id": "brand-poster-creator",
+        "name": "brand-poster-creator",
+        "description": "品牌海报全流程生成技能。从需求收集、版式锁定、文案策划、生图到交付清理的全链路协调器。触发词：品牌海报、海报生成、做张海报、节日海报、产品海报、春节海报、营销海报",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/brand-poster-creator/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/brand-poster-creator",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/brand-poster-creator",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/brand-poster-creator/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "brand-poster-distiller",
+        "name": "brand-poster-distiller",
+        "description": "用于把参考海报蒸馏为可复用的版式结构（骨架图+坐标表），并配套本地蒸馏库网页进行查看、搜索、筛选、编辑与按 ID 调用。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/brand-poster-distiller/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/brand-poster-distiller",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/brand-poster-distiller",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/brand-poster-distiller/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "dreamina-cli",
+        "name": "dreamina-cli",
+        "description": "即梦视频生成底层 CLI 封装。仅用于视频生成任务，不得用于图片生成。应由其他 skill（如 dreamina-reference-video）调用，不应被用户直接触发。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/dreamina-cli/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/dreamina-cli",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/dreamina-cli",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/dreamina-cli/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "dreamina-reference-video",
+        "name": "dreamina-reference-video",
+        "description": "Use when the user wants to reduce 视频抽卡, keep 角色一致性, build 角色板或身份板与故事板, use 即梦 CLI 或 dreamina 或 Seedance 或 全能参考, or turn one idea into a staged 多参考图视频流程 before正式生成视频.",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/dreamina-reference-video/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/dreamina-reference-video",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/dreamina-reference-video",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/dreamina-reference-video/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "image-deglaze",
+        "name": "image-deglaze",
+        "description": "基于参考图的高清重绘工具：用 AI 理解原图构图、风格、元素后，以更高质量重新生成。适合”基于草图生成高清成品”、”风格化高清重绘”、”低质量图片高清化（允许内容优化）”等场景。触发词：”参考图重绘”、”草图转高清”、”风格化重绘”、”提升画质（允许优化）”。不适合”完全保持原图内容去包浆”（那种需求请推荐 Real-ESRGAN、Magnific AI 等超分辨率工具）。调用 gpt-image2-gen 做整图重生。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/image-deglaze/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/image-deglaze",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/image-deglaze",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/image-deglaze/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "product-photography-workflow",
+        "name": "product-photography-workflow",
+        "description": "Use when users ask for product photography, product still-life images, white-background product shots, clean tabletop product visuals, or product-image generation based on real product photos and style references, especially when the same product may need multiple continued tasks over time.",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/product-photography-workflow/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/product-photography-workflow",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/product-photography-workflow",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/product-photography-workflow/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "psd-layered-rebuilder",
+        "name": "psd-layered-rebuilder",
+        "description": "Use when the user asks for 分层 PSD、拆 PSD、真分层、海报拆层、已有整图重建 PSD，或需要输出图层 PNG、manifest 与可打开 PSD。默认指向官方真分层交付，不是像素粗拆或抠图版 PSD。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/psd-layered-rebuilder/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/psd-layered-rebuilder",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/psd-layered-rebuilder",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/psd-layered-rebuilder/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": true,
+        "invocationDetectedBy": "tool-call-file-path"
+      },
+      {
+        "id": "RunningHub",
+        "name": "RunningHub",
+        "description": "Use when the user mentions runninghub / RunningHub / RunningHub API, asks for RunningHub AI Applications or custom ComfyUI workflows by webappId, or uses Feishu shortcut trigger words: 创作中心, 视频魔法, 检查余额. Generate images, videos, audio, and 3D models via RunningHub API (294 endpoints). Do not use only when the user explicitly asks for a specific custom image_generate model/provider by name, such as WB万能图片 2.0.",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/runninghub/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/runninghub",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/runninghub",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/runninghub/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "video-expert-analyzer",
+        "name": "video-expert-analyzer",
+        "description": "Advanced video analysis and selection skill with AI-powered automatic scoring. Integrates Walter Murch's rules and dynamic weighting for professional-grade curation. Supports Bilibili, YouTube, Douyin (抖音), and Xiaohongshu (小红书). Use this skill whenever the user wants to analyze videos, score or rate scenes, extract best shots/highlights, evaluate video quality, curate clips, do competitor video analysis, or mentions terms like \"视频分析\", \"镜头筛选\", \"场景评分\", \"视频拆解\", \"精选片段\", \"视频质量\", \"镜头打分\", \"素材挑选\" — even if they don't explicitly ask for \"expert analysis\".",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/video-expert-analyzer/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/video-expert-analyzer",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/video-expert-analyzer",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/video-expert-analyzer/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      },
+      {
+        "id": "xiangqingye-desigen",
+        "name": "xiangqingye-desigen",
+        "description": "从 0 开始规划电商详情页工作流：3 阶段紧凑流程（策略 → 手稿 → 成稿），默认单张方形画板 1920x1920 4 列纵向排列全部屏，全局风格指南确保风格统一，项目化文件管理避免混乱。适用于详情页策划、详情页手稿、电商长图、移动端详情页、PC详情页、详情页生成与拼接。重点服务食品/烘焙/快消品，也可泛化到其他消费品。触发词包括：详情页、详情页手稿、电商长图、移动端详情页、PC详情页、详情页策划、详情页生成、详情页拼接。",
+        "filePath": "$OPENCLAW_STATE_DIR/workspace-design/skills/xiangqingye-desigen/SKILL.md",
+        "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/xiangqingye-desigen",
+        "source": "openclaw-workspace",
+        "sourceInfo": {
+          "baseDir": "$OPENCLAW_STATE_DIR/workspace-design/skills/xiangqingye-desigen",
+          "origin": "top-level",
+          "path": "$OPENCLAW_STATE_DIR/workspace-design/skills/xiangqingye-desigen/SKILL.md",
+          "scope": "project",
+          "source": "openclaw-workspace"
+        },
+        "disableModelInvocation": false,
+        "available": true,
+        "invoked": false
+      }
+    ]
+  },
+  "prompting": {
+    "skillsPrompt": "\n\nThe following skills provide specialized instructions for specific tasks.\nUse the read tool to load a skill's file when the task matches its description.\nWhen a skill file references a relative path, resolve it against the skill directory (parent of SKILL.md / dirname of the path) and use that absolute path in tool commands.\n\n<available_skills>\n  <skill>\n    <name>brand-poster-creator</name>\n    <description>品牌海报全流程生成技能。从需求收集、版式锁定、文案策划、生图到交付清理的全链路协调器。触发词：品牌海报、海报生成、做张海报、节日海报、产品海报、春节海报、营销海报</description>\n    <location>~/.openclaw/workspace-design/skills/brand-poster-creator/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>brand-poster-distiller</name>\n    <description>用于把参考海报蒸馏为可复用的版式结构（骨架图+坐标表），并配套本地蒸馏库网页进行查看、搜索、筛选、编辑与按 ID 调用。</description>\n    <location>~/.openclaw/workspace-design/skills/brand-poster-distiller/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>dreamina-cli</name>\n    <description>即梦视频生成底层 CLI 封装。仅用于视频生成任务，不得用于图片生成。应由其他 skill（如 dreamina-reference-video）调用，不应被用户直接触发。</description>\n    <location>~/.openclaw/workspace-design/skills/dreamina-cli/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>dreamina-reference-video</name>\n    <description>Use when the user wants to reduce 视频抽卡, keep 角色一致性, build 角色板或身份板与故事板, use 即梦 CLI 或 dreamina 或 Seedance 或 全能参考, or turn one idea into a staged 多参考图视频流程 before正式生成视频.</description>\n    <location>~/.openclaw/workspace-design/skills/dreamina-reference-video/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>image-deglaze</name>\n    <description>基于参考图的高清重绘工具：用 AI 理解原图构图、风格、元素后，以更高质量重新生成。适合”基于草图生成高清成品”、”风格化高清重绘”、”低质量图片高清化（允许内容优化）”等场景。触发词：”参考图重绘”、”草图转高清”、”风格化重绘”、”提升画质（允许优化）”。不适合”完全保持原图内容去包浆”（那种需求请推荐 Real-ESRGAN、Magnific AI 等超分辨率工具）。调用 gpt-image2-gen 做整图重生。</description>\n    <location>~/.openclaw/workspace-design/skills/image-deglaze/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>product-photography-workflow</name>\n    <description>Use when users ask for product photography, product still-life images, white-background product shots, clean tabletop product visuals, or product-image generation based on real product photos and style references, especially when the same product may need multiple continued tasks over time.</description>\n    <location>~/.openclaw/workspace-design/skills/product-photography-workflow/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>psd-layered-rebuilder</name>\n    <description>Use when the user asks for 分层 PSD、拆 PSD、真分层、海报拆层、已有整图重建 PSD，或需要输出图层 PNG、manifest 与可打开 PSD。默认指向官方真分层交付，不是像素粗拆或抠图版 PSD。</description>\n    <location>~/.openclaw/workspace-design/skills/psd-layered-rebuilder/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>RunningHub</name>\n    <description>Use when the user mentions runninghub / RunningHub / RunningHub API, asks for RunningHub AI Applications or custom ComfyUI workflows by webappId, or uses Feishu shortcut trigger words: 创作中心, 视频魔法, 检查余额. Generate images, videos, audio, and 3D models via RunningHub API (294 endpoints). Do not use only when the user explicitly asks for a specific custom image_generate model/provider by name, such as WB万能图片 2.0.</description>\n    <location>~/.openclaw/workspace-design/skills/runninghub/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>video-expert-analyzer</name>\n    <description>Advanced video analysis and selection skill with AI-powered automatic scoring. Integrates Walter Murch&apos;s rules and dynamic weighting for professional-grade curation. Supports Bilibili, YouTube, Douyin (抖音), and Xiaohongshu (小红书). Use this skill whenever the user wants to analyze videos, score or rate scenes, extract best shots/highlights, evaluate video quality, curate clips, do competitor video analysis, or mentions terms like &quot;视频分析&quot;, &quot;镜头筛选&quot;, &quot;场景评分&quot;, &quot;视频拆解&quot;, &quot;精选片段&quot;, &quot;视频质量&quot;, &quot;镜头打分&quot;, &quot;素材挑选&quot; — even if they don&apos;t explicitly ask for &quot;expert analysis&quot;.</description>\n    <location>~/.openclaw/workspace-design/skills/video-expert-analyzer/SKILL.md</location>\n  </skill>\n  <skill>\n    <name>xiangqingye-desigen</name>\n    <description>从 0 开始规划电商详情页工作流：3 阶段紧凑流程（策略 → 手稿 → 成稿），默认单张方形画板 1920x1920 4 列纵向排列全部屏，全局风格指南确保风格统一，项目化文件管理避免混乱。适用于详情页策划、详情页手稿、电商长图、移动端详情页、PC详情页、详情页生成与拼接。重点服务食品/烘焙/快消品，也可泛化到其他消费品。触发词包括：详情页、详情页手稿、电商长图、移动端详情页、PC详情页、详情页策划、详情页生成、详情页拼接。</description>\n    <location>~/.openclaw/workspace-design/skills/xiangqingye-desigen/SKILL.md</location>\n  </skill>\n</available_skills>",
+    "systemPromptReport": {
+      "source": "run",
+      "generatedAt": 1781000109427,
+      "sessionId": "af41fa55-e7dd-49b8-aa67-d5dea60f5fa1",
+      "sessionKey": "agent:design-shared:feishu:direct:ou_c63f951874e6ad2cfb325e89bf299016",
+      "provider": "aixor-g",
+      "model": "gpt-5.4",
+      "workspaceDir": "$WORKSPACE_DIR/workspace-design",
+      "bootstrapMaxChars": 12000,
+      "bootstrapTotalMaxChars": 60000,
+      "bootstrapTruncation": {
+        "warningMode": "once",
+        "warningShown": false,
+        "truncatedFiles": 0,
+        "nearLimitFiles": 0,
+        "totalNearLimit": false
+      },
+      "sandbox": {
+        "mode": "off",
+        "sandboxed": false
+      },
+      "systemPrompt": {
+        "chars": 33123,
+        "projectContextChars": 10287,
+        "nonProjectContextChars": 22836
+      },
+      "injectedWorkspaceFiles": [
+        {
+          "name": "AGENTS.md",
+          "path": "$WORKSPACE_DIR/workspace-design/AGENTS.md",
+          "missing": false,
+          "rawChars": 5482,
+          "injectedChars": 5482,
+          "truncated": false
+        },
+        {
+          "name": "SOUL.md",
+          "path": "$WORKSPACE_DIR/workspace-design/SOUL.md",
+          "missing": false,
+          "rawChars": 856,
+          "injectedChars": 856,
+          "truncated": false
+        },
+        {
+          "name": "TOOLS.md",
+          "path": "$WORKSPACE_DIR/workspace-design/TOOLS.md",
+          "missing": false,
+          "rawChars": 2486,
+          "injectedChars": 2486,
+          "truncated": false
+        },
+        {
+          "name": "IDENTITY.md",
+          "path": "$WORKSPACE_DIR/workspace-design/IDENTITY.md",
+          "missing": false,
+          "rawChars": 344,
+          "injectedChars": 344,
+          "truncated": false
+        },
+        {
+          "name": "USER.md",
+          "path": "$WORKSPACE_DIR/workspace-design/USER.md",
+          "missing": false,
+          "rawChars": 215,
+          "injectedChars": 215,
+          "truncated": false
+        },
+        {
+          "name": "HEARTBEAT.md",
+          "path": "$WORKSPACE_DIR/workspace-design/HEARTBEAT.md",
+          "missing": false,
+          "rawChars": 192,
+          "injectedChars": 192,
+          "truncated": false
+        },
+        {
+          "name": "BOOTSTRAP.md",
+          "path": "$WORKSPACE_DIR/workspace-design/BOOTSTRAP.md",
+          "missing": true,
+          "rawChars": 0,
+          "injectedChars": 0,
+          "truncated": false
+        },
+        {
+          "name": "MEMORY.md",
+          "path": "$WORKSPACE_DIR/workspace-design/MEMORY.md",
+          "missing": false,
+          "rawChars": 366,
+          "injectedChars": 366,
+          "truncated": false
+        }
+      ],
+      "skills": {
+        "promptChars": 4456,
+        "entries": [
+          {
+            "name": "brand-poster-creator",
+            "blockChars": 260
+          },
+          {
+            "name": "brand-poster-distiller",
+            "blockChars": 243
+          },
+          {
+            "name": "dreamina-cli",
+            "blockChars": 249
+          },
+          {
+            "name": "dreamina-reference-video",
+            "blockChars": 352
+          },
+          {
+            "name": "image-deglaze",
+            "blockChars": 377
+          },
+          {
+            "name": "product-photography-workflow",
+            "blockChars": 486
+          },
+          {
+            "name": "psd-layered-rebuilder",
+            "blockChars": 298
+          },
+          {
+            "name": "RunningHub",
+            "blockChars": 570
+          },
+          {
+            "name": "video-expert-analyzer",
+            "blockChars": 834
+          },
+          {
+            "name": "xiangqingye-desigen",
+            "blockChars": 391
+          }
+        ]
+      },
+      "tools": {
+        "listChars": 0,
+        "schemaChars": 51668,
+        "entries": [
+          {
+            "name": "read",
+            "summaryChars": 298,
+            "schemaChars": 304,
+            "propertiesCount": 3
+          },
+          {
+            "name": "write",
+            "summaryChars": 127,
+            "schemaChars": 225,
+            "propertiesCount": 2
+          },
+          {
+            "name": "exec",
+            "summaryChars": 446,
+            "schemaChars": 1139,
+            "propertiesCount": 12
+          },
+          {
+            "name": "process",
+            "summaryChars": 322,
+            "schemaChars": 1011,
+            "propertiesCount": 12
+          },
+          {
+            "name": "canvas",
+            "summaryChars": 106,
+            "schemaChars": 661,
+            "propertiesCount": 18
+          },
+          {
+            "name": "message",
+            "summaryChars": 112,
+            "schemaChars": 6192,
+            "propertiesCount": 108
+          },
+          {
+            "name": "sessions_list",
+            "summaryChars": 225,
+            "schemaChars": 432,
+            "propertiesCount": 9
+          },
+          {
+            "name": "sessions_history",
+            "summaryChars": 180,
+            "schemaChars": 161,
+            "propertiesCount": 3
+          },
+          {
+            "name": "sessions_send",
+            "summaryChars": 314,
+            "schemaChars": 274,
+            "propertiesCount": 5
+          },
+          {
+            "name": "sessions_spawn",
+            "summaryChars": 419,
+            "schemaChars": 1211,
+            "propertiesCount": 16
+          },
+          {
+            "name": "sessions_yield",
+            "summaryChars": 97,
+            "schemaChars": 60,
+            "propertiesCount": 1
+          },
+          {
+            "name": "subagents",
+            "summaryChars": 105,
+            "schemaChars": 191,
+            "propertiesCount": 4
+          },
+          {
+            "name": "session_status",
+            "summaryChars": 456,
+            "schemaChars": 89,
+            "propertiesCount": 2
+          },
+          {
+            "name": "web_fetch",
+            "summaryChars": 129,
+            "schemaChars": 374,
+            "propertiesCount": 3
+          },
+          {
+            "name": "browser",
+            "summaryChars": 1537,
+            "schemaChars": 2976,
+            "propertiesCount": 52
+          },
+          {
+            "name": "memory_search",
+            "summaryChars": 605,
+            "schemaChars": 237,
+            "propertiesCount": 4
+          },
+          {
+            "name": "memory_get",
+            "summaryChars": 239,
+            "schemaChars": 215,
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_get_user",
+            "summaryChars": 75,
+            "schemaChars": 185,
+            "propertiesCount": 2
+          },
+          {
+            "name": "feishu_search_user",
+            "summaryChars": 55,
+            "schemaChars": 311,
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_chat",
+            "summaryChars": 92,
+            "schemaChars": 519,
+            "propertiesCount": 6
+          },
+          {
+            "name": "feishu_chat_members",
+            "summaryChars": 54,
+            "schemaChars": 353,
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_im_user_message",
+            "summaryChars": 456,
+            "schemaChars": 1149,
+            "propertiesCount": 8
+          },
+          {
+            "name": "feishu_im_user_fetch_resource",
+            "summaryChars": 456,
+            "schemaChars": 371,
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_im_user_get_messages",
+            "summaryChars": 526,
+            "schemaChars": 912,
+            "propertiesCount": 8
+          },
+          {
+            "name": "feishu_im_user_get_thread_messages",
+            "summaryChars": 166,
+            "schemaChars": 395,
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_im_user_search_messages",
+            "summaryChars": 522,
+            "schemaChars": 1364,
+            "propertiesCount": 12
+          },
+          {
+            "name": "feishu_calendar_calendar",
+            "summaryChars": 93,
+            "schemaChars": 389,
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_calendar_event",
+            "summaryChars": 455,
+            "schemaChars": 3200,
+            "propertiesCount": 21
+          },
+          {
+            "name": "feishu_calendar_event_attendee",
+            "summaryChars": 75,
+            "schemaChars": 981,
+            "propertiesCount": 9
+          },
+          {
+            "name": "feishu_calendar_freebusy",
+            "summaryChars": 80,
+            "schemaChars": 504,
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_task_task",
+            "summaryChars": 167,
+            "schemaChars": 1868,
+            "propertiesCount": 15
+          },
+          {
+            "name": "feishu_task_tasklist",
+            "summaryChars": 163,
+            "schemaChars": 769,
+            "propertiesCount": 7
+          },
+          {
+            "name": "feishu_task_section",
+            "summaryChars": 127,
+            "schemaChars": 1061,
+            "propertiesCount": 13
+          },
+          {
+            "name": "feishu_task_comment",
+            "summaryChars": 95,
+            "schemaChars": 671,
+            "propertiesCount": 9
+          },
+          {
+            "name": "feishu_task_subtask",
+            "summaryChars": 86,
+            "schemaChars": 1128,
+            "propertiesCount": 9
+          },
+          {
+            "name": "feishu_bitable_app",
+            "summaryChars": 139,
+            "schemaChars": 511,
+            "propertiesCount": 7
+          },
+          {
+            "name": "feishu_bitable_app_table",
+            "summaryChars": 285,
+            "schemaChars": 1152,
+            "propertiesCount": 8
+          },
+          {
+            "name": "feishu_bitable_app_table_record",
+            "summaryChars": 292,
+            "schemaChars": 2381,
+            "propertiesCount": 14
+          },
+          {
+            "name": "feishu_bitable_app_table_field",
+            "summaryChars": 134,
+            "schemaChars": 824,
+            "propertiesCount": 10
+          },
+          {
+            "name": "feishu_bitable_app_table_view",
+            "summaryChars": 108,
+            "schemaChars": 692,
+            "propertiesCount": 8
+          },
+          {
+            "name": "feishu_search_doc_wiki",
+            "summaryChars": 212,
+            "schemaChars": 1806,
+            "propertiesCount": 5
+          },
+          {
+            "name": "feishu_drive_file",
+            "summaryChars": 703,
+            "schemaChars": 2278,
+            "propertiesCount": 16
+          },
+          {
+            "name": "feishu_doc_comments",
+            "summaryChars": 166,
+            "schemaChars": 1353,
+            "propertiesCount": 11
+          },
+          {
+            "name": "feishu_doc_media",
+            "summaryChars": 200,
+            "schemaChars": 963,
+            "propertiesCount": 9
+          },
+          {
+            "name": "feishu_wiki_space",
+            "summaryChars": 179,
+            "schemaChars": 451,
+            "propertiesCount": 6
+          },
+          {
+            "name": "feishu_wiki_space_node",
+            "summaryChars": 205,
+            "schemaChars": 995,
+            "propertiesCount": 13
+          },
+          {
+            "name": "feishu_sheet",
+            "summaryChars": 474,
+            "schemaChars": 1905,
+            "propertiesCount": 18
+          },
+          {
+            "name": "feishu_im_bot_image",
+            "summaryChars": 241,
+            "schemaChars": 384,
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_fetch_doc",
+            "summaryChars": 42,
+            "schemaChars": 281,
+            "propertiesCount": 3
+          },
+          {
+            "name": "feishu_create_doc",
+            "summaryChars": 33,
+            "schemaChars": 427,
+            "propertiesCount": 6
+          },
+          {
+            "name": "feishu_update_doc",
+            "summaryChars": 105,
+            "schemaChars": 811,
+            "propertiesCount": 7
+          },
+          {
+            "name": "feishu_oauth",
+            "summaryChars": 168,
+            "schemaChars": 290,
+            "propertiesCount": 1
+          },
+          {
+            "name": "feishu_oauth_batch_auth",
+            "summaryChars": 55,
+            "schemaChars": 162,
+            "propertiesCount": 0
+          },
+          {
+            "name": "feishu_ask_user_question",
+            "summaryChars": 389,
+            "schemaChars": 1309,
+            "propertiesCount": 4
+          },
+          {
+            "name": "feishu_conversation_binding",
+            "summaryChars": 72,
+            "schemaChars": 811,
+            "propertiesCount": 7
+          }
+        ]
+      }
+    }
+  },
+  "redaction": {
+    "config": {
+      "mode": "redactConfigObject",
+      "secretsMasked": true
+    },
+    "payloads": {
+      "mode": "sanitizeDiagnosticPayload",
+      "credentialsRemoved": true,
+      "imageDataRedacted": true
+    },
+    "harness": {
+      "mode": "diagnostic-support-redaction",
+      "programArgumentsRedacted": true,
+      "localPathsRedacted": true
+    }
+  },
+  "metadata": {
+    "sessionKey": "agent:design-shared:feishu:direct:ou_c63f951874e6ad2cfb325e89bf299016",
+    "agentId": "design-shared",
+    "messageProvider": "feishu"
+  }
+}

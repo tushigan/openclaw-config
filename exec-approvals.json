@@ -12,61 +12,64 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1778719609770,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_cleanup_browser_use.py",
+          "lastUsedAt": 1781767827154,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "main-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 命令",
-          "lastUsedAt": 1778337145101,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/_temp_popo_packshot.sh",
+          "lastUsedAt": 1781188265916,
+          "lastUsedCommand": "timeout 30 bash -c 'while pgrep -f \"feishu-id-registry.py\" > /dev/null || pgrep -f \"audit-feedback-gaps.py\" > /dev/null; do sleep 2; done'",
           "lastResolvedPath": "/bin/bash"
         },
         {
           "id": "main-sh",
           "pattern": "/bin/sh",
-          "description": "允许执行 sh 命令"
+          "description": "允许执行 sh 命令",
+          "lastUsedAt": 1780923741421,
+          "lastUsedCommand": "timeout 30 sh -c 'while ps -p 27927 > /dev/null 2>&1; do sleep 2; done; echo \"Process 27927 completed\"'",
+          "lastResolvedPath": "/bin/sh"
         },
         {
           "id": "main-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件（工作区之间）",
-          "lastUsedAt": 1778602420797,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace/outputs/_temp_ip_replace_mask_20260513_0012_preview.png /Users/a123/.openclaw/workspace/feishu-deliver/ip_replace_mask_preview_20260513_0012.png && ls -l /Users/a123/.openclaw/workspace/feishu-deliver/ip_replace_mask_preview_20260513_0012.png",
+          "lastUsedAt": 1781597154112,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/skills/session-debug-export/scripts/export_chat_report.py /Users/a123/.openclaw/workspace/outputs/_temp_export_chat_report.py",
           "lastResolvedPath": "/bin/cp"
         },
         {
           "id": "main-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1778569365091,
-          "lastUsedCommand": "mkdir -p feishu-deliver && cp images/yuqishu_cover_A_letter_gateway_fix.png feishu-deliver/yuqishu_cover_A_letter_gateway_fix.png && cp images/yuqishu_cover_B_plum_window_gateway_fix.png feishu-deliver/yuqishu_cover_B_plum_window_gateway_fix.png && cp images/yuqishu_cover_C_history_gateway_fix.png feishu-deliver/yuqishu_cover_C_history_gateway_fix.png && ls -l feishu-deliver/yuqishu_cover_A_letter_gateway_fix.png feishu-deliver/yuqishu_cover_B_plum_window_gateway_fix.png feishu-deliver/yuqishu_cover_C_history_gateway_fix.png",
+          "lastUsedAt": 1780036784166,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260529-002/images",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "main-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778718607533,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_download_pinterest.py && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/pinterest_japanese_poster_*.jpg",
-          "lastResolvedPath": "/usr/bin/python3"
+          "lastUsedAt": 1781766072141,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/scripts/audit-feedback-gaps.py /Users/a123/.openclaw/scripts/feishu-id-registry.py",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "main-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1778223473705,
-          "lastUsedCommand": "python3 ~/.openclaw/workspace-design/skills/mask-edit-localized/scripts/detect_colored_annotations_and_make_mask.py --image /Users/a123/.openclaw/media/inbound/7e4e5940-ccc7-4c51-b65b-664b1344f101.jpg --output-mask outputs/mask_edit_sable_20260508/detected_mask.png --output-boxes outputs/mask_edit_sable_20260508/detected_boxes.json --output-spec outputs/mask_edit_sable_20260508/mask_spec.json --colors red,blue --pad 16 && cat outputs/mask_edit_sable_20260508/detected_boxes.json && echo '---SPEC---' && cat outputs/mask_edit_sable_20260508/mask_spec.json",
-          "lastResolvedPath": "/usr/bin/python3"
+          "lastUsedAt": 1781749843502,
+          "lastUsedCommand": "cat ~/.openclaw/sessions/tender-daisy/log.jsonl | tail -100",
+          "lastResolvedPath": "/bin/cat"
         },
         {
           "id": "main-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1778308787521,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace/outputs/ppt-projects/20260509_120500_openclaw_poster_training/images && ls -1 | sort",
+          "lastUsedAt": 1781689142396,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && grep -r \"详情页\" memory/ outputs/ --include=\"*.md\" --include=\"*.txt\" -n | grep -i wokenday",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
@@ -85,8 +88,8 @@
           "id": "cdbfd055-830c-42c2-b08e-7a93653a775f",
           "pattern": "/opt/homebrew/bin/lark-cli",
           "source": "allow-always",
-          "lastUsedAt": 1778552773166,
-          "lastUsedCommand": "lark-cli auth status",
+          "lastUsedAt": 1781307028804,
+          "lastUsedCommand": "lark-cli update",
           "lastResolvedPath": "/opt/homebrew/bin/lark-cli"
         },
         {
@@ -105,16 +108,16 @@
           "id": "design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本进行生图",
-          "lastUsedAt": 1778569175507,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/_smoke/yuqishu_cover_A_prompt.txt -s 2048x2048 -o /Users/a123/.openclaw/workspace/images/yuqishu_cover_A_letter_gateway_fix.png",
+          "lastUsedAt": 1781691108489,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v3_mobile_long_wireframe_prompt.txt --size 1280x3840 --output /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v3_mobile_long_wireframe.png --ref-style /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/style_guide.png --ref-product /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/参考/产品实物拍摄图.jpg --ref-logo /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/参考/品牌logo.jpg --ref-element /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/参考/包装与运输箱图.jpg",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "design-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1778564522363,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace-design/generate_yuqishu_v2.sh",
+          "lastUsedAt": 1781264732755,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace-design/outputs/run_ip_character_card.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -126,39 +129,175 @@
           "id": "design-cd",
           "pattern": "/usr/bin/cd",
           "description": "允许切换目录",
-          "lastUsedAt": 1778298872354,
-          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace && bash /Users/a123/.openclaw/workspace/outputs/ppt-projects/20260509_110900_openclaw_poster_ppt/scripts/regenerate_all_zh.sh",
+          "lastUsedAt": 1781063246547,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260610-001 && ls -la && echo '---images---' && find images -maxdepth 2 -type f | sort && echo '---generation_result---' && [ -f generation_result.json ] && cat generation_result.json || echo 'no generation_result.json' && echo '---manifest---' && [ -f generation_manifest.json ] && cat generation_manifest.json || echo 'no generation_manifest.json'",
           "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "design-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1778040579288,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/xiaobai_duanwu_poster_v1.png /Users/a123/.openclaw/workspace/images/xiaobai_duanwu_poster_v1.png && ls -lh /Users/a123/.openclaw/workspace/images/xiaobai_duanwu_poster_v1.png",
+          "lastUsedAt": 1781675615325,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace-design/images/huangxiaogu_good_facade/award_ceremony_2k.png /Users/a123/.openclaw/workspace/feishu-deliver/huangxiaogu_award_ceremony_2k.png && cp /Users/a123/.openclaw/workspace-design/images/huangxiaogu_good_facade/cheer_station_2k.png /Users/a123/.openclaw/workspace/feishu-deliver/huangxiaogu_cheer_station_2k.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/huangxiaogu_award_ceremony_2k.png /Users/a123/.openclaw/workspace/feishu-deliver/huangxiaogu_cheer_station_2k.png",
           "lastResolvedPath": "/bin/cp"
         },
         {
           "id": "design-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1778569147143,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/_smoke",
+          "lastUsedAt": 1781675431715,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-design/images/huangxiaogu_good_facade /Users/a123/.openclaw/workspace/feishu-deliver",
           "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778569278034,
-          "lastUsedCommand": "ls -l /Users/a123/.openclaw/workspace/images/yuqishu_cover_A_letter_gateway_fix.png /Users/a123/.openclaw/workspace/images/yuqishu_cover_A_letter_gateway_fix.result.json /Users/a123/.openclaw/workspace/feishu-deliver/yuqishu_cover_A_letter_gateway_fix.png",
+          "lastUsedAt": 1781685970970,
+          "lastUsedCommand": "ls -lh \"/Users/a123/Downloads/openclaw 问题汇总/20260617-164547-ou_ade9d49cd1dff5315774a6cae2479938-聊天记录导出.md\" && wc -c \"/Users/a123/Downloads/openclaw 问题汇总/20260617-164547-ou_ade9d49cd1dff5315774a6cae2479938-聊天记录导出.md\"",
           "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "design-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容（design 后台只读检索）",
+          "lastUsedAt": 1781685220686,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/xiangqingye-desigen/scripts/validate_wireframe.py /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v1/wireframe_all.png --expected-size 1920x1920 --report /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v1/wireframe_qa_report_parent.json && cat /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v1/wireframe_qa_report_parent.json",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "design-pwd",
+          "pattern": "/bin/pwd",
+          "description": "允许输出当前目录（design 后台只读检索）",
+          "lastUsedAt": 1781061374932,
+          "lastUsedCommand": "pwd && ls -la ~/.openclaw/skills/brand-poster-creator && echo '---scripts---' && ls -la ~/.openclaw/skills/brand-poster-creator/scripts | sed -n '1,120p'",
+          "lastResolvedPath": "/bin/pwd"
+        },
+        {
+          "id": "design-stat",
+          "pattern": "/usr/bin/stat",
+          "description": "允许读取文件状态（design 后台核对输出）"
+        },
+        {
+          "id": "design-test",
+          "pattern": "/usr/bin/test",
+          "description": "允许做轻量文件存在性判断（design 后台免审批）"
+        },
+        {
+          "id": "design-env",
+          "pattern": "/usr/bin/env",
+          "description": "允许执行只读环境检查命令（design 后台诊断）"
+        },
+        {
+          "id": "design-printenv",
+          "pattern": "/usr/bin/printenv",
+          "description": "允许读取环境变量名值（design 后台诊断）"
+        },
+        {
+          "id": "design-grep",
+          "pattern": "/usr/bin/grep",
+          "description": "允许做只读文本筛选（design 后台检索）",
+          "lastUsedAt": 1781688312828,
+          "lastUsedCommand": "grep -R \"cut_manifest\\|cut_preview\" -n /Users/a123/.openclaw/workspace-design/skills/xiangqingye-desigen/scripts | sed -n '1,200p'",
+          "lastResolvedPath": "/usr/bin/grep"
+        },
+        {
+          "id": "design-head",
+          "pattern": "/usr/bin/head",
+          "description": "允许读取前几行内容（design 后台检索）",
+          "lastUsedAt": 1781684490114,
+          "lastUsedCommand": "grep -n \"prompt-file\\|ref-style\\|output\\|size\" /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py | head -60",
+          "lastResolvedPath": "/usr/bin/grep"
+        },
+        {
+          "id": "design-sed",
+          "pattern": "/usr/bin/sed",
+          "description": "允许做只读文本裁剪（design 后台检索）",
+          "lastUsedAt": 1781688312830,
+          "lastUsedCommand": "grep -R \"cut_manifest\\|cut_preview\" -n /Users/a123/.openclaw/workspace-design/skills/xiangqingye-desigen/scripts | sed -n '1,200p'",
+          "lastResolvedPath": "/usr/bin/grep"
+        },
+        {
+          "id": "design-wc",
+          "pattern": "/usr/bin/wc",
+          "description": "允许统计文本行数（design 后台检索）",
+          "lastUsedAt": 1781685970971,
+          "lastUsedCommand": "ls -lh \"/Users/a123/Downloads/openclaw 问题汇总/20260617-164547-ou_ade9d49cd1dff5315774a6cae2479938-聊天记录导出.md\" && wc -c \"/Users/a123/Downloads/openclaw 问题汇总/20260617-164547-ou_ade9d49cd1dff5315774a6cae2479938-聊天记录导出.md\"",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "design-sort",
+          "pattern": "/usr/bin/sort",
+          "description": "允许排序文本结果（design 后台检索）",
+          "lastUsedAt": 1781689224643,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/_temp_make_cut_preview.py && find /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v1/cut_preview -maxdepth 1 -type f -print | sort",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "design-uniq",
+          "pattern": "/usr/bin/uniq",
+          "description": "允许去重文本结果（design 后台检索）"
+        },
+        {
+          "id": "design-xargs",
+          "pattern": "/usr/bin/xargs",
+          "description": "允许拼接只读查询命令（design 后台检索）"
+        },
+        {
+          "id": "design-tee",
+          "pattern": "/usr/bin/tee",
+          "description": "允许保存非破坏性日志输出（design 后台记录）"
+        },
+        {
+          "id": "design-find",
+          "pattern": "/usr/bin/find",
+          "description": "允许查找文件（design 后台只读检索）",
+          "lastUsedAt": 1781689224642,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/_temp_make_cut_preview.py && find /Users/a123/.openclaw/workspace-design/outputs/巧克力小吐司详情页_20260617/手稿/v1/cut_preview -maxdepth 1 -type f -print | sort",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "design-rg",
+          "pattern": "/opt/homebrew/bin/rg",
+          "description": "允许 ripgrep 搜索（design 后台只读检索）",
+          "lastUsedAt": 1780368232774,
+          "lastUsedCommand": "rg -n \"python .*generate.py|Usage|--reference|-r \" ~/.openclaw/workspace-design/skills/gpt-image2-gen -g '!*node_modules*'",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
+        },
+        {
+          "id": "design-git",
+          "pattern": "/usr/bin/git",
+          "description": "允许 Git 只读查询命令（status/diff/log/show）"
         },
         {
           "id": "20684e68-c982-4c26-8876-b48152cec6c5",
           "pattern": "=command:b273e9b344d21b5f",
           "source": "allow-always",
           "lastUsedAt": 1778568219444
+        },
+        {
+          "id": "5582ad52-602d-492a-b35f-2a1e34946218",
+          "pattern": "=command:e9f877a2197076a8",
+          "source": "allow-always",
+          "lastUsedAt": 1779186031126
+        },
+        {
+          "id": "5c0d022d-c186-4faf-8650-f300be45da62",
+          "pattern": "=command:da41c20ca0668ccf",
+          "source": "allow-always",
+          "lastUsedAt": 1779186204284
+        },
+        {
+          "id": "bdb58305-04ea-49fd-94a2-d289e6a6804d",
+          "pattern": "=command:d76372f4b8424ed4",
+          "source": "allow-always",
+          "lastUsedAt": 1779187084646
+        },
+        {
+          "id": "118a403c-6926-4a05-9087-86721a9c94cc",
+          "pattern": "=command:11d1f5e318f7671b",
+          "source": "allow-always",
+          "lastUsedAt": 1780537888948
         }
       ]
     },
@@ -168,16 +307,16 @@
           "id": "shared-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1778730414343,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_compress_v12.py && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/final_poster_v12_compressed.jpg",
+          "lastUsedAt": 1781768774391,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/memory/query.py list-brands | head -50",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1778730445011,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-xiaobai-festival-001/generation/run_20260514_interact_61_less_sky.sh",
+          "lastUsedAt": 1781248227696,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/_temp_generate_dog.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -186,114 +325,30 @@
           "description": "允许执行 sh 命令"
         },
         {
+          "id": "shared-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令"
+        },
+        {
+          "id": "shared-node",
+          "pattern": "/opt/homebrew/opt/node@22/bin/node",
+          "description": "允许执行 Node.js 脚本"
+        },
+        {
           "id": "shared-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1778730111282,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/media/inbound/de89495c-1fd9-4048-b305-e7cfbd7303de.jpg /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets/ref_v12_locked_style.jpg && ls -lh /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets/ref_v12_locked_style.jpg",
-          "lastResolvedPath": "/bin/cp"
+          "lastUsedAt": 1781768796981,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images/duanwu_20260618 && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/cd3d8be4-c968-4dc8-8165-0f816dba2950.jpg /Users/a123/.openclaw/workspace/images/duanwu_20260618/style_ref.jpg && ls -lh /Users/a123/.openclaw/workspace/images/duanwu_20260618/style_ref.jpg",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1778689035889,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/logs && cp /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast/assets/product_02.jpg /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets/product_shape_ref.jpg && cp /Users/a123/.openclaw/media/inbound/747f2420-0628-43d5-aeaa-5387e8b427b9.png /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets/style_ref_v7_like.png && cp /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v8/assets/logo.jpg /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets/logo.jpg && cp /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v8/assets/qrcode.jpg /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets/qrcode.jpg && ls -l /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/assets",
+          "lastUsedAt": 1781768796981,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images/duanwu_20260618 && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/cd3d8be4-c968-4dc8-8165-0f816dba2950.jpg /Users/a123/.openclaw/workspace/images/duanwu_20260618/style_ref.jpg && ls -lh /Users/a123/.openclaw/workspace/images/duanwu_20260618/style_ref.jpg",
           "lastResolvedPath": "/bin/mkdir"
-        },
-        {
-          "id": "shared-ls",
-          "pattern": "/bin/ls",
-          "description": "允许列出目录",
-          "lastUsedAt": 1778730414343,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_compress_v12.py && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/final_poster_v12_compressed.jpg",
-          "lastResolvedPath": "/usr/bin/python3"
-        },
-        {
-          "id": "shared-cat",
-          "pattern": "/bin/cat",
-          "description": "允许读取文件内容"
-        },
-        {
-          "id": "shared-printf",
-          "pattern": "/usr/bin/printf",
-          "description": "允许格式化输出"
-        },
-        {
-          "id": "shared-lark-cli",
-          "pattern": "/opt/homebrew/bin/lark-cli",
-          "description": "允许执行飞书 CLI",
-          "lastUsedAt": 1778729405467,
-          "lastUsedCommand": "lark-cli sheets +info --spreadsheet-token SyZjsui46hygSeti1atcs105n6g --as user",
-          "lastResolvedPath": "/opt/homebrew/bin/lark-cli"
-        },
-        {
-          "id": "shared-stat",
-          "pattern": "/usr/bin/stat",
-          "description": "允许读取文件状态（shared 免审批核对输出）"
-        },
-        {
-          "id": "shared-test",
-          "pattern": "/usr/bin/test",
-          "description": "允许做文件存在性判断（shared 免审批）"
-        },
-        {
-          "id": "shared-head",
-          "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）",
-          "lastUsedAt": 1778727614668,
-          "lastUsedCommand": "ls -lth /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images/ | head -10",
-          "lastResolvedPath": "/bin/ls"
-        },
-        {
-          "id": "shared-sed",
-          "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）"
-        },
-        {
-          "id": "shared-curl",
-          "pattern": "/usr/bin/curl",
-          "description": "允许拉取网页或接口内容（shared 非破坏下载）"
-        },
-        {
-          "id": "shared-wc",
-          "pattern": "/usr/bin/wc",
-          "description": "允许统计文本行数（shared 只读检索）"
-        },
-        {
-          "id": "shared-sort",
-          "pattern": "/usr/bin/sort",
-          "description": "允许排序文本结果（shared 只读检索）"
-        },
-        {
-          "id": "shared-uniq",
-          "pattern": "/usr/bin/uniq",
-          "description": "允许去重文本结果（shared 只读检索）"
-        },
-        {
-          "id": "shared-xargs",
-          "pattern": "/usr/bin/xargs",
-          "description": "允许拼接只读查询命令（shared 常见检索管道）"
-        },
-        {
-          "id": "shared-tee",
-          "pattern": "/usr/bin/tee",
-          "description": "允许保存非破坏性输出日志（shared 常见记录）"
-        },
-        {
-          "id": "shared-find",
-          "pattern": "/usr/bin/find",
-          "description": "允许查找文件（shared 只读检索）"
-        },
-        {
-          "id": "shared-rg",
-          "pattern": "/opt/homebrew/bin/rg",
-          "description": "允许 ripgrep 搜索（shared 只读检索）"
-        },
-        {
-          "id": "shared-git",
-          "pattern": "/usr/bin/git",
-          "description": "允许 Git 只读查询命令（status/diff/log/show）"
         },
         {
           "id": "fac33dac-c772-4502-b4a1-b6e36c92ee8f",
@@ -301,13 +356,379 @@
           "source": "allow-always",
           "lastUsedAt": 1778681105989,
           "lastUsedCommand": "touch /Users/a123/.openclaw/workspace/outputs/_approval_prompt_test.txt",
-          "lastResolvedPath": "/usr/bin/touch"
+          "lastResolvedPath": "/usr/bin/touch",
+          "description": "允许创建空文件"
+        },
+        {
+          "id": "shared-chmod",
+          "pattern": "/bin/chmod",
+          "description": "允许修改文件权限",
+          "lastUsedAt": 1780713232957,
+          "lastUsedCommand": "chmod +x /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260606-001/run.sh && sed -n '1,80p' /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260606-001/run.sh",
+          "lastResolvedPath": "/bin/chmod"
+        },
+        {
+          "id": "shared-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录",
+          "lastUsedAt": 1781768796982,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images/duanwu_20260618 && cp /Users/a123/.openclaw/workspace/.openclaw-inbound-media/cd3d8be4-c968-4dc8-8165-0f816dba2950.jpg /Users/a123/.openclaw/workspace/images/duanwu_20260618/style_ref.jpg && ls -lh /Users/a123/.openclaw/workspace/images/duanwu_20260618/style_ref.jpg",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容",
+          "lastUsedAt": 1781691985464,
+          "lastUsedCommand": "python3 outputs/shengkoule_gantt/prepare_merges_dropdowns.py && cat outputs/shengkoule_gantt/merge_ranges.json",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "shared-pwd",
+          "pattern": "/bin/pwd",
+          "description": "允许输出当前目录",
+          "lastUsedAt": 1780977725992,
+          "lastUsedCommand": "pwd; ls -l /Users/a123/.openclaw/skills/klingai/SKILL.md; cat /Users/a123/.openclaw/skills/klingai/SKILL.md | sed -n '1,220p'",
+          "lastResolvedPath": "/bin/pwd"
+        },
+        {
+          "id": "shared-cd",
+          "pattern": "/usr/bin/cd",
+          "description": "允许切换目录",
+          "lastUsedAt": 1780970619783,
+          "lastUsedCommand": "cd outputs/xhs_extract_20260609_1002 && curl -L --fail --retry 3 -o video.mp4 'https://sns-video-v6.xhscdn.com/stream/1/110/76/01e9e9ee980601ca010370019db9d3da67_76.mp4?sign=090237622db09814aaef3fca0cca2f6c&t=6a2c119f' && ls -lh video.mp4 && ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 video.mp4",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "shared-stat",
+          "pattern": "/usr/bin/stat",
+          "description": "允许读取文件状态",
+          "lastUsedAt": 1780556617208,
+          "lastUsedCommand": "ls -lah /Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs && stat -f '%N %z bytes' /Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/*",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-test",
+          "pattern": "/usr/bin/test",
+          "description": "允许做文件存在性判断"
+        },
+        {
+          "id": "shared-file",
+          "pattern": "/usr/bin/file",
+          "description": "允许检测文件类型",
+          "lastUsedAt": 1781692405415,
+          "lastUsedCommand": "file /Users/a123/.openclaw/workspace/.openclaw-inbound-media/00953808-a1b0-4b97-a97f-0c30a3b573b4.png /Users/a123/.openclaw/workspace/.openclaw-inbound-media/4eae77d3-6c8b-4434-8883-c0a6d63d4ebc.png",
+          "lastResolvedPath": "/usr/bin/file"
+        },
+        {
+          "id": "shared-head",
+          "pattern": "/usr/bin/head",
+          "description": "允许读取前几行内容",
+          "lastUsedAt": 1781768785849,
+          "lastUsedCommand": "find /Users/a123/.openclaw -path '*gpt-image2-gen*generate.py' -o -path '*gpt-image2*generate.py' | head -20",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "shared-tail",
+          "pattern": "/usr/bin/tail",
+          "description": "允许读取后几行内容",
+          "lastUsedAt": 1781617378324,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace/images -maxdepth 1 -type f | tail -n 20",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "shared-sed",
+          "pattern": "/usr/bin/sed",
+          "description": "允许做只读文本筛选（不含 -i 原地修改）",
+          "lastUsedAt": 1781685369979,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/outputs && python3 /Users/a123/.openclaw/workspace/_temp_make_june_calendar.py && sed -n '1,80p' /Users/a123/.openclaw/workspace/outputs/2026-06-marketing-calendar-blank.md",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-grep",
+          "pattern": "/usr/bin/grep",
+          "description": "允许做只读文本搜索",
+          "lastUsedAt": 1781681905346,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/outputs/唇动项目PPT制作说明_图表化重构版V2_不漏数据.md && grep -n \"2025实际\\|2026预算\\|2026剩余7个月目标\\|完整数据表\" /Users/a123/.openclaw/workspace/outputs/唇动项目PPT制作说明_图表化重构版V2_不漏数据.md | head -40",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-awk",
+          "pattern": "/usr/bin/awk",
+          "description": "允许做只读文本处理"
+        },
+        {
+          "id": "shared-wc",
+          "pattern": "/usr/bin/wc",
+          "description": "允许统计文本行数",
+          "lastUsedAt": 1781680742082,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/outputs/唇动项目PPT制作说明_图表化重构版.md && wc -l /Users/a123/.openclaw/workspace/outputs/唇动项目PPT制作说明_图表化重构版.md",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-sort",
+          "pattern": "/usr/bin/sort",
+          "description": "允许排序文本结果",
+          "lastUsedAt": 1781680554129,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts && printf '\\n---\\n' && find /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen -maxdepth 2 -type f | sed 's#^/Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/##' | sort | head -50",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-uniq",
+          "pattern": "/usr/bin/uniq",
+          "description": "允许去重文本结果"
+        },
+        {
+          "id": "shared-cut",
+          "pattern": "/usr/bin/cut",
+          "description": "允许裁剪文本列"
+        },
+        {
+          "id": "shared-tr",
+          "pattern": "/usr/bin/tr",
+          "description": "允许转换文本字符"
+        },
+        {
+          "id": "shared-find",
+          "pattern": "/usr/bin/find",
+          "description": "允许查找文件",
+          "lastUsedAt": 1781768785848,
+          "lastUsedCommand": "find /Users/a123/.openclaw -path '*gpt-image2-gen*generate.py' -o -path '*gpt-image2*generate.py' | head -20",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "shared-rg",
+          "pattern": "/opt/homebrew/bin/rg",
+          "description": "允许 ripgrep 搜索",
+          "lastUsedAt": 1780886395665,
+          "lastUsedCommand": "tail -n 300 /Users/a123/.openclaw/logs/gateway.log | rg -n \"10:0|10:1|10:2|10:3|received message|dispatching|sender resolved|oc_e504|c874a115|DANGO|dango\"",
+          "lastResolvedPath": "/usr/bin/tail"
+        },
+        {
+          "id": "shared-ag",
+          "pattern": "/opt/homebrew/bin/ag",
+          "description": "允许 ag 搜索"
+        },
+        {
+          "id": "shared-xargs",
+          "pattern": "/usr/bin/xargs",
+          "description": "允许拼接命令管道",
+          "lastUsedAt": 1781254831085,
+          "lastUsedCommand": "echo 'images:'; find /Users/a123/.openclaw/workspace-design/images/boss-tests/huangxiaogu -maxdepth 1 -type f -print0 | xargs -0 ls -lh | tail -30; echo '\\noutputs:'; find /Users/a123/.openclaw/workspace-design/outputs/boss-tests/huangxiaogu -maxdepth 1 -type f -print0 | xargs -0 ls -lh | tail -30; echo '\\nrecent result json:'; find /Users/a123/.openclaw/workspace-design/images/boss-tests/huangxiaogu -maxdepth 1 -type f -name '*poster*' -o -name '*detail*' -o -name '*summary*' | sort",
+          "lastResolvedPath": "/bin/echo"
+        },
+        {
+          "id": "shared-tee",
+          "pattern": "/usr/bin/tee",
+          "description": "允许保存非破坏性输出日志"
+        },
+        {
+          "id": "shared-printf",
+          "pattern": "/usr/bin/printf",
+          "description": "允许格式化输出",
+          "lastUsedAt": 1781754413985,
+          "lastUsedCommand": "printf '%s' '{\"check_date_from\":20260501,\"check_date_to\":20260531,\"user_ids\":[],\"need_overtime_result\":true}' | lark-cli attendance user_tasks query --as user --params '{\"employee_type\":\"employee_no\"}' --data - --json",
+          "lastResolvedPath": "/usr/bin/printf"
+        },
+        {
+          "id": "shared-echo",
+          "pattern": "/bin/echo",
+          "description": "允许输出文本",
+          "lastUsedAt": 1781254831083,
+          "lastUsedCommand": "echo 'images:'; find /Users/a123/.openclaw/workspace-design/images/boss-tests/huangxiaogu -maxdepth 1 -type f -print0 | xargs -0 ls -lh | tail -30; echo '\\noutputs:'; find /Users/a123/.openclaw/workspace-design/outputs/boss-tests/huangxiaogu -maxdepth 1 -type f -print0 | xargs -0 ls -lh | tail -30; echo '\\nrecent result json:'; find /Users/a123/.openclaw/workspace-design/images/boss-tests/huangxiaogu -maxdepth 1 -type f -name '*poster*' -o -name '*detail*' -o -name '*summary*' | sort",
+          "lastResolvedPath": "/bin/echo"
+        },
+        {
+          "id": "shared-curl",
+          "pattern": "/usr/bin/curl",
+          "description": "允许拉取网页或接口内容",
+          "lastUsedAt": 1780986414336,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/videos && curl -L --fail --retry 3 -o /Users/a123/.openclaw/workspace/videos/gabrielle_essence_oilpaint_frames2video_20260609.mp4 'https://v3-artist.vlabvod.com/7b7a41faef75e2df82bf4090190fcbb6/6a27c036/video/tos/cn/tos-cn-v-148450/o4ejdEJ1EJ7dAupQsmL9MgsAhknKEHVMDZ3QI4/?a=4066&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&br=6749&bt=6749&cs=0&ds=12&ft=5QYTUxhhe6BMyqpYpueJD12Nzj&mime_type=video_mp4&qs=0&rc=OjZnaTxlNGZnNzo6Ozo6Z0BpamhvbDlrb251OzczNDM7M0A1Xl4xNi41NS4xMmM0Ll5eYSNvb25gcWdmMGdhLS1dNC9zcw%3D%3D&btag=80000e00008000&dy_q=1780986401&feature_id=04b16e464b574158bb99cac30ccb1f5e&l=202606091426401921680012503492405' && ls -lh /Users/a123/.openclaw/workspace/videos/gabrielle_essence_oilpaint_frames2video_20260609.mp4",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-wget",
+          "pattern": "/opt/homebrew/bin/wget",
+          "description": "允许下载文件"
+        },
+        {
+          "id": "shared-env",
+          "pattern": "/usr/bin/env",
+          "description": "允许读取环境变量"
+        },
+        {
+          "id": "shared-printenv",
+          "pattern": "/usr/bin/printenv",
+          "description": "允许输出环境变量"
+        },
+        {
+          "id": "shared-which",
+          "pattern": "/usr/bin/which",
+          "description": "允许定位命令路径",
+          "lastUsedAt": 1781690998784,
+          "lastUsedCommand": "which lark-cli && lark-cli --version || true",
+          "lastResolvedPath": "/usr/bin/which"
+        },
+        {
+          "id": "shared-whereis",
+          "pattern": "/usr/bin/whereis",
+          "description": "允许定位命令位置"
+        },
+        {
+          "id": "shared-uname",
+          "pattern": "/usr/bin/uname",
+          "description": "允许查看系统信息"
+        },
+        {
+          "id": "shared-date",
+          "pattern": "/bin/date",
+          "description": "允许查看日期时间",
+          "lastUsedAt": 1780712457239,
+          "lastUsedCommand": "ls -R /Users/a123/.openclaw/workspace/skills/brand-poster-creator/scripts | sed -n '1,160p' && date +%Y%m%d",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-ps",
+          "pattern": "/bin/ps",
+          "description": "允许查看进程列表",
+          "lastUsedAt": 1781617378316,
+          "lastUsedCommand": "ps -p 567 -o pid,etime,command",
+          "lastResolvedPath": "/bin/ps"
+        },
+        {
+          "id": "shared-top",
+          "pattern": "/usr/bin/top",
+          "description": "允许查看系统资源"
+        },
+        {
+          "id": "shared-lsof",
+          "pattern": "/usr/sbin/lsof",
+          "description": "允许查看打开的文件"
+        },
+        {
+          "id": "shared-git",
+          "pattern": "/usr/bin/git",
+          "description": "允许 Git 只读查询命令（status/diff/log/show）"
+        },
+        {
+          "id": "shared-sips",
+          "pattern": "/usr/bin/sips",
+          "description": "允许读取图片尺寸与格式信息",
+          "lastUsedAt": 1781619475052,
+          "lastUsedCommand": "sips -g pixelWidth -g pixelHeight /Users/a123/.openclaw/workspace/feishu-deliver/aldi_20260616/aldi_delight_packaging_mockup_4k_3840x2160.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/aldi_20260616/aldi_delight_packaging_mockup_4k_3840x2160.png",
+          "lastResolvedPath": "/usr/bin/sips"
+        },
+        {
+          "id": "shared-identify",
+          "pattern": "/opt/homebrew/bin/identify",
+          "description": "允许读取图片元数据"
+        },
+        {
+          "id": "shared-tar",
+          "pattern": "/usr/bin/tar",
+          "description": "允许打包和解压文件"
+        },
+        {
+          "id": "shared-zip",
+          "pattern": "/usr/bin/zip",
+          "description": "允许压缩文件"
+        },
+        {
+          "id": "shared-unzip",
+          "pattern": "/usr/bin/unzip",
+          "description": "允许解压文件"
+        },
+        {
+          "id": "shared-gzip",
+          "pattern": "/usr/bin/gzip",
+          "description": "允许 gzip 压缩"
+        },
+        {
+          "id": "shared-gunzip",
+          "pattern": "/usr/bin/gunzip",
+          "description": "允许 gzip 解压"
+        },
+        {
+          "id": "shared-shasum",
+          "pattern": "/usr/bin/shasum",
+          "description": "允许计算文件哈希"
+        },
+        {
+          "id": "shared-md5",
+          "pattern": "/sbin/md5",
+          "description": "允许计算 MD5"
+        },
+        {
+          "id": "shared-lark-cli",
+          "pattern": "/opt/homebrew/bin/lark-cli",
+          "description": "允许执行飞书 CLI",
+          "lastUsedAt": 1780371425643,
+          "lastUsedCommand": "lark-cli vc +notes --minute-tokens obcny6u8941o94375yz511xx --format json",
+          "lastResolvedPath": "/opt/homebrew/bin/lark-cli"
+        },
+        {
+          "id": "shared-jq",
+          "pattern": "/opt/homebrew/bin/jq",
+          "description": "允许处理 JSON 数据"
+        },
+        {
+          "id": "shared-yq",
+          "pattern": "/opt/homebrew/bin/yq",
+          "description": "允许处理 YAML 数据"
+        },
+        {
+          "id": "shared-diff",
+          "pattern": "/usr/bin/diff",
+          "description": "允许比较文件差异"
+        },
+        {
+          "id": "shared-comm",
+          "pattern": "/usr/bin/comm",
+          "description": "允许比较排序文件"
+        },
+        {
+          "id": "shared-timeout",
+          "pattern": "/usr/bin/timeout",
+          "description": "允许限时执行命令"
+        },
+        {
+          "id": "shared-sleep",
+          "pattern": "/bin/sleep",
+          "description": "允许延时等待",
+          "lastUsedAt": 1780986220054,
+          "lastUsedCommand": "sleep 180 && dreamina query_result --submit_id=02050469-d21e-4c02-9c8e-90744dc89f4a",
+          "lastResolvedPath": "/bin/sleep"
+        },
+        {
+          "id": "shared-true",
+          "pattern": "/usr/bin/true",
+          "description": "允许返回成功状态",
+          "lastUsedAt": 1781234281954,
+          "lastUsedCommand": "which pdftotext || true; which pdfinfo || true; mkdir -p \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/research\" \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/client-assets\" && cp \"/tmp/openclaw/bot-resource-1781234259690-96a86ce9-1a67-4677-a460-6d6ade4d2673.pdf\" \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/research/卤制品市场调研报告260530.pdf\" && cp \"/tmp/openclaw/bot-resource-1781234255667-49502424-9c7e-4d35-b5d0-e356dd16e62a.jpg\" \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/client-assets/产品实物图_陈焰_20260612.jpg\" && ls -lh \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/research/卤制品市场调研报告260530.pdf\" \"/Users/a123/.openclaw/workspace/projects/阿嬷秘诀/产品卖点策划_20260612/materials/client-assets/产品实物图_陈焰_20260612.jpg\"",
+          "lastResolvedPath": "/usr/bin/which"
+        },
+        {
+          "id": "shared-false",
+          "pattern": "/usr/bin/false",
+          "description": "允许返回失败状态"
         },
         {
           "id": "7ddd8541-0571-4e98-b37c-c7b529b11ba7",
           "pattern": "=command:60c7f8643e1b9bd4",
           "source": "allow-always",
           "lastUsedAt": 1778721463354
+        },
+        {
+          "id": "a7eae09b-1b4b-45ca-b5b6-0fd71cc1413d",
+          "pattern": "=command:0e718fef9d619930",
+          "source": "allow-always",
+          "lastUsedAt": 1779960077252
+        },
+        {
+          "id": "bcc5e28b-3c57-45d0-9968-c9bee1a60718",
+          "pattern": "=command:f852187a3972984a",
+          "source": "allow-always",
+          "lastUsedAt": 1779962929550
         }
       ]
     },
@@ -317,9 +738,9 @@
           "id": "shared-strategy-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1778729769433,
-          "lastUsedCommand": "python3 - <<'PY'\nfrom pathlib import Path\nfiles=[\n'/Users/a123/.openclaw/workspace/outputs/chundong_project_brief_for_strategy.md',\n'/Users/a123/.openclaw/workspace/outputs/chundong_deep_research/research_brief.md',\n'/Users/a123/.openclaw/workspace/outputs/chundong_deep_research/strategy_playbook.md',\n'/Users/a123/.openclaw/workspace/outputs/chundong_ppt_20pages_content.md',\n]\nfor f in files:\n print('\\n===== '+f+' =====')\n txt=Path(f).read_text(errors='ignore')\n print('\\n'.join(txt.splitlines()[:220]))\nPY",
-          "lastResolvedPath": "/usr/bin/python3",
+          "lastUsedAt": 1781768688952,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-strategy && python3 /Users/a123/.openclaw/scripts/memory/query.py list-projects --active --json",
+          "lastResolvedPath": "/usr/bin/cd",
           "source": "allow-always"
         },
         {
@@ -333,30 +754,310 @@
           "description": "允许执行 sh 命令"
         },
         {
+          "id": "shared-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令"
+        },
+        {
+          "id": "shared-node",
+          "pattern": "/opt/homebrew/opt/node@22/bin/node",
+          "description": "允许执行 Node.js 脚本"
+        },
+        {
           "id": "shared-strategy-cp",
           "pattern": "/bin/cp",
-          "description": "允许复制文件"
+          "description": "允许复制文件",
+          "lastUsedAt": 1781682086863,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/skills/session-debug-export/scripts/export_chat_report.py /Users/a123/.openclaw/workspace-strategy/outputs/_temp_export_chat_report.py",
+          "lastResolvedPath": "/bin/cp"
         },
         {
           "id": "shared-strategy-mkdir",
           "pattern": "/bin/mkdir",
-          "description": "允许创建目录"
+          "description": "允许创建目录",
+          "lastUsedAt": 1781675805898,
+          "lastUsedCommand": "mkdir -p 阿嬷秘诀渠道策略提报/final-swiss/slides",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-touch",
+          "pattern": "/usr/bin/touch",
+          "description": "允许创建空文件"
+        },
+        {
+          "id": "shared-chmod",
+          "pattern": "/bin/chmod",
+          "description": "允许修改文件权限"
         },
         {
           "id": "shared-strategy-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778659787314,
-          "lastUsedCommand": "ls /Users/a123/.openclaw/workspace/outputs/kling-huangxiaogu-multishot-v2-element",
+          "lastUsedAt": 1781685698182,
+          "lastUsedCommand": "ls -la",
           "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-strategy-cat",
           "pattern": "/bin/cat",
           "description": "允许读取文件内容",
-          "lastUsedAt": 1778729814913,
-          "lastUsedCommand": "cat /Users/a123/.openclaw/plugin-skills/browser-automation/SKILL.md",
-          "lastResolvedPath": "/bin/cat"
+          "lastUsedAt": 1781081277141,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-strategy/wokenday-ppt-final && cat slides/01-cover.html",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "shared-pwd",
+          "pattern": "/bin/pwd",
+          "description": "允许输出当前目录"
+        },
+        {
+          "id": "shared-cd",
+          "pattern": "/usr/bin/cd",
+          "description": "允许切换目录",
+          "lastUsedAt": 1781768688951,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-strategy && python3 /Users/a123/.openclaw/scripts/memory/query.py list-projects --active --json",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "strategy-stat",
+          "pattern": "/usr/bin/stat",
+          "description": "允许读取文件状态"
+        },
+        {
+          "id": "strategy-test",
+          "pattern": "/usr/bin/test",
+          "description": "允许做文件存在性判断"
+        },
+        {
+          "id": "shared-file",
+          "pattern": "/usr/bin/file",
+          "description": "允许检测文件类型",
+          "lastUsedAt": 1780712595951,
+          "lastUsedCommand": "file /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260606-001/images/style_ref_1.jpg",
+          "lastResolvedPath": "/usr/bin/file"
+        },
+        {
+          "id": "strategy-head",
+          "pattern": "/usr/bin/head",
+          "description": "允许读取前几行内容",
+          "lastUsedAt": 1781685698174,
+          "lastUsedCommand": "find . -type f -name \"*电商*\" -o -name \"*平台*\" -o -name \"*PPT*\" | head -20",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "shared-tail",
+          "pattern": "/usr/bin/tail",
+          "description": "允许读取后几行内容"
+        },
+        {
+          "id": "strategy-sed",
+          "pattern": "/usr/bin/sed",
+          "description": "允许做只读文本筛选（不含 -i 原地修改）",
+          "lastUsedAt": 1781236354186,
+          "lastUsedCommand": "wc -c /Users/a123/.openclaw/workspace-strategy/outputs/小白TVC_策略方向_20260612.md && sed -n '1,60p' /Users/a123/.openclaw/workspace-strategy/outputs/小白TVC_策略方向_20260612.md && grep -n '^## ' /Users/a123/.openclaw/workspace-strategy/outputs/小白TVC_策略方向_20260612.md",
+          "lastResolvedPath": "/usr/bin/wc"
+        },
+        {
+          "id": "shared-grep",
+          "pattern": "/usr/bin/grep",
+          "description": "允许做只读文本搜索",
+          "lastUsedAt": 1781493702871,
+          "lastUsedCommand": "curl -s \"https://www.google.com/search?q=南瓜面包+市场+消费者\" | grep -oP '(?<=<title>).*(?=</title>)' | head -5",
+          "lastResolvedPath": "/usr/bin/curl"
+        },
+        {
+          "id": "shared-awk",
+          "pattern": "/usr/bin/awk",
+          "description": "允许做只读文本处理"
+        },
+        {
+          "id": "strategy-wc",
+          "pattern": "/usr/bin/wc",
+          "description": "允许统计文本行数",
+          "lastUsedAt": 1781236354185,
+          "lastUsedCommand": "wc -c /Users/a123/.openclaw/workspace-strategy/outputs/小白TVC_策略方向_20260612.md && sed -n '1,60p' /Users/a123/.openclaw/workspace-strategy/outputs/小白TVC_策略方向_20260612.md && grep -n '^## ' /Users/a123/.openclaw/workspace-strategy/outputs/小白TVC_策略方向_20260612.md",
+          "lastResolvedPath": "/usr/bin/wc"
+        },
+        {
+          "id": "strategy-sort",
+          "pattern": "/usr/bin/sort",
+          "description": "允许排序文本结果",
+          "lastUsedAt": 1781685662171,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-strategy/阿嬷秘诀渠道策略提报/final-swiss/slides && ls -1 | sort",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "strategy-uniq",
+          "pattern": "/usr/bin/uniq",
+          "description": "允许去重文本结果"
+        },
+        {
+          "id": "shared-cut",
+          "pattern": "/usr/bin/cut",
+          "description": "允许裁剪文本列"
+        },
+        {
+          "id": "shared-tr",
+          "pattern": "/usr/bin/tr",
+          "description": "允许转换文本字符"
+        },
+        {
+          "id": "strategy-find",
+          "pattern": "/usr/bin/find",
+          "description": "允许查找文件",
+          "lastUsedAt": 1781685698173,
+          "lastUsedCommand": "find . -type f -name \"*电商*\" -o -name \"*平台*\" -o -name \"*PPT*\" | head -20",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "strategy-rg",
+          "pattern": "/opt/homebrew/bin/rg",
+          "description": "允许 ripgrep 搜索"
+        },
+        {
+          "id": "shared-ag",
+          "pattern": "/opt/homebrew/bin/ag",
+          "description": "允许 ag 搜索"
+        },
+        {
+          "id": "strategy-xargs",
+          "pattern": "/usr/bin/xargs",
+          "description": "允许拼接命令管道"
+        },
+        {
+          "id": "strategy-tee",
+          "pattern": "/usr/bin/tee",
+          "description": "允许保存非破坏性输出日志"
+        },
+        {
+          "id": "shared-printf",
+          "pattern": "/usr/bin/printf",
+          "description": "允许格式化输出"
+        },
+        {
+          "id": "shared-echo",
+          "pattern": "/bin/echo",
+          "description": "允许输出文本",
+          "lastUsedAt": 1781081217866,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-strategy/wokenday-ppt-final/slides && ls -lh | head -10 && echo \"---\" && cat 01-slide.html | head -20",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "strategy-curl",
+          "pattern": "/usr/bin/curl",
+          "description": "允许拉取网页或接口内容",
+          "lastUsedAt": 1781493702870,
+          "lastUsedCommand": "curl -s \"https://www.google.com/search?q=南瓜面包+市场+消费者\" | grep -oP '(?<=<title>).*(?=</title>)' | head -5",
+          "lastResolvedPath": "/usr/bin/curl"
+        },
+        {
+          "id": "shared-wget",
+          "pattern": "/opt/homebrew/bin/wget",
+          "description": "允许下载文件"
+        },
+        {
+          "id": "shared-env",
+          "pattern": "/usr/bin/env",
+          "description": "允许读取环境变量"
+        },
+        {
+          "id": "shared-printenv",
+          "pattern": "/usr/bin/printenv",
+          "description": "允许输出环境变量"
+        },
+        {
+          "id": "shared-which",
+          "pattern": "/usr/bin/which",
+          "description": "允许定位命令路径",
+          "lastUsedAt": 1781190146266,
+          "lastUsedCommand": "which pdftotext || which python3",
+          "lastResolvedPath": "/usr/bin/which"
+        },
+        {
+          "id": "shared-whereis",
+          "pattern": "/usr/bin/whereis",
+          "description": "允许定位命令位置"
+        },
+        {
+          "id": "shared-uname",
+          "pattern": "/usr/bin/uname",
+          "description": "允许查看系统信息"
+        },
+        {
+          "id": "shared-date",
+          "pattern": "/bin/date",
+          "description": "允许查看日期时间"
+        },
+        {
+          "id": "shared-ps",
+          "pattern": "/bin/ps",
+          "description": "允许查看进程列表",
+          "lastUsedAt": 1781081238448,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-strategy/wokenday-ppt-final && ps aux | grep export_deck_pptx | grep -v grep",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "shared-top",
+          "pattern": "/usr/bin/top",
+          "description": "允许查看系统资源"
+        },
+        {
+          "id": "shared-lsof",
+          "pattern": "/usr/sbin/lsof",
+          "description": "允许查看打开的文件"
+        },
+        {
+          "id": "strategy-git",
+          "pattern": "/usr/bin/git",
+          "description": "允许 Git 只读查询命令（status/diff/log/show）"
+        },
+        {
+          "id": "shared-sips",
+          "pattern": "/usr/bin/sips",
+          "description": "允许读取图片尺寸与格式信息"
+        },
+        {
+          "id": "shared-identify",
+          "pattern": "/opt/homebrew/bin/identify",
+          "description": "允许读取图片元数据"
+        },
+        {
+          "id": "shared-tar",
+          "pattern": "/usr/bin/tar",
+          "description": "允许打包和解压文件",
+          "lastUsedAt": 1781081768982,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-strategy && tar -czf wokenday-final-complete.tar.gz wokenday-final/",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "shared-zip",
+          "pattern": "/usr/bin/zip",
+          "description": "允许压缩文件"
+        },
+        {
+          "id": "shared-unzip",
+          "pattern": "/usr/bin/unzip",
+          "description": "允许解压文件"
+        },
+        {
+          "id": "shared-gzip",
+          "pattern": "/usr/bin/gzip",
+          "description": "允许 gzip 压缩"
+        },
+        {
+          "id": "shared-gunzip",
+          "pattern": "/usr/bin/gunzip",
+          "description": "允许 gzip 解压"
+        },
+        {
+          "id": "shared-shasum",
+          "pattern": "/usr/bin/shasum",
+          "description": "允许计算文件哈希"
+        },
+        {
+          "id": "shared-md5",
+          "pattern": "/sbin/md5",
+          "description": "允许计算 MD5"
         },
         {
           "id": "shared-strategy-lark-cli",
@@ -364,84 +1065,56 @@
           "description": "允许执行飞书 CLI"
         },
         {
+          "id": "shared-jq",
+          "pattern": "/opt/homebrew/bin/jq",
+          "description": "允许处理 JSON 数据"
+        },
+        {
+          "id": "shared-yq",
+          "pattern": "/opt/homebrew/bin/yq",
+          "description": "允许处理 YAML 数据"
+        },
+        {
+          "id": "shared-diff",
+          "pattern": "/usr/bin/diff",
+          "description": "允许比较文件差异"
+        },
+        {
+          "id": "shared-comm",
+          "pattern": "/usr/bin/comm",
+          "description": "允许比较排序文件"
+        },
+        {
+          "id": "shared-timeout",
+          "pattern": "/usr/bin/timeout",
+          "description": "允许限时执行命令"
+        },
+        {
+          "id": "shared-sleep",
+          "pattern": "/bin/sleep",
+          "description": "允许延时等待",
+          "lastUsedAt": 1780906103719,
+          "lastUsedCommand": "sleep 2 && cd /Users/a123/.openclaw/workspace-strategy && python3 _export_chat.py --workspace \"/Users/a123/.openclaw\" --session-key current --issue \"PPT模版制作\" --agent-name \"strategy\" --output-dir \"/Users/a123/.openclaw/workspace-strategy/outputs\"",
+          "lastResolvedPath": "/bin/sleep"
+        },
+        {
+          "id": "shared-true",
+          "pattern": "/usr/bin/true",
+          "description": "允许返回成功状态",
+          "lastUsedAt": 1781236545391,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-strategy/outputs || true",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-false",
+          "pattern": "/usr/bin/false",
+          "description": "允许返回失败状态"
+        },
+        {
           "id": "8e868fb9-2883-445f-9fc1-c9b3c876b062",
           "pattern": "=command:db79e0bb7df76a58",
           "source": "allow-always",
           "lastUsedAt": 1778659088057
-        },
-        {
-          "id": "strategy-stat",
-          "pattern": "/usr/bin/stat",
-          "description": "允许读取文件状态（shared 免审批核对输出）"
-        },
-        {
-          "id": "strategy-test",
-          "pattern": "/usr/bin/test",
-          "description": "允许做文件存在性判断（shared 免审批）"
-        },
-        {
-          "id": "strategy-head",
-          "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）",
-          "lastUsedAt": 1778729980261,
-          "lastUsedCommand": "find outputs -maxdepth 2 -type f -mmin -30 | sed 's#^#/#' | head -50",
-          "lastResolvedPath": "/usr/bin/find"
-        },
-        {
-          "id": "strategy-sed",
-          "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）",
-          "lastUsedAt": 1778730398185,
-          "lastUsedCommand": "sed -n '1,2p' /Users/a123/.openclaw/workspace/outputs/chundong_ppt_20pages_content.md",
-          "lastResolvedPath": "/usr/bin/sed"
-        },
-        {
-          "id": "strategy-curl",
-          "pattern": "/usr/bin/curl",
-          "description": "允许拉取网页或接口内容（shared 非破坏下载）"
-        },
-        {
-          "id": "strategy-wc",
-          "pattern": "/usr/bin/wc",
-          "description": "允许统计文本行数（shared 只读检索）"
-        },
-        {
-          "id": "strategy-sort",
-          "pattern": "/usr/bin/sort",
-          "description": "允许排序文本结果（shared 只读检索）"
-        },
-        {
-          "id": "strategy-uniq",
-          "pattern": "/usr/bin/uniq",
-          "description": "允许去重文本结果（shared 只读检索）"
-        },
-        {
-          "id": "strategy-xargs",
-          "pattern": "/usr/bin/xargs",
-          "description": "允许拼接只读查询命令（shared 常见检索管道）"
-        },
-        {
-          "id": "strategy-tee",
-          "pattern": "/usr/bin/tee",
-          "description": "允许保存非破坏性输出日志（shared 常见记录）"
-        },
-        {
-          "id": "strategy-find",
-          "pattern": "/usr/bin/find",
-          "description": "允许查找文件（shared 只读检索）",
-          "lastUsedAt": 1778730002878,
-          "lastUsedCommand": "find . -type f -mmin -120",
-          "lastResolvedPath": "/usr/bin/find"
-        },
-        {
-          "id": "strategy-rg",
-          "pattern": "/opt/homebrew/bin/rg",
-          "description": "允许 ripgrep 搜索（shared 只读检索）"
-        },
-        {
-          "id": "strategy-git",
-          "pattern": "/usr/bin/git",
-          "description": "允许 Git 只读查询命令（status/diff/log/show）"
         }
       ]
     },
@@ -450,17 +1123,17 @@
         {
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
-          "description": "允许执行 Python 脚本（生图）",
-          "lastUsedAt": 1778727551031,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/skills/brand-poster-creator/scripts/prepare_feishu_delivery.py --project-dir /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9",
+          "description": "允许执行 Python 脚本",
+          "lastUsedAt": 1781768519736,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --prompt-file /Users/a123/.openclaw/workspace-design/outputs/fruit_veg_full_prompt_20260618.txt --ref-layout /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/f7165a06-b8c5-4761-ad10-fc53072a5fac.jpg -s 1920x800 -o /Users/a123/.openclaw/workspace-design/images/fruit_veg_full_12x5_20260618.png",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-design-bash",
           "pattern": "/bin/bash",
           "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1778683036840,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v5/run.sh",
+          "lastUsedAt": 1781254628936,
+          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace-design/images/boss-tests/huangxiaogu/run_detail_retry.sh",
           "lastResolvedPath": "/bin/bash"
         },
         {
@@ -469,43 +1142,406 @@
           "description": "允许执行 sh 命令"
         },
         {
+          "id": "shared-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令"
+        },
+        {
+          "id": "shared-node",
+          "pattern": "/opt/homebrew/opt/node@22/bin/node",
+          "description": "允许执行 Node.js 脚本"
+        },
+        {
           "id": "shared-design-cp",
           "pattern": "/bin/cp",
           "description": "允许复制文件",
-          "lastUsedAt": 1778684594846,
-          "lastUsedCommand": "cp /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v5/images/final_poster_v5.png /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v5/images/final_poster.png",
-          "lastResolvedPath": "/bin/cp"
+          "lastUsedAt": 1781768486932,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/images/final_poster.png /Users/a123/.openclaw/workspace/feishu-deliver/woken_day_duanwu_poster_v1.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/woken_day_duanwu_poster_v1.png",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-design-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1778479682353,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/images /Users/a123/.openclaw/workspace/outputs",
+          "lastUsedAt": 1781768486930,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/images/final_poster.png /Users/a123/.openclaw/workspace/feishu-deliver/woken_day_duanwu_poster_v1.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/woken_day_duanwu_poster_v1.png",
           "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-touch",
+          "pattern": "/usr/bin/touch",
+          "description": "允许创建空文件"
+        },
+        {
+          "id": "shared-chmod",
+          "pattern": "/bin/chmod",
+          "description": "允许修改文件权限",
+          "lastUsedAt": 1781593410814,
+          "lastUsedCommand": "chmod +x /Users/a123/.openclaw/workspace-design/outputs/woken-day-summer-fathers-20260616/run_v2.sh && /Users/a123/.openclaw/workspace-design/outputs/woken-day-summer-fathers-20260616/run_v2.sh",
+          "lastResolvedPath": "/bin/chmod"
         },
         {
           "id": "shared-design-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778727562737,
-          "lastUsedCommand": "ls -l /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,20p'; printf '\\n'; ls -l /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images/final_poster_v9.png",
-          "lastResolvedPath": "/bin/ls"
+          "lastUsedAt": 1781768486933,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/images/final_poster.png /Users/a123/.openclaw/workspace/feishu-deliver/woken_day_duanwu_poster_v1.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/woken_day_duanwu_poster_v1.png",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-design-cat",
           "pattern": "/bin/cat",
-          "description": "允许读取文件内容"
+          "description": "允许读取文件内容",
+          "lastUsedAt": 1781768456126,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/generation_result.json && ls -lh /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/images && file /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/images/final_poster.png",
+          "lastResolvedPath": "/bin/cat"
+        },
+        {
+          "id": "shared-pwd",
+          "pattern": "/bin/pwd",
+          "description": "允许输出当前目录",
+          "lastUsedAt": 1781665503181,
+          "lastUsedCommand": "pwd && find /Users/a123/.openclaw/workspace-design/images /Users/a123/.openclaw/workspace-design/outputs -maxdepth 3 -iname '*woken*' -o -iname '*father*' -o -iname '*父*' -o -iname '*夏至*' | tail -50",
+          "lastResolvedPath": "/bin/pwd"
+        },
+        {
+          "id": "shared-design-cd",
+          "pattern": "/usr/bin/cd",
+          "description": "允许切换目录",
+          "lastUsedAt": 1781584091787,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781581387/layered-output.psd /Users/a123/.openclaw/workspace/feishu-deliver/海报拆分_可编辑PSD_2K.psd && cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781581387/reverse-preview.png /Users/a123/.openclaw/workspace/feishu-deliver/海报拆分_预览图.png && cd /Users/a123/.openclaw/workspace/feishu-deliver && zip -q -r 海报拆分_可编辑PSD_2K.zip 海报拆分_可编辑PSD_2K.psd 海报拆分_预览图.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/海报拆分_可编辑PSD_2K.* /Users/a123/.openclaw/workspace/feishu-deliver/海报拆分_预览图.png",
+          "lastResolvedPath": "/bin/mkdir"
         },
         {
           "id": "shared-design-stat",
           "pattern": "/usr/bin/stat",
-          "description": "允许读取单个文件状态（免审批核对输出大小与存在性）"
+          "description": "允许读取文件状态",
+          "lastUsedAt": 1780924395020,
+          "lastUsedCommand": "stat -f '%z bytes' '/Users/a123/.openclaw/workspace-design/images/dreamy_sparkle_edit_20260608_v1.png' && ls -lh '/Users/a123/.openclaw/workspace-design/images/dreamy_sparkle_edit_20260608_v1.png'",
+          "lastResolvedPath": "/usr/bin/stat"
         },
         {
           "id": "shared-design-test",
           "pattern": "/usr/bin/test",
-          "description": "允许做轻量文件存在性判断（免审批）"
+          "description": "允许做文件存在性判断"
+        },
+        {
+          "id": "shared-design-file",
+          "pattern": "/usr/bin/file",
+          "description": "允许检测文件类型",
+          "lastUsedAt": 1781768456127,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/generation_result.json && ls -lh /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/images && file /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/images/final_poster.png",
+          "lastResolvedPath": "/bin/cat"
+        },
+        {
+          "id": "design-head",
+          "pattern": "/usr/bin/head",
+          "description": "允许读取前几行内容",
+          "lastUsedAt": 1781768493908,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -80",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "shared-tail",
+          "pattern": "/usr/bin/tail",
+          "description": "允许读取后几行内容",
+          "lastUsedAt": 1781687565813,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace-design/images/woken_horizon_1651 | tail -20 && test -f /Users/a123/.openclaw/workspace-design/images/woken_horizon_1651/woken_horizon_no_logo_goal_4k_v2.png && file /Users/a123/.openclaw/workspace-design/images/woken_horizon_1651/woken_horizon_no_logo_goal_4k_v2.png || true",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "design-sed",
+          "pattern": "/usr/bin/sed",
+          "description": "允许做只读文本筛选（不含 -i 原地修改）",
+          "lastUsedAt": 1781768303667,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/images && sed -n '1,220p' /Users/a123/.openclaw/workspace-design/outputs/brand-poster-projects/woken-day-duanwu-20260618/prompt_draft.md",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
+          "pattern": "/usr/bin/grep",
+          "source": "allow-always",
+          "lastUsedAt": 1781768145264,
+          "lastUsedCommand": "grep -n \"def start_stage\\|metadata\" -n /Users/a123/.openclaw/workspace-design/skills/brand-poster-creator/scripts/project_manager.py | head -60",
+          "lastResolvedPath": "/usr/bin/grep",
+          "description": "允许做只读文本搜索"
+        },
+        {
+          "id": "shared-awk",
+          "pattern": "/usr/bin/awk",
+          "description": "允许做只读文本处理",
+          "lastUsedAt": 1781518065500,
+          "lastUsedCommand": "grep -R \"^import \\|^from \" -n /Users/a123/.openclaw/workspace-design/outputs/_temp_omni_aixor_runner/scripts/*.py | sed -E 's/.*:(import|from) //' | awk '{print $1}' | sort -u | head -100",
+          "lastResolvedPath": "/usr/bin/grep"
+        },
+        {
+          "id": "design-wc",
+          "pattern": "/usr/bin/wc",
+          "description": "允许统计文本行数",
+          "lastUsedAt": 1781578168165,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/skills/omni-vision-psd-extractor/references && wc -c /Users/a123/.openclaw/skills/omni-vision-psd-extractor/references/元素整理.md /Users/a123/.openclaw/skills/omni-vision-psd-extractor/references/万物提取.md",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "design-sort",
+          "pattern": "/usr/bin/sort",
+          "description": "允许排序文本结果",
+          "lastUsedAt": 1781593675664,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/woken-day-summer-fathers-20260616 -maxdepth 3 -type f -mmin -5 -print | sort | xargs -I{} sh -c 'ls -lh \"{}\"'",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "design-uniq",
+          "pattern": "/usr/bin/uniq",
+          "description": "允许去重文本结果",
+          "lastUsedAt": 1781008937643,
+          "lastUsedCommand": "python3 - <<'PY'\nimport subprocess, sys\ntry:\n    r = subprocess.run(['echo','ok'], capture_output=True, text=True)\n    print('fork_ok', r.stdout.strip())\nexcept Exception as e:\n    print('fork_fail', repr(e))\n    sys.exit(1)\nPY\nps -axo stat | awk '{print $1}' | sort | uniq -c | sed -n '1,20p'",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "shared-cut",
+          "pattern": "/usr/bin/cut",
+          "description": "允许裁剪文本列"
+        },
+        {
+          "id": "shared-tr",
+          "pattern": "/usr/bin/tr",
+          "description": "允许转换文本字符"
+        },
+        {
+          "id": "shared-design-find",
+          "pattern": "/usr/bin/find",
+          "description": "允许查找文件",
+          "lastUsedAt": 1781768162277,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design -path '*brand-poster*' -name 'brief.json' -maxdepth 6 | head -20",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "34352226-bed6-4857-b096-abe0169a1f0d",
+          "pattern": "/opt/homebrew/bin/rg",
+          "source": "allow-always",
+          "lastUsedAt": 1781249757563,
+          "lastUsedCommand": "rg -n \"om_x100b6d9c588740a4b1b80da5fba8582|龙舟轻前冲|尾帧回海报|金光流动|原海报直接图生视频\" /Users/a123/.openclaw --glob '!**/node_modules/**' --glob '!**/.git/**' --glob '!**/Library/**' --glob '!**/venv/**' --glob '!**/__pycache__/**'",
+          "lastResolvedPath": "/opt/homebrew/bin/rg",
+          "description": "允许 ripgrep 搜索"
+        },
+        {
+          "id": "shared-ag",
+          "pattern": "/opt/homebrew/bin/ag",
+          "description": "允许 ag 搜索"
+        },
+        {
+          "id": "design-xargs",
+          "pattern": "/usr/bin/xargs",
+          "description": "允许拼接命令管道",
+          "lastUsedAt": 1781593675664,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-design/outputs/woken-day-summer-fathers-20260616 -maxdepth 3 -type f -mmin -5 -print | sort | xargs -I{} sh -c 'ls -lh \"{}\"'",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "design-tee",
+          "pattern": "/usr/bin/tee",
+          "description": "允许保存非破坏性输出日志"
+        },
+        {
+          "id": "shared-printf",
+          "pattern": "/usr/bin/printf",
+          "description": "允许格式化输出",
+          "lastUsedAt": 1781768191421,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001/style_profile.json && printf '\\n---copy---\\n' && cat /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001/copywriting.json && printf '\\n---creative---\\n' && cat /Users/a123/.openclaw/workspace-design/brand-poster-projects/BP-20260610-001/creative_direction.json",
+          "lastResolvedPath": "/bin/cat"
+        },
+        {
+          "id": "shared-echo",
+          "pattern": "/bin/echo",
+          "description": "允许输出文本",
+          "lastUsedAt": 1781681580837,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace-design/outputs/woken-day-summer-fathers-restart-20260617/generation_result.json && echo '--- file ---' && file /Users/a123/.openclaw/workspace-design/outputs/woken-day-summer-fathers-restart-20260617/images/final_poster.png && ls -lh /Users/a123/.openclaw/workspace-design/outputs/woken-day-summer-fathers-restart-20260617/images/final_poster.png",
+          "lastResolvedPath": "/bin/cat"
+        },
+        {
+          "id": "design-curl",
+          "pattern": "/usr/bin/curl",
+          "description": "允许拉取网页或接口内容",
+          "lastUsedAt": 1780907207270,
+          "lastUsedCommand": "curl -I -m 20 https://direct.aixor.org/v1/images/edits || true",
+          "lastResolvedPath": "/usr/bin/curl"
+        },
+        {
+          "id": "shared-wget",
+          "pattern": "/opt/homebrew/bin/wget",
+          "description": "允许下载文件"
+        },
+        {
+          "id": "shared-design-env",
+          "pattern": "/usr/bin/env",
+          "description": "允许读取环境变量"
+        },
+        {
+          "id": "shared-printenv",
+          "pattern": "/usr/bin/printenv",
+          "description": "允许输出环境变量",
+          "lastUsedAt": 1781669172692,
+          "lastUsedCommand": "printenv | rg 'OPENCLAW_BOUND|GEMINI|BANANA_API_KEY|API_KEY' | sed 's/=.*/=***/'",
+          "lastResolvedPath": "/usr/bin/printenv"
+        },
+        {
+          "id": "shared-design-which",
+          "pattern": "/usr/bin/which",
+          "description": "允许定位命令路径",
+          "lastUsedAt": 1781517983559,
+          "lastUsedCommand": "which python3; /opt/homebrew/bin/python3 - <<'PY'\nimport ssl, sys\nprint(sys.executable)\nprint(ssl.OPENSSL_VERSION)\ntry:\n    import requests\n    print('requests ok')\nexcept Exception as e:\n    print('requests missing', e)\nPY",
+          "lastResolvedPath": "/usr/bin/which"
+        },
+        {
+          "id": "shared-whereis",
+          "pattern": "/usr/bin/whereis",
+          "description": "允许定位命令位置"
+        },
+        {
+          "id": "shared-uname",
+          "pattern": "/usr/bin/uname",
+          "description": "允许查看系统信息"
+        },
+        {
+          "id": "shared-date",
+          "pattern": "/bin/date",
+          "description": "允许查看日期时间",
+          "lastUsedAt": 1781499454793,
+          "lastUsedCommand": "date '+%Y-%m-%d %H:%M:%S %z' && ls -l /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/8d50d643-4a78-4574-892e-f8e7bdb63387.png && find /Users/a123/.openclaw -maxdepth 4 -iname '*feishu*' -o -iname '*message*' | head -80",
+          "lastResolvedPath": "/bin/date"
+        },
+        {
+          "id": "shared-ps",
+          "pattern": "/bin/ps",
+          "description": "允许查看进程列表",
+          "lastUsedAt": 1781700190571,
+          "lastUsedCommand": "find images/chip_thin_translucent_20260617 -maxdepth 1 -type f -ls; ps -p 71091 -o pid,etime,command",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "shared-top",
+          "pattern": "/usr/bin/top",
+          "description": "允许查看系统资源"
+        },
+        {
+          "id": "shared-lsof",
+          "pattern": "/usr/sbin/lsof",
+          "description": "允许查看打开的文件"
+        },
+        {
+          "id": "design-git",
+          "pattern": "/usr/bin/git",
+          "description": "允许 Git 只读查询命令（status/diff/log/show）"
+        },
+        {
+          "id": "shared-design-sips",
+          "pattern": "/usr/bin/sips",
+          "description": "允许读取图片尺寸与格式信息",
+          "lastUsedAt": 1781699968130,
+          "lastUsedCommand": "sips -g pixelWidth -g pixelHeight /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/3271a944-af3c-4548-9897-0ba2357f2edc.png /Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/4b8f96b5-f55e-459a-bf06-fa6749ee6a4d.png",
+          "lastResolvedPath": "/usr/bin/sips"
+        },
+        {
+          "id": "shared-identify",
+          "pattern": "/opt/homebrew/bin/identify",
+          "description": "允许读取图片元数据"
+        },
+        {
+          "id": "shared-tar",
+          "pattern": "/usr/bin/tar",
+          "description": "允许打包和解压文件"
+        },
+        {
+          "id": "shared-zip",
+          "pattern": "/usr/bin/zip",
+          "description": "允许压缩文件",
+          "lastUsedAt": 1781584091788,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/feishu-deliver && cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781581387/layered-output.psd /Users/a123/.openclaw/workspace/feishu-deliver/海报拆分_可编辑PSD_2K.psd && cp /Users/a123/.openclaw/workspace-design/outputs/omni-vision-psd-extractor/job_1781581387/reverse-preview.png /Users/a123/.openclaw/workspace/feishu-deliver/海报拆分_预览图.png && cd /Users/a123/.openclaw/workspace/feishu-deliver && zip -q -r 海报拆分_可编辑PSD_2K.zip 海报拆分_可编辑PSD_2K.psd 海报拆分_预览图.png && ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/海报拆分_可编辑PSD_2K.* /Users/a123/.openclaw/workspace/feishu-deliver/海报拆分_预览图.png",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-unzip",
+          "pattern": "/usr/bin/unzip",
+          "description": "允许解压文件",
+          "lastUsedAt": 1781190851059,
+          "lastUsedCommand": "ls -lh /Users/a123/.openclaw/workspace/feishu-deliver/dango_upscale_8224x4096.zip && unzip -l /Users/a123/.openclaw/workspace/feishu-deliver/dango_upscale_8224x4096.zip",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-gzip",
+          "pattern": "/usr/bin/gzip",
+          "description": "允许 gzip 压缩"
+        },
+        {
+          "id": "shared-gunzip",
+          "pattern": "/usr/bin/gunzip",
+          "description": "允许 gzip 解压"
+        },
+        {
+          "id": "16a3ab99-e7bc-4795-bcde-1e6c9f02c430",
+          "pattern": "/usr/bin/shasum",
+          "source": "allow-always",
+          "lastUsedAt": 1778684748123,
+          "lastUsedCommand": "shasum -a 256 /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v6/images/final_poster_v6.png",
+          "lastResolvedPath": "/usr/bin/shasum",
+          "description": "允许计算文件哈希"
+        },
+        {
+          "id": "shared-md5",
+          "pattern": "/sbin/md5",
+          "description": "允许计算 MD5"
+        },
+        {
+          "id": "shared-lark-cli",
+          "pattern": "/opt/homebrew/bin/lark-cli",
+          "description": "允许执行飞书 CLI"
+        },
+        {
+          "id": "shared-jq",
+          "pattern": "/opt/homebrew/bin/jq",
+          "description": "允许处理 JSON 数据"
+        },
+        {
+          "id": "shared-yq",
+          "pattern": "/opt/homebrew/bin/yq",
+          "description": "允许处理 YAML 数据"
+        },
+        {
+          "id": "shared-diff",
+          "pattern": "/usr/bin/diff",
+          "description": "允许比较文件差异"
+        },
+        {
+          "id": "shared-comm",
+          "pattern": "/usr/bin/comm",
+          "description": "允许比较排序文件"
+        },
+        {
+          "id": "shared-timeout",
+          "pattern": "/usr/bin/timeout",
+          "description": "允许限时执行命令"
+        },
+        {
+          "id": "shared-sleep",
+          "pattern": "/bin/sleep",
+          "description": "允许延时等待",
+          "lastUsedAt": 1781581057388,
+          "lastUsedCommand": "sleep 600",
+          "lastResolvedPath": "/bin/sleep"
+        },
+        {
+          "id": "shared-true",
+          "pattern": "/usr/bin/true",
+          "description": "允许返回成功状态",
+          "lastUsedAt": 1781752979388,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand \"芋泥虎皮瑞士卷\" --active --json || true",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "shared-false",
+          "pattern": "/usr/bin/false",
+          "description": "允许返回失败状态"
         },
         {
           "id": "a41a78e8-f368-4101-aa69-9f23e4a951ff",
@@ -538,30 +1574,6 @@
           "lastUsedAt": 1778669260396
         },
         {
-          "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
-          "pattern": "/usr/bin/grep",
-          "source": "allow-always",
-          "lastUsedAt": 1778669501755,
-          "lastUsedCommand": "grep -R \"send_image_message\\|receive_id_type=open_id\\|image_key\" -n /Users/a123/.openclaw/workspace-design | head -50",
-          "lastResolvedPath": "/usr/bin/grep"
-        },
-        {
-          "id": "f1d1e290-b323-4362-ae60-173e4d9134f0",
-          "pattern": "/usr/bin/head",
-          "source": "allow-always",
-          "lastUsedAt": 1778727528168,
-          "lastUsedCommand": "rg -n \"def .*send_feishu|feishu-send-image|send_feishu_message\\.py|lark-cli|message tool\" /Users/a123/.openclaw -S | head -120",
-          "lastResolvedPath": "/opt/homebrew/bin/rg"
-        },
-        {
-          "id": "34352226-bed6-4857-b096-abe0169a1f0d",
-          "pattern": "/opt/homebrew/bin/rg",
-          "source": "allow-always",
-          "lastUsedAt": 1778727528168,
-          "lastUsedCommand": "rg -n \"def .*send_feishu|feishu-send-image|send_feishu_message\\.py|lark-cli|message tool\" /Users/a123/.openclaw -S | head -120",
-          "lastResolvedPath": "/opt/homebrew/bin/rg"
-        },
-        {
           "id": "cda1c848-ee9e-4bd4-9a76-5823dda93c19",
           "pattern": "=command:5eacc70f458b3b4e",
           "source": "allow-always",
@@ -574,194 +1586,52 @@
           "lastUsedAt": 1778671529066
         },
         {
-          "id": "design-head",
-          "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）",
-          "lastUsedAt": 1778727528168,
-          "lastUsedCommand": "rg -n \"def .*send_feishu|feishu-send-image|send_feishu_message\\.py|lark-cli|message tool\" /Users/a123/.openclaw -S | head -120",
-          "lastResolvedPath": "/opt/homebrew/bin/rg"
-        },
-        {
-          "id": "design-sed",
-          "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）",
-          "lastUsedAt": 1778727562737,
-          "lastUsedCommand": "ls -l /Users/a123/.openclaw/workspace/feishu-deliver | sed -n '1,20p'; printf '\\n'; ls -l /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v9/images/final_poster_v9.png",
-          "lastResolvedPath": "/bin/ls"
-        },
-        {
-          "id": "design-curl",
-          "pattern": "/usr/bin/curl",
-          "description": "允许拉取网页或接口内容（shared 非破坏下载）"
-        },
-        {
-          "id": "design-wc",
-          "pattern": "/usr/bin/wc",
-          "description": "允许统计文本行数（shared 只读检索）"
-        },
-        {
-          "id": "design-sort",
-          "pattern": "/usr/bin/sort",
-          "description": "允许排序文本结果（shared 只读检索）"
-        },
-        {
-          "id": "design-uniq",
-          "pattern": "/usr/bin/uniq",
-          "description": "允许去重文本结果（shared 只读检索）"
-        },
-        {
-          "id": "design-xargs",
-          "pattern": "/usr/bin/xargs",
-          "description": "允许拼接只读查询命令（shared 常见检索管道）"
-        },
-        {
-          "id": "design-tee",
-          "pattern": "/usr/bin/tee",
-          "description": "允许保存非破坏性输出日志（shared 常见记录）"
-        },
-        {
-          "id": "design-git",
-          "pattern": "/usr/bin/git",
-          "description": "允许 Git 只读查询命令（status/diff/log/show）"
-        },
-        {
-          "id": "16a3ab99-e7bc-4795-bcde-1e6c9f02c430",
-          "pattern": "/usr/bin/shasum",
-          "source": "allow-always",
-          "lastUsedAt": 1778684748123,
-          "lastUsedCommand": "shasum -a 256 /Users/a123/.openclaw/workspace/brand-poster-projects/BP-20260513-WORKEN-DAY-toast-v6/images/final_poster_v6.png",
-          "lastResolvedPath": "/usr/bin/shasum"
-        },
-        {
           "id": "d34ee875-b3cb-4c9f-bd85-568937a6105e",
           "pattern": "=command:29ee4c2027e8827f",
           "source": "allow-always",
           "lastUsedAt": 1778684552178
-        }
-      ]
-    },
-    "video-shared": {
-      "allowlist": [
-        {
-          "id": "shared-video-node",
-          "pattern": "/opt/homebrew/opt/node@22/bin/node",
-          "description": "允许执行可灵视频脚本"
         },
         {
-          "id": "shared-video-python",
-          "pattern": "/usr/bin/python3",
-          "description": "允许执行 Python 脚本"
-        },
-        {
-          "id": "shared-video-bash",
-          "pattern": "/bin/bash",
-          "description": "允许执行 bash 脚本",
-          "lastUsedAt": 1778638897763,
-          "lastUsedCommand": "bash /Users/a123/.openclaw/workspace/outputs/tvc-xiaodudu-intake/phase5-video/run-generate-video-segA.sh",
-          "lastResolvedPath": "/bin/bash"
-        },
-        {
-          "id": "shared-video-sh",
-          "pattern": "/bin/sh",
-          "description": "允许执行 sh 命令",
-          "lastUsedAt": 1778484324897,
-          "lastUsedCommand": "sh -c 'cd ~/.openclaw/skills/klingai && node scripts/kling.mjs account --costs 2>&1'",
-          "lastResolvedPath": "/bin/sh"
-        },
-        {
-          "id": "shared-video-cp",
-          "pattern": "/bin/cp",
-          "description": "允许复制文件",
-          "lastUsedAt": 1778482779665,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/outputs && cp \"/Users/a123/.openclaw/workspace/outputs/2139761210/视频生成-2c7c7d6c-1717-4c7f-a22b-7a6ae9f19a43.mp4\" /Users/a123/.openclaw/workspace/outputs/xiaodudu_10s_preview_v1.mp4 && ls -lh /Users/a123/.openclaw/workspace/outputs/xiaodudu_10s_preview_v1.mp4",
-          "lastResolvedPath": "/bin/mkdir"
-        },
-        {
-          "id": "shared-video-mkdir",
-          "pattern": "/bin/mkdir",
-          "description": "允许创建目录",
-          "lastUsedAt": 1778484708913,
-          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace/outputs",
-          "lastResolvedPath": "/bin/mkdir"
-        },
-        {
-          "id": "shared-video-ls",
-          "pattern": "/bin/ls",
-          "description": "允许列出目录",
-          "lastUsedAt": 1778603394717,
-          "lastUsedCommand": "ls -R outputs/transitions_batch2 | head -n 80",
-          "lastResolvedPath": "/bin/ls"
-        },
-        {
-          "id": "2e6d0541-e07c-4c98-9ee5-3a8c6b6c2734",
-          "pattern": "/bin/pwd",
+          "id": "657f9e49-a473-4e51-9951-67e30fa3466c",
+          "pattern": "=command:ee9f587dc6510b22",
           "source": "allow-always",
-          "lastUsedAt": 1778603349999
+          "lastUsedAt": 1779185897955
         },
         {
-          "id": "video-stat",
-          "pattern": "/usr/bin/stat",
-          "description": "允许读取文件状态（shared 免审批核对输出）"
+          "id": "3ced835f-0cb8-460a-9ddf-0c2573710691",
+          "pattern": "=command:41747c86d215b9e9",
+          "source": "allow-always",
+          "lastUsedAt": 1779717326161
         },
         {
-          "id": "video-test",
-          "pattern": "/usr/bin/test",
-          "description": "允许做文件存在性判断（shared 免审批）"
+          "id": "56c013c4-8b30-4724-b2e1-0422a11a25c8",
+          "pattern": "=command:41a3fcad48289a05",
+          "source": "allow-always",
+          "lastUsedAt": 1780285138160
         },
         {
-          "id": "video-head",
-          "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）"
+          "id": "050cd89f-0a78-41fd-a14d-9b0879d44d78",
+          "pattern": "=command:36238c474c6283cc",
+          "source": "allow-always",
+          "lastUsedAt": 1780304161311
         },
         {
-          "id": "video-sed",
-          "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）"
+          "id": "c5ebd925-85c1-4ca4-ad77-f5dbad2e0246",
+          "pattern": "=command:901c5354656d7f66",
+          "source": "allow-always",
+          "lastUsedAt": 1780308633604
         },
         {
-          "id": "video-curl",
-          "pattern": "/usr/bin/curl",
-          "description": "允许拉取网页或接口内容（shared 非破坏下载）"
+          "id": "47355d4e-9d9c-4362-9bfb-0730799f9ab7",
+          "pattern": "=command:7f7361a6dba06147",
+          "source": "allow-always",
+          "lastUsedAt": 1780310359881
         },
         {
-          "id": "video-wc",
-          "pattern": "/usr/bin/wc",
-          "description": "允许统计文本行数（shared 只读检索）"
-        },
-        {
-          "id": "video-sort",
-          "pattern": "/usr/bin/sort",
-          "description": "允许排序文本结果（shared 只读检索）"
-        },
-        {
-          "id": "video-uniq",
-          "pattern": "/usr/bin/uniq",
-          "description": "允许去重文本结果（shared 只读检索）"
-        },
-        {
-          "id": "video-xargs",
-          "pattern": "/usr/bin/xargs",
-          "description": "允许拼接只读查询命令（shared 常见检索管道）"
-        },
-        {
-          "id": "video-tee",
-          "pattern": "/usr/bin/tee",
-          "description": "允许保存非破坏性输出日志（shared 常见记录）"
-        },
-        {
-          "id": "video-find",
-          "pattern": "/usr/bin/find",
-          "description": "允许查找文件（shared 只读检索）"
-        },
-        {
-          "id": "video-rg",
-          "pattern": "/opt/homebrew/bin/rg",
-          "description": "允许 ripgrep 搜索（shared 只读检索）"
-        },
-        {
-          "id": "video-git",
-          "pattern": "/usr/bin/git",
-          "description": "允许 Git 只读查询命令（status/diff/log/show）"
+          "id": "351cf7bc-7864-4374-b5b4-389d12800d89",
+          "pattern": "=command:3fd08a3f4609102b",
+          "source": "allow-always",
+          "lastUsedAt": 1780367967578
         }
       ]
     },
@@ -771,8 +1641,8 @@
           "id": "shared-research-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1778726453292,
-          "lastUsedCommand": "python3 outputs/_temp_search_rou_200.py",
+          "lastUsedAt": 1781663823017,
+          "lastUsedCommand": "python3 - <<'PY'\nimport urllib.parse, urllib.request, re\nqueries = [\n ('FDA HPP foods','site:fda.gov \"high pressure processing\" food'),\n ('FDA juice HACCP 5-log','site:fda.gov juice HACCP 5-log pathogen reduction'),\n ('USDA FSIS HPP','site:fsis.usda.gov \"high pressure processing\"'),\n ('SAMR 食品广告 疾病预防','site:samr.gov.cn 食品广告 不得 疾病预防 治疗'),\n ('GB 7718 疾病预防','site:gov.cn GB 7718 不得 明示 暗示 预防 治疗 疾病'),\n ('中国 食品安全法 广告法 保健食品以外','site:gov.cn 食品安全法 广告法 食品 不得 宣称 功能')\n]\nfor label,q in queries:\n    url='https://duckduckgo.com/html/?q='+urllib.parse.quote(q)\n    html=urllib.request.urlopen(url, timeout=20).read().decode('utf-8','ignore')\n    links=re.findall(r'nofollow\" class=\"result__a\" href=\"(.*?)\"', html)\n    print('\\n###',label)\n    for link in links[:5]:\n        print(link)\nPY",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -786,88 +1656,258 @@
           "description": "允许执行 sh 命令"
         },
         {
+          "id": "shared-research-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令"
+        },
+        {
+          "id": "shared-node",
+          "pattern": "/opt/homebrew/opt/node@22/bin/node",
+          "description": "允许执行 Node.js 脚本"
+        },
+        {
           "id": "shared-research-cp",
           "pattern": "/bin/cp",
-          "description": "允许复制文件"
+          "description": "允许复制文件",
+          "lastUsedAt": 1779431956238,
+          "lastUsedCommand": "cp /Users/a123/.openclaw/plugin-skills/browser-automation/SKILL.md /Users/a123/.openclaw/workspace-research/_tmp_browser_automation_SKILL.md",
+          "lastResolvedPath": "/bin/cp"
         },
         {
           "id": "shared-research-mkdir",
           "pattern": "/bin/mkdir",
-          "description": "允许创建目录"
+          "description": "允许创建目录",
+          "lastUsedAt": 1781165953727,
+          "lastUsedCommand": "mkdir -p /tmp/dyjs && python3 - <<'PY'\nimport requests,os\nbase='https://lf-douyin-pc-search.douyinstatic.com/obj/douyin-pc-search/ies/douyin/search/'\nfiles=['async/routes-Search-keyword-route~0.f58c4920.js','async/routes-Search-keyword-route~1.ba572a27.js','async/routes-Search-keyword-route~2.5b687962.js','async/routes-Search-keyword-route~3.59075ccf.js','async/routes-Search-keyword-route~4.f96b6250.js','async/routes-Search-keyword-route~5.87d09439.js','async/routes-Search-keyword-route~6.c8868198.js','async/routes-Search-keyword-route~7.a7353713.js','async/routes-Search-keyword-route~8.4fc2b34b.js','async/routes-Search-keyword-route~9.7561758c.js','async/routes-Search-keyword-route~10.acf9cec3.js','async/routes-Search-keyword-route~11.49e8e775.js','async/6292.20ae7da8.js','async/800.1b2e5f19.js','async/8408.c72c4189.js','async/9776.48fe32a6.js','async/2964.1da53102.js','async/301.81894378.js','async/4772.fdc7bb7d.js']\nfor f in files:\n    p='/tmp/dyjs/'+os.path.basename(f)\n    txt=requests.get(base+f,timeout=20).text\n    open(p,'w').write(txt)\nprint('done',len(files))\nPY\nrg -n \"type=goods|search_channel|aweme_general|goods|commodity|product|promotion_id|haohuo|jinritemai|ecom|shop|store|mall|评价|销量|已售|价格|价格\" /tmp/dyjs | sed -n '1,260p'",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-touch",
+          "pattern": "/usr/bin/touch",
+          "description": "允许创建空文件"
+        },
+        {
+          "id": "shared-chmod",
+          "pattern": "/bin/chmod",
+          "description": "允许修改文件权限"
         },
         {
           "id": "shared-research-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778721066263,
-          "lastUsedCommand": "ls -l /Users/a123/.openclaw/workspace/outputs/wokenday_refs | sed -n '1,80p'",
+          "lastUsedAt": 1781259853769,
+          "lastUsedCommand": "ls -lah /Users/a123/.openclaw/workspace/outputs/eggskin-burger-bread",
           "lastResolvedPath": "/bin/ls",
           "source": "allow-always"
         },
         {
           "id": "shared-research-cat",
           "pattern": "/bin/cat",
-          "description": "允许读取文件内容"
+          "description": "允许读取文件内容",
+          "lastUsedAt": 1779673116672,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/plugin-skills/feishu-channel-rules/SKILL.md",
+          "lastResolvedPath": "/bin/cat"
+        },
+        {
+          "id": "shared-pwd",
+          "pattern": "/bin/pwd",
+          "description": "允许输出当前目录",
+          "lastUsedAt": 1781055854043,
+          "lastUsedCommand": "pwd",
+          "lastResolvedPath": "/bin/pwd"
+        },
+        {
+          "id": "shared-cd",
+          "pattern": "/usr/bin/cd",
+          "description": "允许切换目录"
         },
         {
           "id": "research-stat",
           "pattern": "/usr/bin/stat",
-          "description": "允许读取文件状态（shared 免审批核对输出）"
+          "description": "允许读取文件状态"
         },
         {
           "id": "research-test",
           "pattern": "/usr/bin/test",
-          "description": "允许做文件存在性判断（shared 免审批）"
+          "description": "允许做文件存在性判断"
+        },
+        {
+          "id": "shared-file",
+          "pattern": "/usr/bin/file",
+          "description": "允许检测文件类型",
+          "lastUsedAt": 1781518063437,
+          "lastUsedCommand": "file '/Users/a123/.openclaw/workspace-research/.openclaw-inbound-media/._ç_å_æ_é_æ_å_æ_å_20260611---c77a12b6-0d61-42e9-8469-38624f74e186.docx'",
+          "lastResolvedPath": "/usr/bin/file"
         },
         {
           "id": "research-head",
           "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）"
+          "description": "允许读取前几行内容",
+          "lastUsedAt": 1781060482907,
+          "lastUsedCommand": "ls -lt \"/Users/a123/Downloads/openclaw 问题汇总\" | head -n 5",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-tail",
+          "pattern": "/usr/bin/tail",
+          "description": "允许读取后几行内容",
+          "lastUsedAt": 1781055576471,
+          "lastUsedCommand": "pwd && ls -la /Users/a123/.openclaw/workspace-research/outputs | tail -n 20",
+          "lastResolvedPath": "/bin/pwd"
         },
         {
           "id": "research-sed",
           "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）"
+          "description": "允许做只读文本筛选（不含 -i 原地修改）",
+          "lastUsedAt": 1781166137455,
+          "lastUsedCommand": "rg -n \"type=goods|search_channel|aweme_general|goods|commodity|product|promotion_id|haohuo|jinritemai|ecom|shop|store|mall|评价|销量|已售|价格\" /tmp/dyjs | sed -n '1,260p'",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
         },
         {
-          "id": "research-curl",
-          "pattern": "/usr/bin/curl",
-          "description": "允许拉取网页或接口内容（shared 非破坏下载）"
+          "id": "shared-grep",
+          "pattern": "/usr/bin/grep",
+          "description": "允许做只读文本搜索",
+          "lastUsedAt": 1781059939654,
+          "lastUsedCommand": "find /Users/a123/.openclaw -name SKILL.md | grep 'session-debug-export/SKILL.md' | head -n 5",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "shared-awk",
+          "pattern": "/usr/bin/awk",
+          "description": "允许做只读文本处理"
         },
         {
           "id": "research-wc",
           "pattern": "/usr/bin/wc",
-          "description": "允许统计文本行数（shared 只读检索）"
+          "description": "允许统计文本行数"
         },
         {
           "id": "research-sort",
           "pattern": "/usr/bin/sort",
-          "description": "允许排序文本结果（shared 只读检索）"
+          "description": "允许排序文本结果",
+          "lastUsedAt": 1779441696874,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-research/projects/内部访谈双人链路验收-2026-05-22-林育丰-肖宁劼 -maxdepth 2 \\( -name '*验收*' -o -name '*清单*' -o -name '*.json' -o -name '*.md' \\) | sort | sed 's#^#FILE #'",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "research-uniq",
           "pattern": "/usr/bin/uniq",
-          "description": "允许去重文本结果（shared 只读检索）"
+          "description": "允许去重文本结果"
         },
         {
-          "id": "research-xargs",
-          "pattern": "/usr/bin/xargs",
-          "description": "允许拼接只读查询命令（shared 常见检索管道）"
+          "id": "shared-cut",
+          "pattern": "/usr/bin/cut",
+          "description": "允许裁剪文本列"
         },
         {
-          "id": "research-tee",
-          "pattern": "/usr/bin/tee",
-          "description": "允许保存非破坏性输出日志（shared 常见记录）"
+          "id": "shared-tr",
+          "pattern": "/usr/bin/tr",
+          "description": "允许转换文本字符"
         },
         {
           "id": "research-find",
           "pattern": "/usr/bin/find",
-          "description": "允许查找文件（shared 只读检索）"
+          "description": "允许查找文件",
+          "lastUsedAt": 1781059941756,
+          "lastUsedCommand": "find /Users/a123/.openclaw -path '*session-debug-export/SKILL.md' | head -n 5",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "research-rg",
           "pattern": "/opt/homebrew/bin/rg",
-          "description": "允许 ripgrep 搜索（shared 只读检索）"
+          "description": "允许 ripgrep 搜索",
+          "lastUsedAt": 1781166137454,
+          "lastUsedCommand": "rg -n \"type=goods|search_channel|aweme_general|goods|commodity|product|promotion_id|haohuo|jinritemai|ecom|shop|store|mall|评价|销量|已售|价格\" /tmp/dyjs | sed -n '1,260p'",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
+        },
+        {
+          "id": "shared-ag",
+          "pattern": "/opt/homebrew/bin/ag",
+          "description": "允许 ag 搜索"
+        },
+        {
+          "id": "research-xargs",
+          "pattern": "/usr/bin/xargs",
+          "description": "允许拼接命令管道"
+        },
+        {
+          "id": "research-tee",
+          "pattern": "/usr/bin/tee",
+          "description": "允许保存非破坏性输出日志"
+        },
+        {
+          "id": "shared-printf",
+          "pattern": "/usr/bin/printf",
+          "description": "允许格式化输出"
+        },
+        {
+          "id": "shared-echo",
+          "pattern": "/bin/echo",
+          "description": "允许输出文本",
+          "lastUsedAt": 1780975295917,
+          "lastUsedCommand": "echo 'research-login:' && curl -s http://127.0.0.1:18801/json/list | head -c 2000 && echo '\n\nopenclaw:' && curl -s http://127.0.0.1:18800/json/list | head -c 2000",
+          "lastResolvedPath": "/bin/echo"
+        },
+        {
+          "id": "research-curl",
+          "pattern": "/usr/bin/curl",
+          "description": "允许拉取网页或接口内容",
+          "lastUsedAt": 1781165295437,
+          "lastUsedCommand": "curl -s http://127.0.0.1:18818/json/version",
+          "lastResolvedPath": "/usr/bin/curl"
+        },
+        {
+          "id": "shared-wget",
+          "pattern": "/opt/homebrew/bin/wget",
+          "description": "允许下载文件"
+        },
+        {
+          "id": "shared-env",
+          "pattern": "/usr/bin/env",
+          "description": "允许读取环境变量"
+        },
+        {
+          "id": "shared-printenv",
+          "pattern": "/usr/bin/printenv",
+          "description": "允许输出环境变量"
+        },
+        {
+          "id": "shared-which",
+          "pattern": "/usr/bin/which",
+          "description": "允许定位命令路径"
+        },
+        {
+          "id": "shared-whereis",
+          "pattern": "/usr/bin/whereis",
+          "description": "允许定位命令位置"
+        },
+        {
+          "id": "shared-uname",
+          "pattern": "/usr/bin/uname",
+          "description": "允许查看系统信息"
+        },
+        {
+          "id": "shared-date",
+          "pattern": "/bin/date",
+          "description": "允许查看日期时间",
+          "lastUsedAt": 1781055456958,
+          "lastUsedCommand": "date +%F",
+          "lastResolvedPath": "/bin/date"
+        },
+        {
+          "id": "shared-ps",
+          "pattern": "/bin/ps",
+          "description": "允许查看进程列表"
+        },
+        {
+          "id": "shared-top",
+          "pattern": "/usr/bin/top",
+          "description": "允许查看系统资源"
+        },
+        {
+          "id": "shared-lsof",
+          "pattern": "/usr/sbin/lsof",
+          "description": "允许查看打开的文件"
         },
         {
           "id": "research-git",
@@ -875,10 +1915,287 @@
           "description": "允许 Git 只读查询命令（status/diff/log/show）"
         },
         {
+          "id": "shared-sips",
+          "pattern": "/usr/bin/sips",
+          "description": "允许读取图片尺寸与格式信息"
+        },
+        {
+          "id": "shared-identify",
+          "pattern": "/opt/homebrew/bin/identify",
+          "description": "允许读取图片元数据"
+        },
+        {
+          "id": "shared-tar",
+          "pattern": "/usr/bin/tar",
+          "description": "允许打包和解压文件"
+        },
+        {
+          "id": "shared-zip",
+          "pattern": "/usr/bin/zip",
+          "description": "允许压缩文件"
+        },
+        {
+          "id": "shared-unzip",
+          "pattern": "/usr/bin/unzip",
+          "description": "允许解压文件"
+        },
+        {
+          "id": "shared-gzip",
+          "pattern": "/usr/bin/gzip",
+          "description": "允许 gzip 压缩"
+        },
+        {
+          "id": "shared-gunzip",
+          "pattern": "/usr/bin/gunzip",
+          "description": "允许 gzip 解压"
+        },
+        {
+          "id": "shared-shasum",
+          "pattern": "/usr/bin/shasum",
+          "description": "允许计算文件哈希"
+        },
+        {
+          "id": "shared-md5",
+          "pattern": "/sbin/md5",
+          "description": "允许计算 MD5"
+        },
+        {
+          "id": "shared-lark-cli",
+          "pattern": "/opt/homebrew/bin/lark-cli",
+          "description": "允许执行飞书 CLI"
+        },
+        {
+          "id": "shared-jq",
+          "pattern": "/opt/homebrew/bin/jq",
+          "description": "允许处理 JSON 数据"
+        },
+        {
+          "id": "shared-yq",
+          "pattern": "/opt/homebrew/bin/yq",
+          "description": "允许处理 YAML 数据"
+        },
+        {
+          "id": "shared-diff",
+          "pattern": "/usr/bin/diff",
+          "description": "允许比较文件差异"
+        },
+        {
+          "id": "shared-comm",
+          "pattern": "/usr/bin/comm",
+          "description": "允许比较排序文件"
+        },
+        {
+          "id": "shared-timeout",
+          "pattern": "/usr/bin/timeout",
+          "description": "允许限时执行命令"
+        },
+        {
+          "id": "shared-sleep",
+          "pattern": "/bin/sleep",
+          "description": "允许延时等待",
+          "lastUsedAt": 1781166511570,
+          "lastUsedCommand": "sleep 8; openclaw browser --browser-profile research-login-douyin focus F9AB187BC2AE3BBC90AE13A3A46A4D88 && openclaw browser --browser-profile research-login-douyin screenshot /Users/a123/.openclaw/workspace-research/outputs/bread-persona/douyin_goods_attempt.jpg && echo 'done'",
+          "lastResolvedPath": "/bin/sleep"
+        },
+        {
+          "id": "shared-true",
+          "pattern": "/usr/bin/true",
+          "description": "允许返回成功状态",
+          "lastUsedAt": 1781055593370,
+          "lastUsedCommand": "curl -s http://127.0.0.1:18825/json/version || true",
+          "lastResolvedPath": "/usr/bin/curl"
+        },
+        {
+          "id": "shared-false",
+          "pattern": "/usr/bin/false",
+          "description": "允许返回失败状态"
+        },
+        {
           "id": "a9af9f12-a8ee-4aa8-849d-9a5d43f98e9c",
           "pattern": "/Users/a123/.openclaw/workspace-research/outputs/_temp_wokenday_prepare.sh",
           "source": "allow-always",
           "lastUsedAt": 1778720828527
+        },
+        {
+          "id": "3c79174f-106b-455c-be52-d62a2004d991",
+          "pattern": "=command:934383c88efb1525",
+          "source": "allow-always",
+          "lastUsedAt": 1779511809587
+        },
+        {
+          "id": "0b7c94e0-481c-42b5-9b51-e8f0ad9f6500",
+          "pattern": "=command:a610a5dbda4cbe55",
+          "source": "allow-always",
+          "lastUsedAt": 1779614512886
+        },
+        {
+          "id": "88fa6294-4922-45c7-b0c7-c747ffb3df4c",
+          "pattern": "=command:97fafce6fdb41708",
+          "source": "allow-always",
+          "lastUsedAt": 1780975252166
+        },
+        {
+          "id": "24b87094-1552-492b-b5a7-0075fa21ec5b",
+          "pattern": "=command:a50f30caf2c41a5f",
+          "source": "allow-always",
+          "lastUsedAt": 1781165822540
+        }
+      ]
+    },
+    "research": {
+      "allowlist": [
+        {
+          "id": "research-python",
+          "pattern": "/usr/bin/python3",
+          "description": "允许执行 Python 脚本（research 调研与验收）",
+          "lastUsedAt": 1781602058064,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/memory/query.py list-projects --json",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "research-bash",
+          "pattern": "/bin/bash",
+          "description": "允许执行 bash 脚本（research 调研与验收）"
+        },
+        {
+          "id": "research-sh",
+          "pattern": "/bin/sh",
+          "description": "允许执行 sh 命令（research 调研与验收）"
+        },
+        {
+          "id": "research-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令（research 调研与验收）"
+        },
+        {
+          "id": "research-cp",
+          "pattern": "/bin/cp",
+          "description": "允许复制文件（research 调研与验收）",
+          "lastUsedAt": 1779465902300,
+          "lastUsedCommand": "cp '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研/调研问题清单.md' '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-第二轮/调研问题清单.md' && cp '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研/可外发私聊文案.md' '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-第二轮/可外发私聊文案.md'",
+          "lastResolvedPath": "/bin/cp"
+        },
+        {
+          "id": "research-mkdir",
+          "pattern": "/bin/mkdir",
+          "description": "允许创建目录（research 调研与验收）",
+          "lastUsedAt": 1781596831627,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-research/outputs",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "research-ls",
+          "pattern": "/bin/ls",
+          "description": "允许列出目录（research 调研与验收）",
+          "lastUsedAt": 1781597003456,
+          "lastUsedCommand": "ls -lh '/Users/a123/Downloads/openclaw 问题汇总/20260616-160303-ou_3669c86e1e9957992630dd1fc0b85577-聊天记录导出.md'",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "research-cat",
+          "pattern": "/bin/cat",
+          "description": "允许读取文件内容（research 调研与验收）",
+          "lastUsedAt": 1779672632362,
+          "lastUsedCommand": "cat '/Users/a123/.openclaw/workspace-research/skills/internal-interview-research/SKILL.md'",
+          "lastResolvedPath": "/bin/cat"
+        },
+        {
+          "id": "research-stat",
+          "pattern": "/usr/bin/stat",
+          "description": "允许读取文件状态（research 调研与验收）",
+          "lastUsedAt": 1779672351902,
+          "lastUsedCommand": "stat -f '%Sm %N' -t '%Y-%m-%d %H:%M:%S' '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/项目总表.yaml' '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/受访对象清单.yaml' '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启/最终调研报告.md'",
+          "lastResolvedPath": "/usr/bin/stat"
+        },
+        {
+          "id": "research-test",
+          "pattern": "/usr/bin/test",
+          "description": "允许做文件存在性判断（research 调研与验收）"
+        },
+        {
+          "id": "research-head",
+          "pattern": "/usr/bin/head",
+          "description": "允许读取前几行内容（research 调研与验收）",
+          "lastUsedAt": 1781319978315,
+          "lastUsedCommand": "rg -n \"update --help|openclaw update\" /Users/a123/.openclaw -g '*.ts' -g '*.js' | head -n 80",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
+        },
+        {
+          "id": "research-sed",
+          "pattern": "/usr/bin/sed",
+          "description": "允许做只读文本筛选（research 调研与验收）",
+          "lastUsedAt": 1779712362217,
+          "lastUsedCommand": "curl -L --silent https://www.lxhts.com.cn/ -o outputs/luxihe_home.html && wc -c outputs/luxihe_home.html && sed -n '1,220p' outputs/luxihe_home.html",
+          "lastResolvedPath": "/usr/bin/curl"
+        },
+        {
+          "id": "research-curl",
+          "pattern": "/usr/bin/curl",
+          "description": "允许拉取网页或接口内容（research 调研与验收）",
+          "lastUsedAt": 1781319590006,
+          "lastUsedCommand": "curl -fsSL 'https://api.github.com/repos/openclaw/openclaw/releases/tags/v2026.6.5' | node -e \"let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const r=JSON.parse(s); console.log('tag='+r.tag_name); console.log('published='+r.published_at); console.log('name='+r.name); console.log('body_start'); console.log((r.body||'').slice(0,5000)); })\"",
+          "lastResolvedPath": "/usr/bin/curl"
+        },
+        {
+          "id": "research-wc",
+          "pattern": "/usr/bin/wc",
+          "description": "允许统计文本行数（research 调研与验收）",
+          "lastUsedAt": 1779712362216,
+          "lastUsedCommand": "curl -L --silent https://www.lxhts.com.cn/ -o outputs/luxihe_home.html && wc -c outputs/luxihe_home.html && sed -n '1,220p' outputs/luxihe_home.html",
+          "lastResolvedPath": "/usr/bin/curl"
+        },
+        {
+          "id": "research-sort",
+          "pattern": "/usr/bin/sort",
+          "description": "允许排序文本结果（research 调研与验收）",
+          "lastUsedAt": 1779660156072,
+          "lastUsedCommand": "find '/Users/a123/.openclaw/workspace-research/projects/openclaw 小龙虾使用情况调研-2026-05-23-重启' -maxdepth 2 -type f | sort",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "research-uniq",
+          "pattern": "/usr/bin/uniq",
+          "description": "允许去重文本结果（research 调研与验收）"
+        },
+        {
+          "id": "research-xargs",
+          "pattern": "/usr/bin/xargs",
+          "description": "允许拼接只读查询命令（research 调研与验收）",
+          "lastUsedAt": 1779651156758,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace-research -type f \\( -path '*/outputs/*' -o -path '*/images/*' -o -name '_temp_*' -o -name '*.md' -o -name '*.json' -o -name '*.csv' -o -name '*.xlsx' \\) -mtime -1 -print | xargs -I{} stat -f '%Sm %N' -t '%Y-%m-%d %H:%M:%S' '{}' | sort -r | head -n 60",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "research-tee",
+          "pattern": "/usr/bin/tee",
+          "description": "允许保存非破坏性输出日志（research 调研与验收）"
+        },
+        {
+          "id": "research-find",
+          "pattern": "/usr/bin/find",
+          "description": "允许查找文件（research 调研与验收）",
+          "lastUsedAt": 1781596789353,
+          "lastUsedCommand": "find /Users/a123/.openclaw/workspace/projects -maxdepth 2 \\( -name 'project.md' -o -name 'status.json' -o -name 'README.md' \\) -print",
+          "lastResolvedPath": "/usr/bin/find"
+        },
+        {
+          "id": "research-rg",
+          "pattern": "/opt/homebrew/bin/rg",
+          "description": "允许 ripgrep 搜索（research 调研与验收）",
+          "lastUsedAt": 1781319978313,
+          "lastUsedCommand": "rg -n \"update --help|openclaw update\" /Users/a123/.openclaw -g '*.ts' -g '*.js' | head -n 80",
+          "lastResolvedPath": "/opt/homebrew/bin/rg"
+        },
+        {
+          "id": "research-git",
+          "pattern": "/usr/bin/git",
+          "description": "允许 Git 只读查询命令（research 调研与验收）"
+        },
+        {
+          "id": "a569d522-c759-4fa3-aa99-e5a4fe2e7f51",
+          "pattern": "=command:766fcfa0fa6e9528",
+          "source": "allow-always",
+          "lastUsedAt": 1779633185066
         }
       ]
     },
@@ -887,12 +2204,18 @@
         {
           "id": "shared-copywriter-python",
           "pattern": "/usr/bin/python3",
-          "description": "允许执行 Python 脚本"
+          "description": "允许执行 Python 脚本",
+          "lastUsedAt": 1781605899277,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-copywriter && python3 _temp_gen_ppt.py",
+          "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "shared-copywriter-bash",
           "pattern": "/bin/bash",
-          "description": "允许执行 bash 脚本"
+          "description": "允许执行 bash 脚本",
+          "lastUsedAt": 1780642132073,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace/skills/web-browse-capture && bash scripts/browser_use_run.sh open \"https://detail.tmall.com/item.htm?id=1047437439177\"",
+          "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "shared-copywriter-sh",
@@ -900,89 +2223,355 @@
           "description": "允许执行 sh 命令"
         },
         {
+          "id": "shared-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令"
+        },
+        {
+          "id": "shared-node",
+          "pattern": "/opt/homebrew/opt/node@22/bin/node",
+          "description": "允许执行 Node.js 脚本"
+        },
+        {
           "id": "shared-copywriter-cp",
           "pattern": "/bin/cp",
-          "description": "允许复制文件"
+          "description": "允许复制文件",
+          "lastUsedAt": 1781580129772,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-copywriter/_temp && mkdir -p ../outputs/storyboard && cp storyboard_*.jpg ../outputs/storyboard/",
+          "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "shared-copywriter-mkdir",
           "pattern": "/bin/mkdir",
-          "description": "允许创建目录"
+          "description": "允许创建目录",
+          "lastUsedAt": 1781580129771,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-copywriter/_temp && mkdir -p ../outputs/storyboard && cp storyboard_*.jpg ../outputs/storyboard/",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "shared-touch",
+          "pattern": "/usr/bin/touch",
+          "description": "允许创建空文件"
+        },
+        {
+          "id": "shared-chmod",
+          "pattern": "/bin/chmod",
+          "description": "允许修改文件权限"
         },
         {
           "id": "shared-copywriter-ls",
           "pattern": "/bin/ls",
-          "description": "允许列出目录"
+          "description": "允许列出目录",
+          "lastUsedAt": 1781612403913,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/projects/黄小咕/黄小咕/",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-copywriter-cat",
           "pattern": "/bin/cat",
-          "description": "允许读取文件内容"
+          "description": "允许读取文件内容",
+          "lastUsedAt": 1779881519184,
+          "lastUsedCommand": "cat /Users/a123/.openclaw/workspace/outputs/check-chundong-data/chundong_ppt_v10_page_production_guide_strategy.md",
+          "lastResolvedPath": "/bin/cat"
+        },
+        {
+          "id": "shared-pwd",
+          "pattern": "/bin/pwd",
+          "description": "允许输出当前目录"
+        },
+        {
+          "id": "shared-cd",
+          "pattern": "/usr/bin/cd",
+          "description": "允许切换目录",
+          "lastUsedAt": 1781605899276,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-copywriter && python3 _temp_gen_ppt.py",
+          "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "copywriter-stat",
           "pattern": "/usr/bin/stat",
-          "description": "允许读取文件状态（shared 免审批核对输出）"
+          "description": "允许读取文件状态"
         },
         {
           "id": "copywriter-test",
           "pattern": "/usr/bin/test",
-          "description": "允许做文件存在性判断（shared 免审批）"
+          "description": "允许做文件存在性判断"
+        },
+        {
+          "id": "shared-file",
+          "pattern": "/usr/bin/file",
+          "description": "允许检测文件类型",
+          "lastUsedAt": 1781594129964,
+          "lastUsedCommand": "file \"/Users/a123/.openclaw/workspace-copywriter/.openclaw-inbound-media/0616_å_å_ç_å_æ_ç_å_é_å_èµ---adfe7860-d93d-4cdd-8bfc-4f5f0e5c12ff.pptx\"",
+          "lastResolvedPath": "/usr/bin/file"
         },
         {
           "id": "copywriter-head",
           "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）"
+          "description": "允许读取前几行内容",
+          "lastUsedAt": 1781605572915,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-copywriter/_temp/ppt_reference && find . -name \"slide*.xml\" | head -5",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "shared-tail",
+          "pattern": "/usr/bin/tail",
+          "description": "允许读取后几行内容",
+          "lastUsedAt": 1781594205784,
+          "lastUsedCommand": "ls -1 /Users/a123/.openclaw/workspace-copywriter/.openclaw-inbound-media/*.pptx | tail -1",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "copywriter-sed",
           "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）"
+          "description": "允许做只读文本筛选（不含 -i 原地修改）",
+          "lastUsedAt": 1781579125224,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-copywriter/outputs && sed -i '' 's/模仿\"卫生间MVP\"梗/模仿\"冷库取暖MVP\"梗/g' 黄小咕_工厂绝地求生_完整分镜_v2.md",
+          "lastResolvedPath": "/usr/bin/cd"
         },
         {
-          "id": "copywriter-curl",
-          "pattern": "/usr/bin/curl",
-          "description": "允许拉取网页或接口内容（shared 非破坏下载）"
+          "id": "shared-grep",
+          "pattern": "/usr/bin/grep",
+          "description": "允许做只读文本搜索",
+          "lastUsedAt": 1781245639305,
+          "lastUsedCommand": "wc -c /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_结构化修订_20260612.md && grep -nE '真肉|主标题|副标题|鸭货|高蛋白|低脂|无添加|解馋要嚼得扎实|货真价实|不是假肉|真的肉|实实在在的肉' /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_结构化修订_20260612.md || true",
+          "lastResolvedPath": "/usr/bin/wc"
+        },
+        {
+          "id": "shared-awk",
+          "pattern": "/usr/bin/awk",
+          "description": "允许做只读文本处理"
         },
         {
           "id": "copywriter-wc",
           "pattern": "/usr/bin/wc",
-          "description": "允许统计文本行数（shared 只读检索）"
+          "description": "允许统计文本行数",
+          "lastUsedAt": 1781245639304,
+          "lastUsedCommand": "wc -c /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_结构化修订_20260612.md && grep -nE '真肉|主标题|副标题|鸭货|高蛋白|低脂|无添加|解馋要嚼得扎实|货真价实|不是假肉|真的肉|实实在在的肉' /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_结构化修订_20260612.md || true",
+          "lastResolvedPath": "/usr/bin/wc"
         },
         {
           "id": "copywriter-sort",
           "pattern": "/usr/bin/sort",
-          "description": "允许排序文本结果（shared 只读检索）"
+          "description": "允许排序文本结果"
         },
         {
           "id": "copywriter-uniq",
           "pattern": "/usr/bin/uniq",
-          "description": "允许去重文本结果（shared 只读检索）"
+          "description": "允许去重文本结果"
         },
         {
-          "id": "copywriter-xargs",
-          "pattern": "/usr/bin/xargs",
-          "description": "允许拼接只读查询命令（shared 常见检索管道）"
+          "id": "shared-cut",
+          "pattern": "/usr/bin/cut",
+          "description": "允许裁剪文本列"
         },
         {
-          "id": "copywriter-tee",
-          "pattern": "/usr/bin/tee",
-          "description": "允许保存非破坏性输出日志（shared 常见记录）"
+          "id": "shared-tr",
+          "pattern": "/usr/bin/tr",
+          "description": "允许转换文本字符"
         },
         {
           "id": "copywriter-find",
           "pattern": "/usr/bin/find",
-          "description": "允许查找文件（shared 只读检索）"
+          "description": "允许查找文件",
+          "lastUsedAt": 1781605572914,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-copywriter/_temp/ppt_reference && find . -name \"slide*.xml\" | head -5",
+          "lastResolvedPath": "/usr/bin/cd"
         },
         {
           "id": "copywriter-rg",
           "pattern": "/opt/homebrew/bin/rg",
-          "description": "允许 ripgrep 搜索（shared 只读检索）"
+          "description": "允许 ripgrep 搜索",
+          "lastUsedAt": 1781244191137,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_inputs && rg -n \"真肉|主卖点|卤猪腱|麻笋\" /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_inputs",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-ag",
+          "pattern": "/opt/homebrew/bin/ag",
+          "description": "允许 ag 搜索"
+        },
+        {
+          "id": "copywriter-xargs",
+          "pattern": "/usr/bin/xargs",
+          "description": "允许拼接命令管道"
+        },
+        {
+          "id": "copywriter-tee",
+          "pattern": "/usr/bin/tee",
+          "description": "允许保存非破坏性输出日志"
+        },
+        {
+          "id": "shared-printf",
+          "pattern": "/usr/bin/printf",
+          "description": "允许格式化输出",
+          "lastUsedAt": 1781245519694,
+          "lastUsedCommand": "ls -la /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_inputs/ && printf '\\n---files---\\n' && find /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_inputs -maxdepth 1 -type f -print",
+          "lastResolvedPath": "/bin/ls"
+        },
+        {
+          "id": "shared-echo",
+          "pattern": "/bin/echo",
+          "description": "允许输出文本"
+        },
+        {
+          "id": "copywriter-curl",
+          "pattern": "/usr/bin/curl",
+          "description": "允许拉取网页或接口内容"
+        },
+        {
+          "id": "shared-wget",
+          "pattern": "/opt/homebrew/bin/wget",
+          "description": "允许下载文件"
+        },
+        {
+          "id": "shared-env",
+          "pattern": "/usr/bin/env",
+          "description": "允许读取环境变量"
+        },
+        {
+          "id": "shared-printenv",
+          "pattern": "/usr/bin/printenv",
+          "description": "允许输出环境变量"
+        },
+        {
+          "id": "shared-which",
+          "pattern": "/usr/bin/which",
+          "description": "允许定位命令路径",
+          "lastUsedAt": 1781605832179,
+          "lastUsedCommand": "which python3",
+          "lastResolvedPath": "/usr/bin/which"
+        },
+        {
+          "id": "shared-whereis",
+          "pattern": "/usr/bin/whereis",
+          "description": "允许定位命令位置"
+        },
+        {
+          "id": "shared-uname",
+          "pattern": "/usr/bin/uname",
+          "description": "允许查看系统信息"
+        },
+        {
+          "id": "shared-date",
+          "pattern": "/bin/date",
+          "description": "允许查看日期时间"
+        },
+        {
+          "id": "shared-ps",
+          "pattern": "/bin/ps",
+          "description": "允许查看进程列表"
+        },
+        {
+          "id": "shared-top",
+          "pattern": "/usr/bin/top",
+          "description": "允许查看系统资源"
+        },
+        {
+          "id": "shared-lsof",
+          "pattern": "/usr/sbin/lsof",
+          "description": "允许查看打开的文件"
         },
         {
           "id": "copywriter-git",
           "pattern": "/usr/bin/git",
           "description": "允许 Git 只读查询命令（status/diff/log/show）"
+        },
+        {
+          "id": "shared-sips",
+          "pattern": "/usr/bin/sips",
+          "description": "允许读取图片尺寸与格式信息"
+        },
+        {
+          "id": "shared-identify",
+          "pattern": "/opt/homebrew/bin/identify",
+          "description": "允许读取图片元数据"
+        },
+        {
+          "id": "shared-tar",
+          "pattern": "/usr/bin/tar",
+          "description": "允许打包和解压文件"
+        },
+        {
+          "id": "shared-zip",
+          "pattern": "/usr/bin/zip",
+          "description": "允许压缩文件"
+        },
+        {
+          "id": "shared-unzip",
+          "pattern": "/usr/bin/unzip",
+          "description": "允许解压文件",
+          "lastUsedAt": 1781605566578,
+          "lastUsedCommand": "cd /Users/a123/.openclaw/workspace-copywriter/_temp && unzip -q \"/Users/a123/.openclaw/workspace-copywriter/.openclaw-inbound-media/0616_å_å_ç_å_æ_ç_å_é_å_èµ_ä---8ecffdd0-d424-4a22-8c0f-c870a29c4359.pptx\" -d ppt_reference",
+          "lastResolvedPath": "/usr/bin/cd"
+        },
+        {
+          "id": "shared-gzip",
+          "pattern": "/usr/bin/gzip",
+          "description": "允许 gzip 压缩"
+        },
+        {
+          "id": "shared-gunzip",
+          "pattern": "/usr/bin/gunzip",
+          "description": "允许 gzip 解压"
+        },
+        {
+          "id": "shared-shasum",
+          "pattern": "/usr/bin/shasum",
+          "description": "允许计算文件哈希"
+        },
+        {
+          "id": "shared-md5",
+          "pattern": "/sbin/md5",
+          "description": "允许计算 MD5"
+        },
+        {
+          "id": "shared-lark-cli",
+          "pattern": "/opt/homebrew/bin/lark-cli",
+          "description": "允许执行飞书 CLI"
+        },
+        {
+          "id": "shared-jq",
+          "pattern": "/opt/homebrew/bin/jq",
+          "description": "允许处理 JSON 数据"
+        },
+        {
+          "id": "shared-yq",
+          "pattern": "/opt/homebrew/bin/yq",
+          "description": "允许处理 YAML 数据"
+        },
+        {
+          "id": "shared-diff",
+          "pattern": "/usr/bin/diff",
+          "description": "允许比较文件差异"
+        },
+        {
+          "id": "shared-comm",
+          "pattern": "/usr/bin/comm",
+          "description": "允许比较排序文件"
+        },
+        {
+          "id": "shared-timeout",
+          "pattern": "/usr/bin/timeout",
+          "description": "允许限时执行命令"
+        },
+        {
+          "id": "shared-sleep",
+          "pattern": "/bin/sleep",
+          "description": "允许延时等待"
+        },
+        {
+          "id": "shared-true",
+          "pattern": "/usr/bin/true",
+          "description": "允许返回成功状态",
+          "lastUsedAt": 1781245639306,
+          "lastUsedCommand": "wc -c /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_结构化修订_20260612.md && grep -nE '真肉|主标题|副标题|鸭货|高蛋白|低脂|无添加|解馋要嚼得扎实|货真价实|不是假肉|真的肉|实实在在的肉' /Users/a123/.openclaw/workspace-copywriter/outputs/阿嬷秘诀_包装文案_结构化修订_20260612.md || true",
+          "lastResolvedPath": "/usr/bin/wc"
+        },
+        {
+          "id": "shared-false",
+          "pattern": "/usr/bin/false",
+          "description": "允许返回失败状态"
         }
       ]
     },
@@ -991,7 +2580,10 @@
         {
           "id": "shared-meeting-python",
           "pattern": "/usr/bin/python3",
-          "description": "允许执行 Python 脚本"
+          "description": "允许执行 Python 脚本",
+          "lastUsedAt": 1781688656947,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/memory/project.py get-or-create --client '花生姑娘' --brand '花生姑娘' --project '花生姑娘增长会议纪要'",
+          "lastResolvedPath": "/usr/bin/python3"
         },
         {
           "id": "shared-meeting-bash",
@@ -1002,6 +2594,16 @@
           "id": "shared-meeting-sh",
           "pattern": "/bin/sh",
           "description": "允许执行 sh 命令"
+        },
+        {
+          "id": "shared-zsh",
+          "pattern": "/bin/zsh",
+          "description": "允许执行 zsh 命令"
+        },
+        {
+          "id": "shared-node",
+          "pattern": "/opt/homebrew/opt/node@22/bin/node",
+          "description": "允许执行 Node.js 脚本"
         },
         {
           "id": "shared-meeting-cp",
@@ -1015,17 +2617,27 @@
           "id": "shared-meeting-mkdir",
           "pattern": "/bin/mkdir",
           "description": "允许创建目录",
-          "lastUsedAt": 1778251052552,
-          "lastUsedCommand": "mkdir -p outputs/raw && cp \"/Users/a123/.openclaw/media/inbound/é_è_ä¼_è---2f08c556-96c9-47f8-a507-218612ba737e.pdf\" outputs/raw/未本咨询_会议纪要_20260508.pdf && ls -la outputs/raw/",
+          "lastUsedAt": 1781604116196,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-meeting/outputs && date +%Y%m%d",
           "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-touch",
+          "pattern": "/usr/bin/touch",
+          "description": "允许创建空文件"
+        },
+        {
+          "id": "shared-chmod",
+          "pattern": "/bin/chmod",
+          "description": "允许修改文件权限"
         },
         {
           "id": "shared-meeting-ls",
           "pattern": "/bin/ls",
           "description": "允许列出目录",
-          "lastUsedAt": 1778251052554,
-          "lastUsedCommand": "mkdir -p outputs/raw && cp \"/Users/a123/.openclaw/media/inbound/é_è_ä¼_è---2f08c556-96c9-47f8-a507-218612ba737e.pdf\" outputs/raw/未本咨询_会议纪要_20260508.pdf && ls -la outputs/raw/",
-          "lastResolvedPath": "/bin/mkdir"
+          "lastUsedAt": 1781688316016,
+          "lastUsedCommand": "ls -1 /Users/a123/.openclaw/scripts/memory",
+          "lastResolvedPath": "/bin/ls"
         },
         {
           "id": "shared-meeting-cat",
@@ -1033,69 +2645,276 @@
           "description": "允许读取文件内容"
         },
         {
+          "id": "shared-pwd",
+          "pattern": "/bin/pwd",
+          "description": "允许输出当前目录"
+        },
+        {
+          "id": "shared-cd",
+          "pattern": "/usr/bin/cd",
+          "description": "允许切换目录"
+        },
+        {
           "id": "meeting-analyst-stat",
           "pattern": "/usr/bin/stat",
-          "description": "允许读取文件状态（shared 免审批核对输出）"
+          "description": "允许读取文件状态"
         },
         {
           "id": "meeting-analyst-test",
           "pattern": "/usr/bin/test",
-          "description": "允许做文件存在性判断（shared 免审批）"
+          "description": "允许做文件存在性判断"
+        },
+        {
+          "id": "shared-file",
+          "pattern": "/usr/bin/file",
+          "description": "允许检测文件类型"
         },
         {
           "id": "meeting-analyst-head",
           "pattern": "/usr/bin/head",
-          "description": "允许读取前几行内容（shared 只读检索）"
+          "description": "允许读取前几行内容"
+        },
+        {
+          "id": "shared-tail",
+          "pattern": "/usr/bin/tail",
+          "description": "允许读取后几行内容"
         },
         {
           "id": "meeting-analyst-sed",
           "pattern": "/usr/bin/sed",
-          "description": "允许做只读文本筛选（shared 常见输出裁剪）"
+          "description": "允许做只读文本筛选（不含 -i 原地修改）"
         },
         {
-          "id": "meeting-analyst-curl",
-          "pattern": "/usr/bin/curl",
-          "description": "允许拉取网页或接口内容（shared 非破坏下载）"
+          "id": "shared-grep",
+          "pattern": "/usr/bin/grep",
+          "description": "允许做只读文本搜索"
+        },
+        {
+          "id": "shared-awk",
+          "pattern": "/usr/bin/awk",
+          "description": "允许做只读文本处理"
         },
         {
           "id": "meeting-analyst-wc",
           "pattern": "/usr/bin/wc",
-          "description": "允许统计文本行数（shared 只读检索）"
+          "description": "允许统计文本行数"
         },
         {
           "id": "meeting-analyst-sort",
           "pattern": "/usr/bin/sort",
-          "description": "允许排序文本结果（shared 只读检索）"
+          "description": "允许排序文本结果"
         },
         {
           "id": "meeting-analyst-uniq",
           "pattern": "/usr/bin/uniq",
-          "description": "允许去重文本结果（shared 只读检索）"
+          "description": "允许去重文本结果"
         },
         {
-          "id": "meeting-analyst-xargs",
-          "pattern": "/usr/bin/xargs",
-          "description": "允许拼接只读查询命令（shared 常见检索管道）"
+          "id": "shared-cut",
+          "pattern": "/usr/bin/cut",
+          "description": "允许裁剪文本列"
         },
         {
-          "id": "meeting-analyst-tee",
-          "pattern": "/usr/bin/tee",
-          "description": "允许保存非破坏性输出日志（shared 常见记录）"
+          "id": "shared-tr",
+          "pattern": "/usr/bin/tr",
+          "description": "允许转换文本字符"
         },
         {
           "id": "meeting-analyst-find",
           "pattern": "/usr/bin/find",
-          "description": "允许查找文件（shared 只读检索）"
+          "description": "允许查找文件",
+          "lastUsedAt": 1781604083147,
+          "lastUsedCommand": "find .. -name AGENTS.md -print",
+          "lastResolvedPath": "/usr/bin/find"
         },
         {
           "id": "meeting-analyst-rg",
           "pattern": "/opt/homebrew/bin/rg",
-          "description": "允许 ripgrep 搜索（shared 只读检索）"
+          "description": "允许 ripgrep 搜索"
+        },
+        {
+          "id": "shared-ag",
+          "pattern": "/opt/homebrew/bin/ag",
+          "description": "允许 ag 搜索"
+        },
+        {
+          "id": "meeting-analyst-xargs",
+          "pattern": "/usr/bin/xargs",
+          "description": "允许拼接命令管道"
+        },
+        {
+          "id": "meeting-analyst-tee",
+          "pattern": "/usr/bin/tee",
+          "description": "允许保存非破坏性输出日志"
+        },
+        {
+          "id": "shared-printf",
+          "pattern": "/usr/bin/printf",
+          "description": "允许格式化输出",
+          "lastUsedAt": 1781688296603,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name '花生姑娘' --json && printf '\\n---PROJECTS---\\n' && python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand '花生姑娘' --json",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "shared-echo",
+          "pattern": "/bin/echo",
+          "description": "允许输出文本",
+          "lastUsedAt": 1781605621547,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/memory/query.py brand --name \"聚鼎力\" --json && echo '---SPLIT---' && python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand \"聚鼎力\" --active --json",
+          "lastResolvedPath": "/usr/bin/python3"
+        },
+        {
+          "id": "meeting-analyst-curl",
+          "pattern": "/usr/bin/curl",
+          "description": "允许拉取网页或接口内容"
+        },
+        {
+          "id": "shared-wget",
+          "pattern": "/opt/homebrew/bin/wget",
+          "description": "允许下载文件"
+        },
+        {
+          "id": "shared-env",
+          "pattern": "/usr/bin/env",
+          "description": "允许读取环境变量"
+        },
+        {
+          "id": "shared-printenv",
+          "pattern": "/usr/bin/printenv",
+          "description": "允许输出环境变量"
+        },
+        {
+          "id": "shared-which",
+          "pattern": "/usr/bin/which",
+          "description": "允许定位命令路径"
+        },
+        {
+          "id": "shared-whereis",
+          "pattern": "/usr/bin/whereis",
+          "description": "允许定位命令位置"
+        },
+        {
+          "id": "shared-uname",
+          "pattern": "/usr/bin/uname",
+          "description": "允许查看系统信息"
+        },
+        {
+          "id": "shared-date",
+          "pattern": "/bin/date",
+          "description": "允许查看日期时间",
+          "lastUsedAt": 1781604116198,
+          "lastUsedCommand": "mkdir -p /Users/a123/.openclaw/workspace-meeting/outputs && date +%Y%m%d",
+          "lastResolvedPath": "/bin/mkdir"
+        },
+        {
+          "id": "shared-ps",
+          "pattern": "/bin/ps",
+          "description": "允许查看进程列表"
+        },
+        {
+          "id": "shared-top",
+          "pattern": "/usr/bin/top",
+          "description": "允许查看系统资源"
+        },
+        {
+          "id": "shared-lsof",
+          "pattern": "/usr/sbin/lsof",
+          "description": "允许查看打开的文件"
         },
         {
           "id": "meeting-analyst-git",
           "pattern": "/usr/bin/git",
           "description": "允许 Git 只读查询命令（status/diff/log/show）"
+        },
+        {
+          "id": "shared-sips",
+          "pattern": "/usr/bin/sips",
+          "description": "允许读取图片尺寸与格式信息"
+        },
+        {
+          "id": "shared-identify",
+          "pattern": "/opt/homebrew/bin/identify",
+          "description": "允许读取图片元数据"
+        },
+        {
+          "id": "shared-tar",
+          "pattern": "/usr/bin/tar",
+          "description": "允许打包和解压文件"
+        },
+        {
+          "id": "shared-zip",
+          "pattern": "/usr/bin/zip",
+          "description": "允许压缩文件"
+        },
+        {
+          "id": "shared-unzip",
+          "pattern": "/usr/bin/unzip",
+          "description": "允许解压文件"
+        },
+        {
+          "id": "shared-gzip",
+          "pattern": "/usr/bin/gzip",
+          "description": "允许 gzip 压缩"
+        },
+        {
+          "id": "shared-gunzip",
+          "pattern": "/usr/bin/gunzip",
+          "description": "允许 gzip 解压"
+        },
+        {
+          "id": "shared-shasum",
+          "pattern": "/usr/bin/shasum",
+          "description": "允许计算文件哈希"
+        },
+        {
+          "id": "shared-md5",
+          "pattern": "/sbin/md5",
+          "description": "允许计算 MD5"
+        },
+        {
+          "id": "shared-lark-cli",
+          "pattern": "/opt/homebrew/bin/lark-cli",
+          "description": "允许执行飞书 CLI"
+        },
+        {
+          "id": "shared-jq",
+          "pattern": "/opt/homebrew/bin/jq",
+          "description": "允许处理 JSON 数据"
+        },
+        {
+          "id": "shared-yq",
+          "pattern": "/opt/homebrew/bin/yq",
+          "description": "允许处理 YAML 数据"
+        },
+        {
+          "id": "shared-diff",
+          "pattern": "/usr/bin/diff",
+          "description": "允许比较文件差异"
+        },
+        {
+          "id": "shared-comm",
+          "pattern": "/usr/bin/comm",
+          "description": "允许比较排序文件"
+        },
+        {
+          "id": "shared-timeout",
+          "pattern": "/usr/bin/timeout",
+          "description": "允许限时执行命令"
+        },
+        {
+          "id": "shared-sleep",
+          "pattern": "/bin/sleep",
+          "description": "允许延时等待"
+        },
+        {
+          "id": "shared-true",
+          "pattern": "/usr/bin/true",
+          "description": "允许返回成功状态"
+        },
+        {
+          "id": "shared-false",
+          "pattern": "/usr/bin/false",
+          "description": "允许返回失败状态"
         }
       ]
     }

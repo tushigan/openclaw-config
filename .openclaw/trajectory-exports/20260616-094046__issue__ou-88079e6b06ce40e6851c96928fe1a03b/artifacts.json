@@ -1,0 +1,98 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-16T01:40:48.180Z",
+  "traceId": "a8b269f9-d398-4622-8f72-589afbfa90d1",
+  "sessionId": "a8b269f9-d398-4622-8f72-589afbfa90d1",
+  "sessionKey": "agent:main:feishu:direct:ou_88079e6b06ce40e6851c96928fe1a03b",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 254573,
+    "output": 1510,
+    "cacheRead": 383848,
+    "cacheWrite": 12063,
+    "total": 651994
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 23185,
+      "output": 0,
+      "cacheRead": 38594,
+      "cacheWrite": 53,
+      "total": 61832
+    },
+    "lastCacheTouchAt": 1781573945359
+  },
+  "compactionCount": 0,
+  "assistantTexts": [],
+  "finalPromptText": "Conversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_88079e6b06ce40e6851c96928fe1a03b\",\n  \"message_id\": \"om_x100b6c3e171354a0c2d36e50760933f\",\n  \"sender_id\": \"ou_88079e6b06ce40e6851c96928fe1a03b\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Tue 2026-06-16 09:23:42 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_88079e6b06ce40e6851c96928fe1a03b)\",\n  \"id\": \"ou_88079e6b06ce40e6851c96928fe1a03b\",\n  \"name\": \"涂是淦\"\n}\n```\n\n导出聊天记录",
+  "itemLifecycle": {
+    "startedCount": 10,
+    "completedCount": 10,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "read",
+      "meta": "from ~/.openclaw/skills/session-debug-export/SKILL.md"
+    },
+    {
+      "toolName": "read",
+      "meta": "from ~/.openclaw/skills/session-debug-export/scripts/export_chat_report.py"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    },
+    {
+      "toolName": "write",
+      "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": [],
+  "lastToolError": {
+    "toolName": "write",
+    "meta": "to ~/.openclaw/workspace/outputs/_temp_export_chat_report.py",
+    "error": "Validation failed for tool \"write\":",
+    "mutatingAction": true,
+    "actionFingerprint": "tool=write|path=<redacted>",
+    "fileTarget": {
+      "path": "/users/a123/.openclaw/workspace/outputs/_temp_export_chat_report.py"
+    }
+  }
+}

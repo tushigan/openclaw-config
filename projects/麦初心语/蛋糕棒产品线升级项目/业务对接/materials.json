@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.0",
+  "project_id": "麦初心语-蛋糕棒产品线升级项目",
+  "items": [
+    {
+      "material_id": "mat-53b43a5e3b",
+      "type": "doc",
+      "title": "2026-05-18 飞书会议纪要摘录：蛋糕棒产品线升级",
+      "source_channel": "feishu-minutes",
+      "original_name": "2026-05-18_飞书会议纪要摘录_蛋糕棒产品线升级.md",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/docs/2026-05-18_飞书会议纪要摘录_蛋糕棒产品线升级.md",
+      "copied_at": "2026-05-18T19:14:56.239014+08:00",
+      "captured_at": "2026-05-18T17:31:00+08:00",
+      "mime_type": "text/markdown",
+      "tags": [
+        "会议纪要",
+        "立项材料"
+      ],
+      "summary": "整理了蛋糕棒产品线升级项目的会议结论、方向和首轮动作。",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/meeting-notes/2026-05-18_飞书会议纪要_蛋糕棒产品线升级.md",
+      "processing_status": "summarized",
+      "related_progress_ids": [
+        "prog-97832547ce",
+        "prog-ec3083ab07"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002",
+        "task-003",
+        "task-004"
+      ]
+    },
+    {
+      "material_id": "mat-9abadd0ccd",
+      "type": "image",
+      "title": "2026-05-18 现场产品图 01",
+      "source_channel": "feishu-group",
+      "original_name": "0a7b4ab8-0d0b-46c7-9756-bf87ac095e37.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/images/2026-05-18_现场产品图_01.jpg",
+      "copied_at": "2026-05-18T19:17:29.404162+08:00",
+      "captured_at": "2026-05-18T19:16:23+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "现场照片",
+        "产品图",
+        "立项材料"
+      ],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "processing_status": "copied",
+      "related_progress_ids": [
+        "prog-4237c4e7d5"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002"
+      ]
+    },
+    {
+      "material_id": "mat-158de187ac",
+      "type": "image",
+      "title": "2026-05-18 现场产品图 02",
+      "source_channel": "feishu-group",
+      "original_name": "837c8fe0-c913-4670-9af4-a4e06e50ce72.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/images/2026-05-18_现场产品图_02.jpg",
+      "copied_at": "2026-05-18T19:17:29.404162+08:00",
+      "captured_at": "2026-05-18T19:16:23+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "现场照片",
+        "产品图",
+        "立项材料"
+      ],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "processing_status": "copied",
+      "related_progress_ids": [
+        "prog-4237c4e7d5"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002"
+      ]
+    },
+    {
+      "material_id": "mat-f945c69eb0",
+      "type": "image",
+      "title": "2026-05-18 现场产品图 03",
+      "source_channel": "feishu-group",
+      "original_name": "55a88ae3-0ef0-43fc-b3a6-2144d270a273.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/images/2026-05-18_现场产品图_03.jpg",
+      "copied_at": "2026-05-18T19:17:29.404162+08:00",
+      "captured_at": "2026-05-18T19:16:23+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "现场照片",
+        "产品图",
+        "立项材料"
+      ],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "processing_status": "copied",
+      "related_progress_ids": [
+        "prog-4237c4e7d5"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002"
+      ]
+    },
+    {
+      "material_id": "mat-67c32f9c24",
+      "type": "image",
+      "title": "2026-05-18 现场产品图 04",
+      "source_channel": "feishu-group",
+      "original_name": "f072f6e2-c784-4e72-9065-952262c1697e.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/images/2026-05-18_现场产品图_04.jpg",
+      "copied_at": "2026-05-18T19:17:29.404162+08:00",
+      "captured_at": "2026-05-18T19:16:23+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "现场照片",
+        "产品图",
+        "立项材料"
+      ],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "processing_status": "copied",
+      "related_progress_ids": [
+        "prog-4237c4e7d5"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002"
+      ]
+    },
+    {
+      "material_id": "mat-d335ad62b0",
+      "type": "image",
+      "title": "2026-05-18 现场产品图 05",
+      "source_channel": "feishu-group",
+      "original_name": "ad1e0bc1-3663-4bc9-a972-410698678028.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/images/2026-05-18_现场产品图_05.jpg",
+      "copied_at": "2026-05-18T19:17:29.404162+08:00",
+      "captured_at": "2026-05-18T19:16:23+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "现场照片",
+        "产品图",
+        "立项材料"
+      ],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "processing_status": "copied",
+      "related_progress_ids": [
+        "prog-4237c4e7d5"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002"
+      ]
+    },
+    {
+      "material_id": "mat-85be9dfd17",
+      "type": "image",
+      "title": "2026-05-18 现场产品图 06",
+      "source_channel": "feishu-group",
+      "original_name": "47938b48-34f1-4d34-8ad6-a097cf2f6e1d.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/images/2026-05-18_现场产品图_06.jpg",
+      "copied_at": "2026-05-18T19:17:29.404162+08:00",
+      "captured_at": "2026-05-18T19:16:23+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "现场照片",
+        "产品图",
+        "立项材料"
+      ],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "processing_status": "copied",
+      "related_progress_ids": [
+        "prog-4237c4e7d5"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002"
+      ]
+    },
+    {
+      "material_id": "mat-14da760b42",
+      "type": "image",
+      "title": "2026-05-18 现场产品图 07",
+      "source_channel": "feishu-group",
+      "original_name": "ef8c092a-a716-4f9f-816e-0ecd0dcab0d1.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/images/2026-05-18_现场产品图_07.jpg",
+      "copied_at": "2026-05-18T19:17:29.404162+08:00",
+      "captured_at": "2026-05-18T19:16:23+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "现场照片",
+        "产品图",
+        "立项材料"
+      ],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "processing_status": "copied",
+      "related_progress_ids": [
+        "prog-4237c4e7d5"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002"
+      ]
+    },
+    {
+      "material_id": "mat-c2a2ede7fa",
+      "type": "image",
+      "title": "2026-05-18 现场产品图 08",
+      "source_channel": "feishu-group",
+      "original_name": "5fa0ddc3-27ec-4a1f-9bbd-e4a01cc93f99.jpg",
+      "stored_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/materials/images/2026-05-18_现场产品图_08.jpg",
+      "copied_at": "2026-05-18T19:17:29.404162+08:00",
+      "captured_at": "2026-05-18T19:16:23+08:00",
+      "mime_type": "image/jpeg",
+      "tags": [
+        "现场照片",
+        "产品图",
+        "立项材料"
+      ],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "/Users/a123/.openclaw/workspace-business/projects/麦初心语/蛋糕棒产品线升级项目/notes/summaries/2026-05-18_现场产品观察.md",
+      "processing_status": "copied",
+      "related_progress_ids": [
+        "prog-4237c4e7d5"
+      ],
+      "related_task_ids": [
+        "task-001",
+        "task-002"
+      ]
+    }
+  ]
+}

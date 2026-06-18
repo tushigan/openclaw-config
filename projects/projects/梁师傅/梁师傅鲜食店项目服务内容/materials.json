@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "project_id": "梁师傅鲜食店项目服务内容",
+  "items": [
+    {
+      "material_id": "mat-83f51fdc51",
+      "type": "doc",
+      "title": "会议纪要转写文本",
+      "source_channel": "feishu",
+      "original_name": "æ_æ_æ_ä_å_å_¹æ---45c1b6c4-090d-423f-acfc-c953297c0bbc.txt",
+      "stored_path": "/Users/a123/.openclaw/projects/projects/梁师傅/梁师傅鲜食店项目服务内容/materials/docs/æ_æ_æ_ä_å_å_¹æ---45c1b6c4-090d-423f-acfc-c953297c0bbc.txt",
+      "copied_at": "2026-06-15T16:06:24.324554+08:00",
+      "captured_at": "2026-06-15T15:30:32+08:00",
+      "mime_type": "",
+      "tags": [],
+      "summary": "",
+      "transcript_path": "",
+      "note_path": "",
+      "processing_status": "copied",
+      "related_progress_ids": [],
+      "related_task_ids": []
+    }
+  ]
+}

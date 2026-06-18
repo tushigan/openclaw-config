@@ -1,0 +1,100 @@
+{
+  "version": "2026-05-12",
+  "total": 10,
+  "endpoints": [
+    {
+      "endpoint": "rhart-image-n-pro/text-to-image",
+      "name_cn": "全能图片PRO",
+      "task": "text-to-image",
+      "output_type": "image",
+      "popularity": 1,
+      "params": [
+        { "key": "prompt", "type": "STRING", "required": true },
+        { "key": "aspectRatio", "type": "LIST", "options": ["1:1", "16:9", "9:16"], "default": "1:1" }
+      ]
+    },
+    {
+      "endpoint": "rhart-image-n-pro/edit",
+      "name_cn": "全能图片PRO-编辑",
+      "task": "image-to-image",
+      "output_type": "image",
+      "popularity": 1,
+      "params": [
+        { "key": "prompt", "type": "STRING", "required": true },
+        { "key": "imageUrl", "type": "IMAGE", "required": true }
+      ]
+    },
+    {
+      "endpoint": "rhart-video-v3.1-fast/text-to-video",
+      "name_cn": "全能视频V3.1 Fast",
+      "task": "text-to-video",
+      "output_type": "video",
+      "popularity": 1,
+      "params": [
+        { "key": "prompt", "type": "STRING", "required": true }
+      ]
+    },
+    {
+      "endpoint": "rhart-video-v3.1-fast/image-to-video",
+      "name_cn": "全能视频V3.1 Fast-图生视频",
+      "task": "image-to-video",
+      "output_type": "video",
+      "popularity": 1,
+      "params": [
+        { "key": "prompt", "type": "STRING", "required": true },
+        { "key": "imageUrl", "type": "IMAGE", "required": true }
+      ]
+    },
+    {
+      "endpoint": "rhart-audio/text-to-audio/speech-2.8-hd",
+      "name_cn": "语音生成HD",
+      "task": "text-to-speech",
+      "output_type": "audio",
+      "popularity": 1,
+      "params": [
+        { "key": "text", "type": "STRING", "required": true }
+      ]
+    },
+    {
+      "endpoint": "rhart-audio/text-to-audio/music-2.5",
+      "name_cn": "音乐生成",
+      "task": "music-generation",
+      "output_type": "audio",
+      "popularity": 1,
+      "params": [
+        { "key": "prompt", "type": "STRING", "required": true }
+      ]
+    },
+    {
+      "endpoint": "hunyuan3d-v3.1/text-to-3d",
+      "name_cn": "混元3D生成",
+      "task": "text-to-3d",
+      "output_type": "3d",
+      "popularity": 1,
+      "params": [
+        { "key": "prompt", "type": "STRING", "required": true }
+      ]
+    },
+    {
+      "endpoint": "rhart-text-g-3-flash-preview/image-to-text",
+      "name_cn": "图片理解",
+      "task": "image-to-text",
+      "output_type": "string",
+      "popularity": 1,
+      "params": [
+        { "key": "image", "type": "IMAGE", "required": true },
+        { "key": "prompt", "type": "STRING", "default": "请详细描述这张图片的内容" }
+      ]
+    },
+    {
+      "endpoint": "topazlabs/image-upscale-standard-v2",
+      "name_cn": "图像超分",
+      "task": "image-upscale",
+      "output_type": "image",
+      "popularity": 1,
+      "params": [
+        { "key": "imageUrl", "type": "IMAGE", "required": true }
+      ]
+    }
+  ]
+}

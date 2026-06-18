@@ -1,0 +1,61 @@
+{
+  "project_id": "PRJ-20260613161206-3ca6e5",
+  "brand_id": "BRD-20260613161206-3ca6e5",
+  "client_id": "CLI-20260613161206-d2e5d4",
+  "campaign_name": "业务对接",
+  "campaign_type": "业务对接",
+  "start_date": "",
+  "deadline_date": "",
+  "status": "completed",
+  "lifecycle_stage": "",
+  "milestones": [],
+  "project_summary": "",
+  "current_goal": "",
+  "tags": [],
+  "created_at": "2026-06-13T16:12:06.229591",
+  "updated_at": "2026-05-27 18:39 GMT+8",
+  "_last_modified_by": "migration-script",
+  "brief_path": "",
+  "strategy_path": "",
+  "creative_direction_path": "",
+  "_migration_source": "workspace-business/projects",
+  "_original_data": {
+    "client": "傅小姐",
+    "project": "C端零食品牌首阶段整合设计项目",
+    "status": "已立项，待内部过报价判断",
+    "stage": "报价前整理",
+    "background": "客户原以B端烘焙配套业务为主，现计划切入C端休闲零食市场，首期拟以手撕肉条作为首个SPU推进。",
+    "goal": "围绕首阶段需求，梳理并推进品牌升级、IP形象、手撕肉条包装设计、电商详情页等整合设计合作。",
+    "materials": [
+      {
+        "type": "meeting_minutes",
+        "name": "傅小姐C端零食合作会议纪要",
+        "source": "https://l5rd0uzm0z.feishu.cn/docx/Raz9dGYHVoGxyuxOkgTcYnrJnMe"
+      },
+      {
+        "type": "quote_reference_image",
+        "name": "报价清单图片",
+        "source": "用户本轮会话上传图片"
+      },
+      {
+        "type": "deliverable",
+        "name": "傅小姐品牌整合设计合作报价方案-v1.html",
+        "source": "/Users/a123/.openclaw/workspace-business/deliverables/傅小姐品牌整合设计合作报价方案-v1.html"
+      }
+    ],
+    "quote_summary": {
+      "amount": 180000,
+      "currency": "CNY",
+      "scope": [
+        "品牌VI（基础部分）",
+        "品牌VI（应用部分）",
+        "IP形象",
+        "包装创意设计（手撕肉条SPU）",
+        "电商详情页",
+        "现场印刷看样"
+      ]
+    },
+    "next_step": "向领导简要汇报客户背景，并带报价方案做内部过价判断。",
+    "updated_at": "2026-05-27 18:39 GMT+8"
+  }
+}

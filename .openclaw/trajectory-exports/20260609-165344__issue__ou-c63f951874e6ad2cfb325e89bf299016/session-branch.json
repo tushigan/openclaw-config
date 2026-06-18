@@ -1,0 +1,857 @@
+{
+  "header": {
+    "type": "session",
+    "version": 3,
+    "id": "fb6347fe-6aac-4415-9b09-c395da575415",
+    "timestamp": "2026-06-09T08:42:13.936Z",
+    "cwd": "$WORKSPACE_DIR/workspace-design"
+  },
+  "leafId": "0c90c2c2",
+  "entries": [
+    {
+      "type": "model_change",
+      "id": "5a8021a4",
+      "parentId": null,
+      "timestamp": "2026-06-09T08:42:13.999Z",
+      "provider": "aixor-g",
+      "modelId": "gpt-5.4"
+    },
+    {
+      "type": "thinking_level_change",
+      "id": "b31efddb",
+      "parentId": "5a8021a4",
+      "timestamp": "2026-06-09T08:42:13.999Z",
+      "thinkingLevel": "medium"
+    },
+    {
+      "type": "custom",
+      "customType": "model-snapshot",
+      "data": {
+        "timestamp": 1780994534007,
+        "provider": "aixor-g",
+        "modelApi": "openai-completions",
+        "modelId": "gpt-5.4"
+      },
+      "id": "446b0539",
+      "parentId": "b31efddb",
+      "timestamp": "2026-06-09T08:42:14.007Z"
+    },
+    {
+      "type": "message",
+      "id": "b765fbcf",
+      "parentId": "446b0539",
+      "timestamp": "2026-06-09T08:42:14.104Z",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "[media attached: $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/9d7ff602-521d-4143-8feb-ca612545410d.jpg (image/jpeg) | $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/9d7ff602-521d-4143-8feb-ca612545410d.jpg]\n/skill omni-vision-psd-extractor 请使用该skill去运行，\n$WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/9d7ff602-521d-4143-8feb-ca612545410d.jpg"
+          }
+        ],
+        "timestamp": 1780994534026
+      }
+    },
+    {
+      "type": "custom_message",
+      "customType": "openclaw.runtime-context",
+      "content": "[media attached: $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/9d7ff602-521d-4143-8feb-ca612545410d.jpg (image/jpeg) | $WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/9d7ff602-521d-4143-8feb-ca612545410d.jpg]\nTo send an image back, prefer the message tool (media/path/filePath). If you must inline, use MEDIA:https://example.com/image.jpg (spaces ok, quote if needed) or a safe relative path like MEDIA:./image.jpg. Absolute and ~ paths only work when they stay inside your allowed file-read boundary; host file:// URLs are blocked. Keep caption in the text body.\nSystem: [2026-06-09 16:42:09 GMT+8] Feishu[design] DM | 杨洋 (ou_c63f951874e6ad2cfb325e89bf299016) [msg:om_x100b6d495322d8bcc369bc6c067382e, post, 1 attachment(s)]\n\nConversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_c63f951874e6ad2cfb325e89bf299016\",\n  \"message_id\": \"om_x100b6d495322d8bcc369bc6c067382e\",\n  \"sender_id\": \"ou_c63f951874e6ad2cfb325e89bf299016\",\n  \"sender\": \"杨洋\",\n  \"timestamp\": \"Tue 2026-06-09 16:42 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"杨洋 (ou_c63f951874e6ad2cfb325e89bf299016)\",\n  \"id\": \"ou_c63f951874e6ad2cfb325e89bf299016\",\n  \"name\": \"杨洋\"\n}\n```\n\n/skill omni-vision-psd-extractor 请使用该skill去运行，\n$WORKSPACE_DIR/workspace-design/.openclaw-inbound-media/9d7ff602-521d-4143-8feb-ca612545410d.jpg",
+      "display": false,
+      "details": {
+        "source": "openclaw-runtime-context"
+      },
+      "id": "56af1a5a",
+      "parentId": "b765fbcf",
+      "timestamp": "2026-06-09T08:42:14.193Z"
+    },
+    {
+      "type": "message",
+      "id": "29ddb614",
+      "parentId": "56af1a5a",
+      "timestamp": "2026-06-09T08:42:20.216Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_LTJ1piUgOWxER6scRIfr9sGv",
+            "name": "read",
+            "arguments": {
+              "limit": 400,
+              "offset": 1,
+              "path": "~/.openclaw/workspace-design/skills/psd-layered-rebuilder/SKILL.md"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 12058,
+          "output": 138,
+          "cacheRead": 16896,
+          "cacheWrite": 0,
+          "totalTokens": 29092,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780994534194,
+        "responseId": "chatcmpl-65249a6a"
+      }
+    },
+    {
+      "type": "message",
+      "id": "1fe12b10",
+      "parentId": "29ddb614",
+      "timestamp": "2026-06-09T08:42:20.266Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_LTJ1piUgOWxER6scRIfr9sGv",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "---\nname: psd-layered-rebuilder\ndescription: \"Use when the user asks for 分层 PSD、拆 PSD、真分层、海报拆层、已有整图重建 PSD，或需要输出图层 PNG、manifest 与可打开 PSD。默认指向官方真分层交付，不是像素粗拆或抠图版 PSD。\"\n---\n\n# PSD Layered Rebuilder\n\n用于 `design` 工作区，把一张已有图片或新生成整图尽可能重建为基础位图图层，并输出真实可打开的 PSD 文件。\n\n## 何时使用\n- 用户直接说“分层 PSD”“拆 PSD”“真分层 PSD”“海报拆层”\n- 用户已经有一张海报 / KV / 单页视觉图\n- 或者用户先给 brief，希望先生成整图再重建 PSD\n- 希望先做基础位图分层，而不是先追求 SVG 或高级矢量重建\n- 需要输出：图层 PNG、manifest、预览图、PSD\n\n## 第一版边界\n- 先做 **AI prompt 驱动的基础位图分层 PSD**，不承诺：\n  - SVG / shape 重建\n  - Photoshop 原生可编辑文字层\n  - 任意复杂海报都能高质量自动拆层\n  - 每一层都与原图像素级严格对齐\n- 当前目标是：\n  - 能跑通三阶段流程\n  - 能产出真实 PSD\n  - 能保留中间产物与提示词证据链\n  - 能从产物里看出是 profile、定位还是重建本身出了问题\n  - 失败时能诊断原因\n\n## 三阶段工作流\n1. Phase A：生成或确认整图\n   - `generate_base_image.py`\n   - 对已有图片：复制并标准化为 `base_image.png`\n   - 对纯 prompt：调用 `gpt-image2-gen` 先生成整图，默认画布 `1080x1920`；用户明确要求高分辨率时才通过 `--size` 升高\n2. Phase B：AI 重建图层\n   - `analyze_layers.py`\n   - 先从**原图分辨率**裁出每层 locked crop，再用 `layout_ref + locked crop` 双参考图重建\n   - 图层定义来自 `profiles/*.json`，而不是硬编码在脚本里\n   - 先把原图映射到模型可承受的 `working_canvas`，所有 bbox / PSD 画布都以它为准\n   - 每层可单独声明 `rebuild_mode`，并不是所有层都必须走 AI 重绘\n   - `source_mask_extract` 已被正式禁用；官方 pipeline 不再接受任何抠图型 rebuild_mode\n   - 非背景层统一要求纯 `#00ff00` 背景，便于后续抠底\n   - 抠底阶段按“边缘连通绿幕”移除背景，而不是只按纯绿色像素阈值硬切\n   - 图层默认优先按 `reference_crop` 语义回贴，避免 crop 参考图和最终 bbox 语义不一致\n   - 当某层使用 `reference_crop` 语义时，优先保留整张 crop 的透明留白与内部相对位置，不要把可见前景裁紧后再拉满 bbox\n   - `support_surface` 这类被产品遮挡的大结构层，会额外生成结构引导参考图\n   - 对 logo / 标题 / 信息栏这类稳定图文层，可优先使用 source-preserving 模式降低 run-to-run 漂移\n   - 对“色块标签 + 白字”这类小图文层，优先通过 profile 指定独立 palette/filter 逻辑，而不是复用普通文字层的提取规则\n   - 输出 AI 阶段图片、参考图、图层 PNG、manifest、预览图、report，并附带每层诊断信息\n3. Phase C：写出 PSD\n   - `make_psd.py`\n   - 读取 manifest 与图层 PNG\n   - 按 `z_index` / manifest draw order 写入 PSD，避免标题、标签被后续商品层压住\n   - 写出真实 PSD\n4. Phase D：正式交付校验\n   - 正式执行入口只能是 `scripts/run_pipeline.py`\n   - `run_pipeline.py` 会串联 `prepare_task.py → generate_base_image.py → analyze_layers.py → make_psd.py`\n   - `run_pipeline.py` 会持续写入 `run_status.json`；若被中断，先读这个文件判断卡在哪一步、已生成哪些层\n   - `task.json`、`layers_manifest.json`、`report.json` 必须带同一套官方 provenance\n   - 若发现任何 `source_mask_extract`、缺少结构 clean plate、或 `ai_regenerate_locked_crop` 实际落成 local fallback，这轮任务必须失败，不能把 PSD 当成功结果交付\n   - `outputs/_temp_*.py` 只能用于诊断，不得生成最终交付版 manifest / report / PSD\n\n## 执行与主动回报规则\n- 正式 PSD pipeline 通常是长任务，不要把 `timeout` 当成“先返回”的等待时间。\n- 用后台执行时，`timeout` 必须覆盖预计总耗时；需要快速返回给用户时只设置较小 `yieldMs`。\n- 严禁用 `timeout:1`、`timeout:10`、`timeout:60` 跑正式 PSD pipeline；这会造成后台进程被提前 `SIGTERM`，留下半成品。\n- 默认 `timeout >= 1800`；若 profile 超过 12 个 AI 重建图层、或预计每层 1-2 分钟以上，默认 `timeout >= 3600`。\n- 启动后台任务后必须记录 `sessionId`、输出目录、`run_status.json` 路径和必需产物清单。\n- 若后台进程返回 `SIGTERM`、`timedOut`、`exitCode != 0`，或目录中缺少 `.psd`、`layers_manifest.json`、`report.json`，必须主动回报“未完成”，说明已完成哪些层和下一步续跑建议。\n- 后台任务启动后必须持续轮询到完成/失败，或交给能接收完成事件的 `design-shared`/专家会话；不能让用户主动问“进度检查”才发现半成品。\n- 如果当前通道不能可靠接收后台完成事件，优先派发给 `design-shared`/具备 `process` 能力的专家会话并等待完成事件；不要让 main-shared 裸启动一个长后台进程后静默结束。\n\n## 产物要求\n- 必须输出：\n  - `task.json`\n  - `base_image.png`\n  - `run_status.json`\n  - `prompts/` 下的阶段提示词\n  - `ai_stage/` 下的中间重建图\n  - `refs/` 下的 `layout_ref.png`、逐层 `*_ref.png` 与 `refs_manifest.json`\n  - `base_image.json` 中的 `source_canvas`、`working_canvas`、`scale_from_source_to_working`\n  - 图层 PNG 目录\n  - `layers_manifest.json`\n  - `layer_boxes_preview.png`\n  - `.psd`\n  - `report.json`\n- 必须说明：\n  - 总层数\n  - 当前是否属于 AI 重建层，而非像素级原图切层\n  - 文字当前是否仍为位图层\n  - 产物 provenance 是否来自官方 `run_pipeline.py`\n\n## 关键约束\n- 第一版默认文字仍为 `text_mode=image`\n- 当用户已有最终图时，优先使用 `rebuild_from_existing_image`\n- 当用户只有 brief 时，使用 `generate_then_rebuild`\n- 若 AI 生成出的层不准确，必须明确说明当前只是“可打开 PSD + 基础位图层重建”\n- 遇到中文标题、logo、包装小字时，优先相信 locked crop，不要只靠整图参考猜\n- 工作画布必须遵守 gpt-image-2 的尺寸限制，且和最终 PSD 画布一致\n- 当前默认 schema 更偏商品海报：背景、logo、主标题、副标题、展示台、单品包装若干层\n- 当前默认 profile 仍偏商品海报，但新图层 family 应优先通过新增 profile 扩展，而不是继续往主脚本里塞特判\n- 若某层的正确性高度依赖“原字、原 logo、原日期排版”，优先增强 locked crop 提示词与参考图约束；不要回退到抠图\n- `source_full_crop` 只适用于完整、封闭、整体不需要抠透明的面板型图层；不能拿它冒充可独立运动的透明前景\n- 若 profile 同时存在前景层与背景/结构层，至少保留一层 `background` 或 `support_surface` 使用 `ai_regenerate_locked_crop` 作为 clean plate；否则会把前景像素烘焙回背景，得到“看似有 PSD、实际不可独立运动”的假分层\n- 当前 pipeline 会拒绝任何包含 `source_mask_extract` 的 profile，以及所有结构层都不是重建 clean plate 的伪分层方案\n- 当前 pipeline 在产出 manifest/report 后还会再做一次 `layering_verification`；若结果仍判定为假分层，这轮任务必须失败，不能把 PSD 当成功交付\n- 若结构层 AI 重建因额度、接口、模型限制而失败，必须明确回报阻塞原因；禁止自动改成 blur / clean-plate fallback / source-mask 伪装成 `ai_regenerate_locked_crop`\n- 若最终产物缺少官方 provenance，或 provenance 与 `task.json` / `report.json` 不一致，这轮任务必须视为无效交付\n- 若小标签 / 贴纸 / 角标出现“字被吃掉、边缘截断、白字变透明洞”，先检查 profile 的 `crop_expand_ratio` 与 palette/filter 规则，再怀疑模型本身\n"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1780994540266
+      }
+    },
+    {
+      "type": "message",
+      "id": "cf6b6703",
+      "parentId": "1fe12b10",
+      "timestamp": "2026-06-09T08:42:29.945Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_GFmQnz6kgOPoO2P0Ksn4PmX0",
+            "name": "exec",
+            "arguments": {
+              "command": "pwd && ls -la ~/.openclaw/workspace-design/skills/psd-layered-rebuilder && find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 2 -type f | sed 's#^#- #' | sort",
+              "timeout": 30
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 3122,
+          "output": 294,
+          "cacheRead": 28160,
+          "cacheWrite": 0,
+          "totalTokens": 31576,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780994540267,
+        "responseId": "chatcmpl-8c01e946"
+      }
+    },
+    {
+      "type": "message",
+      "id": "4e38055a",
+      "parentId": "cf6b6703",
+      "timestamp": "2026-06-09T08:42:30.085Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_GFmQnz6kgOPoO2P0Ksn4PmX0",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "$WORKSPACE_DIR/workspace-design\ntotal 16\ndrwxr-xr-x@  7 a123  staff   224 May 18 17:02 .\ndrwx------  21 a123  staff   672 Jun  9 15:45 ..\n-rw-r--r--@  1 a123  staff  8118 Jun  7 10:06 SKILL.md\ndrwxr-xr-x@  5 a123  staff   160 May 22 20:31 profiles\ndrwxr-xr-x@  5 a123  staff   160 May  3 17:30 references\ndrwxr-xr-x@  8 a123  staff   256 May 18 13:20 scripts\ndrwxr-xr-x@  6 a123  staff   192 May 19 17:50 tests\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/SKILL.md\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/profiles/childrens-day-mascot-poster-v1.json\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/profiles/event-giveaway-poster-v1.json\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/profiles/product-poster-v1.json\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/references/layer-schema.md\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/references/prompt-templates.md\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/references/workflow.md\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/generate_base_image.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/make_psd.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/prepare_task.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/run_pipeline.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_analyze_layers.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_make_psd.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_run_pipeline.py"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 85,
+          "aggregated": "$WORKSPACE_DIR/workspace-design\ntotal 16\ndrwxr-xr-x@  7 a123  staff   224 May 18 17:02 .\ndrwx------  21 a123  staff   672 Jun  9 15:45 ..\n-rw-r--r--@  1 a123  staff  8118 Jun  7 10:06 SKILL.md\ndrwxr-xr-x@  5 a123  staff   160 May 22 20:31 profiles\ndrwxr-xr-x@  5 a123  staff   160 May  3 17:30 references\ndrwxr-xr-x@  8 a123  staff   256 May 18 13:20 scripts\ndrwxr-xr-x@  6 a123  staff   192 May 19 17:50 tests\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/SKILL.md\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/profiles/childrens-day-mascot-poster-v1.json\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/profiles/event-giveaway-poster-v1.json\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/profiles/product-poster-v1.json\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/references/layer-schema.md\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/references/prompt-templates.md\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/references/workflow.md\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/generate_base_image.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/make_psd.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/prepare_task.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/run_pipeline.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_analyze_layers.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_make_psd.py\n- $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_run_pipeline.py",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1780994550085
+      }
+    },
+    {
+      "type": "message",
+      "id": "67e0f990",
+      "parentId": "4e38055a",
+      "timestamp": "2026-06-09T08:42:37.776Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "我先按当前可用的最匹配技能来跑：你提到的 `omni-vision-psd-extractor` 不在这台工作区已安装技能列表里，和需求最接近的是 `psd-layered-rebuilder`。我先用它正式拆层并生成 PSD。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_AJ1rhqEZg6dHhhAj7yu5CXfm",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 ~/.openclaw/workspace-design/skills/psd-layered-rebuilder/scripts/run_pipeline.py --help",
+              "timeout": 30
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 3323,
+          "output": 251,
+          "cacheRead": 28672,
+          "cacheWrite": 0,
+          "totalTokens": 32246,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780994550086,
+        "responseId": "chatcmpl-fbe4dde9"
+      }
+    },
+    {
+      "type": "message",
+      "id": "7e389b33",
+      "parentId": "67e0f990",
+      "timestamp": "2026-06-09T08:42:37.980Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_AJ1rhqEZg6dHhhAj7yu5CXfm",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Traceback (most recent call last):\n  File \"$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/run_pipeline.py\", line 10, in <module>\n    import analyze_layers\n  File \"$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py\", line 63, in <module>\n    def normalize_region_spec(region: dict | str | None) -> dict:\nTypeError: unsupported operand type(s) for |: 'type' and 'type'\n\n(Command exited with code 1)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 1,
+          "durationMs": 152,
+          "aggregated": "Traceback (most recent call last):\n  File \"$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/run_pipeline.py\", line 10, in <module>\n    import analyze_layers\n  File \"$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py\", line 63, in <module>\n    def normalize_region_spec(region: dict | str | None) -> dict:\nTypeError: unsupported operand type(s) for |: 'type' and 'type'\n\n(Command exited with code 1)",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1780994557980
+      }
+    },
+    {
+      "type": "message",
+      "id": "27e2dca1",
+      "parentId": "7e389b33",
+      "timestamp": "2026-06-09T08:42:42.830Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_e18ELT2q8GfRztlXcwq6ASt4",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 --version && which python3 && python3.11 --version && which python3.11 || true && python3.12 --version && which python3.12 || true",
+              "timeout": 30
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 1528,
+          "output": 106,
+          "cacheRead": 30720,
+          "cacheWrite": 0,
+          "totalTokens": 32354,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780994557980,
+        "responseId": "chatcmpl-95feaaf6"
+      }
+    },
+    {
+      "type": "message",
+      "id": "8d43663a",
+      "parentId": "27e2dca1",
+      "timestamp": "2026-06-09T08:42:43.001Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_e18ELT2q8GfRztlXcwq6ASt4",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Python 3.9.6\n/usr/bin/python3\nPython 3.11.15\n/opt/homebrew/bin/python3.11\nzsh:1: command not found: python3.12"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 93,
+          "aggregated": "Python 3.9.6\n/usr/bin/python3\nPython 3.11.15\n/opt/homebrew/bin/python3.11\nzsh:1: command not found: python3.12",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1780994563000
+      }
+    },
+    {
+      "type": "message",
+      "id": "c6cd8c88",
+      "parentId": "8d43663a",
+      "timestamp": "2026-06-09T08:42:47.361Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_bVIviQVMEiv820RLE6VA2FRm",
+            "name": "exec",
+            "arguments": {
+              "command": "python3.11 ~/.openclaw/workspace-design/skills/psd-layered-rebuilder/scripts/run_pipeline.py --help",
+              "timeout": 30
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 616,
+          "output": 62,
+          "cacheRead": 31744,
+          "cacheWrite": 0,
+          "totalTokens": 32422,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780994563001,
+        "responseId": "chatcmpl-438003c6"
+      }
+    },
+    {
+      "type": "message",
+      "id": "7bfb340a",
+      "parentId": "c6cd8c88",
+      "timestamp": "2026-06-09T08:42:47.522Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_bVIviQVMEiv820RLE6VA2FRm",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Traceback (most recent call last):\n  File \"$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/run_pipeline.py\", line 10, in <module>\n    import analyze_layers\n  File \"$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py\", line 18, in <module>\n    import numpy as np\nModuleNotFoundError: No module named 'numpy'\n\n(Command exited with code 1)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 1,
+          "durationMs": 93,
+          "aggregated": "Traceback (most recent call last):\n  File \"$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/run_pipeline.py\", line 10, in <module>\n    import analyze_layers\n  File \"$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py\", line 18, in <module>\n    import numpy as np\nModuleNotFoundError: No module named 'numpy'\n\n(Command exited with code 1)",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1780994567522
+      }
+    },
+    {
+      "type": "message",
+      "id": "c0565fbc",
+      "parentId": "7bfb340a",
+      "timestamp": "2026-06-09T08:42:56.143Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_16q2KriF3bd8UBp6BJmRRGX4",
+            "name": "exec",
+            "arguments": {
+              "command": "find ~/.openclaw/workspace-design/skills/psd-layered-rebuilder -maxdepth 3 \\( -name 'requirements*.txt' -o -name 'pyproject.toml' -o -name 'Pipfile' -o -name 'environment.yml' -o -name '.python-version' -o -name 'venv' -o -name '.venv' \\) | sed 's#^#- #' && echo '---' && grep -R \"numpy\\|psd_tools\\|PIL\\|opencv\\|cv2\" -n ~/.openclaw/workspace-design/skills/psd-layered-rebuilder | head -80",
+              "timeout": 30
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 15767,
+          "output": 201,
+          "cacheRead": 18944,
+          "cacheWrite": 0,
+          "totalTokens": 34912,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780994567522,
+        "responseId": "chatcmpl-6d1dc741"
+      }
+    },
+    {
+      "type": "message",
+      "id": "b06a6f2b",
+      "parentId": "c0565fbc",
+      "timestamp": "2026-06-09T08:42:56.256Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_16q2KriF3bd8UBp6BJmRRGX4",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "---\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/__pycache__/test_analyze_layers.cpython-312.pyc matches\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/__pycache__/test_analyze_layers.cpython-311.pyc matches\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_analyze_layers.py:7:import numpy as np\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_analyze_layers.py:8:from PIL import Image\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py:18:import numpy as np\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py:19:from PIL import Image, ImageDraw, ImageFilter, ImageOps\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/make_psd.py:6:from PIL import Image\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/make_psd.py:7:from psd_tools import PSDImage\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/make_psd.py:8:from psd_tools.constants import Compression\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/__pycache__/generate_base_image.cpython-312.pyc matches\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/__pycache__/make_psd.cpython-312.pyc matches\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/__pycache__/analyze_layers.cpython-312.pyc matches\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/__pycache__/analyze_layers.cpython-311.pyc matches\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/generate_base_image.py:8:from PIL import Image"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 77,
+          "aggregated": "---\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/__pycache__/test_analyze_layers.cpython-312.pyc matches\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/__pycache__/test_analyze_layers.cpython-311.pyc matches\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_analyze_layers.py:7:import numpy as np\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/tests/test_analyze_layers.py:8:from PIL import Image\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py:18:import numpy as np\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/analyze_layers.py:19:from PIL import Image, ImageDraw, ImageFilter, ImageOps\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/make_psd.py:6:from PIL import Image\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/make_psd.py:7:from psd_tools import PSDImage\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/make_psd.py:8:from psd_tools.constants import Compression\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/__pycache__/generate_base_image.cpython-312.pyc matches\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/__pycache__/make_psd.cpython-312.pyc matches\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/__pycache__/analyze_layers.cpython-312.pyc matches\nBinary file $WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/__pycache__/analyze_layers.cpython-311.pyc matches\n$WORKSPACE_DIR/workspace-design/skills/psd-layered-rebuilder/scripts/generate_base_image.py:8:from PIL import Image",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1780994576256
+      }
+    },
+    {
+      "type": "message",
+      "id": "54621c1a",
+      "parentId": "b06a6f2b",
+      "timestamp": "2026-06-09T08:50:44.323Z",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "导出聊天记录"
+          }
+        ],
+        "timestamp": 1780995044229
+      }
+    },
+    {
+      "type": "custom_message",
+      "customType": "openclaw.runtime-context",
+      "content": "System: [2026-06-09 16:50:33 GMT+8] Feishu[design] DM | 杨洋 (ou_c63f951874e6ad2cfb325e89bf299016) [msg:om_x100b6d49734c4488c29131648d00fa7]\n\nConversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_c63f951874e6ad2cfb325e89bf299016\",\n  \"message_id\": \"om_x100b6d49734c4488c29131648d00fa7\",\n  \"sender_id\": \"ou_c63f951874e6ad2cfb325e89bf299016\",\n  \"sender\": \"杨洋\",\n  \"timestamp\": \"Tue 2026-06-09 16:50 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"杨洋 (ou_c63f951874e6ad2cfb325e89bf299016)\",\n  \"id\": \"ou_c63f951874e6ad2cfb325e89bf299016\",\n  \"name\": \"杨洋\"\n}\n```",
+      "display": false,
+      "details": {
+        "source": "openclaw-runtime-context"
+      },
+      "id": "4ddf3b5d",
+      "parentId": "54621c1a",
+      "timestamp": "2026-06-09T08:50:44.331Z"
+    },
+    {
+      "type": "message",
+      "id": "28388c4f",
+      "parentId": "4ddf3b5d",
+      "timestamp": "2026-06-09T08:50:51.634Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_qE2CCAgAdHKegelFpcddgAFP",
+            "name": "exec",
+            "arguments": {
+              "command": "find $OPENCLAW_STATE_DIR -path '*session-debug-export/SKILL.md' 2>/dev/null | head -20",
+              "timeout": 30
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 4831,
+          "output": 147,
+          "cacheRead": 28160,
+          "cacheWrite": 0,
+          "totalTokens": 33138,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780995044331,
+        "responseId": "chatcmpl-da06a2d8"
+      }
+    },
+    {
+      "type": "message",
+      "id": "818c648e",
+      "parentId": "28388c4f",
+      "timestamp": "2026-06-09T08:50:57.024Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_qE2CCAgAdHKegelFpcddgAFP",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "$WORKSPACE_DIR/skills/session-debug-export/SKILL.md"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 5265,
+          "aggregated": "$WORKSPACE_DIR/skills/session-debug-export/SKILL.md",
+          "cwd": "$WORKSPACE_DIR/workspace-design"
+        },
+        "isError": false,
+        "timestamp": 1780995057024
+      }
+    },
+    {
+      "type": "message",
+      "id": "6cdca8d3",
+      "parentId": "818c648e",
+      "timestamp": "2026-06-09T08:51:03.023Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_pjHjv8JMtdVOP6k02upr1WLO",
+            "name": "read",
+            "arguments": {
+              "limit": 400,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/skills/session-debug-export/SKILL.md"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 299,
+          "output": 83,
+          "cacheRead": 32768,
+          "cacheWrite": 0,
+          "totalTokens": 33150,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780995057026,
+        "responseId": "chatcmpl-522ebd55"
+      }
+    },
+    {
+      "type": "message",
+      "id": "db5de90b",
+      "parentId": "6cdca8d3",
+      "timestamp": "2026-06-09T08:51:03.167Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_pjHjv8JMtdVOP6k02upr1WLO",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "---\nname: session-debug-export\ndescription: 导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说”导出聊天记录””导出当前聊天””导出对话记录””聊天记录导出””生成聊天日志””打包聊天记录”时必须使用本技能。\ntriggers:\n  - “导出聊天记录”\n  - “导出当前聊天”\n  - “导出当前对话”\n  - “导出对话记录”\n  - “聊天记录导出”\n  - “生成聊天日志”\n  - “打包聊天记录”\n  - “导出后台日志”\n  - “生成调试报告”\n---\n\n## ⚠️ AGENT 必读：执行流程（最高优先级）\n\n**当收到”导出聊天记录”等触发词时，按以下步骤执行，不要自行拼接简化的 txt 导出：**\n\n### 第 1 步：复制脚本到 workspace\n\n由于路径保护机制，不能直接执行 `~/.openclaw/skills/` 下的脚本。必须先复制到当前 workspace：\n\n```python\n# 使用 read 工具读取脚本内容\nread('$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py')\n\n# 使用 write 工具写入到当前 workspace 的 outputs 目录\n# 例如：<current-workspace>/outputs/_temp_export_chat_report.py\nwrite('<current-workspace>/outputs/_temp_export_chat_report.py', <script-content>)\n```\n\n### 第 2 步：执行临时脚本\n\n```bash\npython3 <current-workspace>/outputs/_temp_export_chat_report.py \\\n  --workspace $OPENCLAW_STATE_DIR \\\n  --session-key current \\\n  --issue “聊天记录导出” \\\n  --agent-name “<agent-display-name>”\n```\n\n**参数说明**：\n- `--workspace`：固定为 `$OPENCLAW_STATE_DIR`\n- `--session-key`：使用 `current` 自动查找当前会话\n- `--issue`：问题描述，用于文件命名\n- `--agent-name`：当前 agent 的显示名称（如 “research”、”design” 等）\n\n### 第 3 步：检查输出文件\n\n脚本执行成功后，会在以下路径生成导出文件：\n\n```\n~/Downloads/openclaw 问题汇总/YYYYMMDD-HHMMSS-对话ID-问题短名.md\n```\n\n使用 `ls` 或 `find` 命令确认文件已生成，并检查文件大小是否合理（通常 > 10KB）。\n\n### 第 4 步：发送文件给用户\n\n使用 `message` 工具的 `path` 参数发送文件：\n\n```json\n{\n  “tool”: “message”,\n  “path”: “~/Downloads/openclaw 问题汇总/<actual-filename>.md”,\n  “caption”: “OpenClaw 聊天记录导出”\n}\n```\n\n**重要**：必须真实发送文件，不能只返回本地路径。\n\n### 常见问题\n\n**Q: 遇到 `exec blocked: python3 cannot target protected path ~/.openclaw/skills/` 怎么办？**  \nA: 按第 1 步使用 read+write 复制脚本，不要直接执行 skills 目录下的脚本。\n\n**Q: 遇到 `exec blocked: cp cannot modify protected path ~/.openclaw/skills/` 怎么办？**  \nA: 不要用 `cp` 命令，用 read+write 工具复制。\n\n**Q: `sessions_history` 工具超时怎么办？**  \nA: 不要降级使用 `sessions_history`，它有截断限制。坚持使用本 skill 的脚本。\n\n**Q: 能不能用 heredoc 手动拼接一个简化版？**  \nA: ❌ **禁止**。必须使用本 skill 的完整流程，生成包含 AI 分析和后台日志的完整导出。\n\n---\n\n# Session...<truncated>"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1780995063167
+      }
+    },
+    {
+      "type": "message",
+      "id": "1647a572",
+      "parentId": "db5de90b",
+      "timestamp": "2026-06-09T08:51:08.666Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_EbxNQI4HcGcbrRIaDoq2Clv6",
+            "name": "read",
+            "arguments": {
+              "limit": 4000,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 3762,
+          "output": 108,
+          "cacheRead": 32768,
+          "cacheWrite": 0,
+          "totalTokens": 36638,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780995063168,
+        "responseId": "chatcmpl-4f390a10"
+      }
+    },
+    {
+      "type": "message",
+      "id": "d09b5e76",
+      "parentId": "1647a572",
+      "timestamp": "2026-06-09T08:51:08.807Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_EbxNQI4HcGcbrRIaDoq2Clv6",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "#!/usr/bin/env python3\n\"\"\"Export an OpenClaw session as a shareable debugging markdown report.\n\nThe generated report follows the chat-export style:\n- AI analysis / issue localization summary\n- Full chat transcript with tool calls and tool outputs\n- Recent backend gateway logs\n\nIt also keeps the raw OpenClaw trajectory bundle next to the export for deeper inspection.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport datetime as dt\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\nfrom typing import Any\n\nANSI_RE = re.compile(r\"\\x1b\\[[0-9;]*m\")\nSESSION_KEY_ENV_VARS = (\n    \"OPENCLAW_MCP_SESSION_KEY\",\n    \"OPENCLAW_SOURCE_SESSION_KEY\",\n    \"OPENCLAW_SESSION_KEY\",\n    \"CLAUDE_AI_SESSION_KEY\",\n    \"CLAUDE_WEB_SESSION_KEY\",\n)\nDEFAULT_REPORT_SUBDIR = Path(\"Downloads\") / \"openclaw 问题汇总\"\n\n\ndef filename_part(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Keep readable Unicode in filenames while removing path-hostile characters.\"\"\"\n    text = re.sub(r\"[\\\\/:*?\\\"<>|\\s]+\", \"-\", text.strip())\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-.\")\n    return text or fallback\n\n\ndef default_report_dir() -> Path:\n    return Path.home() / DEFAULT_REPORT_SUBDIR\n\n\ndef short_issue_part(text: str, max_chars: int = 8) -> str:\n    \"\"\"Prefer a concise Chinese issue label for human-scannable filenames.\"\"\"\n    chinese = \"\".join(re.findall(r\"[\\u4e00-\\u9fff]\", text or \"\"))\n    if chinese:\n        return chinese[:max_chars]\n    return filename_part(text, \"问题\")[:max_chars] or \"问题\"\n\n\ndef conversation_id_part(session_key: str) -> str:\n    return filename_part(session_peer_id(session_key) or session_key.split(\":\")[-1], \"conversation\")\n\n\ndef build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:\n    return f\"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md\"\n\n\ndef slugify(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Convert arbitrary text into a stable ASCII-ish filename slug.\"\"\"\n    text = text.strip().lower()\n    text = re.sub(r\"[^a-z0-9]+\", \"-\", text)\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-\")\n    return text or fallback\n\n\ndef run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:\n    return subprocess.run(\n        cmd,\n        cwd=str(cwd) if cwd else None,\n        text=True,\n        capture_output=True,\n        check=False,\n    )\n\n\ndef clean_string(value: Any) -> str:\n    return str(value or \"\").strip()\n\n\ndef looks_like_session_key(value: str) -> bool:\n    return bool(value and value != \"current\" and value.startswith(\"agent:\") and value.count(\":\") >= 2)\n\n\ndef session_agent_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[1] if len(parts) > 1 and parts[0] == \"agent\" else \"\"\n\n\ndef session_chat_type(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[3] if len(parts) > 3 and parts[0] == \"agent\" else \"\"\n\n\ndef session_peer_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return \":\".join(parts[4:]) if len(parts) > 4 and parts[0] == \"agent\" else \"\"\n\n\ndef runtime_session_key(env: dict[str, str] | None = None) -> str | None:\n    source = env if env is not None else os.environ\n    for name in SESSION_KEY_ENV_VARS:\n        value = clean_string(source.get(name))\n        if looks_like_session_key(value):\n            return value\n    return None\n\n\ndef read_config_agents(workspace: Path) -> list[dict[str, Any]]:\n    config_path = workspace / \"openclaw.json\"\n    try:\n        data = json.loads(config_path.read_text(encoding=\"utf-8\"))\n    except Exception:\n        return []\n    agents = data.get(\"agents\", {})\n    if isinstance(agents, dict) and isinstance(agents.get(\"list\"), list):\n        return [agent for agent in agents[\"list\"] if isinstance(agent, dict)]\n    return []\n\n\ndef infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:\n    try:\n        resolved_cwd = cwd.expanduser().resolve()\n    except Exception:\n        return set()\n\n    ids: set[str] = set()\n    for agent in read_config_agents(workspace):\n        agent_id = clean_string(agent.get(\"id\"))\n        agent_workspace = clean_string(agent.get(\"workspace\"))\n        if not agent_id or not agent_workspace:\n            continue\n        try:\n            resolved_workspace = Path(agent_workspace).expanduser().resolve()\n        except Exception:\n            continue\n        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:\n            ids.add(agent_id)\n    return ids\n\n\ndef load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:\n    res = run(cmd, cwd=cwd)\n    if res.returncode != 0:\n        return []\n    try:\n        sessions = json.loads(res.stdout).get(\"sessions\") or []\n    except Exception:\n        return []\n    return [session for session in sessions if isinstance(session, dict)]\n\n\ndef session_matches(\n    session: dict[str, Any],\n    *,\n    agent_ids: set[str] | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> bool:\n    key = clean_string(session.get(\"key\"))\n    if not looks_like_session_key(key):\n        return False\n\n    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}\n    if normalized_agent_ids:\n        agent = clean_string(session.get(\"agentId\")) or session_agent_id(key)\n        if agent not in normalized_agent_ids:\n            return False\n\n    normalized_chat_type = clean_string(chat_type)\n    if normalized_chat_type:\n        kind = clean_string(session.get(\"kind\")) or clean_string(session.get(\"chatType\")) or session_chat_type(key)\n        if kind != normalized_chat_type:\n            return False\n\n    normalized_peer_id = clean_string(peer_id)\n    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:\n        return False\n\n    return True\n\n\ndef newest_session_key(sessions: list[dict[str, Any]]) -> str | None:\n    if not sessions:\n        return None\n    sessions = sorted(sessions, key=lambda session: int(session.get(\"updatedAt\") or 0), reverse=True)\n    return clean_string(sessions[0].get(\"key\")) or None\n\n\ndef resolve_current_session_key(\n    *,\n    workspace: Path | None = None,\n    cwd: Path | None = None,\n    env: dict[str, str] | None = None,\n    agent_id: str | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> str | None:\n    \"\"\"Resolve the current OpenClaw session with channel/agent context when available.\"\"\"\n    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()\n    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()\n    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()\n    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))\n    env_key = runtime_session_key(env)\n    if env_key and (\n        not has_explicit_filters\n        or session_matches(\n            {\"key\": env_key, \"agentId\": session_agent_id(env_key), \"kind\": session_chat_type(env_key)},\n            agent_ids=explicit_agent_ids,\n            chat_type=chat_type,\n            peer_id=peer_id,\n        )\n    ):\n        return env_key\n\n    agent_ids = set(explicit_agent_ids)\n    env_source = env if env is not None else os.environ\n    env_agent_id = clean_string(env_source.get(\"OPENCLAW_MCP_AGENT_ID\"))\n    if env_agent_id and not agent_ids:\n        agent_ids.add(env_agent_id)\n    if not agent_ids:\n        agent_ids = infer_workspace_agent_ids(workspace, cwd)\n\n    for active_minutes in (\"180\", None):\n        cmd = [\"openclaw\", \"sessions\", \"--all-agents\", \"--limit\", \"50\", \"--json\"]\n        if active_minutes:\n            cmd[2:2] = [\"--active\", active_minutes]\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n\n    # Last-resort compatibility for old installs without --all-agents.\n    for cmd in (\n        [\"openclaw\", \"sessions\", \"--active\", \"180\", \"--limit\", \"10\", \"--json\"],\n        [\"openclaw\", \"sessions\", \"--limit\", \"10\", \"--json\"],\n    ):\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n    return None\n\n\ndef format_timestamp(value: str | None) -> str:\n    if not value:\n        return \"unknown-time\"\n    try:\n        parsed = dt.datetime.fromisoformat(value.replace(\"Z\", \"+00:00\"))\n        return parsed.astimezone(dt.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%S.%f\")[:-3] + \"Z\"\n    except Exception:\n        return value\n\n\ndef text_from_content_parts(parts: Any) -> tuple[str, list[str]]:\n    \"\"\"Extract text and attachment markers from OpenClaw/Anthropic-style content blocks.\"\"\"\n    if isinstance(parts, str):\n        return parts, []\n    if not isinstance(parts, list):\n        return str(parts) if parts else \"\", []\n\n    text_chunks: list[str] = []\n    attachments: list[str] = []\n    for part in parts:\n        if isinstance(part, str):\n            text_chunks.append(part)\n            continue\n        if not isinstance(part, dict):\n            continue\n        ptype = part.get(\"type\")\n        if ptype == \"text\":\n            text_chunks.append(str(part.get(\"text\", \"\")))\n        elif ptype in {\"image\", \"input_image\"}:\n            source = part.get(\"source\") or part.get(\"image\") or {}\n            if isinstance(source, dict):\n                label = source.get(\"path\") or source.get(\"media_id\") or source.get(\"url\") or \"inline-image\"\n            else:\n                label = source or \"inline-image\"\n            attachments.append(f\"[Image: {label}]\")\n        elif ptype == \"toolCall\":\n            # Tool calls are emitted as separate tool.call events; avoid duplicating here.\n            continue\n    return \"\".join(text_chunks), attachments\n\n\ndef tool_result_text(data: dict[str, Any]) -> str:\n    if \"result\" in data:\n        return str(data.get(\"result\", \"\"))\n    message = data.get(\"message\", {})\n    content = message.get(\"content\", data.get(\"content\", \"\"))\n    text, attachments = text_from_content_parts(content)\n    if attachments:\n        return \"\\n\".join(attachments + ([text] if text else []))\n    return text\n\n\ndef parse_events_to_messages(events_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:\n    \"\"\"Parse trajectory events into displayable chat messages and export stats.\"\"\"\n    messages: list[dict[str, Any]] = []\n    stats: dict[str, Any] = {\n        \"events\": 0,\n        \"user\": 0,\n        \"assistant\": 0,\n        \"tool_calls\": 0,\n        \"tool_results\": 0,\n        \"tool_errors\": 0,\n        \"tools\": Counter(),\n        \"model\": None,\n        \"provider\": None,\n    }\n\n    if not events_path.exists():\n        return messages, stats\n\n    with events_path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            if not line.strip():\n                continue\n            try:\n                event = json.loads(line)\n            except json.JSONDecodeError:\n                continue\n\n            stats[\"events\"] += 1\n            etype = event.get(\"type\")\n            ts = event.get(\"ts\") or event.get(\"timestamp\")\n            data = event.get(\"data\", {}) or {}\n            stats[\"model\"] = stats[\"model\"] or event.get(\"modelId\")\n            stats[\"provider\"] = stats[\"provider\"] or event.get(\"provider\")\n\n            if etype == \"user.message\":\n                message = data.get(\"message\", {})\n                text, attachments = text_from_content_parts(message.get(\"content\", []))\n                messages.append({\n                    \"role\": \"user\",\n                    \"timestamp\": ts,\n                    \"content\": text.strip(),\n                    \"attachments\": attachments,\n                })\n                stats[\"user\"] += 1\n\n            elif etype == \"assistant.message\":\n                message = data.get(\"message\", {})\n                text, _ = text_from_content_parts(message.get(\"content\", []))\n                if text.strip():\n                    messages.append({\n                        \"role\": \"assistant\",\n                        \"timestamp\": ts,\n                        \"content\": text.strip(),\n                    })\n                    stats[\"assistant\"] += 1\n\n            elif etype == \"tool.call\":\n                name = data.get(\"name\") or data.get(\"toolName\") or \"unknown\"\n                messages.append({\n                    \"role\": \"tool_call\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"input\": data.get(\"arguments\", data.get(\"input\", {})),\n                })\n                stats[\"tool_calls\"] += 1\n                stats[\"tools\"][name] += 1\n\n            elif etype == \"tool.result\":\n                message = data.get(\"message\", {})\n                name = data.get(\"name\") or data.get(\"toolName\") or message.get(\"toolName\") or \"unknown\"\n                error = data.get(\"error\") or message.get(\"error\")\n                output = tool_result_text(data)\n                messages.append({\n                    \"role\": \"tool_result\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"output\": output,\n                    \"error\": error,\n                })\n                stats[\"tool_results\"] += 1\n                if error or re.search(r\"\\b(error|failed|timeout|timed out|exception)\\b\", output, re.I):\n                    stats[\"tool_errors\"] += 1\n\n    return messages, stats\n\n\ndef strip_ansi(text: str) -> str:\n    return ANSI_RE.sub(\"\", text)\n\n\ndef find_signals(messages: list[dict[str, Any]], logs: str) -> dict[str, list[str]]:\n    \"\"\"Find likely debugging signals without treating documentation reads as failures.\"\"\"\n    corpus_parts: list[str] = [logs]\n    signal_tools = {\"exec\", \"process\", \"image\", \"run_command\", \"bash\", \"browser\", \"mcp\", \"openclaw\"}\n    for msg in messages:\n        if msg.get(\"role\") != \"tool_result\":\n            continue\n        tool = str(msg.get(\"tool\") or \"\").lower()\n        output = str(msg.get(\"output\") or \"\")\n        if msg.get(\"error\") or tool in signal_tools:\n            corpus_parts.append(output)\n    corpus = strip_ansi(\"\\n\".join(corpus_parts))\n\n    patterns = {\n        \"errors\": r\"(?im)^.*\\b(error|failed|exception|traceback|timed out|timeout)\\b.*$\",\n        \"fallbacks\": r\"(?im)^.*\\b(fallback|failover|recovery|retry|降级|回退|重试)\\b.*$\",\n        \"long_running\": r\"(?im)^.*\\b(long-running|queued_behind_active_work|event_loop_delay|queueDepth|still running)\\b.*$\",\n        \"slow_gateway\": r\"(?im)^.*\\b(gateway/ws|node\\.list|chat\\.history)\\b.*(?:[1-9][0-9]{3,}ms).*$\",\n    }\n    signals: dict[str, list[str]] = {}\n    for key, pattern in patterns.items():\n        seen: list[str] = []\n        for match in re.findall(pattern, corpus):\n            # re.findall with capture groups returns captured tuple/string, so use finditer instead below.\n            pass\n        for m in re.finditer(pattern, corpus):\n            line = m.group(0).strip()\n            if line and line not in seen:\n                seen.append(line[:500])\n            if len(seen) >= 8:\n                break\n        signals[key] = seen\n    return signals\n\n\ndef generate_analysis(\n    issue_title: str,\n    session_key: str,\n    stats: dict[str, Any],\n    logs: str,[... 10794 more characters truncated]"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1780995068807
+      }
+    },
+    {
+      "type": "message",
+      "id": "e0ea8e79",
+      "parentId": "d09b5e76",
+      "timestamp": "2026-06-09T08:53:24.229Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_dmsRii09IlVH82L2zI2YJoT8",
+            "name": "write",
+            "arguments": {
+              "content": "#!/usr/bin/env python3\n\"\"\"Export an OpenClaw session as a shareable debugging markdown report.\n\nThe generated report follows the chat-export style:\n- AI analysis / issue localization summary\n- Full chat transcript with tool calls and tool outputs\n- Recent backend gateway logs\n\nIt also keeps the raw OpenClaw trajectory bundle next to the export for deeper inspection.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport datetime as dt\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\nfrom typing import Any\n\nANSI_RE = re.compile(r\"\\x1b\\[[0-9;]*m\")\nSESSION_KEY_ENV_VARS = (\n    \"OPENCLAW_MCP_SESSION_KEY\",\n    \"OPENCLAW_SOURCE_SESSION_KEY\",\n    \"OPENCLAW_SESSION_KEY\",\n    \"CLAUDE_AI_SESSION_KEY\",\n    \"CLAUDE_WEB_SESSION_KEY\",\n)\nDEFAULT_REPORT_SUBDIR = Path(\"Downloads\") / \"openclaw 问题汇总\"\n\n\ndef filename_part(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Keep readable Unicode in filenames while removing path-hostile characters.\"\"\"\n    text = re.sub(r\"[\\\\/:*?\\\"<>|\\s]+\", \"-\", text.strip())\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-.\")\n    return text or fallback\n\n\ndef default_report_dir() -> Path:\n    return Path.home() / DEFAULT_REPORT_SUBDIR\n\n\ndef short_issue_part(text: str, max_chars: int = 8) -> str:\n    \"\"\"Prefer a concise Chinese issue label for human-scannable filenames.\"\"\"\n    chinese = \"\".join(re.findall(r\"[\\u4e00-\\u9fff]\", text or \"\"))\n    if chinese:\n        return chinese[:max_chars]\n    return filename_part(text, \"问题\")[:max_chars] or \"问题\"\n\n\ndef conversation_id_part(session_key: str) -> str:\n    return filename_part(session_peer_id(session_key) or session_key.split(\":\")[-1], \"conversation\")\n\n\ndef build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:\n    return f\"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md\"\n\n\ndef slugify(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Convert arbitrary text into a stable ASCII-ish filename slug.\"\"\"\n    text = text.strip().lower()\n    text = re.sub(r\"[^a-z0-9]+\", \"-\", text)\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-\")\n    return text or fallback\n\n\ndef run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:\n    return subprocess.run(\n        cmd,\n        cwd=str(cwd) if cwd else None,\n        text=True,\n        capture_output=True,\n        check=False,\n    )\n\n\ndef clean_string(value: Any) -> str:\n    return str(value or \"\").strip()\n\n\ndef looks_like_session_key(value: str) -> bool:\n    return bool(value and value != \"current\" and value.startswith(\"agent:\") and value.count(\":\") >= 2)\n\n\ndef session_agent_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[1] if len(parts) > 1 and parts[0] == \"agent\" else \"\"\n\n\ndef session_chat_type(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[3] if len(parts) > 3 and parts[0] == \"agent\" else \"\"\n\n\ndef session_peer_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return \":\".join(parts[4:]) if len(parts) > 4 and parts[0] == \"agent\" else \"\"\n\n\ndef runtime_session_key(env: dict[str, str] | None = None) -> str | None:\n    source = env if env is not None else os.environ\n    for name in SESSION_KEY_ENV_VARS:\n        value = clean_string(source.get(name))\n        if looks_like_session_key(value):\n            return value\n    return None\n\n\ndef read_config_agents(workspace: Path) -> list[dict[str, Any]]:\n    config_path = workspace / \"openclaw.json\"\n    try:\n        data = json.loads(config_path.read_text(encoding=\"utf-8\"))\n    except Exception:\n        return []\n    agents = data.get(\"agents\", {})\n    if isinstance(agents, dict) and isinstance(agents.get(\"list\"), list):\n        return [agent for agent in agents[\"list\"] if isinstance(agent, dict)]\n    return []\n\n\ndef infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:\n    try:\n        resolved_cwd = cwd.expanduser().resolve()\n    except Exception:\n        return set()\n\n    ids: set[str] = set()\n    for agent in read_config_agents(workspace):\n        agent_id = clean_string(agent.get(\"id\"))\n        agent_workspace = clean_string(agent.get(\"workspace\"))\n        if not agent_id or not agent_workspace:\n            continue\n        try:\n            resolved_workspace = Path(agent_workspace).expanduser().resolve()\n        except Exception:\n            continue\n        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:\n            ids.add(agent_id)\n    return ids\n\n\ndef load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:\n    res = run(cmd, cwd=cwd)\n    if res.returncode != 0:\n        return []\n    try:\n        sessions = json.loads(res.stdout).get(\"sessions\") or []\n    except Exception:\n        return []\n    return [session for session in sessions if isinstance(session, dict)]\n\n\ndef session_matches(\n    session: dict[str, Any],\n    *,\n    agent_ids: set[str] | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> bool:\n    key = clean_string(session.get(\"key\"))\n    if not looks_like_session_key(key):\n        return False\n\n    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}\n    if normalized_agent_ids:\n        agent = clean_string(session.get(\"agentId\")) or session_agent_id(key)\n        if agent not in normalized_agent_ids:\n            return False\n\n    normalized_chat_type = clean_string(chat_type)\n    if normalized_chat_type:\n        kind = clean_string(session.get(\"kind\")) or clean_string(session.get(\"chatType\")) or session_chat_type(key)\n        if kind != normalized_chat_type:\n            return False\n\n    normalized_peer_id = clean_string(peer_id)\n    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:\n        return False\n\n    return True\n\n\ndef newest_session_key(sessions: list[dict[str, Any]]) -> str | None:\n    if not sessions:\n        return None\n    sessions = sorted(sessions, key=lambda session: int(session.get(\"updatedAt\") or 0), reverse=True)\n    return clean_string(sessions[0].get(\"key\")) or None\n\n\ndef resolve_current_session_key(\n    *,\n    workspace: Path | None = None,\n    cwd: Path | None = None,\n    env: dict[str, str] | None = None,\n    agent_id: str | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> str | None:\n    \"\"\"Resolve the current OpenClaw session with channel/agent context when available.\"\"\"\n    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()\n    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()\n    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()\n    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))\n    env_key = runtime_session_key(env)\n    if env_key and (\n        not has_explicit_filters\n        or session_matches(\n            {\"key\": env_key, \"agentId\": session_agent_id(env_key), \"kind\": session_chat_type(env_key)},\n            agent_ids=explicit_agent_ids,\n            chat_type=chat_type,\n            peer_id=peer_id,\n        )\n    ):\n        return env_key\n\n    agent_ids = set(explicit_agent_ids)\n    env_source = env if env is not None else os.environ\n    env_agent_id = clean_string(env_source.get(\"OPENCLAW_MCP_AGENT_ID\"))\n    if env_agent_id and not agent_ids:\n        agent_ids.add(env_agent_id)\n    if not agent_ids:\n        agent_ids = infer_workspace_agent_ids(workspace, cwd)\n\n    for active_minutes in (\"180\", None):\n        cmd = [\"openclaw\", \"sessions\", \"--all-agents\", \"--limit\", \"50\", \"--json\"]\n        if active_minutes:\n            cmd[2:2] = [\"--active\", active_minutes]\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n\n    for cmd in (\n        [\"openclaw\", \"sessions\", \"--active\", \"180\", \"--limit\", \"10\", \"--json\"],\n        [\"openclaw\", \"sessions\", \"--limit\", \"10\", \"--json\"],\n    ):\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n    return None\n\n\ndef format_timestamp(value: str | None) -> str:\n    if not value:\n        return \"unknown-time\"\n    try:\n        parsed = dt.datetime.fromisoformat(value.replace(\"Z\", \"+00:00\"))\n        return parsed.astimezone(dt.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%S.%f\")[:-3] + \"Z\"\n    except Exception:\n        return value\n\n\ndef text_from_content_parts(parts: Any) -> tuple[str, list[str]]:\n    if isinstance(parts, str):\n        return parts, []\n    if not isinstance(parts, list):\n        return str(parts) if parts else \"\", []\n\n    text_chunks: list[str] = []\n    attachments: list[str] = []\n    for part in parts:\n        if isinstance(part, str):\n            text_chunks.append(part)\n            continue\n        if not isinstance(part, dict):\n            continue\n        ptype = part.get(\"type\")\n        if ptype == \"text\":\n            text_chunks.append(str(part.get(\"text\", \"\")))\n        elif ptype in {\"image\", \"input_image\"}:\n            source = part.get(\"source\") or part.get(\"image\") or {}\n            if isinstance(source, dict):\n                label = source.get(\"path\") or source.get(\"media_id\") or source.get(\"url\") or \"inline-image\"\n            else:\n                label = source or \"inline-image\"\n            attachments.append(f\"[Image: {label}]\")\n        elif ptype == \"toolCall\":\n            continue\n    return \"\".join(text_chunks), attachments\n\n\ndef tool_result_text(data: dict[str, Any]) -> str:\n    if \"result\" in data:\n        return str(data.get(\"result\", \"\"))\n    message = data.get(\"message\", {})\n    content = message.get(\"content\", data.get(\"content\", \"\"))\n    text, attachments = text_from_content_parts(content)\n    if attachments:\n        return \"\\n\".join(attachments + ([text] if text else []))\n    return text\n\n\ndef parse_events_to_messages(events_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:\n    messages: list[dict[str, Any]] = []\n    stats: dict[str, Any] = {\n        \"events\": 0,\n        \"user\": 0,\n        \"assistant\": 0,\n        \"tool_calls\": 0,\n        \"tool_results\": 0,\n        \"tool_errors\": 0,\n        \"tools\": Counter(),\n        \"model\": None,\n        \"provider\": None,\n    }\n\n    if not events_path.exists():\n        return messages, stats\n\n    with events_path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            if not line.strip():\n                continue\n            try:\n                event = json.loads(line)\n            except json.JSONDecodeError:\n                continue\n\n            stats[\"events\"] += 1\n            etype = event.get(\"type\")\n            ts = event.get(\"ts\") or event.get(\"timestamp\")\n            data = event.get(\"data\", {}) or {}\n            stats[\"model\"] = stats[\"model\"] or event.get(\"modelId\")\n            stats[\"provider\"] = stats[\"provider\"] or event.get(\"provider\")\n\n            if etype == \"user.message\":\n                message = data.get(\"message\", {})\n                text, attachments = text_from_content_parts(message.get(\"content\", []))\n                messages.append({\n                    \"role\": \"user\",\n                    \"timestamp\": ts,\n                    \"content\": text.strip(),\n                    \"attachments\": attachments,\n                })\n                stats[\"user\"] += 1\n\n            elif etype == \"assistant.message\":\n                message = data.get(\"message\", {})\n                text, _ = text_from_content_parts(message.get(\"content\", []))\n                if text.strip():\n                    messages.append({\n                        \"role\": \"assistant\",\n                        \"timestamp\": ts,\n                        \"content\": text.strip(),\n                    })\n                    stats[\"assistant\"] += 1\n\n            elif etype == \"tool.call\":\n                name = data.get(\"name\") or data.get(\"toolName\") or \"unknown\"\n                messages.append({\n                    \"role\": \"tool_call\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"input\": data.get(\"arguments\", data.get(\"input\", {})),\n                })\n                stats[\"tool_calls\"] += 1\n                stats[\"tools\"][name] += 1\n\n            elif etype == \"tool.result\":\n                message = data.get(\"message\", {})\n                name = data.get(\"name\") or data.get(\"toolName\") or message.get(\"toolName\") or \"unknown\"\n                error = data.get(\"error\") or message.get(\"error\")\n                output = tool_result_text(data)\n                messages.append({\n                    \"role\": \"tool_result\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"output\": output,\n                    \"error\": error,\n                })\n                stats[\"tool_results\"] += 1\n                if error or re.search(r\"\\b(error|failed|timeout|timed out|exception)\\b\", output, re.I):\n                    stats[\"tool_errors\"] += 1\n\n    return messages, stats\n\n\ndef strip_ansi(text: str) -> str:\n    return ANSI_RE.sub(\"\", text)\n\n\ndef find_signals(messages: list[dict[str, Any]], logs: str) -> dict[str, list[str]]:\n    corpus_parts: list[str] = [logs]\n    signal_tools = {\"exec\", \"process\", \"image\", \"run_command\", \"bash\", \"browser\", \"mcp\", \"openclaw\"}\n    for msg in messages:\n        if msg.get(\"role\") != \"tool_result\":\n            continue\n        tool = str(msg.get(\"tool\") or \"\").lower()\n        output = str(msg.get(\"output\") or \"\")\n        if msg.get(\"error\") or tool in signal_tools:\n            corpus_parts.append(output)\n    corpus = strip_ansi(\"\\n\".join(corpus_parts))\n\n    patterns = {\n        \"errors\": r\"(?im)^.*\\b(error|failed|exception|traceback|timed out|timeout)\\b.*$\",\n        \"fallbacks\": r\"(?im)^.*\\b(fallback|failover|recovery|retry|降级|回退|重试)\\b.*$\",\n        \"long_running\": r\"(?im)^.*\\b(long-running|queued_behind_active_work|event_loop_delay|queueDepth|still running)\\b.*$\",\n        \"slow_gateway\": r\"(?im)^.*\\b(gateway/ws|node\\.list|chat\\.history)\\b.*(?:[1-9][0-9]{3,}ms).*$\",\n    }\n    signals: dict[str, list[str]] = {}\n    for key, pattern in patterns.items():\n        seen: list[str] = []\n        for m in re.finditer(pattern, corpus):\n            line = m.group(0).strip()\n            if line and line not in seen:\n                seen.append(line[:500])\n            if len(seen) >= 8:\n                break\n        signals[key] = seen\n    return signals\n\n\ndef generate_analysis(\n    issue_title: str,\n    session_key: str,\n    stats: dict[str, Any],\n    logs: str,\n    messages: list[dict[str, Any]],\n) -> str:\n    signals = find_signals(messages, logs)\n    tools = stats.get(\"tools\") or Counter()\n    top_tools = \", \".join(f\"{name}×{count}\" for name, count in tools.most_common(8)) or \"none\"\n\n    likely_causes: list[str] = []\n    if signals[\"errors\"]:\n        likely_causes.append(\"工具或上游服务存在错误 / 超时，需要优先查看 Tool Output 和 Backend Logs 中的 error/timeout 行。\")\n    if signals[\"fallbacks\"]:\n        likely_causes.append(\"执行链路触发 fallback/failover/retry，说明主链路不稳定或被上游拒绝，结果可能来自降级路径。\")\n    if signals[\"long_running\"]:\n        likely_causes.append(\"存在 long-running / queued_behind_active_work / event_loop_delay，可能是后台队列、事件循环或长工具调用导致响应延迟。\")\n    if signals[\"slow_gateway\"]:\n        likely_causes.append(\"Backend Logs 出现高耗时 gateway/ws 请求，可能影响前端感知速度或消息同步。\")\n    if not likely_causes:\n        likely_causes.append(\"未在导出内容中发现明显 error/timeout/fallback/long-running 信号，可从完整聊天记录和原始 events.jsonl 继续人工定位。\")\n\n    lines = [\n        \"### 定位摘要\",\n        \"\",\n        f\"- **问题标题**：{issue_title}\",\n        f\"- **Session Key**：`{session_key}`\",\n        f\"- **模型/提供方**：`{stats.get('provider') or 'unknown'}` / `{stats.get('model') or 'unknown'}`\",\n        f\"- **事件数**：{stats.get('events', 0)}；用户消息 {stats.get('user', 0)}；AI 消息 {stats.get('assistant', 0)}；工具调用 {stats.get('tool_calls', 0)}；工具结果 {stats.get('tool_results', 0)}；疑似工具错误 {stats.get('tool_errors', 0)}\",\n        f\"- **高频工具**：{top_tools}\",\n        \"\",\n        \"### 初步判断\",\n        \"\",\n    ]\n    lines.extend(f\"- {cause}\" for cause in likely_causes)\n\n    def section(title: str, key: str) -> None:\n        values = signals.get(key) or []\n        lines.extend([\"\", f\"### {title}\", \"\"])\n        if not values:\n            lines.append(\"- 未发现明显信号。\")\n        else:\n            for value in values:\n                lines.append(f\"- `{value}`\")\n\n    section(\"错误 / 超时信号\", \"errors\")\n    section(\"Fallback / Retry 信号\", \"fallbacks\")\n    section(\"队列 / 长运行信号\", \"long_running\")\n    section(\"慢网关信号\", \"slow_gateway\")\n\n    lines.extend([\n        \"\",\n        \"### 建议下一步\",\n        \"\",\n        \"1. 先看上面的错误/超时信号，确认是否与用户报障时间点一致。\",\n        \"2. 再看聊天记录中相邻的 Tool Call / Tool Output，确认触发参数、路径、模型和降级链路。\",\n        \"3. 如果本 md 不够定位，继续查看同目录原始 `events.jsonl`、`manifest.json`、`metadata.json`。\",\n    ])\n    return \"\\n\".join(lines)\n\n\ndef fence_text(text: str, limit: int | None = None) -> str:\n    text = str(text or \"\")\n    if limit and len(text) > limit:\n        text = text[:limit] + f\"\\n...[truncated {len(text) - limit} chars]\"\n    return text.replace(\"```\", \"``\\\\`\")\n\n\ndef generate_markdown_report(\n    session_key: str,\n    agent_name: str,\n    issue_title: str,\n    messages: list[dict[str, Any]],\n    logs: str,\n    analysis: str,\n    export_dir: Path,\n) -> str:\n    lines = [\n        f\"# Chat with {agent_name}\",\n        \"\",\n        \"## AI Analysis\",\n        \"\",\n        analysis,\n        \"\",\n        \"---\",\n        \"\",\n        \"## Export Metadata\",\n        \"\",\n        f\"- Issue: `{issue_title}`\",\n        f\"- Session: `{session_key}`\",\n        f\"- Raw trajectory bundle: `{export_dir}`\",\n        f\"- Generated at: `{dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]}Z`\",\n        \"\",\n        \"---\",\n        \"\",\n    ]\n\n    for msg in messages:\n        role = msg.get(\"role\")\n        timestamp = format_timestamp(msg.get(\"timestamp\"))\n\n        if role == \"user\":\n            lines.extend([f\"## You ({timestamp})\", \"\"])\n            for attachment in msg.get(\"attachments\", []):\n                lines.append(attachment)\n            if msg.get(\"content\"):\n                lines.append(msg[\"content\"])\n            lines.append(\"\")\n\n        elif role == \"assistant\":\n            lines.extend([f\"## {agent_name} ({timestamp})\", \"\", msg.get(\"content\", \"\"), \"\"])\n\n        elif role == \"tool_call\":\n            tool_name = msg.get(\"tool\", \"unknown\")\n            lines.extend([\n                f\"## {agent_name} ({timestamp})\",\n                \"\",\n                f\"🔧 **Tool Call**: `{tool_name}` ({tool_name})\",\n                \"**Input**:\",\n                \"```json\",\n                fence_text(json.dumps(msg.get(\"input\", {}), indent=2, ensure_ascii=False), 12000),\n                \"```\",\n                \"\",\n            ])\n\n        elif role == \"tool_result\":\n            tool_name = msg.get(\"tool\", \"unknown\")\n            lines.extend([f\"## Tool ({timestamp})\", \"\"])\n            if msg.get(\"error\"):\n                lines.extend([\n                    f\"❌ **Tool Error**: `{tool_name}` ({tool_name})\",\n                    f\"**Error**: {msg.get('error')}\",\n                    \"\",\n                ])\n            lines.extend([\n                f\"📦 **Tool Output**: `{tool_name}` ({tool_name})\",\n                \"**Output**:\",\n                \"```text\",\n                fence_text(msg.get(\"output\", \"\"), 12000),\n                \"```\",\n                \"\",\n            ])\n\n    if logs:\n        lines.extend([\n            \"\",\n            \"## Backend Logs\",\n            \"\",\n            \"```log\",\n            fence_text(strip_ansi(logs), 30000),\n            \"```\",\n        ])\n\n    return \"\\n\".join(lines).rstrip() + \"\\n\"\n\n\ndef read_manifest(output_dir: Path) -> dict[str, Any]:\n    try:\n        return json.loads((output_dir / \"manifest.json\").read_text(encoding=\"utf-8\"))\n    except Exception:\n        return {}\n\n\ndef main() -> int:\n    ap = argparse.ArgumentParser(description=\"Export OpenClaw session as a chat-style markdown debug report\")\n    ap.add_argument(\"--workspace\", default=os.getcwd(), help=\"Workspace/state root used by openclaw sessions export-trajectory\")\n    ap.add_argument(\"--session-key\", default=\"current\", help=\"Session key to export; use 'current' to auto-resolve\")\n    ap.add_argument(\"--agent\", \"--agent-id\", dest=\"agent_id\", default=None, help=\"Agent id to prefer when resolving --session-key current\")\n    ap.add_argument(\"--chat-type\", choices=[\"direct\", \"group\", \"channel\"], default=None, help=\"Chat type to prefer when resolving --session-key current\")\n    ap.add_argument(\"--peer-id\", default=None, help=\"Peer/chat id to prefer when resolving --session-key current, such as ou_xxx or oc_xxx\")\n    ap.add_argument(\"--issue\", required=True, help=\"Short issue title, used in report and filename\")\n    ap.add_argument(\"--agent-name\", default=\"小爪\", help=\"Agent display name in chat headings\")\n    ap.add_argument(\"--output-dir\", default=None, help=f\"Report output directory; default: {default_report_dir()}\")\n    ap.add_argument(\"--log-lines\", type=int, default=300, help=\"How many gateway log lines to capture\")\n    ap.add_argument(\"--max-bytes\", type=int, default=400000, help=\"Max bytes when capturing gateway logs\")\n    ap.add_argument(\"--no-logs\", action=\"store_true\", help=\"Skip backend log capture\")\n    args = ap.parse_args()\n\n    workspace = Path(args.workspace).expanduser().resolve()\n    session_key = clean_string(args.session_key) or \"current\"\n    if session_key == \"current\":\n        session_key = resolve_current_session_key(\n            workspace=workspace,\n            cwd=Path.cwd(),\n            agent_id=args.agent_id,\n            chat_type=args.chat_type,\n            peer_id=args.peer_id,\n        )\n        if not session_key:\n            sys.stderr.write(\"Failed to auto-resolve current session key. Pass --session-key explicitly.\\n\")\n            return 2\n\n    generated_ts = dt.datetime.now().strftime(\"%Y%m%d-%H%M%S\")\n    issue_slug = slugify(args.issue, \"issue\")\n    session_slug = slugify(session_key.split(\":\")[-1], \"session\")\n    bundle_name = f\"{generated_ts}__{issue_slug}__{session_slug}\"\n\n    export_res = run([\n        \"openclaw\", \"sessions\", \"export-trajectory\",\n        \"--session-key\", session_key,\n        \"--workspace\", str(workspace),\n        \"--output\", bundle_name,\n        \"--json\",\n    ], cwd=workspace)\n    if export_res.returncode != 0:\n        sys.stderr.write(export_res.stdout)\n        sys.stderr.write(export_res.stderr)\n        return export_res.returncode\n\n    try:\n        export_data = json.loads(export_res.stdout.strip().splitlines()[-1])\n    except Exception:\n        export_data = {}\n    output_dir = Path(export_data.get(\"outputDir\") or workspace / \".openclaw\" / \"trajectory-exports\" / bundle_name)\n\n    messages, stats = parse_events_to_messages(output_dir / \"events.jsonl\")\n    manifest = read_manifest(output_dir)\n    stats[\"events\"] = manifest.get(\"eventCount\", stats.get(\"events\", 0))\n\n    logs = \"\"\n    if not args.no_logs:\n        logs_res = run([\n            \"openclaw\", \"logs\",\n            \"--limit\", str(args.log_lines * 3),\n            \"--max-bytes\", str(args.max_bytes * 3),\n            \"--plain\",\n            \"--local-time\",\n        ], cwd=workspace)\n        all_logs = (logs_res.stdout or logs_res.stderr or \"\").strip()\n\n        session_id = manifest.get(\"sessionId\", \"\")\n\n        filter_patterns = [session_key, session_id]\n        filter_patterns = [p for p in filter_patterns if p]\n\n        if filter_patterns:\n            filtered_lines = []\n            for line in all_logs.splitlines():\n                if any(pattern in line for pattern in filter_patterns):\n                    filtered_lines.append(line)\n                    if len(\"\\n\".join(filtered_lines)) > args.max_bytes:\n                        break\n            logs = \"\\n\".join(filtered_lines[:args.log_lines])\n        else:\n            logs = all_logs[:args.max_bytes]\n\n    analysis = generate_analysis(args.issue, session_key, stats, logs, messages)\n    report = generate_markdown_report(\n        session_key=session_key,\n        agent_name=args.agent_name,\n        issue_title=args.issue,\n        messages=messages,\n        logs=logs,\n        analysis=analysis,\n        export_dir=output_dir,\n    )\n\n    report_dir = Path(args.output_dir).expanduser() if args.output_dir else default_report_dir()\n    report_dir.mkdir(parents=True, exist_ok=True)\n    report_name = build_report_filename(generated_ts, session_key, args.issue)\n    report_path = report_dir / report_name\n    report_path.write_text(report, encoding=\"utf-8\")\n\n    print(json.dumps({\n        \"sessionKey\": session_key,\n        \"issue\": args.issue,\n        \"outputFile\": str(report_path),\n        \"rawBundleDir\": str(output_dir),\n        \"messageCount\": len(messages),\n        \"eventCount\": stats.get(\"events\"),\n        \"toolErrorSignals\": stats.get(\"tool_errors\"),\n    }, ensure_ascii=False, indent=2))\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+              "path": "$WORKSPACE_DIR/workspace-design/outputs/_temp_export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 6615,
+          "output": 7300,
+          "cacheRead": 36352,
+          "cacheWrite": 0,
+          "totalTokens": 50267,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780995068808,
+        "responseId": "chatcmpl-8fb80948"
+      }
+    },
+    {
+      "type": "message",
+      "id": "9c4eec91",
+      "parentId": "e0ea8e79",
+      "timestamp": "2026-06-09T08:53:24.372Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_dmsRii09IlVH82L2zI2YJoT8",
+        "toolName": "write",
+        "content": [
+          {
+            "type": "text",
+            "text": "Successfully wrote 25691 bytes to $WORKSPACE_DIR/workspace-design/outputs/_temp_export_chat_report.py"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1780995204372
+      }
+    },
+    {
+      "type": "message",
+      "id": "98e477f5",
+      "parentId": "9c4eec91",
+      "timestamp": "2026-06-09T08:53:31.893Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "我先按规范导出当前这段会话记录，然后把导出的 md 文件直接发给你。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_CO2MsZJYNvxJdwxKEoU4Frz2",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 $WORKSPACE_DIR/workspace-design/outputs/_temp_export_chat_report.py --workspace $OPENCLAW_STATE_DIR --session-key current --issue \"聊天记录导出\" --agent-name \"design\"",
+              "timeout": 180,
+              "yieldMs": 180
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 7807,
+          "output": 104,
+          "cacheRead": 42496,
+          "cacheWrite": 0,
+          "totalTokens": 50407,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780995204373,
+        "responseId": "chatcmpl-b638d883"
+      }
+    },
+    {
+      "type": "message",
+      "id": "c31d58e5",
+      "parentId": "98e477f5",
+      "timestamp": "2026-06-09T08:53:32.130Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_CO2MsZJYNvxJdwxKEoU4Frz2",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session neat-breeze, pid 87386). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "neat-breeze",
+          "pid": 87386,
+          "startedAt": 1780995211937,
+          "cwd": "$WORKSPACE_DIR/workspace-design",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1780995212130
+      }
+    },
+    {
+      "type": "message",
+      "id": "0c90c2c2",
+      "parentId": "c31d58e5",
+      "timestamp": "2026-06-09T08:53:36.958Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_5E7MtjmkBhhNW14iyzqY6Rwi",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 200,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "neat-breeze",
+              "text": "",
+              "timeout": 30000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.4",
+        "usage": {
+          "input": 273,
+          "output": 61,
+          "cacheRead": 50176,
+          "cacheWrite": 0,
+          "totalTokens": 50510,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1780995212131,
+        "responseId": "chatcmpl-6e793080"
+      }
+    }
+  ]
+}

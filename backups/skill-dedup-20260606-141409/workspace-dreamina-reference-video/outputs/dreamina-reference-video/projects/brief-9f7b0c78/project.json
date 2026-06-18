@@ -1,0 +1,187 @@
+{
+  "schema_version": 2,
+  "project_id": "brief-9f7b0c78",
+  "project_name": "端午龙舟海报场景：卡通龙舟载着粽子与黑金杯状产品，在竹林水面中前行",
+  "project_slug": "brief-9f7b0c78",
+  "project_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78",
+  "defaults": {
+    "ratio": "9:16",
+    "duration": 5,
+    "quality_tier": "draft",
+    "storyboard_strategy": "auto_beats",
+    "normalize_references": true,
+    "identity_strategy": "reuse_exact"
+  },
+  "constraints": {
+    "must_have": [
+      {
+        "id": "structure-0",
+        "type": "must_have",
+        "description": "最终尾帧必须严格贴合定版海报构图：龙舟、粽子、黑金杯状产品、竹林、水面、阳光位置都保持一致",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-1",
+        "type": "must_have",
+        "description": "龙头是绿色与橙红色卡通龙，鹿角、胡须、张嘴表情明显",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-2",
+        "type": "must_have",
+        "description": "黑色杯状产品在龙舟中后部，正面有金色圆环标识",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "structure-3",
+        "type": "must_have",
+        "description": "龙舟内有绿色粽子，船桨在右侧，水面有清晰倒影和涟漪",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      }
+    ],
+    "must_not_have": [
+      {
+        "id": "forbidden-0",
+        "type": "must_not_have",
+        "description": "禁止改变尾帧海报的主体结构和位置",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-1",
+        "type": "must_not_have",
+        "description": "禁止把龙舟变成普通船或真实龙",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-2",
+        "type": "must_not_have",
+        "description": "禁止增加无关人物、文字、logo、额外产品",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-3",
+        "type": "must_not_have",
+        "description": "禁止把黑金杯状产品变形或移出船体",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      },
+      {
+        "id": "forbidden-4",
+        "type": "must_not_have",
+        "description": "禁止最后一帧和定版海报明显不一致",
+        "strength": 0.9,
+        "applies_to": [
+          "identity_board",
+          "storyboard",
+          "video"
+        ],
+        "validation_mode": "manual"
+      }
+    ],
+    "prefer": []
+  },
+  "validation_rules": {
+    "reference_system": [],
+    "storyboard": [],
+    "video": []
+  },
+  "iteration_strategy": {
+    "max_iterations": 3,
+    "max_same_error_repeats": 2,
+    "improvement_threshold": 0.15,
+    "ask_user_on_manual_checks": true
+  },
+  "canonical_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/canonical/original.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/canonical/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/canonical/identity-board.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/canonical/final-frame-poster.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/canonical/storyboard.png"
+  },
+  "state": {
+    "status": "references_generated",
+    "current_phase": "generate_refs",
+    "latest_run_id": "20260605-110352-brief-9f7b0c78",
+    "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78",
+    "updated_at": "2026-06-05T11:07:40+08:00"
+  },
+  "runs": [
+    {
+      "run_id": "20260605-110352-brief-9f7b0c78",
+      "stage": "generate_refs",
+      "status": "references_generated",
+      "run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78",
+      "brief_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/brief.json",
+      "summary_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/summary.md",
+      "prompt_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/prompts/original.txt",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/prompts/identity-board.txt",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/prompts/storyboard.txt",
+        "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/prompts/video.txt"
+      },
+      "reference_files": {
+        "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/refs/original.png",
+        "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/refs/identity-source.png",
+        "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/refs/identity-board.png",
+        "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/refs/storyboard.png",
+        "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/refs/final-frame-poster.png",
+        "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78/refs/normalized/manifest.json"
+      },
+      "updated_at": "2026-06-05T11:07:40+08:00",
+      "created_at": "2026-06-05T11:03:52+08:00"
+    }
+  ],
+  "created_at": "2026-06-05T11:03:52+08:00",
+  "updated_at": "2026-06-05T11:07:40+08:00",
+  "status": "references_generated",
+  "current_phase": "generate_refs",
+  "latest_run_id": "20260605-110352-brief-9f7b0c78",
+  "latest_run_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-9f7b0c78/runs/20260605-110352-brief-9f7b0c78"
+}

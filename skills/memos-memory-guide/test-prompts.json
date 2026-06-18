@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "prompt": "上次我们讨论的那个 API 接口设计方案，最后决定用什么方案来着？",
+    "expected": "调用 memory_search 搜索历史对话、返回相关决策记录"
+  },
+  {
+    "id": 2,
+    "prompt": "帮我把今天讨论的数据库迁移方案记录下来，以后可能还会用到",
+    "expected": "调用 memory_write_public 保存为 public 记忆、确认保存成功"
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "traceSchema": "openclaw-trajectory",
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-17T08:24:49.303Z",
+  "traceId": "a561df18-5c8d-413d-ad2c-60a06970c7ff",
+  "sessionId": "a561df18-5c8d-413d-ad2c-60a06970c7ff",
+  "sessionKey": "agent:strategy:feishu:direct:ou_442533093a478558484ef6461b4d4a56",
+  "finalStatus": "success",
+  "aborted": false,
+  "externalAbort": false,
+  "timedOut": false,
+  "idleTimedOut": false,
+  "timedOutDuringCompaction": false,
+  "timedOutDuringToolExecution": false,
+  "promptErrorSource": null,
+  "usage": {
+    "input": 14243,
+    "output": 272,
+    "cacheRead": 49664,
+    "reasoningTokens": 69,
+    "total": 64179
+  },
+  "promptCache": {
+    "lastCallUsage": {
+      "input": 870,
+      "output": 189,
+      "cacheRead": 31232,
+      "cacheWrite": 0,
+      "reasoningTokens": 57,
+      "total": 32291
+    },
+    "lastCacheTouchAt": 1781684494796
+  },
+  "compactionCount": 0,
+  "assistantTexts": [
+    "这张图是一个微信聊天截图，能清楚看到的信息是：\n\n- 时间：**16:05**\n- 发送人显示为：**任某汇**\n- 消息内容：**“@王师谛 6月已付”**\n- 下面附了一张付款/收据类图片，右下角有红色印章，但图片太小，具体金额、单位、明细看不清。\n\n核心意思：**有人在群里通知王师谛：6月份的款项已经支付了，并附了付款凭证/收据截图。**"
+  ],
+  "finalPromptText": "Conversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_442533093a478558484ef6461b4d4a56\",\n  \"message_id\": \"om_x100b6c11de99bcb8c19413de0b3a646\",\n  \"sender_id\": \"ou_442533093a478558484ef6461b4d4a56\",\n  \"sender\": \"涂是淦\",\n  \"timestamp\": \"Wed 2026-06-17 16:21:25 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"涂是淦 (ou_442533093a478558484ef6461b4d4a56)\",\n  \"id\": \"ou_442533093a478558484ef6461b4d4a56\",\n  \"name\": \"涂是淦\"\n}\n```\n\n[media attached: $WORKSPACE_DIR/workspace-strategy/.openclaw-inbound-media/ffed1392-241a-4904-b7c9-6bab4af66e6b.jpg (image/jpeg)]\n$WORKSPACE_DIR/workspace-strategy/.openclaw-inbound-media/ffed1392-241a-4904-b7c9-6bab4af66e6b.jpg\n看一下这张图里面说了什么",
+  "itemLifecycle": {
+    "startedCount": 1,
+    "completedCount": 1,
+    "activeCount": 0
+  },
+  "toolMetas": [
+    {
+      "toolName": "read",
+      "meta": "lines 1-2000 from ~/.openclaw/workspace-strategy/.openclaw-inbound-media/ffed1392-241a-4904-b7c9-6bab4af66e6b.jpg"
+    }
+  ],
+  "didSendViaMessagingTool": false,
+  "successfulCronAdds": 0,
+  "messagingToolSentTexts": [],
+  "messagingToolSentMediaUrls": [],
+  "messagingToolSentTargets": []
+}

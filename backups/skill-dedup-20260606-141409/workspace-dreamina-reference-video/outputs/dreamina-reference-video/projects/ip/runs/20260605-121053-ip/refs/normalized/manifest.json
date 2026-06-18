@@ -1,0 +1,32 @@
+[
+  {
+    "role": "final_frame_poster",
+    "source_path": "/Users/a123/.openclaw/workspace/outputs/dreamina-cloud-toast-video/assets/final_frame_poster.jpg",
+    "source_format": "JPEG",
+    "source_width": 1535,
+    "source_height": 2732,
+    "source_bytes": 1947993,
+    "normalized_path": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/normalized/final-frame-poster.png",
+    "normalized_format": "JPEG",
+    "normalized_width": 1078,
+    "normalized_height": 1920,
+    "normalized_bytes": 270478,
+    "alpha_flattened": false,
+    "changed": true
+  },
+  {
+    "role": "identity_source",
+    "source_path": "/Users/a123/.openclaw/workspace/outputs/dreamina-cloud-toast-video/assets/ip_front.png",
+    "source_format": "PNG",
+    "source_width": 4096,
+    "source_height": 4096,
+    "source_bytes": 8047229,
+    "normalized_path": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/ip/runs/20260605-121053-ip/refs/normalized/identity-source.png",
+    "normalized_format": "JPEG",
+    "normalized_width": 1920,
+    "normalized_height": 1920,
+    "normalized_bytes": 314168,
+    "alpha_flattened": false,
+    "changed": true
+  }
+]

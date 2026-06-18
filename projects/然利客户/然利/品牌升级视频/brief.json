@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "project_name": "品牌升级视频",
+  "video_specs": {
+    "format": "横版 16:9",
+    "duration": "约30秒",
+    "segments": 4,
+    "segment_duration": "6-8秒/段"
+  },
+  "theme": "然利 Logo/品牌形象升级",
+  "brand_evolution": {
+    "from": "手工感、传统、略旧",
+    "to": "专业、现代、高级、规范"
+  },
+  "target_audience": "渠道客户、经销商",
+  "key_messages": [
+    "从手工感转向专业品牌感",
+    "提升终端识别和招商形象",
+    "品牌更规范、更适合终端展示"
+  ],
+  "segments_plan": [
+    {
+      "segment": 1,
+      "title": "旧识别到升级动机",
+      "description": "画面从旧Logo/老式包装开始，氛围偏传统手工，镜头推进到Logo细节，暗示品牌升级"
+    },
+    {
+      "segment": 2,
+      "title": "新Logo结构重塑",
+      "description": "旧Logo元素拆解、线条归整、比例优化，过渡到新Logo成型，体现简洁现代专业"
+    },
+    {
+      "segment": 3,
+      "title": "新品牌应用矩阵",
+      "description": "新Logo应用在包装、纸袋、名片、工作服、车贴等物料，高级品牌物料陈列，一屏集合呈现"
+    },
+    {
+      "segment": 4,
+      "title": "终端与招商形象收束",
+      "description": "新包装进入货架/渠道展示/品牌终端场景，收束到新Logo+品牌广告语定版画面"
+    }
+  ],
+  "logo_upgrade_points": [
+    "去掉\"手工\"两个字",
+    "比例调整",
+    "更现代、更高级、更简洁",
+    "保留\"然利\"品牌名、擀面杖符号、外框、原有识别色系"
+  ],
+  "no_text_subtitles": true,
+  "final_frame": "新Logo + 品牌广告语"
+}

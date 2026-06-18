@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "project_id": "boss测试品牌2_230413-boss测试项目_230413",
+  "brand_name": "Boss测试品牌2_230413",
+  "campaign_name": "Boss测试项目_230413",
+  "campaign_type": "integrated_marketing",
+  "current_stage": "brief_intake",
+  "lifecycle_status": "active",
+  "project_summary": "",
+  "business_objective": "",
+  "communication_objective": "",
+  "target_audience": "",
+  "budget_range": "",
+  "timeline": {
+    "start_date": "",
+    "launch_date": "",
+    "end_date": ""
+  },
+  "brand_profile_path": "../_brand-profile.json",
+  "stage_checkpoints": {
+    "brief_intake": {
+      "status": "in_progress",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "problem_alignment": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "research": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "strategy": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "creative_direction": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "direction_confirmation": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    },
+    "execution": {
+      "status": "pending",
+      "completed_at": "",
+      "user_confirmed": false
+    }
+  },
+  "created_at": "2026-06-15T23:04:13.166396+08:00",
+  "updated_at": "2026-06-15T23:04:13.166396+08:00",
+  "last_activity_at": "2026-06-15T23:04:13.166396+08:00"
+}

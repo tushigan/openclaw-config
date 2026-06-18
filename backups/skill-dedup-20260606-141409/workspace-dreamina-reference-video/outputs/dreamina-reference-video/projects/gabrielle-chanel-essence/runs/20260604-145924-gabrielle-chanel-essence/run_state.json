@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "run_id": "20260604-145924-gabrielle-chanel-essence",
+  "project_id": "gabrielle-chanel-essence",
+  "stage": "submit_video",
+  "status": "video_submit_failed",
+  "created_at": "2026-06-04T14:59:24+08:00",
+  "updated_at": "2026-06-04T15:37:06+08:00",
+  "config_snapshot": {
+    "project_name": "Gabrielle Chanel Essence 香水瓶",
+    "project_slug": "gabrielle-chanel-essence",
+    "ratio": "9:16",
+    "duration": 5,
+    "quality_tier": "final",
+    "language": "zh-CN",
+    "storyboard_strategy": "auto_beats",
+    "storyboard_panel_count_override": null,
+    "storyboard_beats_override": [],
+    "identity_strategy": "reuse_exact",
+    "identity_anchor_rules": [],
+    "identity_structure": [],
+    "identity_forbidden": [],
+    "has_existing_references": true,
+    "anchor_elements": [],
+    "notes": "首帧严格参考图1。视频过程里向日葵与绿叶在微风中缓慢摆动并自然退场，过渡为金色麦浪；背景逐步展开为图2的蓝色远山、旋涡云层和高耸柏树。香水瓶始终稳定居中，瓶身比例准确，玻璃通透发光，标签完整干净，不变形、不漂移、不模糊。转场丝滑自然，不跳切。",
+    "normalize_references": true,
+    "subject": "Gabrielle Chanel Essence 香水瓶",
+    "action": "从向日葵花海中的静置状态，自然演变到梵高式麦田场景",
+    "scene": "图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观",
+    "style": "高级香水广告片，厚涂油画质感，后印象派，温暖金黄色主调，诗意奢华",
+    "existing_references": {
+      "identity_source": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/54730880-8fe2-4953-97b7-c64192c308b2.png",
+      "final_frame_poster": "/Users/a123/.openclaw/workspace/.openclaw-inbound-media/1234eafa-1ee7-4b41-97d4-3429832acb97.jpg"
+    },
+    "storyboard_beats": [
+      "建立空间：图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观",
+      "动作推进：从向日葵花海中的静置状态",
+      "动作推进：自然演变到梵高式麦田场景",
+      "收束定格：主体收束到定版海报构图，文案元素逐渐出现"
+    ],
+    "storyboard_panel_count": 4,
+    "slug": "gabrielle-chanel-essence"
+  },
+  "prompt_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/prompts/original.txt",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/prompts/identity-board.txt",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/prompts/storyboard.txt",
+    "video": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/prompts/video.txt"
+  },
+  "reference_files": {
+    "original": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/original.png",
+    "identity_source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/identity-source.png",
+    "identity_board": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/identity-board.png",
+    "storyboard": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/storyboard.png",
+    "final_frame_poster": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/final-frame-poster.png",
+    "normalized_manifest": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/normalized/manifest.json"
+  },
+  "artifacts": {
+    "downloads_dir": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/dreamina/downloads",
+    "result_file": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/dreamina/result.json"
+  },
+  "prompt_risk_report": {
+    "original": {
+      "prompt_name": "original",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 12 处否定词",
+          "original_text": "否定词位置: [288, 296, 305, 192, 14]...",
+          "reason": "prompt 中有 12 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "原图任务：只负责风格与世界，不负责镜头顺序。\n主体：Gabrielle Chanel Essence 香水瓶\n主体行为：从向日葵花海中的静置状态，自然演变到梵高式麦田场景\n场景 / 世界观：图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观\n风格 / 气质：高级香水广告片，厚涂油画质感，后印象派，温暖金黄色主调，诗意奢华\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 先建立完整世界观和主画面气质。\n2. 让主体与环境关系清晰，能作为后续身份板和故事板的世界基准。\n3. 保持电影感、真实感、可继续扩展成视频的空间信息。\n4. 不要做分镜拼贴，不要出现分镜网格，不要用设定板版式。\n补充说明：首帧严格参考图1。视频过程里向日葵与绿叶在微风中缓慢摆动并自然退场，过渡为金色麦浪；背景逐步展开为图2的蓝色远山、旋涡云层和高耸柏树。香水瓶始终稳定居中，瓶身比例准确，玻璃通透发光，标签完整干净，不变形、不漂移、不模糊。转场丝滑自然，不跳切。"
+      }
+    },
+    "identity_board": {
+      "prompt_name": "identity_board",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 16 处否定词",
+          "original_text": "否定词位置: [215, 222, 409, 357, 15]...",
+          "reason": "prompt 中有 16 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "身份板任务：只负责角色一致性，不负责背景叙事。\n主体：Gabrielle Chanel Essence 香水瓶\n主体行为线索：从向日葵花海中的静置状态，自然演变到梵高式麦田场景\n目标：生成一张适合 9:16 项目的角色身份板 / 角色设定板。\n这次模式：已有准确三视图 / 定稿图，身份板主要作为复用说明，不允许改动角色结构真相。\n要求：\n1. 严格锁定主体的脸、发型、服装、身体比例、手部、表情和姿态语言。\n2. 使用纯净浅底，不要复杂背景，不要重新讲故事。\n3. 版式偏高端工作室设定板：大主视角 + 多个辅助角度 + 局部细节。\n4. 只负责角色一致性，不出现 12 格分镜，不重新定义世界观。\n5. 如果主体是动物或非人角色，也要把毛发、肢体比例、表情范围和关键特征锁住。\n6. 结构真相：保持主体的核心识别点稳定不漂。\n7. 用户提供的 identity-source 是角色结构最高依据，任何延展版身份板都不能推翻它。\n补充说明：首帧严格参考图1。视频过程里向日葵与绿叶在微风中缓慢摆动并自然退场，过渡为金色麦浪；背景逐步展开为图2的蓝色远山、旋涡云层和高耸柏树。香水瓶始终稳定居中，瓶身比例准确，玻璃通透发光，标签完整干净，不变形、不漂移、不模糊。转场丝滑自然，不跳切。"
+      }
+    },
+    "storyboard": {
+      "prompt_name": "storyboard",
+      "risks": [
+        {
+          "risk_type": "conceptual_description",
+          "severity": "medium",
+          "location": "位置 549",
+          "original_text": "：保留能稳定识别空间关系的地标。\n9. 故事板里的角色首先要读成身份板里的核心轮廓，不能被画成一个新的普通角色。\n10. 如",
+          "reason": "使用了概念型描述词 '读成'，可能导致模型理解不准确",
+          "suggestion": "改用具体的视觉特征描述，如'外轮廓是'、'体块结构是'、'关键特征包括'等"
+        },
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 25 处否定词",
+          "original_text": "否定词位置: [227, 237, 432, 460, 698]...",
+          "reason": "prompt 中有 25 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "故事板任务：只负责镜头与动作节奏，不负责重新定义角色。\n主体：Gabrielle Chanel Essence 香水瓶\n主体行为主线：从向日葵花海中的静置状态，自然演变到梵高式麦田场景\n场景 / 世界观：图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观\n空间锚点：保留能稳定识别空间关系的地标\n要求：\n1. 根据本次关键帧规划，做成 4 格黑白导演分镜稿。\n2. **每一格都必须是独立的 9:16 成片画幅**。不要做横向长条单格，不要把多格画成电影条带。整张看板怎么排版都可以，但每格内部画幅必须服从 9:16 成片比例。\n3. **每格必须包含文字标注**：用文字标注景别（特写/中景/全景）、运镜方向（推/拉/摇/跟）、关键动作描述。这是专业导演分镜板的标准要求。\n4. **使用箭头指示运镜方向和动作路径**：让分镜板的镜头语言和动作意图一目了然，提高可读性和执行性。\n5. 强调连续空间，同一世界内完成镜头推进，不要每格重造世界。\n6. 主体身份必须保持和身份板一致，不要变脸、变衣服、变体型。\n7. 让故事从建立空间，到动作推进，到结尾收束，形成清晰视频节奏。\n8. 默认保留关键锚点：保留能稳定识别空间关系的地标。\n9. 故事板里的角色首先要外轮廓是身份板里的核心轮廓，不能被画成一个新的普通角色。\n10. 如果存在 identity-source，角色首先服从 identity-source，不服从任何漂移版身份板。\n12. 结构真相：保持主体的核心识别点稳定不漂。\n13. 如果动作设计和角色结构发生冲突，优先保住角色结构，宁可简化动作，不要改形。\n14. 分镜允许用简化线稿表达动作，但外轮廓、体块关系和关键识别点必须忠于身份板。\n15. 格数服务于关键帧，不追求平均切段。关键帧规划如下：\n1. 建立空间：图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观\n2. 动作推进：从向日葵花海中的静置状态\n3. 动作推进：自然演变到梵高式麦田场景\n4. 收束定格：主体收束到定版海报构图，文案元素逐渐出现\n补充说明：首帧严格参考图1。视频过程里向日葵与绿叶在微风中缓慢摆动并自然退场，过渡为金色麦浪；背景逐步展开为图2的蓝色远山、旋涡云层和高耸柏树。香水瓶始终稳定居中，瓶身比例准确，玻璃通透发光，标签完整干净，不变形、不漂移、不模糊。转场丝滑自然，不跳切。"
+      }
+    },
+    "video": {
+      "prompt_name": "video",
+      "risks": [
+        {
+          "risk_type": "excessive_negation",
+          "severity": "medium",
+          "location": "共 15 处否定词",
+          "original_text": "否定词位置: [311, 381, 462, 20, 449]...",
+          "reason": "prompt 中有 15 个否定词，过多的否定描述可能降低模型理解准确度",
+          "suggestion": "将部分否定描述改为正面描述，如'不要圆润'改为'保持棱角分明'"
+        }
+      ],
+      "rewrite_suggestions": {
+        "auto_rewrite": "视频提示词任务：必须引用前三张图的职责，不能重新发明一个冲突的新世界。\n使用三张参考图：\n- 原图：负责风格与世界\n- 身份板：负责角色一致性\n- 故事板：负责镜头与动作节奏\n\n视频目标：\n主体：Gabrielle Chanel Essence 香水瓶\n主体行为：从向日葵花海中的静置状态，自然演变到梵高式麦田场景\n场景 / 世界观：图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观\n风格 / 气质：高级香水广告片，厚涂油画质感，后印象派，温暖金黄色主调，诗意奢华\n比例：9:16\n时长：5 秒\n\n要求：\n1. 严格沿用故事板的镜头顺序和动作推进。\n2. 严格沿用身份板的主体身份，不要漂角色。\n3. 如果存在 identity-source，角色身份以原始三视图 / 定稿图为最高依据。\n4. 严格沿用原图的世界与色调，不要把背景改成另一套体系。\n5. 用自然流畅的镜头连接，按本次 4 格关键帧顺序压成连贯短视频。\n6. 保留明确的空间锚点：保留能稳定识别空间关系的地标。\n7. 不要重新发明新的世界观、角色设定或冲突风格。\n8. 本次关键帧规划如下：\n1. 建立空间：图1为近景向日葵花海厚涂油画场景，逐步转场到图2的辽阔麦田、蓝色远山、旋涡云层与柏树景观\n2. 动作推进：从向日葵花海中的静置状态\n3. 动作推进：自然演变到梵高式麦田场景\n4. 收束定格：主体收束到定版海报构图，文案元素逐渐出现\n9. 结构真相：保持主体的核心识别点稳定不漂。\n补充说明：首帧严格参考图1。视频过程里向日葵与绿叶在微风中缓慢摆动并自然退场，过渡为金色麦浪；背景逐步展开为图2的蓝色远山、旋涡云层和高耸柏树。香水瓶始终稳定居中，瓶身比例准确，玻璃通透发光，标签完整干净，不变形、不漂移、不模糊。转场丝滑自然，不跳切。"
+      }
+    }
+  },
+  "validation_report": {
+    "stage": "storyboard",
+    "passed": true,
+    "score": 1.0,
+    "issues": [],
+    "manual_checks": [
+      {
+        "id": "storyboard_panel_aspect",
+        "description": "故事板每一格是否都是 9:16 画幅？（不是横向长条）",
+        "checked": true
+      },
+      {
+        "id": "storyboard_panel_count",
+        "description": "故事板是否有 4 格？",
+        "checked": true
+      },
+      {
+        "id": "storyboard_continuity",
+        "description": "故事板是否保持连续空间？（不是每格重造世界）",
+        "checked": true
+      }
+    ],
+    "recovery_actions": [
+      {
+        "action": "refresh_run_state",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/run_state.json"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/storyboard.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/canonical/storyboard.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/original.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/canonical/original.png"
+      },
+      {
+        "action": "sync_canonical_reference",
+        "source": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/runs/20260604-145924-gabrielle-chanel-essence/refs/identity-source.png",
+        "target": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/gabrielle-chanel-essence/canonical/identity-source.png"
+      }
+    ]
+  },
+  "next_action": {
+    "decision": "proceed",
+    "reason": "验证通过",
+    "suggested_action": "可以继续下一阶段",
+    "reviewed_at": "2026-06-04T15:32:09+08:00",
+    "validation_stage": "storyboard"
+  },
+  "iterations": [
+    {
+      "version": 1,
+      "artifact_type": "storyboard",
+      "prompt_hash": "64a1dd6481017748",
+      "issues": [],
+      "validation_score": 1.0,
+      "cost": null,
+      "created_at": "2026-06-04T15:31:53+08:00"
+    }
+  ]
+}

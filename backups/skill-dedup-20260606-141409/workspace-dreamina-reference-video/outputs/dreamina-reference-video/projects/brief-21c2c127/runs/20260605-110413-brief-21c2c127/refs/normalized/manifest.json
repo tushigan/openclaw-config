@@ -1,0 +1,32 @@
+[
+  {
+    "role": "final_frame_poster",
+    "source_path": "/Users/a123/.openclaw/workspace/outputs/dreamina-tailframe-video-20260605/refs/final_frame_poster.jpg",
+    "source_format": "JPEG",
+    "source_width": 1702,
+    "source_height": 2269,
+    "source_bytes": 372674,
+    "normalized_path": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/refs/normalized/final-frame-poster.png",
+    "normalized_format": "JPEG",
+    "normalized_width": 1440,
+    "normalized_height": 1920,
+    "normalized_bytes": 331115,
+    "alpha_flattened": false,
+    "changed": true
+  },
+  {
+    "role": "identity_source",
+    "source_path": "/Users/a123/.openclaw/workspace/outputs/dreamina-tailframe-video-20260605/refs/final_frame_poster.jpg",
+    "source_format": "JPEG",
+    "source_width": 1702,
+    "source_height": 2269,
+    "source_bytes": 372674,
+    "normalized_path": "/Users/a123/.openclaw/workspace/skills/dreamina-reference-video/outputs/dreamina-reference-video/projects/brief-21c2c127/runs/20260605-110413-brief-21c2c127/refs/normalized/identity-source.png",
+    "normalized_format": "JPEG",
+    "normalized_width": 1440,
+    "normalized_height": 1920,
+    "normalized_bytes": 331115,
+    "alpha_flattened": false,
+    "changed": true
+  }
+]

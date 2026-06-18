@@ -1,0 +1,353 @@
+[
+  {
+    "name": "exec",
+    "description": "Execute shell commands with background continuation for work that starts now. Use yieldMs/background to continue later via process tool. For long-running work started now, rely on automatic completion wake when it is enabled and the command emits output or fails; otherwise use process to confirm completion. Use process whenever you need logs, status, input, or intervention. Use pty=true for TTY-required commands (terminal UIs, coding agents).",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "command"
+      ],
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Shell command to execute"
+        },
+        "workdir": {
+          "type": "string",
+          "description": "Working directory (defaults to cwd)"
+        },
+        "env": {
+          "type": "object",
+          "patternProperties": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "yieldMs": {
+          "type": "number",
+          "description": "Milliseconds to wait before backgrounding (default 10000)"
+        },
+        "background": {
+          "type": "boolean",
+          "description": "Run in background immediately"
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Timeout in seconds (optional, kills process on expiry)"
+        },
+        "pty": {
+          "type": "boolean",
+          "description": "Run in a pseudo-terminal (PTY) when available (TTY-required CLIs, coding agents)"
+        },
+        "elevated": {
+          "type": "boolean",
+          "description": "Run on the host with elevated permissions (if allowed)"
+        },
+        "host": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          },
+          "description": "Exec host/target (auto|sandbox|gateway|node)."
+        },
+        "security": {
+          "type": "string",
+          "description": "Exec security mode (deny|allowlist|full)."
+        },
+        "ask": {
+          "type": "string",
+          "description": "Exec ask mode (off|on-miss|always)."
+        },
+        "node": {
+          "type": "string",
+          "description": "Node id/name for host=node."
+        }
+      }
+    }
+  },
+  {
+    "name": "message",
+    "description": "Send, delete, and manage messages via channel plugins. Supports actions: broadcast, delete, react, reactions, send, unsend.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "action"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "channel": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string",
+          "description": "Recipient/channel: E.164 for WhatsApp/Signal, Telegram chat id/@username, Discord/Slack/Mattermost <channelId|user:ID|channel:ID>, or iMessage handle/chat_id"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "dryRun": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "effectId": {
+          "type": "string",
+          "description": "Message effect name/id for sendWithEffect (e.g., invisible ink)."
+        },
+        "effect": {
+          "type": "string",
+          "description": "Alias for effectId (e.g., invisible-ink, balloons)."
+        },
+        "media": {
+          "type": "string",
+          "description": "Media URL or local path. data: URLs are not supported here, use buffer."
+        },
+        "filename": {
+          "type": "string"
+        },
+        "buffer": {
+          "type": "string",
+          "description": "Base64 payload for attachments (optionally a data: URL)."
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "filePath": {
+          "type": "string"
+        },
+        "replyTo": {
+          "type": "string"
+        },
+        "threadId": {
+          "type": "string"
+        },
+        "asVoice": {
+          "type": "boolean"
+        },
+        "silent": {
+          "type": "boolean"
+        },
+        "quoteText": {
+          "type": "string",
+          "description": "Quote text for Telegram reply_parameters"
+        },
+        "bestEffort": {
+          "type": "boolean"
+        },
+        "gifPlayback": {
+          "type": "boolean"
+        },
+        "forceDocument": {
+          "type": "boolean",
+          "description": "Send image/GIF as document to avoid Telegram compression (Telegram only)."
+        },
+        "asDocument": {
+          "type": "boolean",
+          "description": "Send image/GIF as document to avoid Telegram compression. Alias for forceDocument (Telegram only)."
+        },
+        "messageId": {
+          "type": "string",
+          "description": "Target message id for read, reaction, edit, delete, pin, or unpin. If omitted for reaction-like actions, defaults to the current inbound message id when available."
+        },
+        "message_id": {
+          "type": "string",
+          "description": "snake_case alias of messageId. If omitted for reaction-like actions, defaults to the current inbound message id when available."
+        },
+        "emoji": {
+          "type": "string"
+        },
+        "remove": {
+          "type": "boolean"
+        },
+        "trackToolCalls": {
+          "type": "boolean",
+          "description": "When true for a reaction to the current inbound message, use that reacted message as the status-reaction target for subsequent tool progress when the channel supports it."
+        },
+        "track_tool_calls": {
+          "type": "boolean",
+          "description": "snake_case alias of trackToolCalls."
+        },
+        "targetAuthor": {
+          "type": "string"
+        },
+        "targetAuthorUuid": {
+          "type": "string"
+        },
+        "groupId": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "pageSize": {
+          "type": "number"
+        },
+        "before": {
+          "type": "string"
+        },
+        "after": {
+          "type": "string"
+        },
+        "around": {
+          "type": "string"
+        },
+        "fromMe": {
+          "type": "boolean"
+        },
+        "includeArchived": {
+          "type": "boolean"
+        },
+        "pollId": {
+          "type": "string"
+        },
+        "pollOptionId": {
+          "type": "string",
+          "description": "Poll answer id to vote for. Use when the channel exposes stable answer ids."
+        },
+        "pollOptionIds": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "pollOptionIndex": {
+          "type": "number",
+          "description": "1-based poll option number to vote for, matching the rendered numbered poll choices."
+        },
+        "pollOptionIndexes": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "pollQuestion": {
+          "type": "string"
+        },
+        "pollOption": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "pollDurationHours": {
+          "type": "number"
+        },
+        "pollMulti": {
+          "type": "boolean"
+        },
+        "channelId": {
+          "type": "string",
+          "description": "Channel id filter (search/thread list/event create)."
+        },
+        "chatId": {
+          "type": "string",
+          "description": "Chat id for chat-scoped metadata actions."
+        },
+        "channelIds": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "memberId": {
+          "type": "string"
+        },
+        "memberIdType": {
+          "type": "string"
+        },
+        "guildId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "openId": {
+          "type": "string"
+        },
+        "unionId": {
+          "type": "string"
+        },
+        "authorId": {
+          "type": "string"
+        },
+        "authorIds": {
+          "type": "array",
+          "items": {
+            "truncated": true,
+            "reason": "trajectory-depth-limit",
+            "limitDepth": 6
+          }
+        },
+        "roleId": {
+          "type": "string"
+        },
+        "_truncated": {
+          "truncated": true,
+          "reason": "trajectory-object-size-limit",
+          "originalKeys": 108,
+          "limitKeys": 64
+        }
+      }
+    }
+  },
+  {
+    "name": "read",
+    "description": "Read the contents of a file. Supports text files and images (jpg, png, gif, webp). Images are sent as attachments. For text files, output is truncated to 2000 lines or 50KB (whichever is hit first). Use offset/limit for large files. When you need the full file, continue with offset until complete.",
+    "parameters": {
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the file to read (relative or absolute)"
+        },
+        "offset": {
+          "type": "number",
+          "description": "Line number to start reading from (1-indexed)"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of lines to read"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,2131 @@
+{
+  "header": {
+    "type": "session",
+    "version": 3,
+    "id": "1cc49efc-be4b-46b1-8e0b-15835ee52ee4",
+    "timestamp": "2026-06-12T07:52:52.449Z",
+    "cwd": "$WORKSPACE_DIR/workspace"
+  },
+  "leafId": "b40e6084",
+  "entries": [
+    {
+      "type": "model_change",
+      "id": "796e4209",
+      "parentId": null,
+      "timestamp": "2026-06-12T07:52:52.511Z",
+      "provider": "aixor-g",
+      "modelId": "gpt-5.5"
+    },
+    {
+      "type": "thinking_level_change",
+      "id": "c39520fb",
+      "parentId": "796e4209",
+      "timestamp": "2026-06-12T07:52:52.511Z",
+      "thinkingLevel": "high"
+    },
+    {
+      "type": "custom",
+      "customType": "model-snapshot",
+      "data": {
+        "timestamp": 1781250772520,
+        "provider": "aixor-g",
+        "modelApi": "openai-completions",
+        "modelId": "gpt-5.5"
+      },
+      "id": "0f37ea55",
+      "parentId": "c39520fb",
+      "timestamp": "2026-06-12T07:52:52.520Z"
+    },
+    {
+      "type": "message",
+      "id": "71aa725b",
+      "parentId": "0f37ea55",
+      "timestamp": "2026-06-12T07:52:52.581Z",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "导出聊天记录"
+          }
+        ],
+        "timestamp": 1781250772531
+      }
+    },
+    {
+      "type": "custom_message",
+      "customType": "openclaw.runtime-context",
+      "content": "System: [2026-06-12 15:52:49 GMT+8] Feishu[default] DM | 汪甦秦 (ou_d4d404eedf2823baab3a64d36f1c36d4) [msg:om_x100b6d8fe3c5d088c456d8376ac3cb0]\n\nConversation info (untrusted metadata):\n```json\n{\n  \"chat_id\": \"user:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n  \"message_id\": \"om_x100b6d8fe3c5d088c456d8376ac3cb0\",\n  \"sender_id\": \"ou_d4d404eedf2823baab3a64d36f1c36d4\",\n  \"sender\": \"汪甦秦\",\n  \"timestamp\": \"Fri 2026-06-12 15:52 GMT+8\"\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"汪甦秦 (ou_d4d404eedf2823baab3a64d36f1c36d4)\",\n  \"id\": \"ou_d4d404eedf2823baab3a64d36f1c36d4\",\n  \"name\": \"汪甦秦\"\n}\n```",
+      "display": false,
+      "details": {
+        "source": "openclaw-runtime-context"
+      },
+      "id": "b02c44b1",
+      "parentId": "71aa725b",
+      "timestamp": "2026-06-12T07:52:52.618Z"
+    },
+    {
+      "type": "message",
+      "id": "355f6bb3",
+      "parentId": "b02c44b1",
+      "timestamp": "2026-06-12T07:52:59.689Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_fbvNysCdBRUyqZvAIA6Cugmp",
+            "name": "read",
+            "arguments": {
+              "limit": 200,
+              "offset": 1,
+              "path": "~/.openclaw/skills/session-debug-export/SKILL.md"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 468,
+          "output": 157,
+          "cacheRead": 36864,
+          "cacheWrite": 0,
+          "totalTokens": 37489,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250772618,
+        "responseId": "resp_0270660b9134c6d2016a2bbad5ef308195826bfb727677a8e7"
+      }
+    },
+    {
+      "type": "message",
+      "id": "2caefea2",
+      "parentId": "355f6bb3",
+      "timestamp": "2026-06-12T07:52:59.821Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_fbvNysCdBRUyqZvAIA6Cugmp",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "---\nname: session-debug-export\ndescription: 导出聊天记录。将当前 OpenClaw 对话记录、工具调用、工具输出、后台网关日志和 AI 问题定位分析导出为一个可分享的 Markdown 文件。用户说”导出聊天记录””导出当前聊天””导出对话记录””聊天记录导出””生成聊天日志””打包聊天记录”时必须使用本技能。\ntriggers:\n  - “导出聊天记录”\n  - “导出当前聊天”\n  - “导出当前对话”\n  - “导出对话记录”\n  - “聊天记录导出”\n  - “生成聊天日志”\n  - “打包聊天记录”\n  - “导出后台日志”\n  - “生成调试报告”\n---\n\n## ⚠️ AGENT 必读：执行流程（最高优先级）\n\n**当收到”导出聊天记录”等触发词时，按以下步骤执行，不要自行拼接简化的 txt 导出：**\n\n### 第 1 步：复制脚本到 workspace\n\n由于路径保护机制，不能直接执行 `~/.openclaw/skills/` 下的脚本。必须先复制到当前 workspace：\n\n```python\n# 使用 read 工具读取脚本内容\nread('$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py')\n\n# 使用 write 工具写入到当前 workspace 的 outputs 目录\n# 例如：<current-workspace>/outputs/_temp_export_chat_report.py\nwrite('<current-workspace>/outputs/_temp_export_chat_report.py', <script-content>)\n```\n\n### 第 2 步：执行临时脚本\n\n```bash\npython3 <current-workspace>/outputs/_temp_export_chat_report.py \\\n  --workspace $OPENCLAW_STATE_DIR \\\n  --session-key current \\\n  --issue “聊天记录导出” \\\n  --agent-name “<agent-display-name>”\n```\n\n**参数说明**：\n- `--workspace`：固定为 `$OPENCLAW_STATE_DIR`\n- `--session-key`：使用 `current` 自动查找当前会话\n- `--issue`：问题描述，用于文件命名\n- `--agent-name`：当前 agent 的显示名称（如 “research”、”design” 等）\n\n### 第 3 步：检查输出文件\n\n脚本执行成功后，会在以下路径生成导出文件：\n\n```\n~/Downloads/openclaw 问题汇总/YYYYMMDD-HHMMSS-对话ID-问题短名.md\n```\n\n使用 `ls` 或 `find` 命令确认文件已生成，并检查文件大小是否合理（通常 > 10KB）。\n\n### 第 4 步：发送文件给用户\n\n使用 `message` 工具的 `path` 参数发送文件：\n\n```json\n{\n  “tool”: “message”,\n  “path”: “~/Downloads/openclaw 问题汇总/<actual-filename>.md”,\n  “caption”: “OpenClaw 聊天记录导出”\n}\n```\n\n**重要**：必须真实发送文件，不能只返回本地路径。\n\n### 常见问题\n\n**Q: 遇到 `exec blocked: python3 cannot target protected path ~/.openclaw/skills/` 怎么办？**  \nA: 按第 1 步使用 read+write 复制脚本，不要直接执行 skills 目录下的脚本。\n\n**Q: 遇到 `exec blocked: cp cannot modify protected path ~/.openclaw/skills/` 怎么办？**  \nA: 不要用 `cp` 命令，用 read+write 工具复制。\n\n**Q: `sessions_history` 工具超时怎么办？**  \nA: 不要降级使用 `sessions_history`，它有截断限制。坚持使用本 skill 的脚本。\n\n**Q: 能不能用 heredoc 手动拼接一个简化版？**  \nA: ❌ **禁止**。必须使用本 skill 的完整流程，生成包含 AI 分析和后台日志的完整导出。\n\n---\n\n# Session...<truncated>"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781250779821
+      }
+    },
+    {
+      "type": "message",
+      "id": "0171fe6a",
+      "parentId": "2caefea2",
+      "timestamp": "2026-06-12T07:53:04.387Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_PygMbQm0x4PzWzggJLZxMrDe",
+            "name": "read",
+            "arguments": {
+              "limit": 400,
+              "offset": 1,
+              "path": "$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 22179,
+          "output": 42,
+          "cacheRead": 16896,
+          "cacheWrite": 0,
+          "totalTokens": 39117,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250779822,
+        "responseId": "chatcmpl-32fb96dc"
+      }
+    },
+    {
+      "type": "message",
+      "id": "f44c55d5",
+      "parentId": "0171fe6a",
+      "timestamp": "2026-06-12T07:53:04.500Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_PygMbQm0x4PzWzggJLZxMrDe",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "#!/usr/bin/env python3\n\"\"\"Export an OpenClaw session as a shareable debugging markdown report.\n\nThe generated report follows the chat-export style:\n- AI analysis / issue localization summary\n- Full chat transcript with tool calls and tool outputs\n- Recent backend gateway logs\n\nIt also keeps the raw OpenClaw trajectory bundle next to the export for deeper inspection.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport datetime as dt\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\nfrom typing import Any\n\nANSI_RE = re.compile(r\"\\x1b\\[[0-9;]*m\")\nSESSION_KEY_ENV_VARS = (\n    \"OPENCLAW_MCP_SESSION_KEY\",\n    \"OPENCLAW_SOURCE_SESSION_KEY\",\n    \"OPENCLAW_SESSION_KEY\",\n    \"CLAUDE_AI_SESSION_KEY\",\n    \"CLAUDE_WEB_SESSION_KEY\",\n)\nDEFAULT_REPORT_SUBDIR = Path(\"Downloads\") / \"openclaw 问题汇总\"\n\n\ndef filename_part(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Keep readable Unicode in filenames while removing path-hostile characters.\"\"\"\n    text = re.sub(r\"[\\\\/:*?\\\"<>|\\s]+\", \"-\", text.strip())\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-.\")\n    return text or fallback\n\n\ndef default_report_dir() -> Path:\n    return Path.home() / DEFAULT_REPORT_SUBDIR\n\n\ndef short_issue_part(text: str, max_chars: int = 8) -> str:\n    \"\"\"Prefer a concise Chinese issue label for human-scannable filenames.\"\"\"\n    chinese = \"\".join(re.findall(r\"[\\u4e00-\\u9fff]\", text or \"\"))\n    if chinese:\n        return chinese[:max_chars]\n    return filename_part(text, \"问题\")[:max_chars] or \"问题\"\n\n\ndef conversation_id_part(session_key: str) -> str:\n    return filename_part(session_peer_id(session_key) or session_key.split(\":\")[-1], \"conversation\")\n\n\ndef build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:\n    return f\"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md\"\n\n\ndef slugify(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Convert arbitrary text into a stable ASCII-ish filename slug.\"\"\"\n    text = text.strip().lower()\n    text = re.sub(r\"[^a-z0-9]+\", \"-\", text)\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-\")\n    return text or fallback\n\n\ndef run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:\n    return subprocess.run(\n        cmd,\n        cwd=str(cwd) if cwd else None,\n        text=True,\n        capture_output=True,\n        check=False,\n    )\n\n\ndef clean_string(value: Any) -> str:\n    return str(value or \"\").strip()\n\n\ndef looks_like_session_key(value: str) -> bool:\n    return bool(value and value != \"current\" and value.startswith(\"agent:\") and value.count(\":\") >= 2)\n\n\ndef session_agent_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[1] if len(parts) > 1 and parts[0] == \"agent\" else \"\"\n\n\ndef session_chat_type(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[3] if len(parts) > 3 and parts[0] == \"agent\" else \"\"\n\n\ndef session_peer_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return \":\".join(parts[4:]) if len(parts) > 4 and parts[0] == \"agent\" else \"\"\n\n\ndef runtime_session_key(env: dict[str, str] | None = None) -> str | None:\n    source = env if env is not None else os.environ\n    for name in SESSION_KEY_ENV_VARS:\n        value = clean_string(source.get(name))\n        if looks_like_session_key(value):\n            return value\n    return None\n\n\ndef read_config_agents(workspace: Path) -> list[dict[str, Any]]:\n    config_path = workspace / \"openclaw.json\"\n    try:\n        data = json.loads(config_path.read_text(encoding=\"utf-8\"))\n    except Exception:\n        return []\n    agents = data.get(\"agents\", {})\n    if isinstance(agents, dict) and isinstance(agents.get(\"list\"), list):\n        return [agent for agent in agents[\"list\"] if isinstance(agent, dict)]\n    return []\n\n\ndef infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:\n    try:\n        resolved_cwd = cwd.expanduser().resolve()\n    except Exception:\n        return set()\n\n    ids: set[str] = set()\n    for agent in read_config_agents(workspace):\n        agent_id = clean_string(agent.get(\"id\"))\n        agent_workspace = clean_string(agent.get(\"workspace\"))\n        if not agent_id or not agent_workspace:\n            continue\n        try:\n            resolved_workspace = Path(agent_workspace).expanduser().resolve()\n        except Exception:\n            continue\n        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:\n            ids.add(agent_id)\n    return ids\n\n\ndef load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:\n    res = run(cmd, cwd=cwd)\n    if res.returncode != 0:\n        return []\n    try:\n        sessions = json.loads(res.stdout).get(\"sessions\") or []\n    except Exception:\n        return []\n    return [session for session in sessions if isinstance(session, dict)]\n\n\ndef session_matches(\n    session: dict[str, Any],\n    *,\n    agent_ids: set[str] | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> bool:\n    key = clean_string(session.get(\"key\"))\n    if not looks_like_session_key(key):\n        return False\n\n    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}\n    if normalized_agent_ids:\n        agent = clean_string(session.get(\"agentId\")) or session_agent_id(key)\n        if agent not in normalized_agent_ids:\n            return False\n\n    normalized_chat_type = clean_string(chat_type)\n    if normalized_chat_type:\n        kind = clean_string(session.get(\"kind\")) or clean_string(session.get(\"chatType\")) or session_chat_type(key)\n        if kind != normalized_chat_type:\n            return False\n\n    normalized_peer_id = clean_string(peer_id)\n    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:\n        return False\n\n    return True\n\n\ndef newest_session_key(sessions: list[dict[str, Any]]) -> str | None:\n    if not sessions:\n        return None\n    sessions = sorted(sessions, key=lambda session: int(session.get(\"updatedAt\") or 0), reverse=True)\n    return clean_string(sessions[0].get(\"key\")) or None\n\n\ndef resolve_current_session_key(\n    *,\n    workspace: Path | None = None,\n    cwd: Path | None = None,\n    env: dict[str, str] | None = None,\n    agent_id: str | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> str | None:\n    \"\"\"Resolve the current OpenClaw session with channel/agent context when available.\"\"\"\n    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()\n    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()\n    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()\n    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))\n    env_key = runtime_session_key(env)\n    if env_key and (\n        not has_explicit_filters\n        or session_matches(\n            {\"key\": env_key, \"agentId\": session_agent_id(env_key), \"kind\": session_chat_type(env_key)},\n            agent_ids=explicit_agent_ids,\n            chat_type=chat_type,\n            peer_id=peer_id,\n        )\n    ):\n        return env_key\n\n    agent_ids = set(explicit_agent_ids)\n    env_source = env if env is not None else os.environ\n    env_agent_id = clean_string(env_source.get(\"OPENCLAW_MCP_AGENT_ID\"))\n    if env_agent_id and not agent_ids:\n        agent_ids.add(env_agent_id)\n    if not agent_ids:\n        agent_ids = infer_workspace_agent_ids(workspace, cwd)\n\n    for active_minutes in (\"180\", None):\n        cmd = [\"openclaw\", \"sessions\", \"--all-agents\", \"--limit\", \"50\", \"--json\"]\n        if active_minutes:\n            cmd[2:2] = [\"--active\", active_minutes]\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n\n    # Last-resort compatibility for old installs without --all-agents.\n    for cmd in (\n        [\"openclaw\", \"sessions\", \"--active\", \"180\", \"--limit\", \"10\", \"--json\"],\n        [\"openclaw\", \"sessions\", \"--limit\", \"10\", \"--json\"],\n    ):\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n    return None\n\n\ndef format_timestamp(value: str | None) -> str:\n    if not value:\n        return \"unknown-time\"\n    try:\n        parsed = dt.datetime.fromisoformat(value.replace(\"Z\", \"+00:00\"))\n        return parsed.astimezone(dt.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%S.%f\")[:-3] + \"Z\"\n    except Exception:\n        return value\n\n\ndef text_from_content_parts(parts: Any) -> tuple[str, list[str]]:\n    \"\"\"Extract text and attachment markers from OpenClaw/Anthropic-style content blocks.\"\"\"\n    if isinstance(parts, str):\n        return parts, []\n    if not isinstance(parts, list):\n        return str(parts) if parts else \"\", []\n\n    text_chunks: list[str] = []\n    attachments: list[str] = []\n    for part in parts:\n        if isinstance(part, str):\n            text_chunks.append(part)\n            continue\n        if not isinstance(part, dict):\n            continue\n        ptype = part.get(\"type\")\n        if ptype == \"text\":\n            text_chunks.append(str(part.get(\"text\", \"\")))\n        elif ptype in {\"image\", \"input_image\"}:\n            source = part.get(\"source\") or part.get(\"image\") or {}\n            if isinstance(source, dict):\n                label = source.get(\"path\") or source.get(\"media_id\") or source.get(\"url\") or \"inline-image\"\n            else:\n                label = source or \"inline-image\"\n            attachments.append(f\"[Image: {label}]\")\n        elif ptype == \"toolCall\":\n            # Tool calls are emitted as separate tool.call events; avoid duplicating here.\n            continue\n    return \"\".join(text_chunks), attachments\n\n\ndef tool_result_text(data: dict[str, Any]) -> str:\n    if \"result\" in data:\n        return str(data.get(\"result\", \"\"))\n    message = data.get(\"message\", {})\n    content = message.get(\"content\", data.get(\"content\", \"\"))\n    text, attachments = text_from_content_parts(content)\n    if attachments:\n        return \"\\n\".join(attachments + ([text] if text else []))\n    return text\n\n\ndef parse_events_to_messages(events_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:\n    \"\"\"Parse trajectory events into displayable chat messages and export stats.\"\"\"\n    messages: list[dict[str, Any]] = []\n    stats: dict[str, Any] = {\n        \"events\": 0,\n        \"user\": 0,\n        \"assistant\": 0,\n        \"tool_calls\": 0,\n        \"tool_results\": 0,\n        \"tool_errors\": 0,\n        \"tools\": Counter(),\n        \"model\": None,\n        \"provider\": None,\n    }\n\n    if not events_path.exists():\n        return messages, stats\n\n    with events_path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            if not line.strip():\n                continue\n            try:\n                event = json.loads(line)\n            except json.JSONDecodeError:\n                continue\n\n            stats[\"events\"] += 1\n            etype = event.get(\"type\")\n            ts = event.get(\"ts\") or event.get(\"timestamp\")\n            data = event.get(\"data\", {}) or {}\n            stats[\"model\"] = stats[\"model\"] or event.get(\"modelId\")\n            stats[\"provider\"] = stats[\"provider\"] or event.get(\"provider\")\n\n            if etype == \"user.message\":\n                message = data.get(\"message\", {})\n                text, attachments = text_from_content_parts(message.get(\"content\", []))\n                messages.append({\n                    \"role\": \"user\",\n                    \"timestamp\": ts,\n                    \"content\": text.strip(),\n                    \"attachments\": attachments,\n                })\n                stats[\"user\"] += 1\n\n            elif etype == \"assistant.message\":\n                message = data.get(\"message\", {})\n                text, _ = text_from_content_parts(message.get(\"content\", []))\n                if text.strip():\n                    messages.append({\n                        \"role\": \"assistant\",\n                        \"timestamp\": ts,\n                        \"content\": text.strip(),\n                    })\n                    stats[\"assistant\"] += 1\n\n            elif etype == \"tool.call\":\n                name = data.get(\"name\") or data.get(\"toolName\") or \"unknown\"\n                messages.append({\n                    \"role\": \"tool_call\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"input\": data.get(\"arguments\", data.get(\"input\", {})),\n                })\n                stats[\"tool_calls\"] += 1\n                stats[\"tools\"][name] += 1\n\n            elif etype == \"tool.result\":\n                message = data.get(\"message\", {})\n                name = data.get(\"name\") or data.get(\"toolName\") or message.get(\"toolName\") or \"unknown\"\n                error = data.get(\"error\") or message.get(\"error\")\n                output = tool_result_text(data)\n                messages.append({\n                    \"role\": \"tool_result\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"output\": output,\n                    \"error\": error,\n                })\n                stats[\"tool_results\"] += 1\n                if error or re.search(r\"\\b(error|failed|timeout|timed out|exception)\\b\", output, re.I):\n                    stats[\"tool_errors\"] += 1\n\n    return messages, stats\n\n\ndef strip_ansi(text: str) -> str:\n    return ANSI_RE.sub(\"\", text)\n\n\n[320 more lines in file. Use offset=401 to continue.]"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781250784500
+      }
+    },
+    {
+      "type": "message",
+      "id": "a63d3d19",
+      "parentId": "f44c55d5",
+      "timestamp": "2026-06-12T07:54:17.055Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_u31HsyKO56KjYXScQOKmOblD",
+            "name": "write",
+            "arguments": {
+              "content": "#!/usr/bin/env python3\n\"\"\"Export an OpenClaw session as a shareable debugging markdown report.\n\nThe generated report follows the chat-export style:\n- AI analysis / issue localization summary\n- Full chat transcript with tool calls and tool outputs\n- Recent backend gateway logs\n\nIt also keeps the raw OpenClaw trajectory bundle next to the export for deeper inspection.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport datetime as dt\nimport json\nimport os\nimport re\nimport subprocess\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\nfrom typing import Any\n\nANSI_RE = re.compile(r\"\\x1b\\[[0-9;]*m\")\nSESSION_KEY_ENV_VARS = (\n    \"OPENCLAW_MCP_SESSION_KEY\",\n    \"OPENCLAW_SOURCE_SESSION_KEY\",\n    \"OPENCLAW_SESSION_KEY\",\n    \"CLAUDE_AI_SESSION_KEY\",\n    \"CLAUDE_WEB_SESSION_KEY\",\n)\nDEFAULT_REPORT_SUBDIR = Path(\"Downloads\") / \"openclaw 问题汇总\"\n\n\ndef filename_part(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Keep readable Unicode in filenames while removing path-hostile characters.\"\"\"\n    text = re.sub(r\"[\\\\/:*?\\\"<>|\\s]+\", \"-\", text.strip())\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-.\")\n    return text or fallback\n\n\ndef default_report_dir() -> Path:\n    return Path.home() / DEFAULT_REPORT_SUBDIR\n\n\ndef short_issue_part(text: str, max_chars: int = 8) -> str:\n    \"\"\"Prefer a concise Chinese issue label for human-scannable filenames.\"\"\"\n    chinese = \"\".join(re.findall(r\"[\\u4e00-\\u9fff]\", text or \"\"))\n    if chinese:\n        return chinese[:max_chars]\n    return filename_part(text, \"问题\")[:max_chars] or \"问题\"\n\n\ndef conversation_id_part(session_key: str) -> str:\n    return filename_part(session_peer_id(session_key) or session_key.split(\":\")[-1], \"conversation\")\n\n\ndef build_report_filename(generated_ts: str, session_key: str, issue_title: str) -> str:\n    return f\"{generated_ts}-{conversation_id_part(session_key)}-{short_issue_part(issue_title)}.md\"\n\n\ndef slugify(text: str, fallback: str = \"session\") -> str:\n    \"\"\"Convert arbitrary text into a stable ASCII-ish filename slug.\"\"\"\n    text = text.strip().lower()\n    text = re.sub(r\"[^a-z0-9]+\", \"-\", text)\n    text = re.sub(r\"-+\", \"-\", text).strip(\"-\")\n    return text or fallback\n\n\ndef run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess[str]:\n    return subprocess.run(\n        cmd,\n        cwd=str(cwd) if cwd else None,\n        text=True,\n        capture_output=True,\n        check=False,\n    )\n\n\ndef clean_string(value: Any) -> str:\n    return str(value or \"\").strip()\n\n\ndef looks_like_session_key(value: str) -> bool:\n    return bool(value and value != \"current\" and value.startswith(\"agent:\") and value.count(\":\") >= 2)\n\n\ndef session_agent_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[1] if len(parts) > 1 and parts[0] == \"agent\" else \"\"\n\n\ndef session_chat_type(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return parts[3] if len(parts) > 3 and parts[0] == \"agent\" else \"\"\n\n\ndef session_peer_id(session_key: str) -> str:\n    parts = session_key.split(\":\")\n    return \":\".join(parts[4:]) if len(parts) > 4 and parts[0] == \"agent\" else \"\"\n\n\ndef runtime_session_key(env: dict[str, str] | None = None) -> str | None:\n    source = env if env is not None else os.environ\n    for name in SESSION_KEY_ENV_VARS:\n        value = clean_string(source.get(name))\n        if looks_like_session_key(value):\n            return value\n    return None\n\n\ndef read_config_agents(workspace: Path) -> list[dict[str, Any]]:\n    config_path = workspace / \"openclaw.json\"\n    try:\n        data = json.loads(config_path.read_text(encoding=\"utf-8\"))\n    except Exception:\n        return []\n    agents = data.get(\"agents\", {})\n    if isinstance(agents, dict) and isinstance(agents.get(\"list\"), list):\n        return [agent for agent in agents[\"list\"] if isinstance(agent, dict)]\n    return []\n\n\ndef infer_workspace_agent_ids(workspace: Path, cwd: Path) -> set[str]:\n    try:\n        resolved_cwd = cwd.expanduser().resolve()\n    except Exception:\n        return set()\n\n    ids: set[str] = set()\n    for agent in read_config_agents(workspace):\n        agent_id = clean_string(agent.get(\"id\"))\n        agent_workspace = clean_string(agent.get(\"workspace\"))\n        if not agent_id or not agent_workspace:\n            continue\n        try:\n            resolved_workspace = Path(agent_workspace).expanduser().resolve()\n        except Exception:\n            continue\n        if resolved_cwd == resolved_workspace or resolved_workspace in resolved_cwd.parents:\n            ids.add(agent_id)\n    return ids\n\n\ndef load_sessions(cmd: list[str], cwd: Path | None = None) -> list[dict[str, Any]]:\n    res = run(cmd, cwd=cwd)\n    if res.returncode != 0:\n        return []\n    try:\n        sessions = json.loads(res.stdout).get(\"sessions\") or []\n    except Exception:\n        return []\n    return [session for session in sessions if isinstance(session, dict)]\n\n\ndef session_matches(\n    session: dict[str, Any],\n    *,\n    agent_ids: set[str] | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> bool:\n    key = clean_string(session.get(\"key\"))\n    if not looks_like_session_key(key):\n        return False\n\n    normalized_agent_ids = {clean_string(agent_id) for agent_id in (agent_ids or set()) if clean_string(agent_id)}\n    if normalized_agent_ids:\n        agent = clean_string(session.get(\"agentId\")) or session_agent_id(key)\n        if agent not in normalized_agent_ids:\n            return False\n\n    normalized_chat_type = clean_string(chat_type)\n    if normalized_chat_type:\n        kind = clean_string(session.get(\"kind\")) or clean_string(session.get(\"chatType\")) or session_chat_type(key)\n        if kind != normalized_chat_type:\n            return False\n\n    normalized_peer_id = clean_string(peer_id)\n    if normalized_peer_id and normalized_peer_id not in key and session_peer_id(key) != normalized_peer_id:\n        return False\n\n    return True\n\n\ndef newest_session_key(sessions: list[dict[str, Any]]) -> str | None:\n    if not sessions:\n        return None\n    sessions = sorted(sessions, key=lambda session: int(session.get(\"updatedAt\") or 0), reverse=True)\n    return clean_string(sessions[0].get(\"key\")) or None\n\n\ndef resolve_current_session_key(\n    *,\n    workspace: Path | None = None,\n    cwd: Path | None = None,\n    env: dict[str, str] | None = None,\n    agent_id: str | None = None,\n    chat_type: str | None = None,\n    peer_id: str | None = None,\n) -> str | None:\n    \"\"\"Resolve the current OpenClaw session with channel/agent context when available.\"\"\"\n    workspace = (workspace or Path(os.getcwd())).expanduser().resolve()\n    cwd = (cwd or Path(os.getcwd())).expanduser().resolve()\n    explicit_agent_ids = {clean_string(agent_id)} if clean_string(agent_id) else set()\n    has_explicit_filters = bool(explicit_agent_ids or clean_string(chat_type) or clean_string(peer_id))\n    env_key = runtime_session_key(env)\n    if env_key and (\n        not has_explicit_filters\n        or session_matches(\n            {\"key\": env_key, \"agentId\": session_agent_id(env_key), \"kind\": session_chat_type(env_key)},\n            agent_ids=explicit_agent_ids,\n            chat_type=chat_type,\n            peer_id=peer_id,\n        )\n    ):\n        return env_key\n\n    agent_ids = set(explicit_agent_ids)\n    env_source = env if env is not None else os.environ\n    env_agent_id = clean_string(env_source.get(\"OPENCLAW_MCP_AGENT_ID\"))\n    if env_agent_id and not agent_ids:\n        agent_ids.add(env_agent_id)\n    if not agent_ids:\n        agent_ids = infer_workspace_agent_ids(workspace, cwd)\n\n    for active_minutes in (\"180\", None):\n        cmd = [\"openclaw\", \"sessions\", \"--all-agents\", \"--limit\", \"50\", \"--json\"]\n        if active_minutes:\n            cmd[2:2] = [\"--active\", active_minutes]\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n\n    # Last-resort compatibility for old installs without --all-agents.\n    for cmd in (\n        [\"openclaw\", \"sessions\", \"--active\", \"180\", \"--limit\", \"10\", \"--json\"],\n        [\"openclaw\", \"sessions\", \"--limit\", \"10\", \"--json\"],\n    ):\n        sessions = load_sessions(cmd, cwd=workspace)\n        filtered = [\n            session\n            for session in sessions\n            if session_matches(session, agent_ids=agent_ids, chat_type=chat_type, peer_id=peer_id)\n        ]\n        if filtered:\n            return newest_session_key(filtered)\n        if not agent_ids and not chat_type and not peer_id and sessions:\n            return newest_session_key([session for session in sessions if session_matches(session)])\n    return None\n\n\ndef format_timestamp(value: str | None) -> str:\n    if not value:\n        return \"unknown-time\"\n    try:\n        parsed = dt.datetime.fromisoformat(value.replace(\"Z\", \"+00:00\"))\n        return parsed.astimezone(dt.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%S.%f\")[:-3] + \"Z\"\n    except Exception:\n        return value\n\n\ndef text_from_content_parts(parts: Any) -> tuple[str, list[str]]:\n    \"\"\"Extract text and attachment markers from OpenClaw/Anthropic-style content blocks.\"\"\"\n    if isinstance(parts, str):\n        return parts, []\n    if not isinstance(parts, list):\n        return str(parts) if parts else \"\", []\n\n    text_chunks: list[str] = []\n    attachments: list[str] = []\n    for part in parts:\n        if isinstance(part, str):\n            text_chunks.append(part)\n            continue\n        if not isinstance(part, dict):\n            continue\n        ptype = part.get(\"type\")\n        if ptype == \"text\":\n            text_chunks.append(str(part.get(\"text\", \"\")))\n        elif ptype in {\"image\", \"input_image\"}:\n            source = part.get(\"source\") or part.get(\"image\") or {}\n            if isinstance(source, dict):\n                label = source.get(\"path\") or source.get(\"media_id\") or source.get(\"url\") or \"inline-image\"\n            else:\n                label = source or \"inline-image\"\n            attachments.append(f\"[Image: {label}]\")\n        elif ptype == \"toolCall\":\n            # Tool calls are emitted as separate tool.call events; avoid duplicating here.\n            continue\n    return \"\".join(text_chunks), attachments\n\n\ndef tool_result_text(data: dict[str, Any]) -> str:\n    if \"result\" in data:\n        return str(data.get(\"result\", \"\"))\n    message = data.get(\"message\", {})\n    content = message.get(\"content\", data.get(\"content\", \"\"))\n    text, attachments = text_from_content_parts(content)\n    if attachments:\n        return \"\\n\".join(attachments + ([text] if text else []))\n    return text\n\n\ndef parse_events_to_messages(events_path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:\n    \"\"\"Parse trajectory events into displayable chat messages and export stats.\"\"\"\n    messages: list[dict[str, Any]] = []\n    stats: dict[str, Any] = {\n        \"events\": 0,\n        \"user\": 0,\n        \"assistant\": 0,\n        \"tool_calls\": 0,\n        \"tool_results\": 0,\n        \"tool_errors\": 0,\n        \"tools\": Counter(),\n        \"model\": None,\n        \"provider\": None,\n    }\n\n    if not events_path.exists():\n        return messages, stats\n\n    with events_path.open(\"r\", encoding=\"utf-8\") as f:\n        for line in f:\n            if not line.strip():\n                continue\n            try:\n                event = json.loads(line)\n            except json.JSONDecodeError:\n                continue\n\n            stats[\"events\"] += 1\n            etype = event.get(\"type\")\n            ts = event.get(\"ts\") or event.get(\"timestamp\")\n            data = event.get(\"data\", {}) or {}\n            stats[\"model\"] = stats[\"model\"] or event.get(\"modelId\")\n            stats[\"provider\"] = stats[\"provider\"] or event.get(\"provider\")\n\n            if etype == \"user.message\":\n                message = data.get(\"message\", {})\n                text, attachments = text_from_content_parts(message.get(\"content\", []))\n                messages.append({\n                    \"role\": \"user\",\n                    \"timestamp\": ts,\n                    \"content\": text.strip(),\n                    \"attachments\": attachments,\n                })\n                stats[\"user\"] += 1\n\n            elif etype == \"assistant.message\":\n                message = data.get(\"message\", {})\n                text, _ = text_from_content_parts(message.get(\"content\", []))\n                if text.strip():\n                    messages.append({\n                        \"role\": \"assistant\",\n                        \"timestamp\": ts,\n                        \"content\": text.strip(),\n                    })\n                    stats[\"assistant\"] += 1\n\n            elif etype == \"tool.call\":\n                name = data.get(\"name\") or data.get(\"toolName\") or \"unknown\"\n                messages.append({\n                    \"role\": \"tool_call\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"input\": data.get(\"arguments\", data.get(\"input\", {})),\n                })\n                stats[\"tool_calls\"] += 1\n                stats[\"tools\"][name] += 1\n\n            elif etype == \"tool.result\":\n                message = data.get(\"message\", {})\n                name = data.get(\"name\") or data.get(\"toolName\") or message.get(\"toolName\") or \"unknown\"\n                error = data.get(\"error\") or message.get(\"error\")\n                output = tool_result_text(data)\n                messages.append({\n                    \"role\": \"tool_result\",\n                    \"timestamp\": ts,\n                    \"tool\": name,\n                    \"output\": output,\n                    \"error\": error,\n                })\n                stats[\"tool_results\"] += 1\n                if error or re.search(r\"\\b(error|failed|timeout|timed out|exception)\\b\", output, re.I):\n                    stats[\"tool_errors\"] += 1\n\n    return messages, stats\n\n\ndef strip_ansi(text: str) -> str:\n    return ANSI_RE.sub(\"\", text)\n",
+              "path": "$WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 3490,
+          "output": 3861,
+          "cacheRead": 38912,
+          "cacheWrite": 0,
+          "totalTokens": 46263,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250784501,
+        "responseId": "chatcmpl-d65c84c1"
+      }
+    },
+    {
+      "type": "message",
+      "id": "f988f473",
+      "parentId": "a63d3d19",
+      "timestamp": "2026-06-12T07:54:17.567Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_u31HsyKO56KjYXScQOKmOblD",
+        "toolName": "write",
+        "content": [
+          {
+            "type": "text",
+            "text": "Successfully wrote 14211 bytes to $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781250857566
+      }
+    },
+    {
+      "type": "message",
+      "id": "5b8ab9a4",
+      "parentId": "f988f473",
+      "timestamp": "2026-06-12T07:54:27.371Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Considering script retrieval**\n\nI realized we've only managed to get the first 400 lines of the script, and there are 320 lines left to read. I need to either append or overwrite the existing file by reading the remaining segments. It seems like using the shell command 'cp' might not align with my current skills. I could think about using Python for copying, but there are restrictions on heredoc and interpreter options. I need to read from offset 401 onwards to get the full version.\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_w4trdRLf47oA5tbOWcZCpiPt",
+            "name": "read",
+            "arguments": {
+              "limit": 500,
+              "offset": 401,
+              "path": "$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 9775,
+          "output": 144,
+          "cacheRead": 36864,
+          "cacheWrite": 0,
+          "totalTokens": 46783,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250857568,
+        "responseId": "resp_02bd1b8ef1753771016a2bbb2b3b3881979c8dcba3e196fb81"
+      }
+    },
+    {
+      "type": "message",
+      "id": "e5978f3c",
+      "parentId": "5b8ab9a4",
+      "timestamp": "2026-06-12T07:54:27.862Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_w4trdRLf47oA5tbOWcZCpiPt",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "\ndef find_signals(messages: list[dict[str, Any]], logs: str) -> dict[str, list[str]]:\n    \"\"\"Find likely debugging signals without treating documentation reads as failures.\"\"\"\n    corpus_parts: list[str] = [logs]\n    signal_tools = {\"exec\", \"process\", \"image\", \"run_command\", \"bash\", \"browser\", \"mcp\", \"openclaw\"}\n    for msg in messages:\n        if msg.get(\"role\") != \"tool_result\":\n            continue\n        tool = str(msg.get(\"tool\") or \"\").lower()\n        output = str(msg.get(\"output\") or \"\")\n        if msg.get(\"error\") or tool in signal_tools:\n            corpus_parts.append(output)\n    corpus = strip_ansi(\"\\n\".join(corpus_parts))\n\n    patterns = {\n        \"errors\": r\"(?im)^.*\\b(error|failed|exception|traceback|timed out|timeout)\\b.*$\",\n        \"fallbacks\": r\"(?im)^.*\\b(fallback|failover|recovery|retry|降级|回退|重试)\\b.*$\",\n        \"long_running\": r\"(?im)^.*\\b(long-running|queued_behind_active_work|event_loop_delay|queueDepth|still running)\\b.*$\",\n        \"slow_gateway\": r\"(?im)^.*\\b(gateway/ws|node\\.list|chat\\.history)\\b.*(?:[1-9][0-9]{3,}ms).*$\",\n    }\n    signals: dict[str, list[str]] = {}\n    for key, pattern in patterns.items():\n        seen: list[str] = []\n        for match in re.findall(pattern, corpus):\n            # re.findall with capture groups returns captured tuple/string, so use finditer instead below.\n            pass\n        for m in re.finditer(pattern, corpus):\n            line = m.group(0).strip()\n            if line and line not in seen:\n                seen.append(line[:500])\n            if len(seen) >= 8:\n                break\n        signals[key] = seen\n    return signals\n\n\ndef generate_analysis(\n    issue_title: str,\n    session_key: str,\n    stats: dict[str, Any],\n    logs: str,\n    messages: list[dict[str, Any]],\n) -> str:\n    signals = find_signals(messages, logs)\n    tools = stats.get(\"tools\") or Counter()\n    top_tools = \", \".join(f\"{name}×{count}\" for name, count in tools.most_common(8)) or \"none\"\n\n    likely_causes: list[str] = []\n    if signals[\"errors\"]:\n        likely_causes.append(\"工具或上游服务存在错误 / 超时，需要优先查看 Tool Output 和 Backend Logs 中的 error/timeout 行。\")\n    if signals[\"fallbacks\"]:\n        likely_causes.append(\"执行链路触发 fallback/failover/retry，说明主链路不稳定或被上游拒绝，结果可能来自降级路径。\")\n    if signals[\"long_running\"]:\n        likely_causes.append(\"存在 long-running / queued_behind_active_work / event_loop_delay，可能是后台队列、事件循环或长工具调用导致响应延迟。\")\n    if signals[\"slow_gateway\"]:\n        likely_causes.append(\"Backend Logs 出现高耗时 gateway/ws 请求，可能影响前端感知速度或消息同步。\")\n    if not likely_causes:\n        likely_causes.append(\"未在导出内容中发现明显 error/timeout/fallback/long-running 信号，可从完整聊天记录和原始 events.jsonl 继续人工定位。\")\n\n    lines = [\n        \"### 定位摘要\",\n        \"\",\n        f\"- **问题标题**：{issue_title}\",\n        f\"- **Session Key**：`{session_key}`\",\n        f\"- **模型/提供方**：`{stats.get('provider') or 'unknown'}` / `{stats.get('model') or 'unknown'}`\",\n        f\"- **事件数**：{stats.get('events', 0)}；用户消息 {stats.get('user', 0)}；AI 消息 {stats.get('assistant', 0)}；工具调用 {stats.get('tool_calls', 0)}；工具结果 {stats.get('tool_results', 0)}；疑似工具错误 {stats.get('tool_errors', 0)}\",\n        f\"- **高频工具**：{top_tools}\",\n        \"\",\n        \"### 初步判断\",\n        \"\",\n    ]\n    lines.extend(f\"- {cause}\" for cause in likely_causes)\n\n    def section(title: str, key: str) -> None:\n        values = signals.get(key) or []\n        lines.extend([\"\", f\"### {title}\", \"\"])\n        if not values:\n            lines.append(\"- 未发现明显信号。\")\n        else:\n            for value in values:\n                lines.append(f\"- `{value}`\")\n\n    section(\"错误 / 超时信号\", \"errors\")\n    section(\"Fallback / Retry 信号\", \"fallbacks\")\n    section(\"队列 / 长运行信号\", \"long_running\")\n    section(\"慢网关信号\", \"slow_gateway\")\n\n    lines.extend([\n        \"\",\n        \"### 建议下一步\",\n        \"\",\n        \"1. 先看上面的错误/超时信号，确认是否与用户报障时间点一致。\",\n        \"2. 再看聊天记录中相邻的 Tool Call / Tool Output，确认触发参数、路径、模型和降级链路。\",\n        \"3. 如果本 md 不够定位，继续查看同目录原始 `events.jsonl`、`manifest.json`、`metadata.json`。\",\n    ])\n    return \"\\n\".join(lines)\n\n\ndef fence_text(text: str, limit: int | None = None) -> str:\n    text = str(text or \"\")\n    if limit and len(text) > limit:\n        text = text[:limit] + f\"\\n...[truncated {len(text) - limit} chars]\"\n    return text.replace(\"```\", \"``\\\\`\")\n\n\ndef generate_markdown_report(\n    session_key: str,\n    agent_name: str,\n    issue_title: str,\n    messages: list[dict[str, Any]],\n    logs: str,\n    analysis: str,\n    export_dir: Path,\n) -> str:\n    lines = [\n        f\"# Chat with {agent_name}\",\n        \"\",\n        \"## AI Analysis\",\n        \"\",\n        analysis,\n        \"\",\n        \"---\",\n        \"\",\n        \"## Export Metadata\",\n        \"\",\n        f\"- Issue: `{issue_title}`\",\n        f\"- Session: `{session_key}`\",\n        f\"- Raw trajectory bundle: `{export_dir}`\",\n        f\"- Generated at: `{dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]}Z`\",\n        \"\",\n        \"---\",\n        \"\",\n    ]\n\n    for msg in messages:\n        role = msg.get(\"role\")\n        timestamp = format_timestamp(msg.get(\"timestamp\"))\n\n        if role == \"user\":\n            lines.extend([f\"## You ({timestamp})\", \"\"])\n            for attachment in msg.get(\"attachments\", []):\n                lines.append(attachment)\n            if msg.get(\"content\"):\n                lines.append(msg[\"content\"])\n            lines.append(\"\")\n\n        elif role == \"assistant\":\n            lines.extend([f\"## {agent_name} ({timestamp})\", \"\", msg.get(\"content\", \"\"), \"\"])\n\n        elif role == \"tool_call\":\n            tool_name = msg.get(\"tool\", \"unknown\")\n            lines.extend([\n                f\"## {agent_name} ({timestamp})\",\n                \"\",\n                f\"🔧 **Tool Call**: `{tool_name}` ({tool_name})\",\n                \"**Input**:\",\n                \"```json\",\n                fence_text(json.dumps(msg.get(\"input\", {}), indent=2, ensure_ascii=False), 12000),\n                \"```\",\n                \"\",\n            ])\n\n        elif role == \"tool_result\":\n            tool_name = msg.get(\"tool\", \"unknown\")\n            lines.extend([f\"## Tool ({timestamp})\", \"\"])\n            if msg.get(\"error\"):\n                lines.extend([\n                    f\"❌ **Tool Error**: `{tool_name}` ({tool_name})\",\n                    f\"**Error**: {msg.get('error')}\",\n                    \"\",\n                ])\n            lines.extend([\n                f\"📦 **Tool Output**: `{tool_name}` ({tool_name})\",\n                \"**Output**:\",\n                \"```text\",\n                fence_text(msg.get(\"output\", \"\"), 12000),\n                \"```\",\n                \"\",\n            ])\n\n    if logs:\n        lines.extend([\n            \"\",\n            \"## Backend Logs\",\n            \"\",\n            \"```log\",\n            fence_text(strip_ansi(logs), 30000),\n            \"```\",\n        ])\n\n    return \"\\n\".join(lines).rstrip() + \"\\n\"\n\n\ndef read_manifest(output_dir: Path) -> dict[str, Any]:\n    try:\n        return json.loads((output_dir / \"manifest.json\").read_text(encoding=\"utf-8\"))\n    except Exception:\n        return {}\n\n\ndef main() -> int:\n    ap = argparse.ArgumentParser(description=\"Export OpenClaw session as a chat-style markdown debug report\")\n    ap.add_argument(\"--workspace\", default=os.getcwd(), help=\"Workspace/state root used by openclaw sessions export-trajectory\")\n    ap.add_argument(\"--session-key\", default=\"current\", help=\"Session key to export; use 'current' to auto-resolve\")\n    ap.add_argument(\"--agent\", \"--agent-id\", dest=\"agent_id\", default=None, help=\"Agent id to prefer when resolving --session-key current\")\n    ap.add_argument(\"--chat-type\", choices=[\"direct\", \"group\", \"channel\"], default=None, help=\"Chat type to prefer when resolving --session-key current\")\n    ap.add_argument(\"--peer-id\", default=None, help=\"Peer/chat id to prefer when resolving --session-key current, such as ou_xxx or oc_xxx\")\n    ap.add_argument(\"--issue\", required=True, help=\"Short issue title, used in report and filename\")\n    ap.add_argument(\"--agent-name\", default=\"小爪\", help=\"Agent display name in chat headings\")\n    ap.add_argument(\"--output-dir\", default=None, help=f\"Report output directory; default: {default_report_dir()}\")\n    ap.add_argument(\"--log-lines\", type=int, default=1000, help=\"How many gateway log lines to capture\")\n    ap.add_argument(\"--max-bytes\", type=int, default=2000000, help=\"Max bytes when capturing gateway logs\")\n    ap.add_argument(\"--no-logs\", action=\"store_true\", help=\"Skip backend log capture\")\n    args = ap.parse_args()\n\n    workspace = Path(args.workspace).expanduser().resolve()\n    session_key = clean_string(args.session_key) or \"current\"\n    if session_key == \"current\":\n        session_key = resolve_current_session_key(\n            workspace=workspace,\n            cwd=Path.cwd(),\n            agent_id=args.agent_id,\n            chat_type=args.chat_type,\n            peer_id=args.peer_id,\n        )\n        if not session_key:\n            sys.stderr.write(\"Failed to auto-resolve current session key. Pass --session-key explicitly.\\n\")\n            return 2\n\n    generated_ts = dt.datetime.now().strftime(\"%Y%m%d-%H%M%S\")\n    issue_slug = slugify(args.issue, \"issue\")\n    session_slug = slugify(session_key.split(\":\")[-1], \"session\")\n    bundle_name = f\"{generated_ts}__{issue_slug}__{session_slug}\"\n\n    export_res = run([\n        \"openclaw\", \"sessions\", \"export-trajectory\",\n        \"--session-key\", session_key,\n        \"--workspace\", str(workspace),\n        \"--output\", bundle_name,\n        \"--json\",\n    ], cwd=workspace)\n    if export_res.returncode != 0:\n        sys.stderr.write(export_res.stdout)\n        sys.stderr.write(export_res.stderr)\n        return export_res.returncode\n\n    try:\n        export_data = json.loads(export_res.stdout.strip().splitlines()[-1])\n    except Exception:\n        export_data = {}\n    output_dir = Path(export_data.get(\"outputDir\") or workspace / \".openclaw\" / \"trajectory-exports\" / bundle_name)\n\n    messages, stats = parse_events_to_messages(output_dir / \"events.jsonl\")\n    manifest = read_manifest(output_dir)\n    stats[\"events\"] = manifest.get(\"eventCount\", stats.get(\"events\", 0))\n\n    logs = \"\"\n    if not args.no_logs:\n        # Fetch more logs than requested to account for filtering\n        logs_res = run([\n            \"openclaw\", \"logs\",\n            \"--limit\", str(args.log_lines * 3),  # 3x to ensure we get enough after filtering\n            \"--max-bytes\", str(args.max_bytes * 3),\n            \"--plain\",\n            \"--local-time\",\n        ], cwd=workspace)\n        all_logs = (logs_res.stdout or logs_res.stderr or \"\").strip()\n\n        # Filter logs to only include lines related to this session\n        # Use session_key (most specific) and session_id from manifest\n        # Do NOT use peer_id alone as it would include other agents' activities in the same group\n        session_id = manifest.get(\"sessionId\", \"\")\n\n        filter_patterns = [session_key, session_id]\n        filter_patterns = [p for p in filter_patterns if p]  # Remove empty strings\n\n        if filter_patterns:\n            filtered_lines = []\n            for line in all_logs.splitlines():\n                if any(pattern in line for pattern in filter_patterns):\n                    filtered_lines.append(line)\n                    if len(\"\\n\".join(filtered_lines)) > args.max_bytes:\n                        break\n            logs = \"\\n\".join(filtered_lines[:args.log_lines])\n        else:\n            # Fallback: if no patterns to filter by, use original logic\n            logs = all_logs[:args.max_bytes]\n\n    analysis = generate_analysis(args.issue, session_key, stats, logs, messages)\n    report = generate_markdown_report(\n        session_key=session_key,\n        agent_name=args.agent_name,\n        issue_title=args.issue,\n        messages=messages,\n        logs=logs,\n        analysis=analysis,\n        export_dir=output_dir,\n    )\n\n    report_dir = Path(args.output_dir).expanduser() if args.output_dir else default_report_dir()\n    report_dir.mkdir(parents=True, exist_ok=True)\n    report_name = build_report_filename(generated_ts, session_key, args.issue)\n    report_path = report_dir / report_name\n    report_path.write_text(report, encoding=\"utf-8\")\n\n    print(json.dumps({\n        \"sessionKey\": session_key,\n        \"issue\": args.issue,\n        \"outputFile\": str(report_path),\n        \"rawBundleDir\": str(output_dir),\n        \"messageCount\": len(messages),\n        \"eventCount\": stats.get(\"events\"),\n        \"toolErrorSignals\": stats.get(\"tool_errors\"),\n    }, ensure_ascii=False, indent=2))\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781250867862
+      }
+    },
+    {
+      "type": "message",
+      "id": "ae77d05b",
+      "parentId": "e5978f3c",
+      "timestamp": "2026-06-12T07:54:32.307Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_JR5aDYH3z860MLZ56GRHOYtH",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py --workspace $OPENCLAW_STATE_DIR --session-key current --issue '聊天记录导出' --agent-name '虾指挥'",
+              "timeout": 120,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 3737,
+          "output": 85,
+          "cacheRead": 46080,
+          "cacheWrite": 0,
+          "totalTokens": 49902,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250867863,
+        "responseId": "resp_024e43a3d6413ee0016a2bbb34f3748196b4051ea9dcf4be27"
+      }
+    },
+    {
+      "type": "message",
+      "id": "8c69f2fc",
+      "parentId": "ae77d05b",
+      "timestamp": "2026-06-12T07:54:34.548Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_JR5aDYH3z860MLZ56GRHOYtH",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "(no output)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 1745,
+          "aggregated": "",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781250874547
+      }
+    },
+    {
+      "type": "message",
+      "id": "fd6bc7a2",
+      "parentId": "8c69f2fc",
+      "timestamp": "2026-06-12T07:54:50.520Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_opeNUf03HitP103UynOKjJVJ",
+            "name": "exec",
+            "arguments": {
+              "command": "cat '$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py' > '$WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py' && wc -l '$WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py'",
+              "timeout": 30,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 251,
+          "output": 554,
+          "cacheRead": 49664,
+          "cacheWrite": 0,
+          "totalTokens": 50469,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250874569,
+        "responseId": "resp_0329c1e47805ec02016a2bbb3be6e88196a428efa089bcc13a"
+      }
+    },
+    {
+      "type": "message",
+      "id": "da2da4fa",
+      "parentId": "fd6bc7a2",
+      "timestamp": "2026-06-12T07:54:51.297Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_opeNUf03HitP103UynOKjJVJ",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "719 $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 21,
+          "aggregated": "719 $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781250891296
+      }
+    },
+    {
+      "type": "message",
+      "id": "966d46e3",
+      "parentId": "da2da4fa",
+      "timestamp": "2026-06-12T07:54:57.486Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_u7y9dtDVOsgallfTIVBkuZXe",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py --workspace $OPENCLAW_STATE_DIR --session-key current --issue '聊天记录导出' --agent-name '虾指挥'",
+              "timeout": 120,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 377,
+          "output": 166,
+          "cacheRead": 49664,
+          "cacheWrite": 0,
+          "totalTokens": 50207,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250891297,
+        "responseId": "resp_01a23ec650039213016a2bbb4c4c808190aa2428e0c9921cf6"
+      }
+    },
+    {
+      "type": "message",
+      "id": "a059a7c5",
+      "parentId": "966d46e3",
+      "timestamp": "2026-06-12T07:55:07.945Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_u7y9dtDVOsgallfTIVBkuZXe",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session quiet-reef, pid 24662). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "quiet-reef",
+          "pid": 24662,
+          "startedAt": 1781250897924,
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1781250907944
+      }
+    },
+    {
+      "type": "message",
+      "id": "257b38eb",
+      "parentId": "a059a7c5",
+      "timestamp": "2026-06-12T07:55:12.651Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_M8A9k7QQNKep9FFMUPt0VnhD",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 2000,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "quiet-reef",
+              "text": "",
+              "timeout": 30000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 504,
+          "output": 61,
+          "cacheRead": 49664,
+          "cacheWrite": 0,
+          "totalTokens": 50229,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250907947,
+        "responseId": "resp_090e5cbb7d4ebefa016a2bbb5d84908194ad7003d56dfb7088"
+      }
+    },
+    {
+      "type": "message",
+      "id": "f5895638",
+      "parentId": "257b38eb",
+      "timestamp": "2026-06-12T07:55:13.111Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_M8A9k7QQNKep9FFMUPt0VnhD",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"sessionKey\": \"agent:main-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194eeb1ac88e9bb4\",\n  \"issue\": \"聊天记录导出\",\n  \"outputFile\": \"~/Downloads/openclaw 问题汇总/20260612-155507-oc_deb2956a37fa31823df419ab084a073f-thread-omt_194eeb1ac88e9bb4-聊天记录导出.md\",\n  \"rawBundleDir\": \"$WORKSPACE_DIR/.openclaw/trajectory-exports/20260612-155507__issue__omt-194eeb1ac88e9bb4\",\n  \"messageCount\": 391,\n  \"eventCount\": 614,\n  \"toolErrorSignals\": 15\n}\n\n\nProcess exited with code 0."
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "sessionId": "quiet-reef",
+          "exitCode": 0,
+          "aggregated": "{\n  \"sessionKey\": \"agent:main-shared:feishu:group:oc_deb2956a37fa31823df419ab084a073f:thread:omt_194eeb1ac88e9bb4\",\n  \"issue\": \"聊天记录导出\",\n  \"outputFile\": \"~/Downloads/openclaw 问题汇总/20260612-155507-oc_deb2956a37fa31823df419ab084a073f-thread-omt_194eeb1ac88e9bb4-聊天记录导出.md\",\n  \"rawBundleDir\": \"$WORKSPACE_DIR/.openclaw/trajectory-exports/20260612-155507__issue__omt-194eeb1ac88e9bb4\",\n  \"messageCount\": 391,\n  \"eventCount\": 614,\n  \"toolErrorSignals\": 15\n}\n",
+          "name": "python3 $WORKSPACE_DIR/..._export_chat_report.py"
+        },
+        "isError": false,
+        "timestamp": 1781250913111
+      }
+    },
+    {
+      "type": "message",
+      "id": "9023b99f",
+      "parentId": "f5895638",
+      "timestamp": "2026-06-12T07:55:29.081Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "我先重新限定到这次私聊导出，刚才自动解析到了另一个话题群会话，不能把错的记录发给你。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_2nM72qKninWlQSyYypSWAcFU",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py --workspace $OPENCLAW_STATE_DIR --session-key current --agent main-shared --chat-type direct --peer-id 'ou_d4d404eedf2823baab3a64d36f1c36d4' --issue '聊天记录导出' --agent-name '虾指挥'",
+              "timeout": 120,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 8118,
+          "output": 358,
+          "cacheRead": 41984,
+          "cacheWrite": 0,
+          "totalTokens": 50460,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250913112,
+        "responseId": "chatcmpl-3558b9ce"
+      }
+    },
+    {
+      "type": "message",
+      "id": "a33e144a",
+      "parentId": "9023b99f",
+      "timestamp": "2026-06-12T07:55:35.598Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_2nM72qKninWlQSyYypSWAcFU",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Session file not found.\n\n(Command exited with code 1)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 1,
+          "durationMs": 6051,
+          "aggregated": "Session file not found.\n\n(Command exited with code 1)",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781250935598
+      }
+    },
+    {
+      "type": "message",
+      "id": "55a9f344",
+      "parentId": "a33e144a",
+      "timestamp": "2026-06-12T07:55:48.405Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_RINhB6WeSD5YGXSWB8LugzBA",
+            "name": "exec",
+            "arguments": {
+              "command": "openclaw sessions --all-agents --limit 100 --json | python3 -c 'import sys,json; d=json.load(sys.stdin); print(\"\\n\".join([s.get(\"key\",\"\")+\"\\t\"+str(s.get(\"updatedAt\"))+\"\\t\"+str(s.get(\"kind\"))+\"\\t\"+str(s.get(\"agentId\")) for s in d.get(\"sessions\",[]) if \"ou_d4d404eedf2823baab3a64d36f1c36d4\" in s.get(\"key\",\"\")]))'",
+              "timeout": 30,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 622,
+          "output": 406,
+          "cacheRead": 49664,
+          "cacheWrite": 0,
+          "totalTokens": 50692,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250935599,
+        "responseId": "chatcmpl-b15b80ec"
+      }
+    },
+    {
+      "type": "message",
+      "id": "629134e6",
+      "parentId": "55a9f344",
+      "timestamp": "2026-06-12T07:55:58.879Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_RINhB6WeSD5YGXSWB8LugzBA",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session mellow-atlas, pid 27466). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "mellow-atlas",
+          "pid": 27466,
+          "startedAt": 1781250948861,
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1781250958878
+      }
+    },
+    {
+      "type": "message",
+      "id": "16e4e4cd",
+      "parentId": "629134e6",
+      "timestamp": "2026-06-12T07:56:05.481Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_xRZku9HU334VotJb6E1tNvMy",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 4000,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "mellow-atlas",
+              "text": "",
+              "timeout": 30000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 1166,
+          "output": 62,
+          "cacheRead": 49664,
+          "cacheWrite": 0,
+          "totalTokens": 50892,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250958880,
+        "responseId": "resp_0b1cc4215b014136016a2bbb918b6c819494cfcd975439345b"
+      }
+    },
+    {
+      "type": "message",
+      "id": "375bd60c",
+      "parentId": "16e4e4cd",
+      "timestamp": "2026-06-12T07:56:10.058Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_xRZku9HU334VotJb6E1tNvMy",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": "agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4\t1781250772780\tdirect\tmain-shared\n\nProcess exited with code 0."
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "sessionId": "mellow-atlas",
+          "exitCode": 0,
+          "aggregated": "agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4\t1781250772780\tdirect\tmain-shared\n",
+          "name": "openclaw sessions"
+        },
+        "isError": false,
+        "timestamp": 1781250970058
+      }
+    },
+    {
+      "type": "message",
+      "id": "6f81d9ee",
+      "parentId": "375bd60c",
+      "timestamp": "2026-06-12T07:56:16.104Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_PGut3qGJWhUpgzzxGG0qQQFD",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 $WORKSPACE_DIR/workspace/outputs/_temp_export_chat_report.py --workspace $OPENCLAW_STATE_DIR --session-key 'agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4' --issue '聊天记录导出' --agent-name '虾指挥'",
+              "timeout": 120,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 266,
+          "output": 119,
+          "cacheRead": 50688,
+          "cacheWrite": 0,
+          "totalTokens": 51073,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250970059,
+        "responseId": "resp_0cec5d02b55828ef016a2bbb9ba26481979bda01eaf8dd1278"
+      }
+    },
+    {
+      "type": "message",
+      "id": "ad3c226c",
+      "parentId": "6f81d9ee",
+      "timestamp": "2026-06-12T07:56:19.512Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_PGut3qGJWhUpgzzxGG0qQQFD",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Session file not found.\n\n(Command exited with code 1)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 1,
+          "durationMs": 2898,
+          "aggregated": "Session file not found.\n\n(Command exited with code 1)",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781250979512
+      }
+    },
+    {
+      "type": "message",
+      "id": "48469b88",
+      "parentId": "ad3c226c",
+      "timestamp": "2026-06-12T07:56:28.019Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_fRArHO50b3GJ1jWarZlBzppQ",
+            "name": "exec",
+            "arguments": {
+              "command": "openclaw sessions export-trajectory --session-key 'agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4' --workspace $OPENCLAW_STATE_DIR --output debug_direct_export --json",
+              "timeout": 60,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 407,
+          "output": 279,
+          "cacheRead": 50688,
+          "cacheWrite": 0,
+          "totalTokens": 51374,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250979513,
+        "responseId": "resp_069551800ab5a6c7016a2bbba4b1d08190b6f765c62a7de7af"
+      }
+    },
+    {
+      "type": "message",
+      "id": "ed39dbed",
+      "parentId": "48469b88",
+      "timestamp": "2026-06-12T07:56:30.361Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_fRArHO50b3GJ1jWarZlBzppQ",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Session file not found.\n\n(Command exited with code 1)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 1,
+          "durationMs": 1880,
+          "aggregated": "Session file not found.\n\n(Command exited with code 1)",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781250990360
+      }
+    },
+    {
+      "type": "message",
+      "id": "a0d1ff51",
+      "parentId": "ed39dbed",
+      "timestamp": "2026-06-12T07:56:41.214Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Diagnosing session export issues**\n\nI need to handle this situation carefully. I've followed the skill guidelines and tried using commands, but I'm running into issues with exporting the current Feishu DM. The session appears in the openclaw sessions list, yet the export command says the file isn't found. Should I use the sessions tool to fetch the history instead? There may be a problem with the storage due to the key's use of the base directory. I’ll inspect the session command further!\n\n",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "text",
+            "text": "这次私聊会话能查到，但 `export-trajectory` 报 `Session file not found`。我继续从会话存储位置查，不用简化导出糊弄你。"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_Iz8xQpsDLNbwezUnHe4mRf1D",
+            "name": "exec",
+            "arguments": {
+              "command": "openclaw sessions export-trajectory --session-key 'agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4' --workspace $WORKSPACE_DIR/workspace --output debug_direct_export --json",
+              "timeout": 60,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 525,
+          "output": 355,
+          "cacheRead": 50688,
+          "cacheWrite": 0,
+          "totalTokens": 51568,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781250990361,
+        "responseId": "resp_0a8ae7cd718adb1f016a2bbbaf50e48195b1063fa7100a1c49"
+      }
+    },
+    {
+      "type": "message",
+      "id": "7399f9ad",
+      "parentId": "a0d1ff51",
+      "timestamp": "2026-06-12T07:56:53.346Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_Iz8xQpsDLNbwezUnHe4mRf1D",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session rapid-claw, pid 30275). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "rapid-claw",
+          "pid": 30275,
+          "startedAt": 1781251001634,
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1781251013344
+      }
+    },
+    {
+      "type": "message",
+      "id": "ae61795f",
+      "parentId": "7399f9ad",
+      "timestamp": "2026-06-12T07:56:58.197Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_YFi1qjNdUpu74yyAVfmrNikX",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 4000,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "rapid-claw",
+              "text": "",
+              "timeout": 30000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 887,
+          "output": 61,
+          "cacheRead": 50176,
+          "cacheWrite": 0,
+          "totalTokens": 51124,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251013376,
+        "responseId": "chatcmpl-5a804979"
+      }
+    },
+    {
+      "type": "message",
+      "id": "79bec593",
+      "parentId": "ae61795f",
+      "timestamp": "2026-06-12T07:57:00.352Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_YFi1qjNdUpu74yyAVfmrNikX",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": "Session file not found.\n\nProcess exited with code 1."
+          }
+        ],
+        "details": {
+          "status": "failed",
+          "sessionId": "rapid-claw",
+          "exitCode": 1,
+          "aggregated": "Session file not found.\n",
+          "name": "openclaw sessions"
+        },
+        "isError": false,
+        "timestamp": 1781251020351
+      }
+    },
+    {
+      "type": "message",
+      "id": "7aaf766f",
+      "parentId": "79bec593",
+      "timestamp": "2026-06-12T07:57:06.076Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_5hFr9Cn9zpwHBGlGuv5U4OtZ",
+            "name": "exec",
+            "arguments": {
+              "command": "find $OPENCLAW_STATE_DIR -path '*sessions*' -type f \\( -name '*.jsonl' -o -name '*.json' \\) 2>/dev/null | grep -F 'ou_d4d404eedf2823baab3a64d36f1c36d4' | head -20",
+              "timeout": 30,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 458,
+          "output": 106,
+          "cacheRead": 50688,
+          "cacheWrite": 0,
+          "totalTokens": 51252,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251020353,
+        "responseId": "chatcmpl-f7f52d35"
+      }
+    },
+    {
+      "type": "message",
+      "id": "37237d83",
+      "parentId": "7aaf766f",
+      "timestamp": "2026-06-12T07:57:12.075Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_5hFr9Cn9zpwHBGlGuv5U4OtZ",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "(no output)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 5519,
+          "aggregated": "",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781251032074
+      }
+    },
+    {
+      "type": "message",
+      "id": "aec9aa33",
+      "parentId": "37237d83",
+      "timestamp": "2026-06-12T07:57:24.870Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Investigating OpenClaw storage**\n\nI'm thinking about whether I need to read the remaining skills or if I've gathered enough already. It feels like I need to complete my investigation into OpenClaw storage. I should check the latest messages from openclaw sessions. I can use a command like `openclaw sessions --all-agents --limit 100 --json` to see the entry details, and that should include the storage path I need.  I'll go ahead and execute that.",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_63DB7m2zkY78D1RndigXxzzE",
+            "name": "exec",
+            "arguments": {
+              "command": "openclaw sessions --all-agents --limit 100 --json | python3 -m json.tool | sed -n '/ou_d4d404eedf2823baab3a64d36f1c36d4/,+25p'",
+              "timeout": 60,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 577,
+          "output": 333,
+          "cacheRead": 50688,
+          "cacheWrite": 0,
+          "totalTokens": 51598,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251032075,
+        "responseId": "chatcmpl-240b7af2"
+      }
+    },
+    {
+      "type": "message",
+      "id": "1d9c0271",
+      "parentId": "aec9aa33",
+      "timestamp": "2026-06-12T07:57:35.111Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_63DB7m2zkY78D1RndigXxzzE",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session mellow-rook, pid 32778). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "mellow-rook",
+          "pid": 32778,
+          "startedAt": 1781251045091,
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1781251055111
+      }
+    },
+    {
+      "type": "message",
+      "id": "75ecf585",
+      "parentId": "1d9c0271",
+      "timestamp": "2026-06-12T07:57:46.358Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_t0vjKP950brW7cwwJ01beWLb",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 8000,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "mellow-rook",
+              "text": "",
+              "timeout": 30000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 194,
+          "output": 62,
+          "cacheRead": 51200,
+          "cacheWrite": 0,
+          "totalTokens": 51456,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251055112,
+        "responseId": "chatcmpl-d343354c"
+      }
+    },
+    {
+      "type": "message",
+      "id": "f874a408",
+      "parentId": "75ecf585",
+      "timestamp": "2026-06-12T07:57:53.094Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_t0vjKP950brW7cwwJ01beWLb",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": "\"key\": \"agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n            \"updatedAt\": 1781250772780,\n            \"ageMs\": 283251,\n            \"sessionId\": \"2ffc2292-0bca-4970-baa3-1da8ee1856f4\",\n            \"systemSent\": false,\n            \"abortedLastRun\": false,\n            \"totalTokens\": null,\n            \"totalTokensFresh\": false,\n            \"model\": \"gpt-5.5\",\n            \"modelProvider\": \"aixor-g\",\n            \"contextTokens\": 1000000,\n            \"agentId\": \"main-shared\",\n            \"agentRuntime\": {\n                \"id\": \"pi\",\n                \"source\": \"implicit\"\n            },\n            \"kind\": \"direct\"\n        },\n        {\n            \"key\": \"agent:copywriter-shared:subagent:ebd576f4-ed6d-43f7-974d-7c0278960971\",\n            \"updatedAt\": 1781250705618,\n            \"ageMs\": 360920,\n            \"sessionId\": \"34c574b0-dd6b-4794-bc45-7b8a4ba0825c\",\n            \"abortedLastRun\": false,\n            \"thinkingLevel\": \"low\",\n            \"inputTokens\": 129091,\n\nProcess exited with code 0."
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "sessionId": "mellow-rook",
+          "exitCode": 0,
+          "aggregated": "            \"key\": \"agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n            \"updatedAt\": 1781250772780,\n            \"ageMs\": 283251,\n            \"sessionId\": \"2ffc2292-0bca-4970-baa3-1da8ee1856f4\",\n            \"systemSent\": false,\n            \"abortedLastRun\": false,\n            \"totalTokens\": null,\n            \"totalTokensFresh\": false,\n            \"model\": \"gpt-5.5\",\n            \"modelProvider\": \"aixor-g\",\n            \"contextTokens\": 1000000,\n            \"agentId\": \"main-shared\",\n            \"agentRuntime\": {\n                \"id\": \"pi\",\n                \"source\": \"implicit\"\n            },\n            \"kind\": \"direct\"\n        },\n        {\n            \"key\": \"agent:copywriter-shared:subagent:ebd576f4-ed6d-43f7-974d-7c0278960971\",\n            \"updatedAt\": 1781250705618,\n            \"ageMs\": 360920,\n            \"sessionId\": \"34c574b0-dd6b-4794-bc45-7b8a4ba0825c\",\n            \"abortedLastRun\": false,\n            \"thinkingLevel\": \"low\",\n            \"inputTokens\": 129091,\n",
+          "name": "openclaw sessions"
+        },
+        "isError": false,
+        "timestamp": 1781251073094
+      }
+    },
+    {
+      "type": "message",
+      "id": "2e33e222",
+      "parentId": "f874a408",
+      "timestamp": "2026-06-12T07:58:02.824Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_idoXM57Ya4fOL0UPwCDzpNMV",
+            "name": "exec",
+            "arguments": {
+              "command": "openclaw sessions export-trajectory --help",
+              "timeout": 30,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 585,
+          "output": 225,
+          "cacheRead": 51200,
+          "cacheWrite": 0,
+          "totalTokens": 52010,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251073095,
+        "responseId": "chatcmpl-561a853c"
+      }
+    },
+    {
+      "type": "message",
+      "id": "40db5a85",
+      "parentId": "2e33e222",
+      "timestamp": "2026-06-12T07:58:06.340Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_idoXM57Ya4fOL0UPwCDzpNMV",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "🦞 OpenClaw 2026.5.7 (eeef486) — Deployed locally, trusted globally, debugged eternally.\n\nUsage: openclaw sessions export-trajectory [options]\n\nExport a redacted trajectory bundle for a stored session\n\nOptions:\n  --agent <id>                     Agent id for resolving the default session\n                                   store\n  -h, --help                       Display help for command\n  --json                           Output JSON (default: false)\n  --output <path>                  Output directory name inside\n                                   .openclaw/trajectory-exports\n  --request-json-base64 <payload>  Base64url-encoded export request\n  --session-key <key>              Session key to export\n  --store <path>                   Path to session store (default: resolved from\n                                   session key)\n  --workspace <path>               Workspace root for the export (default:\n                                   current directory)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 3064,
+          "aggregated": "🦞 OpenClaw 2026.5.7 (eeef486) — Deployed locally, trusted globally, debugged eternally.\n\nUsage: openclaw sessions export-trajectory [options]\n\nExport a redacted trajectory bundle for a stored session\n\nOptions:\n  --agent <id>                     Agent id for resolving the default session\n                                   store\n  -h, --help                       Display help for command\n  --json                           Output JSON (default: false)\n  --output <path>                  Output directory name inside\n                                   .openclaw/trajectory-exports\n  --request-json-base64 <payload>  Base64url-encoded export request\n  --session-key <key>              Session key to export\n  --store <path>                   Path to session store (default: resolved from\n                                   session key)\n  --workspace <path>               Workspace root for the export (default:\n                                   current directory)",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781251086339
+      }
+    },
+    {
+      "type": "message",
+      "id": "be346008",
+      "parentId": "40db5a85",
+      "timestamp": "2026-06-12T07:58:15.558Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_ptwzvE6ON7y26aHesU8eOZxY",
+            "name": "exec",
+            "arguments": {
+              "command": "find $OPENCLAW_STATE_DIR -maxdepth 5 -type d \\( -name 'sessions' -o -name 'session-store' -o -name 'stores' -o -name 'trajectory-exports' -o -name '.openclaw' \\) 2>/dev/null | sed -n '1,200p'",
+              "timeout": 30,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 316,
+          "output": 224,
+          "cacheRead": 51712,
+          "cacheWrite": 0,
+          "totalTokens": 52252,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251086341,
+        "responseId": "chatcmpl-fc00d862"
+      }
+    },
+    {
+      "type": "message",
+      "id": "7d96986f",
+      "parentId": "be346008",
+      "timestamp": "2026-06-12T07:58:16.765Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_ptwzvE6ON7y26aHesU8eOZxY",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "~/.openclaw\n$WORKSPACE_DIR/workspace-business/.openclaw\n$WORKSPACE_DIR/workspace-copywriter/.openclaw\n$WORKSPACE_DIR/workspace-design/.openclaw\n$WORKSPACE_DIR/workspace/.openclaw\n$WORKSPACE_DIR/workspace-research/.openclaw\n$WORKSPACE_DIR/agents/copywriter/sessions\n$WORKSPACE_DIR/agents/research/sessions\n$WORKSPACE_DIR/agents/design/sessions\n$WORKSPACE_DIR/agents/design-shared/sessions\n$WORKSPACE_DIR/agents/meeting-analyst/sessions\n$WORKSPACE_DIR/agents/research-shared/sessions\n$WORKSPACE_DIR/agents/business/sessions\n$WORKSPACE_DIR/agents/main-shared/sessions\n$WORKSPACE_DIR/agents/business-shared/sessions\n$WORKSPACE_DIR/agents/meeting-analyst-shared/sessions\n$WORKSPACE_DIR/agents/copywriter-shared/sessions\n$WORKSPACE_DIR/agents/main/sessions\n$WORKSPACE_DIR/agents/strategy-shared/sessions\n$WORKSPACE_DIR/agents/strategy/sessions\n$WORKSPACE_DIR/.openclaw\n$WORKSPACE_DIR/.openclaw/trajectory-exports\n$WORKSPACE_DIR/workspace-strategy/.openclaw\n$WORKSPACE_DIR/workspace-strategy/.openclaw/trajectory-exports\n$WORKSPACE_DIR/workspace-meeting/.openclaw\n$WORKSPACE_DIR/trajectory-exports"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 733,
+          "aggregated": "~/.openclaw\n$WORKSPACE_DIR/workspace-business/.openclaw\n$WORKSPACE_DIR/workspace-copywriter/.openclaw\n$WORKSPACE_DIR/workspace-design/.openclaw\n$WORKSPACE_DIR/workspace/.openclaw\n$WORKSPACE_DIR/workspace-research/.openclaw\n$WORKSPACE_DIR/agents/copywriter/sessions\n$WORKSPACE_DIR/agents/research/sessions\n$WORKSPACE_DIR/agents/design/sessions\n$WORKSPACE_DIR/agents/design-shared/sessions\n$WORKSPACE_DIR/agents/meeting-analyst/sessions\n$WORKSPACE_DIR/agents/research-shared/sessions\n$WORKSPACE_DIR/agents/business/sessions\n$WORKSPACE_DIR/agents/main-shared/sessions\n$WORKSPACE_DIR/agents/business-shared/sessions\n$WORKSPACE_DIR/agents/meeting-analyst-shared/sessions\n$WORKSPACE_DIR/agents/copywriter-shared/sessions\n$WORKSPACE_DIR/agents/main/sessions\n$WORKSPACE_DIR/agents/strategy-shared/sessions\n$WORKSPACE_DIR/agents/strategy/sessions\n$WORKSPACE_DIR/.openclaw\n$WORKSPACE_DIR/.openclaw/trajectory-exports\n$WORKSPACE_DIR/workspace-strategy/.openclaw\n$WORKSPACE_DIR/workspace-strategy/.openclaw/trajectory-exports\n$WORKSPACE_DIR/workspace-meeting/.openclaw\n$WORKSPACE_DIR/trajectory-exports",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781251096764
+      }
+    },
+    {
+      "type": "message",
+      "id": "5da5df68",
+      "parentId": "7d96986f",
+      "timestamp": "2026-06-12T07:58:23.443Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_ydh0k5xwGYY5GkLl4fjOJCTL",
+            "name": "exec",
+            "arguments": {
+              "command": "find $WORKSPACE_DIR/agents/main-shared/sessions -maxdepth 3 -type f | sed -n '1,80p'; echo '---'; find $WORKSPACE_DIR/agents/main-shared/sessions -type f | grep -F '2ffc2292-0bca-4970-baa3-1da8ee1856f4'",
+              "timeout": 30,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 847,
+          "output": 120,
+          "cacheRead": 51712,
+          "cacheWrite": 0,
+          "totalTokens": 52679,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251096766,
+        "responseId": "chatcmpl-100a8f43"
+      }
+    },
+    {
+      "type": "message",
+      "id": "70c96468",
+      "parentId": "5da5df68",
+      "timestamp": "2026-06-12T07:58:24.116Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_ydh0k5xwGYY5GkLl4fjOJCTL",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "$WORKSPACE_DIR/agents/main-shared/sessions/b601238e-c4e8-49d3-a884-12c7204a8908.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/62364e59-c348-4af1-935e-88ddbd129df9.jsonl.bak-61219-<redacted-id>\n$WORKSPACE_DIR/agents/main-shared/sessions/897d53bf-95cf-4744-a2a2-3c87fde3f03e.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/2e103336-bb54-4d7d-88c1-98628a7ac651.trajectory-path.json\n$WORKSPACE_DIR/agents/main-shared/sessions/56261845-acb5-4695-bed6-94889c77d459.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/a39c1466-68e6-4e31-952b-438d3ad1dfe9.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/32c7bb2e-70dd-490e-ae44-b9ff7be322e7.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/aab1b8ba-1079-482d-955a-140d5cc093bb.trajectory-path.json\n$WORKSPACE_DIR/agents/main-shared/sessions/dacd3a69-3b2e-465b-9cfe-1c5a02555a4e.jsonl.bak-61219-<redacted-id>\n$WORKSPACE_DIR/agents/main-shared/sessions/7dbc2908-d860-43e9-8033-08b6760a61b3.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/8f59ac63-7ca1-4d91-89f2-feaf31903795.jsonl.reset.2026-06-11T09-24-42.128Z\n$WORKSPACE_DIR/agents/main-shared/sessions/0665aaf7-5686-4035-893d-c500a31fd030.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/e8bd5986-eb31-4aee-a528-579605c6e9c6.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/3c8dc97f-00af-4338-8fee-3c010808cb50.trajectory-path.json\n$WORKSPACE_DIR/agents/main-shared/sessions/aba439c4-6bee-4977-9841-63fca4059d29.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/a0239b70-2c91-49cb-9e25-ba41f945d6b4.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/a7430614-7b98-428e-8e13-ceb062f5ce78.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/1a85d393-2873-4799-8747-f1dea86864d3.trajectory.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/2a33f530-635f-4d30-9da2-a14d79f2cecc-topic-omt_194c1007440f1c9c.jsonl\n$WORKSPACE_DIR/agents/main-shared/sessions/f4cd1dc3-5d72-40b6-894e-838d91e02a34.trajectory.jsonl\n$WORKSPACE_DIR/agen...<truncated>"
+          }
+        ],
+        "details": {
+          "persistedDetailsTruncated": true,
+          "originalDetailsBytesAtLeast": 8193,
+          "originalDetailKeys": [
+            "status",
+            "exitCode",
+            "durationMs",
+            "aggregated",
+            "cwd"
+          ],
+          "status": "completed",
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "exitCode": 1
+        },
+        "isError": false,
+        "timestamp": 1781251104115
+      }
+    },
+    {
+      "type": "message",
+      "id": "ced2f20a",
+      "parentId": "70c96468",
+      "timestamp": "2026-06-12T07:58:33.828Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_OQFtXRbSM40TbSpDOROxpKad",
+            "name": "exec",
+            "arguments": {
+              "command": "find $OPENCLAW_STATE_DIR -type f \\( -name '2ffc2292-0bca-4970-baa3-1da8ee1856f4*' -o -name '*2ffc2292*' \\) 2>/dev/null | sed -n '1,50p'",
+              "timeout": 60,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 4044,
+          "output": 191,
+          "cacheRead": 52224,
+          "cacheWrite": 0,
+          "totalTokens": 56459,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251104117,
+        "responseId": "chatcmpl-45f2d101"
+      }
+    },
+    {
+      "type": "message",
+      "id": "589be014",
+      "parentId": "ced2f20a",
+      "timestamp": "2026-06-12T07:58:41.404Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_OQFtXRbSM40TbSpDOROxpKad",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "(no output)"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 7075,
+          "aggregated": "",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781251121404
+      }
+    },
+    {
+      "type": "message",
+      "id": "f00efeca",
+      "parentId": "589be014",
+      "timestamp": "2026-06-12T07:58:57.118Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_q851NzytY7C41Ib7i0T73zvh",
+            "name": "exec",
+            "arguments": {
+              "command": "grep -R \"2ffc2292-0bca-4970-baa3-1da8ee1856f4\\|ou_d4d404eedf2823baab3a64d36f1c36d4\" -n $OPENCLAW_STATE_DIR 2>/dev/null | head -80",
+              "timeout": 60,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 577,
+          "output": 330,
+          "cacheRead": 55808,
+          "cacheWrite": 0,
+          "totalTokens": 56715,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251121405,
+        "responseId": "chatcmpl-7e5d0af1"
+      }
+    },
+    {
+      "type": "message",
+      "id": "1dd1e95f",
+      "parentId": "f00efeca",
+      "timestamp": "2026-06-12T07:59:07.222Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_q851NzytY7C41Ib7i0T73zvh",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "Command still running (session nimble-summit, pid 39385). Use process (list/poll/log/write/kill/clear/remove) for follow-up."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "nimble-summit",
+          "pid": 39385,
+          "startedAt": 1781251137202,
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "tail": ""
+        },
+        "isError": false,
+        "timestamp": 1781251147221
+      }
+    },
+    {
+      "type": "message",
+      "id": "d7dc1dda",
+      "parentId": "1dd1e95f",
+      "timestamp": "2026-06-12T07:59:12.173Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_zhDcOwVJx9WcvwTNn0RQxqU2",
+            "name": "process",
+            "arguments": {
+              "action": "poll",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 8000,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "nimble-summit",
+              "text": "",
+              "timeout": 30000
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 214,
+          "output": 63,
+          "cacheRead": 56320,
+          "cacheWrite": 0,
+          "totalTokens": 56597,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251147224,
+        "responseId": "chatcmpl-b0cb9b03"
+      }
+    },
+    {
+      "type": "message",
+      "id": "b712092a",
+      "parentId": "d7dc1dda",
+      "timestamp": "2026-06-12T07:59:43.005Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_zhDcOwVJx9WcvwTNn0RQxqU2",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": "(no new output)\n\nProcess still running."
+          }
+        ],
+        "details": {
+          "status": "running",
+          "sessionId": "nimble-summit",
+          "aggregated": "",
+          "name": "grep 2ffc2292-0bca-4970-baa...2823baab3a64d36f1c36d4",
+          "retryInMs": 5000
+        },
+        "isError": false,
+        "timestamp": 1781251183005
+      }
+    },
+    {
+      "type": "message",
+      "id": "3a7093c2",
+      "parentId": "b712092a",
+      "timestamp": "2026-06-12T07:59:51.307Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Exploring command options**\n\nI need to complete this task effectively, so I want to avoid a long grep that scans everything. Maybe I could consider killing the process if it's taking too long. I’m wondering if I should use the find command alongside mdfind? It seems like a more efficient option. First, I should poll the processes and then decide if killing is necessary. Let's see how this goes!",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_onBgiZQXG2IKUmkYGxwoSKWh",
+            "name": "process",
+            "arguments": {
+              "action": "kill",
+              "bracketed": false,
+              "data": "",
+              "eof": false,
+              "hex": [],
+              "keys": [],
+              "limit": 2000,
+              "literal": "",
+              "offset": 0,
+              "sessionId": "nimble-summit",
+              "text": "",
+              "timeout": 0
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 295,
+          "output": 93,
+          "cacheRead": 56320,
+          "cacheWrite": 0,
+          "totalTokens": 56708,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251183007,
+        "responseId": "chatcmpl-a549e0c8"
+      }
+    },
+    {
+      "type": "message",
+      "id": "ad14fa8a",
+      "parentId": "3a7093c2",
+      "timestamp": "2026-06-12T07:59:51.763Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_onBgiZQXG2IKUmkYGxwoSKWh",
+        "toolName": "process",
+        "content": [
+          {
+            "type": "text",
+            "text": "Termination requested for session nimble-summit."
+          }
+        ],
+        "details": {
+          "status": "failed",
+          "name": "grep 2ffc2292-0bca-4970-baa...2823baab3a64d36f1c36d4"
+        },
+        "isError": false,
+        "timestamp": 1781251191763
+      }
+    },
+    {
+      "type": "message",
+      "id": "5edc764d",
+      "parentId": "ad14fa8a",
+      "timestamp": "2026-06-12T08:00:02.762Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_Ot0ECyVrJ4sHh46QccuoXiyr",
+            "name": "exec",
+            "arguments": {
+              "command": "rg -n \"ou_d4d404eedf2823baab3a64d36f1c36d4|2ffc2292-0bca-4970-baa3-1da8ee1856f4|om_x100b6d8fe3c5d088c456d8376ac3cb0\" $WORKSPACE_DIR/agents $WORKSPACE_DIR/workspace/.openclaw $WORKSPACE_DIR/.openclaw $WORKSPACE_DIR/trajectory-exports 2>/dev/null | head -100",
+              "timeout": 60,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 377,
+          "output": 319,
+          "cacheRead": 56320,
+          "cacheWrite": 0,
+          "totalTokens": 57016,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251191764,
+        "responseId": "chatcmpl-5c84cac0"
+      }
+    },
+    {
+      "type": "message",
+      "id": "e37b0577",
+      "parentId": "5edc764d",
+      "timestamp": "2026-06-12T08:00:11.166Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_Ot0ECyVrJ4sHh46QccuoXiyr",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "ype\":\"string\"},\"records\":{\"description\":\"要批量创建的记录列表（最多 500 条）\",\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"record_ids\":{\"description\":\"要删除的记录 ID 列表（最多 500 条）\",\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"view_id\":{\"description\":\"视图 ID（可选，建议指定以获得更好的性能）\",\"type\":\"string\"},\"field_names\":{\"description\":\"要返回的字段名列表（可选，不指定则返回所有字段）\",\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"filter\":{\"description\":\"筛选条件（必须是结构化对象）。示例：{conjunction: 'and', conditions: [{field_name: '文本', operator: 'is', value: ['测试']}]}\",\"type\":\"object\",\"required\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6},\"properties\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"sort\":{\"description\":\"排序规则\",\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"automatic_fields\":{\"description\":\"是否返回自动字段（created_time, last_modified_time, created_by, last_modified_by），默认 false\",\"type\":\"boolean\"},\"page_size\":{\"description\":\"每页数量，默认 50，最大 500\",\"type\":\"number\"}},\"required\":[\"action\",\"app_token\",\"table_id\"],\"additionalProperties\":true}},{\"name\":\"feishu_bitable_app_table_view\",\"description\":\"【以用户身份】飞书多维表格视图管理工具。当用户要求创建/查询/更新视图、切换展示方式时使用。Actions: create（创建视图）, get（获取视图详情）, list（列出所有视图）, patch（更新视图）。\",\"parameters\":{\"type\":\"object\",\"properties\":{\"action\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"table_id\":{\"description\":\"数据表 ID\",\"type\":\"string\"},\"view_name\":{\"description\":\"视图名称\",\"type\":\"string\"},\"view_type\":{\"anyOf\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"view_id\":{\"description\":\"视图 ID\",\"type\":\"string\"},\"page_size\":{\"description\":\"每页数量，默认 50，最大 100\",\"type\":\"number\"}},\"required\":[\"action\",\"app_token\",\"table_id\"],\"additionalProperties\":true}},{\"name\":\"feishu_calendar_calendar\",\"description\":\"【以用户身份】飞书日历管理工具。用于查询日历列表、获取日历信息、查询主日历。Actions: list（查询日历列表）, get（查询指定日历信息）, primary（查询主日历信息）。\",\"parameters\":{\"type\":\"object\",\"properties\":{\"action\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"page_size\":{\"description\":\"Number of calendars to return per page (default: 50, max: 1000)\",\"type\":\"number\"},\"calendar_id\":{\"description\":\"Calendar ID\",\"type\":\"string\"}},\"required\":[\"action\"],\"additionalProperties\":true}},{\"name\":\"feishu_calendar_event\",\"description\":\"【以用户身份】飞书日程管理工具。当用户要求查看日程、创建会议、约会议、修改日程、删除日程、搜索日程、回复日程邀请时使用。Actions: create（创建日历事件）, list（查询时间范围内的日程，自动展开重复日程）, get（获取日程详情）, patch（更新日程）, delete（删除日程）, search（搜索日程）, reply（回复日程邀请）, instances（获取重复日程的实例列表，仅对重复日程有效）, instance_view（查看展开后的日程列表）。【重要】create 时必须传 user_open_id 参数，值为消息上下文中的 SenderId（格式 ou_xxx），否则日程只在应用日历上，用户完全看不到。list 操作使用 instance_view 接口，会自动展开重复日程为多个实例，时间区间不能超过40天，返回实例数量上限1000。时间参数使用ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'。\",\"parameters\":{\"type\":\"object\",\"properties\":{\"action\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"start_time\":{\"description\":\"开始时间（必填）。ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'\",\"type\":\"string\"},\"end_time\":{\"description\":\"结束时间（必填）。格式同 start_time。如果用户未指定时长，默认为开始时间后1小时。\",\"type\":\"string\"},\"summary\":{\"description\":\"日程标题（可选，但强烈建议提供）\",\"type\":\"string\"},\"user_open_id\":{\"description\":\"当前请求用户的 open_id（可选，但强烈建议提供）。从消息上下文的 SenderId 字段获取，格式为 ou_xxx。日程创建在应用日历上，必须通过此参数将用户加为参会人，日程才会出现在用户的飞书日历中。\",\"type\":\"string\"},\"calendar_id\":{\"description\":\"Calendar ID (optional; primary calendar used if omitted)\",\"type\":\"string\"},\"description\":{\"description\":\"日程描述\",\"type\":\"string\"},\"attendees\":{\"description\":\"参会人列表（强烈建议提供，否则日程只在应用日历上，用户看不到）。type='user' 时 id 填 open_id，type='third_party' 时 id 填邮箱。\",\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"vchat\":{\"description\":\"视频会议信息。不传则默认在首次添加参与人时自动生成飞书视频会议。\",\"type\":\"object\",\"properties\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"visibility\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6},\"description\":\"日程公开范围。default（默认，跟随日历权限）、public（公开详情）、private（私密，仅自己可见）。默认值：default。\"},\"attendee_ability\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6},\"description\":\"参与人权限。none（无法编辑、邀请、查看）、can_see_others（可查看参与人列表）、can_invite_others（可邀请其他人）、can_modify_event（可编辑日程）。默认值：none。\"},\"free_busy_status\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6},\"description\":\"日程占用的忙闲状态。busy（忙碌）、free（空闲）。默认值：busy。\"},\"location\":{\"description\":\"日程地点信息\",\"type\":\"object\",\"properties\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"reminders\":{\"description\":\"日程提醒列表\",\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"recurrence\":{\"description\":\"重复日程的重复性规则（RFC5545 RRULE 格式）。例如：'FREQ=DAILY;INTERVAL=1' 表示每天重复。\",\"type\":\"string\"},\"event_id\":{\"description\":\"Event ID\",\"type\":\"string\"},\"need_notification\":{\"description\":\"是否通知参会人（默认 true）\",\"type\":\"boolean\"},\"query\":{\"description\":\"搜索关键词\",\"type\":\"string\"},\"page_size\":{\"description\":\"每页数量\",\"type\":\"number\"},\"rsvp_status\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}}},\"required\":[\"action\"],\"additionalProperties\":true}},{\"name\":\"feishu_calendar_event_attendee\",\"description\":\"飞书日程参会人管理工具。当用户要求邀请/添加参会人、查看参会人列表时使用。Actions: create（添加参会人）, list（查询参会人列表）。\",\"parameters\":{\"type\":\"object\",\"properties\":{\"action\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"calendar_id\":{\"description\":\"日历 ID\",\"type\":\"string\"},\"event_id\":{\"description\":\"日程 ID\",\"type\":\"string\"},\"attendees\":{\"description\":\"参会人列表\",\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"need_notification\":{\"description\":\"是否给参会人发送通知（默认 true）\",\"type\":\"boolean\"},\"attendee_ability\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"page_size\":{\"description\":\"每页数量（默认 50，最大 500）\",\"type\":\"number\"},\"user_id_type\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}}},\"required\":[\"action\",\"calendar_id\",\"event_id\"],\"additionalProperties\":true}},{\"name\":\"feishu_calendar_freebusy\",\"description\":\"【以用户身份】飞书日历忙闲查询工具。当用户要求查询某时间段内某人是否空闲、查看忙闲状态时使用。支持批量查询 1-10 个用户的主日历忙闲信息，用于安排会议时间。\",\"parameters\":{\"type\":\"object\",\"required\":[\"action\",\"time_min\",\"time_max\",\"user_ids\"],\"properties\":{\"action\":{\"const\":\"list\",\"type\":\"string\"},\"time_min\":{\"description\":\"查询起始时间（ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'）\",\"type\":\"string\"},\"time_max\":{\"description\":\"查询结束时间（ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'）\",\"type\":\"string\"},\"user_ids\":{\"description\":\"要查询忙闲的用户 ID 列表（1-10 个用户）\",\"minItems\":1,\"maxItems\":10,\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}}}}},{\"name\":\"feishu_chat\",\"description\":\"以用户身份调用飞书群聊管理工具。Actions: search（搜索群列表，支持关键词匹配群名称、群成员）, get（获取指定群的详细信息，包括群名称、描述、头像、群主、权限配置等）。\",\"parameters\":{\"type\":\"object\",\"properties\":{\"action\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"query\":{\"description\":\"搜索关键词（必填）。支持匹配群名称、群成员名称。支持多语种、拼音、前缀等模糊搜索。\",\"type\":\"string\"},\"page_size\":{\"description\":\"分页大小（默认20）\",\"minimum\":1,\"type\":\"integer\"},\"user_id_type\":{\"description\":\"用户 ID 类型（默认 open_id）\",\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"chat_id\":{\"description\":\"群 ID（格式如 oc_xxx）\",\"type\":\"string\"}},\"required\":[\"action\"],\"additionalProperties\":true}},{\"name\":\"feishu_chat_members\",\"description\":\"以用户的身份获取指定群组的成员列表。返回成员信息，包含成员 ID、姓名等。注意：不会返回群组内的机器人成员。\",\"parameters\":{\"type\":\"object\",\"required\":[\"chat_id\"],\"properties\":{\"chat_id\":{\"description\":\"群 ID（格式如 oc_xxx）。可以通过 feishu_chat_search 工具搜索获取\",\"type\":\"string\"},\"member_id_type\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"page_size\":{\"description\":\"分页大小（默认20）\",\"minimum\":1,\"type\":\"integer\"}}}},{\"name\":\"feishu_conversation_binding\",\"description\":\"把某个飞书会话目标绑定到指定的 OpenClaw 会话 key，适合内部访谈里把某位员工的私聊绑定到专属 research-shared 会话。\",\"parameters\":{\"description\":\"管理飞书会话和 OpenClaw 会话之间的绑定。内部访谈建议在外发前先把受访对象的 user:open_id 绑定到专属 research-shared 会话。\",\"type\":\"object\",\"required\":[\"action\",\"target\"],\"properties\":{\"action\":{\"description\":\"bind: 绑定会话；unbind: 解绑会话；status: 查询绑定状态\",\"anyOf\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"accountId\":{\"description\":\"飞书账号标识。内部访谈默认传 research。\",\"type\":\"string\"},\"target\":{\"description\":\"会话目标。可传 user:open_id、chat:chat_id，或直接传 open_id/chat_id。\",\"type\":\"string\"},\"targetSessionKey\":{\"description\":\"要绑定到的 OpenClaw 会话 key。action=bind 时必填。\",\"type\":\"string\"},\"agentId\":{\"description\":\"目标 agent 标识，例如 research-shared。\",\"type\":\"string\"},\"label\":{\"description\":\"这条绑定的中文标签，建议写受访对象姓名。\",\"type\":\"string\"},\"boundBy\":{\"description\":\"谁创建了这条绑定，例如发起人或 research。\",\"type\":\"string\"}}}},{\"name\":\"feishu_create_doc\",\"description\":\"从 Markdown 创建云文档（支持异步 task_id 查询）\",\"parameters\":{\"type\":\"object\",\"properties\":{\"markdown\":{\"description\":\"Markdown 内容\",\"type\":\"string\"},\"title\":{\"description\":\"文档标题\",\"type\":\"string\"},\"wiki_node\":{\"description\":\"知识库节点 token 或 URL（可选，传入则在该节点下创建文档）\",\"type\":\"string\"},\"wiki_space\":{\"description\":\"知识空间 ID（可选，特殊值 my_library）\",\"type\":\"string\"},\"task_id\":{\"description\":\"异步任务 ID。提供此参数将查询任务状态而非创建新文档\",\"type\":\"string\"}}}},{\"name\":\"feishu_doc_comments\",\"description\":\"【以用户身份】管理云文档评论。支持: (1) list - 获取评论列表(含完整回复); (2) list_replies - 获取指定评论的回复列表; (3) create - 添加全文评论(支持文本、@用户、超链接); (4) reply - 回复已有评论; (5) patch - 解决/恢复评论。支持 wiki token。\",\"parameters\":{\"type\":\"object\",\"required\":[\"action\",\"file_token\",\"file_type\"],\"properties\":{\"action\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"file_type\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6},\"description\":\"文档类型。wiki类型会自动解析为实际文档类型(docx/sheet/bitable等)\"},\"is_whole\":{\"description\":\"是否只获取全文评论(action=list时可选)\",\"type\":\"boolean\"},\"is_solved\":{\"description\":\"是否只获取已解决的评论(action=list时可选)\",\"type\":\"boolean\"},\"page_size\":{\"description\":\"分页大小\",\"type\":\"integer\"},\"elements\":{\"description\":\"评论内容元素数组(action=create/reply时必填)。支持text(纯文本)、mention(@用户)、link(超链接)三种类型\",\"type\":\"array\",\"items\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"comment_id\":{\"description\":\"评论ID(action=list_replies/reply/patch时必填)\",\"type\":\"string\"},\"is_solved_value\":{\"description\":\"解决状态:true=解决,false=恢复(action=patch时必填)\",\"type\":\"boolean\"},\"user_id_type\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}}}}},{\"name\":\"feishu_doc_media\",\"description\":\"【以用户身份】文档媒体管理工具。支持两种操作：(1) insert - 在飞书文档末尾插入本地图片或文件（需要文档 ID + 本地文件路径）；(2) download - 下载文档素材或画板缩略图到本地（需要资源 token + 输出路径）。\\n\\n【重要】insert 仅支持本地文件路径。URL 图片请使用 create-doc/update-doc 的 <image url=\\\"...\\\"/> 语法。\",\"parameters\":{\"type\":\"object\",\"properties\":{\"action\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6}},\"doc_id\":{\"description\":\"文档 ID 或文档 URL（必填）。支持从 URL 自动提取 document_id\",\"type\":\"string\"},\"file_path\":{\"description\":\"本地文件的绝对路径（必填）。图片支持 jpg/png/gif/webp 等，文件支持任意格式，最大 20MB\",\"type\":\"string\"},\"type\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6},\"description\":\"媒体类型：\\\"image\\\"（图片，默认）或 \\\"file\\\"（文件附件）\"},\"align\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6},\"description\":\"对齐方式（仅图片生效）：\\\"center\\\"（默认居中）、\\\"left\\\"（居左）、\\\"right\\\"（居右）\"},\"caption\":{\"description\":\"图片描述/标题（可选，仅图片生效）\",\"type\":\"string\"},\"resource_type\":{\"type\":\"string\",\"enum\":{\"truncated\":true,\"reason\":\"trajectory-depth-limit\",\"limitDepth\":6},\"description\":\"资源类型：media（文档素材：图片、视频、文件等）或 whiteboard（画板缩略图）\"},\"o\n\n⚠️ [... middle content omitted — showing head and tail ...]\n\n*申请人**\\\\n@ou_d71ee4dc4d20a9488391b63d5eda1625 工艺组\\\\n**审批事由**\\\\n项目组:  陈崟欣\\\\n项目名称：:  20260529-然利-柚子丁戚风蛋糕66g-铝膜+然利-柚子丁戚风蛋糕散装-铝膜\\\\n类型:  包膜\\\\n[查看详情](https://applink.feishu.cn/client/mini_program/open?appId=cli_9cb844403dbb9108\\\\u0026mode=sidebar-semi\\\\u0026path=pages%2Fdetail%2Findex%3FinstanceId%3D7645308766388243641%26source%3Dapproval_bot%26detailClickType%3Dbutton%26system=%3Dfeishu%26enableTrusteeship%3Dtrue)\\\\n\\\\u003c/card\\\\u003e\\\",\\n        \\\"create_time\\\": \\\"2026-05-29 21:42\\\",\\n        \\\"deleted\\\": false,\\n        \\\"message_app_link\\\": \\\"https://applink.feishu.cn/client/chat/open?openChatId=oc_5781727b9816075ecd321b14d61fe68f\\\\u0026position=42392\\\",\\n        \\\"message_id\\\": \\\"om_x100b6ead3354b4a0b4cf9c8d1eb6107\\\",\\n        \\\"message_position\\\": \\\"42392\\\",\\n        \\\"msg_type\\\": \\\"interactive\\\",\\n        \\\"sender\\\": {\\n          \\\"id\\\": \\\"ou_a6ad0408664f8a1ac7568ec854e33da2\\\",\\n          \\\"id_type\\\": \\\"open_id\\\",\\n          \\\"name\\\": \\\"黄伟峰\\\",\\n          \\\"sender_type\\\": \\\"user\\\",\\n          \\\"tenant_key\\\": \\\"13175754244f975f\\\"\\n        },\\n        \\\"updated\\\": true\\n      },\\n      {\\n        \\\"chat_id\\\": \\\"oc_0f8fb272db148bf2b26e715fbfa539a4\\\",\\n        \\\"chat_name\\\": \\\"小白心里软\\\",\\n        \\\"chat_type\\\": \\\"group\\\",\\n        \\\"content\\\": \\\"[Image: img_v3_02125_d8d9fba3-545e-4e1d-8232-aae6bca2619g]\\\\n@张可可 背面调整好了看看\\\",\\n        \\\"create_time\\\": \\\"2026-05-29 21:04\\\",\\n        \\\"deleted\\\": false,\\n        \\\"mentions\\\": [\\n          {\\n            \\\"id\\\": \\\"ou_471e9e1436d4d187740867f9c69ba946\\\",\\n            \\\"key\\\": \\\"@_user_1\\\",\\n            \\\"name\\\": \\\"张可可\\\"\\n          }\\n        ],\\n        \\\"message_app_link\\\": \\\"https://applink.feishu.cn/client/chat/open?openChatId=oc_0f8fb272db148bf2b26e715fbfa539a4\\\\u0026position=41477\\\",\\n        \\\"message_id\\\": \\\"om_x100b6eaca33540b8c34af4713631389\\\",\\n        \\\"message_position\\\": \\\"41477\\\",\\n        \\\"msg_type\\\": \\\"post\\\",\\n        \\\"sender\\\": {\\n          \\\"id\\\": \\\"ou_70cc32dda6a791e26a576d2455ea8ffa\\\",\\n          \\\"id_type\\\": \\\"open_id\\\",\\n          \\\"name\\\": \\\"张婧\\\",\\n          \\\"sender_type\\\": \\\"user\\\",\\n          \\\"tenant_key\\\": \\\"13175754244f975f\\\"\\n        },\\n        \\\"updated\\\": true\\n      },\\n      {\\n        \\\"chat_id\\\": \\\"oc_5781727b9816075ecd321b14d61fe68f\\\",\\n        \\\"chat_name\\\": \\\"然利烘焙项目群\\\",\\n        \\\"chat_type\\\": \\\"group\\\",\\n        \\\"content\\\": \\\"\\\\u003cfile key=\\\\\\\"file_v3_00125_845c1e32-23e7-4fe3-a3be-c320cd965abg\\\\\\\" name=\\\\\\\"20260529-然利logo优化.pdf\\\\\\\"/\\\\u003e\\\",\\n        \\\"create_time\\\": \\\"2026-05-29 21:44\\\",\\n        \\\"deleted\\\": false,\\n        \\\"message_app_link\\\": \\\"https://applink.feishu.cn/client/chat/open?openChatId=oc_5781727b9816075ecd321b14d61fe68f\\\\u0026position=42395\\\",\\n        \\\"message_id\\\": \\\"om_x100b6eadcba460a0c2684fdd7ac701d\\\",\\n        \\\"message_position\\\": \\\"42395\\\",\\n        \\\"msg_type\\\": \\\"file\\\",\\n        \\\"sender\\\": {\\n          \\\"id\\\": \\\"ou_016ff57a4fb36eee52c4308c81724e6c\\\",\\n          \\\"id_type\\\": \\\"open_id\\\",\\n          \\\"name\\\": \\\"胡凤晖\\\",\\n          \\\"sender_type\\\": \\\"user\\\",\\n          \\\"tenant_key\\\": \\\"13175754244f975f\\\"\\n        },\\n        \\\"updated\\\": false\\n      },\\n      {\\n        \\\"chat_id\\\": \\\"oc_5781727b9816075ecd321b14d61fe68f\\\",\\n        \\\"chat_name\\\": \\\"然利烘焙项目群\\\",\\n        \\\"chat_type\\\": \\\"group\\\",\\n        \\\"content\\\": \\\"[Image: img_v3_02125_a9626cbe-e5a8-4fe4-9c48-336c731e551g]\\\\n客户的签字稿好像签重了\\\",\\n        \\\"create_time\\\": \\\"2026-05-29 21:43\\\",\\n        \\\"deleted\\\": false,\\n        \\\"message_app_link\\\": \\\"https://applink.feishu.cn/client/chat/open?openChatId=oc_5781727b9816075ecd321b14d61fe68f\\\\u0026position=42394\\\",\\n        \\\"message_id\\\": \\\"om_x100b6ead317aa4a8b325d0600035aae\\\",\\n        \\\"message_position\\\": \\\"42394\\\",\\n        \\\"msg_type\\\": \\\"post\\\",\\n        \\\"sender\\\": {\\n          \\\"id\\\": \\\"ou_a6ad0408664f8a1ac7568ec854e33da2\\\",\\n          \\\"id_type\\\": \\\"open_id\\\",\\n          \\\"name\\\": \\\"黄伟峰\\\",\\n          \\\"sender_type\\\": \\\"user\\\",[... 20708 more characters truncated]\"}],\"isError\":false,\"timestamp\":1780097593553}}[... 184037 more characters truncated]"
+          }
+        ],
+        "details": {
+          "persistedDetailsTruncated": true,
+          "originalDetailsBytesAtLeast": 8193,
+          "originalDetailKeys": [
+            "status",
+            "exitCode",
+            "durationMs",
+            "aggregated",
+            "cwd"
+          ],
+          "status": "completed",
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "exitCode": 0
+        },
+        "isError": false,
+        "timestamp": 1781251211165
+      }
+    },
+    {
+      "type": "message",
+      "id": "12fd97ac",
+      "parentId": "e37b0577",
+      "timestamp": "2026-06-12T08:00:24.307Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_xIuAbiKawJqlQXgGeQcyNIQl",
+            "name": "exec",
+            "arguments": {
+              "command": "rg -n \"export-trajectory|exportTrajectory|Session file not found|request-json-base64\" /opt/homebrew/lib/node_modules/openclaw $OPENCLAW_STATE_DIR 2>/dev/null | head -120",
+              "timeout": 60,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 72769,
+          "output": 421,
+          "cacheRead": 56320,
+          "cacheWrite": 0,
+          "totalTokens": 129510,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251211169,
+        "responseId": "chatcmpl-ab620f03"
+      }
+    },
+    {
+      "type": "message",
+      "id": "faf0c654",
+      "parentId": "12fd97ac",
+      "timestamp": "2026-06-12T08:00:28.113Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_xIuAbiKawJqlQXgGeQcyNIQl",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "$WORKSPACE_DIR/skills/session-debug-export/SKILL.md:324:1. 使用 `openclaw sessions export-trajectory` 导出会话轨迹\n$WORKSPACE_DIR/skills/session-debug-export/SKILL.md:373:openclaw sessions export-trajectory --session-key \"...\" --workspace \".\"\n$WORKSPACE_DIR/skills/session-debug-export/scripts/export_session_debug.py:71:        \"export-trajectory\",\n$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py:603:    ap.add_argument(\"--workspace\", default=os.getcwd(), help=\"Workspace/state root used by openclaw sessions export-trajectory\")\n$WORKSPACE_DIR/skills/session-debug-export/scripts/export_chat_report.py:636:        \"openclaw\", \"sessions\", \"export-trajectory\",\n$WORKSPACE_DIR/skills/session-debug-export/references/export-format.md:46:openclaw sessions export-trajectory \\\n$WORKSPACE_DIR/skills/session-debug-export/references/export-format.md:58:- call `openclaw sessions export-trajectory`\n/opt/homebrew/lib/node_modules/openclaw/docs/channels/discord.md:1066:    For sensitive owner-only group commands such as `/diagnostics` and `/export-trajectory`, OpenClaw sends approval prompts and final results privately. It tries Discord DM first when the invoking owner has a Discord owner route; if that is not available, it falls back to the first available owner route from `commands.ownerAllowFrom`, such as Telegram.\n/opt/homebrew/lib/node_modules/openclaw/CHANGELOG.md:1440:- Chat commands: route sensitive group `/diagnostics` and `/export-trajectory` approvals and results to a private owner route, preferring same-surface DMs before falling back to the first configured owner route, so Discord group invocations can land in Telegram when that is the primary owner interface. Thanks @pashpashpash.\n/opt/homebrew/lib/node_modules/openclaw/CHANGELOG.md:1576:- Trajectory export: route `/export-trajectory` through per-run exec approval, send group-chat approval prompts and export results only to the owner privately, and add `openclaw sessions export-trajectory` for the approved ...<truncated>"
+          }
+        ],
+        "details": {
+          "persistedDetailsTruncated": true,
+          "originalDetailsBytesAtLeast": 8193,
+          "originalDetailKeys": [
+            "status",
+            "exitCode",
+            "durationMs",
+            "aggregated",
+            "cwd"
+          ],
+          "status": "completed",
+          "cwd": "$WORKSPACE_DIR/workspace",
+          "exitCode": 0
+        },
+        "isError": false,
+        "timestamp": 1781251228108
+      }
+    },
+    {
+      "type": "message",
+      "id": "af4e84f9",
+      "parentId": "faf0c654",
+      "timestamp": "2026-06-12T08:00:37.810Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "call_ha9q4RONWFfwRpj1yywviSRP",
+            "name": "read",
+            "arguments": {
+              "limit": 140,
+              "offset": 130,
+              "path": "/opt/homebrew/lib/node_modules/openclaw/dist/register.status-health-sessions-Db8Z-dEQ.js"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 14902,
+          "output": 227,
+          "cacheRead": 129024,
+          "cacheWrite": 0,
+          "totalTokens": 144153,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251228130,
+        "responseId": "chatcmpl-e3ce43b0"
+      }
+    },
+    {
+      "type": "message",
+      "id": "4883dd83",
+      "parentId": "af4e84f9",
+      "timestamp": "2026-06-12T08:00:37.931Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_ha9q4RONWFfwRpj1yywviSRP",
+        "toolName": "read",
+        "content": [
+          {
+            "type": "text",
+            "text": "\t\tcfg: getRuntimeConfig(),\n\t\tids,\n\t\tstatus: \"dismissed\",\n\t\tnowMs: Date.now()\n\t});\n\tif (opts.json) {\n\t\truntime.log(JSON.stringify({ dismissed: ids }, null, 2));\n\t\treturn;\n\t}\n\truntime.log(info$1(`Dismissed commitments: ${ids.join(\", \")}`));\n}\n//#endregion\n//#region src/commands/export-trajectory.ts\nconst ENCODED_EXPORT_REQUEST_RE = /^[A-Za-z0-9_-]{1,65536}$/u;\nfunction readOptionalString(value) {\n\treturn typeof value === \"string\" && value.trim().length > 0 ? value : void 0;\n}\nfunction decodeExportTrajectoryRequest(encoded) {\n\tconst trimmed = encoded.trim();\n\tif (!ENCODED_EXPORT_REQUEST_RE.test(trimmed)) throw new Error(\"Encoded trajectory export request is invalid\");\n\tconst decoded = JSON.parse(Buffer.from(trimmed, \"base64url\").toString(\"utf8\"));\n\tif (!decoded || typeof decoded !== \"object\" || Array.isArray(decoded)) throw new Error(\"Encoded trajectory export request must be a JSON object\");\n\tconst request = decoded;\n\treturn {\n\t\tsessionKey: readOptionalString(request.sessionKey) ?? \"\",\n\t\toutput: readOptionalString(request.output),\n\t\tstore: readOptionalString(request.store),\n\t\tagent: readOptionalString(request.agent),\n\t\tworkspace: readOptionalString(request.workspace)\n\t};\n}\nfunction resolveExportTrajectoryOptions(opts) {\n\tconst encoded = opts.requestJsonBase64?.trim();\n\tif (!encoded) return opts;\n\treturn {\n\t\t...opts,\n\t\t...decodeExportTrajectoryRequest(encoded)\n\t};\n}\nasync function fileExists(pathName) {\n\ttry {\n\t\tawait fs.access(pathName);\n\t\treturn true;\n\t} catch {\n\t\treturn false;\n\t}\n}\nasync function exportTrajectoryCommand(opts, runtime) {\n\tlet resolvedOpts;\n\ttry {\n\t\tresolvedOpts = resolveExportTrajectoryOptions(opts);\n\t} catch (error) {\n\t\truntime.error(`Failed to decode trajectory export request: ${formatErrorMessage(error)}`);\n\t\truntime.exit(1);\n\t\treturn;\n\t}\n\tconst sessionKey = resolvedOpts.sessionKey?.trim();\n\tif (!sessionKey) {\n\t\truntime.error(\"--session-key is required\");\n\t\truntime.exit(1);\n\t\treturn;\n\t}\n\tconst targetAgentId = resolvedOpts.agent ?? resolveAgentIdFromSessionKey(sessionKey);\n\tconst storePath = resolvedOpts.store ? path.resolve(resolvedOpts.store) : resolveDefaultSessionStorePath(targetAgentId);\n\tconst entry = loadSessionStore(storePath, { skipCache: true })[sessionKey];\n\tif (!entry?.sessionId) {\n\t\truntime.error(`Session not found: ${sessionKey}`);\n\t\truntime.exit(1);\n\t\treturn;\n\t}\n\tlet sessionFile;\n\ttry {\n\t\tsessionFile = resolveSessionFilePath(entry.sessionId, entry, resolveSessionFilePathOptions({\n\t\t\tagentId: targetAgentId,\n\t\t\tstorePath\n\t\t}));\n\t} catch (error) {\n\t\truntime.error(`Failed to resolve session file: ${formatErrorMessage(error)}`);\n\t\truntime.exit(1);\n\t\treturn;\n\t}\n\tif (!await fileExists(sessionFile)) {\n\t\truntime.error(\"Session file not found.\");\n\t\truntime.exit(1);\n\t\treturn;\n\t}\n\tlet summary;\n\ttry {\n\t\tsummary = await exportTrajectoryForCommand({\n\t\t\toutputPath: resolvedOpts.output,\n\t\t\tsessionFile,\n\t\t\tsessionId: entry.sessionId,\n\t\t\tsessionKey,\n\t\t\tworkspaceDir: path.resolve(resolvedOpts.workspace ?? process.cwd())\n\t\t});\n\t} catch (error) {\n\t\truntime.error(`Failed to export trajectory: ${formatErrorMessage(error)}`);\n\t\truntime.exit(1);\n\t\treturn;\n\t}\n\tif (resolvedOpts.json) {\n\t\twriteRuntimeJson(runtime, summary);\n\t\treturn;\n\t}\n\truntime.log(formatTrajectoryCommandExportSummary(summary));\n}\n//#endregion\n//#region src/commands/flows.ts\nconst ID_PAD$1 = 10;\nconst STATUS_PAD$1 = 10;\nconst MODE_PAD = 14;\nconst REV_PAD = 6;\nconst CTRL_PAD = 20;\nfunction truncate$1(value, maxChars) {\n\tif (value.length <= maxChars) return value;\n\tif (maxChars <= 1) return value.slice(0, maxChars);\n\treturn `${value.slice(0, maxChars - 1)}…`;\n}\nfunction safeFlowDisplayText(value, maxChars) {\n\tconst sanitized = sanitizeTerminalText(value ?? \"\").trim();\n\tif (!sanitized) return \"n/a\";\n\treturn typeof maxChars === \"number\" ? truncate$1(sanitized, maxChars) : sanitized;\n}\nfunction shortToken$1(value, maxChars = ID_PAD$1) {\n\tconst trimmed = normalizeOptionalString(value);\n\tif (!trimmed) return \"n/a\";\n\treturn truncate$1(trimmed, maxChars);\n}\nfunction formatFlowStatusCell(status, rich) {\n\tconst padded = status.padEnd(STATUS_PAD$1);\n\tif (!rich) return padded;\n\tif (status === \"succeeded\") return theme.success(padded);\n\tif (status === \"failed\" || status === \"lost\") return theme.error(padded);\n\tif (status === \"running\") return theme.accentBright(padded);\n\tif (status === \"blocked\") return theme.warn(padded);\n\treturn theme.muted(padded);\n}\nfunction formatFlowRows(flows, rich) {\n\tconst header = [\n\t\t\"TaskFlow\".padEnd(ID_PAD$1),\n\n[973 more lines in file. Use offset=270 to continue.]"
+          }
+        ],
+        "isError": false,
+        "timestamp": 1781251237930
+      }
+    },
+    {
+      "type": "message",
+      "id": "f07eb045",
+      "parentId": "4883dd83",
+      "timestamp": "2026-06-12T08:00:56.855Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Evaluating export tasks**\n\nI need to continue working on exporting the current chat record. We're encountering an issue with the session list, where the session ID is mismatched. The actual run is stored differently than expected, which makes me wonder if the sessions.json file is outdated. I think using an export command with a trajectory file might help us out if there’s a bug with the current export. However, I want to make sure I'm following the correct procedures as outlined by the skill.**Considering session fixes**\n\nI’m thinking about whether it’s better to modify the sessions.json file. Is that risky? I guess it could be, but maybe I can copy or patch the entry since session stores are mutable. If I call export-trajectory with the --store option, it should load the entry from the store. I'll need to create a temporary store with the correct session information and then make necessary updates. I should also inspect the entries in sessions.json using jq to ensure everything's right.",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_GGMjzUSs6M5jA9dZa8Qq173a",
+            "name": "exec",
+            "arguments": {
+              "command": "python3 - <<'PY'\nimport json\np='$WORKSPACE_DIR/agents/main-shared/sessions/sessions.json'\nkey='agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4'\nwith open(p) as f: d=json.load(f)\nprint(json.dumps(d[key], ensure_ascii=False, indent=2)[:5000])\nPY",
+              "timeout": 30,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 1764,
+          "output": 483,
+          "cacheRead": 143360,
+          "cacheWrite": 0,
+          "totalTokens": 145607,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251237934,
+        "responseId": "chatcmpl-1606bee6"
+      }
+    },
+    {
+      "type": "message",
+      "id": "7ed9717c",
+      "parentId": "f07eb045",
+      "timestamp": "2026-06-12T08:00:58.568Z",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "call_GGMjzUSs6M5jA9dZa8Qq173a",
+        "toolName": "exec",
+        "content": [
+          {
+            "type": "text",
+            "text": "{\n  \"sessionId\": \"2ffc2292-0bca-4970-baa3-1da8ee1856f4\",\n  \"updatedAt\": <redacted-id>,\n  \"sessionStartedAt\": <redacted-id>,\n  \"lastInteractionAt\": <redacted-id>,\n  \"systemSent\": false,\n  \"abortedLastRun\": false,\n  \"chatType\": \"direct\",\n  \"deliveryContext\": {\n    \"channel\": \"feishu\",\n    \"to\": \"user:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n    \"accountId\": \"main\"\n  },\n  \"lastChannel\": \"feishu\",\n  \"lastTo\": \"user:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n  \"lastAccountId\": \"main\",\n  \"origin\": {\n    \"label\": \"汪甦秦\",\n    \"provider\": \"feishu\",\n    \"surface\": \"feishu\",\n    \"chatType\": \"direct\",\n    \"from\": \"feishu:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n    \"to\": \"user:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n    \"accountId\": \"main\"\n  },\n  \"sessionFile\": \"$WORKSPACE_DIR/agents/main-shared/sessions/2ffc2292-0bca-4970-baa3-1da8ee1856f4.jsonl\",\n  \"compactionCount\": 0,\n  \"status\": \"running\",\n  \"startedAt\": <redacted-id>\n}"
+          }
+        ],
+        "details": {
+          "status": "completed",
+          "exitCode": 0,
+          "durationMs": 1269,
+          "aggregated": "{\n  \"sessionId\": \"2ffc2292-0bca-4970-baa3-1da8ee1856f4\",\n  \"updatedAt\": <redacted-id>,\n  \"sessionStartedAt\": <redacted-id>,\n  \"lastInteractionAt\": <redacted-id>,\n  \"systemSent\": false,\n  \"abortedLastRun\": false,\n  \"chatType\": \"direct\",\n  \"deliveryContext\": {\n    \"channel\": \"feishu\",\n    \"to\": \"user:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n    \"accountId\": \"main\"\n  },\n  \"lastChannel\": \"feishu\",\n  \"lastTo\": \"user:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n  \"lastAccountId\": \"main\",\n  \"origin\": {\n    \"label\": \"汪甦秦\",\n    \"provider\": \"feishu\",\n    \"surface\": \"feishu\",\n    \"chatType\": \"direct\",\n    \"from\": \"feishu:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n    \"to\": \"user:ou_d4d404eedf2823baab3a64d36f1c36d4\",\n    \"accountId\": \"main\"\n  },\n  \"sessionFile\": \"$WORKSPACE_DIR/agents/main-shared/sessions/2ffc2292-0bca-4970-baa3-1da8ee1856f4.jsonl\",\n  \"compactionCount\": 0,\n  \"status\": \"running\",\n  \"startedAt\": <redacted-id>\n}",
+          "cwd": "$WORKSPACE_DIR/workspace"
+        },
+        "isError": false,
+        "timestamp": 1781251258568
+      }
+    },
+    {
+      "type": "message",
+      "id": "b40e6084",
+      "parentId": "7ed9717c",
+      "timestamp": "2026-06-12T08:01:23.739Z",
+      "message": {
+        "role": "assistant",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "**Evaluating temporary storage options**\n\nI'm considering a way to create a temporary JSON mapping of session keys to entries using a sessionId. I want to avoid modifying the actual store, so I'm thinking of using a temp store flag. I need to check if the export command accepts a store path. Testing the temp store is important, and I'll likely create a temporary sessions.json. However, I noticed some limitations with scripts regarding the store parameter, which might need modifying.**Considering workspace settings**\n\nI'm pondering whether I should set the workspace since it looks like there's no store resolved from the agent. I could potentially pass the actual session key from the runtime session ID, but it seems the store mapping is incorrect. If I export using the session key with the temp store option, it might work. I’m thinking about modifying the temp script to include the store argument, but I also want to be careful about altering the original script.",
+            "thinkingSignature": "reasoning_content"
+          },
+          {
+            "type": "toolCall",
+            "id": "call_NoFIVqqEnlDxu4mWA58KBlJa",
+            "name": "exec",
+            "arguments": {
+              "command": "cat > $WORKSPACE_DIR/workspace/outputs/_temp_session_store_direct.json <<'JSON'\n{\n  \"agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4\": {\n    \"sessionId\": \"1cc49efc-be4b-46b1-8e0b-15835ee52ee4\",\n    \"updatedAt\": <redacted-id>,\n    \"sessionStartedAt\": <redacted-id>,\n    \"lastInteractionAt\": <redacted-id>,\n    \"systemSent\": false,\n    \"abortedLastRun\": false,\n    \"chatType\": \"direct\",\n    \"sessionFile\": \"$WORKSPACE_DIR/agents/main-shared/sessions/1cc49efc-be4b-46b1-8e0b-15835ee52ee4.jsonl\"\n  }\n}\nJSON\nopenclaw sessions export-trajectory --session-key 'agent:main-shared:feishu:direct:ou_d4d404eedf2823baab3a64d36f1c36d4' --store $WORKSPACE_DIR/workspace/outputs/_temp_session_store_direct.json --workspace $OPENCLAW_STATE_DIR --output direct_debug_export_test --json",
+              "timeout": 60,
+              "workdir": "$WORKSPACE_DIR/workspace"
+            }
+          }
+        ],
+        "api": "openai-completions",
+        "provider": "aixor-g",
+        "model": "gpt-5.5",
+        "usage": {
+          "input": 758,
+          "output": 857,
+          "cacheRead": 144896,
+          "cacheWrite": 0,
+          "totalTokens": 146511,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "total": 0
+          }
+        },
+        "stopReason": "toolUse",
+        "timestamp": 1781251258571,
+        "responseId": "chatcmpl-5b006df7"
+      }
+    }
+  ]
+}

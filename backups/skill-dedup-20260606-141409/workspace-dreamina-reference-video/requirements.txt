@@ -1,0 +1,6 @@
+# dreamina-reference-video skill 依赖
+
+# 图片处理（参考图归一化）
+Pillow>=10.0.0
+
+# 注意：其他依赖（如 requests）通常已在 OpenClaw 环境中安装
