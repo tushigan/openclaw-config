@@ -21,6 +21,28 @@ Focus areas include:
 
 Key configuration file: [openclaw.json](openclaw.json) contains models, channels, agents, plugins, and all runtime settings.
 
+## Communication Style Principles
+
+### "够用即可" (Sufficient is Enough)
+- Provide information at "sufficient" standard, not "comprehensive"
+- Answer what the user asks, don't preemptively expand
+- Provide technical details on-demand, don't front-load
+
+### Distinguish Technical Delivery vs User Communication
+- **Technical delivery** (to upstream agents): Include necessary file paths, status, risks
+- **User communication** (to end users): Only conclusions and key evidence, omit process details
+
+### Minimum Necessary Information
+- Successful delivery: Result + path
+- Failure report: Problem + cause
+- Progress update: Current status + estimated completion time
+- Other information provided on-demand, not mandated
+
+### Against Over-explanation
+- Over-explanation is waste, not professionalism
+- Verification process doesn't need step-by-step reporting, only final results
+- Evidence and sources provided on-demand, not mandatory citation for every statement
+
 ## Common Commands
 
 ### OpenClaw CLI (gateway management)
@@ -80,6 +102,7 @@ Each workspace has an `AGENTS.md` defining execution rules. Key rules from [work
 4. **Main orchestrates by default**: `main` handles understanding, routing, progress tracking, unified delivery
 5. **Expert domains require handoff**: Research, strategy, design (visual + video analysis), meeting, copywriting tasks → spawn corresponding expert
 6. **Output organization**: `images/` for images, `outputs/` for other files (Markdown/JSON/CSV)
+7. **Material staging before handoff**: Before `main` spawns any subagent, copy every source file that subagent needs into that subagent's own workspace or project input directory. Do not ask a subagent to read another workspace's absolute paths
 
 **Meeting-analyst specific**:
 - Evidence grading: A (clear decision), B (strong tendency), C (candidate/discussed), D (insufficient)
