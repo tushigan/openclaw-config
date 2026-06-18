@@ -12,8 +12,8 @@
           "id": "main-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本（生图、数据处理等）",
-          "lastUsedAt": 1781744411435,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/feishu-id-registry.py scan --since-days 14 --json",
+          "lastUsedAt": 1781746242016,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/audit-feedback-gaps.py --json --since-minutes 90 --max-manifests 10 --recent-files 5",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -307,8 +307,8 @@
           "id": "shared-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781692771005,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace/outputs/_temp_create_shabulei_excel.py && ls -lh /Users/a123/.openclaw/workspace/outputs/莎布蕾代言测算_客户数据收集表.xlsx",
+          "lastUsedAt": 1781747458866,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/skills/boss/scripts/ensure_brand_profile.py --brand \"wokenday\" --extract-from \"请用朝日唯品的文案风格 给wokenday写朋友圈随文 不要太长。画面信息：woken day 安心系列，阿一师傅的慢哲学；机器只要两小时，阿一师傅非要等十六个小时。\" --json",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1124,8 +1124,8 @@
           "id": "shared-design-python",
           "pattern": "/usr/bin/python3",
           "description": "允许执行 Python 脚本",
-          "lastUsedAt": 1781702175747,
-          "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -120",
+          "lastUsedAt": 1781747509858,
+          "lastUsedCommand": "python3 /Users/a123/.openclaw/scripts/memory/query.py project --brand \"丹夫\" --active --json",
           "lastResolvedPath": "/usr/bin/python3"
         },
         {
@@ -1237,7 +1237,7 @@
           "id": "design-head",
           "pattern": "/usr/bin/head",
           "description": "允许读取前几行内容",
-          "lastUsedAt": 1781702175748,
+          "lastUsedAt": 1781746075607,
           "lastUsedCommand": "python3 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py --help | head -120",
           "lastResolvedPath": "/usr/bin/python3"
         },
@@ -1261,8 +1261,8 @@
           "id": "e92ac0f9-9898-4865-a8af-1a10f77057d9",
           "pattern": "/usr/bin/grep",
           "source": "allow-always",
-          "lastUsedAt": 1781701312464,
-          "lastUsedCommand": "grep -n \"RATIO_TO_PIXELS\" -A30 /Users/a123/.openclaw/workspace-design/skills/gpt-image2-gen/scripts/generate.py",
+          "lastUsedAt": 1781746059597,
+          "lastUsedCommand": "grep -n \"local_edit\\|run_generation\\|gpt-image2\" -n /Users/a123/.openclaw/workspace-design/skills/product-photography-workflow/SKILL.md | head -80 && python3 - <<'PY'\nfrom PIL import Image\nfor p in ['/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/666f2d5c-e2bd-4853-93c3-91746410246f.jpg','/Users/a123/.openclaw/workspace-design/.openclaw-inbound-media/6ef28f02-bbca-4602-bb29-05bdaf27e8d2.jpg']:\n    im=Image.open(p)\n    print(p, im.size, im.mode)\nPY",
           "lastResolvedPath": "/usr/bin/grep",
           "description": "允许做只读文本搜索"
         },
